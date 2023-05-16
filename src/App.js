@@ -16,10 +16,10 @@ function App() {
   return (
     <div className="App app-wrapper row m-0">
       <Router>
-        <div className="col-lg-3 sidebar-column">
+        <div className="sidebar-column">
           <Sidebar />
         </div>
-        <div className="col-lg-9">
+        <div className="content-column">
           <Header />
           <Switch>
             <Route exact path="/" component={Home} />
