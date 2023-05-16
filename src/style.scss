@@ -1,0 +1,244 @@
+body {
+    background: #22252F !important;
+    padding: 20px 20px;
+    color: white;
+    font-family: 'Rajdhani' !important;
+}
+
+@font-face {
+    font-family: 'Rajdhani';
+    src: url('./assets/fonts/Rajdhani/Rajdhani-Regular.ttf');
+}
+
+.Header-wrapper {
+    display: flex;
+    align-items: center;
+    margin-bottom: 18px;
+    justify-content: space-between;
+
+    .soldier-name {
+        h4 {
+            font-style: normal;
+            font-weight: 700;
+            font-size: 22px;
+            line-height: 110%;
+            text-transform: uppercase;
+            color: #FFFFFF;
+        }
+
+        p {
+            font-style: normal;
+            font-weight: 500;
+            font-size: 16px;
+            line-height: 110%;
+            text-transform: uppercase;
+            color: #81828A;
+        }
+    }
+
+    .header-buttons {
+        .notification-btn {
+            padding: 0px 11px;
+            width: 46px;
+            height: 46px;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 34.22%), #1D2128;
+            border-bottom: 1px solid #363B44;
+            box-shadow: 0px 3px 1px #1B1F25;
+            border-radius: 10px;
+            outline: none;
+        }
+
+        .create-squad-btn {
+            padding: 9px 20px;
+            // width: 150px;
+            height: 48px;
+
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0) 34.22%), #FF0083;
+            border-bottom: 1px solid #F058A6;
+            box-shadow: 0px 3px 1px #88134F;
+            border-radius: 10px;
+
+            outline: none;
+            font-style: normal;
+            font-weight: 600;
+            font-size: 14px;
+            line-height: 100%;
+            letter-spacing: 0.01em;
+            color: #FFFFFF;
+
+            svg {
+                margin-right: 13px;
+
+                g {
+                    path {
+                        fill: white;
+                    }
+                }
+            }
+        }
+    }
+}
+
+// end header -------------------------------------------------------
+
+.sidebar-column {
+    padding-left: 0px;
+
+    .sidebar-wrapper {
+        padding: 40px 20px;
+        // position: absolute;
+        height: 800px;
+        // left: 20px;
+        // top: 20px;
+        border: 1px solid;
+        border-image-source: linear-gradient(180deg, #2D313E 0%, #2D313E 100%);
+        background: rgba(22, 26, 34, 0.9);
+        backdrop-filter: blur(2px);
+        border-radius: 20px;
+
+        .logo-box {
+            margin-bottom: 43px;
+
+            .sidebar-divider {
+                height: 2px;
+                width: 100%;
+                margin-top: 32px;
+                background: #1B1F26;
+            }
+        }
+
+        .sidebar-wrapper-inner {
+            ul {
+                padding-left: 0px;
+
+                li {
+                    list-style-type: none;
+                    margin: 10px 0px;
+
+                    .list-item {
+                        font-style: normal;
+                        font-weight: 400;
+                        font-size: 14px;
+                        line-height: 110%;
+                        color: #81828A;
+                        text-decoration: none;
+                        display: flex;
+                        align-items: center;
+                        padding: 11px 21px;
+
+                        svg {
+                            margin-right: 16px;
+                        }
+                    }
+
+                    .list-item.active {
+                        color: white;
+                        background: linear-gradient(180deg, #232631 0%, rgba(29, 32, 43, 0.4) 100%);
+                        border-left: 3px solid #FF0083;
+                        border-radius: 0px 10px 10px 0px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+// End sidebar -------------------------------------------
+
+.data-box {
+    padding: 20px;
+    min-height: 262px;
+    background: rgba(22, 26, 34, 0.9);
+    backdrop-filter: blur(2px);
+    border-radius: 20px;
+}
+
+.inner-data-box {
+    padding: 20px;
+    min-height: 166px;
+    background: linear-gradient(180deg, #232631 0%, rgba(29, 32, 43, 0.4) 100%);
+    border-radius: 10px;
+}
+
+.stats-box {
+    text-align: left;
+
+    h4 {
+        font-family: 'Rajdhani';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 18px;
+        line-height: 110%;
+        text-transform: uppercase;
+        color: #FFFFFF;
+    }
+
+    .stats-data-boxes {
+        display: grid;
+        gap: 10px;
+        grid-template-columns: 32.4% 32.4% 32.4%;
+    }
+}
+
+.tasks-box-row {
+    padding: 10px;
+    border-radius: 10px;
+    background: linear-gradient(180deg, #232631 0%, rgba(29, 32, 43, 0.4) 100%);
+
+    .task-status {
+        padding-left: 10px;
+
+        .task-completed-graph {
+            img {
+                width: 100%;
+                height: 100%;
+            }
+        }
+
+        .task-status-box-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            h4 {
+                font-family: 'Rajdhani';
+                font-style: normal;
+                font-weight: 700;
+                font-size: 18px;
+                line-height: 110%;
+                text-transform: uppercase;
+                color: #FFFFFF;
+            }
+        }
+
+        .tasks-list-items {
+            .tasks-items {
+                p {
+                    font-family: 'Rajdhani';
+                    font-style: normal;
+                    font-weight: 500;
+                    font-size: 12px;
+                    line-height: 100%;
+                    color: #81828A;
+                    margin-bottom: 10px;
+                    text-align: left;
+                }
+
+                h4 {
+                    font-family: 'Rajdhani';
+                    font-style: normal;
+                    font-weight: 700;
+                    font-size: 20px;
+                    line-height: 100%;
+                    text-align: center;
+                    letter-spacing: 0.01em;
+                    color: #FFFFFF;
+                    margin-bottom: 10px;
+                    text-align: left;
+                }
+            }
+        }
+    }
+}
+
+// End home -------------------------------------------------
