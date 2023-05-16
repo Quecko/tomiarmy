@@ -2,6 +2,7 @@ import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import "../../style.scss";
 import logo from "../../assets/icons/logo.svg";
+import logoutIcon from "../../assets/icons/logoutIcon.svg";
 
 const Sidebar = () => {
   const location = useLocation();
@@ -327,7 +328,8 @@ const Sidebar = () => {
         </ul>
       </div>
       <button className="log-out-btn">
-        Log Out
+        <img src={logoutIcon} alt="logoutIcon" />
+        DISCONNECT WALLET
       </button>
     </div>
   );
