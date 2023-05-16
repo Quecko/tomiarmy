@@ -1,16 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import "../../style.scss";
 import logo from "../../assets/icons/logo.svg";
 import logoutIcon from "../../assets/icons/logoutIcon.svg";
 
-const Sidebar = () => {
+const Sidebar = ({ sidebar }) => {
   const location = useLocation();
   const currentPath = location.pathname;
+
   return (
     <div className="sidebar-wrapper ">
       <div className="logo-box">
-        <img src={logo} alt="" />
+        <Link to={"/"}>
+          <img src={logo} alt="" />
+        </Link>
         <div className="sidebar-divider"></div>
       </div>
       <div className="sidebar-wrapper-inner">
@@ -21,6 +24,7 @@ const Sidebar = () => {
               className={
                 currentPath === "/" ? "list-item active" : "list-item "
               }
+              onClick={sidebar}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -43,6 +47,7 @@ const Sidebar = () => {
               className={
                 currentPath === "/tasks" ? "list-item active" : "list-item "
               }
+              onClick={sidebar}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"

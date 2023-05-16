@@ -7,7 +7,7 @@ const GeneralTasks = () => {
   return (
     <div className="data-box general-tasks-wrapper">
       <h4>recent tasks from general</h4>
-      <Table striped bordered hover className="general-tasks-table">
+      <Table striped bordered hover responsive className="general-tasks-table">
         <thead>
           <tr>
             <th>Task</th>

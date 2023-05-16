@@ -49,9 +49,9 @@ const HomeOperations = () => {
           </div>
         </div>
         <div className='maincard'>
-          <div className="maintable">
+          <div className="maintable table-responsive">
 
-            <table class="table table-striped">
+            <table class="table table-striped " >
               <thead>
                 <tr>
                   <th>
@@ -238,8 +238,8 @@ const HomeOperations = () => {
             <h6>Your Squad</h6>
             <a href="#">View All <img src="\assets\arrow-right.svg" alt="img" className='img-fluid ms-2' /></a>
           </div>
-          <div className="maintable">
-            <table class="table table-striped">
+          <div className="maintable table-responsive">
+            <table class="table table-striped ">
               <thead>
                 <tr>
                   <th>

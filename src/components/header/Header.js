@@ -2,6 +2,10 @@ import React, { useState } from "react";
 import "../../style.scss";
 import { Link, useLocation } from "react-router-dom";
 import notificationIcon from "../../assets/icons/notificationIcon.svg";
+import menuIcon from "../../assets/icons/menuIcon.svg";
+import { Button, Offcanvas } from "react-bootstrap";
+import Sidebar from "../sidebar/Sidebar";
+import mobileLogo from "../../assets/icons/mobileLogo.svg";
 
 const Header = () => {
   const location = useLocation();
@@ -13,11 +17,34 @@ const Header = () => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+  const sidebar = () => {
+    if (show === true) {
+      setShow(false);
+    } else {
+      setShow(true);
+    }
+  };
+
   return (
-    <div className="Header-wrapper">
-      <div className="soldier-name">
-        <h4>Welcome BATMAN,</h4>
-        <p>LET’S FIGHT FOR THE ARMY</p>
+    <div
+      className={
+        currentPath === "/"
+          ? "home-headed-username Header-wrapper"
+          : "home-headed-username-none Header-wrapper"
+      }
+    >
+      <div className="home-headed-username">
+        <div className="mobile-logo">
+          <Link to={"/"}>
+            <img src={mobileLogo} alt="mobileLogo" />
+          </Link>
+        </div>
+        {currentPath === "/" ? (
+          <div className="soldier-name">
+            <h4>Welcome BATMAN,</h4>
+            <p>LET’S FIGHT FOR THE ARMY</p>
+          </div>
+        ) : null}
       </div>
       <div className="header-buttons">
         <button className="notification-btn">
@@ -53,6 +80,20 @@ const Header = () => {
           </svg>
           Create Squad
         </button>
+        <Button className="toggle-menu-btn" onClick={handleShow}>
+          <img src={menuIcon} alt="menuIcon" />
+        </Button>
+
+        <Offcanvas show={show} onHide={handleClose} className="menu-off-canvas">
+          <Offcanvas.Header closeButton>
+            <Offcanvas.Title></Offcanvas.Title>
+          </Offcanvas.Header>
+          <Offcanvas.Body>
+            <div className="sidebar-column">
+              <Sidebar sidebar={sidebar} />
+            </div>
+          </Offcanvas.Body>
+        </Offcanvas>
       </div>
     </div>
   );
