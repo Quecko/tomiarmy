@@ -1,0 +1,111 @@
+.home-operations{
+    background: rgba(22, 26, 34, 0.9);
+    backdrop-filter: blur(2px);
+    border-radius: 20px;
+    padding: 20px;
+    .upper-item{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+        .left{
+            h6{
+                font-style: normal;
+                font-weight: 700;
+                font-size: 18px;
+                line-height: 110%;
+                text-transform: uppercase;
+                color: #FFFFFF;
+                span{
+                    font-style: normal;
+                    font-weight: 600;
+                    font-size: 18px;
+                    line-height: 110%;
+                    text-transform: uppercase;
+                    color: #04C453;
+                    margin-left: 5px;
+                }
+
+            }
+            p{
+                font-style: normal;
+                font-weight: 500;
+                font-size: 14px;
+                line-height: 110%;
+                text-transform: uppercase;
+                color: #81828A;
+                text-align: start;
+            }
+        }
+        a{
+            font-style: normal;
+            font-weight: 600;
+            font-size: 14px;
+            line-height: 100%;
+            color: #FF0083;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+    }
+    .bottom-cards{
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 10px;
+        .card-item{
+            background: linear-gradient(180deg, #232631 0%, rgba(29, 32, 43, 0.4) 100%);
+            border-radius: 10px;
+            padding: 20px;
+            max-width: 237px;
+            width: 100%;
+            display: flex;
+            justify-content: flex-start;
+            align-items: flex-start;
+            flex-direction: column;
+            .inner-content{
+                p{
+                    font-style: normal;
+                    font-weight: 500;
+                    font-size: 12px;
+                    line-height: 100%;
+                    color: #81828A;
+                    margin-top: 22px;
+                    margin-bottom: 12px;
+                    text-align: start;
+                }
+                h6{
+                    font-style: normal;
+                    font-weight: 700;
+                    font-size: 20px;
+                    line-height: 100%;
+                    letter-spacing: 0.01em;
+                    color: #FFFFFF;
+                    text-align: start;
+                }
+            }
+        }
+        .unique-item{
+            flex-direction: row !important;
+            justify-content: space-between !important;
+            align-items: center !important;
+            max-width: 100%;
+            .nft-img{
+                width: 123px;
+                height: 123px;
+                border-radius: 7px;
+                overflow: hidden;
+                img{
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+        }
+        .inner-set{
+            display: flex;
+            justify-content: flex-start;
+            align-items: flex-start;
+            flex-direction: column;
+        }
+    }
+}

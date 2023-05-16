@@ -6,9 +6,11 @@ import squadToken from "../assets/icons/squadToken.svg";
 import { Dropdown } from "react-bootstrap";
 import MyRank from "../components/home/MyRank";
 import GeneralTasks from "../components/home/GeneralTasks";
+import HomeOperations from "../components/home/HomeOperations/HomeOperations";
 
 const Home = () => {
   return (
+    <>
     <div className="home-wrapper">
       <div className="row">
         <div className="col-lg-7 stats-box data-box">
@@ -110,6 +112,8 @@ const Home = () => {
         </div>
       </div>
     </div>
+    <HomeOperations />
+    </>
   );
 };
 
