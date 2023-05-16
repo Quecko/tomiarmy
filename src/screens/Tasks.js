@@ -44,7 +44,6 @@ const Tasks = () => {
                   className="mb-3"
                 >
                   <Tab eventKey="home" title="Active">
-                    {/* <Sonnet /> */}
                     <div className='maincard'>
                       <div className="maintable">
 
@@ -225,7 +224,6 @@ const Tasks = () => {
                     </div>
                   </Tab>
                   <Tab eventKey="profile" title="Expired Tasks">
-                    {/* <Sonnet /> */}
                     <div className='maincard'>
                       <div className="maintable">
                         <table class="table table-striped">

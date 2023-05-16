@@ -1,9 +1,84 @@
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body,
+html {
+  margin: 0;
+  padding: 0;
+}
+
+
+.row {
+    margin: 0;
+    padding: 0;
+  }
+  
+  .p-0 {
+    padding: 0px;
+  }
+  
+  .p0 {
+    padding: 0px;
+  }
+  
+  // All transitions
+  div,
+  ul,
+  a,
+  p,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  span,
+  button {
+    -webkit-transition: background-color 0.7s ease-out;
+    -moz-transition: background-color 1s ease-out;
+    -o-transition: background-color 1s ease-out;
+    transition: background-color 1s ease-out;
+  }
+  
+  textarea {
+    resize: none;
+    height: 60px;
+    width: 100%;
+  }
+  
+  a {
+    text-decoration: none !important;
+  }
+  
+  ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+  
+  div,
+  p,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin: 0 0;
+  }
+
 body {
     background: #22252F !important;
     padding: 20px 20px;
     color: white;
     font-family: 'Rajdhani' !important;
 }
+
 
 @font-face {
     font-family: 'Rajdhani';
