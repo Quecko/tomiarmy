@@ -16,7 +16,7 @@ function App() {
   return (
     <div className="App app-wrapper row m-0">
       <Router>
-        <div className="sidebar-column">
+        <div className="sidebar-column web-sidebar">
           <Sidebar />
         </div>
         <div className="content-column">

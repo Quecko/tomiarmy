@@ -29,9 +29,9 @@ const Tasks = () => {
   return (
     <>
       <section className='main-task'>
-        <div className='container-fluid'>
+        <div className='container-fluid padd-sm'>
           <div className='row'>
-            <div className='col-sm-12'>
+            <div className='col-sm-12 padd-sm'>
               <div className='main-head'>
                 <h2>ALL TASKS</h2>
                 <p>VIEW AND complete TASKS</p>
@@ -44,7 +44,6 @@ const Tasks = () => {
                   className="mb-3"
                 >
                   <Tab eventKey="home" title="Active">
-                    {/* <Sonnet /> */}
                     <div className='maincard'>
                       <div className="maintable">
 
@@ -225,7 +224,6 @@ const Tasks = () => {
                     </div>
                   </Tab>
                   <Tab eventKey="profile" title="Expired Tasks">
-                    {/* <Sonnet /> */}
                     <div className='maincard'>
                       <div className="maintable">
                         <table class="table table-striped">
