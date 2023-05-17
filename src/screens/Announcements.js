@@ -30,19 +30,13 @@ const Announcements = () => {
                           <thead>
                             <tr>
                               <th>
-                                <p className='headtable'>Task</p>
+                                <p className='headtable'>Announcement</p>
                               </th>
                               <th>
-                                <p className='headtable'>Points</p>
+                                <p className='headtable'>Date Received</p>
                               </th>
                               <th>
-                                <p className='headtable'>Status</p>
-                              </th>
-                              <th>
-                                <p className='headtable'>Expiry</p>
-                              </th>
-                              <th>
-                                <p className='headtable'>Action</p>
+                                <p className='headtable'>Actions</p>
                               </th>
                             </tr>
                           </thead>
