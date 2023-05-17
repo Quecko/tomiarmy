@@ -1030,7 +1030,7 @@ table {
             backdrop-filter: blur(2px);
             border-radius: 20px;
             padding: 20px;
-            min-width: 672px;
+            // min-width: 672px;
             width: 100%;
 
             .modal-header {
@@ -1221,6 +1221,7 @@ table {
                         justify-content: center;
                         gap: 10px;
                         border: none;
+                        white-space: nowrap;
 
                         &:hover {
                             background: linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0) 34.22%), #FF0083;
@@ -1266,17 +1267,14 @@ table {
                 }
 
                 .upload-parent {
-                    label {
+                    .uehyuj {
                         font-style: normal;
                         font-weight: 400;
                         font-size: 14px;
                         line-height: 100%;
                         color: #81828A;
                         margin-bottom: 10px;
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
-                        flex-direction: column;
+                        text-align: start;
                     }
 
                     .upload {
@@ -1288,6 +1286,12 @@ table {
                         border: 1px dashed #343742;
                         height: 246px;
                         overflow: hidden;
+                        label{
+                            display: flex;
+                            flex-direction: column;
+                            justify-content: center;
+                            align-items: center;
+                        }
                     }
 
                     .dropimage {
@@ -1413,28 +1417,6 @@ table {
 ////////............main-announcement SCSS............///////////////////////////
 
 .main-announcement{
-    .main-head {
-        h2 {
-            font-style: normal;
-            font-weight: 700;
-            font-size: 22px;
-            line-height: 110%;
-            text-transform: uppercase;
-            color: #FFFFFF;
-            text-align: start;
-        }
-
-        p {
-            font-style: normal;
-            font-weight: 500;
-            font-size: 16px;
-            line-height: 110%;
-            text-transform: uppercase;
-            color: #81828A;
-            text-align: start;
-        }
-    }
-    
     .my-tabs {
         .nav-tabs {
             background: rgba(22, 26, 34, 0.9);
@@ -1519,38 +1501,6 @@ table {
                                 letter-spacing: 0.01em;
                                 color: #FFFFFF;
                             }
-
-                            .completebtn {
-                                button {
-                                    background: #04C453;
-                                    border-radius: 25px;
-                                    padding: 5px 10px;
-                                    // width: 100%;
-                                    font-style: normal;
-                                    font-weight: 500;
-                                    font-size: 14px;
-                                    line-height: 100%;
-                                    letter-spacing: 0.01em;
-                                    color: #033A1A;
-                                    border: none;
-                                    width: 83px;
-                                    height: 24px;
-                                }
-
-                                .orange {
-                                    background: #FF8936;
-                                    color: #401E07;
-                                    border: none;
-                                }
-
-                                .red {
-
-                                    background: #FB2F2F;
-                                    color: #370404;
-                                    border: none;
-                                }
-                            }
-
                             .dropbtn {
                                 .dropdown {
                                     .dropdown-toggle::after {
@@ -1718,6 +1668,13 @@ table {
     .main-task .maincard .maintable .table-striped {
         width: 1000px !important;
     }
+    .main-announcement .maincard .maintable {
+        overflow-x: scroll;
+    }
+
+    .main-announcement .maincard .maintable .table-striped {
+        width: 1000px !important;
+    }
 }
 
 @media(max-width: 800px) {
@@ -1772,7 +1729,12 @@ table {
         align-items: center;
         gap: 15px;
     }
-
+    .main-announcement .maincard .pagi {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 15px;
+    }
     .padd-sm {
         padding: 0 !important;
     }
@@ -1840,5 +1802,26 @@ table {
 
         }
     }
-
+    .main-task .maincard .pagi .right .pagination{
+        gap: 0px;
+    }
+    .detailmodal .modal-dialog .modal-content .modal-body .innercard{
+        padding: 15px;
+    }
+    .detailmodal .modal-dialog .modal-content .modal-header .btn-close{
+        width: 18px;
+        height: 18px;
+    }
+    .detailmodal .modal-dialog .modal-content .modal-body .maininput p{
+        margin-top: 0px;
+    }
+    .main-task .maincard .pagi .right {
+gap: 5px;
+    }
+    .main-announcement .maincard .pagi .right {
+        gap: 5px;
+            }
+    .main-announcement .maincard .pagi .right .pagination{
+        gap: 0px;
+    }
 }
