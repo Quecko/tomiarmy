@@ -170,7 +170,7 @@ const Announcements = () => {
                       </div>
                     </div>
                   </Tab>
-                  <Tab eventKey="profile" title="Unread Announcements">
+                  <Tab eventKey="profile" title={<p>Unread Announcements <img src='\two.svg'alt='img' className='img-fluid'/></p>}>
                     {/* <Sonnet /> */}
                     <div className='maincard'>
                       <div className="maintable">
