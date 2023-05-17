@@ -51,6 +51,12 @@ const Header = () => {
             <p>VIEW AND complete TASKS</p>
           </div>
         ) : null}
+         {currentPath === "/operations" ? (
+          <div className="soldier-name">
+            <h4>Operations</h4>
+            <p>VIEW AND complete operations</p>
+          </div>
+        ) : null}
       </div>
       <div className="header-buttons">
         <button className="notification-btn">
