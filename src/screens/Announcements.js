@@ -10,10 +10,6 @@ const Announcements = () => {
         <div className='container-fluid'>
           <div className='row'>
             <div className='col-sm-12'>
-              <div className='main-head'>
-                <h2>announcements</h2>
-                <p>view your announcements</p>
-              </div>
               <div className='my-tabs'>
                 <Tabs
                   defaultActiveKey="home"
@@ -43,52 +39,10 @@ const Announcements = () => {
                           <tbody>
                             <tr>
                               <td>
-                                <p className='paratable'>Like our facebook page</p>
+                                <p className='paratable'>Follow this Twitter Account....</p>
                               </td>
                               <td>
-                                <p className='paratable'>+5</p>
-                              </td>
-                              <td>
-                                <div className='completebtn'>
-                                  <button>Completed</button>
-                                </div>
-                              </td>
-                              <td>
-                                <p className='paratable'>12:34 12/12/23</p>
-                              </td>
-                              <td>
-                                <div className='dropbtn'>
-                                  <Dropdown>
-                                    <Dropdown.Toggle variant="success" id="dropdown-basic">
-                                      <img src='\Vectordots.svg' alt='img' className='img-fluid' />
-
-                                    </Dropdown.Toggle>
-
-                                    <Dropdown.Menu>
-                                      <Dropdown.Item href="#/action-1">
-                                        <p><img src='\Vector.svg' alt='img' className='img-fluid' />Submit Proof</p>
-                                      </Dropdown.Item>
-                                    </Dropdown.Menu>
-                                  </Dropdown>
-                                </div>
-
-
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <p className='paratable'>Like our facebook page</p>
-                              </td>
-                              <td>
-                                <p className='paratable'>+5</p>
-                              </td>
-                              <td>
-                                <div className='completebtn'>
-                                  <button className='orange'>Pending</button>
-                                </div>
-                              </td>
-                              <td>
-                                <p className='paratable'>12:34 12/12/23</p>
+                                <p className='paratable'>01/01/23</p>
                               </td>
                               <td>
                                 <div className='dropbtn'>
@@ -109,18 +63,10 @@ const Announcements = () => {
                             </tr>
                             <tr>
                               <td>
-                                <p className='paratable'>Follow our twitter acc...</p>
+                                <p className='paratable'>Follow this Twitter AcRetweet the following tweet...</p>
                               </td>
                               <td>
-                                <p className='paratable'>+5</p>
-                              </td>
-                              <td>
-                                <div className='completebtn'>
-                                  <button className='orange'>Pending</button>
-                                </div>
-                              </td>
-                              <td>
-                                <p className='paratable'>12:34 12/12/23</p>
+                                <p className='paratable'>01/01/23</p>
                               </td>
                               <td>
                                 <div className='dropbtn'>
@@ -141,18 +87,34 @@ const Announcements = () => {
                             </tr>
                             <tr>
                               <td>
-                                <p className='paratable'>Follow our twitter acc...</p>
+                                <p className='paratable'>Start a discussion on tomi discord server</p>
                               </td>
                               <td>
-                                <p className='paratable'>+5</p>
+                                <p className='paratable'>01/01/23</p>
                               </td>
                               <td>
-                                <div className='completebtn'>
-                                  <button className='red'>Rejected</button>
+                                <div className='dropbtn'>
+                                  <Dropdown>
+                                    <Dropdown.Toggle variant="success" id="dropdown-basic">
+                                      <img src='\Vectordots.svg' alt='img' className='img-fluid' />
+
+                                    </Dropdown.Toggle>
+
+                                    <Dropdown.Menu>
+                                      <Dropdown.Item href="#/action-1">
+                                        <p><img src='\Vector.svg' alt='img' className='img-fluid' />Submit Proof</p>
+                                      </Dropdown.Item>
+                                    </Dropdown.Menu>
+                                  </Dropdown>
                                 </div>
                               </td>
+                            </tr>
+                            <tr>
                               <td>
-                                <p className='paratable'>12:34 12/12/23</p>
+                                <p className='paratable'>join the telegram channel</p>
+                              </td>
+                              <td>
+                                <p className='paratable'>01/01/23</p>
                               </td>
                               <td>
                                 <div className='dropbtn'>
@@ -173,9 +135,6 @@ const Announcements = () => {
                             </tr>
                           </tbody>
                         </table>
-
-
-
                       </div>
                       <div className="pagi">
                         <div className="left">

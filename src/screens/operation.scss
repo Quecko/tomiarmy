@@ -378,3 +378,55 @@
         }
     }
 }
+
+.btn-goback{
+    background: #201D27;
+    border-radius: 10px;
+    padding: 14px 20px;
+    border: none;
+    display: flex;
+    align-items: center;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 100%;
+    letter-spacing: 0.01em;
+    color: #FFFFFF;
+}
+
+
+@media (max-width:600px){
+    .active-operations .bottom-cards{
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 15px;
+    }
+    .active-operations .maincard .pagi{
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 15px;
+    }
+    .active-operations .upper-item{
+        flex-direction: column;
+        gap: 15px;
+        justify-content: center;
+        align-items: center;
+    }
+    .active-operations .upper-item .left{
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        gap: 5px;
+    }
+    .active-operations .bottom-cards .card-item{
+        max-width: 100%;
+    }
+    .active-operations .maincard{
+        margin-top: 30px;
+    }
+    .active-operations .maincard .maintable .table-striped tbody .twice{
+        flex-direction: column;
+    }
+}

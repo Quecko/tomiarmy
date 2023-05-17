@@ -12,13 +12,10 @@ const Tasks = () => {
   const handleShow = () => setShow(true);
 
   const [show1, setShow1] = useState(false);
-
   const handleClose1 = () => setShow1(false);
   const handleShow1 = () => setShow1(true);
 
-
   const [show2, setShow2] = useState(false);
-
   const handleClose2 = () => setShow2(false);
   const handleShow2 = () => setShow2(true);
 
@@ -32,10 +29,6 @@ const Tasks = () => {
         <div className='container-fluid padd-sm'>
           <div className='row'>
             <div className='col-sm-12 padd-sm'>
-              <div className='main-head'>
-                <h2>ALL TASKS</h2>
-                <p>VIEW AND complete TASKS</p>
-              </div>
               <div className='my-tabs'>
                 <Tabs
                   defaultActiveKey="home"
@@ -77,7 +70,7 @@ const Tasks = () => {
                               </td>
                               <td>
                                 <div className='completebtn'>
-                                  <button className='' onClick={handleShow}>Completed</button>
+                                  <button className=''>Completed</button>
                                 </div>
                               </td>
                               <td>
@@ -87,13 +80,13 @@ const Tasks = () => {
                                 <div className='dropbtn'>
                                   <Dropdown>
                                     <Dropdown.Toggle variant="success" id="dropdown-basic">
-                                      <img src='\Vectordots.svg' alt='img' className='img-fluid' />
+                                      <img src='\Vectordots.svg' alt='img' className='img-fluid ' />
 
                                     </Dropdown.Toggle>
 
                                     <Dropdown.Menu>
                                       <Dropdown.Item href="#/action-1">
-                                        <p><img src='\Vector.svg' alt='img' className='img-fluid' />Submit Proof</p>
+                                        <p  onClick={handleShow}><img src='\Vector.svg' alt='img' className='img-fluid' />Submit Proof</p>
                                       </Dropdown.Item>
                                     </Dropdown.Menu>
                                   </Dropdown>
@@ -397,7 +390,7 @@ const Tasks = () => {
               <input type='text' placeholder='Enter POW Url....' />
             </div>
             <div className="upload-parent">
-              <label>Upload Proof of Work Image</label>
+              <p className='uehyuj'>Upload Proof of Work Image</p>
               <div className="upload">
                 {
                   profilePicture ? <label htmlFor="upload">

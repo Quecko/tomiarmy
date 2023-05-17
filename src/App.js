@@ -1,6 +1,6 @@
 import "./App.css";
 import './style.scss';
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./screens/Home";
 import Tasks from "./screens/Tasks";
 import Sidebar from "./components/sidebar/Sidebar";
@@ -11,8 +11,10 @@ import Announcements from "./screens/Announcements";
 import GroupChat from "./screens/GroupChat";
 import ArmyForum from "./screens/ArmyForum";
 import ClaimRewards from "./screens/ClaimRewards";
+import { useState } from "react";
 
 function App() {
+  const [routes, setroute] = useState(false);
   return (
     <div className="App app-wrapper row m-0">
       <Router>
@@ -20,17 +22,17 @@ function App() {
           <Sidebar />
         </div>
         <div className="content-column">
-          <Header />
-          <Switch>
-            <Route exact path="/" component={Home} />
-            <Route exact path="/tasks" component={Tasks} />
-            <Route exact path="/operations" component={Operations} />
-            <Route exact path="/squad" component={Squad} />
-            <Route exact path="/announcements" component={Announcements} />
-            <Route exact path="/chat" component={GroupChat} />
-            <Route exact path="/forum" component={ArmyForum} />
-            <Route exact path="/claim" component={ClaimRewards} />
-          </Switch>
+          <Header routes={routes} setroute={setroute} />
+          <Routes>
+            <Route exact path="/" element={<Home />} />
+            <Route exact path="/tasks" element={<Tasks />} />
+            <Route exact path="/operations" element={<Operations setroute={setroute} routes={routes} />} />
+            <Route exact path="/squad" element={<Squad />} />
+            <Route exact path="/announcements" element={<Announcements />} />
+            <Route exact path="/chat" element={<GroupChat />} />
+            <Route exact path="/forum" element={<ArmyForum />} />
+            <Route exact path="/claim" element={<ClaimRewards />} />
+          </Routes>
         </div>
       </Router>
     </div>

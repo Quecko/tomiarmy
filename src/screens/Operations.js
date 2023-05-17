@@ -3,21 +3,23 @@ import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import "./operation.scss"
 import ActiveOperation from './ActiveOperation';
+import ExpiredOperation from './ExpiredOperation';
 
-const Operations = () => {
+
+const Operations = ({ setroute, routes }) => {
   return (
     <>
       <section className="operations">
         <Tabs
           defaultActiveKey="activeop"
           id="uncontrolled-tab-example"
-          className="opeartions-tab"
+          className={routes ? "opeartions-tab d-none" : "opeartions-tab"}
         >
           <Tab eventKey="activeop" title="Active Operation">
-           <ActiveOperation />
+            <ActiveOperation />
           </Tab>
           <Tab eventKey="expiredop" title="Expired Operations">
-            tab 2
+            <ExpiredOperation setroute={setroute} routes={routes} />
           </Tab>
         </Tabs>
       </section>
