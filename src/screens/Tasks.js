@@ -12,13 +12,10 @@ const Tasks = () => {
   const handleShow = () => setShow(true);
 
   const [show1, setShow1] = useState(false);
-
   const handleClose1 = () => setShow1(false);
   const handleShow1 = () => setShow1(true);
 
-
   const [show2, setShow2] = useState(false);
-
   const handleClose2 = () => setShow2(false);
   const handleShow2 = () => setShow2(true);
 
