@@ -1,15 +1,21 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Pagination from 'react-bootstrap/Pagination';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import Dropdown from 'react-bootstrap/Dropdown';
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
 const Announcements = () => {
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
   return (
     <>
       <section className='main-announcement'>
-        <div className='container-fluid'>
+        <div className='container-fluid padd-sm p-0'>
           <div className='row'>
-            <div className='col-sm-12'>
+            <div className='col-sm-12 padd-sm p-0'>
               <div className='my-tabs'>
                 <Tabs
                   defaultActiveKey="home"
@@ -56,6 +62,15 @@ const Announcements = () => {
                                       <Dropdown.Item href="#/action-1">
                                         <p><img src='\Vector.svg' alt='img' className='img-fluid' />Submit Proof</p>
                                       </Dropdown.Item>
+                                      <div className='brdr'></div>
+                                      <Dropdown.Item href="#/action-1">
+                                        <p onClick={handleShow}><img src='\Vectordetail.svg' alt='img' className='img-fluid' />details</p>
+                                      </Dropdown.Item>
+                                      <div className='brdr'></div>
+                                      <Dropdown.Item href="#/action-1">
+                                        <p><img src='\trash.svg' alt='img' className='img-fluid' />delete</p>
+                                      </Dropdown.Item>
+
                                     </Dropdown.Menu>
                                   </Dropdown>
                                 </div>
@@ -268,6 +283,23 @@ const Announcements = () => {
             </div>
           </div>
         </div>
+
+        <Modal className='detailmodal' show={show} onHide={handleClose}>
+          <Modal.Header closeButton>
+            <Modal.Title>announcement Details</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <div className='modalcard'>
+              <h4>Announcement</h4>
+              <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architectoSed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architectoSed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architectoSed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architectoSed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto</p>
+            </div>
+            <div className='modalcard mt-4'>
+              <h4>Date Received</h4>
+              <p>01/01/23</p>
+            </div>
+          </Modal.Body>
+
+        </Modal>
       </section>
     </>
   )

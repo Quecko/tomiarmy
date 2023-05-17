@@ -29,9 +29,9 @@ const Tasks = () => {
   return (
     <>
       <section className='main-task'>
-        <div className='container-fluid padd-sm'>
+        <div className='container-fluid padd-sm p-0'>
           <div className='row'>
-            <div className='col-sm-12 padd-sm'>
+            <div className='col-sm-12 padd-sm p-0'>
               <div className='my-tabs'>
                 <Tabs
                   defaultActiveKey="home"
@@ -370,8 +370,8 @@ const Tasks = () => {
               <img src='\picframe.png' alt='img' className='img-fluid' />
             </div>
             <div className='endbtn'>
-              <button onClick={handleShow1}><span><img src='\Subtract.svg' alt='img' className='img-fluid' /></span>Cancel</button>
-              <button>Submit proof of work</button>
+              <button><span><img src='\Subtract.svg' alt='img' className='img-fluid' /></span>Cancel</button>
+              <button onClick={handleShow1}>Submit proof of work</button>
             </div>
           </Modal.Body>
 
