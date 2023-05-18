@@ -2167,6 +2167,28 @@ table {
 
 @media(max-width: 600px) {
 
+    .Header-wrapper .header-buttons .leave span{
+        display: none;
+    }
+    .Header-wrapper .header-buttons .create-squad-btn span{
+        display: none;
+    }
+    .Header-wrapper .header-buttons .create-squad-btn svg{
+        margin: 0 auto !important;
+    }
+    .Header-wrapper .header-buttons .create-squad-btn{
+        width: 40px;
+        height: 40px;
+        padding: 5px !important;
+    }
+    .Header-wrapper .header-buttons .leave{
+        width: 40px;
+        height: 40px;
+        padding: 5px !important;
+    }
+
+
+
     .soldier-name {
         display: none;
     }
