@@ -21,11 +21,11 @@ const Announcements = () => {
                   defaultActiveKey="home"
                   transition={false}
                   id="noanim-tab-example"
-                  className="mb-3"
+                  className="mb-3 border-grad1"
                 >
                   <Tab eventKey="home" title="Read Announcements">
                     {/* <Sonnet /> */}
-                    <div className='maincard'>
+                    <div className='maincard border-grad1'>
                       <div className="maintable">
 
                         <table class="table table-striped">
@@ -172,7 +172,7 @@ const Announcements = () => {
                   </Tab>
                   <Tab eventKey="profile" title={<p>Unread Announcements <img src='\two.svg'alt='img' className='img-fluid'/></p>}>
                     {/* <Sonnet /> */}
-                    <div className='maincard'>
+                    <div className='maincard border-grad1'>
                       <div className="maintable">
 
                         <table class="table table-striped">

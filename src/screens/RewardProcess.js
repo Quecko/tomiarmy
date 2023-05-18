@@ -6,7 +6,7 @@ import Spinner from 'react-bootstrap/Spinner';
 const RewardProcess = () => {
     return (
         <>
-            <section className="availble-reward">
+            <section className="availble-reward border-grad1">
                 <div className='maincard'>
                     <div className="maintable table-responsive">
                         <table class="table table-striped " >

@@ -16,7 +16,7 @@ const ClaimRewards = () => {
         <Tabs
           defaultActiveKey="availablereward"
           id="uncontrolled-tab-example"
-          className="opeartions-tab"
+          className="opeartions-tab border-grad1"
         >
           <Tab eventKey="availablereward" title="Available Rewards">
             <AvailableReward />

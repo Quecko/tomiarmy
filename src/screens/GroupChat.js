@@ -8,7 +8,7 @@ const GroupChat = () => {
     <section className="group-chat">
       <div className="row">
         <div className="col-xl-9 col-12 p-0 ordersm-2">
-          <div className="chat-section">
+          <div className="chat-section border-grad1">
             <div className="chat-heading">
               <h6>Chat</h6>
             </div>
@@ -138,7 +138,7 @@ const GroupChat = () => {
           </div>
         </div>
         <div className="col-xl-3 col-12 pe-0 padd-sm ordersm-1">
-          <div className='members-section'>
+          <div className='members-section border-grad1'>
             <div className="tophead">
               <h6>Members <span>(192)</span></h6>
             </div>

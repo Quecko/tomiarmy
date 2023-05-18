@@ -24,9 +24,9 @@ const Squad = () => {
         <div className='container-fluid padd-sm p-0'>
           <div className='row'>
             <div className='col-sm-12 padd-sm p-0'>
-              <div className='maincardsquad'>
+              <div className='maincardsquad border-grad1'>
                 <div className='squadparent'>
-                  <div className='innercard1'>
+                  <div className='innercard1 border-grad'>
                     <div className='parent'onClick={handleShow}>
                     <div className='left'>
                       <img src='\Grouppic.svg'alt='img'className='img-fluid'/>
@@ -37,7 +37,7 @@ const Squad = () => {
                     </div>
                     </div>                
                   </div>
-                  <div className='innercard2'>
+                  <div className='innercard2 border-grad'>
                   <div className='parent'>
                     <div className='left'>
                       <img src='\Frameownwe.svg'alt='img'className='img-fluid'/>
@@ -48,7 +48,7 @@ const Squad = () => {
                     </div>
                     </div> 
                   </div>
-                  <div className='innercard2'>
+                  <div className='innercard2 border-grad'>
                   <div className='parent'>
                     <div className='left'>
                       <img src='\Frametokens.svg'alt='img'className='img-fluid'/>
@@ -59,7 +59,7 @@ const Squad = () => {
                     </div>
                     </div> 
                   </div>
-                  <div className='innercard2'>
+                  <div className='innercard2 border-grad'>
                   <div className='parent'>
                     <div className='left'>
                       <img src='\Framemember.svg'alt='img'className='img-fluid'/>
@@ -72,7 +72,7 @@ const Squad = () => {
                   </div>
                 </div>
               </div>
-              <div className='maincard'>
+              <div className='maincard border-grad1'>
                       <div className="maintable">
                         <table class="table table-striped">
                           <thead>
