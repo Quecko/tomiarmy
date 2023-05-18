@@ -11,7 +11,7 @@ const ArmyForum = () => {
           <div className="containersss p-0">
             <div className="row fordirection">
               <div className="col-xl-9 col-12 p-0">
-                <section className="maincmntsection">
+                <section className="maincmntsection border-grad1">
                   <div className="arrows">
                     <img src="\assets\arrow-up.svg" alt="img" className="arrow" />
                     <p className="serial">56</p>
@@ -83,7 +83,7 @@ const ArmyForum = () => {
                 </section>
               </div>
               <div className='col-xl-3 col-12 pe-0 padd-sm'>
-                <div className='members-section'>
+                <div className='members-section border-grad1'>
                   <div className="tophead">
                     <h6>Members <span>(192)</span></h6>
                   </div>

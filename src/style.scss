@@ -252,6 +252,7 @@ table {
             height: 48px;
 
             background: linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0) 34.22%), #FF0083;
+            border: none;
             border-bottom: 1px solid #F058A6;
             box-shadow: 0px 3px 1px #88134F;
             border-radius: 10px;
@@ -277,6 +278,7 @@ table {
 
         .leave {
             background: linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0) 34.22%), #FB2F2F;
+            border: none;
             border-bottom: 1px solid #FF7474;
             box-shadow: 0px 3px 1px #E02C2C;
             border-radius: 10px;
@@ -2168,6 +2170,28 @@ table {
 
 @media(max-width: 600px) {
 
+    .Header-wrapper .header-buttons .leave span{
+        display: none;
+    }
+    .Header-wrapper .header-buttons .create-squad-btn span{
+        display: none;
+    }
+    .Header-wrapper .header-buttons .create-squad-btn svg{
+        margin: 0 auto !important;
+    }
+    .Header-wrapper .header-buttons .create-squad-btn{
+        width: 40px;
+        height: 40px;
+        padding: 5px !important;
+    }
+    .Header-wrapper .header-buttons .leave{
+        width: 40px;
+        height: 40px;
+        padding: 5px !important;
+    }
+
+
+
     .soldier-name {
         display: none;
     }
@@ -2360,8 +2384,14 @@ table {
 .border-grad {
     position: relative;
     border: 1px solid transparent;
-    background-clip: padding-box;
+    background-clip: padding-box !important;
+    border-radius: 10px;
 }
+
+.modal-content{
+    border: 1px solid #2D313E;
+}
+
 
 .border-grad::after {
     content: '';
@@ -2374,3 +2404,18 @@ table {
     z-index: -1;
     border-radius: 10px;
 }
+
+.border-grad1 {
+    border: 1px solid #2D313E !important;
+}
+
+
+tr td:first-child { 
+    border-top-left-radius: 10px; 
+    border-bottom-left-radius: 10px; 
+  }
+    
+  tr td:last-child { 
+    border-top-right-radius: 10px; 
+    border-bottom-right-radius: 10px; 
+  }

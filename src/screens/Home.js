@@ -13,7 +13,7 @@ const Home = () => {
     <>
     <div className="home-wrapper">
       <div className="row">
-        <div className="col-lg-7 stats-box data-box">
+        <div className="col-lg-7 stats-box data-box border-grad1">
           <div className="task-status-box-header">
             <h4>MY STATS</h4>
             <Dropdown className="stats-dropdown">
@@ -58,7 +58,7 @@ const Home = () => {
           </div>
         </div>
         <div className="col-lg-5 task-status">
-          <div className="data-box">
+          <div className="data-box border-grad1">
             <div className="task-status-box-header">
               <h4>My Tasks Status</h4>
               <Dropdown className="tasks-status-dropdown">
