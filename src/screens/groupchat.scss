@@ -1,5 +1,5 @@
 .group-chat {
-    .twice-items {
+   
         .chat-section {
             background: rgba(22, 26, 34, 0.9);
             backdrop-filter: blur(2px);
@@ -278,34 +278,40 @@
                 }
             }
         }
-    }
+    
 }
 
 @media (max-width:600px){
-    .group-chat .twice-items .chat-section{
+    .group-chat .chat-section{
         width: 100%;
     }
-    .group-chat .twice-items .chat-section .client-side .img-area{
+    .group-chat .chat-section .client-side .img-area{
         width: 100%;
     }
-    .group-chat .twice-items .chat-section .bottom-side .right-btns .btn-send{
+    .group-chat .chat-section .bottom-side .right-btns .btn-send{
         padding: 5px;
     }
-    .group-chat .twice-items .chat-section .client-side .upper-items .twicee .title-client h6{
+    .group-chat .chat-section .client-side .upper-items .twicee .title-client h6{
         font-size: 14px;
     }
-    .group-chat .twice-items .chat-section .client-side .upper-items .message-text p{
+    .group-chat .chat-section .client-side .upper-items .message-text p{
         font-size: 14px;
     }
-    .group-chat .twice-items .chat-section .bottom-side .right-btns .emoji-picker .EmojiPickerReact{
+    .group-chat .chat-section .bottom-side .right-btns .emoji-picker .EmojiPickerReact{
         right: unset;
         left: 50%;
         transform: translate(-50%, 0%);
     }
-    .group-chat .twice-items .chat-section .bottom-side .right-btns .emoji-picker{
+    .group-chat .chat-section .bottom-side .right-btns .emoji-picker{
         position: static;
     }
-    .group-chat .twice-items .chat-section .bottom-side{
+    .group-chat .chat-section .bottom-side{
         position: relative;
+    }
+    .ordersm-2{
+        order: 2;
+    }
+    .ordersm-1{
+        order: 1;
     }
 }

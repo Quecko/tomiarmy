@@ -783,6 +783,7 @@ table {
             border: none;
             border-bottom: 1px solid transparent;
             padding-bottom: 15px;
+            border-radius: 0;
         }
 
         .nav-tabs .nav-item.show .nav-link,
@@ -790,6 +791,7 @@ table {
             background: transparent;
             border: none;
             border-bottom: 1px solid #FF0083;
+            border-radius: 0;
         }
     }
 

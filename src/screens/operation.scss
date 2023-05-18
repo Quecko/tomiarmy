@@ -18,10 +18,12 @@
                 background-color: transparent;
                 border: none;
                 border-bottom: 1px solid transparent;
+                border-radius: 0 !important;
             }
         }
          .nav-item.show .nav-link,  .nav-link.active{
             border-bottom: 1px solid #FF0083;
+            border-radius: 0 !important;
          }
     }
 }

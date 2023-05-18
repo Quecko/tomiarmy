@@ -99,6 +99,18 @@ const Header = ({ routes, setroute }) => {
               <p>Engage with your army</p>
             </div>
           ) : null}
+           {currentPath === "/chat" ? (
+            <div className="soldier-name">
+              <h4>Group Chat</h4>
+              <p>Chat with your army</p>
+            </div>
+          ) : null}
+           {currentPath === "/claim" ? (
+            <div className="soldier-name">
+              <h4>Claim Rewards</h4>
+              <p>claim you rewards</p>
+            </div>
+          ) : null}
         </div>
         <div className="header-buttons">
           {
@@ -206,27 +218,27 @@ const Header = ({ routes, setroute }) => {
             <Modal.Title>create Squad</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-          <div className='imagesmodal'>
-            <img src='\imagesmodals.svg'alt='img'className='img-fluid'/>
-            {/* <p>Are you sure you want to leave this squad and create a new one?</p> */}
-            <p>Are you sure you want to leave this squad?</p>
-          </div>
+            <div className='imagesmodal'>
+              <img src='\imagesmodals.svg' alt='img' className='img-fluid' />
+              {/* <p>Are you sure you want to leave this squad and create a new one?</p> */}
+              <p>Are you sure you want to leave this squad?</p>
+            </div>
             <div className='endbtn'>
               <button><span><img src='\Subtract.svg' alt='img' className='img-fluid' /></span>Cancel</button>
-              <button onClick={handleShow2}><img src='\up.svg'alt='img'className='img-fluid'/>Yes’ I am sure</button>
+              <button onClick={handleShow2}><img src='\up.svg' alt='img' className='img-fluid' />Yes’ I am sure</button>
             </div>
           </Modal.Body>
         </Modal>
 
-            
+
         <Modal className='detailmodal' show={show2} onHide={handleClose2} centered>
           <Modal.Header closeButton>
             <Modal.Title>
-            create Squad
+              create Squad
             </Modal.Title>
 
           </Modal.Header>
-          <Modal.Body>         
+          <Modal.Body>
             <div className="upload-parent">
               <p className='uehyuj'>Upload Squad Symbol</p>
               <div className="upload uploadsss">
@@ -261,16 +273,16 @@ const Header = ({ routes, setroute }) => {
             </div>
             <div className='endbtn'>
               <button><span><img src='\Subtract.svg' alt='img' className='img-fluid' /></span>Cancel</button>
-              <button onClick={handleShow3}><img src='\add.svg'alt='img'className='img-fluid'/> Create Squad</button>
+              <button onClick={handleShow3}><img src='\add.svg' alt='img' className='img-fluid' /> Create Squad</button>
             </div>
           </Modal.Body>
         </Modal>
 
-        
+
         <Modal className='detailmodal' show={show3} onHide={handleClose3} centered>
           <Modal.Header closeButton>
             <Modal.Title>
-            Create Squad
+              Create Squad
             </Modal.Title>
 
           </Modal.Header>
