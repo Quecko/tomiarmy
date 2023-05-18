@@ -72,6 +72,7 @@ const Sidebar = ({ sidebar }) => {
                   ? "list-item active"
                   : "list-item "
               }
+              onClick={sidebar}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -98,6 +99,7 @@ const Sidebar = ({ sidebar }) => {
               className={
                 currentPath === "/squad" ? "list-item active" : "list-item "
               }
+              onClick={sidebar}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -137,6 +139,7 @@ const Sidebar = ({ sidebar }) => {
                   ? "list-item active"
                   : "list-item "
               }
+              onClick={sidebar}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -197,6 +200,7 @@ const Sidebar = ({ sidebar }) => {
               className={
                 currentPath === "/chat" ? "list-item active" : "list-item "
               }
+              onClick={sidebar}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -242,6 +246,7 @@ const Sidebar = ({ sidebar }) => {
               className={
                 currentPath === "/forum" ? "list-item active" : "list-item "
               }
+              onClick={sidebar}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -287,6 +292,7 @@ const Sidebar = ({ sidebar }) => {
               className={
                 currentPath === "/claim" ? "list-item active" : "list-item "
               }
+              onClick={sidebar}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"

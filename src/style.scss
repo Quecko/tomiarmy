@@ -2146,6 +2146,22 @@ table {
 
 @media(max-width: 600px) {
 
+    .soldier-name{
+        display: none;
+    }
+    .toggle-menu-btn{
+        background-color: transparent;
+        border: none;
+        &:hover{
+            box-shadow: none;
+            border: none;
+        }
+        &:focus{
+            box-shadow: none;
+            border: none;
+        }
+    }
+
     .detailmodal .modal-dialog .modal-content .modal-body .maininput .squad {
     margin-top: 20px;
 }

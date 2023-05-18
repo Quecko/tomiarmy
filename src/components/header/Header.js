@@ -43,113 +43,165 @@ const Header = ({ routes, setroute }) => {
     setProfilePicture(evt.target.files[0]);
   }
   return (
-    <div
-      className={
-        currentPath === "/"
-          ? "home-headed-username Header-wrapper"
-          : "home-headed-username-none Header-wrapper"
-      }
-    >
-      <div className="home-headed-username">
-        <div className="mobile-logo">
-          <Link to={"/"}>
-            <img src={mobileLogo} alt="mobileLogo" />
-          </Link>
-        </div>
-        {currentPath === "/" ? (
-          <div className="soldier-name">
-            <h4>Welcome BATMAN,</h4>
-            <p>LET’S FIGHT FOR THE ARMY</p>
-          </div>
-        ) : null}
-        {currentPath === "/tasks" ? (
-          <div className="soldier-name">
-            <h4>ALL TASKS</h4>
-            <p>VIEW AND complete TASKS</p>
-          </div>
-        ) : null}
-            {currentPath === "/squad" ? (
-          <div className="soldier-name">
-            <h4>Your Squad</h4>
-            <p>VIEW Your Squad</p>
-          </div>
-        ) : null}
-        {currentPath === "/operations" ? (
-          <>
-            {
-              routes ?
-                <button onClick={() => setroute(!routes)} className="btn-goback"><img src="\assets\goback.svg" alt="img" className="img-fluid me-2" />Go Back</button> :
-                <div className="soldier-name">
-                  <h4>Operations</h4>
-                  <p>VIEW AND complete operations</p>
-                </div>
-            }
-          </>
-        ) : null}
-        {currentPath === "/announcements" ? (
-          <div className="soldier-name">
-            <h4>announcements</h4>
-            <p>view your announcements</p>
-          </div>
-        ) : null}
-      </div>
-      <div className="header-buttons">
-        {
-          currentPath === "/" ?
-            <>
-              <button className="notification-btn">
-                <img src={notificationIcon} alt="notificationIcon" />
-              </button>
-              <button className="create-squad-btn" onClick={handleShow1}>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="20"
-                  height="20"
-                  viewBox="0 0 20 20"
-                  fill="none"
-                >
-                  <g clip-path="url(#clip0_260_1810)">
-                    <path
-                      d="M15.3822 3.91039L11.6631 3.37L9.99999 0L8.33682 3.37L4.6178 3.91039L7.30893 6.53356L6.67362 10.2375L9.99999 8.48875L13.3264 10.2375L12.6911 6.53356L15.3822 3.91039Z"
-                      fill="#81828A"
-                    />
-                    <path
-                      d="M9.99999 12.3132L3.98651 9.90067V13.3275L10.0351 15.7541L16.0135 13.3256V9.90067L9.99999 12.3132Z"
-                      fill="#81828A"
-                    />
-                    <path
-                      d="M9.99999 16.5591L3.98651 14.1466V17.5734L10.0351 20L16.0135 17.5715V14.1466L9.99999 16.5591Z"
-                      fill="#81828A"
-                    />
-                  </g>
-                  <defs>
-                    <clipPath id="clip0_260_1810">
-                      <rect width="20" height="20" fill="white" />
-                    </clipPath>
-                  </defs>
-                </svg>
-                Create Squad
-              </button>
-            </>
-            : ""
+    <>
+      <div
+        className={
+          currentPath === "/"
+            ? "home-headed-username Header-wrapper"
+            : "home-headed-username-none Header-wrapper"
         }
-        <Button className="toggle-menu-btn" onClick={handleShow}>
-          <img src={menuIcon} alt="menuIcon" />
-        </Button>
-
-        <Offcanvas show={show} onHide={handleClose} className="menu-off-canvas">
-          <Offcanvas.Header closeButton>
-            <Offcanvas.Title></Offcanvas.Title>
-          </Offcanvas.Header>
-          <Offcanvas.Body>
-            <div className="sidebar-column">
-              <Sidebar sidebar={sidebar} />
+      >
+        <div className="home-headed-username">
+          <div className="mobile-logo">
+            <Link to={"/"}>
+              <img src={mobileLogo} alt="mobileLogo" />
+            </Link>
+          </div>
+          {currentPath === "/" ? (
+            <div className="soldier-name">
+              <h4>Welcome BATMAN,</h4>
+              <p>LET’S FIGHT FOR THE ARMY</p>
             </div>
-          </Offcanvas.Body>
-        </Offcanvas>
-      </div>
+          ) : null}
+          {currentPath === "/tasks" ? (
+            <div className="soldier-name">
+              <h4>ALL TASKS</h4>
+              <p>VIEW AND complete TASKS</p>
+            </div>
+          ) : null}
+          {currentPath === "/squad" ? (
+            <div className="soldier-name">
+              <h4>Your Squad</h4>
+              <p>VIEW Your Squad</p>
+            </div>
+          ) : null}
+          {currentPath === "/operations" ? (
+            <>
+              {
+                routes ?
+                  <button onClick={() => setroute(!routes)} className="btn-goback"><img src="\assets\goback.svg" alt="img" className="img-fluid me-2" />Go Back</button> :
+                  <div className="soldier-name">
+                    <h4>Operations</h4>
+                    <p>VIEW AND complete operations</p>
+                  </div>
+              }
+            </>
+          ) : null}
+          {currentPath === "/announcements" ? (
+            <div className="soldier-name">
+              <h4>announcements</h4>
+              <p>view your announcements</p>
+            </div>
+          ) : null}
+          {currentPath === "/forum" ? (
+            <div className="soldier-name">
+              <h4>Army Forum</h4>
+              <p>Engage with your army</p>
+            </div>
+          ) : null}
+        </div>
+        <div className="header-buttons">
+          {
+            currentPath === "/" ?
+              <>
+                <button className="notification-btn">
+                  <img src={notificationIcon} alt="notificationIcon" />
+                </button>
+                <button className="create-squad-btn" >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 20 20"
+                    fill="none"
+                  >
+                    <g clip-path="url(#clip0_260_1810)">
+                      <path
+                        d="M15.3822 3.91039L11.6631 3.37L9.99999 0L8.33682 3.37L4.6178 3.91039L7.30893 6.53356L6.67362 10.2375L9.99999 8.48875L13.3264 10.2375L12.6911 6.53356L15.3822 3.91039Z"
+                        fill="#81828A"
+                      />
+                      <path
+                        d="M9.99999 12.3132L3.98651 9.90067V13.3275L10.0351 15.7541L16.0135 13.3256V9.90067L9.99999 12.3132Z"
+                        fill="#81828A"
+                      />
+                      <path
+                        d="M9.99999 16.5591L3.98651 14.1466V17.5734L10.0351 20L16.0135 17.5715V14.1466L9.99999 16.5591Z"
+                        fill="#81828A"
+                      />
+                    </g>
+                    <defs>
+                      <clipPath id="clip0_260_1810">
+                        <rect width="20" height="20" fill="white" />
+                      </clipPath>
+                    </defs>
+                  </svg>
+                  Create Squad
+                </button>
+              </>
+              : ""
+          }
+          {
+            currentPath === "/squad" ?
+              <>
+                <button className="create-squad-btn" onClick={handleShow1}>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 20 20"
+                    fill="none"
+                  >
+                    <g clip-path="url(#clip0_260_1810)">
+                      <path
+                        d="M15.3822 3.91039L11.6631 3.37L9.99999 0L8.33682 3.37L4.6178 3.91039L7.30893 6.53356L6.67362 10.2375L9.99999 8.48875L13.3264 10.2375L12.6911 6.53356L15.3822 3.91039Z"
+                        fill="#81828A"
+                      />
+                      <path
+                        d="M9.99999 12.3132L3.98651 9.90067V13.3275L10.0351 15.7541L16.0135 13.3256V9.90067L9.99999 12.3132Z"
+                        fill="#81828A"
+                      />
+                      <path
+                        d="M9.99999 16.5591L3.98651 14.1466V17.5734L10.0351 20L16.0135 17.5715V14.1466L9.99999 16.5591Z"
+                        fill="#81828A"
+                      />
+                    </g>
+                    <defs>
+                      <clipPath id="clip0_260_1810">
+                        <rect width="20" height="20" fill="white" />
+                      </clipPath>
+                    </defs>
+                  </svg>
+                  Create Squad
+                </button>
+              </>
+              : ""
+          }
+          {
+            currentPath === "/forum" ?
+              <>
+                <button className="create-squad-btn" data-bs-toggle="modal" data-bs-target="#exampleModall">
+                  <img src="\assets\topic-btn.svg" alt="img" className="img-fluid me-2" />
+                  Start a new topic
+                </button>
+              </>
+              : ""
+          }
+          <button className="toggle-menu-btn" onClick={handleShow}>
+            <img src={menuIcon} alt="menuIcon" />
+          </button>
 
-      <Modal className='detailmodal' show={show1} onHide={handleClose1} centered>
+          <Offcanvas show={show} onHide={handleClose} className="menu-off-canvas">
+            <Offcanvas.Header closeButton>
+              <Offcanvas.Title></Offcanvas.Title>
+            </Offcanvas.Header>
+            <Offcanvas.Body>
+              <div className="sidebar-column">
+                <Sidebar sidebar={sidebar} />
+              </div>
+            </Offcanvas.Body>
+          </Offcanvas>
+        </div>
+        <Modal className='detailmodal' show={show1} onHide={handleClose1} centered>
           <Modal.Header closeButton>
             <Modal.Title>create Squad</Modal.Title>
           </Modal.Header>
@@ -232,7 +284,31 @@ const Header = ({ routes, setroute }) => {
           </Modal.Body>
 
         </Modal>
-    </div>
+
+
+
+      </div>
+      <div className="topicmodal">
+        <div class="modal fade" id="exampleModall" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-body">
+                <h5>Start a New Topic</h5>
+                <p>Title</p>
+                <input type="text" placeholder="Title" />
+                <p>Description</p>
+                <textarea placeholder="Description"></textarea>
+                <div className="twice-btn">
+                  <button className="btn-cancel"> <img src="\assets\cancel.svg" alt="img" className="img-fluid me-2" /> Cancel</button>
+                  <button className="btn-topic"> <img src="\assets\topic-btn.svg" alt="img" className="img-fluid me-2" /> Start a New Topic</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </>
   );
 };
 
