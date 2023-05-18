@@ -2303,4 +2303,10 @@ table {
     .detailmodal .modal-dialog .modal-content .modal-body .modalcard {
         padding: 15px;
     }
+    .detailmodal .modal-dialog .modal-content{
+        padding: 15px;
+    }
+    .detailmodal .modal-dialog .modal-content .modal-header .btn-close{
+        opacity: 1;
+    }
 }
