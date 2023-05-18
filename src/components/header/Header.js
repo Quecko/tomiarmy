@@ -53,6 +53,12 @@ const Header = ({ routes, setroute }) => {
             <p>VIEW AND complete TASKS</p>
           </div>
         ) : null}
+            {currentPath === "/squad" ? (
+          <div className="soldier-name">
+            <h4>Your Squad</h4>
+            <p>VIEW Your Squad</p>
+          </div>
+        ) : null}
         {currentPath === "/operations" ? (
           <>
             {

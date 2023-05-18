@@ -1429,6 +1429,7 @@ table {
 
                 .okbtn {
                     margin-top: 38px;
+
                     button {
                         background: linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0) 34.22%), #FF0083;
                         border-bottom: 1px solid #F058A6;
@@ -1481,7 +1482,8 @@ table {
             border: none;
             border-bottom: 1px solid transparent;
             padding-bottom: 15px;
-            img{
+
+            img {
                 margin-left: 10px;
             }
         }
@@ -1680,6 +1682,308 @@ table {
     }
 }
 
+/////////............ Sauad SCSS..........///////
+.main-squad {
+    .maincardsquad {
+        padding: 14px 20px;
+        gap: 21px;
+        width: 100%;
+        background: rgba(22, 26, 34, 0.9);
+        border-radius: 20px;
+        margin-bottom: 10px;
+       .squadparent {
+            display: flex;
+            align-items: center;
+            gap: 21px;
+            margin-bottom: 10px;
+
+            .innercard1 {
+                background: linear-gradient(180deg, #232631 0%, rgba(29, 32, 43, 0.4) 100%);
+                border-radius: 10px;
+                padding: 20px;
+                width: 410px;
+                height: 84px;
+
+                .parent {
+                    display: flex;
+                    align-items: center;
+                    gap: 14px;
+
+                    .right {
+                        p {
+                            font-style: normal;
+                            font-weight: 500;
+                            font-size: 12px;
+                            line-height: 100%;
+                            color: #81828A;
+                            margin-bottom: 12px;
+                            text-align: start;
+                        }
+
+                        h6 {
+                            font-style: normal;
+                            font-weight: 700;
+                            font-size: 20px;
+                            line-height: 100%;
+                            text-align: center;
+                            letter-spacing: 0.01em;
+                            color: #FFFFFF;
+                            text-align: start;
+                        }
+                    }
+                }
+            }
+
+            .innercard2 {
+                padding: 20px;
+                width: 210.67px;
+                height: 84px;
+                background: linear-gradient(180deg, #232631 0%, rgba(29, 32, 43, 0.4) 100%);
+                border-radius: 10px;
+
+                .parent {
+                    display: flex;
+                    align-items: center;
+                    gap: 14px;
+
+                    .right {
+                        p {
+                            font-style: normal;
+                            font-weight: 500;
+                            font-size: 12px;
+                            line-height: 100%;
+                            color: #81828A;
+                            margin-bottom: 12px;
+                            text-align: start;
+                        }
+
+                        h6 {
+                            font-style: normal;
+                            font-weight: 700;
+                            font-size: 20px;
+                            line-height: 100%;
+                            text-align: center;
+                            letter-spacing: 0.01em;
+                            color: #FFFFFF;
+                            text-align: start;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .maincard {
+        background: rgba(22, 26, 34, 0.9);
+        backdrop-filter: blur(2px);
+        padding: 20px;
+        border-radius: 20px;
+        width: 100%;
+
+        .maintable {
+            width: 100%;
+
+            .table-striped>tbody>tr:nth-of-type(odd) {
+                background: linear-gradient(180deg, #232631 0%, rgba(29, 32, 43, 0.4) 100%);
+                border-radius: 10px;
+                padding: 11px 20px !important;
+            }
+
+            .table-striped {
+                width: 100%;
+
+                thead {
+
+
+                    tr {
+                        th {
+                            text-align: start;
+                            vertical-align: center;
+                            padding: 16px 20px;
+
+                            .headtable {
+                                font-style: normal;
+                                font-weight: 400;
+                                font-size: 14px;
+                                line-height: 100%;
+                                color: #81828A;
+
+                            }
+                        }
+                    }
+                }
+
+                tbody {
+
+                    tr {
+
+                        td {
+                            text-align: start;
+                            border-bottom: none;
+                            padding: 16px 20px;
+                            vertical-align: center;
+
+                            .paratable {
+                                font-style: normal;
+                                font-weight: 500;
+                                font-size: 14px;
+                                line-height: 100%;
+                                letter-spacing: 0.01em;
+                                color: #FFFFFF;
+                            }
+
+                            .completebtn {
+                                button {
+                                    background: #04C453;
+                                    border-radius: 25px;
+                                    padding: 5px 10px;
+                                    // width: 100%;
+                                    font-style: normal;
+                                    font-weight: 500;
+                                    font-size: 14px;
+                                    line-height: 100%;
+                                    letter-spacing: 0.01em;
+                                    color: #033A1A;
+                                    border: none;
+                                    width: 83px;
+                                    height: 24px;
+                                }
+
+                                .orange {
+                                    background: #FF8936;
+                                    color: #401E07;
+                                    border: none;
+                                }
+
+                                .red {
+
+                                    background: #FB2F2F;
+                                    color: #370404;
+                                    border: none;
+                                }
+                            }
+
+                            .dropbtn {
+                                .dropdown {
+                                    .dropdown-toggle::after {
+                                        display: none;
+                                    }
+
+                                    .dropdown-toggle {
+                                        background: transparent;
+                                        border: none;
+
+                                        &:focus {
+                                            border: none;
+                                            box-shadow: none;
+                                        }
+                                    }
+
+                                    .dropdown-menu.show {
+                                        transform: translate3d(-109px, 38px, 0px) !important;
+                                    }
+
+                                    .dropdown-menu {
+                                        background: #22252F;
+                                        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
+                                        border-radius: 10px;
+                                        padding: 5px;
+
+                                    }
+
+                                    .dropdown-item {
+                                        p {
+                                            font-style: normal;
+                                            font-weight: 500;
+                                            font-size: 14px;
+                                            line-height: 100%;
+                                            letter-spacing: 0.01em;
+                                            color: #FFFFFF;
+                                            display: flex;
+                                            justify-content: center;
+                                            align-items: center;
+                                            gap: 10px;
+
+                                        }
+
+                                        &:hover {
+                                            background-color: unset;
+                                        }
+
+                                    }
+                                }
+                            }
+
+                        }
+                    }
+
+                }
+
+            }
+        }
+
+        .pagi {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+
+            .left {
+                p {
+                    font-style: normal;
+                    font-weight: 500;
+                    font-size: 14px;
+                    line-height: 100%;
+                    color: #81828A;
+                }
+            }
+
+            .right {
+                display: flex;
+                align-items: center;
+                gap: 22px;
+
+                p {
+                    font-style: normal;
+                    font-weight: 500;
+                    font-size: 15px;
+                    line-height: 100%;
+                    color: #BFC3C7;
+                }
+
+                .pagination {
+                    display: flex;
+                    gap: 10px;
+
+                    .page-link {
+                        font-style: normal;
+                        font-weight: 500;
+                        font-size: 15px;
+                        background-color: transparent;
+                        line-height: 100%;
+                        color: #BFC3C7;
+                        width: 28px;
+                        height: 27px;
+                        border-radius: 5px;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        border: none;
+                    }
+
+                    .page-item.active .page-link {
+                        background: #FF0083 !important;
+                        font-style: normal;
+                        font-weight: 500;
+                        font-size: 15px;
+                        line-height: 100%;
+                        color: #FFFFFF;
+                    }
+                }
+            }
+        }
+    }
+}
+
 @media(min-width:1200px) {
     .toggle-menu-btn {
         display: none;
@@ -1725,7 +2029,13 @@ table {
     .main-task .maincard .maintable .table-striped {
         width: 1000px !important;
     }
+    .main-squad .maincard .maintable {
+        overflow-x: scroll;
+    }
 
+    .main-squad .maincard .maintable .table-striped {
+        width: 1000px !important;
+    }
     .main-announcement .maincard .maintable {
         overflow-x: scroll;
     }
@@ -1754,6 +2064,18 @@ table {
 
             }
         }
+    }
+
+    .main-squad .maincardsquad .squadparent {
+        flex-direction: column;
+    }
+
+    .main-squad .maincardsquad .squadparent .innercard1 {
+        width: 100% !important;
+    }
+
+    .main-squad .maincardsquad .squadparent .innercard2 {
+        width: 100% !important;
     }
 }
 
@@ -1891,10 +2213,12 @@ table {
     .main-announcement .maincard .pagi .right .pagination {
         gap: 0px;
     }
-    .detailmodal .modal-dialog .modal-content .modal-body .modalcard p{
+
+    .detailmodal .modal-dialog .modal-content .modal-body .modalcard p {
         font-size: 12px;
     }
-    .detailmodal .modal-dialog .modal-content .modal-body .modalcard{
+
+    .detailmodal .modal-dialog .modal-content .modal-body .modalcard {
         padding: 15px;
     }
 }
