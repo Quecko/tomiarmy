@@ -34,21 +34,21 @@ const Home = () => {
             </Dropdown>
           </div>
           <div className="stats-data-boxes">
-            <div className="inner-data-box">
+            <div className="inner-data-box border-grad">
               <div className="stats-item-box">
                 <img src={earned} alt="earned" />
                 <p>TOMI Tokens Earned </p>
                 <h4>112</h4>
               </div>
             </div>
-            <div className="inner-data-box">
+            <div className="inner-data-box border-grad">
               <div className="stats-item-box">
                 <img src={points} alt="points" />
                 <p>Points</p>
                 <h4>3,500</h4>
               </div>
             </div>
-            <div className="inner-data-box">
+            <div className="inner-data-box border-grad">
               <div className="stats-item-box">
                 <img src={squadToken} alt="squadToken" />
                 <p>Total Squad Tokens </p>
@@ -79,7 +79,7 @@ const Home = () => {
                 </Dropdown.Menu>
               </Dropdown>
             </div>
-            <div className="row m-0 tasks-box-row inner-data-box">
+            <div className="row m-0 tasks-box-row inner-data-box border-grad">
               <div className="col-lg-6 task-completed-graph">
                 <img src={taskCompleted} alt="taskCompleteds" />
               </div>

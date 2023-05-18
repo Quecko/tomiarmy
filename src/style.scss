@@ -2350,3 +2350,27 @@ table {
         opacity: 1;
     }
 }
+
+// border gradient globally scss here........................
+
+.border-grad {
+    position: relative;
+    border: 1px solid transparent;
+    background-clip: padding-box;
+  }
+  
+  .border-grad::after {
+    content: '';
+    position: absolute;
+    top: -1px;
+    bottom: -1px;
+    left: -1px;
+    right: -1px;
+    background: linear-gradient(180deg, #343742 0%, rgba(52, 55, 66, 0) 100%);
+    z-index: -1;
+    border-radius: 10px;
+  }
+
+
+
+
