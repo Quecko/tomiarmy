@@ -74,9 +74,12 @@ h6 {
 
 body {
     background: #22252F !important;
-    padding: 20px 20px;
     color: white;
     font-family: 'Rajdhani' !important;
+}
+
+.App {
+    padding: 20px 20px;
 }
 
 
@@ -286,7 +289,8 @@ table {
             line-height: 100%;
             letter-spacing: 0.01em;
             color: #FFFFFF;
-            margin-right: 10px;       }
+            margin-right: 10px;
+        }
     }
 }
 
@@ -2357,9 +2361,9 @@ table {
     position: relative;
     border: 1px solid transparent;
     background-clip: padding-box;
-  }
-  
-  .border-grad::after {
+}
+
+.border-grad::after {
     content: '';
     position: absolute;
     top: -1px;
@@ -2369,8 +2373,4 @@ table {
     background: linear-gradient(180deg, #343742 0%, rgba(52, 55, 66, 0) 100%);
     z-index: -1;
     border-radius: 10px;
-  }
-
-
-
-
+}
