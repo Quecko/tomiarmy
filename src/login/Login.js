@@ -3,6 +3,8 @@ import './login.scss';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import ConnectWallet from './ConnectWallet';
+import Invitecode from './Invitecode';
+import Freesoldier from './Freesoldier';
 
 const Login = () => {
     useEffect(() => {
@@ -16,21 +18,20 @@ const Login = () => {
         <div className='login-wrapper'>
             <img src='\loginTopLeftImg.png' alt='img' className='img-fluid border-left-shadow' />
             <img src='\loginRightBottomImg.png' alt='img' className='img-fluid border-right-shadow' />
-            <div className='login-tabs-wrapper'>
+            <div className='login-tabs-wrapper '>
                 <Tabs
                     defaultActiveKey="alreadymember"
                     transition={false}
                     id="noanim-tab-example"
-                    className="mb-3"
                 >
                     <Tab eventKey="alreadymember" title="Already a member">
                         <ConnectWallet />
                     </Tab>
                     <Tab eventKey="squad" title="Join Squad">
-                        Sonnet2222
+                        <Invitecode />
                     </Tab>
                     <Tab eventKey="solider" title="Free Solider">
-                        Sonnet333
+                        <Freesoldier />
                     </Tab>
                 </Tabs>
             </div>

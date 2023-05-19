@@ -6,16 +6,19 @@ import walletConnectIcon from '../assets/icons/walletConnectIcon.svg';
 
 const ConnectWallet = () => {
     return (
-        <div className='ConnectWallet-wrapper'>
+        <div className='ConnectWallet-wrapper border-grad1'>
             <div className='army-textImg'>
                 <img src={armyCap} alt="armyCap" className='capImg' />
                 <img src={armyText} alt="armyText" className='textImg' />
             </div>
-            <button className='metamask-btn'>
+            <div className="mainhead">
+                <h5 className="innerhead">Connect Wallet</h5>
+            </div>
+            <button className='metamask-btn border-grad'>
                 <img src={metamaskIcon} alt='metamaskIcon' />
                 MetaMask
             </button>
-            <button className='walletConnect-btn'>
+            <button className='walletConnect-btn border-grad'>
                 <img src={walletConnectIcon} alt='walletConnectIcon' />
                 Wallet Connect
             </button>
