@@ -1,10 +1,19 @@
 import React, { useState } from 'react'
 import "./groupchat.scss"
 import EmojiPicker from 'emoji-picker-react';
-
+import Button from 'react-bootstrap/Button';
+import Offcanvas from 'react-bootstrap/Offcanvas';
 const GroupChat = () => {
   const [show, setshow] = useState(false);
+
+
+  const [show1, setShow1] = useState(false);
+
+  const handleClose1 = () => setShow1(false);
+  const handleShow1 = () => setShow1(true);
+
   return (
+    <>
     <section className="group-chat">
       <div className="row">
         <div className="col-xl-9 col-12 p-0 ordersm-2">
@@ -131,7 +140,7 @@ const GroupChat = () => {
                     }
                     <a href="#" onClick={() => setshow(!show)}><img src="\assets\emoji.svg" alt="img" className='img-fluid' /></a>
                   </div>
-                  <button className='btn-send'>Send</button>
+                  <button className='btn-send' onClick={handleShow1}>Send</button>
                 </div>
               </div>
             </div>
@@ -179,6 +188,52 @@ const GroupChat = () => {
       </div>
 
     </section>
+    <Offcanvas show={show1} onHide={handleClose1} placement='bottom'>
+        <Offcanvas.Header closeButton>
+          {/* <Offcanvas.Title>Offcanvas</Offcanvas.Title> */}
+        </Offcanvas.Header>
+        <Offcanvas.Body>
+        <div className='members-section'>
+            <div className="tophead">
+              <h6>Members <span>(192)</span></h6>
+            </div>
+            <div className="option-field">
+              <img src="\assets\search-icon.svg" alt="img" className="img-fluid search-icon" />
+              <input type="search" placeholder="Search members" />
+            </div>
+            <div className="bottom-table">
+              <div className="upper-heading">
+                <p>Nickname</p>
+                <p>Rank</p>
+              </div>
+              <div className="bottom-fields">
+                <div className="inner-item">
+                  <h6>Sharjeel</h6>
+                  <h6><img src="\assets\memberrank.svg" alt="img" className="img-fluid me-2" />Private</h6>
+                </div>
+                <div className="inner-item">
+                  <h6>Umar_x2jz</h6>
+                  <h6><img src="\polygon1.svg" alt="img" className="img-fluid me-2" />Sergeant</h6>
+                </div>
+                <div className="inner-item">
+                  <h6>Sharjeel</h6>
+                  <h6><img src="\polygon2.svg" alt="img" className="img-fluid me-2" />Lieutenant</h6>
+                </div>
+                <div className="inner-item">
+                  <h6>Umar_x2jz</h6>
+                  <h6><img src="\polygon3.svg" alt="img" className="img-fluid me-2" />Captain</h6>
+                </div>
+                <div className="inner-item">
+                  <h6>Sharjeel</h6>
+                  <h6><img src="\polygon4.svg" alt="img" className="img-fluid me-2" />Major</h6>
+                </div>
+              </div>
+            </div>
+          </div>
+        </Offcanvas.Body>
+      </Offcanvas>
+
+</>
   )
 }
 
