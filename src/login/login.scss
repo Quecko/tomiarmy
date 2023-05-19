@@ -1,28 +1,129 @@
-.login-wrapper{
+.login-wrapper {
     background-color: #22252F;
     position: relative;
     z-index: 99;
     overflow: hidden;
     min-height: 100vh;
-    .border-left-shadow{
+
+    .border-left-shadow {
         position: absolute;
         top: 0;
         left: 0;
-        z-index: 1;
+        z-index: -1;
         width: 100%;
     }
-    .border-right-shadow{
+
+    .border-right-shadow {
         position: absolute;
         bottom: 0;
         right: 0;
-        z-index: 1;
+        z-index: -1;
         width: 100%;
     }
 }
 
-.padding-remove .App{
+.padding-remove .App {
     padding: 0 !important;
 }
-.padding-remove .content-column{
+
+.padding-remove .content-column {
     padding: 0 !important;
+    width: 100%;
+}
+
+
+.login-tabs-wrapper {
+    width: 672px;
+    height: 616px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    .nav-tabs {
+        min-width: 55%;
+        justify-content: center;
+
+        .nav-item:nth-child(2) {
+            margin: 0px 40px;
+        }
+    }
+
+    .tab-content {
+        width: 100%;
+        padding: 60px 20px;
+        background: #161A22;
+        backdrop-filter: blur(2px);
+        border-radius: 20px;
+
+        .ConnectWallet-wrapper {
+
+            .army-textImg {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+                margin-bottom: 80px;
+
+                .capImg {
+                    width: 120px;
+                    height: 75px;
+                }
+
+                .textImg {
+                    margin-top: 16px;
+                }
+            }
+        }
+
+        .metamask-btn {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            padding: 25px 10px;
+            width: 100%;
+            // height: 106px;
+            font-style: normal;
+            font-weight: 600;
+            font-size: 20px;
+            line-height: 24px;
+            /* identical to box height */
+
+            text-align: center;
+            outline: none;
+            border: none;
+            color: #FFFFFF;
+            background: linear-gradient(180deg, #232631 0%, rgba(29, 32, 43, 0.4) 100%);
+            border-radius: 10px;
+
+            img {
+                width: 50px;
+                height: 50px;
+                margin-right: 10px;
+            }
+        }
+
+        .walletConnect-btn {
+            margin-top: 15px;
+            border: 1px solid;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            padding: 25px 10px;
+            width: 100%;
+            outline: none;
+            border: none;
+            border-radius: 10px;
+            background: linear-gradient(180deg, #343742 0%, rgba(52, 55, 66, 0) 100%);
+
+            img {
+                width: 50px;
+                height: 50px;
+                margin-right: 10px;
+            }
+        }
+    }
 }
