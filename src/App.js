@@ -11,19 +11,15 @@ import Announcements from "./screens/Announcements";
 import GroupChat from "./screens/GroupChat";
 import ArmyForum from "./screens/ArmyForum";
 import ClaimRewards from "./screens/ClaimRewards";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Login from "./login/Login";
 
 function App() {
   const [routes, setroute] = useState(false);
-  const location = useLocation();
-  const currentPath = location.pathname;
   return (
     <div className="App app-wrapper row m-0">
       <Router>
-        <div className="sidebar-column web-sidebar">
-          <Sidebar />
-        </div>
+        <Sidebar />
         <div className="content-column">
           <Header routes={routes} setroute={setroute} />
           <Routes>
