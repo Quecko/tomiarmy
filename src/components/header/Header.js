@@ -151,7 +151,7 @@ const Header = ({ routes, setroute }) => {
                       </clipPath>
                     </defs>
                   </svg>
-                  Create Squad
+                 <span> Create Squad</span>
                 </button>
               </>
               : ""

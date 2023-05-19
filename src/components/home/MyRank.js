@@ -9,7 +9,7 @@ const MyRank = () => {
     <div className="data-box border-grad1">
       <h4>my rank</h4>
       <div className="rank-squad-row row">
-        <div className="col-lg-6 ransk-name-left">
+        <div className="col-lg-6 ransk-name-left padd-sm">
           <div className="ransk-name-heading-row inner-data-box border-grad">
             <img src={privateRank} alt="privateRank" />
             <div className="ransk-name-heading">
