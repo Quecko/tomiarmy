@@ -1,28 +1,516 @@
-.login-wrapper{
+.login-wrapper {
     background-color: #22252F;
     position: relative;
     z-index: 99;
     overflow: hidden;
     min-height: 100vh;
-    .border-left-shadow{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .border-left-shadow {
         position: absolute;
         top: 0;
         left: 0;
-        z-index: 1;
+        z-index: -1;
         width: 100%;
     }
-    .border-right-shadow{
+
+    .border-right-shadow {
         position: absolute;
         bottom: 0;
         right: 0;
-        z-index: 1;
+        z-index: -1;
         width: 100%;
     }
 }
 
-.padding-remove .App{
+.padding-remove .App {
     padding: 0 !important;
 }
-.padding-remove .content-column{
+
+.padding-remove .content-column {
     padding: 0 !important;
+    width: 100%;
+}
+
+
+.login-tabs-wrapper {
+    max-width: 672px;
+    width: 100%;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    margin: 0px 20px;
+
+    .nav-tabs {
+        border: none;
+        margin-bottom: 26px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: row;
+        width: 100%;
+
+        .nav-item.show .nav-link,
+        .nav-link.active {
+            border-bottom: 2px solid #FF0083 !important;
+        }
+
+        .nav-item {
+            max-width: 156.67px;
+            width: 100%;
+
+            .nav-link {
+                margin-bottom: 0px;
+                border: none;
+                border-bottom: 2px solid #3B3946;
+                border-radius: 0px !important;
+                background: transparent;
+                font-style: normal;
+                font-weight: 500;
+                font-size: 18px;
+                line-height: 100%;
+                letter-spacing: 0.01em;
+                color: #FFFFFF;
+                max-width: 156.67px;
+                width: 100%;
+                padding: 0px 0px 15px;
+            }
+        }
+    }
+
+    .tab-content {
+        width: 100%;
+
+        .ConnectWallet-wrapper {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 60px 20px;
+            background: #161A22;
+            backdrop-filter: blur(2px);
+            border-radius: 20px;
+
+            .army-textImg {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+                margin-bottom: 80px;
+
+                .capImg {
+                    width: 120px;
+                    height: 75px;
+                }
+
+                .textImg {
+                    margin-top: 16px;
+                }
+            }
+        }
+
+        .invitetext {
+            font-style: normal;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 100%;
+            text-align: start !important;
+            color: #81828A;
+            margin: 0px 90px 10px 90px;
+        }
+
+        .lastbtn {
+            padding: 20px 90px 0px 90px;
+            width: 100%;
+
+            .cnctwltbtn {
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+                padding: 14px 20px;
+                gap: 10px;
+                background: linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0) 34.22%), #8147FF;
+                border: none;
+                border-bottom: 1px solid #A276FF;
+                box-shadow: 0px 3px 1px #5B25D0;
+                border-radius: 10px;
+                font-style: normal;
+                font-weight: 600;
+                font-size: 15px;
+                line-height: 100%;
+                letter-spacing: 0.01em;
+                color: #FFFFFF;
+                width: 100%;
+            }
+        }
+
+        .buybtn {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            padding: 14px 100px;
+            gap: 10px;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0) 34.22%), #FF0083;
+            border: none;
+            border-bottom: 1px solid #F058A6;
+            box-shadow: 0px 3px 1px #88134F;
+            border-radius: 10px;
+            font-style: normal;
+            font-weight: 600;
+            font-size: 15px;
+            line-height: 100%;
+            letter-spacing: 0.01em;
+            color: #FFFFFF;
+            max-width: 299px;
+            width: 100%;
+            margin: 50px auto 0px;
+            white-space: nowrap;
+        }
+
+        .inviteinput {
+            position: relative;
+            width: 100%;
+            padding: 0px 90px;
+
+            .invitebtn {
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+                padding: 7px 15px;
+                gap: 10px;
+                background: linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0) 34.22%), #FF0083;
+                border: none;
+                border-bottom: 1px solid #F058A6;
+                box-shadow: 0px 3px 1px #88134F;
+                border-radius: 10px;
+                position: absolute;
+                font-style: normal;
+                font-weight: 600;
+                font-size: 15px;
+                line-height: 100%;
+                letter-spacing: 0.01em;
+                color: #FFFFFF;
+                top: 9px;
+                right: 105px;
+            }
+
+            .inviteinputinner {
+                padding: 16px 15px;
+                background: #191D26;
+                border: 1px solid #343742;
+                border-radius: 10px;
+                outline: none;
+                width: 100%;
+                font-style: normal;
+                font-weight: 500;
+                font-size: 14px;
+                line-height: 100%;
+                letter-spacing: 0.01em;
+                color: #FFFFFF;
+                padding-right: 120px;
+
+                &::placeholder {
+                    font-style: normal;
+                    font-weight: 500;
+                    font-size: 14px;
+                    line-height: 100%;
+                    letter-spacing: 0.01em;
+                    color: #81828A;
+                }
+            }
+        }
+
+        .mainhead {
+            margin-bottom: 30px;
+
+            .innerhead {
+                font-family: 'Rajdhani';
+                font-style: normal;
+                font-weight: 700;
+                font-size: 28px;
+                line-height: 150%;
+                text-align: center;
+                letter-spacing: 0.01em;
+                text-transform: uppercase;
+                color: #FFFFFF;
+            }
+        }
+
+        .army-textImg {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 80px;
+
+            .capImg {
+                max-width: 120px;
+                width: 100%;
+            }
+        }
+
+        .metamask-btn {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            padding: 25px 10px;
+            width: 100%;
+            font-style: normal;
+            font-weight: 600;
+            font-size: 20px;
+            line-height: 24px;
+            text-align: center;
+            outline: none;
+            border: none;
+            color: #FFFFFF;
+            background: #161A22;
+            border-radius: 10px;
+
+            img {
+                width: 50px;
+                height: 50px;
+                margin-right: 10px;
+            }
+
+            &:hover {
+                background: linear-gradient(180deg, #232631 0%, rgba(29, 32, 43, 0.4) 100%);
+                transition: 0.7s;
+            }
+        }
+
+        .walletConnect-btn {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            padding: 25px 10px;
+            width: 100%;
+            font-style: normal;
+            font-weight: 600;
+            font-size: 20px;
+            line-height: 24px;
+            text-align: center;
+            outline: none;
+            border: none;
+            color: #FFFFFF;
+            background: #161A22;
+            border-radius: 10px;
+            margin-top: 15px;
+
+            img {
+                width: 50px;
+                height: 50px;
+                margin-right: 10px;
+            }
+
+            &:hover {
+                background: linear-gradient(180deg, #232631 0%, rgba(29, 32, 43, 0.4) 100%);
+                transition: 0.7s;
+            }
+        }
+    }
+}
+
+
+.padding-remove .Header-wrapper {
+    display: none;
+}
+
+@media (max-width:600px) {
+    .login-tabs-wrapper .nav-tabs .nav-item .nav-link {
+        max-width: 111.67px;
+        font-size: 14px;
+    }
+
+    .login-tabs-wrapper .nav-tabs .nav-item {
+        max-width: 111.67px;
+    }
+
+    .login-wrapper {
+        min-height: 100%;
+        height: 100%;
+        padding: 100px 0px;
+    }
+
+    .login-tabs-wrapper .tab-content .invitetext {
+        margin: 0px 0px 10px 0px;
+    }
+
+    .login-tabs-wrapper .tab-content .inviteinput {
+        padding: 0px 0px;
+    }
+
+    .login-tabs-wrapper .tab-content .lastbtn {
+        padding: 20px 0px 0px 0px;
+    }
+
+    .login-tabs-wrapper .tab-content .inviteinput .invitebtn {
+        right: 15px;
+    }
+    .request-remove .rqstinvitation .inviteinput{
+        padding: 0px 0px !important;
+    }
+    .request-remove .rqstinvitation .invitetext{
+        margin: 0px 0px 10px 0px !important;
+    }
+    .request-remove .rqstinvitation .buylast{
+        padding: 30px 0px 0px !important;
+    }
+}
+
+.request-remove {
+    .sidebar-column {
+        display: none;
+    }
+
+    .content-column {
+        width: 100%;
+        padding: 0;
+    }
+
+    .Header-wrapper {
+        display: none;
+    }
+
+    .rqstinvitation {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        overflow: hidden;
+        .ConnectWallet-wrapper {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 60px 20px;
+            background: #161A22;
+            backdrop-filter: blur(2px);
+            border-radius: 20px;
+            max-width: 672px;
+            width: 100%;
+
+            .army-textImg {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+                margin-bottom: 80px;
+
+                .capImg {
+                    width: 120px;
+                    height: 75px;
+                }
+
+                .textImg {
+                    margin-top: 16px;
+                }
+            }
+        }
+
+        .invitetext {
+            font-style: normal;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 100%;
+            text-align: start !important;
+            color: #81828A;
+            margin: 0px 90px 10px 90px;
+        }
+
+        .buylast{
+            padding: 30px 90px 0px;
+        .buybtn {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            padding: 14px;
+            gap: 10px;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0) 34.22%), #FF0083;
+            border: none;
+            border-bottom: 1px solid #F058A6;
+            box-shadow: 0px 3px 1px #88134F;
+            border-radius: 10px;
+            font-style: normal;
+            font-weight: 600;
+            font-size: 15px;
+            line-height: 100%;
+            letter-spacing: 0.01em;
+            color: #FFFFFF;
+            width: 100%;
+            white-space: nowrap;
+            width: 100%;
+        }
+    }
+        .inviteinput {
+            width: 100%;
+            padding: 0px 90px;
+
+            .inviteinputinner {
+                padding: 16px 15px;
+                background: #191D26;
+                border: 1px solid #343742;
+                border-radius: 10px;
+                outline: none;
+                width: 100%;
+                font-style: normal;
+                font-weight: 500;
+                font-size: 14px;
+                line-height: 100%;
+                letter-spacing: 0.01em;
+                color: #FFFFFF;
+
+                &::placeholder {
+                    font-style: normal;
+                    font-weight: 500;
+                    font-size: 14px;
+                    line-height: 100%;
+                    letter-spacing: 0.01em;
+                    color: #81828A;
+                }
+            }
+        }
+
+        .formargin{
+            margin-bottom: 50px !important;
+        }
+
+        .mainhead {
+            margin-bottom: 30px;
+
+            .innerhead {
+                font-family: 'Rajdhani';
+                font-style: normal;
+                font-weight: 700;
+                font-size: 28px;
+                line-height: 150%;
+                text-align: center;
+                letter-spacing: 0.01em;
+                text-transform: uppercase;
+                color: #FFFFFF;
+            }
+        }
+
+        .army-textImg {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 80px;
+
+            .capImg {
+                max-width: 120px;
+                width: 100%;
+            }
+        }
+    }
 }

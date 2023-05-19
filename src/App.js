@@ -11,17 +11,18 @@ import Announcements from "./screens/Announcements";
 import GroupChat from "./screens/GroupChat";
 import ArmyForum from "./screens/ArmyForum";
 import ClaimRewards from "./screens/ClaimRewards";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Login from "./login/Login";
+import Requestinvitation from "./login/Requestinvitation";
+import Dcsquad from "./login/Dcsquad";
 
 function App() {
   const [routes, setroute] = useState(false);
   return (
+    <>
     <div className="App app-wrapper row m-0">
       <Router>
-        <div className="sidebar-column web-sidebar">
-          <Sidebar />
-        </div>
+        <Sidebar />
         <div className="content-column">
           <Header routes={routes} setroute={setroute} />
           <Routes>
@@ -34,10 +35,13 @@ function App() {
             <Route exact path="/forum" element={<ArmyForum />} />
             <Route exact path="/claim" element={<ClaimRewards />} />
             <Route exact path="/login" element={<Login />} />
+            <Route exact path="/requestinvitation" element={<Requestinvitation />} />
+            <Route exact path="/dcsquad" element={<Dcsquad />} />
           </Routes>
         </div>
       </Router>
     </div>
+    </>
   );
 }
 
