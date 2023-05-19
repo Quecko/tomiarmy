@@ -129,7 +129,7 @@ const GroupChat = () => {
                         <EmojiPicker />
                       </div>
                     }
-                    <a href="#" onClick={() => setshow(!show)}><img src="\assets\emoji.svg" alt="img" className='img-fluid' /></a>
+                    <a onClick={() => setshow(!show)}><img src="\assets\emoji.svg" alt="img" className='img-fluid' /></a>
                   </div>
                   <button className='btn-send'>Send</button>
                 </div>

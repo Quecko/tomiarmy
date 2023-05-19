@@ -16,8 +16,6 @@ import Login from "./login/Login";
 
 function App() {
   const [routes, setroute] = useState(false);
-  const location = useLocation();
-  const currentPath = location.pathname;
   return (
     <div className="App app-wrapper row m-0">
       <Router>

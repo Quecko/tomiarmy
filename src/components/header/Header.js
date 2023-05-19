@@ -103,13 +103,13 @@ const Header = ({ routes, setroute }) => {
               <p>Engage with your army</p>
             </div>
           ) : null}
-           {currentPath === "/chat" ? (
+          {currentPath === "/chat" ? (
             <div className="soldier-name">
               <h4>Group Chat</h4>
               <p>Chat with your army</p>
             </div>
           ) : null}
-           {currentPath === "/claim" ? (
+          {currentPath === "/claim" ? (
             <div className="soldier-name">
               <h4>Claim Rewards</h4>
               <p>claim you rewards</p>
@@ -120,9 +120,40 @@ const Header = ({ routes, setroute }) => {
           {
             currentPath === "/" ?
               <>
-                <button className="notification-btn">
-                  <img src={notificationIcon} alt="notificationIcon" />
-                </button>
+
+                <div class="btn-group notification-btn">
+                  <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+                    <img src={notificationIcon} alt="notificationIcon" />
+                  </button>
+                  <ul class="dropdown-menu border-grad1">
+                    <div className="inner-div border-grad">
+                      <div className="upper-text">
+                        <h6>Join DC SQUAD Again</h6>
+                        <p><span></span>Just Now</p>
+                      </div>
+                      <p className="para">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                      <div className="twice-btn">
+                        <button className="btn-reject"><img src="\assets\reject-icon.svg" alt="img" className="img-fluid me-2" />Reject</button>
+                        <button className="btn-accept"><img src="\assets\checkmark.svg" alt="img" className="img-fluid me-2" />Accept</button>
+                      </div>
+                    </div>
+                    <div className="inner-div border-grad">
+                      <div className="upper-text">
+                        <h6>Join DC SQUAD Again</h6>
+                        <p><span></span>Just Now</p>
+                      </div>
+                      <p className="para">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                    </div>
+                    <div className="inner-div border-grad">
+                      <div className="upper-text">
+                        <h6>Join DC SQUAD Again</h6>
+                        <p><span></span>Just Now</p>
+                      </div>
+                      <p className="para">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                    </div>
+                  </ul>
+                </div>
+
                 <button className="create-squad-btn" >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -151,7 +182,7 @@ const Header = ({ routes, setroute }) => {
                       </clipPath>
                     </defs>
                   </svg>
-                 <span> Create Squad</span>
+                  <span> Create Squad</span>
                 </button>
               </>
               : ""
@@ -164,7 +195,7 @@ const Header = ({ routes, setroute }) => {
                     <path d="M13.35 1.5H11.4C9 1.5 7.5 3 7.5 5.4V8.4375H12.1875C12.495 8.4375 12.75 8.6925 12.75 9C12.75 9.3075 12.495 9.5625 12.1875 9.5625H7.5V12.6C7.5 15 9 16.5 11.4 16.5H13.3425C15.7425 16.5 17.2425 15 17.2425 12.6V5.4C17.25 3 15.75 1.5 13.35 1.5Z" fill="white" />
                     <path d="M4.17008 8.43751L5.72258 6.88501C5.83508 6.77251 5.88758 6.63 5.88758 6.4875C5.88758 6.345 5.83508 6.195 5.72258 6.09C5.50508 5.8725 5.14508 5.8725 4.92758 6.09L2.41508 8.60251C2.19758 8.82001 2.19758 9.18 2.41508 9.3975L4.92758 11.91C5.14508 12.1275 5.50508 12.1275 5.72258 11.91C5.94008 11.6925 5.94008 11.3325 5.72258 11.115L4.17008 9.56251H7.50008V8.43751H4.17008Z" fill="white" />
                   </svg>
-                 <span> Leave Squad</span></button>
+                  <span> Leave Squad</span></button>
                 <button className="create-squad-btn" onClick={handleShow1}>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -194,7 +225,7 @@ const Header = ({ routes, setroute }) => {
                       </clipPath>
                     </defs>
                   </svg>
-                 <span> Create Squad</span>
+                  <span> Create Squad</span>
                 </button>
               </>
               : ""
