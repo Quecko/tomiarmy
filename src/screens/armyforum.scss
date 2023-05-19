@@ -1,4 +1,3 @@
-
 // forum page scss here ...................
 
 
@@ -10,7 +9,7 @@
     min-height: 100vh;
 
 
-    .content-side{
+    .content-side {
         background: #FFFFFF;
         border-radius: 10px;
         filter: drop-shadow(0px 0px 21px rgba(0, 0, 0, 0.07));
@@ -73,7 +72,7 @@
                 }
 
                 .rankheading {
-    
+
                     font-style: normal;
                     font-size: 15px;
                     line-height: 140%;
@@ -136,12 +135,12 @@
         }
     }
 
-    .activeclass{
-            padding: 15px;
-            background: rgba(255, 0, 131, 0.07);
-            border-radius: 5px;
-            border-left: 4px solid #FF0083 !important;
-            color: #FF0083 !important;
+    .activeclass {
+        padding: 15px;
+        background: rgba(255, 0, 131, 0.07);
+        border-radius: 5px;
+        border-left: 4px solid #FF0083 !important;
+        color: #FF0083 !important;
     }
 
     .maincmntsection {
@@ -188,7 +187,7 @@
                     margin-bottom: 20px;
 
                     h4 {
-        
+
                         font-style: normal;
                         font-weight: 500;
                         font-size: 22px;
@@ -200,7 +199,7 @@
                     }
 
                     p {
-        
+
                         font-style: normal;
                         font-weight: 500;
                         font-size: 15px;
@@ -231,7 +230,7 @@
                         }
 
                         h4 {
-            
+
                             font-style: normal;
                             font-size: 15px;
                             line-height: 140%;
@@ -252,6 +251,7 @@
                             text-transform: capitalize;
                             color: #81828A;
                         }
+
                         h6 {
                             font-style: normal;
                             font-weight: 600;
@@ -261,11 +261,12 @@
                             font-weight: 600;
                         }
 
-                        .inner-parent{
+                        .inner-parent {
                             display: flex;
                             align-items: center;
                             gap: 12px;
-                            .inner-side{
+
+                            .inner-side {
                                 display: flex;
                                 align-items: center;
                                 gap: 10px;
@@ -284,7 +285,7 @@
                         }
 
                         p {
-            
+
                             font-style: normal;
                             font-size: 15px;
                             line-height: 140%;
@@ -299,7 +300,7 @@
         .comments {
             .maincomment {
                 .headcmnt {
-                    
+
                     font-style: normal;
                     font-weight: 700;
                     font-size: 24px !important;
@@ -319,7 +320,7 @@
                     }
 
                     p {
-        
+
                         font-style: normal;
                         font-size: 20px !important;
                         line-height: 130%;
@@ -350,7 +351,7 @@
 
                         .textprofile {
                             h6 {
-                                
+
                                 font-style: normal;
                                 font-size: 20px;
                                 line-height: 130%;
@@ -361,7 +362,7 @@
                             }
 
                             p {
-                
+
                                 font-style: normal;
                                 font-size: 16px;
                                 line-height: 130%;
@@ -376,7 +377,7 @@
 
         .forcmnt {
             h5 {
-                
+
                 font-style: normal;
                 font-size: 24px;
                 line-height: 130%;
@@ -388,7 +389,7 @@
             }
 
             p {
-                
+
                 font-style: normal;
                 font-size: 20px;
                 line-height: 130%;
@@ -408,7 +409,7 @@
                 color: #fff;
 
                 &::placeholder {
-    
+
                     font-style: normal;
                     font-size: 16px;
                     line-height: 100%;
@@ -668,7 +669,7 @@
                         color: #fff;
 
                         &::placeholder {
-            
+
                             font-style: normal;
                             font-size: 16px;
                             line-height: 140%;
@@ -687,7 +688,7 @@
                         color: #fff;
 
                         &::placeholder {
-            
+
                             font-style: normal;
                             font-size: 16px;
                             line-height: 140%;
@@ -695,15 +696,17 @@
                         }
                     }
 
-                    .twice-btn{
+                    .twice-btn {
                         display: flex;
                         justify-content: space-between;
                         align-items: center;
                         width: 100%;
-                        button{
+
+                        button {
                             flex: 0 0 49%;
                             height: 47px;
                         }
+
                         .btn-topic {
                             display: flex;
                             flex-direction: row;
@@ -722,7 +725,8 @@
                             box-shadow: 0px 3px 1px #88134F;
                             border-radius: 10px;
                         }
-                        .btn-cancel{
+
+                        .btn-cancel {
                             background: linear-gradient(180deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 34.22%), #1D2128;
                             border: none;
                             border-bottom: 1px solid #363B44;
@@ -743,21 +747,23 @@
     }
 }
 
-.set-bg-color{
+.set-bg-color {
     background: #1D2028;
     border-radius: 10px;
     padding: 20px;
     margin-top: 40px;
 }
 
-.members-section{
+.members-section {
     background: rgba(22, 26, 34, 0.9);
     backdrop-filter: blur(2px);
     border-radius: 20px;
     padding: 20px;
-    .tophead{
+
+    .tophead {
         margin-bottom: 20px;
-        h6{
+
+        h6 {
             font-style: normal;
             font-weight: 700;
             font-size: 18px;
@@ -765,7 +771,8 @@
             text-transform: uppercase;
             color: #FFFFFF;
             text-align: start;
-            span{
+
+            span {
                 font-style: normal;
                 font-weight: 500;
                 font-size: 16px;
@@ -776,10 +783,12 @@
             }
         }
     }
-    .option-field{
+
+    .option-field {
         position: relative;
         margin-bottom: 20px;
-        input{
+
+        input {
             background: #191D26;
             border: 1px solid #343742;
             border-radius: 10px;
@@ -792,20 +801,23 @@
             letter-spacing: 0.01em;
             color: #81828A;
         }
-        .search-icon{
+
+        .search-icon {
             position: absolute;
             top: 16px;
             right: 16px;
         }
     }
-    .bottom-table{
-        .upper-heading{
+
+    .bottom-table {
+        .upper-heading {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 0 20px;
             margin-bottom: 10px;
-            p{
+
+            p {
                 font-style: normal;
                 font-weight: 400;
                 font-size: 14px;
@@ -814,13 +826,15 @@
 
             }
         }
-        .bottom-fields{
-            .inner-item{
+
+        .bottom-fields {
+            .inner-item {
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
                 padding: 11px 20px;
-                &:nth-child(odd){
+
+                &:nth-child(odd) {
                     background: linear-gradient(180deg, #232631 0%, rgba(29, 32, 43, 0.4) 100%);
                     border-radius: 10px;
                 }
@@ -829,67 +843,208 @@
     }
 }
 
-@media (max-width:600px){
-    .members-section{
+.offcanvas {
+    background: #161A22;
+    backdrop-filter: blur(2px);
+    /* Note: backdrop-filter has minimal browser support */
+    padding: 20px;
+
+    width: 100%;
+    height: 500px !important;
+
+    border-radius: 20px;
+
+    .offcanvas-header .btn-close {
+        background: url(../assets/icons/crossimg.svg);
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: contain;
+        width: 32px;
+        height: 32px;
+        box-sizing: border-box;
+        box-shadow: none;
+    }
+
+    .offcanvas-body {
+        padding: 0px;
+
+        .members-section {
+            background: #161A22;
+            backdrop-filter: blur(2px);
+            border-radius: 20px;
+            // padding: 20px;
+            margin-top: 30px;
+            padding: 0px;
+
+            .tophead {
+                margin-bottom: 20px;
+
+                h6 {
+                    font-style: normal;
+                    font-weight: 700;
+                    font-size: 18px;
+                    line-height: 110%;
+                    text-transform: uppercase;
+                    color: #FFFFFF;
+                    text-align: start;
+
+                    span {
+                        font-style: normal;
+                        font-weight: 500;
+                        font-size: 16px;
+                        line-height: 110%;
+                        text-transform: uppercase;
+                        color: #81828A;
+                        margin-left: 10px;
+                    }
+                }
+            }
+
+            .option-field {
+                position: relative;
+                margin-bottom: 20px;
+
+                input {
+                    background: #191D26;
+                    border: 1px solid #343742;
+                    border-radius: 10px;
+                    padding: 16px 15px;
+                    width: 100%;
+                    font-style: normal;
+                    font-weight: 500;
+                    font-size: 14px;
+                    line-height: 100%;
+                    letter-spacing: 0.01em;
+                    color: #81828A;
+                }
+
+                .search-icon {
+                    position: absolute;
+                    top: 16px;
+                    right: 16px;
+                }
+            }
+
+            .bottom-table {
+                .upper-heading {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    padding: 0 20px;
+                    margin-bottom: 10px;
+
+                    p {
+                        font-style: normal;
+                        font-weight: 400;
+                        font-size: 14px;
+                        line-height: 100%;
+                        color: #81828A;
+                        width: 50%;
+
+                    }
+                }
+
+                .bottom-fields {
+                    .inner-item {
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        padding: 11px 20px;
+
+                        h6 {
+                            width: 50%;
+                        }
+
+                        &:nth-child(odd) {
+                            background: linear-gradient(180deg, #232631 0%, rgba(29, 32, 43, 0.4) 100%);
+                            border-radius: 10px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+
+@media (max-width:600px) {
+    .members-section {
         margin-top: 40px;
         margin-bottom: 20px;
     }
-    .topicwrapper .maincmntsection .first .saying .lowercontent{
+
+    .topicwrapper .maincmntsection .first .saying .lowercontent {
         flex-direction: column;
         align-items: flex-start;
         justify-content: flex-start;
         gap: 15px;
     }
-    .topicwrapper .maincmntsection .first .saying .lowercontent .ranked{
+
+    .topicwrapper .maincmntsection .first .saying .lowercontent .ranked {
         flex-direction: column;
         justify-content: flex-start;
         align-items: flex-start;
         gap: 15px;
     }
-    .topicwrapper .maincmntsection .first .saying .lowercontent .ranked h6{
+
+    .topicwrapper .maincmntsection .first .saying .lowercontent .ranked h6 {
         font-size: 14px;
     }
-    .topicwrapper .maincmntsection .first .saying .texts h4{
+
+    .topicwrapper .maincmntsection .first .saying .texts h4 {
         font-size: 18px;
     }
-    .topicwrapper .maincmntsection .first .saying .texts p{
+
+    .topicwrapper .maincmntsection .first .saying .texts p {
         font-size: 13px;
     }
-    .topicwrapper .maincmntsection .first .saying .lowercontent .ranked .rankimg{
+
+    .topicwrapper .maincmntsection .first .saying .lowercontent .ranked .rankimg {
         width: 30px;
         height: 30px;
     }
-    .topicwrapper .maincmntsection .comments .maincomment .innermain .innerprofile .imageset{
+
+    .topicwrapper .maincmntsection .comments .maincomment .innermain .innerprofile .imageset {
         width: 40px;
         height: 40px;
     }
-    .topicwrapper .maincmntsection .comments .maincomment .innermain .innerprofile .textprofile h6{
+
+    .topicwrapper .maincmntsection .comments .maincomment .innermain .innerprofile .textprofile h6 {
         font-size: 16px;
     }
-    .topicwrapper .maincmntsection .comments .maincomment .innermain .innerprofile .textprofile p{
+
+    .topicwrapper .maincmntsection .comments .maincomment .innermain .innerprofile .textprofile p {
         font-size: 12px !important;
     }
-    .topicwrapper .maincmntsection .comments .maincomment .innermain p{
+
+    .topicwrapper .maincmntsection .comments .maincomment .innermain p {
         font-size: 13px !important;
     }
-    .topicwrapper .maincmntsection .forcmnt h5{
+
+    .topicwrapper .maincmntsection .forcmnt h5 {
         font-size: 20px
     }
-    .topicwrapper .maincmntsection .forcmnt p{
+
+    .topicwrapper .maincmntsection .forcmnt p {
         font-size: 16px;
     }
-    .topicwrapper .maincmntsection .forcmnt button{
+
+    .topicwrapper .maincmntsection .forcmnt button {
         width: 100%;
         height: 44px;
     }
-    .set-bg-color{
+
+    .set-bg-color {
         margin-top: 23px;
     }
-    .topicmodal .modal .modal-dialog .modal-content .modal-body .twice-btn{
+
+    .topicmodal .modal .modal-dialog .modal-content .modal-body .twice-btn {
         flex-direction: column;
         gap: 15px;
     }
-    .topicmodal .modal .modal-dialog .modal-content .modal-body .twice-btn button{
+
+    .topicmodal .modal .modal-dialog .modal-content .modal-body .twice-btn button {
         flex: 0 0 100%;
         width: 100%;
     }
