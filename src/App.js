@@ -12,9 +12,12 @@ import GroupChat from "./screens/GroupChat";
 import ArmyForum from "./screens/ArmyForum";
 import ClaimRewards from "./screens/ClaimRewards";
 import { useState } from "react";
+import Login from "./login/Login";
 
 function App() {
   const [routes, setroute] = useState(false);
+  const location = useLocation();
+  const currentPath = location.pathname;
   return (
     <div className="App app-wrapper row m-0">
       <Router>
@@ -32,6 +35,7 @@ function App() {
             <Route exact path="/chat" element={<GroupChat />} />
             <Route exact path="/forum" element={<ArmyForum />} />
             <Route exact path="/claim" element={<ClaimRewards />} />
+            <Route exact path="/login" element={<Login />} />
           </Routes>
         </div>
       </Router>

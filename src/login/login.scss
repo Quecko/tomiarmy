@@ -1,0 +1,28 @@
+.login-wrapper{
+    background-color: #22252F;
+    position: relative;
+    z-index: 99;
+    overflow: hidden;
+    min-height: 100vh;
+    .border-left-shadow{
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 1;
+        width: 100%;
+    }
+    .border-right-shadow{
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        z-index: 1;
+        width: 100%;
+    }
+}
+
+.padding-remove .App{
+    padding: 0 !important;
+}
+.padding-remove .content-column{
+    padding: 0 !important;
+}
