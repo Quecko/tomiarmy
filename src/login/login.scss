@@ -514,3 +514,18 @@
         }
     }
 }
+
+.padding-remove{
+    .sidebar-column {
+        display: none;
+    }
+
+    .content-column {
+        width: 100%;
+        padding: 0;
+    }
+
+    .Header-wrapper {
+        display: none;
+    }
+}

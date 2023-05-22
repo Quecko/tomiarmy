@@ -50,18 +50,18 @@ const Header = ({ routes, setroute }) => {
     <>
       <div
         className={
-          currentPath === "/"
+          currentPath === "/home"
             ? "home-headed-username Header-wrapper"
             : "home-headed-username-none Header-wrapper"
         }
       >
         <div className="home-headed-username">
           <div className="mobile-logo">
-            <Link to={"/"}>
+            <Link to={"/home"}>
               <img src={mobileLogo} alt="mobileLogo" />
             </Link>
           </div>
-          {currentPath === "/" ? (
+          {currentPath === "/home" ? (
             <div className="soldier-name">
               <h4>Welcome BATMAN,</h4>
               <p>LET’S FIGHT FOR THE ARMY</p>
@@ -118,7 +118,7 @@ const Header = ({ routes, setroute }) => {
         </div>
         <div className="header-buttons">
           {
-            currentPath === "/" ?
+            currentPath === "/home" ?
               <>
 
                 <div class="btn-group notification-btn">

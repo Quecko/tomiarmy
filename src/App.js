@@ -26,7 +26,7 @@ function App() {
         <div className="content-column">
           <Header routes={routes} setroute={setroute} />
           <Routes>
-            <Route exact path="/" element={<Home />} />
+            <Route exact path="/home" element={<Home />} />
             <Route exact path="/tasks" element={<Tasks />} />
             <Route exact path="/operations" element={<Operations setroute={setroute} routes={routes} />} />
             <Route exact path="/squad" element={<Squad />} />
@@ -34,7 +34,7 @@ function App() {
             <Route exact path="/chat" element={<GroupChat />} />
             <Route exact path="/forum" element={<ArmyForum />} />
             <Route exact path="/claim" element={<ClaimRewards />} />
-            <Route exact path="/login" element={<Login />} />
+            <Route exact path="/" element={<Login />} />
             <Route exact path="/requestinvitation" element={<Requestinvitation />} />
             <Route exact path="/dcsquad" element={<Dcsquad />} />
           </Routes>

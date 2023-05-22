@@ -12,7 +12,7 @@ const Sidebar = ({ sidebar }) => {
     <div className={currentPath === '/login' ? "d-none" : "sidebar-column web-sidebar"}>
       <div className="sidebar-wrapper ">
         <div className="logo-box">
-          <Link to={"/"}>
+          <Link to={"/home"}>
             <img src={logo} alt="" />
           </Link>
           <div className="sidebar-divider"></div>
@@ -21,9 +21,9 @@ const Sidebar = ({ sidebar }) => {
           <ul>
             <li>
               <Link
-                to="/"
+                to="/home"
                 className={
-                  currentPath === "/" ? "list-item active" : "list-item "
+                  currentPath === "/home" ? "list-item active" : "list-item "
                 }
                 onClick={sidebar}
               >
