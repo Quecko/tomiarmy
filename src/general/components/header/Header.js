@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import "../../style.scss";
+import "../../../style.scss";
 import { Link, useLocation } from "react-router-dom";
-import notificationIcon from "../../assets/icons/notificationIcon.svg";
-import menuIcon from "../../assets/icons/menuIcon.svg";
+import notificationIcon from "../../../assets/icons/notificationIcon.svg";
+import menuIcon from "../../../assets/icons/menuIcon.svg";
 import { Button, Offcanvas } from "react-bootstrap";
 import Sidebar from "../sidebar/Sidebar";
-import mobileLogo from "../../assets/icons/mobileLogo.svg";
+import mobileLogo from "../../../assets/icons/mobileLogo.svg";
 import Modal from 'react-bootstrap/Modal';
 
 const Header = ({ routes, setroute }) => {
