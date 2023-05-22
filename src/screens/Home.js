@@ -79,7 +79,7 @@ const Home = () => {
                 </Dropdown.Menu>
               </Dropdown>
             </div>
-            <div className="row m-0 tasks-box-row inner-data-box border-grad">
+            <div className="row m-0 tasks-box-row inner-data-box border-grad padd">
               <div className="col-lg-6 task-completed-graph">
                 <img src={taskCompleted} alt="taskCompleteds" />
               </div>

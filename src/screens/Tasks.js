@@ -328,7 +328,7 @@ const Tasks = () => {
             </div>
           </div>
         </div>
-        <Modal className='detailmodal' show={show} onHide={handleClose}>
+        <Modal className='detailmodal' show={show} onHide={handleClose} centered>
           <Modal.Header closeButton>
             <Modal.Title>task details</Modal.Title>
           </Modal.Header>
@@ -341,7 +341,7 @@ const Tasks = () => {
               <div className='parent'>
                 <div className='left'>
                   <p className='link'>Related link</p>
-                  <h6 className='point'>www.google.co.il</h6>
+                  <h6 className='point underliness'>www.google.co.il</h6>
                 </div>
                 <div className='right'>
                   <p className='link'>Points</p>
@@ -368,13 +368,16 @@ const Tasks = () => {
             </div>
             <div className='endbtn'>
               <button><span><img src='\Subtract.svg' alt='img' className='img-fluid' /></span>Cancel</button>
-              <button onClick={handleShow1}>Submit proof of work</button>
+              <button onClick={()=> {
+                handleShow1();
+                handleClose();
+              }}>Submit proof of work</button>
             </div>
           </Modal.Body>
 
         </Modal>
 
-        <Modal className='detailmodal' show={show1} onHide={handleClose1}>
+        <Modal className='detailmodal' show={show1} onHide={handleClose1} centered>
           <Modal.Header closeButton>
             <Modal.Title>
               <div className='heading'>
@@ -418,13 +421,16 @@ const Tasks = () => {
             </div>
             <div className='endbtn'>
               <button><span><img src='\Subtract.svg' alt='img' className='img-fluid' /></span>Cancel</button>
-              <button onClick={handleShow2} >Submit proof of work</button>
+              <button onClick={()=>{
+                handleShow2();
+                handleClose1();
+              }} >Submit proof of work</button>
             </div>
           </Modal.Body>
 
         </Modal>
 
-        <Modal className='detailmodal' show={show2} onHide={handleClose2}>
+        <Modal className='detailmodal' show={show2} onHide={handleClose2} centered>
           <Modal.Header closeButton>
             <Modal.Title>
               submit proof of work

@@ -6,7 +6,7 @@ import submitIcon from "../../assets/icons/submitIcon.svg";
 const GeneralTasks = () => {
   return (
     <div className="data-box general-tasks-wrapper border-grad1">
-      <h4>recent tasks from general</h4>
+      <h4 className="general">recent tasks from general</h4>
       <Table striped bordered hover responsive className="general-tasks-table">
         <thead>
           <tr>

@@ -34,7 +34,7 @@ const MyRank = () => {
             <div className="private-rank-row">
               <div className="private-rank dc-squad">
                 <img src={privateRank} alt="privateRank" />
-                <h4>DC Squad</h4>
+                <h4>Private</h4>
               </div>
               <div className="private-rank sergeant">
                 <img src={Sergeant} alt="Sergeant" />
@@ -51,6 +51,7 @@ const MyRank = () => {
                 </div>
               </div>
               <img src={pointsBar} className="pointsBarimg" alt="" />
+              <img src="\Framedots.svg" alt="img"className="img-fluid"/>
             </div>
           </div>
         </div>
