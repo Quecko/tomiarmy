@@ -1,8 +1,8 @@
 import React from "react";
-import privateRank from "../../assets/icons/privateRank.svg";
-import dcSquad from "../../assets/icons/dcSquad.svg";
-import Sergeant from "../../assets/icons/Sergeant.svg";
-import pointsBar from "../../assets/icons/pointsBar.svg";
+import privateRank from "../../../assets/icons/privateRank.svg";
+import dcSquad from "../../../assets/icons/dcSquad.svg";
+import Sergeant from "../../../assets/icons/Sergeant.svg";
+import pointsBar from "../../../assets/icons/pointsBar.svg";
 
 const MyRank = () => {
   return (

@@ -1,8 +1,8 @@
 import React from "react";
-import taskCompleted from "../assets/icons/task-completed.svg";
-import earned from "../assets/icons/earned.svg";
-import points from "../assets/icons/points.svg";
-import squadToken from "../assets/icons/squadToken.svg";
+import taskCompleted from "../../assets/icons/task-completed.svg";
+import earned from "../../assets/icons/earned.svg";
+import points from "../../assets/icons/points.svg";
+import squadToken from "../../assets/icons/squadToken.svg";
 import { Dropdown } from "react-bootstrap";
 import MyRank from "../components/home/MyRank";
 import GeneralTasks from "../components/home/GeneralTasks";

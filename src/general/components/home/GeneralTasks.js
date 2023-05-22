@@ -1,7 +1,7 @@
 import React from "react";
 import { Dropdown, Table } from "react-bootstrap";
-import dosts from "../../assets/icons/dots.svg";
-import submitIcon from "../../assets/icons/submitIcon.svg";
+import dosts from "../../../assets/icons/dots.svg";
+import submitIcon from "../../../assets/icons/submitIcon.svg";
 
 const GeneralTasks = () => {
   return (

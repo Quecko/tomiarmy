@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import "../../style.scss";
-import logo from "../../assets/icons/logo.svg";
-import logoutIcon from "../../assets/icons/logoutIcon.svg";
+import "../../../style.scss";
+import logo from "../../../assets/icons/logo.svg";
+import logoutIcon from "../../../assets/icons/logoutIcon.svg";
 
 const Sidebar = ({ sidebar }) => {
   const location = useLocation();
