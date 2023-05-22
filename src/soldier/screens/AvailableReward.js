@@ -43,7 +43,9 @@ const AvailableReward = () => {
                                         <p className='paratable'>50,000 TOMI</p>
                                     </td>
                                     <td>
-                                        <button className='btn-claim'>Initiate Claim</button>
+                                        <div className='parent'>
+                                            <p><img src='\checkmark1.svg' alt='img' className='img-fluid' />Claimed</p>
+                                        </div>
                                     </td>
                                 </tr>
                                 <tr>
@@ -65,7 +67,9 @@ const AvailableReward = () => {
                                         <p className='paratable'>50,000 TOMI</p>
                                     </td>
                                     <td>
-                                        <button className='btn-claim'>Initiate Claim</button>
+                                        <div className='parent'>
+                                            <p><img src='\checkmark1.svg' alt='img' className='img-fluid' />Claimed</p>
+                                        </div>
                                     </td>
                                 </tr>
                                 <tr>
@@ -87,7 +91,9 @@ const AvailableReward = () => {
                                         <p className='paratable'>50,000 TOMI</p>
                                     </td>
                                     <td>
-                                        <button className='btn-claim'>Initiate Claim</button>
+                                    <div className='parent'>
+                                            <p><img src='\checkmark1.svg' alt='img' className='img-fluid' />Claimed</p>
+                                        </div>
                                     </td>
                                 </tr>
                                 <tr>
@@ -109,7 +115,9 @@ const AvailableReward = () => {
                                         <p className='paratable'>50,000 TOMI</p>
                                     </td>
                                     <td>
-                                        <button className='btn-claim'>Initiate Claim</button>
+                                    <div className='parent'>
+                                            <p><img src='\checkmark1.svg' alt='img' className='img-fluid' />Claimed</p>
+                                        </div>
                                     </td>
                                 </tr>
                                 <tr>

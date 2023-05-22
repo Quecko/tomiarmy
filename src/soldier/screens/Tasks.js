@@ -424,7 +424,7 @@ const Tasks = () => {
               <button onClick={()=>{
                 handleShow2();
                 handleClose1();
-              }} >Submit proof of work</button>
+              }} ><img src='\send-square.svg'alt='img'className='img-fluid'/> Submit proof of work</button>
             </div>
           </Modal.Body>
 

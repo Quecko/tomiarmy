@@ -32,8 +32,7 @@ const ClaimedReward = () => {
                                         <p className='paratable'>50,000 TOMI</p>
                                     </td>
                                     <td>
-                                        <button className='btn-processing'> <img src="\assets\claimed-cicon.svg" alt="img" className='img-fluid' />
-                                            Claimed</button>
+                                    <button className='btn-claim'>Initiate Claim</button>
                                     </td>
                                 </tr>
                                 <tr>
@@ -56,8 +55,7 @@ const ClaimedReward = () => {
                                         <p className='paratable'>50,000 TOMI</p>
                                     </td>
                                     <td>
-                                        <button className='btn-processing'> <img src="\assets\claimed-cicon.svg" alt="img" className='img-fluid' />
-                                            Claimed</button>
+                                    <button className='btn-claim'>Initiate Claim</button>
                                     </td>
                                 </tr>
                                 <tr>
@@ -80,8 +78,7 @@ const ClaimedReward = () => {
                                         <p className='paratable'>50,000 TOMI</p>
                                     </td>
                                     <td>
-                                        <button className='btn-processing'> <img src="\assets\claimed-cicon.svg" alt="img" className='img-fluid' />
-                                            Claimed</button>
+                                    <button className='btn-claim'>Initiate Claim</button>
                                     </td>
                                 </tr>
                                 <tr>
@@ -104,8 +101,7 @@ const ClaimedReward = () => {
                                         <p className='paratable'>50,000 TOMI</p>
                                     </td>
                                     <td>
-                                        <button className='btn-processing'> <img src="\assets\claimed-cicon.svg" alt="img" className='img-fluid' />
-                                            Claimed</button>
+                                    <button className='btn-claim'>Initiate Claim</button>
                                     </td>
                                 </tr>
                             </tbody>

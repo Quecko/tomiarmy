@@ -18,13 +18,13 @@ const ClaimRewards = () => {
           id="uncontrolled-tab-example"
           className="opeartions-tab border-grad1"
         >
-          <Tab eventKey="availablereward" title="Available Rewards">
+          <Tab eventKey="availablereward" title="My Tasks Rewards">
             <AvailableReward />
           </Tab>
-          <Tab eventKey="rewardprocess" title="Rewards In Procress">
+          {/* <Tab eventKey="rewardprocess" title="Squad tasks Rewards">
             <RewardProcess />
-          </Tab>
-          <Tab eventKey="claimed" title="Claimed">
+          </Tab> */}
+          <Tab eventKey="claimed" title="Squad tasks Rewards">
             <ClaimedReward />
           </Tab>
         </Tabs>
