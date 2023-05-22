@@ -188,7 +188,7 @@ const GroupChat = () => {
       </div>
 
     </section>
-    <Offcanvas show={show1} onHide={handleClose1} placement='bottom'>
+    <Offcanvas className="member-offcanvas" show={show1} onHide={handleClose1} placement='bottom'>
         <Offcanvas.Header closeButton>
           {/* <Offcanvas.Title>Offcanvas</Offcanvas.Title> */}
         </Offcanvas.Header>
