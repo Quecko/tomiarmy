@@ -1158,6 +1158,7 @@ table {
     opacity: 1 !important;
 }
 
+
 .detailmodal {
 
     .modal-dialog {
@@ -1166,7 +1167,8 @@ table {
             backdrop-filter: blur(2px);
             border-radius: 20px;
             padding: 20px;
-            // min-width: 672px;
+            max-width: 672px;
+            min-height: 478px;
             width: 100%;
 
             .modal-header {
@@ -1212,10 +1214,12 @@ table {
                     height: 32px;
                     box-sizing: border-box;
                     box-shadow: none;
+                    opacity: 2;
                 }
             }
 
             .modal-body {
+                padding: 20px 20px 40px 20px;
                 .innercard {
 
                     background: #191D26;
@@ -1278,8 +1282,9 @@ table {
                                 // text-decoration-line: underline;
                                 color: #FFFFFF;
                             }
-                            .underliness{
-                                 text-decoration-line: underline;
+
+                            .underliness {
+                                text-decoration-line: underline;
                             }
                         }
 
@@ -2015,6 +2020,10 @@ table {
                                 color: #81828A;
 
                             }
+
+                            .lefts {
+                                text-align: end;
+                            }
                         }
                     }
                 }
@@ -2040,6 +2049,10 @@ table {
                                 img {
                                     margin-right: 10px;
                                 }
+                            }
+
+                            .lefts {
+                                text-align: end;
                             }
 
                             .completebtn {

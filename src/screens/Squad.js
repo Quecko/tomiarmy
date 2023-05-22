@@ -90,7 +90,7 @@ const Squad = () => {
                                 <p className='headtable'>Username</p>
                               </th>
                               <th>
-                                <p className='headtable'>TOMI Balance</p>
+                                <p className='headtable lefts'>TOMI Balance</p>
                               </th>
                             </tr>
                           </thead>
@@ -109,7 +109,7 @@ const Squad = () => {
                                 <p className='paratable'>@sharjeel</p>
                               </td>
                               <td>
-                                <p className='paratable'>@500 TOMI</p>
+                                <p className='paratable lefts'>@500 TOMI</p>
                               </td>
                             </tr>
                             <tr>
@@ -126,7 +126,7 @@ const Squad = () => {
                                 <p className='paratable'>@Umar_x2jz</p>
                               </td>
                               <td>
-                                <p className='paratable'>@500 TOMI</p>
+                                <p className='paratable lefts'>@500 TOMI</p>
                               </td>
                             </tr>
                             <tr>
@@ -143,7 +143,7 @@ const Squad = () => {
                                 <p className='paratable'>@sharjeel</p>
                               </td>
                               <td>
-                                <p className='paratable'>@500 TOMI</p>
+                                <p className='paratable lefts'>@500 TOMI</p>
                               </td>
                             </tr>
                             <tr>
@@ -160,7 +160,7 @@ const Squad = () => {
                                 <p className='paratable'>@Umar_x2jz</p>
                               </td>
                               <td>
-                                <p className='paratable'>@500 TOMI</p>
+                                <p className='paratable lefts'>@500 TOMI</p>
                               </td>
                             </tr>
                           </tbody>

@@ -262,8 +262,8 @@ const Header = ({ routes, setroute }) => {
           <Modal.Body>
             <div className='imagesmodal'>
               <img src='\imagesmodals.svg' alt='img' className='img-fluid' />
-              {/* <p>Are you sure you want to leave this squad and create a new one?</p> */}
-              <p>Are you sure you want to leave this squad?</p>
+              <p>Are you sure you want to leave this squad and create a new one?</p>
+              {/* <p>Are you sure you want to leave this squad?</p> */}
             </div>
             <div className='endbtn'>
               <button><span><img src='\Subtract.svg' alt='img' className='img-fluid' /></span>Cancel</button>
@@ -361,12 +361,15 @@ const Header = ({ routes, setroute }) => {
         <div class="modal fade" id="exampleModall" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
               <div class="modal-body">
                 <h5>Start a New Topic</h5>
                 <p>Title</p>
-                <input type="text" placeholder="Title" />
+                <input type="text" placeholder="Enter Title...." />
                 <p>Description</p>
-                <textarea placeholder="Description"></textarea>
+                <textarea placeholder="Enter Description Url...."></textarea>
                 <div className="twice-btn">
                   <button className="btn-cancel"> <img src="\assets\cancel.svg" alt="img" className="img-fluid me-2" /> Cancel</button>
                   <button className="btn-topic"> <img src="\assets\topic-btn.svg" alt="img" className="img-fluid me-2" /> Start a New Topic</button>

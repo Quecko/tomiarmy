@@ -60,7 +60,7 @@ const Announcements = () => {
 
                                     <Dropdown.Menu>
                                       <Dropdown.Item href="#/action-1">
-                                        <p><img src='\Vector.svg' alt='img' className='img-fluid' />Submit Proof</p>
+                                        <p><img src='\reading-book1.svg' alt='img' className='img-fluid' />Mark as read</p>
                                       </Dropdown.Item>
                                       <div className='brdr'></div>
                                       <Dropdown.Item href="#/action-1">
@@ -282,7 +282,7 @@ const Announcements = () => {
           </div>
         </div>
 
-        <Modal className='detailmodal' show={show} onHide={handleClose}>
+        <Modal className='detailmodal' show={show} onHide={handleClose} centered>
           <Modal.Header closeButton>
             <Modal.Title>announcement Details</Modal.Title>
           </Modal.Header>

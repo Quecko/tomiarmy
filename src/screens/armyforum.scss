@@ -279,6 +279,10 @@
                         align-items: center;
                         justify-content: flex-end;
 
+                        background: #1D2028;
+                        border-radius: 10px;
+                        padding: 10px 20px;
+
                         .cmnt {
                             margin-right: 10px;
                             cursor: pointer;
@@ -626,14 +630,32 @@
                 background: #161A22;
                 backdrop-filter: blur(2px);
                 border-radius: 20px;
-
+                .modal-header{
+                    border-bottom: none;
+                    padding: 0px;
+                    position: relative;
+                    .btn-close {
+                        background: url(../assets/icons/crossimg.svg);
+                        background-repeat: no-repeat;
+                        background-size: cover;
+                        background-position: contain;
+                        width: 32px;
+                        height: 32px;
+                        box-sizing: border-box;
+                        box-shadow: none;
+                        opacity: 2;
+                        position: absolute;
+                        top: 20px;
+                        right: 20px;
+                        opacity: 2;
+                    }
+                }
                 .modal-body {
                     display: flex;
                     justify-content: center;
                     align-items: center;
                     flex-direction: column;
                     padding: 20px 20px 40px 20px;
-
                     h5 {
                         font-style: normal;
                         font-weight: 700;
@@ -800,6 +822,7 @@
             line-height: 100%;
             letter-spacing: 0.01em;
             color: #81828A;
+            padding-right: 25px;
         }
 
         .search-icon {

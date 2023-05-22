@@ -153,7 +153,7 @@ const GroupChat = () => {
             </div>
             <div className="option-field">
               <img src="\assets\search-icon.svg" alt="img" className="img-fluid search-icon" />
-              <input type="search" placeholder="Search members" />
+              <input type="text" placeholder="Search members" />
             </div>
             <div className="bottom-table">
               <div className="upper-heading">
