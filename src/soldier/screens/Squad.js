@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import Pagination from 'react-bootstrap/Pagination';
 import Modal from 'react-bootstrap/Modal';
+import Accordion from 'react-bootstrap/Accordion';
+
 const Squad = () => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -20,6 +22,22 @@ const Squad = () => {
   }
   return (
     <>
+      <div className="formobile-heading d-none display-block-in-mobile">
+        <div className="inner-heading">
+          <h6>Your Squad </h6>
+          <p>VIEW Your Squad</p>
+        </div>
+        <div className="twice-btn">
+          <button className="btn-leave" >
+            <img src="\assets\leave-btn.svg" alt="img" className="img-fluid me-2" />
+            Leave Squad
+          </button>
+          <button className="create-btn" >
+            <img src="\assets\create-btn-icon.svg" alt="img" className="img-fluid me-2" />
+            Create Squad
+          </button>
+        </div>
+      </div>
       <section className='main-squad'>
         <div className='container-fluid padd-sm p-0'>
           <div className='row'>
@@ -27,163 +45,285 @@ const Squad = () => {
               <div className='maincardsquad border-grad1'>
                 <div className='squadparent'>
                   <div className='innercard1 border-grad'>
-                    <div className='parent'onClick={handleShow}>
-                    <div className='left'>
-                      <img src='\Grouppic.svg'alt='img'className='img-fluid'/>
+                    <div className='parent' onClick={handleShow}>
+                      <div className='left'>
+                        <img src='\Grouppic.svg' alt='img' className='img-fluid' />
+                      </div>
+                      <div className='right'>
+                        <p>My Squad</p>
+                        <h6>DC Squad</h6>
+                      </div>
                     </div>
-                    <div className='right'>
-                      <p>My Squad</p>
-                      <h6>DC Squad</h6>
-                    </div>
-                    </div>                
                   </div>
                   <div className='innercard2 border-grad'>
-                  <div className='parent'>
-                    <div className='left'>
-                      <img src='\Frameownwe.svg'alt='img'className='img-fluid'/>
+                    <div className='parent'>
+                      <div className='left'>
+                        <img src='\Frameownwe.svg' alt='img' className='img-fluid' />
+                      </div>
+                      <div className='right'>
+                        <p>Squad Owner</p>
+                        <h6>X2JZ</h6>
+                      </div>
                     </div>
-                    <div className='right'>
-                      <p>Squad Owner</p>
-                      <h6>X2JZ</h6>
-                    </div>
-                    </div> 
                   </div>
                   <div className='innercard2 border-grad'>
-                  <div className='parent'>
-                    <div className='left'>
-                      <img src='\Frametokens.svg'alt='img'className='img-fluid'/>
+                    <div className='parent'>
+                      <div className='left'>
+                        <img src='\Frametokens.svg' alt='img' className='img-fluid' />
+                      </div>
+                      <div className='right'>
+                        <p>Total Squad Tokens</p>
+                        <h6>500 TOMI</h6>
+                      </div>
                     </div>
-                    <div className='right'>
-                      <p>Total Squad Tokens</p>
-                      <h6>500 TOMI</h6>
-                    </div>
-                    </div> 
                   </div>
                   <div className='innercard2 border-grad'>
-                  <div className='parent'>
-                    <div className='left'>
-                      <img src='\Framemember.svg'alt='img'className='img-fluid'/>
+                    <div className='parent'>
+                      <div className='left'>
+                        <img src='\Framemember.svg' alt='img' className='img-fluid' />
+                      </div>
+                      <div className='right'>
+                        <p>Total Squad Members</p>
+                        <h6>1,531</h6>
+                      </div>
                     </div>
-                    <div className='right'>
-                      <p>Total Squad Members</p>
-                      <h6>1,531</h6>
-                    </div>
-                    </div> 
                   </div>
                 </div>
               </div>
               <div className='maincard border-grad1'>
-                      <div className="maintable">
-                        <table class="table table-striped">
-                          <thead>
-                            <tr>
-                              <th>
-                                <p className='headtable'>Nickname</p>
-                              </th>
-                              <th>
-                                <p className='headtable'>Rank</p>
-                              </th>
-                              <th>
-                                <p className='headtable'>Wallet Address</p>
-                              </th>
-                              <th>
-                                <p className='headtable'>Username</p>
-                              </th>
-                              <th>
-                                <p className='headtable lefts'>TOMI Balance</p>
-                              </th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr>
-                              <td>
-                                <p className='paratable'>Sharjeel</p>
-                              </td>
-                              <td>
-                                <p className='paratable'><img src='\polygon.svg'alt='img'className='img-fluid'/> Private</p>
-                              </td>
-                              <td>
-                              <p className='paratable'>  0x2F78aB0Cd05c...6j88</p>                           
-                              </td>
-                              <td>
-                                <p className='paratable'>@sharjeel</p>
-                              </td>
-                              <td>
-                                <p className='paratable lefts'>@500 TOMI</p>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <p className='paratable'>Umar_x2jz</p>
-                              </td>
-                              <td>
-                                <p className='paratable'><img src='\polygon1.svg'alt='img'className='img-fluid'/> Sergeant</p>
-                              </td>
-                              <td>
-                              <p className='paratable'>  0x2F78aB0Cd05c...6j88</p>                           
-                              </td>
-                              <td>
-                                <p className='paratable'>@Umar_x2jz</p>
-                              </td>
-                              <td>
-                                <p className='paratable lefts'>@500 TOMI</p>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <p className='paratable'>Sharjeel</p>
-                              </td>
-                              <td>
-                                <p className='paratable'><img src='\polygon2.svg'alt='img'className='img-fluid'/>Lieutenant</p>
-                              </td>
-                              <td>
-                              <p className='paratable'>  0x2F78aB0Cd05c...6j88</p>                           
-                              </td>
-                              <td>
-                                <p className='paratable'>@sharjeel</p>
-                              </td>
-                              <td>
-                                <p className='paratable lefts'>@500 TOMI</p>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <p className='paratable'>Sharjeel</p>
-                              </td>
-                              <td>
-                                <p className='paratable'><img src='\polygon3.svg'alt='img'className='img-fluid'/>Captain</p>
-                              </td>
-                              <td>
-                              <p className='paratable'>  0x2F78aB0Cd05c...6j88</p>                           
-                              </td>
-                              <td>
-                                <p className='paratable'>@Umar_x2jz</p>
-                              </td>
-                              <td>
-                                <p className='paratable lefts'>@500 TOMI</p>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                      <div className="pagi">
-                        <div className="left">
-                          <p>Showing 1 to 10 of 57 entries</p>
-                        </div>
-                        <div className="right">
-                          <p>Previous</p>
-                          <Pagination>
-                            <Pagination.Item active>{1}</Pagination.Item>
-                            <Pagination.Item>{2}</Pagination.Item>
-                            <Pagination.Item >{3}</Pagination.Item>
-                            <Pagination.Item>{4}</Pagination.Item>
-                            <Pagination.Item >{5}</Pagination.Item>
-                            <Pagination.Item>{6}</Pagination.Item>
-                          </Pagination>
-                          <p>Next</p>
-                        </div>
-                      </div>
+                <div className='display-none-in-mobile'>
+                  <div className="maintable">
+                    <table class="table table-striped">
+                      <thead>
+                        <tr>
+                          <th>
+                            <p className='headtable'>Nickname</p>
+                          </th>
+                          <th>
+                            <p className='headtable'>Rank</p>
+                          </th>
+                          <th>
+                            <p className='headtable'>Wallet Address</p>
+                          </th>
+                          <th>
+                            <p className='headtable'>Username</p>
+                          </th>
+                          <th>
+                            <p className='headtable lefts'>TOMI Balance</p>
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td>
+                            <p className='paratable'>Sharjeel</p>
+                          </td>
+                          <td>
+                            <p className='paratable'><img src='\polygon.svg' alt='img' className='img-fluid' /> Private</p>
+                          </td>
+                          <td>
+                            <p className='paratable'>  0x2F78aB0Cd05c...6j88</p>
+                          </td>
+                          <td>
+                            <p className='paratable'>@sharjeel</p>
+                          </td>
+                          <td>
+                            <p className='paratable lefts'>@500 TOMI</p>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <p className='paratable'>Umar_x2jz</p>
+                          </td>
+                          <td>
+                            <p className='paratable'><img src='\polygon1.svg' alt='img' className='img-fluid' /> Sergeant</p>
+                          </td>
+                          <td>
+                            <p className='paratable'>  0x2F78aB0Cd05c...6j88</p>
+                          </td>
+                          <td>
+                            <p className='paratable'>@Umar_x2jz</p>
+                          </td>
+                          <td>
+                            <p className='paratable lefts'>@500 TOMI</p>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <p className='paratable'>Sharjeel</p>
+                          </td>
+                          <td>
+                            <p className='paratable'><img src='\polygon2.svg' alt='img' className='img-fluid' />Lieutenant</p>
+                          </td>
+                          <td>
+                            <p className='paratable'>  0x2F78aB0Cd05c...6j88</p>
+                          </td>
+                          <td>
+                            <p className='paratable'>@sharjeel</p>
+                          </td>
+                          <td>
+                            <p className='paratable lefts'>@500 TOMI</p>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <p className='paratable'>Sharjeel</p>
+                          </td>
+                          <td>
+                            <p className='paratable'><img src='\polygon3.svg' alt='img' className='img-fluid' />Captain</p>
+                          </td>
+                          <td>
+                            <p className='paratable'>  0x2F78aB0Cd05c...6j88</p>
+                          </td>
+                          <td>
+                            <p className='paratable'>@Umar_x2jz</p>
+                          </td>
+                          <td>
+                            <p className='paratable lefts'>@500 TOMI</p>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                  <div className="pagi">
+                    <div className="left">
+                      <p>Showing 1 to 10 of 57 entries</p>
                     </div>
+                    <div className="right">
+                      <p>Previous</p>
+                      <Pagination>
+                        <Pagination.Item active>{1}</Pagination.Item>
+                        <Pagination.Item>{2}</Pagination.Item>
+                        <Pagination.Item >{3}</Pagination.Item>
+                        <Pagination.Item>{4}</Pagination.Item>
+                        <Pagination.Item >{5}</Pagination.Item>
+                        <Pagination.Item>{6}</Pagination.Item>
+                      </Pagination>
+                      <p>Next</p>
+                    </div>
+                  </div>
+                </div>
+                <div className="mobile-responsive-table d-none display-block-in-mobile">
+                  <div className="heading-mobile">
+                    <p>Nickname</p>
+                  </div>
+                  <Accordion defaultActiveKey="0">
+                    <Accordion.Item eventKey="0">
+                      <Accordion.Header>sharjeel</Accordion.Header>
+                      <Accordion.Body>
+                        <div className="inner-fields">
+                          <div className="inner-item">
+                            <h6>Rank</h6>
+                            <p><img src="\assets\private.svg" style={{ width: "22px", height: "22px" }} alt="img" className='img-fluid me-2' /> Private</p>
+                          </div>
+                          <div className="inner-item">
+                            <h6>Wallet Address</h6>
+                            <p>0x2F78....aB0C</p>
+                          </div>
+                          <div className="inner-item">
+                            <h6>Username</h6>
+                            <p>@sharjeel</p>
+                          </div>
+                          <div className="inner-item">
+                            <h6>TOMI Balance</h6>
+                            <p>500 TOMI</p>
+                          </div>
+                          <div className="inner-item">
+                            <h6>Actions</h6>
+                            <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
+                          </div>
+
+                        </div>
+                      </Accordion.Body>
+                    </Accordion.Item>
+                    <Accordion.Item eventKey="1">
+                      <Accordion.Header>sharjeel</Accordion.Header>
+                      <Accordion.Body>
+                        <div className="inner-fields">
+                          <div className="inner-item">
+                            <h6>Rank</h6>
+                            <p><img src="\assets\private.svg" style={{ width: "22px", height: "22px" }} alt="img" className='img-fluid me-2' /> Private</p>
+                          </div>
+                          <div className="inner-item">
+                            <h6>Wallet Address</h6>
+                            <p>0x2F78....aB0C</p>
+                          </div>
+                          <div className="inner-item">
+                            <h6>Username</h6>
+                            <p>@sharjeel</p>
+                          </div>
+                          <div className="inner-item">
+                            <h6>TOMI Balance</h6>
+                            <p>500 TOMI</p>
+                          </div>
+                          <div className="inner-item">
+                            <h6>Actions</h6>
+                            <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
+                          </div>
+
+                        </div>
+                      </Accordion.Body>
+                    </Accordion.Item>
+                    <Accordion.Item eventKey="2">
+                      <Accordion.Header>sharjeel</Accordion.Header>
+                      <Accordion.Body>
+                        <div className="inner-fields">
+                          <div className="inner-item">
+                            <h6>Rank</h6>
+                            <p><img src="\assets\private.svg" style={{ width: "22px", height: "22px" }} alt="img" className='img-fluid me-2' /> Private</p>
+                          </div>
+                          <div className="inner-item">
+                            <h6>Wallet Address</h6>
+                            <p>0x2F78....aB0C</p>
+                          </div>
+                          <div className="inner-item">
+                            <h6>Username</h6>
+                            <p>@sharjeel</p>
+                          </div>
+                          <div className="inner-item">
+                            <h6>TOMI Balance</h6>
+                            <p>500 TOMI</p>
+                          </div>
+                          <div className="inner-item">
+                            <h6>Actions</h6>
+                            <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
+                          </div>
+
+                        </div>
+                      </Accordion.Body>
+                    </Accordion.Item>
+                    <Accordion.Item eventKey="3">
+                      <Accordion.Header>sharjeel</Accordion.Header>
+                      <Accordion.Body>
+                        <div className="inner-fields">
+                          <div className="inner-item">
+                            <h6>Rank</h6>
+                            <p><img src="\assets\private.svg" style={{ width: "22px", height: "22px" }} alt="img" className='img-fluid me-2' /> Private</p>
+                          </div>
+                          <div className="inner-item">
+                            <h6>Wallet Address</h6>
+                            <p>0x2F78....aB0C</p>
+                          </div>
+                          <div className="inner-item">
+                            <h6>Username</h6>
+                            <p>@sharjeel</p>
+                          </div>
+                          <div className="inner-item">
+                            <h6>TOMI Balance</h6>
+                            <p>500 TOMI</p>
+                          </div>
+                          <div className="inner-item">
+                            <h6>Actions</h6>
+                            <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
+                          </div>
+
+                        </div>
+                      </Accordion.Body>
+                    </Accordion.Item>
+
+                  </Accordion>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -204,7 +344,7 @@ const Squad = () => {
 
         </Modal> */}
 
-{/*         
+        {/*         
         <Modal className='detailmodal' show={show1} onHide={handleClose1} centered>
           <Modal.Header closeButton>
             <Modal.Title>
@@ -256,7 +396,7 @@ const Squad = () => {
         <Modal className='detailmodal' show={show2} onHide={handleClose2} centered>
           <Modal.Header closeButton>
             <Modal.Title>
-            Create Squad
+              Create Squad
             </Modal.Title>
 
           </Modal.Header>

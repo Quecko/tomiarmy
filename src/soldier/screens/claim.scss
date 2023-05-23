@@ -392,17 +392,18 @@
         flex-direction: column;
     }
 
-    .claim-section .opeartions-tab {
-        flex-wrap: nowrap;
-        overflow-x: auto;
-        overflow-y: hidden;
-
-        &::-webkit-scrollbar {
-            display: none;
-        }
-    }
-
     .claim-section .opeartions-tab .nav-item .nav-link {
         white-space: nowrap;
+    }
+    .claim-section .opeartions-tab{
+        flex-wrap: nowrap;
+        justify-content: space-between;
+        .nav-item{
+            flex: 1;
+            .nav-link{
+                width: 100%;
+                font-size: 14px;
+            }
+        }
     }
 }

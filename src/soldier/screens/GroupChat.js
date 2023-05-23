@@ -14,6 +14,13 @@ const GroupChat = () => {
 
   return (
     <>
+    <div className="formobile-heading d-none display-block-in-mobile forchatgroup">
+        <div className="inner-heading">
+          <h6>Group Chat</h6>
+          <p>Chat with your army</p>
+        </div>
+        <a onClick={handleShow1}>View All Members <img src="\assets\arrow-right.svg" alt="img" className='img-fluid ms-2' /></a>
+      </div>
     <section className="group-chat">
       <div className="row">
         <div className="col-xl-9 col-12 p-0 ordersm-2">
@@ -140,14 +147,14 @@ const GroupChat = () => {
                     }
                     <a onClick={() => setshow(!show)}><img src="\assets\emoji.svg" alt="img" className='img-fluid' /></a>
                   </div>
-                  <button className='btn-send' onClick={handleShow1}>Send</button>
+                  <button className='btn-send' >Send</button>
                 </div>
               </div>
             </div>
           </div>
         </div>
         <div className="col-xl-3 col-12 pe-0 padd-sm ordersm-1">
-          <div className='members-section border-grad1'>
+          <div className='members-section border-grad1 display-none-in-mobile'>
             <div className="tophead">
               <h6>Members <span>(192)</span></h6>
             </div>

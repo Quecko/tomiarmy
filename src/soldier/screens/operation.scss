@@ -455,8 +455,20 @@
     }
     .active-operations .bottom-cards .card-item{
         flex-direction: row !important;
+        gap: 15px;
+        height: auto;
     }
     .active-operations .bottom-cards .card-item .inner-content p{
         margin-top: 0 !important;
+    }
+    .active-operations .bottom-cards .unique-item{
+        flex-direction: column !important;
+        justify-content: flex-start !important;
+        align-items: flex-start !important;
+    }
+    .active-operations .bottom-cards .inner-set{
+        width: 100%;
+        flex-direction: row !important;
+        gap: 15px;
     }
 }

@@ -314,4 +314,21 @@
     .ordersm-1{
         order: 1;
     }
+    .forchatgroup{
+        display: flex !important;
+        justify-content: space-between;
+        align-items: center !important;
+        .inner-heading{
+            margin: 0 !important;
+        }
+        a{
+            font-style: normal;
+            font-weight: 600;
+            font-size: 14px;
+            line-height: 100%;
+            color: #FF0083 !important;
+            display: flex;
+            align-items: center;
+        }
+    }
 }

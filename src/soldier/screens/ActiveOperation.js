@@ -3,6 +3,7 @@ import "./operation.scss"
 import Dropdown from 'react-bootstrap/Dropdown';
 import Pagination from 'react-bootstrap/Pagination';
 import Modal from 'react-bootstrap/Modal';
+import Accordion from 'react-bootstrap/Accordion';
 
 const ActiveOperation = () => {
 
@@ -63,7 +64,7 @@ const ActiveOperation = () => {
                         </div>
                     </div>
                 </div>
-                <div className='maincard'>
+                <div className='maincard display-none-in-mobile'>
                     <div className="maintable table-responsive">
                         <table class="table table-striped " >
                             <thead>
@@ -261,6 +262,105 @@ const ActiveOperation = () => {
                         </div>
                     </div>
                 </div>
+                <div className="mobile-responsive-table d-none display-block-in-mobile">
+                    <div className="heading-mobile">
+                        <p>Task</p>
+                    </div>
+                    <Accordion defaultActiveKey="0">
+                        <Accordion.Item eventKey="0">
+                            <Accordion.Header>Like our facebook page</Accordion.Header>
+                            <Accordion.Body>
+                                <div className="inner-fields">
+                                    <div className="inner-item">
+                                        <h6>Points</h6>
+                                        <p>+5</p>
+                                    </div>
+                                    <div className="inner-item">
+                                        <h6>Status</h6>
+                                        <button className="btn-green">Completed</button>
+                                    </div>
+                                    <div className="inner-item">
+                                        <h6>Expiry</h6>
+                                        <p>12:34 12/12/23</p>
+                                    </div>
+                                    <div className="inner-item">
+                                        <h6>Actions</h6>
+                                        <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
+                                    </div>
+                                </div>
+                            </Accordion.Body>
+                        </Accordion.Item>
+                        <Accordion.Item eventKey="1">
+                            <Accordion.Header>Follow our twitter acc...</Accordion.Header>
+                            <Accordion.Body>
+                                <div className="inner-fields">
+                                    <div className="inner-item">
+                                        <h6>Points</h6>
+                                        <p>+5</p>
+                                    </div>
+                                    <div className="inner-item">
+                                        <h6>Status</h6>
+                                        <button className="btn-green">Completed</button>
+                                    </div>
+                                    <div className="inner-item">
+                                        <h6>Expiry</h6>
+                                        <p>12:34 12/12/23</p>
+                                    </div>
+                                    <div className="inner-item">
+                                        <h6>Actions</h6>
+                                        <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
+                                    </div>
+                                </div>
+                            </Accordion.Body>
+                        </Accordion.Item>
+                        <Accordion.Item eventKey="2">
+                            <Accordion.Header>Like our facebook page</Accordion.Header>
+                            <Accordion.Body>
+                                <div className="inner-fields">
+                                    <div className="inner-item">
+                                        <h6>Points</h6>
+                                        <p>+5</p>
+                                    </div>
+                                    <div className="inner-item">
+                                        <h6>Status</h6>
+                                        <button className="btn-green">Completed</button>
+                                    </div>
+                                    <div className="inner-item">
+                                        <h6>Expiry</h6>
+                                        <p>12:34 12/12/23</p>
+                                    </div>
+                                    <div className="inner-item">
+                                        <h6>Actions</h6>
+                                        <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
+                                    </div>
+                                </div>
+                            </Accordion.Body>
+                        </Accordion.Item>
+                        <Accordion.Item eventKey="3">
+                            <Accordion.Header>Like our facebook page</Accordion.Header>
+                            <Accordion.Body>
+                                <div className="inner-fields">
+                                    <div className="inner-item">
+                                        <h6>Points</h6>
+                                        <p>+5</p>
+                                    </div>
+                                    <div className="inner-item">
+                                        <h6>Status</h6>
+                                        <button className="btn-green">Completed</button>
+                                    </div>
+                                    <div className="inner-item">
+                                        <h6>Expiry</h6>
+                                        <p>12:34 12/12/23</p>
+                                    </div>
+                                    <div className="inner-item">
+                                        <h6>Actions</h6>
+                                        <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
+                                    </div>
+                                </div>
+                            </Accordion.Body>
+                        </Accordion.Item>
+                    </Accordion>
+                </div>
             </section>
 
             <Modal className='detailmodal' show={show1} onHide={handleClose1} centered>
@@ -307,7 +407,7 @@ const ActiveOperation = () => {
                     </div>
                     <div className='endbtn'>
                         <button><span><img src='\Subtract.svg' alt='img' className='img-fluid' /></span>Cancel</button>
-                        <button onClick={() =>{
+                        <button onClick={() => {
                             handleClose1();
                             handleShow2();
                         }} >Submit proof of work</button>

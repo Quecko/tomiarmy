@@ -218,11 +218,11 @@ const Header = ({ routes, setroute, indexwait, handleShow }) => {
               : ""
           }
           {
-            indexwait === 5 ?
+            indexwait === 6 ?
               <>
                 <button className="create-squad-btn" data-bs-toggle="modal" data-bs-target="#exampleModall">
                   <img src="\assets\topic-btn.svg" alt="img" className="img-fluid me-2" />
-                  Start a new topic
+                  <span>Start a new topic</span>
                 </button>
               </>
               : ""

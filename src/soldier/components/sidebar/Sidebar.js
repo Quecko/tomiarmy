@@ -10,9 +10,9 @@ import Squad from "../../screens/Squad";
 import Announcements from "../../screens/Announcements";
 import GroupChat from "../../screens/GroupChat";
 import ArmyForum from "../../screens/ArmyForum";
-import ClaimedReward from "../../screens/ClaimedReward";
 import Header from "../header/Header";
 import { Offcanvas } from "react-bootstrap";
+import ClaimRewards from "../../screens/ClaimRewards";
 
 const Sidebar = () => {
 
@@ -464,7 +464,7 @@ const Sidebar = () => {
                         indexwait == 7 ?
                           (
                             <>
-                             <ClaimedReward />
+                            <ClaimRewards />
                             </>
                           )
                           :
