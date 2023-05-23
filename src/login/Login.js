@@ -31,7 +31,7 @@ const Login = () => {
                         <Invitecode />
                     </Tab>
                     <Tab eventKey="solider" title="Free Solider">
-                        <Freesoldier />
+                        <ConnectWallet />
                     </Tab>
                 </Tabs>
             </div>

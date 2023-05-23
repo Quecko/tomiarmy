@@ -25,7 +25,6 @@ function App() {
           <Sidebar />
           <div className="content-column">
             <Header routes={routes} setroute={setroute} />
-
             <Switch>
               <Route exact path="/" component={Login} />
               <Route exact path="/home" component={Home} />
