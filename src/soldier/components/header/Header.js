@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "../../../style.scss";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import notificationIcon from "../../../assets/icons/notificationIcon.svg";
 import menuIcon from "../../../assets/icons/menuIcon.svg";
 import { Button, Offcanvas } from "react-bootstrap";
@@ -8,15 +8,10 @@ import Sidebar from "../sidebar/Sidebar";
 import mobileLogo from "../../../assets/icons/mobileLogo.svg";
 import Modal from 'react-bootstrap/Modal';
 
-const Header = ({ routes, setroute }) => {
-  const location = useLocation();
-  const currentPath = location.pathname;
-  console.log("🚀 ~ file: Header.js:16 ~ Header ~ currentPath:", currentPath);
+const Header = ({ routes, setroute, indexwait, handleShow }) => {
 
-  const [show, setShow] = useState(false);
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  
 
   const [show1, setShow1] = useState(false);
   const handleClose1 = () => setShow1(false);
@@ -35,13 +30,7 @@ const Header = ({ routes, setroute }) => {
   const handleClose4 = () => setShow4(false);
   const handleShow4 = () => setShow4(true);
 
-  const sidebar = () => {
-    if (show === true) {
-      setShow(false);
-    } else {
-      setShow(true);
-    }
-  };
+  
   const [profilePicture, setProfilePicture] = useState(null);
   const setProfilePic = (evt) => {
     setProfilePicture(evt.target.files[0]);
@@ -50,36 +39,36 @@ const Header = ({ routes, setroute }) => {
     <>
       <div
         className={
-          currentPath === "/home"
+          indexwait === 0
             ? "home-headed-username Header-wrapper"
             : "home-headed-username-none Header-wrapper"
         }
       >
         <div className="home-headed-username">
           <div className="mobile-logo">
-            <Link to={"/home"}>
+            <Link to={"/soldier"}>
               <img src={mobileLogo} alt="mobileLogo" />
             </Link>
           </div>
-          {currentPath === "/home" ? (
+          {indexwait === 0 ? (
             <div className="soldier-name">
               <h4>Welcome BATMAN,</h4>
               <p>LET’S FIGHT FOR THE ARMY</p>
             </div>
           ) : null}
-          {currentPath === "/tasks" ? (
+          {indexwait === 1 ? (
             <div className="soldier-name">
               <h4>ALL TASKS</h4>
               <p>VIEW AND complete TASKS</p>
             </div>
           ) : null}
-          {currentPath === "/squad" ? (
+          {indexwait === 3 ? (
             <div className="soldier-name">
               <h4>Your Squad</h4>
               <p>VIEW Your Squad</p>
             </div>
           ) : null}
-          {currentPath === "/operations" ? (
+          {indexwait === 2 ? (
             <>
               {
                 routes ?
@@ -91,25 +80,25 @@ const Header = ({ routes, setroute }) => {
               }
             </>
           ) : null}
-          {currentPath === "/announcements" ? (
+          {indexwait === 4 ? (
             <div className="soldier-name">
               <h4>announcements</h4>
               <p>view your announcements</p>
             </div>
           ) : null}
-          {currentPath === "/forum" ? (
+          {indexwait === 6 ? (
             <div className="soldier-name">
               <h4>Army Forum</h4>
               <p>Engage with your army</p>
             </div>
           ) : null}
-          {currentPath === "/chat" ? (
+          {indexwait === 5 ? (
             <div className="soldier-name">
               <h4>Group Chat</h4>
               <p>Chat with your army</p>
             </div>
           ) : null}
-          {currentPath === "/claim" ? (
+          {indexwait === 7 ? (
             <div className="soldier-name">
               <h4>Claim Rewards</h4>
               <p>claim you rewards</p>
@@ -118,7 +107,7 @@ const Header = ({ routes, setroute }) => {
         </div>
         <div className="header-buttons">
           {
-            currentPath === "/home" ?
+            indexwait === 0 ?
               <>
 
                 <div class="btn-group notification-btn">
@@ -188,7 +177,7 @@ const Header = ({ routes, setroute }) => {
               : ""
           }
           {
-            currentPath === "/squad" ?
+            indexwait === 3 ?
               <>
                 <button className="leave" onClick={handleShow4}>
                   <svg width="19" height="18" viewBox="0 0 19 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -231,7 +220,7 @@ const Header = ({ routes, setroute }) => {
               : ""
           }
           {
-            currentPath === "/forum" ?
+            indexwait === 5 ?
               <>
                 <button className="create-squad-btn" data-bs-toggle="modal" data-bs-target="#exampleModall">
                   <img src="\assets\topic-btn.svg" alt="img" className="img-fluid me-2" />
@@ -244,16 +233,7 @@ const Header = ({ routes, setroute }) => {
             <img src={menuIcon} alt="menuIcon" />
           </button>
 
-          <Offcanvas show={show} onHide={handleClose} className="menu-off-canvas">
-            <Offcanvas.Header closeButton>
-              <Offcanvas.Title></Offcanvas.Title>
-            </Offcanvas.Header>
-            <Offcanvas.Body>
-              <div className="sidebar-column">
-                <Sidebar sidebar={sidebar} />
-              </div>
-            </Offcanvas.Body>
-          </Offcanvas>
+         
         </div>
         <Modal className='detailmodal' show={show1} onHide={handleClose1} centered>
           <Modal.Header closeButton>
