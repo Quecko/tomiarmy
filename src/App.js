@@ -1,6 +1,6 @@
 import "./App.css";
 import './style.scss';
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import Home from "./soldier/screens/Home";
 import Tasks from "./soldier/screens/Tasks";
 import Sidebar from "./soldier/components/sidebar/Sidebar";
@@ -25,19 +25,20 @@ function App() {
           <Sidebar />
           <div className="content-column">
             <Header routes={routes} setroute={setroute} />
-            <Routes>
-              <Route exact path="/" element={<Login />} />
-              <Route exact path="/home" element={<Home />} />
-              <Route exact path="/tasks" element={<Tasks />} />
-              <Route exact path="/operations" element={<Operations setroute={setroute} routes={routes} />} />
-              <Route exact path="/squad" element={<Squad />} />
-              <Route exact path="/announcements" element={<Announcements />} />
-              <Route exact path="/chat" element={<GroupChat />} />
-              <Route exact path="/forum" element={<ArmyForum />} />
-              <Route exact path="/claim" element={<ClaimRewards />} />
-              <Route exact path="/requestinvitation" element={<Requestinvitation />} />
-              <Route exact path="/dcsquad" element={<Dcsquad />} />
-            </Routes>
+
+            <Switch>
+              <Route exact path="/" component={Login} />
+              <Route exact path="/home" component={Home} />
+              <Route exact path="/tasks" component={Tasks} />
+              <Route exact path="/operations" component={() => (<Operations routes={routes} setroute={setroute} />)}  />
+              <Route exact path="/squad" component={Squad} />
+              <Route exact path="/announcements" component={Announcements} />
+              <Route exact path="/chat" component={GroupChat} />
+              <Route exact path="/forum" component={ArmyForum} />
+              <Route exact path="/claim" component={ClaimRewards} />
+              <Route exact path="/requestinvitation" component={Requestinvitation} />
+              <Route exact path="/dcsquad" component={Dcsquad} />
+            </Switch>
           </div>
         </Router>
       </div>
