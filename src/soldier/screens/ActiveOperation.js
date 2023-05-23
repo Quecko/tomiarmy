@@ -26,7 +26,7 @@ const ActiveOperation = () => {
                         <h6>operation : ELON MUSK <span>ENDS IN: 23:34:12</span></h6>
                         <p>make elon musk tweet about tomi</p>
                     </div>
-                    <a href="#">View All Operation Tasks <img src="\assets\arrow-right.svg" alt="img" className='img-fluid ms-2' /></a>
+                    {/* <a href="#">View All Operation Tasks <img src="\assets\arrow-right.svg" alt="img" className='img-fluid ms-2' /></a> */}
                 </div>
                 <div className="bottom-cards">
                     <div className="card-item border-grad">

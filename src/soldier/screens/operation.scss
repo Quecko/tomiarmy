@@ -429,4 +429,34 @@
     .active-operations .maincard .maintable .table-striped tbody .twice{
         flex-direction: column;
     }
+    .operations .opeartions-tab{
+        justify-content: space-between;
+    }
+    .operations .opeartions-tab .nav-item{
+        flex: 1;
+    }
+    .operations .opeartions-tab .nav-item .nav-link{
+        width: 100%;
+    }
+    .active-operations .upper-item .left h6{
+        font-size: 16px;
+        text-align: start;
+    }
+    .active-operations .upper-item .left h6 span{
+        font-size: 16px;
+    }
+    .active-operations .upper-item{
+        justify-content: flex-start;
+        align-items: flex-start;
+    }
+    .active-operations .upper-item .left p{
+        text-align: start;
+        width: 100%;
+    }
+    .active-operations .bottom-cards .card-item{
+        flex-direction: row !important;
+    }
+    .active-operations .bottom-cards .card-item .inner-content p{
+        margin-top: 0 !important;
+    }
 }

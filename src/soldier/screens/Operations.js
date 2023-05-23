@@ -9,6 +9,12 @@ import ExpiredOperation from './ExpiredOperation';
 const Operations = ({ setroute, routes }) => {
   return (
     <>
+     <div className="formobile-heading d-none display-block-in-mobile">
+        <div className="inner-heading">
+          <h6>Operations</h6>
+          <p>VIEW AND complete operations</p>
+        </div>
+      </div>
       <section className="operations">
         <Tabs
           defaultActiveKey="activeop"

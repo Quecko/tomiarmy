@@ -11,7 +11,7 @@ import Modal from 'react-bootstrap/Modal';
 const Header = ({ routes, setroute, indexwait, handleShow }) => {
 
 
-  
+
 
   const [show1, setShow1] = useState(false);
   const handleClose1 = () => setShow1(false);
@@ -30,7 +30,7 @@ const Header = ({ routes, setroute, indexwait, handleShow }) => {
   const handleClose4 = () => setShow4(false);
   const handleShow4 = () => setShow4(true);
 
-  
+
   const [profilePicture, setProfilePicture] = useState(null);
   const setProfilePic = (evt) => {
     setProfilePicture(evt.target.files[0]);
@@ -109,7 +109,6 @@ const Header = ({ routes, setroute, indexwait, handleShow }) => {
           {
             indexwait === 0 ?
               <>
-
                 <div class="btn-group notification-btn">
                   <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
                     <img src={notificationIcon} alt="notificationIcon" />
@@ -142,8 +141,7 @@ const Header = ({ routes, setroute, indexwait, handleShow }) => {
                     </div>
                   </ul>
                 </div>
-
-                <button className="create-squad-btn" >
+                <button className="create-squad-btn display-none-in-mobile" >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="20"
@@ -179,13 +177,13 @@ const Header = ({ routes, setroute, indexwait, handleShow }) => {
           {
             indexwait === 3 ?
               <>
-                <button className="leave" onClick={handleShow4}>
+                <button className="leave display-none-in-mobile" onClick={handleShow4}>
                   <svg width="19" height="18" viewBox="0 0 19 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M13.35 1.5H11.4C9 1.5 7.5 3 7.5 5.4V8.4375H12.1875C12.495 8.4375 12.75 8.6925 12.75 9C12.75 9.3075 12.495 9.5625 12.1875 9.5625H7.5V12.6C7.5 15 9 16.5 11.4 16.5H13.3425C15.7425 16.5 17.2425 15 17.2425 12.6V5.4C17.25 3 15.75 1.5 13.35 1.5Z" fill="white" />
                     <path d="M4.17008 8.43751L5.72258 6.88501C5.83508 6.77251 5.88758 6.63 5.88758 6.4875C5.88758 6.345 5.83508 6.195 5.72258 6.09C5.50508 5.8725 5.14508 5.8725 4.92758 6.09L2.41508 8.60251C2.19758 8.82001 2.19758 9.18 2.41508 9.3975L4.92758 11.91C5.14508 12.1275 5.50508 12.1275 5.72258 11.91C5.94008 11.6925 5.94008 11.3325 5.72258 11.115L4.17008 9.56251H7.50008V8.43751H4.17008Z" fill="white" />
                   </svg>
                   <span> Leave Squad</span></button>
-                <button className="create-squad-btn" onClick={handleShow1}>
+                <button className="create-squad-btn display-none-in-mobile" onClick={handleShow1}>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="20"
@@ -233,7 +231,7 @@ const Header = ({ routes, setroute, indexwait, handleShow }) => {
             <img src={menuIcon} alt="menuIcon" />
           </button>
 
-         
+
         </div>
         <Modal className='detailmodal' show={show1} onHide={handleClose1} centered>
           <Modal.Header closeButton>
