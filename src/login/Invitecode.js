@@ -4,7 +4,7 @@ import armyText from '../assets/icons/armyText.svg';
 import './login.scss';
 import ConnectWallet from './ConnectWallet';
 
-const Invitecode = () => {
+const Invitecode = ({role}) => {
     const [joinsquad, setjoinsquad] = useState(false)
     const joinsquadwallet = () => {
         setjoinsquad(true)
@@ -13,7 +13,7 @@ const Invitecode = () => {
         <>
             {joinsquad ?
                 (
-                    <ConnectWallet setjoinsquad={setjoinsquad} joinsquad={joinsquad}/>
+                    <ConnectWallet setjoinsquad={setjoinsquad} role={role} joinsquad={joinsquad}/>
                 )
                 :
                 (

@@ -5,6 +5,8 @@ import Home from "./soldier/screens/Home";
 import Tasks from "./soldier/screens/Tasks";
 import Sidebar from "./soldier/components/sidebar/Sidebar";
 import Header from "./soldier/components/header/Header";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Operations from "./soldier/screens/Operations";
 import Squad from "./soldier/screens/Squad";
 import Announcements from "./soldier/screens/Announcements";
@@ -20,6 +22,7 @@ function App() {
   const [routes, setroute] = useState(false);
   return (
     <>
+      <ToastContainer autoClose={5000} style={{ fontSize: 12, fontWeight: 300 }} theme="dark" position="bottom-center" />
       <div className="App app-wrapper row m-0">
         <Router>
           <Sidebar />
