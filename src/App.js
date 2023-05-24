@@ -14,6 +14,7 @@ import Login from "./login/Login";
 import Requestinvitation from "./login/Requestinvitation";
 import Dcsquad from "./login/Dcsquad";
 import Sidebar from "./soldier/components/sidebar/Sidebar";
+import Settings from "./soldier/screens/Settings";
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
               <Route exact path="/claim" component={ClaimRewards} />
               <Route exact path="/requestinvitation" component={Requestinvitation} />
               <Route exact path="/dcsquad" component={Dcsquad} />
+              <Route exact path="/setting" component={Settings} />
             </Switch>
         </Router>
     </>

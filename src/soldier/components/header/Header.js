@@ -104,6 +104,24 @@ const Header = ({ routes, setroute, indexwait, handleShow }) => {
               <p>claim you rewards</p>
             </div>
           ) : null}
+          {indexwait === 8 ? (
+            <div className="soldier-name">
+              <h4>settings</h4>
+              <p>Change you nickname and link social accounts</p>
+            </div>
+          ) : null}
+          {indexwait === 9 ? (
+            <div className="soldier-name">
+              <h4>Report a Bug</h4>
+              <p>report a bug to get resolved</p>
+            </div>
+          ) : null}
+           {indexwait === 10 ? (
+            <div className="soldier-name">
+              <h4>Faqs</h4>
+              <p>view faqs</p>
+            </div>
+          ) : null}
         </div>
         <div className="header-buttons">
           {
