@@ -15,27 +15,34 @@ import Requestinvitation from "./login/Requestinvitation";
 import Dcsquad from "./login/Dcsquad";
 import Sidebar from "./soldier/components/sidebar/Sidebar";
 import Settings from "./soldier/screens/Settings";
+import GeneralSidebar from "./General/components/Sidebar/GeneralSidebar";
 
 function App() {
   return (
     <>
-        <Router>
-            <Switch>
-              <Route exact path="/" component={Login} />
-              <Route exact path="/soldier" component={Sidebar} />
-              <Route exact path="/home" component={Home} />
-              <Route exact path="/tasks" component={Tasks} />
-              <Route exact path="/operations" component={Operations}  />
-              <Route exact path="/squad" component={Squad} />
-              <Route exact path="/announcements" component={Announcements} />
-              <Route exact path="/chat" component={GroupChat} />
-              <Route exact path="/forum" component={ArmyForum} />
-              <Route exact path="/claim" component={ClaimRewards} />
-              <Route exact path="/requestinvitation" component={Requestinvitation} />
-              <Route exact path="/dcsquad" component={Dcsquad} />
-              <Route exact path="/setting" component={Settings} />
-            </Switch>
-        </Router>
+      <Router>
+        <Switch>
+
+          <Route exact path="/" component={Login} />
+          <Route exact path="/requestinvitation" component={Requestinvitation} />
+          <Route exact path="/dcsquad" component={Dcsquad} />
+          {/* soldier + leader all routes here........................... */}
+          <Route exact path="/soldier" component={Sidebar} />
+          <Route exact path="/home" component={Home} />
+          <Route exact path="/tasks" component={Tasks} />
+          <Route exact path="/operations" component={Operations} />
+          <Route exact path="/squad" component={Squad} />
+          <Route exact path="/announcements" component={Announcements} />
+          <Route exact path="/chat" component={GroupChat} />
+          <Route exact path="/forum" component={ArmyForum} />
+          <Route exact path="/claim" component={ClaimRewards} />
+          <Route exact path="/setting" component={Settings} />
+
+
+          {/* General + Major all routes here......................... */}
+          <Route exact path="/general" component={GeneralSidebar} />
+        </Switch>
+      </Router>
     </>
   );
 }

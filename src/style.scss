@@ -211,6 +211,7 @@ table {
     justify-content: space-between;
 
     .soldier-name {
+        margin-left: 15px;
         h4 {
             font-style: normal;
             font-weight: 700;
@@ -554,9 +555,13 @@ table {
         .dropdown-toggle {
             padding: 10px 20px;
             background: #191D26;
-            border: 1px solid #FF0083;
+            border: 1px solid #343742;
             border-radius: 10px;
         }
+       
+    }
+    .btn-check:active+.btn-primary:focus, .btn-check:checked+.btn-primary:focus, .btn-primary.active:focus, .btn-primary:active:focus, .show>.btn-primary.dropdown-toggle:focus{
+        border: 1px solid #FF0083 !important;
     }
 
     .stats-data-boxes {
@@ -618,6 +623,9 @@ table {
             border: 1px solid #343742;
             border-radius: 10px;
         }
+    }
+    .btn-check:active+.btn-primary:focus, .btn-check:checked+.btn-primary:focus, .btn-primary.active:focus, .btn-primary:active:focus, .show>.btn-primary.dropdown-toggle:focus{
+        border: 1px solid #FF0083 !important;
     }
 }
 
@@ -2829,7 +2837,7 @@ tr td:last-child {
         }
     }
 
-    .home-headed-username {
+    .Header-wrapper {
         background: #181B23;
         border-radius: 10px;
         padding: 20px;

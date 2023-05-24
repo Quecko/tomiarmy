@@ -39,4 +39,8 @@
             text-align: start;
         }
     }
+    .accordion-button:not(.collapsed){
+        box-shadow: none !important;
+        background: transparent !important;
+    }
 }
