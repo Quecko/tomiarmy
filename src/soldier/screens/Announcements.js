@@ -85,7 +85,7 @@ const Announcements = () => {
                               </tr>
                               <tr>
                                 <td>
-                                  <p className='paratable'>Follow this Twitter AcRetweet the following tweet...</p>
+                                  <p className='paratable'>Follow this Twitter Account....</p>
                                 </td>
                                 <td>
                                   <p className='paratable'>01/01/23</p>
@@ -100,8 +100,17 @@ const Announcements = () => {
 
                                       <Dropdown.Menu>
                                         <Dropdown.Item href="#/action-1">
-                                          <p><img src='\Vector.svg' alt='img' className='img-fluid' />Submit Proof</p>
+                                          <p><img src='\reading-book1.svg' alt='img' className='img-fluid' />Mark as read</p>
                                         </Dropdown.Item>
+                                        <div className='brdr'></div>
+                                        <Dropdown.Item href="#/action-1">
+                                          <p onClick={handleShow}><img src='\Vectordetail.svg' alt='img' className='img-fluid' />details</p>
+                                        </Dropdown.Item>
+                                        <div className='brdr'></div>
+                                        <Dropdown.Item href="#/action-1">
+                                          <p><img src='\trash.svg' alt='img' className='img-fluid' />delete</p>
+                                        </Dropdown.Item>
+
                                       </Dropdown.Menu>
                                     </Dropdown>
                                   </div>
@@ -109,7 +118,7 @@ const Announcements = () => {
                               </tr>
                               <tr>
                                 <td>
-                                  <p className='paratable'>Start a discussion on tomi discord server</p>
+                                  <p className='paratable'>Follow this Twitter Account....</p>
                                 </td>
                                 <td>
                                   <p className='paratable'>01/01/23</p>
@@ -124,8 +133,17 @@ const Announcements = () => {
 
                                       <Dropdown.Menu>
                                         <Dropdown.Item href="#/action-1">
-                                          <p><img src='\Vector.svg' alt='img' className='img-fluid' />Submit Proof</p>
+                                          <p><img src='\reading-book1.svg' alt='img' className='img-fluid' />Mark as read</p>
                                         </Dropdown.Item>
+                                        <div className='brdr'></div>
+                                        <Dropdown.Item href="#/action-1">
+                                          <p onClick={handleShow}><img src='\Vectordetail.svg' alt='img' className='img-fluid' />details</p>
+                                        </Dropdown.Item>
+                                        <div className='brdr'></div>
+                                        <Dropdown.Item href="#/action-1">
+                                          <p><img src='\trash.svg' alt='img' className='img-fluid' />delete</p>
+                                        </Dropdown.Item>
+
                                       </Dropdown.Menu>
                                     </Dropdown>
                                   </div>
@@ -133,7 +151,7 @@ const Announcements = () => {
                               </tr>
                               <tr>
                                 <td>
-                                  <p className='paratable'>join the telegram channel</p>
+                                  <p className='paratable'>Follow this Twitter Account....</p>
                                 </td>
                                 <td>
                                   <p className='paratable'>01/01/23</p>
@@ -148,13 +166,23 @@ const Announcements = () => {
 
                                       <Dropdown.Menu>
                                         <Dropdown.Item href="#/action-1">
-                                          <p><img src='\Vector.svg' alt='img' className='img-fluid' />Submit Proof</p>
+                                          <p><img src='\reading-book1.svg' alt='img' className='img-fluid' />Mark as read</p>
                                         </Dropdown.Item>
+                                        <div className='brdr'></div>
+                                        <Dropdown.Item href="#/action-1">
+                                          <p onClick={handleShow}><img src='\Vectordetail.svg' alt='img' className='img-fluid' />details</p>
+                                        </Dropdown.Item>
+                                        <div className='brdr'></div>
+                                        <Dropdown.Item href="#/action-1">
+                                          <p><img src='\trash.svg' alt='img' className='img-fluid' />delete</p>
+                                        </Dropdown.Item>
+
                                       </Dropdown.Menu>
                                     </Dropdown>
                                   </div>
                                 </td>
                               </tr>
+                           
                             </tbody>
                           </table>
                         </div>
@@ -299,7 +327,7 @@ const Announcements = () => {
                             </tr>
                             <tr>
                               <td>
-                                <p className='paratable'>Follow this Twitter AcRetweet the following tweet...</p>
+                                <p className='paratable'>Follow this Twitter Account....</p>
                               </td>
                               <td>
                                 <p className='paratable'>01/01/23</p>
@@ -316,6 +344,15 @@ const Announcements = () => {
                                       <Dropdown.Item href="#/action-1">
                                         <p><img src='\Vector.svg' alt='img' className='img-fluid' />Submit Proof</p>
                                       </Dropdown.Item>
+                                      <div className='brdr'></div>
+                                      <Dropdown.Item href="#/action-1">
+                                        <p onClick={handleShow}><img src='\Vectordetail.svg' alt='img' className='img-fluid' />details</p>
+                                      </Dropdown.Item>
+                                      <div className='brdr'></div>
+                                      <Dropdown.Item href="#/action-1">
+                                        <p><img src='\trash.svg' alt='img' className='img-fluid' />delete</p>
+                                      </Dropdown.Item>
+
                                     </Dropdown.Menu>
                                   </Dropdown>
                                 </div>
@@ -323,7 +360,7 @@ const Announcements = () => {
                             </tr>
                             <tr>
                               <td>
-                                <p className='paratable'>Start a discussion on tomi discord server</p>
+                                <p className='paratable'>Follow this Twitter Account....</p>
                               </td>
                               <td>
                                 <p className='paratable'>01/01/23</p>
@@ -340,11 +377,87 @@ const Announcements = () => {
                                       <Dropdown.Item href="#/action-1">
                                         <p><img src='\Vector.svg' alt='img' className='img-fluid' />Submit Proof</p>
                                       </Dropdown.Item>
+                                      <div className='brdr'></div>
+                                      <Dropdown.Item href="#/action-1">
+                                        <p onClick={handleShow}><img src='\Vectordetail.svg' alt='img' className='img-fluid' />details</p>
+                                      </Dropdown.Item>
+                                      <div className='brdr'></div>
+                                      <Dropdown.Item href="#/action-1">
+                                        <p><img src='\trash.svg' alt='img' className='img-fluid' />delete</p>
+                                      </Dropdown.Item>
+
                                     </Dropdown.Menu>
                                   </Dropdown>
                                 </div>
                               </td>
                             </tr>
+                            <tr>
+                              <td>
+                                <p className='paratable'>Follow this Twitter Account....</p>
+                              </td>
+                              <td>
+                                <p className='paratable'>01/01/23</p>
+                              </td>
+                              <td>
+                                <div className='dropbtn'>
+                                  <Dropdown>
+                                    <Dropdown.Toggle variant="success" id="dropdown-basic">
+                                      <img src='\Vectordots.svg' alt='img' className='img-fluid' />
+
+                                    </Dropdown.Toggle>
+
+                                    <Dropdown.Menu>
+                                      <Dropdown.Item href="#/action-1">
+                                        <p><img src='\Vector.svg' alt='img' className='img-fluid' />Submit Proof</p>
+                                      </Dropdown.Item>
+                                      <div className='brdr'></div>
+                                      <Dropdown.Item href="#/action-1">
+                                        <p onClick={handleShow}><img src='\Vectordetail.svg' alt='img' className='img-fluid' />details</p>
+                                      </Dropdown.Item>
+                                      <div className='brdr'></div>
+                                      <Dropdown.Item href="#/action-1">
+                                        <p><img src='\trash.svg' alt='img' className='img-fluid' />delete</p>
+                                      </Dropdown.Item>
+
+                                    </Dropdown.Menu>
+                                  </Dropdown>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <p className='paratable'>Follow this Twitter Account....</p>
+                              </td>
+                              <td>
+                                <p className='paratable'>01/01/23</p>
+                              </td>
+                              <td>
+                                <div className='dropbtn'>
+                                  <Dropdown>
+                                    <Dropdown.Toggle variant="success" id="dropdown-basic">
+                                      <img src='\Vectordots.svg' alt='img' className='img-fluid' />
+
+                                    </Dropdown.Toggle>
+
+                                    <Dropdown.Menu>
+                                      <Dropdown.Item href="#/action-1">
+                                        <p><img src='\Vector.svg' alt='img' className='img-fluid' />Submit Proof</p>
+                                      </Dropdown.Item>
+                                      <div className='brdr'></div>
+                                      <Dropdown.Item href="#/action-1">
+                                        <p onClick={handleShow}><img src='\Vectordetail.svg' alt='img' className='img-fluid' />details</p>
+                                      </Dropdown.Item>
+                                      <div className='brdr'></div>
+                                      <Dropdown.Item href="#/action-1">
+                                        <p><img src='\trash.svg' alt='img' className='img-fluid' />delete</p>
+                                      </Dropdown.Item>
+
+                                    </Dropdown.Menu>
+                                  </Dropdown>
+                                </div>
+                              </td>
+                            </tr>
+                           
                           </tbody>
                         </table>
                       </div>
