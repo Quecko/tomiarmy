@@ -50,7 +50,7 @@ const MyRank = () => {
                   <p>5,000 POINTS</p>
                 </div>
               </div>
-              <img src={pointsBar} className="pointsBarimg" alt="" />
+              <img src={pointsBar} className="img-fluid" alt="img" style={{marginLeft: "-15px"}} />
               <img src="\Framedots.svg" alt="img"className="img-fluid"/>
             </div>
           </div>

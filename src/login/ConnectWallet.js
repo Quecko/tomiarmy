@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import armyCap from '../assets/icons/mobileLogo.svg';
 import armyText from '../assets/icons/armyText.svg';
 import metamaskIcon from '../assets/icons/metamaskIcon.svg';
@@ -26,37 +26,37 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role }) => {
         localStorage.setItem("flag", "true");
         localStorage.setItem("connectorId", "walletconnect");
         if (account) {
-          logout();
-          localStorage.clear();
+            logout();
+            localStorage.clear();
         } else {
-          login("walletconnect");
-          setLog(true)
-        //   loginUser();
-        //   if (location.pathname !== "/") {
-        //     // setShow(false)
-        //   } else {
-        //     loginUser();
-        //   }
+            login("walletconnect");
+            setLog(true)
+            //   loginUser();
+            //   if (location.pathname !== "/") {
+            //     // setShow(false)
+            //   } else {
+            //     loginUser();
+            //   }
         }
-      };
-      const connectMetaMask1 = () => {
+    };
+    const connectMetaMask1 = () => {
         localStorage.setItem("connectorId", "injected");
         localStorage.setItem("flag", "true");
         if (account) {
-          logout();
+            logout();
         } else {
-          login("injected");
-          setLog(true)
+            login("injected");
+            setLog(true)
             // loginUser();
-        //   if (location.pathname !== "/") {
-        //     setShow(false)
-        //   } else {
-        //     loginUser();
-        //   }
+            //   if (location.pathname !== "/") {
+            //     setShow(false)
+            //   } else {
+            //     loginUser();
+            //   }
         }
-      };
+    };
 
-      const loginUser = async () => {
+    const loginUser = async () => {
         // console.log("values get here is",account)
         // let tok = localStorage.getItem("accessToken");
         // let wall = localStorage.getItem("wallet");
@@ -67,71 +67,131 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role }) => {
             // if (call !== undefined) {
             //     setCall(false);
             // }
-            if(account && res0 && role == 'alreadymember'){
+            if (account && res0 && role == 'alreadymember') {
                 await axios
-                .post(`${API_URL}/auth/signin`, {
-                    walletAddress: account,
-                    sign: res0,
-                    rememberMe: true
-                })
-                .then((res) => {
-                    console.log(res,"response for already member")
-                    toast.success('User Logged in Successfully', {
-                        position: 'top-center',
-                        autoClose: 5000,
-                    });
-                    // localStorage.setItem("accessToken", res?.data?.data?.accessToken);
-                    // localStorage.setItem("refreshToken", res?.data?.data?.refreshToken);
-                    // setShow(false);
-                    // if (call !== undefined) {
-                    //     setCall(true);
-                    // }
-                    // localStorage.setItem("user", JSON.stringify(res?.data?.data));
-                    // if (res?.data?.data?.rank.name === "general" || user?.rank === "major general") {
-                    //     console.log("major")
-                    //     history.push("/general");
-                    //     GetArmy();
-                    //     getData();
-                    //     GetArmydata();
-                    // } else if (!res.data.data.nickName) {
-                    //     history.push("/tomichoose");
-                    // }
-                    // else if ((res?.data?.data?.rank.name !== "general")) {
-                    //     console.log("major1234")
-                    //     history.push("/squad");
-                    //     GetTaskss();
-                    //     GetUserProfiledata();
-                    //     GetOpts();
-                    //     GetTasks();
-                    //     vateransApi();
-                    //     window.location.reload()
-                    // }
-                    // localStorage.setItem("wallet", account);
-                    // window.scrollTo(0, 0);
-                })
-                .catch((err) => {
-                    if (err?.response?.data?.statusCode == 404) {
-                        toast.error('No User Found', {
+                    .post(`${API_URL}/auth/signin`, {
+                        walletAddress: account,
+                        sign: res0,
+                        rememberMe: true
+                    })
+                    .then((res) => {
+                        console.log(res, "response for already member")
+                        toast.success('User Logged in Successfully', {
                             position: 'top-center',
                             autoClose: 5000,
                         });
-                         localStorage.removeItem("connectorId");
-                         localStorage.removeItem("flag");
-                        // console.log("logout", err)
+                        // localStorage.setItem("accessToken", res?.data?.data?.accessToken);
+                        // localStorage.setItem("refreshToken", res?.data?.data?.refreshToken);
                         // setShow(false);
-                        // localStorage.removeItem("accessToken");
-                        // localStorage.removeItem("user");
-                        // localStorage.removeItem("wallet");
-                        // history.push("/")
-                    }
-                    localStorage.removeItem("connectorId");
-                    localStorage.removeItem("flag");
-                    // console.log("does not work")
-                });
+                        // if (call !== undefined) {
+                        //     setCall(true);
+                        // }
+                        // localStorage.setItem("user", JSON.stringify(res?.data?.data));
+                        // if (res?.data?.data?.rank.name === "general" || user?.rank === "major general") {
+                        //     console.log("major")
+                        //     history.push("/general");
+                        //     GetArmy();
+                        //     getData();
+                        //     GetArmydata();
+                        // } else if (!res.data.data.nickName) {
+                        //     history.push("/tomichoose");
+                        // }
+                        // else if ((res?.data?.data?.rank.name !== "general")) {
+                        //     console.log("major1234")
+                        //     history.push("/squad");
+                        //     GetTaskss();
+                        //     GetUserProfiledata();
+                        //     GetOpts();
+                        //     GetTasks();
+                        //     vateransApi();
+                        //     window.location.reload()
+                        // }
+                        // localStorage.setItem("wallet", account);
+                        // window.scrollTo(0, 0);
+                    })
+                    .catch((err) => {
+                        if (err?.response?.data?.statusCode == 404) {
+                            toast.error('No User Found', {
+                                position: 'top-center',
+                                autoClose: 5000,
+                            });
+                            localStorage.removeItem("connectorId");
+                            localStorage.removeItem("flag");
+                            // console.log("logout", err)
+                            // setShow(false);
+                            // localStorage.removeItem("accessToken");
+                            // localStorage.removeItem("user");
+                            // localStorage.removeItem("wallet");
+                            // history.push("/")
+                        }
+                        localStorage.removeItem("connectorId");
+                        localStorage.removeItem("flag");
+                        // console.log("does not work")
+                    });
             }
-            else if(account && res0 && role == 'squadjoin'){
+            else if (account && res0 && role == 'squadjoin') {
+                await axios
+                    .post(`${API_URL}/auth/signin`, {
+                        walletAddress: account,
+                        sign: res0,
+                        rememberMe: true
+                    })
+                    .then((res) => {
+                        console.log(res, "response for already member")
+                        toast.success('User Logged in Successfully', {
+                            position: 'top-center',
+                            autoClose: 5000,
+                        });
+                        // localStorage.setItem("accessToken", res?.data?.data?.accessToken);
+                        // localStorage.setItem("refreshToken", res?.data?.data?.refreshToken);
+                        // setShow(false);
+                        // if (call !== undefined) {
+                        //     setCall(true);
+                        // }
+                        // localStorage.setItem("user", JSON.stringify(res?.data?.data));
+                        // if (res?.data?.data?.rank.name === "general" || user?.rank === "major general") {
+                        //     console.log("major")
+                        //     history.push("/general");
+                        //     GetArmy();
+                        //     getData();
+                        //     GetArmydata();
+                        // } else if (!res.data.data.nickName) {
+                        //     history.push("/tomichoose");
+                        // }
+                        // else if ((res?.data?.data?.rank.name !== "general")) {
+                        //     console.log("major1234")
+                        //     history.push("/squad");
+                        //     GetTaskss();
+                        //     GetUserProfiledata();
+                        //     GetOpts();
+                        //     GetTasks();
+                        //     vateransApi();
+                        //     window.location.reload()
+                        // }
+                        // localStorage.setItem("wallet", account);
+                        // window.scrollTo(0, 0);
+                    })
+                    .catch((err) => {
+                        if (err?.response?.data?.statusCode == 404) {
+                            toast.error('No User Found', {
+                                position: 'top-center',
+                                autoClose: 5000,
+                            });
+                            localStorage.removeItem("connectorId");
+                            localStorage.removeItem("flag");
+                            // console.log("logout", err)
+                            // setShow(false);
+                            // localStorage.removeItem("accessToken");
+                            // localStorage.removeItem("user");
+                            // localStorage.removeItem("wallet");
+                            // history.push("/")
+                        }
+                        localStorage.removeItem("connectorId");
+                        localStorage.removeItem("flag");
+                        // console.log("does not work")
+                    });
             }
-            else if(account && res0 && role == 'solider'){
+            else if (account && res0 && role == 'solider') {
             }
             // if (account) {
             //     await axios
@@ -171,7 +231,7 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role }) => {
             //             //     vateransApi();
             //             //     window.location.reload()
             //             // }
-                     
+
             //             // localStorage.setItem("wallet", account);
             //             // window.scrollTo(0, 0);
             //         })
@@ -192,7 +252,7 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role }) => {
             //         });
             // }
         }
-        else{
+        else {
             toast.error('Wallet Not Connected', {
                 position: 'top-center',
                 autoClose: 5000,
@@ -224,12 +284,12 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role }) => {
     };
 
     useEffect(() => {
-        if(account && log){
+        if (account && log) {
             setLog(false)
             // console.log("asjasdaskjaskjdha",account)
             loginUser();
         }
-      }, [account, log])
+    }, [account, log])
 
 
     const backtoinvitecode = () => {
@@ -253,12 +313,12 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role }) => {
                 <div className="mainhead">
                     <h5 className="innerhead">Connect Wallet</h5>
                 </div>
-            
-                    <button onClick={connectMetaMask1} className='metamask-btn border-grad'>
-                        <img src={metamaskIcon} alt='metamaskIcon' />
-                        MetaMask
-                    </button>
-              
+
+                <button onClick={connectMetaMask1} className='metamask-btn border-grad'>
+                    <img src={metamaskIcon} alt='metamaskIcon' />
+                    MetaMask
+                </button>
+
                 <button onClick={trustWallet} className='walletConnect-btn border-grad'>
                     <img src={walletConnectIcon} alt='walletConnectIcon' />
                     Wallet Connect

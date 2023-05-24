@@ -6,6 +6,12 @@ const ArmyForum = () => {
 
   return (
     <>
+    <div className="formobile-heading d-none display-block-in-mobile">
+        <div className="inner-heading">
+          <h6>Army Forum</h6>
+          <p>Engage with your army</p>
+        </div>
+      </div>
       <div className="topicwrapper">
         <section className="topics">
           <div className="containersss p-0">
@@ -83,7 +89,7 @@ const ArmyForum = () => {
                 </section>
               </div>
               <div className='col-xl-3 col-12 pe-0 padd-sm'>
-                <div className='members-section border-grad1'>
+                <div className='members-section border-grad1 display-none-in-mobile'>
                   <div className="tophead">
                     <h6>Members <span>(192)</span></h6>
                   </div>

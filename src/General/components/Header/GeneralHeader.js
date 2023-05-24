@@ -4,11 +4,10 @@ import { Link } from "react-router-dom";
 import notificationIcon from "../../../assets/icons/notificationIcon.svg";
 import menuIcon from "../../../assets/icons/menuIcon.svg";
 import { Button, Offcanvas } from "react-bootstrap";
-import Sidebar from "../sidebar/Sidebar";
 import mobileLogo from "../../../assets/icons/mobileLogo.svg";
 import Modal from 'react-bootstrap/Modal';
 
-const Header = ({ routes, setroute, indexwait, handleShow }) => {
+const GeneralHeader = ({ routes, setroute, indexwait, handleShow }) => {
 
 
 
@@ -52,8 +51,8 @@ const Header = ({ routes, setroute, indexwait, handleShow }) => {
           </div>
           {indexwait === 0 ? (
             <div className="soldier-name">
-              <h4>Welcome BATMAN,</h4>
-              <p>LET’S FIGHT FOR THE ARMY</p>
+              <h4>Welcome general, </h4>
+              <p>your army awaits your orders</p>
             </div>
           ) : null}
           {indexwait === 1 ? (
@@ -127,38 +126,36 @@ const Header = ({ routes, setroute, indexwait, handleShow }) => {
           {
             indexwait === 0 ?
               <>
-                <div class="btn-group notification-btn">
-                  <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
-                    <img src={notificationIcon} alt="notificationIcon" />
-                  </button>
-                  <ul class="dropdown-menu border-grad1">
-                    <div className="inner-div border-grad">
-                      <div className="upper-text">
-                        <h6>Join DC SQUAD Again</h6>
-                        <p><span></span>Just Now</p>
-                      </div>
-                      <p className="para">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                      <div className="twice-btn">
-                        <button className="btn-reject"><img src="\assets\reject-icon.svg" alt="img" className="img-fluid me-2" />Reject</button>
-                        <button className="btn-accept"><img src="\assets\checkmark.svg" alt="img" className="img-fluid me-2" />Accept</button>
-                      </div>
-                    </div>
-                    <div className="inner-div border-grad">
-                      <div className="upper-text">
-                        <h6>Join DC SQUAD Again</h6>
-                        <p><span></span>Just Now</p>
-                      </div>
-                      <p className="para">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                    </div>
-                    <div className="inner-div border-grad">
-                      <div className="upper-text">
-                        <h6>Join DC SQUAD Again</h6>
-                        <p><span></span>Just Now</p>
-                      </div>
-                      <p className="para">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                    </div>
-                  </ul>
-                </div>
+                 <button className="create-squad-btn display-none-in-mobile" >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 20 20"
+                    fill="none"
+                  >
+                    <g clip-path="url(#clip0_260_1810)">
+                      <path
+                        d="M15.3822 3.91039L11.6631 3.37L9.99999 0L8.33682 3.37L4.6178 3.91039L7.30893 6.53356L6.67362 10.2375L9.99999 8.48875L13.3264 10.2375L12.6911 6.53356L15.3822 3.91039Z"
+                        fill="#81828A"
+                      />
+                      <path
+                        d="M9.99999 12.3132L3.98651 9.90067V13.3275L10.0351 15.7541L16.0135 13.3256V9.90067L9.99999 12.3132Z"
+                        fill="#81828A"
+                      />
+                      <path
+                        d="M9.99999 16.5591L3.98651 14.1466V17.5734L10.0351 20L16.0135 17.5715V14.1466L9.99999 16.5591Z"
+                        fill="#81828A"
+                      />
+                    </g>
+                    <defs>
+                      <clipPath id="clip0_260_1810">
+                        <rect width="20" height="20" fill="white" />
+                      </clipPath>
+                    </defs>
+                  </svg>
+                  <span> Create Operation</span>
+                </button>
                 <button className="create-squad-btn display-none-in-mobile" >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -187,7 +184,7 @@ const Header = ({ routes, setroute, indexwait, handleShow }) => {
                       </clipPath>
                     </defs>
                   </svg>
-                  <span> Create Squad</span>
+                  <span> Create Task</span>
                 </button>
               </>
               : ""
@@ -380,4 +377,4 @@ const Header = ({ routes, setroute, indexwait, handleShow }) => {
   );
 };
 
-export default Header;
+export default GeneralHeader;

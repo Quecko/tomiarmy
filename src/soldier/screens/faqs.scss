@@ -1,0 +1,46 @@
+.faqs {
+    background: rgba(22, 26, 34, 0.9);
+    backdrop-filter: blur(2px);
+    border-radius: 20px;
+    padding: 20px;
+
+    .mobile-responsive-table {
+        margin-top: 0 !important;
+    }
+
+    .mobile-responsive-table .accordion .accordion-item .accordion-header .accordion-button {
+        font-style: normal;
+        font-weight: 500;
+        font-size: 18px;
+        line-height: 100%;
+        letter-spacing: 0.01em;
+        color: #FFFFFF;
+
+        .numberingss {
+            margin-right: 15px;
+        }
+    }
+
+    .mobile-responsive-table .accordion .accordion-item .accordion-header .accordion-button::after {
+        background: url("../../assets/icons/arrow-downfaqs.svg") !important;
+        background-size: contain !important;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+
+    .mobile-responsive-table .accordion .accordion-item .accordion-body {
+        .para {
+            font-style: normal;
+            font-weight: 500;
+            font-size: 16px;
+            line-height: 130%;
+            letter-spacing: 0.01em;
+            color: rgba(255, 255, 255, 0.5);
+            text-align: start;
+        }
+    }
+    .accordion-button:not(.collapsed){
+        box-shadow: none !important;
+        background: transparent !important;
+    }
+}

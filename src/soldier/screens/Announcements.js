@@ -5,6 +5,7 @@ import Tabs from 'react-bootstrap/Tabs';
 import Dropdown from 'react-bootstrap/Dropdown';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+import Accordion from 'react-bootstrap/Accordion';
 const Announcements = () => {
   const [show, setShow] = useState(false);
 
@@ -12,6 +13,12 @@ const Announcements = () => {
   const handleShow = () => setShow(true);
   return (
     <>
+      <div className="formobile-heading d-none display-block-in-mobile">
+        <div className="inner-heading">
+          <h6>ANNOUNCEMENTS</h6>
+          <p>view your announcements</p>
+        </div>
+      </div>
       <section className='main-announcement'>
         <div className='container-fluid padd-sm p-0'>
           <div className='row'>
@@ -26,155 +33,222 @@ const Announcements = () => {
                   <Tab eventKey="home" title="Read Announcements">
                     {/* <Sonnet /> */}
                     <div className='maincard border-grad1'>
-                      <div className="maintable">
+                      <div className='display-none-in-mobile'>
+                        <div className="maintable">
+                          <table class="table table-striped">
+                            <thead>
+                              <tr>
+                                <th>
+                                  <p className='headtable'>Announcement</p>
+                                </th>
+                                <th>
+                                  <p className='headtable'>Date Received</p>
+                                </th>
+                                <th>
+                                  <p className='headtable'>Actions</p>
+                                </th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>
+                                  <p className='paratable'>Follow this Twitter Account....</p>
+                                </td>
+                                <td>
+                                  <p className='paratable'>01/01/23</p>
+                                </td>
+                                <td>
+                                  <div className='dropbtn'>
+                                    <Dropdown>
+                                      <Dropdown.Toggle variant="success" id="dropdown-basic">
+                                        <img src='\Vectordots.svg' alt='img' className='img-fluid' />
 
-                        <table class="table table-striped">
-                          <thead>
-                            <tr>
-                              <th>
-                                <p className='headtable'>Announcement</p>
-                              </th>
-                              <th>
-                                <p className='headtable'>Date Received</p>
-                              </th>
-                              <th>
-                                <p className='headtable'>Actions</p>
-                              </th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr>
-                              <td>
-                                <p className='paratable'>Follow this Twitter Account....</p>
-                              </td>
-                              <td>
-                                <p className='paratable'>01/01/23</p>
-                              </td>
-                              <td>
-                                <div className='dropbtn'>
-                                  <Dropdown>
-                                    <Dropdown.Toggle variant="success" id="dropdown-basic">
-                                      <img src='\Vectordots.svg' alt='img' className='img-fluid' />
+                                      </Dropdown.Toggle>
 
-                                    </Dropdown.Toggle>
+                                      <Dropdown.Menu>
+                                        <Dropdown.Item href="#/action-1">
+                                          <p><img src='\reading-book1.svg' alt='img' className='img-fluid' />Mark as read</p>
+                                        </Dropdown.Item>
+                                        <div className='brdr'></div>
+                                        <Dropdown.Item href="#/action-1">
+                                          <p onClick={handleShow}><img src='\Vectordetail.svg' alt='img' className='img-fluid' />details</p>
+                                        </Dropdown.Item>
+                                        <div className='brdr'></div>
+                                        <Dropdown.Item href="#/action-1">
+                                          <p><img src='\trash.svg' alt='img' className='img-fluid' />delete</p>
+                                        </Dropdown.Item>
 
-                                    <Dropdown.Menu>
-                                      <Dropdown.Item href="#/action-1">
-                                        <p><img src='\reading-book1.svg' alt='img' className='img-fluid' />Mark as read</p>
-                                      </Dropdown.Item>
-                                      <div className='brdr'></div>
-                                      <Dropdown.Item href="#/action-1">
-                                        <p onClick={handleShow}><img src='\Vectordetail.svg' alt='img' className='img-fluid' />details</p>
-                                      </Dropdown.Item>
-                                      <div className='brdr'></div>
-                                      <Dropdown.Item href="#/action-1">
-                                        <p><img src='\trash.svg' alt='img' className='img-fluid' />delete</p>
-                                      </Dropdown.Item>
+                                      </Dropdown.Menu>
+                                    </Dropdown>
+                                  </div>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <p className='paratable'>Follow this Twitter AcRetweet the following tweet...</p>
+                                </td>
+                                <td>
+                                  <p className='paratable'>01/01/23</p>
+                                </td>
+                                <td>
+                                  <div className='dropbtn'>
+                                    <Dropdown>
+                                      <Dropdown.Toggle variant="success" id="dropdown-basic">
+                                        <img src='\Vectordots.svg' alt='img' className='img-fluid' />
 
-                                    </Dropdown.Menu>
-                                  </Dropdown>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <p className='paratable'>Follow this Twitter AcRetweet the following tweet...</p>
-                              </td>
-                              <td>
-                                <p className='paratable'>01/01/23</p>
-                              </td>
-                              <td>
-                                <div className='dropbtn'>
-                                  <Dropdown>
-                                    <Dropdown.Toggle variant="success" id="dropdown-basic">
-                                      <img src='\Vectordots.svg' alt='img' className='img-fluid' />
+                                      </Dropdown.Toggle>
 
-                                    </Dropdown.Toggle>
+                                      <Dropdown.Menu>
+                                        <Dropdown.Item href="#/action-1">
+                                          <p><img src='\Vector.svg' alt='img' className='img-fluid' />Submit Proof</p>
+                                        </Dropdown.Item>
+                                      </Dropdown.Menu>
+                                    </Dropdown>
+                                  </div>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <p className='paratable'>Start a discussion on tomi discord server</p>
+                                </td>
+                                <td>
+                                  <p className='paratable'>01/01/23</p>
+                                </td>
+                                <td>
+                                  <div className='dropbtn'>
+                                    <Dropdown>
+                                      <Dropdown.Toggle variant="success" id="dropdown-basic">
+                                        <img src='\Vectordots.svg' alt='img' className='img-fluid' />
 
-                                    <Dropdown.Menu>
-                                      <Dropdown.Item href="#/action-1">
-                                        <p><img src='\Vector.svg' alt='img' className='img-fluid' />Submit Proof</p>
-                                      </Dropdown.Item>
-                                    </Dropdown.Menu>
-                                  </Dropdown>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <p className='paratable'>Start a discussion on tomi discord server</p>
-                              </td>
-                              <td>
-                                <p className='paratable'>01/01/23</p>
-                              </td>
-                              <td>
-                                <div className='dropbtn'>
-                                  <Dropdown>
-                                    <Dropdown.Toggle variant="success" id="dropdown-basic">
-                                      <img src='\Vectordots.svg' alt='img' className='img-fluid' />
+                                      </Dropdown.Toggle>
 
-                                    </Dropdown.Toggle>
+                                      <Dropdown.Menu>
+                                        <Dropdown.Item href="#/action-1">
+                                          <p><img src='\Vector.svg' alt='img' className='img-fluid' />Submit Proof</p>
+                                        </Dropdown.Item>
+                                      </Dropdown.Menu>
+                                    </Dropdown>
+                                  </div>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td>
+                                  <p className='paratable'>join the telegram channel</p>
+                                </td>
+                                <td>
+                                  <p className='paratable'>01/01/23</p>
+                                </td>
+                                <td>
+                                  <div className='dropbtn'>
+                                    <Dropdown>
+                                      <Dropdown.Toggle variant="success" id="dropdown-basic">
+                                        <img src='\Vectordots.svg' alt='img' className='img-fluid' />
 
-                                    <Dropdown.Menu>
-                                      <Dropdown.Item href="#/action-1">
-                                        <p><img src='\Vector.svg' alt='img' className='img-fluid' />Submit Proof</p>
-                                      </Dropdown.Item>
-                                    </Dropdown.Menu>
-                                  </Dropdown>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <p className='paratable'>join the telegram channel</p>
-                              </td>
-                              <td>
-                                <p className='paratable'>01/01/23</p>
-                              </td>
-                              <td>
-                                <div className='dropbtn'>
-                                  <Dropdown>
-                                    <Dropdown.Toggle variant="success" id="dropdown-basic">
-                                      <img src='\Vectordots.svg' alt='img' className='img-fluid' />
+                                      </Dropdown.Toggle>
 
-                                    </Dropdown.Toggle>
-
-                                    <Dropdown.Menu>
-                                      <Dropdown.Item href="#/action-1">
-                                        <p><img src='\Vector.svg' alt='img' className='img-fluid' />Submit Proof</p>
-                                      </Dropdown.Item>
-                                    </Dropdown.Menu>
-                                  </Dropdown>
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
+                                      <Dropdown.Menu>
+                                        <Dropdown.Item href="#/action-1">
+                                          <p><img src='\Vector.svg' alt='img' className='img-fluid' />Submit Proof</p>
+                                        </Dropdown.Item>
+                                      </Dropdown.Menu>
+                                    </Dropdown>
+                                  </div>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                        <div className="pagi">
+                          <div className="left">
+                            <p>Showing 1 to 10 of 57 entries</p>
+                          </div>
+                          <div className="right">
+                            <p>Previous</p>
+                            <Pagination>
+                              <Pagination.Item active>{1}</Pagination.Item>
+                              <Pagination.Item>{2}</Pagination.Item>
+                              <Pagination.Item >{3}</Pagination.Item>
+                              <Pagination.Item>{4}</Pagination.Item>
+                              <Pagination.Item >{5}</Pagination.Item>
+                              <Pagination.Item>{6}</Pagination.Item>
+                            </Pagination>
+                            <p>Next</p>
+                          </div>
+                        </div>
                       </div>
-                      <div className="pagi">
-                        <div className="left">
-                          <p>Showing 1 to 10 of 57 entries</p>
+                      <div className="mobile-responsive-table d-none display-block-in-mobile">
+                        <div className="heading-mobile">
+                          <p>Announcement</p>
                         </div>
-                        <div className="right">
-                          <p>Previous</p>
-                          <Pagination>
-                            <Pagination.Item active>{1}</Pagination.Item>
-                            <Pagination.Item>{2}</Pagination.Item>
-                            <Pagination.Item >{3}</Pagination.Item>
-                            <Pagination.Item>{4}</Pagination.Item>
-                            <Pagination.Item >{5}</Pagination.Item>
-                            <Pagination.Item>{6}</Pagination.Item>
-                          </Pagination>
-                          <p>Next</p>
-                        </div>
+                        <Accordion defaultActiveKey="0">
+                          <Accordion.Item eventKey="0">
+                            <Accordion.Header>Follow this Twitter Account....</Accordion.Header>
+                            <Accordion.Body>
+                              <div className="inner-fields">
+                                <div className="inner-item">
+                                  <h6>Date Received</h6>
+                                  <p>01/01/22</p>
+                                </div>
+                                <div className="inner-item">
+                                  <h6>Actions</h6>
+                                  <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
+                                </div>
+                              </div>
+                            </Accordion.Body>
+                          </Accordion.Item>
+                          <Accordion.Item eventKey="1">
+                            <Accordion.Header>Follow this Twitter Account....</Accordion.Header>
+                            <Accordion.Body>
+                              <div className="inner-fields">
+                                <div className="inner-item">
+                                  <h6>Date Received</h6>
+                                  <p>01/01/22</p>
+                                </div>
+                                <div className="inner-item">
+                                  <h6>Actions</h6>
+                                  <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
+                                </div>
+                              </div>
+                            </Accordion.Body>
+                          </Accordion.Item>
+                          <Accordion.Item eventKey="2">
+                            <Accordion.Header>Follow this Twitter Account....</Accordion.Header>
+                            <Accordion.Body>
+                              <div className="inner-fields">
+                                <div className="inner-item">
+                                  <h6>Date Received</h6>
+                                  <p>01/01/22</p>
+                                </div>
+                                <div className="inner-item">
+                                  <h6>Actions</h6>
+                                  <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
+                                </div>
+                              </div>
+                            </Accordion.Body>
+                          </Accordion.Item>
+                          <Accordion.Item eventKey="3">
+                            <Accordion.Header>Follow this Twitter Account....</Accordion.Header>
+                            <Accordion.Body>
+                              <div className="inner-fields">
+                                <div className="inner-item">
+                                  <h6>Date Received</h6>
+                                  <p>01/01/22</p>
+                                </div>
+                                <div className="inner-item">
+                                  <h6>Actions</h6>
+                                  <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
+                                </div>
+                              </div>
+                            </Accordion.Body>
+                          </Accordion.Item>
+                        </Accordion>
                       </div>
                     </div>
                   </Tab>
-                  <Tab eventKey="profile" title={<p>Unread Announcements <img src='\two.svg'alt='img' className='img-fluid'/></p>}>
+                  <Tab eventKey="profile" title={<p>Unread Announcements <img src='\two.svg' alt='img' className='img-fluid' /></p>}>
                     {/* <Sonnet /> */}
                     <div className='maincard border-grad1'>
-                      <div className="maintable">
-
+                      <div className="maintable display-none-in-mobile">
                         <table class="table table-striped">
                           <thead>
                             <tr>
@@ -273,6 +347,73 @@ const Announcements = () => {
                             </tr>
                           </tbody>
                         </table>
+                      </div>
+                      <div className="mobile-responsive-table d-none display-block-in-mobile">
+                        <div className="heading-mobile">
+                          <p>Announcement</p>
+                        </div>
+                        <Accordion defaultActiveKey="0">
+                          <Accordion.Item eventKey="0">
+                            <Accordion.Header>Follow this Twitter Account....</Accordion.Header>
+                            <Accordion.Body>
+                              <div className="inner-fields">
+                                <div className="inner-item">
+                                  <h6>Date Received</h6>
+                                  <p>01/01/22</p>
+                                </div>
+                                <div className="inner-item">
+                                  <h6>Actions</h6>
+                                  <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
+                                </div>
+                              </div>
+                            </Accordion.Body>
+                          </Accordion.Item>
+                          <Accordion.Item eventKey="1">
+                            <Accordion.Header>Follow this Twitter Account....</Accordion.Header>
+                            <Accordion.Body>
+                              <div className="inner-fields">
+                                <div className="inner-item">
+                                  <h6>Date Received</h6>
+                                  <p>01/01/22</p>
+                                </div>
+                                <div className="inner-item">
+                                  <h6>Actions</h6>
+                                  <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
+                                </div>
+                              </div>
+                            </Accordion.Body>
+                          </Accordion.Item>
+                          <Accordion.Item eventKey="2">
+                            <Accordion.Header>Follow this Twitter Account....</Accordion.Header>
+                            <Accordion.Body>
+                              <div className="inner-fields">
+                                <div className="inner-item">
+                                  <h6>Date Received</h6>
+                                  <p>01/01/22</p>
+                                </div>
+                                <div className="inner-item">
+                                  <h6>Actions</h6>
+                                  <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
+                                </div>
+                              </div>
+                            </Accordion.Body>
+                          </Accordion.Item>
+                          <Accordion.Item eventKey="3">
+                            <Accordion.Header>Follow this Twitter Account....</Accordion.Header>
+                            <Accordion.Body>
+                              <div className="inner-fields">
+                                <div className="inner-item">
+                                  <h6>Date Received</h6>
+                                  <p>01/01/22</p>
+                                </div>
+                                <div className="inner-item">
+                                  <h6>Actions</h6>
+                                  <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
+                                </div>
+                              </div>
+                            </Accordion.Body>
+                          </Accordion.Item>
+                        </Accordion>
                       </div>
                     </div>
                   </Tab>
@@ -296,7 +437,7 @@ const Announcements = () => {
               <p>01/01/23</p>
             </div>
             <div className='okbtn'>
-              <button><span><img src='\checkmarks.svg' alt='img' className='img-fluid'/></span>Okay</button>
+              <button><span><img src='\checkmarks.svg' alt='img' className='img-fluid' /></span>Okay</button>
             </div>
           </Modal.Body>
 

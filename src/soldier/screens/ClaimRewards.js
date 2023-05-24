@@ -12,6 +12,12 @@ import ClaimedReward from './ClaimedReward';
 const ClaimRewards = () => {
   return (
     <>
+     <div className="formobile-heading d-none display-block-in-mobile">
+        <div className="inner-heading">
+          <h6>Claim Rewards</h6>
+          <p>claim you rewards</p>
+        </div>
+      </div>
       <section className="claim-section">
         <Tabs
           defaultActiveKey="availablereward"
