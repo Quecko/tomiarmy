@@ -22,21 +22,21 @@ const HomeOperations = () => {
           </div>
           <div className="bottom-cards">
             <div className="card-item border-grad">
-              <img src="\assets\points.svg" alt="img" className='img-fluid' />
+              <img src="\static-icons\points.png" alt="img" className='img-fluid' style={{width: "50px", height: "50px"}} />
               <div className="inner-content">
                 <p>Points</p>
                 <h6>150,000</h6>
               </div>
             </div>
             <div className="card-item border-grad">
-              <img src="\assets\tomitokens.svg" alt="img" className='img-fluid' />
+            <img src="\static-icons\tomi-icon.png" alt="img" className='img-fluid' style={{width: "50px", height: "50px"}} />
               <div className="inner-content">
                 <p>TOMI Tokens</p>
                 <h6>100,000</h6>
               </div>
             </div>
             <div className="card-item border-grad">
-              <img src="\assets\totaltasks.svg" alt="img" className='img-fluid' />
+            <img src="\static-icons\tomitasks.png" alt="img" className='img-fluid' style={{width: "50px", height: "50px"}} />
               <div className="inner-content">
                 <p>Total Tasks</p>
                 <h6>55</h6>
@@ -44,7 +44,7 @@ const HomeOperations = () => {
             </div>
             <div className="card-item border-grad unique-item">
               <div className='inner-set'>
-                <img src="\assets\rewardnft.svg" alt="img" className='img-fluid' />
+              <img src="\static-icons\rewardnft.png" alt="img" className='img-fluid' style={{width: "50px", height: "50px"}} />
                 <div className="inner-content">
                   <p>Reward NFT</p>
                   <h6>ELN MSK #41234</h6>
@@ -387,7 +387,7 @@ const HomeOperations = () => {
                     <p className='paratable'>Umar_x2jz</p>
                   </td>
                   <td>
-                    <p className='paratable'><img src="\assets\private.svg" alt="img" className='img-fluid me-2' />Private</p>
+                    <p className='paratable'><img src="\static-icons\private-rank.png" alt="img" className='img-fluid me-2' style={{width: "50px", height: "50px"}} />Private</p>
                   </td>
                   <td>
                     <p className='paratable'>0x2F78aB0Cd05c...6j88</p>
@@ -404,7 +404,7 @@ const HomeOperations = () => {
                     <p className='paratable'>Sharjeel</p>
                   </td>
                   <td>
-                    <p className='paratable'><img src="\assets\sergeant.svg" alt="img" className='img-fluid me-2' />Sergeant</p>
+                    <p className='paratable'><img src="\static-icons\sergeant.png" alt="img" className='img-fluid me-2' style={{width: "50px", height: "50px"}} />Sergeant</p>
                   </td>
                   <td>
                     <p className='paratable'>0x2F78aB0Cd05c...6j88</p>
@@ -421,7 +421,7 @@ const HomeOperations = () => {
                     <p className='paratable'>Umar_x2jz</p>
                   </td>
                   <td>
-                    <p className='paratable'><img src="\assets\lieutenant.svg" alt="img" className='img-fluid me-2' />Lieutenant</p>
+                    <p className='paratable'><img src="\static-icons\lieutenant.png" alt="img" className='img-fluid me-2' style={{width: "50px", height: "50px"}} />Lieutenant</p>
                   </td>
                   <td>
                     <p className='paratable'>0x2F78aB0Cd05c...6j88</p>
@@ -438,7 +438,7 @@ const HomeOperations = () => {
                     <p className='paratable'>Sharjeel</p>
                   </td>
                   <td>
-                    <p className='paratable'><img src="\assets\captain.svg" alt="img" className='img-fluid me-2' />Captain</p>
+                    <p className='paratable'><img src="\static-icons\captain.png" alt="img" className='img-fluid me-2' style={{width: "50px", height: "50px"}} />Captain</p>
                   </td>
                   <td>
                     <p className='paratable'>0x2F78aB0Cd05c...6j88</p>
@@ -455,6 +455,9 @@ const HomeOperations = () => {
           </div>
         </div>
         <div className="mobile-responsive-table d-none display-block-in-mobile">
+        <div className="uscyivyscvsvscy">
+            <h6>Your Squad</h6>
+          </div>
           <div className="heading-mobile">
             <p>Nickname</p>
           </div>

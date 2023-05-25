@@ -52,6 +52,13 @@
         line-height: 100%;
         letter-spacing: 0.01em;
         color: #FFFFFF;
+        &:hover{
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0) 34.22%), #D10570;
+            border: none;
+            border-bottom: 1px solid #F058A6;
+            box-shadow: 0px 3px 1px #88134F;
+            border-radius: 10px;
+        }
     }
 
     .btn-processing {

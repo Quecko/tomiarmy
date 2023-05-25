@@ -23,9 +23,9 @@ const ArmyForum = () => {
               <div className="col-xl-9 col-12 p-0">
                 <section className="maincmntsection border-grad1">
                   <div className="arrows">
-                    <img src="\assets\arrow-up.svg" alt="img" className="arrow" />
+                    <img src="\assets\arrow-up.png" alt="img" className="arrow" style={{width: "25px" , height: "25px"}} />
                     <p className="serial">56</p>
-                    <img src="\assets\arrowdown.svg" alt="img" className="arrow" />
+                    <img src="\assets\arrow-down.png" alt="img" className="arrow" style={{width: "25px" , height: "25px"}} />
                   </div>
                   <section className="first">
                     <div className="saying">

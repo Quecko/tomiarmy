@@ -31,21 +31,21 @@ const ActiveOperation = () => {
                 </div>
                 <div className="bottom-cards">
                     <div className="card-item border-grad">
-                        <img src="\assets\points.svg" alt="img" className='img-fluid' />
+                    <img src="\static-icons\points.png" alt="img" className='img-fluid' style={{width: "50px", height: "50px"}} />
                         <div className="inner-content">
                             <p>Points</p>
                             <h6>150,000</h6>
                         </div>
                     </div>
                     <div className="card-item border-grad">
-                        <img src="\assets\tomitokens.svg" alt="img" className='img-fluid' />
+                    <img src="\static-icons\tomi-icon.png" alt="img" className='img-fluid' style={{width: "50px", height: "50px"}} />
                         <div className="inner-content">
                             <p>TOMI Tokens</p>
                             <h6>100,000</h6>
                         </div>
                     </div>
                     <div className="card-item border-grad">
-                        <img src="\assets\totaltasks.svg" alt="img" className='img-fluid' />
+                    <img src="\static-icons\tomitasks.png" alt="img" className='img-fluid' style={{width: "50px", height: "50px"}} />
                         <div className="inner-content">
                             <p>Total Tasks</p>
                             <h6>55</h6>
@@ -53,7 +53,7 @@ const ActiveOperation = () => {
                     </div>
                     <div className="card-item border-grad unique-item">
                         <div className='inner-set'>
-                            <img src="\assets\rewardnft.svg" alt="img" className='img-fluid' />
+                        <img src="\static-icons\rewardnft.png" alt="img" className='img-fluid' style={{width: "50px", height: "50px"}} />
                             <div className="inner-content">
                                 <p>Reward NFT</p>
                                 <h6>ELN MSK #41234</h6>

@@ -11,7 +11,7 @@ const MyRank = () => {
       <div className="rank-squad-row row">
         <div className="col-lg-6 ransk-name-left padd-sm">
           <div className="ransk-name-heading-row inner-data-box border-grad">
-            <img src={privateRank} alt="privateRank" />
+            <img src="\static-icons\private-rank.png" alt="privateRank" />
             <div className="ransk-name-heading">
               <p>My Rank</p>
               <h4>Private</h4>
@@ -20,7 +20,7 @@ const MyRank = () => {
         </div>
         <div className="col-lg-6 ransk-name-right">
           <div className="ransk-name-heading-row inner-data-box border-grad">
-            <img src={dcSquad} alt="dcSquad" />
+            <img src="\static-icons\dc-squad.png" alt="dcSquad" style={{width: "50px", height: "50px"}} />
             <div className="ransk-name-heading">
               <p>My Squad</p>
               <h4>DC Squad</h4>
@@ -33,11 +33,11 @@ const MyRank = () => {
           <div className="private-sergant">
             <div className="private-rank-row">
               <div className="private-rank dc-squad">
-                <img src={privateRank} alt="privateRank" />
+              <img src="\static-icons\private-rank.png" alt="earned" style={{width: "60px", height: "60px"}} />
                 <h4>Private</h4>
               </div>
               <div className="private-rank sergeant">
-                <img src={Sergeant} alt="Sergeant" />
+              <img src="\static-icons\sergeant.png" alt="earned" style={{width: "60px", height: "60px"}} />
                 <h4>Sergeant</h4>
               </div>
             </div>
@@ -50,8 +50,8 @@ const MyRank = () => {
                   <p>5,000 POINTS</p>
                 </div>
               </div>
-              <img src={pointsBar} className="img-fluid" alt="img" style={{marginLeft: "-15px"}} />
-              <img src="\Framedots.svg" alt="img"className="img-fluid"/>
+              <img src={pointsBar} className="img-fluid" alt="img" style={{marginLeft: "-15px", width: "100%"}} />
+              <img src="\Framedots.svg" alt="img"className="img-fluid w-100"/>
             </div>
           </div>
         </div>

@@ -171,23 +171,23 @@ const GroupChat = () => {
               <div className="bottom-fields">
                 <div className="inner-item">
                   <h6>Sharjeel</h6>
-                  <h6><img src="\assets\memberrank.svg" alt="img" className="img-fluid me-2" />Private</h6>
+                  <h6><img src="\static-icons\private-rank.png" alt="img" className="img-fluid me-2" style={{width: "50px", height: "50px"}} />Private</h6>
                 </div>
                 <div className="inner-item">
                   <h6>Sharjeel</h6>
-                  <h6><img src="\assets\memberrank.svg" alt="img" className="img-fluid me-2" />Private</h6>
+                  <h6><img src="\static-icons\private-rank.png" alt="img" className="img-fluid me-2" style={{width: "50px", height: "50px"}} />Private</h6>
                 </div>
                 <div className="inner-item">
                   <h6>Sharjeel</h6>
-                  <h6><img src="\assets\memberrank.svg" alt="img" className="img-fluid me-2" />Private</h6>
+                  <h6><img src="\static-icons\private-rank.png" alt="img" className="img-fluid me-2" style={{width: "50px", height: "50px"}} />Private</h6>
                 </div>
                 <div className="inner-item">
                   <h6>Sharjeel</h6>
-                  <h6><img src="\assets\memberrank.svg" alt="img" className="img-fluid me-2" />Private</h6>
+                  <h6><img src="\static-icons\private-rank.png" alt="img" className="img-fluid me-2" style={{width: "50px", height: "50px"}} />Private</h6>
                 </div>
                 <div className="inner-item">
                   <h6>Sharjeel</h6>
-                  <h6><img src="\assets\memberrank.svg" alt="img" className="img-fluid me-2" />Private</h6>
+                  <h6><img src="\static-icons\private-rank.png" alt="img" className="img-fluid me-2" style={{width: "50px", height: "50px"}} />Private</h6>
                 </div>
               </div>
             </div>
@@ -217,7 +217,7 @@ const GroupChat = () => {
               <div className="bottom-fields">
                 <div className="inner-item">
                   <h6>Sharjeel</h6>
-                  <h6><img src="\assets\memberrank.svg" alt="img" className="img-fluid me-2" />Private</h6>
+                  <h6><img src="\static-icons\private-rank.png" alt="img" className="img-fluid me-2" />Private</h6>
                 </div>
                 <div className="inner-item">
                   <h6>Umar_x2jz</h6>
