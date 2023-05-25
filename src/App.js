@@ -5,6 +5,8 @@ import Home from "./soldier/screens/Home";
 import Tasks from "./soldier/screens/Tasks";
 import Operations from "./soldier/screens/Operations";
 import Squad from "./soldier/screens/Squad";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Announcements from "./soldier/screens/Announcements";
 import GroupChat from "./soldier/screens/GroupChat";
 import ArmyForum from "./soldier/screens/ArmyForum";
@@ -20,6 +22,7 @@ import GeneralSidebar from "./General/components/Sidebar/GeneralSidebar";
 function App() {
   return (
     <>
+     <ToastContainer autoClose={5000} style={{ fontSize: 12, fontWeight: 300 }} theme="dark" position="bottom-center" />
       <Router>
         <Switch>
 
