@@ -648,6 +648,7 @@
                         top: 20px;
                         right: 20px;
                         opacity: 2;
+                        z-index: 50;
                     }
                 }
                 .modal-body {
@@ -1060,5 +1061,8 @@
     .topicmodal .modal .modal-dialog .modal-content .modal-body .twice-btn button {
         flex: 0 0 100%;
         width: 100%;
+    }
+    .Header-wrapper .header-buttons .create-squad-btn{
+        display: none;
     }
 }

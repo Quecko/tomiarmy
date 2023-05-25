@@ -137,7 +137,7 @@ const GroupChat = () => {
                   <input type="text" placeholder='Write your message...' />
                 </div>
                 <div className="right-btns">
-                  <label htmlFor='upload'><img src="\assets\file-upload.svg" alt="img" className='img-fluid' /></label>
+                  <label htmlFor='upload'><img src="\assets\file-upload.svg" alt="img" className='img-fluid set-hw-icon' /></label>
                   <input type="file" className='d-none' id='upload' />
                   <div className='emoji-picker'>
                     {
@@ -145,9 +145,10 @@ const GroupChat = () => {
                         <EmojiPicker />
                       </div>
                     }
-                    <a onClick={() => setshow(!show)}><img src="\assets\emoji.svg" alt="img" className='img-fluid' /></a>
+                    <a onClick={() => setshow(!show)}><img src="\assets\emoji.svg" alt="img" className='img-fluid set-hw-icon' /></a>
                   </div>
                   <button className='btn-send' >Send</button>
+                  <button className='chat-mobile-btn d-none'><img src="\assets\chat-msg-mobile.png" alt="img" className='img-fluid' /></button>
                 </div>
               </div>
             </div>
@@ -206,7 +207,7 @@ const GroupChat = () => {
             </div>
             <div className="option-field">
               <img src="\assets\search-icon.svg" alt="img" className="img-fluid search-icon" />
-              <input type="search" placeholder="Search members" />
+              <input type="text" placeholder="Search members" />
             </div>
             <div className="bottom-table">
               <div className="upper-heading">

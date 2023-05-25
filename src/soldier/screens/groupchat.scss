@@ -331,4 +331,17 @@
             align-items: center;
         }
     }
+    .group-chat .chat-section .bottom-side .right-btns .btn-send{
+        display: none;
+    }
+    .group-chat .chat-section .bottom-side .right-btns .chat-mobile-btn{
+        display: block !important;
+        background-color: transparent;
+        border: none;
+    }
+    .set-hw-icon{
+        width: 17px;
+        height: 18px;
+    }
+
 }

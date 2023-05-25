@@ -23,7 +23,8 @@ const BugReport = () => {
                 >
                     <Tab eventKey="activeop" title="Report a Bug">
                         <div className="reportabug border-grad1">
-                            <div className="option-field">
+                          <div style={{maxWidth: "542px", width: "100%"}}>
+                          <div className="option-field">
                                 <label>Issue</label>
                                 <input type="text" placeholder='Write your issue...' />
                             </div>
@@ -41,6 +42,7 @@ const BugReport = () => {
                                 </div>
                             </div>
                             <button className='btn-save'>Save</button>
+                          </div>
                         </div>
                     </Tab>
                     <Tab eventKey="expiredop" title="Reported Bugs">

@@ -15,8 +15,9 @@ const Dcsquad = () => {
     <section className="rqstinvitation">
     <div className='ConnectWallet-wrapper border-grad1'>
         <div className='army-textImg'>
-            <img src={armyCap} alt="armyCap" className='capImg' />
-            <img src={armyText} alt="armyText" className='textImg' />
+            {/* <img src={armyCap} alt="armyCap" className='capImg' />
+            <img src={armyText} alt="armyText" className='textImg' /> */}
+              <img src="\login-logo.svg" alt="img" className='img-fluid' />
         </div>
         <div className="mainhead formargin">
             <h5 className="innerhead">Welcome to DC Squad!</h5>

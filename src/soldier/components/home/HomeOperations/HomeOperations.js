@@ -18,7 +18,7 @@ const HomeOperations = () => {
               <h6>operation : ELON MUSK <span>ENDS IN: 23:34:12</span></h6>
               <p>make elon musk tweet about tomi</p>
             </div>
-            <a href="#">View All Operation Tasks <img src="\assets\arrow-right.svg" alt="img" className='img-fluid ms-2' /></a>
+            <a href="#">View <span>All Operation Tasks</span> <img src="\assets\arrow-right.svg" alt="img" className='img-fluid ms-2' /></a>
           </div>
           <div className="bottom-cards">
             <div className="card-item border-grad">
@@ -106,7 +106,7 @@ const HomeOperations = () => {
                       <div className='dropbtn'>
                         <Dropdown>
                           <Dropdown.Toggle variant="success" id="dropdown-basic">
-                            <img src='\Vectordots.svg' alt='img' className='img-fluid' />
+                            <img src='\Vectordots.svg' alt='img' className='' />
 
                           </Dropdown.Toggle>
 
@@ -144,7 +144,7 @@ const HomeOperations = () => {
                       <div className='dropbtn'>
                         <Dropdown>
                           <Dropdown.Toggle variant="success" id="dropdown-basic">
-                            <img src='\Vectordots.svg' alt='img' className='img-fluid' />
+                            <img src='\Vectordots.svg' alt='img' className='' />
 
                           </Dropdown.Toggle>
 
@@ -182,7 +182,7 @@ const HomeOperations = () => {
                       <div className='dropbtn'>
                         <Dropdown>
                           <Dropdown.Toggle variant="success" id="dropdown-basic">
-                            <img src='\Vectordots.svg' alt='img' className='img-fluid' />
+                            <img src='\Vectordots.svg' alt='img' className='' />
 
                           </Dropdown.Toggle>
 
@@ -220,7 +220,7 @@ const HomeOperations = () => {
                       <div className='dropbtn'>
                         <Dropdown>
                           <Dropdown.Toggle variant="success" id="dropdown-basic">
-                            <img src='\Vectordots.svg' alt='img' className='img-fluid' />
+                            <img src='\Vectordots.svg' alt='img' className='' />
 
                           </Dropdown.Toggle>
 

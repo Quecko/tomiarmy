@@ -11,6 +11,10 @@ const ArmyForum = () => {
           <h6>Army Forum</h6>
           <p>Engage with your army</p>
         </div>
+        <button data-bs-toggle="modal" data-bs-target="#exampleModall" className="create-btn" >
+          <img src="\assets\topic-btn.svg" alt="img" className="img-fluid me-2" />
+          Start a new topic
+        </button>
       </div>
       <div className="topicwrapper">
         <section className="topics">

@@ -19,8 +19,9 @@ const Invitecode = () => {
                 (
                     <div className='ConnectWallet-wrapper border-grad1'>
                         <div className='army-textImg'>
-                            <img src={armyCap} alt="armyCap" className='capImg' />
-                            <img src={armyText} alt="armyText" className='textImg' />
+                            {/* <img src={armyCap} alt="armyCap" className='capImg' />
+                            <img src={armyText} alt="armyText" className='textImg' /> */}
+                             <img src="\login-logo.svg" alt="img" className='img-fluid' />
                         </div>
                         <div className="mainhead">
                             <h5 className="innerhead">Enter Invite Code</h5>

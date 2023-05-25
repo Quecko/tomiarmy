@@ -374,3 +374,20 @@
         text-align: start;
     }
 }
+
+
+@media (max-width:600px){
+    .bug-report .opeartions-tab{
+        justify-content: space-between;
+    }
+    .bug-report .opeartions-tab .nav-item{
+        flex: 1;
+    }
+    .bug-report .opeartions-tab .nav-item .nav-link{
+        width: 100%;
+    }
+    .reportabug .btn-save{
+        width: 100%;
+        text-align: center;
+    }
+}

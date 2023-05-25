@@ -22,8 +22,9 @@ const ConnectWallet = ({ setjoinsquad, joinsquad }) => {
                     )
                 }
                 <div className='army-textImg'>
-                    <img src={armyCap} alt="armyCap" className='capImg' />
-                    <img src={armyText} alt="armyText" className='textImg' />
+                    {/* <img src={armyCap} alt="armyCap" className='capImg' />
+                    <img src={armyText} alt="armyText" className='textImg' /> */}
+                    <img src="\login-logo.svg" alt="img" className='img-fluid' />
                 </div>
                 <div className="mainhead">
                     <h5 className="innerhead">Connect Wallet</h5>
