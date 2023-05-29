@@ -40,8 +40,6 @@ function App() {
           <Route exact path="/forum" component={ArmyForum} />
           <Route exact path="/claim" component={ClaimRewards} />
           <Route exact path="/setting" component={Settings} />
-
-
           {/* General + Major all routes here......................... */}
           <Route exact path="/general" component={GeneralSidebar} />
         </Switch>

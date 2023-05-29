@@ -1,19 +1,30 @@
 import React, { useEffect, useState } from 'react';
 import armyCap from '../assets/icons/mobileLogo.svg';
 import armyText from '../assets/icons/armyText.svg';
+
+import { toast } from "react-toastify";
 import './login.scss';
 import ConnectWallet from './ConnectWallet';
 
 const Invitecode = ({role}) => {
     const [joinsquad, setjoinsquad] = useState(false)
+    const [invitecode, setinvitecode] = useState('')
     const joinsquadwallet = () => {
-        setjoinsquad(true)
+        if(invitecode === ''){
+            toast.error('Please Enter Invite Code First', {
+                position: 'top-center',
+                autoClose: 5000,
+            });
+        }
+        else{
+            setjoinsquad(true)
+        }
     }
     return (
         <>
             {joinsquad ?
                 (
-                    <ConnectWallet setjoinsquad={setjoinsquad} role={role} joinsquad={joinsquad}/>
+                    <ConnectWallet setjoinsquad={setjoinsquad} setinvitecode={setinvitecode} invitecode={invitecode} role={role} joinsquad={joinsquad}/>
                 )
                 :
                 (
@@ -29,14 +40,14 @@ const Invitecode = ({role}) => {
                             <p className="invitetext">Invite code</p>
                         </div>
                         <div className="inviteinput">
-                            <input type="text" placeholder='Enter invite code...' className="inviteinputinner" />
-                            <button className="invitebtn">
+                            <input type="text" placeholder='Enter invite code...' onChange={(e) => setinvitecode(e.target.value)} className="inviteinputinner" />
+                            {/* <button className="invitebtn">
                                 <img src="\assets\telegram.svg" alt="telegramicon" className="telegramicon" />
                                 Enter
-                            </button>
+                            </button> */}
                         </div>
                         <div className="lastbtn">
-                            <button className="cnctwltbtn" onClick={joinsquadwallet}>
+                            <button className={invitecode ? "cnctwltbtn" : "cnctwltbtn asdasfafas"} onClick={joinsquadwallet}>
                                 <img src="\assets\empty-wallet.svg" alt="cnctwltimg" className="cnctwltimg" />
                                 Connect Wallet
                             </button>
