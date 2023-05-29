@@ -218,6 +218,18 @@
                                     .dropdown-toggle {
                                         background: transparent;
                                         border: none;
+                                        width: 24px;
+                                        height: 24px;
+                                        border-radius: 50%;
+                                        transition: 0.1s linear;
+                                        display: flex;
+                                        justify-content: center;
+                                        align-items: center;
+
+                                        &:focus {
+                                            background: #252B35;
+                                            border-radius: 50%;
+                                        }
 
                                         &:focus {
                                             border: none;
@@ -416,6 +428,11 @@
         color: #FFFFFF;
         max-width: 129px;
         width: 100%;
+        &:hover{
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0) 34.22%), #D10570;
+            border-bottom: 1px solid #F058A6;
+            box-shadow: 0px 3px 1px #88134F;
+        }
 
     }
 
@@ -432,6 +449,12 @@
         color: #FFFFFF;
         max-width: 129px;
         width: 100%;
+        &:hover{
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0) 34.22%), #FF0083;
+            border: 1px solid transparent;
+            border-bottom: 1px solid #F058A6;
+            box-shadow: 0px 3px 1px #88134F;
+        }
     }
 
     .parent {
@@ -526,5 +549,33 @@
         width: 100%;
         flex-direction: row !important;
         gap: 15px;
+    }
+
+    .home-operations .upper-item {
+        align-items: flex-start;
+        justify-content: flex-start;
+    }
+
+    .home-operations .upper-item .left p {
+        text-align: start !important;
+    }
+
+    .home-operations .upper-item .left h6 {
+        text-align: start;
+    }
+
+    .home-operations .upper-item .left h6 span {
+        display: block;
+        margin: 0 !important;
+    }
+
+    .home-operations .upper-item {
+        flex-direction: row !important;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .home-operations .upper-item a span {
+        display: none;
     }
 }

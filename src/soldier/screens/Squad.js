@@ -58,7 +58,7 @@ const Squad = () => {
                   <div className='innercard2 border-grad'>
                     <div className='parent'>
                       <div className='left'>
-                        <img src='\Frameownwe.svg' alt='img' className='img-fluid' />
+                      <img src="\static-icons\squadowner.png" alt="img" className='img-fluid' style={{width: "50px", height: "50px"}} />
                       </div>
                       <div className='right'>
                         <p>Squad Owner</p>
@@ -69,7 +69,7 @@ const Squad = () => {
                   <div className='innercard2 border-grad'>
                     <div className='parent'>
                       <div className='left'>
-                        <img src='\Frametokens.svg' alt='img' className='img-fluid' />
+                      <img src="\static-icons\tomi-icon.png" alt="img" className='img-fluid' style={{width: "50px", height: "50px"}} />
                       </div>
                       <div className='right'>
                         <p>Total Squad Tokens</p>
@@ -80,7 +80,7 @@ const Squad = () => {
                   <div className='innercard2 border-grad'>
                     <div className='parent'>
                       <div className='left'>
-                        <img src='\Framemember.svg' alt='img' className='img-fluid' />
+                      <img src="\static-icons\squad-members.png" alt="img" className='img-fluid' style={{width: "50px", height: "50px"}} />
                       </div>
                       <div className='right'>
                         <p>Total Squad Members</p>
@@ -119,7 +119,7 @@ const Squad = () => {
                             <p className='paratable'>Sharjeel</p>
                           </td>
                           <td>
-                            <p className='paratable'><img src='\polygon.svg' alt='img' className='img-fluid' /> Private</p>
+                            <p className='paratable'><img src='\static-icons\private-rank.png' alt='img' className='img-fluid' style={{width: "50px", height: "50px"}} /> Private</p>
                           </td>
                           <td>
                             <p className='paratable'>  0x2F78aB0Cd05c...6j88</p>
@@ -136,7 +136,7 @@ const Squad = () => {
                             <p className='paratable'>Umar_x2jz</p>
                           </td>
                           <td>
-                            <p className='paratable'><img src='\polygon1.svg' alt='img' className='img-fluid' /> Sergeant</p>
+                            <p className='paratable'><img src='\static-icons\sergeant.png' alt='img' className='img-fluid' style={{width: "50px", height: "50px"}} /> Sergeant</p>
                           </td>
                           <td>
                             <p className='paratable'>  0x2F78aB0Cd05c...6j88</p>
@@ -153,7 +153,7 @@ const Squad = () => {
                             <p className='paratable'>Sharjeel</p>
                           </td>
                           <td>
-                            <p className='paratable'><img src='\polygon2.svg' alt='img' className='img-fluid' />Lieutenant</p>
+                            <p className='paratable'><img src='\static-icons\lieutenant.png' alt='img' className='img-fluid' style={{width: "50px", height: "50px"}} />Lieutenant</p>
                           </td>
                           <td>
                             <p className='paratable'>  0x2F78aB0Cd05c...6j88</p>
@@ -170,7 +170,7 @@ const Squad = () => {
                             <p className='paratable'>Sharjeel</p>
                           </td>
                           <td>
-                            <p className='paratable'><img src='\polygon3.svg' alt='img' className='img-fluid' />Captain</p>
+                            <p className='paratable'><img src='\static-icons\captain.png' alt='img' className='img-fluid' style={{width: "50px", height: "50px"}} />Captain</p>
                           </td>
                           <td>
                             <p className='paratable'>  0x2F78aB0Cd05c...6j88</p>

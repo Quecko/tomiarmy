@@ -21,7 +21,7 @@ const Settings = () => {
                     <h6>Nick Name</h6>
                     <p>Umar_x2jz</p>
                 </div>
-                <a onClick={handleShow}><img src="\assets\edit-btn.svg" alt="img" className='img-fluid' /></a>
+                <a style={{cursor: "pointer"}} onClick={handleShow}><img src="\assets\edit-btn.svg" alt="img" className='img-fluid' /></a>
             </div>
             <div className="inner-card border-grad">
                 <div className="inner-text">

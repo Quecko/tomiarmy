@@ -91,7 +91,7 @@
                                     padding: 5px 10px;
                                     // width: 100%;
                                     font-style: normal;
-                                    font-weight: 500;
+                                    font-weight: 700;
                                     font-size: 14px;
                                     line-height: 100%;
                                     letter-spacing: 0.01em;
@@ -372,5 +372,29 @@
         color: #FFFFFF;
         display: block;
         text-align: start;
+        &:hover{
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0) 34.22%), #D10570;
+            border: none;
+            border-bottom: 1px solid #F058A6;
+            box-shadow: 0px 3px 1px #88134F;
+            border-radius: 10px;
+        }
+    }
+}
+
+
+@media (max-width:600px){
+    .bug-report .opeartions-tab{
+        justify-content: space-between;
+    }
+    .bug-report .opeartions-tab .nav-item{
+        flex: 1;
+    }
+    .bug-report .opeartions-tab .nav-item .nav-link{
+        width: 100%;
+    }
+    .reportabug .btn-save{
+        width: 100%;
+        text-align: center;
     }
 }

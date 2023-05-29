@@ -20,6 +20,9 @@ import Settings from "./soldier/screens/Settings";
 import GeneralSidebar from "./General/components/Sidebar/GeneralSidebar";
 
 function App() {
+
+
+
   return (
     <>
      <ToastContainer autoClose={5000} style={{ fontSize: 12, fontWeight: 300 }} theme="dark" position="bottom-center" />

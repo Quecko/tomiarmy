@@ -11,6 +11,10 @@ const ArmyForum = () => {
           <h6>Army Forum</h6>
           <p>Engage with your army</p>
         </div>
+        <button data-bs-toggle="modal" data-bs-target="#exampleModall" className="create-btn" >
+          <img src="\assets\topic-btn.svg" alt="img" className="img-fluid me-2" />
+          Start a new topic
+        </button>
       </div>
       <div className="topicwrapper">
         <section className="topics">
@@ -19,9 +23,9 @@ const ArmyForum = () => {
               <div className="col-xl-9 col-12 p-0">
                 <section className="maincmntsection border-grad1">
                   <div className="arrows">
-                    <img src="\assets\arrow-up.svg" alt="img" className="arrow" />
+                    <img src="\assets\arrow-up.png" alt="img" className="arrow" style={{width: "25px" , height: "25px"}} />
                     <p className="serial">56</p>
-                    <img src="\assets\arrowdown.svg" alt="img" className="arrow" />
+                    <img src="\assets\arrow-down.png" alt="img" className="arrow" style={{width: "25px" , height: "25px"}} />
                   </div>
                   <section className="first">
                     <div className="saying">

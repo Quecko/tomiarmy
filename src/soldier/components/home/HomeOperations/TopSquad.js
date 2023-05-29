@@ -11,7 +11,7 @@ const TopSquad = () => {
             <h6>top squads</h6>
           </div>
           <div className="option-field">
-            <input type="search" placeholder='Search' />
+            <input type="text" placeholder='Search' />
             <img src="\assets\search-icon.svg" alt="img" className='img-fluid search-icon' />
           </div>
           <div className="maintable table-responsive display-none-in-mobile">

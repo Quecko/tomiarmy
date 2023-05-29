@@ -8,7 +8,7 @@ import Sidebar from "../sidebar/Sidebar";
 import mobileLogo from "../../../assets/icons/mobileLogo.svg";
 import Modal from 'react-bootstrap/Modal';
 
-const Header = ({ routes, setroute, indexwait, handleShow }) => {
+const Header = ({ routes, setroute, indexwait, handleShow, setShow2, show2 }) => {
 
 
 
@@ -18,7 +18,7 @@ const Header = ({ routes, setroute, indexwait, handleShow }) => {
   const handleShow1 = () => setShow1(true);
 
 
-  const [show2, setShow2] = useState(false);
+ 
   const handleClose2 = () => setShow2(false);
   const handleShow2 = () => setShow2(true);
 
@@ -310,8 +310,8 @@ const Header = ({ routes, setroute, indexwait, handleShow }) => {
               <input type='text' placeholder='Enter Squad Name....' />
             </div>
             <div className='endbtn'>
-              <button onClick={handleClose2}><span><img src='\Subtract.svg' alt='img' className='img-fluid' /></span>Cancel</button>
-              <button onClick={() => {
+              <button className="btn-blackk" onClick={handleClose2}><span><img src='\Subtract.svg' alt='img' className='img-fluid' /></span>Cancel</button>
+              <button className="btn-pinkk" onClick={() => {
                 handleClose2();
                 handleShow3();
               }}><img src='\add.svg' alt='img' className='img-fluid' /> Create Squad</button>
@@ -349,8 +349,8 @@ const Header = ({ routes, setroute, indexwait, handleShow }) => {
               <p>Are you sure you want to leave this squad?</p>
             </div>
             <div className='endbtn'>
-              <button onClick={handleClose4}><span><img src='\Subtract.svg' alt='img' className='img-fluid' /></span>Cancel</button>
-              <button><img src='\up.svg' alt='img' className='img-fluid' />Yes’ I am sure</button>
+              <button className="btn-blackk" onClick={handleClose4}><span><img src='\Subtract.svg' alt='img' className='img-fluid' /></span>Cancel</button>
+              <button className="btn-pinkk"><img src='\up.svg' alt='img' className='img-fluid' />Yes’ I am sure</button>
             </div>
           </Modal.Body>
         </Modal>
@@ -370,7 +370,7 @@ const Header = ({ routes, setroute, indexwait, handleShow }) => {
                 <p>Description</p>
                 <textarea placeholder="Enter Description Url...."></textarea>
                 <div className="twice-btn">
-                  <button className="btn-cancel"> <img src="\assets\cancel.svg" alt="img" className="img-fluid me-2" /> Cancel</button>
+                  <button className="btn-cancel" data-bs-dismiss="modal" aria-label="Close"> <img src="\assets\cancel.svg" alt="img" className="img-fluid me-2" /> Cancel</button>
                   <button className="btn-topic"> <img src="\assets\topic-btn.svg" alt="img" className="img-fluid me-2" /> Start a New Topic</button>
                 </div>
               </div>
