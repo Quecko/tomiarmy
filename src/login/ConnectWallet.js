@@ -79,20 +79,15 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role, setinvitecode, invitecod
                             autoClose: 5000,
                         });
                         // localStorage.setItem("accessToken", res?.data?.data?.accessToken);
-                        // localStorage.setItem("refreshToken", res?.data?.data?.refreshToken);
                         // setShow(false)
-                        // localStorage.setItem("user", JSON.stringify(res?.data?.data));
-                        // if (res?.data?.data?.rank.name === "general" || user?.rank === "major general") {
-                        //     console.log("major")
-                        //     history.push("/general");
-                        // } else if (!res.data.data.nickName) {
-                        //     history.push("/tomichoose");
-                        // }
-                        // else if ((res?.data?.data?.rank.name !== "general")) {
-                        //     history.push("/squad");
-                        // }
-                        // localStorage.setItem("wallet", account);
-                        // window.scrollTo(0, 0);
+                        localStorage.setItem("user", JSON.stringify(res?.data?.data));
+                        if (res?.data?.data?.rank.name === "general" || res?.data?.data?.rank.name === "major general") {
+                            history.push("/general");
+                        }
+                        else if ((res?.data?.data?.rank.name !== "general")) {
+                            history.push("/soldier");
+                        }
+                        localStorage.setItem("wallet", account);
                     })
                     .catch((err) => {
                         if (err?.response?.data?.statusCode == 404) {
@@ -104,10 +99,10 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role, setinvitecode, invitecod
                             localStorage.removeItem("flag");
                             // console.log("logout", err)
                             // setShow(false);
-                            // localStorage.removeItem("accessToken");
-                            // localStorage.removeItem("user");
-                            // localStorage.removeItem("wallet");
-                            // history.push("/")
+                            localStorage.removeItem("accessToken");
+                            localStorage.removeItem("user");
+                            localStorage.removeItem("wallet");
+                            history.push("/")
                         }
                         localStorage.removeItem("connectorId");
                         localStorage.removeItem("flag");
@@ -123,6 +118,32 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role, setinvitecode, invitecod
                     })
                     .then((res) => {
                         toast.success('Join Request Sent Successfully To Commander', {
+                            position: 'top-center',
+                            autoClose: 5000,
+                        });
+                        localStorage.setItem("accessToken", res?.data?.data?.accessToken);
+                        history.push("/requestinvitation?id=" + role);
+                    })
+                    .catch((err) => {
+                        toast.error(err.response.data.message, {
+                            position: 'top-center',
+                            autoClose: 5000,
+                        });
+                        //  setShow(false);
+                        localStorage.removeItem("accessToken");
+                        localStorage.removeItem("user");
+                        localStorage.removeItem("wallet");
+                        history.push("/")
+                    });
+            }
+            else if (account && res0 && role == 'solider') {
+                await axios
+                    .post(`${API_URL}/auth/signup`, {
+                        walletAddress: account,
+                        sign: res0,
+                    })
+                    .then((res) => {
+                        toast.success('Free Solider Account Created Successfully', {
                             position: 'top-center',
                             autoClose: 5000,
                         });
@@ -148,40 +169,6 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role, setinvitecode, invitecod
                         localStorage.removeItem("flag");
                         // console.log("does not work")
                     });
-            }
-            else if (account && res0 && role == 'solider') {
-                await axios
-                .post(`${API_URL}/auth/signup`, {
-                    walletAddress: account,
-                    sign: res0,
-                })
-                .then((res) => {
-                    toast.success('Free Solider Account Created Successfully', {
-                        position: 'top-center',
-                        autoClose: 5000,
-                    });
-                    localStorage.setItem("accessToken", res?.data?.data?.accessToken);
-                    history.push("/requestinvitation?id=" + role);
-                })
-                .catch((err) => {
-                    if (err?.response?.data?.statusCode == 404) {
-                        toast.error('InviteCode is not valid', {
-                            position: 'top-center',
-                            autoClose: 5000,
-                        });
-                        localStorage.removeItem("connectorId");
-                        localStorage.removeItem("flag");
-                        // console.log("logout", err)
-                        // setShow(false);
-                        // localStorage.removeItem("accessToken");
-                        // localStorage.removeItem("user");
-                        // localStorage.removeItem("wallet");
-                        // history.push("/")
-                    }
-                    localStorage.removeItem("connectorId");
-                    localStorage.removeItem("flag");
-                    // console.log("does not work")
-                });
             }
         }
         else {

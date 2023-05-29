@@ -26,7 +26,7 @@ const Dcsquad = () => {
               <img src="\login-logo.svg" alt="img" className='img-fluid' />
         </div>
         <div className="mainhead formargin">
-            <h5 className="innerhead">Welcome to DC Squad!</h5>
+            <h5 className="innerhead">Your Request Has been Sent To Squad Owner Until You Can Perform Simple Tasks</h5>
         </div>
         <div className="buylast">
             <button className="buybtn"onClick={Joinsquad}>
