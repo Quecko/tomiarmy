@@ -145,7 +145,7 @@ const GroupChat = () => {
                         <EmojiPicker />
                       </div>
                     }
-                    <a onClick={() => setshow(!show)}><img src="\assets\emoji.svg" alt="img" className='img-fluid set-hw-icon' /></a>
+                    <a style={{cursor: "pointer"}} onClick={() => setshow(!show)}><img src="\assets\emoji.svg" alt="img" className='img-fluid set-hw-icon' /></a>
                   </div>
                   <button className='btn-send' >Send</button>
                   <button className='chat-mobile-btn d-none'><img src="\assets\chat-msg-mobile.png" alt="img" className='img-fluid' /></button>
