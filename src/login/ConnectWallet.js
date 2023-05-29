@@ -13,14 +13,16 @@ import { toast } from "react-toastify";
 import useWeb3 from "../hooks/useWeb3";
 import axios from "axios";
 import Signature from "../hooks/dataSenders/userSign";
+import { useHistory } from "react-router-dom";
 import { useLocation } from 'react-router-dom';
 import { API_URL } from '../utils/ApiUrl'
 
-const ConnectWallet = ({ setjoinsquad, joinsquad, role }) => {
+const ConnectWallet = ({ setjoinsquad, joinsquad, role, setinvitecode, invitecode }) => {
     const { account } = useWeb3React();
     const { userSign } = Signature();
     const [log, setLog] = useState(false)
     // console.log("value",account)
+    const history = useHistory();
     const { login, logout } = useAuth();
     const trustWallet = async () => {
         localStorage.setItem("flag", "true");
@@ -63,11 +65,7 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role }) => {
         // setShow(false);
         if (account) {
             const res0 = await userSign(account);
-            // console.log(res0)
-            // if (call !== undefined) {
-            //     setCall(false);
-            // }
-            if (account && res0 && role == 'alreadymember') {
+            if (account && res0 && role === 'alreadymember') {
                 await axios
                     .post(`${API_URL}/auth/signin`, {
                         walletAddress: account,
@@ -81,37 +79,87 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role }) => {
                             autoClose: 5000,
                         });
                         // localStorage.setItem("accessToken", res?.data?.data?.accessToken);
-                        // localStorage.setItem("refreshToken", res?.data?.data?.refreshToken);
-                        // setShow(false);
-                        // if (call !== undefined) {
-                        //     setCall(true);
-                        // }
-                        // localStorage.setItem("user", JSON.stringify(res?.data?.data));
-                        // if (res?.data?.data?.rank.name === "general" || user?.rank === "major general") {
-                        //     console.log("major")
-                        //     history.push("/general");
-                        //     GetArmy();
-                        //     getData();
-                        //     GetArmydata();
-                        // } else if (!res.data.data.nickName) {
-                        //     history.push("/tomichoose");
-                        // }
-                        // else if ((res?.data?.data?.rank.name !== "general")) {
-                        //     console.log("major1234")
-                        //     history.push("/squad");
-                        //     GetTaskss();
-                        //     GetUserProfiledata();
-                        //     GetOpts();
-                        //     GetTasks();
-                        //     vateransApi();
-                        //     window.location.reload()
-                        // }
-                        // localStorage.setItem("wallet", account);
-                        // window.scrollTo(0, 0);
+                        // setShow(false)
+                        localStorage.setItem("user", JSON.stringify(res?.data?.data));
+                        if (res?.data?.data?.rank.name === "general" ) {
+                            history.push("/general");
+                        }else if(res?.data?.data?.rank.name === "major general"){
+                            history.push("/majorgenerL");
+                        }
+                        else if(res?.data?.data?.isCommander === true){
+                            history.push("/leader");
+                        }
+                        else if (res?.data?.data?.isCommander === false && res?.data?.data?.squad?.name !=='') {
+                            history.push("/soldier");
+                        }else {
+                            history.push("/soldier");    
+                        }
+                        localStorage.setItem("wallet", account);
+                    })
+                    .catch((err) => {
+                        if (err?.response?.data?.statusCode === 404) {
+                            toast.error('No User Found', {
+                                position: 'top-center',
+                                autoClose: 5000,
+                            });
+                            localStorage.removeItem("connectorId");
+                            localStorage.removeItem("flag");
+                            // console.log("logout", err)
+                            // setShow(false);
+                            localStorage.removeItem("accessToken");
+                            localStorage.removeItem("user");
+                            localStorage.removeItem("wallet");
+                            history.push("/")
+                        }
+                        localStorage.removeItem("connectorId");
+                        localStorage.removeItem("flag");
+                        // console.log("does not work")
+                    });
+            }
+            else if (account && res0 && role === 'squadjoin') {
+                await axios
+                    .post(`${API_URL}/auth/signup`, {
+                        walletAddress: account,
+                        sign: res0,
+                        inviteCode: invitecode
+                    })
+                    .then((res) => {
+                        toast.success('Join Request Sent Successfully To Commander', {
+                            position: 'top-center',
+                            autoClose: 5000,
+                        });
+                        localStorage.setItem("accessToken", res?.data?.data?.accessToken);
+                        history.push("/requestinvitation?id=" + role);
+                    })
+                    .catch((err) => {
+                        toast.error(err.response.data.message, {
+                            position: 'top-center',
+                            autoClose: 5000,
+                        });
+                        //  setShow(false);
+                        localStorage.removeItem("accessToken");
+                        localStorage.removeItem("user");
+                        localStorage.removeItem("wallet");
+                        history.push("/")
+                    });
+            }
+            else if (account && res0 && role === 'solider') {
+                await axios
+                    .post(`${API_URL}/auth/signup`, {
+                        walletAddress: account,
+                        sign: res0,
+                    })
+                    .then((res) => {
+                        toast.success('Free Solider Account Created Successfully', {
+                            position: 'top-center',
+                            autoClose: 5000,
+                        });
+                        localStorage.setItem("accessToken", res?.data?.data?.accessToken);
+                        history.push("/requestinvitation?id=" + role);
                     })
                     .catch((err) => {
                         if (err?.response?.data?.statusCode == 404) {
-                            toast.error('No User Found', {
+                            toast.error('InviteCode is not valid', {
                                 position: 'top-center',
                                 autoClose: 5000,
                             });
@@ -129,128 +177,6 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role }) => {
                         // console.log("does not work")
                     });
             }
-            else if (account && res0 && role == 'squadjoin') {
-                await axios
-                    .post(`${API_URL}/auth/signin`, {
-                        walletAddress: account,
-                        sign: res0,
-                        rememberMe: true
-                    })
-                    .then((res) => {
-                        console.log(res, "response for already member")
-                        toast.success('User Logged in Successfully', {
-                            position: 'top-center',
-                            autoClose: 5000,
-                        });
-                        // localStorage.setItem("accessToken", res?.data?.data?.accessToken);
-                        // localStorage.setItem("refreshToken", res?.data?.data?.refreshToken);
-                        // setShow(false);
-                        // if (call !== undefined) {
-                        //     setCall(true);
-                        // }
-                        // localStorage.setItem("user", JSON.stringify(res?.data?.data));
-                        // if (res?.data?.data?.rank.name === "general" || user?.rank === "major general") {
-                        //     console.log("major")
-                        //     history.push("/general");
-                        //     GetArmy();
-                        //     getData();
-                        //     GetArmydata();
-                        // } else if (!res.data.data.nickName) {
-                        //     history.push("/tomichoose");
-                        // }
-                        // else if ((res?.data?.data?.rank.name !== "general")) {
-                        //     console.log("major1234")
-                        //     history.push("/squad");
-                        //     GetTaskss();
-                        //     GetUserProfiledata();
-                        //     GetOpts();
-                        //     GetTasks();
-                        //     vateransApi();
-                        //     window.location.reload()
-                        // }
-                        // localStorage.setItem("wallet", account);
-                        // window.scrollTo(0, 0);
-                    })
-                    .catch((err) => {
-                        if (err?.response?.data?.statusCode == 404) {
-                            toast.error('No User Found', {
-                                position: 'top-center',
-                                autoClose: 5000,
-                            });
-                            localStorage.removeItem("connectorId");
-                            localStorage.removeItem("flag");
-                            // console.log("logout", err)
-                            // setShow(false);
-                            // localStorage.removeItem("accessToken");
-                            // localStorage.removeItem("user");
-                            // localStorage.removeItem("wallet");
-                            // history.push("/")
-                        }
-                        localStorage.removeItem("connectorId");
-                        localStorage.removeItem("flag");
-                        // console.log("does not work")
-                    });
-            }
-            else if (account && res0 && role == 'solider') {
-            }
-            // if (account) {
-            //     await axios
-            //         .post(`${API_URL}/auth/signin`, {
-            //             walletAddress: account,
-            //             // sign: res0,
-            //             rememberMe: false
-            //         })
-            //         .then((res) => {
-            //             toast.success('User Logged in Successfully', {
-            //                 position: 'top-center',
-            //                 autoClose: 5000,
-            //             });
-            //             // localStorage.setItem("accessToken", res?.data?.data?.accessToken);
-            //             // localStorage.setItem("refreshToken", res?.data?.data?.refreshToken);
-            //             // setShow(false);
-            //             // if (call !== undefined) {
-            //             //     setCall(true);
-            //             // }
-            //             // localStorage.setItem("user", JSON.stringify(res?.data?.data));
-            //             // if (res?.data?.data?.rank.name === "general" || user?.rank === "major general") {
-            //             //     console.log("major")
-            //             //     history.push("/general");
-            //             //     GetArmy();
-            //             //     getData();
-            //             //     GetArmydata();
-            //             // } else if (!res.data.data.nickName) {
-            //             //     history.push("/tomichoose");
-            //             // }
-            //             // else if ((res?.data?.data?.rank.name !== "general")) {
-            //             //     console.log("major1234")
-            //             //     history.push("/squad");
-            //             //     GetTaskss();
-            //             //     GetUserProfiledata();
-            //             //     GetOpts();
-            //             //     GetTasks();
-            //             //     vateransApi();
-            //             //     window.location.reload()
-            //             // }
-
-            //             // localStorage.setItem("wallet", account);
-            //             // window.scrollTo(0, 0);
-            //         })
-            //         .catch((err) => {
-            //             if (err?.response?.data?.statusCode == 404) {
-            //                 toast.error('No User Found', {
-            //                     position: 'top-center',
-            //                     autoClose: 5000,
-            //                 });
-            //                 // console.log("logout", err)
-            //                 // setShow(false);
-            //                 // localStorage.removeItem("accessToken");
-            //                 // localStorage.removeItem("user");
-            //                 // localStorage.removeItem("wallet");
-            //                 // history.push("/")
-            //             }
-            //             // console.log("does not work")
-            //         });
-            // }
         }
         else {
             toast.error('Wallet Not Connected', {
@@ -294,6 +220,7 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role }) => {
 
     const backtoinvitecode = () => {
         setjoinsquad(false)
+        setinvitecode('')
     }
     return (
         <>

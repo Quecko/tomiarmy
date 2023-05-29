@@ -10,6 +10,9 @@ import HomeOperations from "../components/home/HomeOperations/HomeOperations";
 
 
 const Home = ({setShow2}) => {
+  const datacommander = localStorage.getItem('user')
+  const commander = JSON.parse(datacommander)
+  // console.log("userrr",commander)
   return (
     <>
       <div className="formobile-heading d-none display-block-in-mobile">
@@ -133,7 +136,7 @@ const Home = ({setShow2}) => {
           </div>
         </div>
       </div>
-      <HomeOperations />
+      <HomeOperations  />
     </>
   );
 };
