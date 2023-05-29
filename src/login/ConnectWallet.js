@@ -65,7 +65,7 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role, setinvitecode, invitecod
         // setShow(false);
         if (account) {
             const res0 = await userSign(account);
-            if (account && res0 && role == 'alreadymember') {
+            if (account && res0 && role === 'alreadymember') {
                 await axios
                     .post(`${API_URL}/auth/signin`, {
                         walletAddress: account,
@@ -81,16 +81,23 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role, setinvitecode, invitecod
                         // localStorage.setItem("accessToken", res?.data?.data?.accessToken);
                         // setShow(false)
                         localStorage.setItem("user", JSON.stringify(res?.data?.data));
-                        if (res?.data?.data?.rank.name === "general" || res?.data?.data?.rank.name === "major general") {
+                        if (res?.data?.data?.rank.name === "general" ) {
                             history.push("/general");
+                        }else if(res?.data?.data?.rank.name === "major general"){
+                            history.push("/majorgenerL");
                         }
-                        else if ((res?.data?.data?.rank.name !== "general")) {
+                        else if(res?.data?.data?.isCommander === true){
+                            history.push("/leader");
+                        }
+                        else if (res?.data?.data?.isCommander === false && res?.data?.data?.squad?.name !=='') {
                             history.push("/soldier");
+                        }else {
+                            history.push("/soldier");    
                         }
                         localStorage.setItem("wallet", account);
                     })
                     .catch((err) => {
-                        if (err?.response?.data?.statusCode == 404) {
+                        if (err?.response?.data?.statusCode === 404) {
                             toast.error('No User Found', {
                                 position: 'top-center',
                                 autoClose: 5000,
@@ -109,7 +116,7 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role, setinvitecode, invitecod
                         // console.log("does not work")
                     });
             }
-            else if (account && res0 && role == 'squadjoin') {
+            else if (account && res0 && role === 'squadjoin') {
                 await axios
                     .post(`${API_URL}/auth/signup`, {
                         walletAddress: account,
@@ -136,7 +143,7 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role, setinvitecode, invitecod
                         history.push("/")
                     });
             }
-            else if (account && res0 && role == 'solider') {
+            else if (account && res0 && role === 'solider') {
                 await axios
                     .post(`${API_URL}/auth/signup`, {
                         walletAddress: account,

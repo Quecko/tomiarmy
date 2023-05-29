@@ -34,6 +34,7 @@ function App() {
           <Route exact path="/dcsquad" component={Dcsquad} />
           {/* soldier + leader all routes here........................... */}
           <Route exact path="/soldier" component={Sidebar} />
+          <Route exact path="/leader" component={Sidebar} />
           <Route exact path="/home" component={Home} />
           <Route exact path="/tasks" component={Tasks} />
           <Route exact path="/operations" component={Operations} />
@@ -45,6 +46,7 @@ function App() {
           <Route exact path="/setting" component={Settings} />
           {/* General + Major all routes here......................... */}
           <Route exact path="/general" component={GeneralSidebar} />
+          <Route exact path="/majorgenerL" component={GeneralSidebar} />
         </Switch>
       </Router>
     </>
