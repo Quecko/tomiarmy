@@ -1,23 +1,121 @@
-import React, { useState } from 'react'
+import { React, useState, useEffect } from "react";
 import "./homeoperations.scss"
 import Dropdown from 'react-bootstrap/Dropdown';
 import TopSquad from './TopSquad';
 import Accordion from 'react-bootstrap/Accordion';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
+import { API_URL } from "../../../../utils/ApiUrl"
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import axios from 'axios';
 const HomeOperations = () => {
 
   const datacommander = localStorage.getItem('user')
   const data = JSON.parse(datacommander)
-  console.log("data", data)
-
-
   const [show, setShow] = useState(false);
+  const [users, setUsers] = useState([]);
+  const [topSquad, setTopSquad] = useState([]);
+  console.log("data", topSquad)
+
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  let tok = localStorage.getItem("accessToken");
 
-  
+  const GetUserTopSquad = () => {
+    // setLoader(true);
+    console.log("token", tok)
+    var config = {
+      method: "get",
+      url: `${API_URL}/squads?offset=1&limit=10`,
+      headers: {
+        authorization: `Bearer ` + tok
+      },
+    };
+    axios(config)
+      .then(async (response) => {
+        // console.log("resProfile",response)
+        // setLoader(false);
+        setTopSquad(response.data.data.squad)
+        // setcoms(response?.data?.data?.squad?.commander)
+        // setnewss(response?.data?.data?._id)
+        window.scrollTo(0, 0);
+      })
+      .catch(function (error) {
+        console.log(error);
+        // setLoader(false);
+        // localStorage.removeItem("accessToken");
+        // localStorage.removeItem("user");
+        // window.location.assign("/")
+      });
+  }
+
+  const SendInvite = async (id) => {
+    // e.preventDefault();
+    // setLoader(true);
+    await axios
+      .post(`${API_URL}/squad-invitation-requests`, {
+        squadId: id.toString(),
+      }, {
+        headers: {
+          authorization: `Bearer ` + tok
+        }
+      })
+      .then((res) => {
+        // window.$("#examplemodalinvite").modal("hide");
+        GetUserTopSquad()
+        toast.success("Invite Sent Successfully");
+        // setLoader(false);
+      })
+      .catch((err) => {
+        toast.error(err?.response?.data.message, {
+          position: "top-right",
+          autoClose: 2000,
+        });
+        // setLoader(false);
+      });
+  }
+
+  const SquadUsers = async (off) => {
+    let valu = null;
+    // if (off) {
+    //     valu = off;
+    // } else {
+    //     valu = 1;
+    // }
+    let wall = localStorage.getItem("wallet");
+        var config = {
+            method: "get",
+            url: `${API_URL}/users?offset=1&&limit=5`,
+            headers: {
+                authorization: `Bearer ` + tok
+            },
+        };
+        axios(config)
+            .then(function (response) {
+                // setLoader(false);
+                // setCommander(response?.data?.data?.commanderWalletAddress)
+  console.log("data11", response)
+
+                setUsers(response?.data?.data?.users);
+                // let arr = Array.from(Array(parseInt(response.data.data.pages)).keys());
+                // setPages(arr);
+                // setCurrentPage(valu)
+            })
+            .catch(function (error) {
+                // console.log(error);
+                // setLoader(false);
+                // localStorage.removeItem("accessToken");
+                // localStorage.removeItem("user");
+                // window.location.reload();
+            });
+}
+
+  useEffect(() => {
+    GetUserTopSquad()
+    SquadUsers()
+  }, []);
   return (
     <>
       <div className="warpper-lock-operation">
@@ -26,7 +124,7 @@ const HomeOperations = () => {
           <div className="lock-operation">
             <img src="\assets\lock-eye.svg" alt="img" className='img-fluid' />
             <h6>Join squad to view operations</h6>
-            <button>Join Squad</button>
+            <button onClick={handleShow}>Join Squad</button>
           </div>
           : ''
         }
@@ -375,7 +473,7 @@ const HomeOperations = () => {
       </div>
       {data?.isCommander === false && data?.memberOfSquad === false
         ?
-        <TopSquad />
+        <TopSquad  props={topSquad} GetUserTopSquad={GetUserTopSquad}/>
 
         :
         <>
@@ -407,7 +505,10 @@ const HomeOperations = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
+                  {users?.map((elem) => {
+                  return (
+                    <>
+                     <tr>
                       <td>
                         <p className='paratable'>Umar_x2jz</p>
                       </td>
@@ -424,6 +525,10 @@ const HomeOperations = () => {
                         <p className='paratable'>500 TOMI</p>
                       </td>
                     </tr>
+                    </>
+                  )
+                })}
+                  
                     <tr>
                       <td>
                         <p className='paratable'>Sharjeel</p>
@@ -573,163 +678,150 @@ const HomeOperations = () => {
         </>
       }
 
-         
-<button onClick={handleShow}>hvcsyvvsyscvycvs</button>
-
       <Modal className='joinsquad-modal' show={show} onHide={handleClose} centered>
         <Modal.Header closeButton>
           <Modal.Title>Top Squads</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <div className="parent-modal">
-          <div className="option-field">
-            <input type="text" placeholder='Search' className='border-grad1' />
-            <img src="\assets\search-icon.svg" alt="img" className='img-fluid search-icon' />
-          </div>
-          <div className="maintable table-responsive display-none-in-mobile">
-            <table class="table table-striped ">
-              <thead>
-                <tr>
-                  <th>
-                    <p className='headtable'>Squads</p>
-                  </th>
-                  <th>
-                    <p className='headtable'>Total Members</p>
-                  </th>
-                  <th>
-                    <p className='headtable'>TOMI Balance</p>
-                  </th>
-                  <th>
-                    <p className='headtable'>Action</p>
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>
-                    <div className="parent">
-                      <div className="profile">
-                        <img src="\assets\squad-profile.png" alt="img" className='img-fluid' />
-                      </div>
-                      <p className='paratable'>DC Squad</p>
-                    </div>
-                  </td>
-                  <td>
-                    <p className='paratable'>25</p>
-                  </td>
-                  <td>
-                    <p className='paratable'>500 TOMI</p>
-                  </td>
-                  <td>
-                    <button className='btn-requestjoin'>Request to join</button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <div className="parent">
-                      <div className="profile">
-                        <img src="\assets\squad-profile.png" alt="img" className='img-fluid' />
-                      </div>
-                      <p className='paratable'>DC Squad</p>
-                    </div>
-                  </td>
-                  <td>
-                    <p className='paratable'>25</p>
-                  </td>
-                  <td>
-                    <p className='paratable'>500 TOMI</p>
-                  </td>
-                  <td>
-                    <button className='btn-requested'>Requested</button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <div className="mobile-responsive-table d-none display-block-in-mobile">
-            <div className="heading-mobile">
-              <p>Squads</p>
+            <div className="option-field">
+              <input type="text" placeholder='Search' className='border-grad1' />
+              <img src="\assets\search-icon.svg" alt="img" className='img-fluid search-icon' />
             </div>
-            <Accordion defaultActiveKey="0">
-              <Accordion.Item eventKey="0">
-                <Accordion.Header> <img src="\assets\squad-profile.png" alt="img" className='img-fluid me-2' /> DC Squad</Accordion.Header>
-                <Accordion.Body>
-                  <div className="inner-fields">
-                    <div className="inner-item">
-                      <h6>TOMI Balance</h6>
-                      <p>25</p>
-                    </div>
-                    <div className="inner-item">
-                      <h6>Total Members</h6>
-                      <p>500 TOMI</p>
-                    </div>
-                    <div className="inner-item">
-                      <h6>Actions</h6>
-                      <button className='btn-pink'>Request to join</button>
-                    </div>
-                  </div>
-                </Accordion.Body>
-              </Accordion.Item>
-              <Accordion.Item eventKey="1">
-                <Accordion.Header> <img src="\assets\squad-profile.png" alt="img" className='img-fluid me-2' /> DC Squad</Accordion.Header>
-                <Accordion.Body>
-                  <div className="inner-fields">
-                    <div className="inner-item">
-                      <h6>TOMI Balance</h6>
-                      <p>25</p>
-                    </div>
-                    <div className="inner-item">
-                      <h6>Total Members</h6>
-                      <p>500 TOMI</p>
-                    </div>
-                    <div className="inner-item">
-                      <h6>Actions</h6>
-                      <button className='btn-pink'>Request to join</button>
-                    </div>
-                  </div>
-                </Accordion.Body>
-              </Accordion.Item>
-              <Accordion.Item eventKey="2">
-                <Accordion.Header> <img src="\assets\squad-profile.png" alt="img" className='img-fluid me-2' /> DC Squad</Accordion.Header>
-                <Accordion.Body>
-                  <div className="inner-fields">
-                    <div className="inner-item">
-                      <h6>TOMI Balance</h6>
-                      <p>25</p>
-                    </div>
-                    <div className="inner-item">
-                      <h6>Total Members</h6>
-                      <p>500 TOMI</p>
-                    </div>
-                    <div className="inner-item">
-                      <h6>Actions</h6>
-                      <button className='btn-pink'>Request to join</button>
-                    </div>
-                  </div>
-                </Accordion.Body>
-              </Accordion.Item>
-              <Accordion.Item eventKey="3">
-                <Accordion.Header> <img src="\assets\squad-profile.png" alt="img" className='img-fluid me-2' /> DC Squad</Accordion.Header>
-                <Accordion.Body>
-                  <div className="inner-fields">
-                    <div className="inner-item">
-                      <h6>TOMI Balance</h6>
-                      <p>25</p>
-                    </div>
-                    <div className="inner-item">
-                      <h6>Total Members</h6>
-                      <p>500 TOMI</p>
-                    </div>
-                    <div className="inner-item">
-                      <h6>Actions</h6>
-                      <button className='btn-pink'>Request to join</button>
-                    </div>
-                  </div>
-                </Accordion.Body>
-              </Accordion.Item>
+            <div className="maintable table-responsive display-none-in-mobile">
+              <table class="table table-striped ">
+                <thead>
+                  <tr>
+                    <th>
+                      <p className='headtable'>Squads</p>
+                    </th>
+                    <th>
+                      <p className='headtable'>Total Members</p>
+                    </th>
+                    <th>
+                      <p className='headtable'>TOMI Balance</p>
+                    </th>
+                    <th>
+                      <p className='headtable'>Action</p>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    {topSquad?.map((elem) => {
+                      return (
+                        <>
+                          <td>
+                            <div className="parent">
+                              <div className="profile">
+                                <img src={elem?.symbol} alt="img" className='img-fluid' />
+                              </div>
+                              <p className='paratable'>{elem?.name}</p>
+                            </div>
+                          </td>
+                          <td>
+                            <p className='paratable'>{elem?.membersCount}</p>
+                          </td>
+                          <td>
+                            <p className='paratable'>{elem?.totalTokens} TOMI</p>
+                          </td>
+                          <td>
+                            <button className={elem?.squad_invitation_requests ? 'btn-requested' : 'btn-requestjoin'} onClick={() => SendInvite(elem?._id)}>{elem?.squad_invitation_requests ? 'Requested' : 'Request to join'}</button>
+                          </td>
+                        </>
+                      )
+                    })}
 
-            </Accordion>
-          </div>
+
+                  </tr>
+
+                </tbody>
+              </table>
+            </div>
+            <div className="mobile-responsive-table d-none display-block-in-mobile">
+              <div className="heading-mobile">
+                <p>Squads</p>
+              </div>
+              <Accordion defaultActiveKey="0">
+                <Accordion.Item eventKey="0">
+                  <Accordion.Header> <img src="\assets\squad-profile.png" alt="img" className='img-fluid me-2' /> DC Squad</Accordion.Header>
+                  <Accordion.Body>
+                    <div className="inner-fields">
+                      <div className="inner-item">
+                        <h6>TOMI Balance</h6>
+                        <p>25</p>
+                      </div>
+                      <div className="inner-item">
+                        <h6>Total Members</h6>
+                        <p>500 TOMI</p>
+                      </div>
+                      <div className="inner-item">
+                        <h6>Actions</h6>
+                        <button className='btn-pink'>Request to join</button>
+                      </div>
+                    </div>
+                  </Accordion.Body>
+                </Accordion.Item>
+                <Accordion.Item eventKey="1">
+                  <Accordion.Header> <img src="\assets\squad-profile.png" alt="img" className='img-fluid me-2' /> DC Squad</Accordion.Header>
+                  <Accordion.Body>
+                    <div className="inner-fields">
+                      <div className="inner-item">
+                        <h6>TOMI Balance</h6>
+                        <p>25</p>
+                      </div>
+                      <div className="inner-item">
+                        <h6>Total Members</h6>
+                        <p>500 TOMI</p>
+                      </div>
+                      <div className="inner-item">
+                        <h6>Actions</h6>
+                        <button className='btn-pink'>Request to join</button>
+                      </div>
+                    </div>
+                  </Accordion.Body>
+                </Accordion.Item>
+                <Accordion.Item eventKey="2">
+                  <Accordion.Header> <img src="\assets\squad-profile.png" alt="img" className='img-fluid me-2' /> DC Squad</Accordion.Header>
+                  <Accordion.Body>
+                    <div className="inner-fields">
+                      <div className="inner-item">
+                        <h6>TOMI Balance</h6>
+                        <p>25</p>
+                      </div>
+                      <div className="inner-item">
+                        <h6>Total Members</h6>
+                        <p>500 TOMI</p>
+                      </div>
+                      <div className="inner-item">
+                        <h6>Actions</h6>
+                        <button className='btn-pink'>Request to join</button>
+                      </div>
+                    </div>
+                  </Accordion.Body>
+                </Accordion.Item>
+                <Accordion.Item eventKey="3">
+                  <Accordion.Header> <img src="\assets\squad-profile.png" alt="img" className='img-fluid me-2' /> DC Squad</Accordion.Header>
+                  <Accordion.Body>
+                    <div className="inner-fields">
+                      <div className="inner-item">
+                        <h6>TOMI Balance</h6>
+                        <p>25</p>
+                      </div>
+                      <div className="inner-item">
+                        <h6>Total Members</h6>
+                        <p>500 TOMI</p>
+                      </div>
+                      <div className="inner-item">
+                        <h6>Actions</h6>
+                        <button className='btn-pink'>Request to join</button>
+                      </div>
+                    </div>
+                  </Accordion.Body>
+                </Accordion.Item>
+
+              </Accordion>
+            </div>
           </div>
         </Modal.Body>
       </Modal>

@@ -1,8 +1,41 @@
-import React from 'react'
+import { React, useState, useEffect } from "react";
 import "./homeoperations.scss"
 import Accordion from 'react-bootstrap/Accordion';
+import { API_URL } from "../../../../utils/ApiUrl"
+import axios from 'axios';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-const TopSquad = () => {
+const TopSquad = (props, GetUserTopSquad) => {
+  console.log("topsquad", props)
+  let tok = localStorage.getItem("accessToken");
+  const SendInvite = async (id) => {
+    // e.preventDefault();
+    // setLoader(true);
+    await axios
+      .post(`${API_URL}/squad-invitation-requests`, {
+        squadId: id.toString(),
+      }, {
+        headers: {
+          authorization: `Bearer ` + tok
+        }
+      })
+      .then((res) => {
+        // window.$("#examplemodalinvite").modal("hide");
+        GetUserTopSquad()
+        toast.success("Invite Sent Successfully");
+        // setLoader(false);
+      })
+      .catch((err) => {
+        toast.error(err?.response?.data.message, {
+          position: "top-right",
+          autoClose: 2000,
+        });
+        // setLoader(false);
+      });
+  }
+
+
   return (
     <>
       <section className="home-operations topsquad-table border-grad1">
@@ -33,44 +66,33 @@ const TopSquad = () => {
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>
-                    <div className="parent">
-                      <div className="profile">
-                        <img src="\assets\squad-profile.png" alt="img" className='img-fluid' />
-                      </div>
-                      <p className='paratable'>DC Squad</p>
-                    </div>
-                  </td>
-                  <td>
-                    <p className='paratable'>25</p>
-                  </td>
-                  <td>
-                    <p className='paratable'>500 TOMI</p>
-                  </td>
-                  <td>
-                    <button className='btn-requestjoin'>Request to join</button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <div className="parent">
-                      <div className="profile">
-                        <img src="\assets\squad-profile.png" alt="img" className='img-fluid' />
-                      </div>
-                      <p className='paratable'>DC Squad</p>
-                    </div>
-                  </td>
-                  <td>
-                    <p className='paratable'>25</p>
-                  </td>
-                  <td>
-                    <p className='paratable'>500 TOMI</p>
-                  </td>
-                  <td>
-                    <button className='btn-requested'>Requested</button>
-                  </td>
-                </tr>
+                {props?.props?.map((elem) => {
+                  return (
+                    <>
+                      <tr>
+                        <td>
+                          <div className="parent">
+                            <div className="profile">
+                              <img src={elem?.symbol} alt="img" className='img-fluid' />
+                            </div>
+                            <p className='paratable'>{elem?.name}</p>
+                          </div>
+                        </td>
+                        <td>
+                          <p className='paratable'>{elem?.membersCount}</p>
+                        </td>
+                        <td>
+                          <p className='paratable'>{elem?.totalTokens} TOMI</p>
+                        </td>
+                        <td>
+                          <button className={elem?.squad_invitation_requests ? 'btn-requested' : 'btn-requestjoin'} onClick={() => SendInvite(elem?._id)}>{elem?.squad_invitation_requests ? 'Requested' : 'Request to join'}</button>
+                        </td>
+                      </tr>
+                    </>
+                  )
+                })}
+
+
               </tbody>
             </table>
           </div>

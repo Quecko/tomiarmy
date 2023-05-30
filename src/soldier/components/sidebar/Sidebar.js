@@ -49,6 +49,12 @@ const Sidebar = () => {
     localStorage.setItem("indexvalue", asd);
   }
 
+  const Lougout = () => {
+    localStorage.clear();
+    window.location.assign("/")
+  }
+
+
 
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -210,7 +216,7 @@ const Sidebar = () => {
                           ? "list-item active"
                           : "list-item "
                       }
-
+                      
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -263,8 +269,8 @@ const Sidebar = () => {
                         />
                       </svg>
                       <div className="set-flex-for-value">
-                      <span>Announcements </span>
-                      <span className="set-value">2</span>
+                        <span>Announcements </span>
+                        <span className="set-value">2</span>
                       </div>
                     </a>
                   </li>
@@ -281,8 +287,8 @@ const Sidebar = () => {
                         <path fill-rule="evenodd" clip-rule="evenodd" d="M6.875 7.49999C6.875 6.89249 7.11667 6.30916 7.54583 5.87916C7.97583 5.44999 8.55917 5.20833 9.16667 5.20833H16.6667C17.2742 5.20833 17.8575 5.44999 18.2875 5.87916C18.7167 6.30916 18.9583 6.89249 18.9583 7.49999V13.75C18.9583 14.3575 18.7167 14.9408 18.2875 15.3708C18.0083 15.6492 17.6642 15.8492 17.2917 15.955V17.5C17.2917 17.7425 17.1517 17.9633 16.9317 18.0658C16.7125 18.1692 16.4525 18.135 16.2667 17.98L13.9983 16.09C13.9608 16.0592 13.9133 16.0417 13.865 16.0417H9.16667C8.55917 16.0417 7.97583 15.8 7.54583 15.3708C7.11667 14.9408 6.875 14.3575 6.875 13.75V7.49999ZM10.8333 9.79166H13.3333C13.6783 9.79166 13.9583 9.51166 13.9583 9.16666C13.9583 8.82166 13.6783 8.54166 13.3333 8.54166H10.8333C10.4883 8.54166 10.2083 8.82166 10.2083 9.16666C10.2083 9.51166 10.4883 9.79166 10.8333 9.79166ZM10.8333 12.2917H15C15.345 12.2917 15.625 12.0117 15.625 11.6667C15.625 11.3217 15.345 11.0417 15 11.0417H10.8333C10.4883 11.0417 10.2083 11.3217 10.2083 11.6667C10.2083 12.0117 10.4883 12.2917 10.8333 12.2917Z" fill="#81828A" />
                       </svg>
                       <div className="set-flex-for-value">
-                      <span>Group Chat </span>
-                      <span className="set-value">2</span>
+                        <span>Group Chat </span>
+                        <span className="set-value">2</span>
                       </div>
                     </a>
                   </li>
@@ -430,7 +436,7 @@ const Sidebar = () => {
                 </ul>
               </div>
               <div className="twice-btns-sidebar">
-                <button className="log-out-btn">
+                <button className="log-out-btn"onClick={Lougout}>
                   <img src={logoutIcon} alt="logoutIcon" />
                   DISCONNECT WALLET
                 </button>
@@ -439,22 +445,22 @@ const Sidebar = () => {
             </div>
           </div>
           <div className="content-column">
-            <Header handleShow={handleShow} indexwait={indexwait} routes={routes} setroute={setroute} show2={show2} setShow2={setShow2}  />
-            {indexwait == 0 ?
+            <Header handleShow={handleShow} indexwait={indexwait} routes={routes} setroute={setroute} show2={show2} setShow2={setShow2} />
+            {indexwait === 0 ?
               (
                 <>
                   <Home show2={show2} setShow2={setShow2} />
-                </> 
+                </>
               )
               :
-              indexwait == 1 ?
+              indexwait === 1 ?
                 (
                   <>
                     <Tasks />
                   </>
                 )
                 :
-                indexwait == 2 ?
+                indexwait === 2 ?
                   (
                     <>
                       <Operations setroute={setroute} routes={routes} />

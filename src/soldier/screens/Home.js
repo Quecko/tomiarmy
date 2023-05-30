@@ -22,7 +22,7 @@ const Home = ({setShow2}) => {
   const GetUserProfiledata = () => {
     // setLoader(true);
     let tok = localStorage.getItem("accessToken");
-    console.log("token", tok)
+    // console.log("token", tok)
     if (account) {
       var config = {
         method: "get",
@@ -33,7 +33,7 @@ const Home = ({setShow2}) => {
       };
       axios(config)
         .then(async (response) => {
-          console.log("resProfile",response)
+          // console.log("resProfile",response)
           // setLoader(false);
           setsquaddetail(response.data.data)
           // setcoms(response?.data?.data?.squad?.commander)
