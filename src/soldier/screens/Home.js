@@ -1,18 +1,58 @@
-import React from "react";
+import {React,useState,useEffect} from "react";
 import taskCompleted from "../../assets/icons/task-completed.svg";
 // import earned from "../../assets/icons/earned.svg";
 import points from "../../assets/icons/points.svg";
 import squadToken from "../../assets/icons/squadToken.svg";
 import { Dropdown } from "react-bootstrap";
+import { useWeb3React } from "@web3-react/core";
 import MyRank from "../components/home/MyRank";
 import GeneralTasks from "../components/home/GeneralTasks";
 import HomeOperations from "../components/home/HomeOperations/HomeOperations";
+import {API_URL} from "../../utils/ApiUrl"
+import axios from "axios";
 
 
 const Home = ({setShow2}) => {
   const datacommander = localStorage.getItem('user')
+  const [squaddetail, setsquaddetail] = useState()
+  const { account } = useWeb3React();
   const commander = JSON.parse(datacommander)
-  // console.log("userrr",commander)
+  console.log("userrr",squaddetail, account)
+
+  const GetUserProfiledata = () => {
+    // setLoader(true);
+    let tok = localStorage.getItem("accessToken");
+    console.log("token", tok)
+    if (account) {
+      var config = {
+        method: "get",
+        url: `${API_URL}/users/profile`,
+        headers: {
+          authorization: `Bearer ` + tok
+        },
+      };
+      axios(config)
+        .then(async (response) => {
+          console.log("resProfile",response)
+          // setLoader(false);
+          setsquaddetail(response.data.data)
+          // setcoms(response?.data?.data?.squad?.commander)
+          // setnewss(response?.data?.data?._id)
+          window.scrollTo(0, 0);
+        })
+        .catch(function (error) {
+          console.log(error);
+          // setLoader(false);
+          // localStorage.removeItem("accessToken");
+          // localStorage.removeItem("user");
+          // window.location.assign("/")
+        });
+    }
+  }
+
+  useEffect(() => {
+    GetUserProfiledata()
+  }, [account]);
   return (
     <>
       <div className="formobile-heading d-none display-block-in-mobile">
@@ -55,7 +95,7 @@ const Home = ({setShow2}) => {
                   <img src="\static-icons\earned.png" alt="earned" style={{ width: "50px", height: "50px" }} />
                   <div>
                     <p>TOMI Tokens Earned </p>
-                    <h4>112</h4>
+                    <h4>{squaddetail?.tomiTokens}</h4>
                   </div>
                 </div>
               </div>
@@ -64,7 +104,7 @@ const Home = ({setShow2}) => {
                   <img src="\static-icons\points.png" alt="earned" style={{ width: "50px", height: "50px" }} />
                   <div>
                     <p>Points</p>
-                    <h4>3,500</h4>
+                    <h4>{squaddetail?.points}</h4>
                   </div>
                 </div>
               </div>
@@ -129,7 +169,7 @@ const Home = ({setShow2}) => {
         </div>
         <div className="row ranks-general-task-row">
           <div className="col-lg-5 my-ranks-box">
-            <MyRank />
+            <MyRank  props={squaddetail ? squaddetail : ''}/>
           </div>
           <div className="col-lg-7 general-task-box">
             <GeneralTasks />

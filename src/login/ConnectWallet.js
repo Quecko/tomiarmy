@@ -78,7 +78,7 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role, setinvitecode, invitecod
                             position: 'top-center',
                             autoClose: 5000,
                         });
-                        // localStorage.setItem("accessToken", res?.data?.data?.accessToken);
+                        localStorage.setItem("accessToken", res?.data?.data?.accessToken);
                         // setShow(false)
                         localStorage.setItem("user", JSON.stringify(res?.data?.data));
                         if (res?.data?.data?.rank.name === "general" ) {
@@ -129,6 +129,7 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role, setinvitecode, invitecod
                             autoClose: 5000,
                         });
                         localStorage.setItem("accessToken", res?.data?.data?.accessToken);
+                        localStorage.setItem("user", JSON.stringify(res?.data?.data));
                         history.push("/requestinvitation?id=" + role);
                     })
                     .catch((err) => {
@@ -155,6 +156,7 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role, setinvitecode, invitecod
                             autoClose: 5000,
                         });
                         localStorage.setItem("accessToken", res?.data?.data?.accessToken);
+                        localStorage.setItem("user", JSON.stringify(res?.data?.data));
                         history.push("/requestinvitation?id=" + role);
                     })
                     .catch((err) => {
