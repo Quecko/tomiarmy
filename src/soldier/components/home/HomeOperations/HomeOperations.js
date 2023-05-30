@@ -1,13 +1,23 @@
-import React from 'react'
+import React, { useState } from 'react'
 import "./homeoperations.scss"
 import Dropdown from 'react-bootstrap/Dropdown';
 import TopSquad from './TopSquad';
 import Accordion from 'react-bootstrap/Accordion';
+import Modal from 'react-bootstrap/Modal';
+import Button from 'react-bootstrap/Button';
 const HomeOperations = () => {
 
   const datacommander = localStorage.getItem('user')
   const data = JSON.parse(datacommander)
   console.log("data", data)
+
+
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  
   return (
     <>
       <div className="warpper-lock-operation">
@@ -368,199 +378,361 @@ const HomeOperations = () => {
         <TopSquad />
 
         :
-        <section className="home-operations border-grad1">
-          <div className='maincard display-none-in-mobile'>
-            <div className="upper-head">
-              <h6>Your Squad</h6>
-              <a href="#">View All <img src="\assets\arrow-right.svg" alt="img" className='img-fluid ms-2' /></a>
+        <>
+          <section className="home-operations border-grad1">
+            <div className='maincard display-none-in-mobile'>
+              <div className="upper-head">
+                <h6>Your Squad</h6>
+                <a href="#">View All <img src="\assets\arrow-right.svg" alt="img" className='img-fluid ms-2' /></a>
+              </div>
+              <div className="maintable table-responsive">
+                <table class="table table-striped ">
+                  <thead>
+                    <tr>
+                      <th>
+                        <p className='headtable'>Nickname</p>
+                      </th>
+                      <th>
+                        <p className='headtable'>Rank</p>
+                      </th>
+                      <th>
+                        <p className='headtable'>Wallet Address</p>
+                      </th>
+                      <th>
+                        <p className='headtable'>Username</p>
+                      </th>
+                      <th>
+                        <p className='headtable'>TOMI Balance</p>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <p className='paratable'>Umar_x2jz</p>
+                      </td>
+                      <td>
+                        <p className='paratable'><img src="\static-icons\private-rank.png" alt="img" className='img-fluid me-2' style={{ width: "50px", height: "50px" }} />Private</p>
+                      </td>
+                      <td>
+                        <p className='paratable'>0x2F78aB0Cd05c...6j88</p>
+                      </td>
+                      <td>
+                        <p className='paratable'>@sharjeel</p>
+                      </td>
+                      <td>
+                        <p className='paratable'>500 TOMI</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <p className='paratable'>Sharjeel</p>
+                      </td>
+                      <td>
+                        <p className='paratable'><img src="\static-icons\sergeant.png" alt="img" className='img-fluid me-2' style={{ width: "50px", height: "50px" }} />Sergeant</p>
+                      </td>
+                      <td>
+                        <p className='paratable'>0x2F78aB0Cd05c...6j88</p>
+                      </td>
+                      <td>
+                        <p className='paratable'>@sharjeel</p>
+                      </td>
+                      <td>
+                        <p className='paratable'>500 TOMI</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <p className='paratable'>Umar_x2jz</p>
+                      </td>
+                      <td>
+                        <p className='paratable'><img src="\static-icons\lieutenant.png" alt="img" className='img-fluid me-2' style={{ width: "50px", height: "50px" }} />Lieutenant</p>
+                      </td>
+                      <td>
+                        <p className='paratable'>0x2F78aB0Cd05c...6j88</p>
+                      </td>
+                      <td>
+                        <p className='paratable'>@sharjeel</p>
+                      </td>
+                      <td>
+                        <p className='paratable'>500 TOMI</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <p className='paratable'>Sharjeel</p>
+                      </td>
+                      <td>
+                        <p className='paratable'><img src="\static-icons\captain.png" alt="img" className='img-fluid me-2' style={{ width: "50px", height: "50px" }} />Captain</p>
+                      </td>
+                      <td>
+                        <p className='paratable'>0x2F78aB0Cd05c...6j88</p>
+                      </td>
+                      <td>
+                        <p className='paratable'>@sharjeel</p>
+                      </td>
+                      <td>
+                        <p className='paratable'>500 TOMI</p>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
-            <div className="maintable table-responsive">
-              <table class="table table-striped ">
-                <thead>
-                  <tr>
-                    <th>
-                      <p className='headtable'>Nickname</p>
-                    </th>
-                    <th>
-                      <p className='headtable'>Rank</p>
-                    </th>
-                    <th>
-                      <p className='headtable'>Wallet Address</p>
-                    </th>
-                    <th>
-                      <p className='headtable'>Username</p>
-                    </th>
-                    <th>
-                      <p className='headtable'>TOMI Balance</p>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>
-                      <p className='paratable'>Umar_x2jz</p>
-                    </td>
-                    <td>
-                      <p className='paratable'><img src="\static-icons\private-rank.png" alt="img" className='img-fluid me-2' style={{ width: "50px", height: "50px" }} />Private</p>
-                    </td>
-                    <td>
-                      <p className='paratable'>0x2F78aB0Cd05c...6j88</p>
-                    </td>
-                    <td>
-                      <p className='paratable'>@sharjeel</p>
-                    </td>
-                    <td>
-                      <p className='paratable'>500 TOMI</p>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <p className='paratable'>Sharjeel</p>
-                    </td>
-                    <td>
-                      <p className='paratable'><img src="\static-icons\sergeant.png" alt="img" className='img-fluid me-2' style={{ width: "50px", height: "50px" }} />Sergeant</p>
-                    </td>
-                    <td>
-                      <p className='paratable'>0x2F78aB0Cd05c...6j88</p>
-                    </td>
-                    <td>
-                      <p className='paratable'>@sharjeel</p>
-                    </td>
-                    <td>
-                      <p className='paratable'>500 TOMI</p>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <p className='paratable'>Umar_x2jz</p>
-                    </td>
-                    <td>
-                      <p className='paratable'><img src="\static-icons\lieutenant.png" alt="img" className='img-fluid me-2' style={{ width: "50px", height: "50px" }} />Lieutenant</p>
-                    </td>
-                    <td>
-                      <p className='paratable'>0x2F78aB0Cd05c...6j88</p>
-                    </td>
-                    <td>
-                      <p className='paratable'>@sharjeel</p>
-                    </td>
-                    <td>
-                      <p className='paratable'>500 TOMI</p>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <p className='paratable'>Sharjeel</p>
-                    </td>
-                    <td>
-                      <p className='paratable'><img src="\static-icons\captain.png" alt="img" className='img-fluid me-2' style={{ width: "50px", height: "50px" }} />Captain</p>
-                    </td>
-                    <td>
-                      <p className='paratable'>0x2F78aB0Cd05c...6j88</p>
-                    </td>
-                    <td>
-                      <p className='paratable'>@sharjeel</p>
-                    </td>
-                    <td>
-                      <p className='paratable'>500 TOMI</p>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
+            <div className="mobile-responsive-table d-none display-block-in-mobile">
+              <div className="uscyivyscvsvscy">
+                <h6>Your Squad</h6>
+              </div>
+              <div className="heading-mobile">
+                <p>Nickname</p>
+              </div>
+              <Accordion defaultActiveKey="0">
+                <Accordion.Item eventKey="0">
+                  <Accordion.Header>sharjeel</Accordion.Header>
+                  <Accordion.Body>
+                    <div className="inner-fields">
+                      <div className="inner-item">
+                        <h6>Rank</h6>
+                        <p><img src="\assets\private.svg" style={{ width: "22px", height: "22px" }} alt="img" className='img-fluid me-2' /> Private</p>
+                      </div>
+                      <div className="inner-item">
+                        <h6>Wallet Address</h6>
+                        <p>0x2F78....aB0C</p>
+                      </div>
+                      <div className="inner-item">
+                        <h6>TOMI Balance</h6>
+                        <p>500 TOMI</p>
+                      </div>
+
+                    </div>
+                  </Accordion.Body>
+                </Accordion.Item>
+                <Accordion.Item eventKey="1">
+                  <Accordion.Header>sharjeel</Accordion.Header>
+                  <Accordion.Body>
+                    <div className="inner-fields">
+                      <div className="inner-item">
+                        <h6>Rank</h6>
+                        <p><img src="\assets\private.svg" style={{ width: "22px", height: "22px" }} alt="img" className='img-fluid me-2' /> Private</p>
+                      </div>
+                      <div className="inner-item">
+                        <h6>Wallet Address</h6>
+                        <p>0x2F78....aB0C</p>
+                      </div>
+                      <div className="inner-item">
+                        <h6>TOMI Balance</h6>
+                        <p>500 TOMI</p>
+                      </div>
+
+                    </div>
+                  </Accordion.Body>
+                </Accordion.Item>
+                <Accordion.Item eventKey="2">
+                  <Accordion.Header>sharjeel</Accordion.Header>
+                  <Accordion.Body>
+                    <div className="inner-fields">
+                      <div className="inner-item">
+                        <h6>Rank</h6>
+                        <p><img src="\assets\private.svg" style={{ width: "22px", height: "22px" }} alt="img" className='img-fluid me-2' /> Private</p>
+                      </div>
+                      <div className="inner-item">
+                        <h6>Wallet Address</h6>
+                        <p>0x2F78....aB0C</p>
+                      </div>
+                      <div className="inner-item">
+                        <h6>TOMI Balance</h6>
+                        <p>500 TOMI</p>
+                      </div>
+
+                    </div>
+                  </Accordion.Body>
+                </Accordion.Item>
+                <Accordion.Item eventKey="3">
+                  <Accordion.Header>sharjeel</Accordion.Header>
+                  <Accordion.Body>
+                    <div className="inner-fields">
+                      <div className="inner-item">
+                        <h6>Rank</h6>
+                        <p><img src="\assets\private.svg" style={{ width: "22px", height: "22px" }} alt="img" className='img-fluid me-2' /> Private</p>
+                      </div>
+                      <div className="inner-item">
+                        <h6>Wallet Address</h6>
+                        <p>0x2F78....aB0C</p>
+                      </div>
+                      <div className="inner-item">
+                        <h6>TOMI Balance</h6>
+                        <p>500 TOMI</p>
+                      </div>
+
+                    </div>
+                  </Accordion.Body>
+                </Accordion.Item>
+              </Accordion>
             </div>
+          </section>
+        </>
+      }
+
+         
+<button onClick={handleShow}>hvcsyvvsyscvycvs</button>
+
+      <Modal className='joinsquad-modal' show={show} onHide={handleClose} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Top Squads</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div className="parent-modal">
+          <div className="option-field">
+            <input type="text" placeholder='Search' className='border-grad1' />
+            <img src="\assets\search-icon.svg" alt="img" className='img-fluid search-icon' />
+          </div>
+          <div className="maintable table-responsive display-none-in-mobile">
+            <table class="table table-striped ">
+              <thead>
+                <tr>
+                  <th>
+                    <p className='headtable'>Squads</p>
+                  </th>
+                  <th>
+                    <p className='headtable'>Total Members</p>
+                  </th>
+                  <th>
+                    <p className='headtable'>TOMI Balance</p>
+                  </th>
+                  <th>
+                    <p className='headtable'>Action</p>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <div className="parent">
+                      <div className="profile">
+                        <img src="\assets\squad-profile.png" alt="img" className='img-fluid' />
+                      </div>
+                      <p className='paratable'>DC Squad</p>
+                    </div>
+                  </td>
+                  <td>
+                    <p className='paratable'>25</p>
+                  </td>
+                  <td>
+                    <p className='paratable'>500 TOMI</p>
+                  </td>
+                  <td>
+                    <button className='btn-requestjoin'>Request to join</button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <div className="parent">
+                      <div className="profile">
+                        <img src="\assets\squad-profile.png" alt="img" className='img-fluid' />
+                      </div>
+                      <p className='paratable'>DC Squad</p>
+                    </div>
+                  </td>
+                  <td>
+                    <p className='paratable'>25</p>
+                  </td>
+                  <td>
+                    <p className='paratable'>500 TOMI</p>
+                  </td>
+                  <td>
+                    <button className='btn-requested'>Requested</button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
           <div className="mobile-responsive-table d-none display-block-in-mobile">
-            <div className="uscyivyscvsvscy">
-              <h6>Your Squad</h6>
-            </div>
             <div className="heading-mobile">
-              <p>Nickname</p>
+              <p>Squads</p>
             </div>
             <Accordion defaultActiveKey="0">
               <Accordion.Item eventKey="0">
-                <Accordion.Header>sharjeel</Accordion.Header>
+                <Accordion.Header> <img src="\assets\squad-profile.png" alt="img" className='img-fluid me-2' /> DC Squad</Accordion.Header>
                 <Accordion.Body>
                   <div className="inner-fields">
                     <div className="inner-item">
-                      <h6>Rank</h6>
-                      <p><img src="\assets\private.svg" style={{ width: "22px", height: "22px" }} alt="img" className='img-fluid me-2' /> Private</p>
-                    </div>
-                    <div className="inner-item">
-                      <h6>Wallet Address</h6>
-                      <p>0x2F78....aB0C</p>
-                    </div>
-                    <div className="inner-item">
                       <h6>TOMI Balance</h6>
+                      <p>25</p>
+                    </div>
+                    <div className="inner-item">
+                      <h6>Total Members</h6>
                       <p>500 TOMI</p>
                     </div>
-
+                    <div className="inner-item">
+                      <h6>Actions</h6>
+                      <button className='btn-pink'>Request to join</button>
+                    </div>
                   </div>
                 </Accordion.Body>
               </Accordion.Item>
               <Accordion.Item eventKey="1">
-                <Accordion.Header>sharjeel</Accordion.Header>
+                <Accordion.Header> <img src="\assets\squad-profile.png" alt="img" className='img-fluid me-2' /> DC Squad</Accordion.Header>
                 <Accordion.Body>
                   <div className="inner-fields">
                     <div className="inner-item">
-                      <h6>Rank</h6>
-                      <p><img src="\assets\private.svg" style={{ width: "22px", height: "22px" }} alt="img" className='img-fluid me-2' /> Private</p>
-                    </div>
-                    <div className="inner-item">
-                      <h6>Wallet Address</h6>
-                      <p>0x2F78....aB0C</p>
-                    </div>
-                    <div className="inner-item">
                       <h6>TOMI Balance</h6>
+                      <p>25</p>
+                    </div>
+                    <div className="inner-item">
+                      <h6>Total Members</h6>
                       <p>500 TOMI</p>
                     </div>
-
+                    <div className="inner-item">
+                      <h6>Actions</h6>
+                      <button className='btn-pink'>Request to join</button>
+                    </div>
                   </div>
                 </Accordion.Body>
               </Accordion.Item>
               <Accordion.Item eventKey="2">
-                <Accordion.Header>sharjeel</Accordion.Header>
+                <Accordion.Header> <img src="\assets\squad-profile.png" alt="img" className='img-fluid me-2' /> DC Squad</Accordion.Header>
                 <Accordion.Body>
                   <div className="inner-fields">
                     <div className="inner-item">
-                      <h6>Rank</h6>
-                      <p><img src="\assets\private.svg" style={{ width: "22px", height: "22px" }} alt="img" className='img-fluid me-2' /> Private</p>
-                    </div>
-                    <div className="inner-item">
-                      <h6>Wallet Address</h6>
-                      <p>0x2F78....aB0C</p>
-                    </div>
-                    <div className="inner-item">
                       <h6>TOMI Balance</h6>
+                      <p>25</p>
+                    </div>
+                    <div className="inner-item">
+                      <h6>Total Members</h6>
                       <p>500 TOMI</p>
                     </div>
-
+                    <div className="inner-item">
+                      <h6>Actions</h6>
+                      <button className='btn-pink'>Request to join</button>
+                    </div>
                   </div>
                 </Accordion.Body>
               </Accordion.Item>
               <Accordion.Item eventKey="3">
-                <Accordion.Header>sharjeel</Accordion.Header>
+                <Accordion.Header> <img src="\assets\squad-profile.png" alt="img" className='img-fluid me-2' /> DC Squad</Accordion.Header>
                 <Accordion.Body>
                   <div className="inner-fields">
                     <div className="inner-item">
-                      <h6>Rank</h6>
-                      <p><img src="\assets\private.svg" style={{ width: "22px", height: "22px" }} alt="img" className='img-fluid me-2' /> Private</p>
-                    </div>
-                    <div className="inner-item">
-                      <h6>Wallet Address</h6>
-                      <p>0x2F78....aB0C</p>
-                    </div>
-                    <div className="inner-item">
                       <h6>TOMI Balance</h6>
+                      <p>25</p>
+                    </div>
+                    <div className="inner-item">
+                      <h6>Total Members</h6>
                       <p>500 TOMI</p>
                     </div>
-
+                    <div className="inner-item">
+                      <h6>Actions</h6>
+                      <button className='btn-pink'>Request to join</button>
+                    </div>
                   </div>
                 </Accordion.Body>
               </Accordion.Item>
+
             </Accordion>
           </div>
-        </section>
-      }
-
+          </div>
+        </Modal.Body>
+      </Modal>
 
     </>
   )
