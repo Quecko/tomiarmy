@@ -29,11 +29,11 @@ function App() {
       <Router>
         <Switch>
 
-          {/* <Route exact path="/" component={Login} /> */}
+          <Route exact path="/" component={Login} />
           <Route exact path="/requestinvitation" component={Requestinvitation} />
           <Route exact path="/dcsquad" component={Dcsquad} />
           {/* soldier + leader all routes here........................... */}
-          <Route exact path="/" component={Sidebar} />
+          <Route exact path="/soldier" component={Sidebar} />
           <Route exact path="/leader" component={Sidebar} />
           <Route exact path="/home" component={Home} />
           <Route exact path="/tasks" component={Tasks} />
