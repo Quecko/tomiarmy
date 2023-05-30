@@ -21,7 +21,7 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role, setinvitecode, invitecod
     const { account } = useWeb3React();
     const { userSign } = Signature();
     const [log, setLog] = useState(false)
-    // console.log("value",account)
+    console.log("value",account)
     const history = useHistory();
     const { login, logout } = useAuth();
     const trustWallet = async () => {
