@@ -9,7 +9,8 @@ import mobileLogo from "../../../assets/icons/mobileLogo.svg";
 import Modal from 'react-bootstrap/Modal';
 
 const Header = ({ routes, setroute, indexwait, handleShow, setShow2, show2 }) => {
-
+  const datacommander = localStorage.getItem('user')
+  const data = JSON.parse(datacommander)
 
 
 
@@ -52,7 +53,7 @@ const Header = ({ routes, setroute, indexwait, handleShow, setShow2, show2 }) =>
           </div>
           {indexwait === 0 ? (
             <div className="soldier-name">
-              <h4>Welcome BATMAN,</h4>
+              <h4>Welcome {data?.nickName},</h4>
               <p>LET’S FIGHT FOR THE ARMY</p>
             </div>
           ) : null}

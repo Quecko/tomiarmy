@@ -18,10 +18,10 @@ import Dcsquad from "./login/Dcsquad";
 import Sidebar from "./soldier/components/sidebar/Sidebar";
 import Settings from "./soldier/screens/Settings";
 import GeneralSidebar from "./General/components/Sidebar/GeneralSidebar";
-
+import useEagerConnect from './hooks/useEagerConnect';
 function App() {
 
-
+  useEagerConnect();
 
   return (
     <>
