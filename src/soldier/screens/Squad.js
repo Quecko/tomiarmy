@@ -19,6 +19,18 @@ const Squad = () => {
   const handleClose2 = () => setShow2(false);
   const handleShow2 = () => setShow2(true);
 
+  const [show3, setShow3] = useState(false);
+  const handleClose3 = () => setShow3(false);
+  const handleShow3 = () => setShow3(true);
+  
+  const [show4, setShow4] = useState(false);
+  const handleClose4 = () => setShow4(false);
+  const handleShow4 = () => setShow4(true);
+
+  const [show5, setShow5] = useState(false);
+  const handleClose5 = () => setShow5(false);
+  const handleShow5 = () => setShow5(true);
+
   const [profilePicture, setProfilePicture] = useState(null);
   const setProfilePic = (evt) => {
     setProfilePicture(evt.target.files[0]);
@@ -427,6 +439,54 @@ const Squad = () => {
                   className="mb-3"
                 >
                   <Tab eventKey="activesquad" title="Active Squad">
+                  <div className='maincardsquad border-grad1'>
+                <div className='squadparent'>
+                  <div className='innercard1 border-grad'>
+                    <div className='parent' onClick={handleShow}>
+                      <div className='left'>
+                        <img src='\Grouppic.svg' alt='img' className='img-fluid' />
+                      </div>
+                      <div className='right'>
+                        <p>My Squad</p>
+                        <h6>DC Squad</h6>
+                      </div>
+                    </div>
+                  </div>
+                  <div className='innercard2 border-grad'>
+                    <div className='parent'>
+                      <div className='left'>
+                      <img src="\static-icons\squadowner.png" alt="img" className='img-fluid' style={{width: "50px", height: "50px"}} />
+                      </div>
+                      <div className='right'>
+                        <p>Squad Owner</p>
+                        <h6>X2JZ</h6>
+                      </div>
+                    </div>
+                  </div>
+                  <div className='innercard2 border-grad'>
+                    <div className='parent'>
+                      <div className='left'>
+                      <img src="\static-icons\tomi-icon.png" alt="img" className='img-fluid' style={{width: "50px", height: "50px"}} />
+                      </div>
+                      <div className='right'>
+                        <p>Total Squad Tokens</p>
+                        <h6>500 TOMI</h6>
+                      </div>
+                    </div>
+                  </div>
+                  <div className='innercard2 border-grad'>
+                    <div className='parent'>
+                      <div className='left'>
+                      <img src="\static-icons\squad-members.png" alt="img" className='img-fluid' style={{width: "50px", height: "50px"}} />
+                      </div>
+                      <div className='right'>
+                        <p>Total Squad Members</p>
+                        <h6>1,531</h6>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
                     <div className='maincard'>
                       <div className='display-none-in-mobile'>
                         <div className="maintable">
@@ -477,7 +537,7 @@ const Squad = () => {
 
                                       <Dropdown.Menu>
                                         <Dropdown.Item href="#/action-1">
-                                          <p onClick={handleShow}><img src='\Vector.svg' alt='img' className='img-fluid' />recruit</p>
+                                          <p onClick={handleShow3}><img src='\Vector.svg' alt='img' className='img-fluid' />recruit</p>
                                         </Dropdown.Item>
                                       </Dropdown.Menu>
                                     </Dropdown>
@@ -1109,6 +1169,214 @@ const Squad = () => {
 
         </Modal>
       </section>
+
+
+      <Modal className='detailmodal' show={show3} onHide={handleClose3} centered>
+          <Modal.Header closeButton>
+            <Modal.Title>dismiss user</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <div className='imagesmodal'>
+              <img src='\assets\recruitingadd.svg' alt='img' className='img-fluid' />
+              <p>Are you sure you want to recruit this user?</p>
+              {/* <p>Are you sure you want to leave this squad?</p> */}
+            </div>
+            <div className='endbtn'>
+              <button className='btn-blackk'><span><img src='\Subtract.svg' alt='img' className='img-fluid' /></span>Cancel</button>
+              <button className='btn-pinkk'><img src='\up.svg' alt='img' className='img-fluid' />Yes’ I am sure</button>
+            </div>
+          </Modal.Body>
+        </Modal>
+                {/* <button onClick={handleShow4}>search member</button>
+                <button onClick={handleShow5}>invite member</button> */}
+
+        <Modal className='detailmodal' show={show4} onHide={handleClose4} centered>
+          <Modal.Header closeButton>
+            <Modal.Title>Search Member</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+          <div className='maincard'>
+                      <div className='display-none-in-mobile'>
+                        <div className="maintable">
+                          <table class="table table-striped">
+                            <thead>
+                              <tr>
+                              <th>
+                                  <p className='headtable'>Nickname</p>
+                                </th>
+                                <th>
+                                  <p className='headtable'>Rank</p>
+                                </th>
+                                <th>
+                                  <p className='headtable'>Wallet Address</p>
+                                </th>
+                                <th>
+                                  <p className='headtable'>Action</p>
+                                </th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td>
+                                  <p className='paratable'>Sharjeel</p>
+                                </td>
+                                <td>
+                                    <div className="set-custom">
+                                      <img src="\assets\private.svg" alt="img" className='img-fluid' />
+                                      <p className='paratable'>Private</p>
+                                    </div>
+                                </td>
+                                <td>
+                                  <p className='paratable'>0x0F4D...B5D8</p>
+                                </td>
+                                <td>
+                                  <div className='dropbtn'>
+                                    <Dropdown>
+                                      <Dropdown.Toggle variant="success" id="dropdown-basic">
+                                        <img src='\Vectordots.svg' alt='img' className='img-fluid ' />
+
+                                      </Dropdown.Toggle>
+
+                                      <Dropdown.Menu>
+                                        <Dropdown.Item href="#/action-1">
+                                          <p onClick={handleShow3}><img src='\Vector.svg' alt='img' className='img-fluid' />recruit</p>
+                                        </Dropdown.Item>
+                                      </Dropdown.Menu>
+                                    </Dropdown>
+                                  </div>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                      <div className="mobile-responsive-table d-none display-block-in-mobile">
+                        <div className="heading-mobile">
+                          <p>Task</p>
+                        </div>
+                        <Accordion defaultActiveKey="0">
+                          <Accordion.Item eventKey="0">
+                            <Accordion.Header>Like our facebook page</Accordion.Header>
+                            <Accordion.Body>
+                              <div className="inner-fields">
+                                <div className="inner-item">
+                                  <h6>Points</h6>
+                                  <p>+5</p>
+                                </div>
+                                <div className="inner-item">
+                                  <h6>Status</h6>
+                                  <button className="btn-green">Completed</button>
+                                </div>
+                                <div className="inner-item">
+                                  <h6>Expiry</h6>
+                                  <p>12:34 12/12/23</p>
+                                </div>
+                                <div className="inner-item">
+                                  <h6>Actions</h6>
+                                  <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
+                                </div>
+                              </div>
+                            </Accordion.Body>
+                          </Accordion.Item>
+                          <Accordion.Item eventKey="1">
+                            <Accordion.Header>Follow our twitter acc...</Accordion.Header>
+                            <Accordion.Body>
+                              <div className="inner-fields">
+                                <div className="inner-item">
+                                  <h6>Points</h6>
+                                  <p>+5</p>
+                                </div>
+                                <div className="inner-item">
+                                  <h6>Status</h6>
+                                  <button className="btn-green">Completed</button>
+                                </div>
+                                <div className="inner-item">
+                                  <h6>Expiry</h6>
+                                  <p>12:34 12/12/23</p>
+                                </div>
+                                <div className="inner-item">
+                                  <h6>Actions</h6>
+                                  <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
+                                </div>
+                              </div>
+                            </Accordion.Body>
+                          </Accordion.Item>
+                          <Accordion.Item eventKey="2">
+                            <Accordion.Header>Like our facebook page</Accordion.Header>
+                            <Accordion.Body>
+                              <div className="inner-fields">
+                                <div className="inner-item">
+                                  <h6>Points</h6>
+                                  <p>+5</p>
+                                </div>
+                                <div className="inner-item">
+                                  <h6>Status</h6>
+                                  <button className="btn-green">Completed</button>
+                                </div>
+                                <div className="inner-item">
+                                  <h6>Expiry</h6>
+                                  <p>12:34 12/12/23</p>
+                                </div>
+                                <div className="inner-item">
+                                  <h6>Actions</h6>
+                                  <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
+                                </div>
+                              </div>
+                            </Accordion.Body>
+                          </Accordion.Item>
+                          <Accordion.Item eventKey="3">
+                            <Accordion.Header>Like our facebook page</Accordion.Header>
+                            <Accordion.Body>
+                              <div className="inner-fields">
+                                <div className="inner-item">
+                                  <h6>Points</h6>
+                                  <p>+5</p>
+                                </div>
+                                <div className="inner-item">
+                                  <h6>Status</h6>
+                                  <button className="btn-green">Completed</button>
+                                </div>
+                                <div className="inner-item">
+                                  <h6>Expiry</h6>
+                                  <p>12:34 12/12/23</p>
+                                </div>
+                                <div className="inner-item">
+                                  <h6>Actions</h6>
+                                  <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
+                                </div>
+                              </div>
+                            </Accordion.Body>
+                          </Accordion.Item>
+                        </Accordion>
+                      </div>
+                    </div>
+            <div className='endbtn'>
+              <button className='btn-blackk'><span><img src='\Subtract.svg' alt='img' className='img-fluid' /></span>Cancel</button>
+              <button className='btn-pinkk'><img src='\up.svg' alt='img' className='img-fluid' />Yes’ I am sure</button>
+            </div>
+          </Modal.Body>
+        </Modal>
+
+        <Modal className='detailmodal invitemember-modal' show={show5} onHide={handleClose5} centered>
+          <Modal.Header closeButton>
+            <Modal.Title>Invite a squad member</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+
+            <div className="inviteamember">
+              <div className="left">
+                <h6>Twitter</h6>
+              </div>
+              <div className="right">
+                <p>@Umar_x2jz <img src="\assets\copy.svg" alt="img" className='img-fluid ms-2' /></p>
+              </div>
+            </div>
+        
+            <div className='endbtn'>
+              <button className='btn-pinkk w-100'><span><img src='\Subtract.svg' alt='img' className='img-fluid' /></span>Ok</button>
+            </div>
+          </Modal.Body>
+        </Modal>
     </>
   )
 }
