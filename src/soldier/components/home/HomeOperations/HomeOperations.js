@@ -17,7 +17,7 @@ const HomeOperations = () => {
   const [users, setUsers] = useState([]);
   const [topSquad, setTopSquad] = useState([]);
   console.log("data", topSquad)
-
+  const [commander, setCommander] = useState();
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -95,8 +95,8 @@ const HomeOperations = () => {
         axios(config)
             .then(function (response) {
                 // setLoader(false);
-                // setCommander(response?.data?.data?.commanderWalletAddress)
-  console.log("data11", response)
+                setCommander(response?.data?.data?.commanderWalletAddress)
+  // console.log("data11", response)
 
                 setUsers(response?.data?.data?.users);
                 // let arr = Array.from(Array(parseInt(response.data.data.pages)).keys());
@@ -510,76 +510,24 @@ const HomeOperations = () => {
                     <>
                      <tr>
                       <td>
-                        <p className='paratable'>Umar_x2jz</p>
+                        <p className='paratable'>{elem?.nickName}</p>
                       </td>
                       <td>
-                        <p className='paratable'><img src="\static-icons\private-rank.png" alt="img" className='img-fluid me-2' style={{ width: "50px", height: "50px" }} />Private</p>
+                        <p className='paratable'><img src={elem?.rank?.icon} alt="img" className='img-fluid me-2' style={{ width: "50px", height: "50px" }} />{elem?.rank?.name}</p>
                       </td>
                       <td>
-                        <p className='paratable'>0x2F78aB0Cd05c...6j88</p>
+                        <p className='paratable'>{elem?.walletAddress}</p>
                       </td>
                       <td>
-                        <p className='paratable'>@sharjeel</p>
+                        <p className='paratable'>-</p>
                       </td>
                       <td>
-                        <p className='paratable'>500 TOMI</p>
+                        <p className='paratable'>{elem?.tomiTokens} TOMI</p>
                       </td>
                     </tr>
                     </>
                   )
                 })}
-                  
-                    <tr>
-                      <td>
-                        <p className='paratable'>Sharjeel</p>
-                      </td>
-                      <td>
-                        <p className='paratable'><img src="\static-icons\sergeant.png" alt="img" className='img-fluid me-2' style={{ width: "50px", height: "50px" }} />Sergeant</p>
-                      </td>
-                      <td>
-                        <p className='paratable'>0x2F78aB0Cd05c...6j88</p>
-                      </td>
-                      <td>
-                        <p className='paratable'>@sharjeel</p>
-                      </td>
-                      <td>
-                        <p className='paratable'>500 TOMI</p>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <p className='paratable'>Umar_x2jz</p>
-                      </td>
-                      <td>
-                        <p className='paratable'><img src="\static-icons\lieutenant.png" alt="img" className='img-fluid me-2' style={{ width: "50px", height: "50px" }} />Lieutenant</p>
-                      </td>
-                      <td>
-                        <p className='paratable'>0x2F78aB0Cd05c...6j88</p>
-                      </td>
-                      <td>
-                        <p className='paratable'>@sharjeel</p>
-                      </td>
-                      <td>
-                        <p className='paratable'>500 TOMI</p>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <p className='paratable'>Sharjeel</p>
-                      </td>
-                      <td>
-                        <p className='paratable'><img src="\static-icons\captain.png" alt="img" className='img-fluid me-2' style={{ width: "50px", height: "50px" }} />Captain</p>
-                      </td>
-                      <td>
-                        <p className='paratable'>0x2F78aB0Cd05c...6j88</p>
-                      </td>
-                      <td>
-                        <p className='paratable'>@sharjeel</p>
-                      </td>
-                      <td>
-                        <p className='paratable'>500 TOMI</p>
-                      </td>
-                    </tr>
                   </tbody>
                 </table>
               </div>
