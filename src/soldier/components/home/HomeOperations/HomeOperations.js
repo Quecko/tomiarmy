@@ -18,7 +18,6 @@ const HomeOperations = () => {
   const [topSquad, setTopSquad] = useState([]);
   console.log("data", topSquad)
   const [commander, setCommander] = useState();
-
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   let tok = localStorage.getItem("accessToken");
