@@ -458,7 +458,7 @@ table {
     .sidebar-wrapper {
         padding: 30px 20px;
         // position: absolute;
-        height: 800px;
+        height: 850px;
         // left: 20px;
         // top: 20px;
 
@@ -1248,6 +1248,11 @@ table {
 
 }
 
+.set-custom{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
 .modal-backdrop {
     background: rgba(34, 37, 47, 0.6);
     backdrop-filter: blur(7px);

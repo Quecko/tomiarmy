@@ -123,6 +123,12 @@ const Header = ({ routes, setroute, indexwait, handleShow, setShow2, show2 }) =>
               <p>view faqs</p>
             </div>
           ) : null}
+          {indexwait === 11 ? (
+            <div className="soldier-name">
+              <h4>Recruiting Requests</h4>
+              <p>view your army</p>
+            </div>
+          ) : null}
         </div>
         <div className="header-buttons">
           {
