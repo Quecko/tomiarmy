@@ -26,6 +26,15 @@ const GeneralHeader = ({ routes, setroute, indexwait, handleShow }) => {
   const handleShowtask3 = () => setShowtask3(true);
 
 
+  const [showannounce, setShowannounce] = useState(false);
+  const handleCloseannounce = () => setShowannounce(false);
+  const handleShowannounce = () => setShowannounce(true);
+
+  const [showannounce1, setShowannounce1] = useState(false);
+  const handleCloseannounce1 = () => setShowannounce1(false);
+  const handleShowannounce1 = () => setShowannounce1(true);
+
+
   return (
     <>
       <div
@@ -60,10 +69,22 @@ const GeneralHeader = ({ routes, setroute, indexwait, handleShow }) => {
             </>
           ) : null}
           {indexwait === 3 ? (
-                  <div className="soldier-name">
-                    <h4>Proof of Work</h4>
-                    <p>approve and reject TASKS pow of army</p>
-                  </div>
+            <div className="soldier-name">
+              <h4>Proof of Work</h4>
+              <p>approve and reject TASKS pow of army</p>
+            </div>
+          ) : null}
+          {indexwait === 4 ? (
+            <div className="soldier-name">
+              <h4>ANNOUNCEMENTS</h4>
+              <p>VIEW AND CREATE ANNOUNCEMENTS FOR YOUR ARMY</p>
+            </div>
+          ) : null}
+          {indexwait === 5 ? (
+            <div className="soldier-name">
+              <h4>Army</h4>
+              <p>view your army</p>
+            </div>
           ) : null}
         </div>
         <div className="header-buttons">
@@ -157,6 +178,15 @@ const GeneralHeader = ({ routes, setroute, indexwait, handleShow }) => {
                 }
 
               </>
+              : ""
+          }
+          {
+            indexwait === 4 ?
+              <button onClick={handleShowannounce} className="create-squad-btn display-none-in-mobile" >
+                <img src="\generalassets\icons\announcement.svg" alt="img" className="img-fluid me-1" />
+                <span> Create Announcement</span>
+              </button>
+
               : ""
           }
           <button className="toggle-menu-btn" onClick={handleShow}>
@@ -315,6 +345,58 @@ const GeneralHeader = ({ routes, setroute, indexwait, handleShow }) => {
           <div className="task-created">
             <img src="\generalassets\icons\tasksuccessfulllycreated.png" alt="img" className="img-fluid" />
             <h6>tASK SUCCESSFULLY CREATED</h6>
+          </div>
+
+        </Modal.Body>
+      </Modal>
+
+
+
+      {/* announcement modal here ........................ */}
+
+      <Modal className='createbasic-modal global-modal-style createtask-modal' show={showannounce} onHide={handleCloseannounce} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Create New Announcement</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div className="inner-content">
+            <div className="option-field">
+              <label>RECIPIENT</label>
+              <div class="dropdown">
+                <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Select Recipient
+                </button>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="#">Major Generals</a></li>
+                  <li><a class="dropdown-item" href="#">Colonels</a></li>
+                  <li><a class="dropdown-item" href="#">Majors</a></li>
+                  <li><a class="dropdown-item" href="#">All Soldiers</a></li>
+                </ul>
+              </div>
+            </div>
+            <div className="option-field">
+              <label>MESSAGE</label>
+              <textarea placeholder="Write your message...."></textarea>
+            </div>
+          </div>
+          <div className="twice-btns">
+            <button onClick={handleCloseannounce} className="btn-cancel">Cancel</button>
+            <button onClick={() => {
+              handleCloseannounce();
+              handleShowannounce1();
+            }} className="btn-create">Send</button>
+          </div>
+        </Modal.Body>
+      </Modal>
+
+      <Modal className="createdsuccess-modal global-modal-style" show={showannounce1} onHide={handleCloseannounce1} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Create New Announcement</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div className="task-created">
+            <img src="\generalassets\other-imgs\announcement.svg" alt="img" className="img-fluid" />
+            <h6>ANNOUNCEMENT SENT SUCCESSFULLY</h6>
           </div>
 
         </Modal.Body>

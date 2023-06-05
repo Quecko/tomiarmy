@@ -8,6 +8,8 @@ import GeneralHome from "../../Screens/GeneralHome/GeneralHome";
 import GeneralTask from "../../Screens/GeneralTask/GeneralTask";
 import GeneralOperation from "../../Screens/GeneralOperation/GeneralOperation";
 import Proofofwork from "../../Screens/Proofofwork/Proofofwork";
+import GeneralAnnouncement from "../../Screens/GeneralAnnouncement/GeneralAnnouncement";
+import GeneralArmy from "../../Screens/GeneralArmy/GeneralArmy";
 
 
 
@@ -110,7 +112,7 @@ const GeneralSidebar = () => {
                       }
 
                     >
-                       <svg
+                      <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="18"
                         height="18"
@@ -133,7 +135,7 @@ const GeneralSidebar = () => {
                       }
 
                     >
-                        <svg
+                      <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="20"
                         height="20"
@@ -152,7 +154,6 @@ const GeneralSidebar = () => {
                       <span>Operations</span>
                     </a>
                   </li>
-
                   <li>
                     <a
                       onClick={() => { hitfunctionss(3); }}
@@ -161,7 +162,7 @@ const GeneralSidebar = () => {
                       }
 
                     >
-                        <svg
+                      <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="20"
                         height="20"
@@ -179,15 +180,100 @@ const GeneralSidebar = () => {
                       </svg>
                       <span>Proof of Work</span>
                     </a>
-                  </li>        
+                  </li>
+                  <li>
+                    <a
+                      onClick={() => { hitfunctionss(4); }}
+                      className={
+                        indexwait === 4 ? "list-item active" : "list-item "
+                      }
+
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="20"
+                        height="20"
+                        viewBox="0 0 20 20"
+                        fill="none"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          clip-rule="evenodd"
+                          d="M13.1944 3.17375C13.0719 2.7175 12.7288 2.35312 12.28 2.20375C11.8319 2.05437 11.3388 2.14 10.9669 2.4325C8.94316 4.0225 4.87878 7.2175 4.87878 7.2175C4.73128 7.33312 4.6669 7.52625 4.71565 7.7075L5.9619 12.3581C6.01003 12.5394 6.16253 12.6737 6.34815 12.7006C6.34815 12.7006 11.4657 13.435 14.0132 13.8006C14.4807 13.8675 14.9513 13.6956 15.2644 13.3419C15.5782 12.9881 15.6932 12.5012 15.5713 12.0444C14.9725 9.80937 13.7932 5.40875 13.1944 3.17375Z"
+                          fill="#81828A"
+                        />
+                        <path
+                          fill-rule="evenodd"
+                          clip-rule="evenodd"
+                          d="M5.62123 7.46437C5.55435 7.21437 5.29685 7.06625 5.04685 7.13312C5.04685 7.13312 3.8806 7.44562 2.92935 7.70062C2.48872 7.81875 2.11373 8.10687 1.8856 8.50125C1.65748 8.89625 1.5956 9.36562 1.71373 9.80562C1.8981 10.4937 2.12873 11.3531 2.3131 12.0412C2.4306 12.4819 2.71872 12.8575 3.11372 13.085C3.50872 13.3131 3.97747 13.375 4.4181 13.2569C5.36935 13.0019 6.5356 12.6894 6.5356 12.6894C6.7856 12.6225 6.93435 12.365 6.86747 12.115L5.62123 7.46437Z"
+                          fill="#81828A"
+                        />
+                        <path
+                          fill-rule="evenodd"
+                          clip-rule="evenodd"
+                          d="M7.25376 11.8831C7.09751 11.8613 6.94126 11.9188 6.83626 12.0363C6.73188 12.1544 6.69376 12.3169 6.73438 12.4688L7.35313 14.7794C7.41626 15.0144 7.64876 15.1619 7.88813 15.1194C7.95001 15.1081 8.01251 15.0944 8.07438 15.0781C9.19126 14.7788 9.87688 13.6694 9.66876 12.5519C9.63188 12.3544 9.47313 12.2019 9.27438 12.1731L7.25376 11.8831ZM8.12876 14.0506L7.82376 12.9125L8.76438 13.0475C8.73313 13.4638 8.49563 13.8431 8.12876 14.0506Z"
+                          fill="#81828A"
+                        />
+                        <path
+                          fill-rule="evenodd"
+                          clip-rule="evenodd"
+                          d="M7.64002 12.2263C7.59127 12.045 7.4394 11.91 7.25377 11.8831L6.48127 11.7725C6.41815 11.7638 6.3544 11.7675 6.29315 11.7838L4.66127 12.2213C4.5319 12.2556 4.42315 12.3438 4.36315 12.4638C4.30315 12.5831 4.29752 12.7231 4.3469 12.8475C4.3469 12.8475 5.40502 15.5038 5.94377 16.8563C6.2069 17.5169 6.92252 17.8756 7.6094 17.6919C8.38002 17.4856 8.8369 16.6938 8.63065 15.9238L7.64002 12.2263Z"
+                          fill="#81828A"
+                        />
+                        <path
+                          fill-rule="evenodd"
+                          clip-rule="evenodd"
+                          d="M18.0713 6.29813L16.2582 6.78375C16.0088 6.85063 15.86 7.10813 15.9269 7.35813C15.9938 7.60813 16.2513 7.75625 16.5013 7.68938L18.3138 7.20375C18.5638 7.13688 18.7125 6.87938 18.6457 6.62938C18.5788 6.37938 18.3213 6.23125 18.0713 6.29813Z"
+                          fill="#81828A"
+                        />
+                        <path
+                          fill-rule="evenodd"
+                          clip-rule="evenodd"
+                          d="M16.25 2.89312L14.7412 4.00937C14.5337 4.16312 14.4893 4.45687 14.6431 4.665C14.7975 4.87312 15.0912 4.91687 15.2987 4.76312L16.8081 3.64687C17.0156 3.49312 17.06 3.19937 16.9056 2.99125C16.7518 2.78312 16.4581 2.73937 16.25 2.89312Z"
+                          fill="#81828A"
+                        />
+                        <path
+                          fill-rule="evenodd"
+                          clip-rule="evenodd"
+                          d="M18.4956 10.1475L16.6344 9.90625C16.3775 9.87312 16.1425 10.0544 16.1094 10.3106C16.0756 10.5675 16.2575 10.8025 16.5138 10.8362L18.375 11.0775C18.6319 11.1106 18.8669 10.9294 18.9 10.6725C18.9338 10.4162 18.7519 10.1806 18.4956 10.1475Z"
+                          fill="#81828A"
+                        />
+                      </svg>
+                      <span>Announcements</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      onClick={() => { hitfunctionss(5); }}
+                      className={
+                        indexwait === 5 ? "list-item active" : "list-item "
+                      }
+
+                    >
+                      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <g clip-path="url(#clip0_943_10906)">
+                          <path d="M15.3825 3.91039L11.6635 3.37L10.0004 0L8.33719 3.37L4.61816 3.91039L7.3093 6.53356L6.67398 10.2375L10.0004 8.48875L13.3267 10.2375L12.6914 6.53356L15.3825 3.91039Z" fill="#81828A" />
+                          <path d="M9.9998 12.3132L3.98633 9.90063V13.3274L10.0349 15.7541L16.0133 13.3256V9.90063L9.9998 12.3132Z" fill="#81828A" />
+                          <path d="M9.9998 16.5591L3.98633 14.1465V17.5733L10.0349 20L16.0133 17.5715V14.1465L9.9998 16.5591Z" fill="#81828A" />
+                        </g>
+                        <defs>
+                          <clipPath id="clip0_943_10906">
+                            <rect width="20" height="20" fill="white" />
+                          </clipPath>
+                        </defs>
+                      </svg>
+
+                      <span>Army</span>
+                    </a>
+                  </li>
                 </ul>
               </div>
               <div className="twice-btns-sidebar">
-              <button className="log-out-btn">
-                <img src={logoutIcon} alt="logoutIcon" />
-                DISCONNECT WALLET
-              </button>
-              <a onClick={() => { hitfunctionss(9); }} className="btn-report">Report a Bug</a>
+                <button className="log-out-btn">
+                  <img src={logoutIcon} alt="logoutIcon" />
+                  DISCONNECT WALLET
+                </button>
+                <a onClick={() => { hitfunctionss(9); }} className="btn-report">Report a Bug</a>
               </div>
             </div>
           </div>
@@ -196,32 +282,46 @@ const GeneralSidebar = () => {
             {indexwait == 0 ?
               (
                 <>
-                 <GeneralHome />
+                  <GeneralHome />
                 </>
               )
               :
               indexwait == 1 ?
-              (
-                <>
-                 <GeneralTask />
-                </>
-              )
-              :
-              indexwait == 2 ?
-              (
-                <>
-                 <GeneralOperation routes={routes} setroute={setroute}  />
-                </>
-              )
-              :
-              indexwait == 3 ?
-              (
-                <>
-                 <Proofofwork />
-                </>
-              )
-              :
-             ""
+                (
+                  <>
+                    <GeneralTask />
+                  </>
+                )
+                :
+                indexwait == 2 ?
+                  (
+                    <>
+                      <GeneralOperation routes={routes} setroute={setroute} />
+                    </>
+                  )
+                  :
+                  indexwait == 3 ?
+                    (
+                      <>
+                        <Proofofwork />
+                      </>
+                    )
+                    :
+                    indexwait == 4 ?
+                      (
+                        <>
+                          <GeneralAnnouncement />
+                        </>
+                      )
+                      :
+                      indexwait == 5 ?
+                      (
+                        <>
+                          <GeneralArmy />
+                        </>
+                      )
+                      :
+                      ""
             }
 
           </div>
