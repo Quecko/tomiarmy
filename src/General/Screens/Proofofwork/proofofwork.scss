@@ -1,0 +1,232 @@
+.main-task {
+
+    .pagi {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+
+        h6 {
+            font-style: normal;
+            font-weight: 500;
+            font-size: 15px;
+            line-height: 100%;
+            color: rgba(191, 195, 199, 0.4);
+        }
+
+        a {
+            background: transparent;
+            border-radius: 5px;
+            font-style: normal;
+            font-weight: 500;
+            font-size: 15px;
+            line-height: 100%;
+            color: #FFFFFF;
+            padding: 6px 11px;
+
+            &.active {
+                background: #FF0083;
+            }
+        }
+    }
+}
+
+.powmodal {
+    .modal-dialog {
+        max-width: 672px;
+    }
+
+    .modal-body {
+        .approvemain {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+
+            .approvetext {
+                font-style: normal;
+                font-weight: 700;
+                font-size: 18px;
+                line-height: 110%;
+                text-align: center;
+                text-transform: uppercase;
+                color: #FFFFFF;
+            }
+        }
+
+        .btnss {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            margin-top: 38px;
+
+            .redbtn {
+                width: 50%;
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+                padding: 14px 20px;
+                gap: 10px;
+                background: linear-gradient(180deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 34.22%), #FB2F2F;
+                border-bottom: 1px solid #F95D5D;
+                box-shadow: 0px 3px 1px #A31818;
+                border-radius: 10px;
+                font-style: normal;
+                font-weight: 600;
+                font-size: 16px;
+                line-height: 100%;
+                letter-spacing: 0.01em;
+                color: #FFFFFF;
+                border: none;
+            }
+
+            .greenbtn {
+                width: 50%;
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+                padding: 14px 20px;
+                gap: 10px;
+                background: linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0) 34.22%), #04C453;
+                border-bottom: 1px solid #5BF79B;
+                box-shadow: 0px 3px 1px #17994C;
+                border-radius: 10px;
+                font-style: normal;
+                font-weight: 600;
+                font-size: 16px;
+                line-height: 100%;
+                letter-spacing: 0.01em;
+                color: #FFFFFF;
+                border: none;
+            }
+        }
+
+        .mainproofdetail {
+            display: flex;
+            justify-content: flex-start;
+            align-items: flex-start;
+            gap: 20px;
+
+            .proofdetailleft {
+                background: #191D26;
+                border-radius: 10px;
+                padding: 20px;
+                width: 50%;
+                height: 435px;
+
+                .detailmain {
+                    display: flex;
+                    justify-content: flex-start;
+                    align-items: flex-start;
+
+                    .proofmain {
+                        margin-bottom: 20px;
+                        width: 50%;
+
+                        .detailbtn {
+                            font-style: normal;
+                            font-weight: 500;
+                            font-size: 14px;
+                            line-height: 100%;
+                            text-align: center;
+                            letter-spacing: 0.01em;
+                            color: #401E07;
+                            padding: 5px 10px;
+                            background: #FF8936;
+                            border-radius: 15px;
+                        }
+
+                        .detailpara {
+                            font-style: normal;
+                            font-weight: 400;
+                            font-size: 14px;
+                            line-height: 100%;
+                            color: #81828A;
+                            margin-bottom: 10px;
+                        }
+
+                        .detailhead {
+                            font-style: normal;
+                            font-weight: 500;
+                            font-size: 14px;
+                            line-height: 100%;
+                            letter-spacing: 0.01em;
+                            color: #FFFFFF;
+                        }
+                    }
+                }
+
+                .proofmain {
+                    margin-bottom: 20px;
+
+                    .powimg {
+                        width: 266px;
+                        height: 371px;
+                        background: #191D26;
+                        border: 1px dashed #343742;
+                        border-radius: 10px;
+                        object-fit: cover;
+                        object-position: center;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+
+                        .powimginner {
+                            width: 171px;
+                            height: 351px;
+                            object-fit: cover;
+                            object-position: center;
+                        }
+                    }
+
+                    .detailpara {
+                        font-style: normal;
+                        font-weight: 400;
+                        font-size: 14px;
+                        line-height: 100%;
+                        color: #81828A;
+                        margin-bottom: 10px;
+                    }
+
+                    .detailhead {
+                        font-style: normal;
+                        font-weight: 500;
+                        font-size: 14px;
+                        line-height: 100%;
+                        letter-spacing: 0.01em;
+                        color: #FFFFFF;
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+@media (max-width:700px){
+    .powmodal .modal-body .mainproofdetail{
+        flex-direction: column;
+    }
+    .powmodal .modal-body .mainproofdetail .proofdetailleft{
+        width: 100%;
+    }
+    .powmodal .modal-body .mainproofdetail .proofdetailleft .proofmain .powimg{
+        width: 100%;
+    }
+    .mainpow .my-tabs .nav-tabs .nav-link{
+        font-size: 14px;
+        white-space: nowrap;
+    }
+    .mainpow .my-tabs .nav-tabs{
+        flex-direction: row !important;
+        gap: 15px;
+        justify-content: flex-start;
+    }
+    .mainpow .my-tabs .nav-tabs .nav-item{
+        width: 50% !important;
+        flex: unset !important;
+        max-width: 117px;
+    }
+}

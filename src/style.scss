@@ -173,17 +173,23 @@ table {
 }
 
 
+
 .stats-dropdown-menu {
     background: linear-gradient(180deg, #343742 0%, rgb(34 37 47) 100%);
     padding: 2px 2px;
     border-radius: 10px;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
     border: 1px solid;
+    max-width: 98px !important;
+    width: 100% !important;
+    min-width: 98px !important;
 
     .stats-dropdown-bg {
         padding: 8px 10px;
         background: #22252F;
         border-radius: 7px;
+        max-width: 98px;
+        width: 100%;
 
         .dropdown-item {
             font-family: 'Rajdhani';
@@ -193,8 +199,10 @@ table {
             line-height: 100%;
             letter-spacing: 0.01em;
             color: #FFFFFF;
-            border-bottom: 1px solid #343742;
+            border-bottom: 1px solid #343742 !important;
             padding: 8px 5px;
+            display: flex;
+            align-items: center;
 
             &:hover {
                 background: none;
