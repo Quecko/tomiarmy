@@ -7,6 +7,7 @@ import GeneralHeader from "../Header/GeneralHeader";
 import GeneralHome from "../../Screens/GeneralHome/GeneralHome";
 import GeneralTask from "../../Screens/GeneralTask/GeneralTask";
 import GeneralOperation from "../../Screens/GeneralOperation/GeneralOperation";
+import Proofofwork from "../../Screens/Proofofwork/Proofofwork";
 
 
 
@@ -151,7 +152,34 @@ const GeneralSidebar = () => {
                       <span>Operations</span>
                     </a>
                   </li>
-        
+
+                  <li>
+                    <a
+                      onClick={() => { hitfunctionss(3); }}
+                      className={
+                        indexwait === 3 ? "list-item active" : "list-item "
+                      }
+
+                    >
+                        <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="20"
+                        height="20"
+                        viewBox="0 0 20 20"
+                        fill="none"
+                      >
+                        <path
+                          d="M13.3334 3.54166C13.3334 4.575 12.4917 5.41666 11.4584 5.41666H8.54169C8.02502 5.41666 7.55835 5.20833 7.21669 4.86666C6.87502 4.525 6.66669 4.05833 6.66669 3.54166C6.66669 2.50833 7.50835 1.66666 8.54169 1.66666H11.4584C11.975 1.66666 12.4417 1.875 12.7834 2.21666C13.125 2.55833 13.3334 3.025 13.3334 3.54166Z"
+                          fill="#81828A"
+                        />
+                        <path
+                          d="M15.6916 4.19167C15.5 4.03333 15.2833 3.90833 15.05 3.81667C14.8083 3.725 14.5666 3.91667 14.5166 4.16667C14.2333 5.59167 12.975 6.66667 11.4583 6.66667H8.54165C7.70831 6.66667 6.92498 6.34167 6.33331 5.75C5.89998 5.31667 5.59998 4.76667 5.48331 4.175C5.43331 3.925 5.18331 3.725 4.94165 3.825C3.97498 4.21667 3.33331 5.1 3.33331 6.875V15C3.33331 17.5 4.82498 18.3333 6.66665 18.3333H13.3333C15.175 18.3333 16.6666 17.5 16.6666 15V6.875C16.6666 5.51667 16.2916 4.68333 15.6916 4.19167ZM6.66665 10.2083H9.99998C10.3416 10.2083 10.625 10.4917 10.625 10.8333C10.625 11.175 10.3416 11.4583 9.99998 11.4583H6.66665C6.32498 11.4583 6.04165 11.175 6.04165 10.8333C6.04165 10.4917 6.32498 10.2083 6.66665 10.2083ZM13.3333 14.7917H6.66665C6.32498 14.7917 6.04165 14.5083 6.04165 14.1667C6.04165 13.825 6.32498 13.5417 6.66665 13.5417H13.3333C13.675 13.5417 13.9583 13.825 13.9583 14.1667C13.9583 14.5083 13.675 14.7917 13.3333 14.7917Z"
+                          fill="#81828A"
+                        />
+                      </svg>
+                      <span>Proof of Work</span>
+                    </a>
+                  </li>        
                 </ul>
               </div>
               <div className="twice-btns-sidebar">
@@ -183,6 +211,13 @@ const GeneralSidebar = () => {
               (
                 <>
                  <GeneralOperation routes={routes} setroute={setroute}  />
+                </>
+              )
+              :
+              indexwait == 3 ?
+              (
+                <>
+                 <Proofofwork />
                 </>
               )
               :

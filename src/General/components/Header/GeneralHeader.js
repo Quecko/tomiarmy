@@ -59,6 +59,12 @@ const GeneralHeader = ({ routes, setroute, indexwait, handleShow }) => {
               }
             </>
           ) : null}
+          {indexwait === 3 ? (
+                  <div className="soldier-name">
+                    <h4>Proof of Work</h4>
+                    <p>approve and reject TASKS pow of army</p>
+                  </div>
+          ) : null}
         </div>
         <div className="header-buttons">
           {
