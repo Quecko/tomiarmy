@@ -7,7 +7,7 @@ import { Button, Offcanvas } from "react-bootstrap";
 import mobileLogo from "../../../assets/icons/mobileLogo.svg";
 import Modal from 'react-bootstrap/Modal';
 
-const GeneralHeader = ({ routes, setroute, indexwait, handleShow }) => {
+const GeneralHeader = ({ routes, setroute, indexwait, handleShow, routesarmy, setroutearmy }) => {
 
   const [showtask, setShowtask] = useState(false);
   const handleClosetask = () => setShowtask(false);
@@ -81,10 +81,16 @@ const GeneralHeader = ({ routes, setroute, indexwait, handleShow }) => {
             </div>
           ) : null}
           {indexwait === 5 ? (
-            <div className="soldier-name">
-              <h4>Army</h4>
-              <p>view your army</p>
-            </div>
+            <>
+              {
+                routesarmy ?
+                  <button onClick={() => setroutearmy(!routesarmy)} className="btn-goback"><img src="\assets\goback.svg" alt="img" className="img-fluid me-2" />Go Back</button> :
+                  <div className="soldier-name">
+                    <h4>Army</h4>
+                    <p>view your army</p>
+                  </div>
+              }
+            </>
           ) : null}
         </div>
         <div className="header-buttons">

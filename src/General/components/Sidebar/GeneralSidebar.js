@@ -53,6 +53,7 @@ const GeneralSidebar = () => {
 
 
   const [routes, setroute] = useState(false);
+  const [routesarmy, setroutearmy] = useState(false);
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -278,7 +279,7 @@ const GeneralSidebar = () => {
             </div>
           </div>
           <div className="content-column">
-            <GeneralHeader handleShow={handleShow} indexwait={indexwait} routes={routes} setroute={setroute} />
+            <GeneralHeader handleShow={handleShow} indexwait={indexwait} routes={routes} setroute={setroute} routesarmy={routesarmy} setroutearmy={setroutearmy} />
             {indexwait == 0 ?
               (
                 <>
@@ -317,7 +318,7 @@ const GeneralSidebar = () => {
                       indexwait == 5 ?
                       (
                         <>
-                          <GeneralArmy />
+                          <GeneralArmy routesarmy={routesarmy} setroutearmy={setroutearmy} />
                         </>
                       )
                       :
