@@ -4,6 +4,7 @@ import { Dropdown, Table } from "react-bootstrap";
 import Accordion from 'react-bootstrap/Accordion';
 import dosts from "../../../assets/icons/dots.svg";
 import submitIcon from "../../../assets/icons/submitIcon.svg";
+import { Calendar } from "react-multi-date-picker"
 
 
 
@@ -403,17 +404,11 @@ const GeneralHome = () => {
                                             <path d="M13.2797 5.9668L8.93306 10.3135C8.41973 10.8268 7.57973 10.8268 7.06639 10.3135L2.71973 5.9668" stroke="#81828A" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
                                         </svg></Dropdown.Toggle>
                                         <Dropdown.Menu className="stats-dropdown-menu">
-                                            <div className="stats-dropdown-bg">
-                                                <Dropdown.Item href="#/action-1">Today</Dropdown.Item>
-                                                <Dropdown.Item href="#/action-2">This Week</Dropdown.Item>
-                                                <Dropdown.Item href="#/action-3">This Month</Dropdown.Item>
-                                                <Dropdown.Item
-                                                    href="#/action-3"
-                                                    className="border-bottom-0 item-active"
-                                                >
-                                                    All Time
-                                                </Dropdown.Item>
-                                            </div>
+                                                <Calendar
+                                                    numberOfMonths={2}
+                                                    disableMonthPicker
+                                                    disableYearPicker
+                                                />
                                         </Dropdown.Menu>
                                     </Dropdown>
                                 </div>
