@@ -110,7 +110,7 @@ const GeneralArmy = ({ routesarmy, setroutearmy }) => {
                                                                                 <p className='paratable'>Soldier</p>
                                                                             </td>
                                                                             <td>
-                                                                                <div className='dropbtn'>
+                                                                                <div className='dropbtn global-dropdown-style'>
                                                                                     <Dropdown>
                                                                                         <Dropdown.Toggle variant="success" id="dropdown-basic">
                                                                                             <img src='\Vectordots.svg' alt='img' className='img-fluid ' />
@@ -119,9 +119,9 @@ const GeneralArmy = ({ routesarmy, setroutearmy }) => {
 
                                                                                         <Dropdown.Menu>
                                                                                             <Dropdown.Item href="#/action-1">
-                                                                                                <p onClick={handleShow}><img src='\Vector.svg' alt='img' className='img-fluid' />Promote</p>
-                                                                                                <p onClick={handleShowreject}><img src='\Vector.svg' alt='img' className='img-fluid' />Reject</p>
-                                                                                                <p onClick={() => { setroutearmy(!routesarmy) }}><img src='\Vector.svg' alt='img' className='img-fluid' />Details</p>
+                                                                                                <p onClick={handleShow}><img src='\generalassets\icons\promote.svg' alt='img' className='img-fluid' />Promote</p>
+                                                                                                <p onClick={handleShowreject}><img src='\generalassets\icons\trash.svg' alt='img' className='img-fluid' />Reject</p>
+                                                                                                <p onClick={() => { setroutearmy(!routesarmy) }}><img src='\generalassets\icons\detail.svg' alt='img' className='img-fluid' />Details</p>
                                                                                             </Dropdown.Item>
                                                                                         </Dropdown.Menu>
                                                                                     </Dropdown>

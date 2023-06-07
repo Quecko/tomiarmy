@@ -3827,3 +3827,42 @@ tr td:last-child {
         }
     }
 }
+
+
+.status-div{
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 100%;
+    text-align: center;
+    letter-spacing: 0.01em;
+    color: #033A1A;
+    padding: 5px 10px;
+    border-radius: 25px;
+    max-width: 91px;
+    width: 100%;
+}
+.green-bg{
+    background: #04C453;
+}
+.red-bg{
+    background: #FB2F2F;
+}
+.pending-bg{
+    background: #FF8936;
+}
+
+.header-buttons{
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+
+.global-dropdown-style{
+     .dropdown-item p{
+        justify-content: flex-start !important;
+        align-items: center !important;
+        margin-bottom: 10px;
+     }
+}

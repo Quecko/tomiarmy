@@ -4,6 +4,7 @@
         backdrop-filter: blur(2px);
         border-radius: 20px;
         padding: 20px;
+        height: 286px;
         .upper-heading{
             display: flex;
             justify-content: space-between;
@@ -55,6 +56,15 @@
             }
         }
     }
+    .rank-armygrowth{
+        margin: 20px 0;
+    }
+    .pending-recruit{
+        margin-bottom: 20px;
+    }
+    .data-box{
+        height: 100%;
+    }
 
     .stats-dropdown {
         .stats-dropdown-menu {
@@ -93,6 +103,7 @@
         backdrop-filter: blur(2px);
         border-radius: 20px;
         padding: 20px;
+        height: 100%;
         .upper-heading{
             display: flex;
             justify-content: space-between;
@@ -117,4 +128,46 @@
         }
     }
  
+}
+
+
+@media (max-width:600px){
+    .general-home .tomystats .stats-data-boxes{
+        flex-direction: column;
+    }
+    .maincard-global .maintable{
+        overflow-x: auto;
+    }
+    .general-home .tomystats{
+        height: auto !important;
+    }
+    .general-home .tomystats .stats-data-boxes .inner-data-box{
+        width: 100%;
+    }
+    .general-home .tomystats .stats-data-boxes .inner-data-box .stats-item-box{
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 22px;
+    }
+    .general-home .tomystats .stats-data-boxes .inner-data-box .stats-item-box p{
+        margin-top: 0;
+    }
+    .general-home .graph-section{
+        margin-top: 20px;
+        height: auto;
+    }
+    .general-home .stats-dropdown .dropdown-toggle span{
+        display: none;
+    }
+    .general-home .stats-dropdown .dropdown-toggle svg{
+        display: none;
+    }
+    .general-home .stats-dropdwon-mobile .dropdown-toggle{
+        width: 36px !important;
+        height: 36px !important;
+        padding: 8px !important;
+    }
+    .general-home .data-box{
+        height: auto;
+    }
 }

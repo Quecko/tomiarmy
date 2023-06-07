@@ -34,6 +34,10 @@ const GeneralHeader = ({ routes, setroute, indexwait, handleShow, routesarmy, se
   const handleCloseannounce1 = () => setShowannounce1(false);
   const handleShowannounce1 = () => setShowannounce1(true);
 
+  const [showfaq, setShowfaq] = useState(false);
+  const handleClosefaq = () => setShowfaq(false);
+  const handleShowfaq = () => setShowfaq(true);
+
 
   return (
     <>
@@ -91,6 +95,24 @@ const GeneralHeader = ({ routes, setroute, indexwait, handleShow, routesarmy, se
                   </div>
               }
             </>
+          ) : null}
+          {indexwait === 6 ? (
+            <div className="soldier-name">
+              <h4>Army Forum</h4>
+              <p>Engage with your army</p>
+            </div>
+          ) : null}
+             {indexwait === 7 ? (
+            <div className="soldier-name">
+              <h4>Bugs Report</h4>
+              <p>View Bugs report</p>
+            </div>
+          ) : null}
+            {indexwait === 8 ? (
+            <div className="soldier-name">
+              <h4>faqs</h4>
+              <p>Create faqs for your army</p>
+            </div>
           ) : null}
         </div>
         <div className="header-buttons">
@@ -191,6 +213,15 @@ const GeneralHeader = ({ routes, setroute, indexwait, handleShow, routesarmy, se
               <button onClick={handleShowannounce} className="create-squad-btn display-none-in-mobile" >
                 <img src="\generalassets\icons\announcement.svg" alt="img" className="img-fluid me-1" />
                 <span> Create Announcement</span>
+              </button>
+
+              : ""
+          }
+            {
+            indexwait === 8 ?
+              <button onClick={handleShowfaq} className="create-squad-btn display-none-in-mobile" >
+                <img src="\assets\add-task.svg" alt="img" className="img-fluid me-1" />
+                <span> Create FAQ</span>
               </button>
 
               : ""
@@ -405,6 +436,32 @@ const GeneralHeader = ({ routes, setroute, indexwait, handleShow, routesarmy, se
             <h6>ANNOUNCEMENT SENT SUCCESSFULLY</h6>
           </div>
 
+        </Modal.Body>
+      </Modal>
+
+
+      {/* create faq modal here.................................... */}
+
+
+      <Modal className='createbasic-modal global-modal-style createtask-modal' show={showfaq} onHide={handleClosefaq} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>create a new faq</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div className="inner-content">
+            <div className="option-field">
+              <label>Title</label>
+              <input type="text" placeholder="Enter Title" />
+            </div>
+            <div className="option-field">
+              <label>Description</label>
+              <textarea placeholder="Enter Description Url...."></textarea>
+            </div>
+          </div>
+          <div className="twice-btns">
+            <button onClick={handleClosefaq} className="btn-cancel">Cancel</button>
+            <button className="btn-create">Create FAQ</button>
+          </div>
         </Modal.Body>
       </Modal>
 

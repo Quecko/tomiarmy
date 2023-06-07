@@ -80,7 +80,7 @@ const GeneralOperation = ({ setroute, routes }) => {
                                                                     <p className='paratable'>25</p>
                                                                 </td>
                                                                 <td>
-                                                                    <div className='dropbtn'>
+                                                                    <div className='dropbtn global-dropdown-style'>
                                                                         <Dropdown>
                                                                             <Dropdown.Toggle variant="success" id="dropdown-basic">
                                                                                 <img src='\Vectordots.svg' alt='img' className='img-fluid ' />
@@ -89,9 +89,9 @@ const GeneralOperation = ({ setroute, routes }) => {
 
                                                                             <Dropdown.Menu>
                                                                                 <Dropdown.Item href="#/action-1">
-                                                                                    <p><img src='\Vector.svg' alt='img' className='img-fluid' />Details</p>
-                                                                                    <p><img src='\Vector.svg' alt='img' className='img-fluid' />Edit</p>
-                                                                                    <p><img src='\Vector.svg' alt='img' className='img-fluid' />Delete</p>
+                                                                                    <p><img src='\generalassets\icons\detail.svg' alt='img' className='img-fluid' />Details</p>
+                                                                                    <p><img src='\generalassets\icons\edit.svg' alt='img' className='img-fluid' />Edit</p>
+                                                                                    <p><img src='\generalassets\icons\trash.svg' alt='img' className='img-fluid' />Delete</p>
                                                                                 </Dropdown.Item>
                                                                             </Dropdown.Menu>
                                                                         </Dropdown>
@@ -228,7 +228,7 @@ const GeneralOperation = ({ setroute, routes }) => {
                                                                     <p className='paratable'>25</p>
                                                                 </td>
                                                                 <td>
-                                                                    <div className='dropbtn'>
+                                                                    <div className='dropbtn global-dropdown-style'>
                                                                         <Dropdown>
                                                                             <Dropdown.Toggle variant="success" id="dropdown-basic">
                                                                                 <img src='\Vectordots.svg' alt='img' className='img-fluid ' />
@@ -237,9 +237,9 @@ const GeneralOperation = ({ setroute, routes }) => {
 
                                                                             <Dropdown.Menu>
                                                                                 <Dropdown.Item href="#/action-1">
-                                                                                    <p><img src='\Vector.svg' alt='img' className='img-fluid' />Details</p>
-                                                                                    <p><img src='\Vector.svg' alt='img' className='img-fluid' />Edit</p>
-                                                                                    <p><img src='\Vector.svg' alt='img' className='img-fluid' />Delete</p>
+                                                                                    <p><img src='\generalassets\icons\detail.svg' alt='img' className='img-fluid' />Details</p>
+                                                                                    <p><img src='\generalassets\icons\edit.svg' alt='img' className='img-fluid' />Edit</p>
+                                                                                    <p><img src='\generalassets\icons\trash.svg' alt='img' className='img-fluid' />Delete</p>
                                                                                 </Dropdown.Item>
                                                                             </Dropdown.Menu>
                                                                         </Dropdown>

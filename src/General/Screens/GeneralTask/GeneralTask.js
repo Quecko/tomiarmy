@@ -66,7 +66,7 @@ const GeneralTask = () => {
                                   <p className='paratable'>+5 Points</p>
                                 </td>
                                 <td>
-                                  <div className='dropbtn'>
+                                  <div className='dropbtn global-dropdown-style'>
                                     <Dropdown>
                                       <Dropdown.Toggle variant="success" id="dropdown-basic">
                                         <img src='\Vectordots.svg' alt='img' className='img-fluid ' />
@@ -75,9 +75,9 @@ const GeneralTask = () => {
 
                                       <Dropdown.Menu>
                                         <Dropdown.Item href="#/action-1">
-                                          <p><img src='\Vector.svg' alt='img' className='img-fluid' />Details</p>
-                                          <p><img src='\Vector.svg' alt='img' className='img-fluid' />Edit</p>
-                                          <p><img src='\Vector.svg' alt='img' className='img-fluid' />Delete</p>
+                                          <p><img src='\generalassets\icons\detail.svg' alt='img' className='img-fluid' />Details</p>
+                                          <p><img src='\generalassets\icons\edit.svg' alt='img' className='img-fluid' />Edit</p>
+                                          <p><img src='\generalassets\icons\trash.svg' alt='img' className='img-fluid' />Delete</p>
                                         </Dropdown.Item>
                                       </Dropdown.Menu>
                                     </Dropdown>
@@ -202,7 +202,7 @@ const GeneralTask = () => {
                                   <p className='paratable'>+5 Points</p>
                                 </td>
                                 <td>
-                                  <div className='dropbtn'>
+                                  <div className='dropbtn global-dropdown-style'>
                                     <Dropdown>
                                       <Dropdown.Toggle variant="success" id="dropdown-basic">
                                         <img src='\Vectordots.svg' alt='img' className='img-fluid ' />
@@ -211,9 +211,9 @@ const GeneralTask = () => {
 
                                       <Dropdown.Menu>
                                         <Dropdown.Item href="#/action-1">
-                                          <p><img src='\Vector.svg' alt='img' className='img-fluid' />Details</p>
-                                          <p><img src='\Vector.svg' alt='img' className='img-fluid' />Edit</p>
-                                          <p><img src='\Vector.svg' alt='img' className='img-fluid' />Delete</p>
+                                          <p><img src='\generalassets\icons\detail.svg' alt='img' className='img-fluid' />Details</p>
+                                          <p><img src='\generalassets\icons\edit.svg' alt='img' className='img-fluid' />Edit</p>
+                                          <p><img src='\generalassets\icons\delete.svg' alt='img' className='img-fluid' />Delete</p>
                                         </Dropdown.Item>
                                       </Dropdown.Menu>
                                     </Dropdown>

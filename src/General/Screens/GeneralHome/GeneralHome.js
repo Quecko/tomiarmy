@@ -398,8 +398,8 @@ const GeneralHome = () => {
                             <div className="graph-section border-grad1">
                                 <div className="upper-heading">
                                     <h6>army growth</h6>
-                                    <Dropdown className="stats-dropdown">
-                                        <Dropdown.Toggle id="dropdown-basic"><img src="\assets\calendar.svg" alt="img" className="img-fluid me-2" />09/05/2023 - 10/05/2023 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <Dropdown className="stats-dropdown stats-dropdwon-mobile">
+                                        <Dropdown.Toggle id="dropdown-basic"><img src="\assets\calendar.svg" alt="img" className="img-fluid me-2" /><span>09/05/2023 - 10/05/2023</span> <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M13.2797 5.9668L8.93306 10.3135C8.41973 10.8268 7.57973 10.8268 7.06639 10.3135L2.71973 5.9668" stroke="#81828A" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
                                         </svg></Dropdown.Toggle>
                                         <Dropdown.Menu className="stats-dropdown-menu">
@@ -524,7 +524,7 @@ const GeneralHome = () => {
                             </div>
                         </div>
                         <div className="col-xl-6 col-12 pe-0 padd-sm">
-                            <div className='maincard-global set-custom-padd-table border-grad1'>
+                            <div className='maincard-global set-custom-padd-table border-grad1 display-none-in-mobile'>
                                 <div className="table-heading">
                                     <h6>top soldiers</h6>
                                 </div>
