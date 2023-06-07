@@ -78,6 +78,13 @@ const GeneralSidebar = () => {
     }
   };
 
+
+  // pass all states in header or components to show modals..............................
+
+  const [showtask, setShowtask] = useState(false);
+  const [showannounce, setShowannounce] = useState(false);
+  const [showfaq, setShowfaq] = useState(false);
+
   return (
     <>
       <div className="theme-custom-container">
@@ -374,18 +381,18 @@ const GeneralSidebar = () => {
             </div>
           </div>
           <div className="content-column">
-            <GeneralHeader handleShow={handleShow} indexwait={indexwait} routes={routes} setroute={setroute} routesarmy={routesarmy} setroutearmy={setroutearmy} />
+            <GeneralHeader handleShow={handleShow} indexwait={indexwait} routes={routes} setroute={setroute} routesarmy={routesarmy} setroutearmy={setroutearmy} showtask={showtask} setShowtask={setShowtask} showannounce={showannounce} setShowannounce={setShowannounce} showfaq={showfaq} setShowfaq={setShowfaq} />
             {indexwait == 0 ?
               (
                 <>
-                  <GeneralHome />
+                  <GeneralHome setShowtask={setShowtask} />
                 </>
               )
               :
               indexwait == 1 ?
                 (
                   <>
-                    <GeneralTask />
+                    <GeneralTask setShowtask={setShowtask} />
                   </>
                 )
                 :
@@ -406,7 +413,7 @@ const GeneralSidebar = () => {
                     indexwait == 4 ?
                       (
                         <>
-                          <GeneralAnnouncement />
+                          <GeneralAnnouncement setShowannounce={setShowannounce} />
                         </>
                       )
                       :
@@ -434,7 +441,7 @@ const GeneralSidebar = () => {
                             indexwait == 8 ?
                             (
                               <>
-                                <Generalfaqs />
+                                <Generalfaqs setShowfaq={setShowfaq} />
                               </>
                             )
                             :

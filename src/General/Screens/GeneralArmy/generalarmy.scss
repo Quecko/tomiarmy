@@ -234,3 +234,18 @@
         }
     }
 }
+
+@media (max-width:600px){
+    .general-army .parent-field{
+        flex-direction: column;
+        gap: 20px;
+    }
+    .general-army .parent-field .option-field3 {
+        max-width: 100% !important;
+        width: 100%;
+    }
+    .general-army .dropdown .dropdown-toggle{
+        justify-content: center;
+        gap: 8px;
+    }
+}

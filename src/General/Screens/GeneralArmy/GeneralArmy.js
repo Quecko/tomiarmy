@@ -154,47 +154,24 @@ const GeneralArmy = ({ routesarmy, setroutearmy }) => {
                                                         </div>
                                                         <div className="mobile-responsive-table d-none display-block-in-mobile">
                                                             <div className="heading-mobile">
-                                                                <p>Task</p>
+                                                                <p>Wallet</p>
                                                             </div>
                                                             <Accordion defaultActiveKey="0">
                                                                 <Accordion.Item eventKey="0">
-                                                                    <Accordion.Header>Like our facebook page</Accordion.Header>
+                                                                    <Accordion.Header>0x0F4D...B5D8</Accordion.Header>
                                                                     <Accordion.Body>
                                                                         <div className="inner-fields">
                                                                             <div className="inner-item">
-                                                                                <h6>Points</h6>
-                                                                                <p>+5</p>
+                                                                                <h6>Nickname</h6>
+                                                                                <p>Umar_x2jz</p>
                                                                             </div>
                                                                             <div className="inner-item">
-                                                                                <h6>Status</h6>
-                                                                                <button className="btn-green">Completed</button>
+                                                                                <h6>From</h6>
+                                                                               <p>Soldier</p>
                                                                             </div>
                                                                             <div className="inner-item">
-                                                                                <h6>Expiry</h6>
-                                                                                <p>12:34 12/12/23</p>
-                                                                            </div>
-                                                                            <div className="inner-item">
-                                                                                <h6>Actions</h6>
-                                                                                <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
-                                                                            </div>
-                                                                        </div>
-                                                                    </Accordion.Body>
-                                                                </Accordion.Item>
-                                                                <Accordion.Item eventKey="1">
-                                                                    <Accordion.Header>Follow our twitter acc...</Accordion.Header>
-                                                                    <Accordion.Body>
-                                                                        <div className="inner-fields">
-                                                                            <div className="inner-item">
-                                                                                <h6>Points</h6>
-                                                                                <p>+5</p>
-                                                                            </div>
-                                                                            <div className="inner-item">
-                                                                                <h6>Status</h6>
-                                                                                <button className="btn-green">Completed</button>
-                                                                            </div>
-                                                                            <div className="inner-item">
-                                                                                <h6>Expiry</h6>
-                                                                                <p>12:34 12/12/23</p>
+                                                                                <h6>To</h6>
+                                                                                <p>Private</p>
                                                                             </div>
                                                                             <div className="inner-item">
                                                                                 <h6>Actions</h6>

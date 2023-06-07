@@ -219,14 +219,10 @@
         font-size: 14px;
         white-space: nowrap;
     }
-    .mainpow .my-tabs .nav-tabs{
-        flex-direction: row !important;
-        gap: 15px;
-        justify-content: flex-start;
+    .main-task .my-tabs .nav-tabs{
+        flex-wrap: nowrap;
+        gap: 0 !important;
     }
-    .mainpow .my-tabs .nav-tabs .nav-item{
-        width: 50% !important;
-        flex: unset !important;
-        max-width: 117px;
-    }
+ 
+  
 }

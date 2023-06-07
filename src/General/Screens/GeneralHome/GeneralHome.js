@@ -8,9 +8,25 @@ import { Calendar } from "react-multi-date-picker"
 
 
 
-const GeneralHome = () => {
+const GeneralHome = ({ setShowtask }) => {
     return (
         <>
+            <div className="formobile-heading d-none display-block-in-mobile">
+                <div className="inner-heading">
+                    <h6>Welcome general, </h6>
+                    <p>your army awaits your orders</p>
+                </div>
+                <div className="twice-btn">
+                    <button className="create-op-btn" >
+                        <img src="\generalassets\icons\createoperation.svg" alt="img" className="img-fluid me-2" />
+                        Create Operation
+                    </button>
+                    <button onClick={setShowtask} className="create-btn" >
+                        <img src="\generalassets\icons\create-task.svg" alt="img" className="img-fluid me-2" />
+                        Create Task
+                    </button>
+                </div>
+            </div>
             <section className="general-home">
                 <div className="row">
                     <div className="col-xl-8 col-12 p-0">
@@ -399,16 +415,16 @@ const GeneralHome = () => {
                             <div className="graph-section border-grad1">
                                 <div className="upper-heading">
                                     <h6>army growth</h6>
-                                    <Dropdown className="stats-dropdown stats-dropdwon-mobile">
+                                    <Dropdown className="calendar-drop stats-dropdwon-mobile">
                                         <Dropdown.Toggle id="dropdown-basic"><img src="\assets\calendar.svg" alt="img" className="img-fluid me-2" /><span>09/05/2023 - 10/05/2023</span> <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path d="M13.2797 5.9668L8.93306 10.3135C8.41973 10.8268 7.57973 10.8268 7.06639 10.3135L2.71973 5.9668" stroke="#81828A" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
                                         </svg></Dropdown.Toggle>
-                                        <Dropdown.Menu className="stats-dropdown-menu">
-                                                <Calendar
-                                                    numberOfMonths={2}
-                                                    disableMonthPicker
-                                                    disableYearPicker
-                                                />
+                                        <Dropdown.Menu className="">
+                                            <Calendar
+                                                numberOfMonths={2}
+                                                disableMonthPicker
+                                                disableYearPicker
+                                            />
                                         </Dropdown.Menu>
                                     </Dropdown>
                                 </div>
@@ -519,12 +535,12 @@ const GeneralHome = () => {
                             </div>
                         </div>
                         <div className="col-xl-6 col-12 pe-0 padd-sm">
-                            <div className='maincard-global set-custom-padd-table border-grad1 display-none-in-mobile'>
+                            <div className='maincard-global set-custom-padd-table border-grad1 set-custom-mbl-top-margin'>
                                 <div className="table-heading">
                                     <h6>top soldiers</h6>
                                 </div>
                                 <div className="maintable">
-                                    <table class="table table-striped">
+                                    <table class="table table-striped display-none-in-mobile">
                                         <thead>
                                             <tr>
                                                 <th>
@@ -647,6 +663,36 @@ const GeneralHome = () => {
                                             </tr>
                                         </tbody>
                                     </table>
+                                    <div className="mobile-responsive-table d-none display-block-in-mobile">
+                                        <div className="heading-mobile">
+                                            <p>Nickname</p>
+                                        </div>
+                                        <Accordion defaultActiveKey="0">
+                                            <Accordion.Item eventKey="0">
+                                                <Accordion.Header>sharjeel</Accordion.Header>
+                                                <Accordion.Body>
+                                                    <div className="inner-fields">
+                                                        <div className="inner-item">
+                                                            <h6>Rank</h6>
+                                                            <p>Private</p>
+                                                        </div>
+                                                        <div className="inner-item">
+                                                            <h6>Wallet Address</h6>
+                                                            <p>0x2F78....aB0C</p>
+                                                        </div>
+                                                        <div className="inner-item">
+                                                            <h6>Username</h6>
+                                                            <p>@sharjeel</p>
+                                                        </div>
+                                                        <div className="inner-item">
+                                                            <h6>TOMI Balance</h6>
+                                                            <p>500 TOMI</p>
+                                                        </div>
+                                                    </div>
+                                                </Accordion.Body>
+                                            </Accordion.Item>
+                                        </Accordion>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -695,24 +741,20 @@ const GeneralHome = () => {
                                 </Table>
                                 <div className="mobile-responsive-table d-none display-block-in-mobile">
                                     <div className="heading-mobile">
-                                        <p>Task</p>
+                                        <p>Wallet Address</p>
                                     </div>
                                     <Accordion defaultActiveKey="0">
                                         <Accordion.Item eventKey="0">
-                                            <Accordion.Header>Like our facebook page</Accordion.Header>
+                                            <Accordion.Header>0x0F4D...B5D8</Accordion.Header>
                                             <Accordion.Body>
                                                 <div className="inner-fields">
                                                     <div className="inner-item">
-                                                        <h6>Points</h6>
-                                                        <p>+5</p>
+                                                        <h6>User Name</h6>
+                                                        <p>@sharjeel</p>
                                                     </div>
                                                     <div className="inner-item">
-                                                        <h6>Status</h6>
-                                                        <button className="btn-green">Completed</button>
-                                                    </div>
-                                                    <div className="inner-item">
-                                                        <h6>Expiry</h6>
-                                                        <p>12:34 12/12/23</p>
+                                                        <h6>Tomi Tokens</h6>
+                                                       <p>1,000,000</p>
                                                     </div>
                                                     <div className="inner-item">
                                                         <h6>Actions</h6>
@@ -721,81 +763,13 @@ const GeneralHome = () => {
                                                 </div>
                                             </Accordion.Body>
                                         </Accordion.Item>
-                                        <Accordion.Item eventKey="1">
-                                            <Accordion.Header>Follow our twitter acc...</Accordion.Header>
-                                            <Accordion.Body>
-                                                <div className="inner-fields">
-                                                    <div className="inner-item">
-                                                        <h6>Points</h6>
-                                                        <p>+5</p>
-                                                    </div>
-                                                    <div className="inner-item">
-                                                        <h6>Status</h6>
-                                                        <button className="btn-green">Completed</button>
-                                                    </div>
-                                                    <div className="inner-item">
-                                                        <h6>Expiry</h6>
-                                                        <p>12:34 12/12/23</p>
-                                                    </div>
-                                                    <div className="inner-item">
-                                                        <h6>Actions</h6>
-                                                        <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
-                                                    </div>
-                                                </div>
-                                            </Accordion.Body>
-                                        </Accordion.Item>
-                                        <Accordion.Item eventKey="2">
-                                            <Accordion.Header>Like our facebook page</Accordion.Header>
-                                            <Accordion.Body>
-                                                <div className="inner-fields">
-                                                    <div className="inner-item">
-                                                        <h6>Points</h6>
-                                                        <p>+5</p>
-                                                    </div>
-                                                    <div className="inner-item">
-                                                        <h6>Status</h6>
-                                                        <button className="btn-green">Completed</button>
-                                                    </div>
-                                                    <div className="inner-item">
-                                                        <h6>Expiry</h6>
-                                                        <p>12:34 12/12/23</p>
-                                                    </div>
-                                                    <div className="inner-item">
-                                                        <h6>Actions</h6>
-                                                        <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
-                                                    </div>
-                                                </div>
-                                            </Accordion.Body>
-                                        </Accordion.Item>
-                                        <Accordion.Item eventKey="3">
-                                            <Accordion.Header>Like our facebook page</Accordion.Header>
-                                            <Accordion.Body>
-                                                <div className="inner-fields">
-                                                    <div className="inner-item">
-                                                        <h6>Points</h6>
-                                                        <p>+5</p>
-                                                    </div>
-                                                    <div className="inner-item">
-                                                        <h6>Status</h6>
-                                                        <button className="btn-green">Completed</button>
-                                                    </div>
-                                                    <div className="inner-item">
-                                                        <h6>Expiry</h6>
-                                                        <p>12:34 12/12/23</p>
-                                                    </div>
-                                                    <div className="inner-item">
-                                                        <h6>Actions</h6>
-                                                        <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
-                                                    </div>
-                                                </div>
-                                            </Accordion.Body>
-                                        </Accordion.Item>
+                                      
                                     </Accordion>
                                 </div>
                             </div>
                         </div>
                         <div className="col-xl-6 col-12 pe-0 padd-sm">
-                            <div className="data-box general-tasks-wrappergeneral border-grad1">
+                            <div className="data-box general-tasks-wrappergeneral border-grad1 set-custom-mbl-top-margin">
                                 <h4 className="heading-gen">pending proof of work approvals</h4>
                                 <Table striped bordered hover responsive className="general-tasks-table display-none-in-mobile">
                                     <thead>
@@ -916,101 +890,33 @@ const GeneralHome = () => {
                                 </Table>
                                 <div className="mobile-responsive-table d-none display-block-in-mobile">
                                     <div className="heading-mobile">
-                                        <p>Task</p>
+                                        <p>User</p>
                                     </div>
                                     <Accordion defaultActiveKey="0">
                                         <Accordion.Item eventKey="0">
-                                            <Accordion.Header>Like our facebook page</Accordion.Header>
+                                            <Accordion.Header>sharjeel</Accordion.Header>
                                             <Accordion.Body>
                                                 <div className="inner-fields">
                                                     <div className="inner-item">
-                                                        <h6>Points</h6>
+                                                        <h6>Tasks</h6>
                                                         <p>Like our facebook..</p>
                                                     </div>
                                                     <div className="inner-item">
-                                                        <h6>Status</h6>
-                                                        <button className="btn-green">Completed</button>
-                                                    </div>
-                                                    <div className="inner-item">
-                                                        <h6>Expiry</h6>
+                                                        <h6>Points</h6>
                                                         <p>1,000,000</p>
                                                     </div>
                                                     <div className="inner-item">
-                                                        <h6>Actions</h6>
-                                                        <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
-                                                    </div>
-                                                </div>
-                                            </Accordion.Body>
-                                        </Accordion.Item>
-                                        <Accordion.Item eventKey="1">
-                                            <Accordion.Header>Follow our twitter acc...</Accordion.Header>
-                                            <Accordion.Body>
-                                                <div className="inner-fields">
-                                                    <div className="inner-item">
-                                                        <h6>Points</h6>
-                                                        <p>+5</p>
-                                                    </div>
-                                                    <div className="inner-item">
                                                         <h6>Status</h6>
                                                         <button className="btn-green">Completed</button>
                                                     </div>
                                                     <div className="inner-item">
-                                                        <h6>Expiry</h6>
-                                                        <p>1,000,000</p>
-                                                    </div>
-                                                    <div className="inner-item">
                                                         <h6>Actions</h6>
                                                         <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
                                                     </div>
                                                 </div>
                                             </Accordion.Body>
                                         </Accordion.Item>
-                                        <Accordion.Item eventKey="2">
-                                            <Accordion.Header>Like our facebook page</Accordion.Header>
-                                            <Accordion.Body>
-                                                <div className="inner-fields">
-                                                    <div className="inner-item">
-                                                        <h6>Points</h6>
-                                                        <p>+5</p>
-                                                    </div>
-                                                    <div className="inner-item">
-                                                        <h6>Status</h6>
-                                                        <button className="btn-green">Completed</button>
-                                                    </div>
-                                                    <div className="inner-item">
-                                                        <h6>Expiry</h6>
-                                                        <p>12:34 12/12/23</p>
-                                                    </div>
-                                                    <div className="inner-item">
-                                                        <h6>Actions</h6>
-                                                        <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
-                                                    </div>
-                                                </div>
-                                            </Accordion.Body>
-                                        </Accordion.Item>
-                                        <Accordion.Item eventKey="3">
-                                            <Accordion.Header>Like our facebook page</Accordion.Header>
-                                            <Accordion.Body>
-                                                <div className="inner-fields">
-                                                    <div className="inner-item">
-                                                        <h6>Points</h6>
-                                                        <p>+5</p>
-                                                    </div>
-                                                    <div className="inner-item">
-                                                        <h6>Status</h6>
-                                                        <button className="btn-green">Completed</button>
-                                                    </div>
-                                                    <div className="inner-item">
-                                                        <h6>Expiry</h6>
-                                                        <p>12:34 12/12/23</p>
-                                                    </div>
-                                                    <div className="inner-item">
-                                                        <h6>Actions</h6>
-                                                        <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
-                                                    </div>
-                                                </div>
-                                            </Accordion.Body>
-                                        </Accordion.Item>
+                                      
                                     </Accordion>
                                 </div>
                             </div>

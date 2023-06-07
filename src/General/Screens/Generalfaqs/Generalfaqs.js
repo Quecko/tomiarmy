@@ -3,9 +3,19 @@ import Accordion from 'react-bootstrap/Accordion';
 import Pagination from 'react-bootstrap/Pagination';
 import Dropdown from 'react-bootstrap/Dropdown';
 
-const Generalfaqs = () => {
+const Generalfaqs = ({setShowfaq}) => {
     return (
         <>
+        <div className="formobile-heading d-none display-block-in-mobile">
+                    <div className="inner-heading">
+                        <h6>faqs</h6>
+                        <p>Create faqs for your army</p>
+                    </div>
+                    <button onClick={setShowfaq} className="create-btn" >
+                        <img src="\assets\add-task.svg" alt="img" className="img-fluid me-2" />
+                        Create FAQ
+                    </button>
+                </div>
             <section className='main-task general-army'>
                 <div className='container-fluid padd-sm p-0'>
                     <div className='row'>
@@ -80,24 +90,16 @@ const Generalfaqs = () => {
                                 </div>
                                 <div className="mobile-responsive-table d-none display-block-in-mobile">
                                     <div className="heading-mobile">
-                                        <p>Task</p>
+                                        <p>Title</p>
                                     </div>
                                     <Accordion defaultActiveKey="0">
                                         <Accordion.Item eventKey="0">
-                                            <Accordion.Header>Like our facebook page</Accordion.Header>
+                                            <Accordion.Header>Sed ut perspiciatis unde</Accordion.Header>
                                             <Accordion.Body>
                                                 <div className="inner-fields">
                                                     <div className="inner-item">
-                                                        <h6>Points</h6>
-                                                        <p>+5</p>
-                                                    </div>
-                                                    <div className="inner-item">
-                                                        <h6>Status</h6>
-                                                        <button className="btn-green">Completed</button>
-                                                    </div>
-                                                    <div className="inner-item">
-                                                        <h6>Expiry</h6>
-                                                        <p>12:34 12/12/23</p>
+                                                        <h6>Description</h6>
+                                                        <p style={{maxWidth: "142px", textAlign: "start"}}>Sed ut perspiciatis unde omnis iste natus error sit voluptatem...</p>
                                                     </div>
                                                     <div className="inner-item">
                                                         <h6>Actions</h6>
@@ -106,29 +108,7 @@ const Generalfaqs = () => {
                                                 </div>
                                             </Accordion.Body>
                                         </Accordion.Item>
-                                        <Accordion.Item eventKey="1">
-                                            <Accordion.Header>Follow our twitter acc...</Accordion.Header>
-                                            <Accordion.Body>
-                                                <div className="inner-fields">
-                                                    <div className="inner-item">
-                                                        <h6>Points</h6>
-                                                        <p>+5</p>
-                                                    </div>
-                                                    <div className="inner-item">
-                                                        <h6>Status</h6>
-                                                        <button className="btn-green">Completed</button>
-                                                    </div>
-                                                    <div className="inner-item">
-                                                        <h6>Expiry</h6>
-                                                        <p>12:34 12/12/23</p>
-                                                    </div>
-                                                    <div className="inner-item">
-                                                        <h6>Actions</h6>
-                                                        <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
-                                                    </div>
-                                                </div>
-                                            </Accordion.Body>
-                                        </Accordion.Item>
+                                       
                                     </Accordion>
                                 </div>
                             </div>

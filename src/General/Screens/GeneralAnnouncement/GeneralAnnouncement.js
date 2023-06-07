@@ -7,14 +7,18 @@ import Modal from 'react-bootstrap/Modal';
 import Pagination from 'react-bootstrap/Pagination';
 import Accordion from 'react-bootstrap/Accordion';
 import "./generalannouncement.scss"
-const GeneralAnnouncement = () => {
+const GeneralAnnouncement = ({ setShowannounce }) => {
     return (
         <>
             <div className="formobile-heading d-none display-block-in-mobile">
                 <div className="inner-heading">
-                    <h6>ANNOUNCEMENTS </h6>
+                    <h6>ANNOUNCEMENTS</h6>
                     <p>VIEW AND CREATE ANNOUNCEMENTS FOR YOUR ARMY</p>
                 </div>
+                <button onClick={() => setShowannounce(true)} className="create-btn" >
+                    <img src="\generalassets\icons\announcement.svg" alt="img" className="img-fluid me-2" />
+                    Create Announcement
+                </button>
             </div>
             <section className='main-task'>
                 <div className='container-fluid padd-sm p-0'>
@@ -79,51 +83,24 @@ const GeneralAnnouncement = () => {
                                 </div>
                                 <div className="mobile-responsive-table d-none display-block-in-mobile">
                                     <div className="heading-mobile">
-                                        <p>Task</p>
+                                        <p>Announcement</p>
                                     </div>
                                     <Accordion defaultActiveKey="0">
                                         <Accordion.Item eventKey="0">
-                                            <Accordion.Header>Like our facebook page</Accordion.Header>
+                                            <Accordion.Header>Follow this Twitter Account....</Accordion.Header>
                                             <Accordion.Body>
                                                 <div className="inner-fields">
                                                     <div className="inner-item">
-                                                        <h6>Points</h6>
-                                                        <p>+5</p>
+                                                        <h6>To</h6>
+                                                        <p>01/01/22</p>
                                                     </div>
                                                     <div className="inner-item">
-                                                        <h6>Status</h6>
-                                                        <button className="btn-green">Completed</button>
-                                                    </div>
-                                                    <div className="inner-item">
-                                                        <h6>Expiry</h6>
-                                                        <p>12:34 12/12/23</p>
+                                                        <h6>Date Sent</h6>
+                                                      <p>01/01/22</p>
                                                     </div>
                                                     <div className="inner-item">
                                                         <h6>Actions</h6>
-                                                        <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
-                                                    </div>
-                                                </div>
-                                            </Accordion.Body>
-                                        </Accordion.Item>
-                                        <Accordion.Item eventKey="1">
-                                            <Accordion.Header>Follow our twitter acc...</Accordion.Header>
-                                            <Accordion.Body>
-                                                <div className="inner-fields">
-                                                    <div className="inner-item">
-                                                        <h6>Points</h6>
-                                                        <p>+5</p>
-                                                    </div>
-                                                    <div className="inner-item">
-                                                        <h6>Status</h6>
-                                                        <button className="btn-green">Completed</button>
-                                                    </div>
-                                                    <div className="inner-item">
-                                                        <h6>Expiry</h6>
-                                                        <p>12:34 12/12/23</p>
-                                                    </div>
-                                                    <div className="inner-item">
-                                                        <h6>Actions</h6>
-                                                        <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
+                                                        <a href="#"><img src="\generalassets\icons\btn-delete.svg" alt="img" className="img-fluid" /></a>
                                                     </div>
                                                 </div>
                                             </Accordion.Body>

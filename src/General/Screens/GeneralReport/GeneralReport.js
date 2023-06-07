@@ -113,24 +113,20 @@ const GeneralReport = () => {
                                             </div>
                                             <div className="mobile-responsive-table d-none display-block-in-mobile">
                                                 <div className="heading-mobile">
-                                                    <p>Task</p>
+                                                    <p>Date received</p>
                                                 </div>
                                                 <Accordion defaultActiveKey="0">
                                                     <Accordion.Item eventKey="0">
-                                                        <Accordion.Header>Like our facebook page</Accordion.Header>
+                                                        <Accordion.Header>23/05/2023 01:58</Accordion.Header>
                                                         <Accordion.Body>
                                                             <div className="inner-fields">
                                                                 <div className="inner-item">
-                                                                    <h6>Points</h6>
-                                                                    <p>+5</p>
+                                                                    <h6>Issues</h6>
+                                                                    <p>Button Is Not Working</p>
                                                                 </div>
                                                                 <div className="inner-item">
                                                                     <h6>Status</h6>
-                                                                    <button className="btn-green">Completed</button>
-                                                                </div>
-                                                                <div className="inner-item">
-                                                                    <h6>Expiry</h6>
-                                                                    <p>12:34 12/12/23</p>
+                                                                    <p className="status-div pending-bg">Completed</p>
                                                                 </div>
                                                                 <div className="inner-item">
                                                                     <h6>Actions</h6>
@@ -139,29 +135,7 @@ const GeneralReport = () => {
                                                             </div>
                                                         </Accordion.Body>
                                                     </Accordion.Item>
-                                                    <Accordion.Item eventKey="1">
-                                                        <Accordion.Header>Follow our twitter acc...</Accordion.Header>
-                                                        <Accordion.Body>
-                                                            <div className="inner-fields">
-                                                                <div className="inner-item">
-                                                                    <h6>Points</h6>
-                                                                    <p>+5</p>
-                                                                </div>
-                                                                <div className="inner-item">
-                                                                    <h6>Status</h6>
-                                                                    <button className="btn-green">Completed</button>
-                                                                </div>
-                                                                <div className="inner-item">
-                                                                    <h6>Expiry</h6>
-                                                                    <p>12:34 12/12/23</p>
-                                                                </div>
-                                                                <div className="inner-item">
-                                                                    <h6>Actions</h6>
-                                                                    <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
-                                                                </div>
-                                                            </div>
-                                                        </Accordion.Body>
-                                                    </Accordion.Item>
+                                         
                                                 </Accordion>
                                             </div>
                                         </div>

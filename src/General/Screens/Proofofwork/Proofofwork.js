@@ -18,6 +18,12 @@ const Proofofwork = () => {
     const handleShowreject = () => setShowreject(true);
     return (
         <>
+            <div className="formobile-heading d-none display-block-in-mobile">
+                <div className="inner-heading">
+                    <h6>Proof of Work  </h6>
+                    <p>approve and reject TASKS pow of army</p>
+                </div>
+            </div>
             <section className='main-task mainpow'>
                 <div className='container-fluid padd-sm p-0'>
                     <div className='row'>
@@ -201,101 +207,33 @@ const Proofofwork = () => {
                                                     </div>
                                                     <div className="mobile-responsive-table d-none display-block-in-mobile">
                                                         <div className="heading-mobile">
-                                                            <p>Task</p>
+                                                            <p>User</p>
                                                         </div>
                                                         <Accordion defaultActiveKey="0">
                                                             <Accordion.Item eventKey="0">
-                                                                <Accordion.Header>Like our facebook page</Accordion.Header>
+                                                                <Accordion.Header>sharjeel</Accordion.Header>
                                                                 <Accordion.Body>
                                                                     <div className="inner-fields">
                                                                         <div className="inner-item">
-                                                                            <h6>Points</h6>
+                                                                            <h6>Tasks</h6>
                                                                             <p>Like our facebook..</p>
                                                                         </div>
                                                                         <div className="inner-item">
-                                                                            <h6>Status</h6>
-                                                                            <button className="btn-green">Completed</button>
-                                                                        </div>
-                                                                        <div className="inner-item">
-                                                                            <h6>Expiry</h6>
+                                                                            <h6>Points</h6>
                                                                             <p>1,000,000</p>
                                                                         </div>
                                                                         <div className="inner-item">
-                                                                            <h6>Actions</h6>
-                                                                            <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
-                                                                        </div>
-                                                                    </div>
-                                                                </Accordion.Body>
-                                                            </Accordion.Item>
-                                                            <Accordion.Item eventKey="1">
-                                                                <Accordion.Header>Follow our twitter acc...</Accordion.Header>
-                                                                <Accordion.Body>
-                                                                    <div className="inner-fields">
-                                                                        <div className="inner-item">
-                                                                            <h6>Points</h6>
-                                                                            <p>+5</p>
-                                                                        </div>
-                                                                        <div className="inner-item">
                                                                             <h6>Status</h6>
                                                                             <button className="btn-green">Completed</button>
                                                                         </div>
                                                                         <div className="inner-item">
-                                                                            <h6>Expiry</h6>
-                                                                            <p>1,000,000</p>
-                                                                        </div>
-                                                                        <div className="inner-item">
                                                                             <h6>Actions</h6>
                                                                             <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
                                                                         </div>
                                                                     </div>
                                                                 </Accordion.Body>
                                                             </Accordion.Item>
-                                                            <Accordion.Item eventKey="2">
-                                                                <Accordion.Header>Like our facebook page</Accordion.Header>
-                                                                <Accordion.Body>
-                                                                    <div className="inner-fields">
-                                                                        <div className="inner-item">
-                                                                            <h6>Points</h6>
-                                                                            <p>+5</p>
-                                                                        </div>
-                                                                        <div className="inner-item">
-                                                                            <h6>Status</h6>
-                                                                            <button className="btn-green">Completed</button>
-                                                                        </div>
-                                                                        <div className="inner-item">
-                                                                            <h6>Expiry</h6>
-                                                                            <p>12:34 12/12/23</p>
-                                                                        </div>
-                                                                        <div className="inner-item">
-                                                                            <h6>Actions</h6>
-                                                                            <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
-                                                                        </div>
-                                                                    </div>
-                                                                </Accordion.Body>
-                                                            </Accordion.Item>
-                                                            <Accordion.Item eventKey="3">
-                                                                <Accordion.Header>Like our facebook page</Accordion.Header>
-                                                                <Accordion.Body>
-                                                                    <div className="inner-fields">
-                                                                        <div className="inner-item">
-                                                                            <h6>Points</h6>
-                                                                            <p>+5</p>
-                                                                        </div>
-                                                                        <div className="inner-item">
-                                                                            <h6>Status</h6>
-                                                                            <button className="btn-green">Completed</button>
-                                                                        </div>
-                                                                        <div className="inner-item">
-                                                                            <h6>Expiry</h6>
-                                                                            <p>12:34 12/12/23</p>
-                                                                        </div>
-                                                                        <div className="inner-item">
-                                                                            <h6>Actions</h6>
-                                                                            <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
-                                                                        </div>
-                                                                    </div>
-                                                                </Accordion.Body>
-                                                            </Accordion.Item>
+                                                          
                                                         </Accordion>
                                                     </div>
 
@@ -475,101 +413,33 @@ const Proofofwork = () => {
                                                     </div>
                                                     <div className="mobile-responsive-table d-none display-block-in-mobile">
                                                         <div className="heading-mobile">
-                                                            <p>Task</p>
+                                                            <p>User</p>
                                                         </div>
                                                         <Accordion defaultActiveKey="0">
                                                             <Accordion.Item eventKey="0">
-                                                                <Accordion.Header>Like our facebook page</Accordion.Header>
+                                                                <Accordion.Header>sharjeel</Accordion.Header>
                                                                 <Accordion.Body>
                                                                     <div className="inner-fields">
                                                                         <div className="inner-item">
-                                                                            <h6>Points</h6>
+                                                                            <h6>Tasks</h6>
                                                                             <p>Like our facebook..</p>
                                                                         </div>
                                                                         <div className="inner-item">
-                                                                            <h6>Status</h6>
-                                                                            <button className="btn-green">Completed</button>
-                                                                        </div>
-                                                                        <div className="inner-item">
-                                                                            <h6>Expiry</h6>
+                                                                            <h6>Points</h6>
                                                                             <p>1,000,000</p>
                                                                         </div>
                                                                         <div className="inner-item">
-                                                                            <h6>Actions</h6>
-                                                                            <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
-                                                                        </div>
-                                                                    </div>
-                                                                </Accordion.Body>
-                                                            </Accordion.Item>
-                                                            <Accordion.Item eventKey="1">
-                                                                <Accordion.Header>Follow our twitter acc...</Accordion.Header>
-                                                                <Accordion.Body>
-                                                                    <div className="inner-fields">
-                                                                        <div className="inner-item">
-                                                                            <h6>Points</h6>
-                                                                            <p>+5</p>
-                                                                        </div>
-                                                                        <div className="inner-item">
                                                                             <h6>Status</h6>
                                                                             <button className="btn-green">Completed</button>
                                                                         </div>
                                                                         <div className="inner-item">
-                                                                            <h6>Expiry</h6>
-                                                                            <p>1,000,000</p>
-                                                                        </div>
-                                                                        <div className="inner-item">
                                                                             <h6>Actions</h6>
                                                                             <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
                                                                         </div>
                                                                     </div>
                                                                 </Accordion.Body>
                                                             </Accordion.Item>
-                                                            <Accordion.Item eventKey="2">
-                                                                <Accordion.Header>Like our facebook page</Accordion.Header>
-                                                                <Accordion.Body>
-                                                                    <div className="inner-fields">
-                                                                        <div className="inner-item">
-                                                                            <h6>Points</h6>
-                                                                            <p>+5</p>
-                                                                        </div>
-                                                                        <div className="inner-item">
-                                                                            <h6>Status</h6>
-                                                                            <button className="btn-green">Completed</button>
-                                                                        </div>
-                                                                        <div className="inner-item">
-                                                                            <h6>Expiry</h6>
-                                                                            <p>12:34 12/12/23</p>
-                                                                        </div>
-                                                                        <div className="inner-item">
-                                                                            <h6>Actions</h6>
-                                                                            <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
-                                                                        </div>
-                                                                    </div>
-                                                                </Accordion.Body>
-                                                            </Accordion.Item>
-                                                            <Accordion.Item eventKey="3">
-                                                                <Accordion.Header>Like our facebook page</Accordion.Header>
-                                                                <Accordion.Body>
-                                                                    <div className="inner-fields">
-                                                                        <div className="inner-item">
-                                                                            <h6>Points</h6>
-                                                                            <p>+5</p>
-                                                                        </div>
-                                                                        <div className="inner-item">
-                                                                            <h6>Status</h6>
-                                                                            <button className="btn-green">Completed</button>
-                                                                        </div>
-                                                                        <div className="inner-item">
-                                                                            <h6>Expiry</h6>
-                                                                            <p>12:34 12/12/23</p>
-                                                                        </div>
-                                                                        <div className="inner-item">
-                                                                            <h6>Actions</h6>
-                                                                            <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
-                                                                        </div>
-                                                                    </div>
-                                                                </Accordion.Body>
-                                                            </Accordion.Item>
+                                                          
                                                         </Accordion>
                                                     </div>
 
@@ -642,11 +512,11 @@ const Proofofwork = () => {
                         </div>
                     </div>
                     <div className="btnss">
-                        <button onClick={()=>{
+                        <button onClick={() => {
                             handleClosework();
                             handleShowreject();
                         }} className="redbtn"><img src="\generalassets\other-imgs\Subtract.svg" alt="crossimg" className="crossimg" /> Reject</button>
-                        <button onClick={()=>{
+                        <button onClick={() => {
                             handleClosework();
                             handleShowapprove();
                         }} className="greenbtn"><img src="\generalassets\other-imgs\checkmark.svg" alt="crossimg" className="crossimg" /> Approve</button>
@@ -659,10 +529,10 @@ const Proofofwork = () => {
                     <Modal.Title>proof of work</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                   <div className="approvemain">
-                    <img src="\generalassets\other-imgs\approveimg.png" alt="approveimg" className="approveimg img-fluid" />
-                    <p className="approvetext">operation proof of work approved</p>
-                   </div>
+                    <div className="approvemain">
+                        <img src="\generalassets\other-imgs\approveimg.png" alt="approveimg" className="approveimg img-fluid" />
+                        <p className="approvetext">operation proof of work approved</p>
+                    </div>
                 </Modal.Body>
             </Modal>
 
@@ -671,10 +541,10 @@ const Proofofwork = () => {
                     <Modal.Title>proof of work</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                   <div className="approvemain">
-                    <img src="\generalassets\other-imgs\rejectimg.png" alt="approveimg" className="approveimg img-fluid" />
-                    <p className="approvetext">operation proof of work approved</p>
-                   </div>
+                    <div className="approvemain">
+                        <img src="\generalassets\other-imgs\rejectimg.png" alt="approveimg" className="approveimg img-fluid" />
+                        <p className="approvetext">operation proof of work approved</p>
+                    </div>
                 </Modal.Body>
             </Modal>
         </>

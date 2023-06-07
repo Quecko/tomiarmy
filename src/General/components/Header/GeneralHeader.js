@@ -7,9 +7,9 @@ import { Button, Offcanvas } from "react-bootstrap";
 import mobileLogo from "../../../assets/icons/mobileLogo.svg";
 import Modal from 'react-bootstrap/Modal';
 
-const GeneralHeader = ({ routes, setroute, indexwait, handleShow, routesarmy, setroutearmy }) => {
+const GeneralHeader = ({ routes, setroute, indexwait, handleShow, routesarmy, setroutearmy, setShowtask, showtask, showannounce, setShowannounce, showfaq, setShowfaq }) => {
 
-  const [showtask, setShowtask] = useState(false);
+ 
   const handleClosetask = () => setShowtask(false);
   const handleShowtask = () => setShowtask(true);
 
@@ -26,7 +26,7 @@ const GeneralHeader = ({ routes, setroute, indexwait, handleShow, routesarmy, se
   const handleShowtask3 = () => setShowtask3(true);
 
 
-  const [showannounce, setShowannounce] = useState(false);
+ 
   const handleCloseannounce = () => setShowannounce(false);
   const handleShowannounce = () => setShowannounce(true);
 
@@ -34,7 +34,7 @@ const GeneralHeader = ({ routes, setroute, indexwait, handleShow, routesarmy, se
   const handleCloseannounce1 = () => setShowannounce1(false);
   const handleShowannounce1 = () => setShowannounce1(true);
 
-  const [showfaq, setShowfaq] = useState(false);
+  
   const handleClosefaq = () => setShowfaq(false);
   const handleShowfaq = () => setShowfaq(true);
 
@@ -56,8 +56,14 @@ const GeneralHeader = ({ routes, setroute, indexwait, handleShow, routesarmy, se
           </div>
           {indexwait === 0 ? (
             <div className="soldier-name">
-              <h4>Welcome general, </h4>
+              <h4>Welcome major general,  </h4>
               <p>your army awaits your orders</p>
+            </div>
+          ) : null}
+          {indexwait === 1 ? (
+            <div className="soldier-name">
+              <h4>ALL TASKS </h4>
+              <p>VIEW AND CREATE TASKS FOR YOUR ARMY</p>
             </div>
           ) : null}
           {indexwait === 2 ? (
@@ -119,64 +125,12 @@ const GeneralHeader = ({ routes, setroute, indexwait, handleShow, routesarmy, se
           {
             indexwait === 0 ?
               <>
-                <button className="create-squad-btn display-none-in-mobile" >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="20"
-                    height="20"
-                    viewBox="0 0 20 20"
-                    fill="none"
-                  >
-                    <g clip-path="url(#clip0_260_1810)">
-                      <path
-                        d="M15.3822 3.91039L11.6631 3.37L9.99999 0L8.33682 3.37L4.6178 3.91039L7.30893 6.53356L6.67362 10.2375L9.99999 8.48875L13.3264 10.2375L12.6911 6.53356L15.3822 3.91039Z"
-                        fill="#81828A"
-                      />
-                      <path
-                        d="M9.99999 12.3132L3.98651 9.90067V13.3275L10.0351 15.7541L16.0135 13.3256V9.90067L9.99999 12.3132Z"
-                        fill="#81828A"
-                      />
-                      <path
-                        d="M9.99999 16.5591L3.98651 14.1466V17.5734L10.0351 20L16.0135 17.5715V14.1466L9.99999 16.5591Z"
-                        fill="#81828A"
-                      />
-                    </g>
-                    <defs>
-                      <clipPath id="clip0_260_1810">
-                        <rect width="20" height="20" fill="white" />
-                      </clipPath>
-                    </defs>
-                  </svg>
+                <button onClick={() => { setroute(!routes); }} className="create-op-btn display-none-in-mobile" >
+                  <img src="\generalassets\icons\createoperation.svg" alt="img" className="img-fluid me-2" />
                   <span> Create Operation</span>
                 </button>
-                <button className="create-squad-btn display-none-in-mobile" >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="20"
-                    height="20"
-                    viewBox="0 0 20 20"
-                    fill="none"
-                  >
-                    <g clip-path="url(#clip0_260_1810)">
-                      <path
-                        d="M15.3822 3.91039L11.6631 3.37L9.99999 0L8.33682 3.37L4.6178 3.91039L7.30893 6.53356L6.67362 10.2375L9.99999 8.48875L13.3264 10.2375L12.6911 6.53356L15.3822 3.91039Z"
-                        fill="#81828A"
-                      />
-                      <path
-                        d="M9.99999 12.3132L3.98651 9.90067V13.3275L10.0351 15.7541L16.0135 13.3256V9.90067L9.99999 12.3132Z"
-                        fill="#81828A"
-                      />
-                      <path
-                        d="M9.99999 16.5591L3.98651 14.1466V17.5734L10.0351 20L16.0135 17.5715V14.1466L9.99999 16.5591Z"
-                        fill="#81828A"
-                      />
-                    </g>
-                    <defs>
-                      <clipPath id="clip0_260_1810">
-                        <rect width="20" height="20" fill="white" />
-                      </clipPath>
-                    </defs>
-                  </svg>
+                <button onClick={handleShowtask} className="create-squad-btn display-none-in-mobile" >
+                <img src="\generalassets\icons\create-task.svg" alt="img" className="img-fluid me-2" />
                   <span> Create Task</span>
                 </button>
               </>
@@ -196,11 +150,11 @@ const GeneralHeader = ({ routes, setroute, indexwait, handleShow, routesarmy, se
             indexwait === 2 ?
               <>
                 {
-                  !routes ? <button onClick={() => { setroute(!routes); console.log("create operations: ", routes); }} className="create-squad-btn display-none-in-mobile" >
+                  !routes ? <button onClick={() => { setroute(!routes); }} className="create-squad-btn display-none-in-mobile" >
                     <img src="\assets\add-task.svg" alt="img" className="img-fluid me-1" />
                     <span> Create Operation</span>
-                  </button> : <button className="btn-save-changes display-none-in-mobile" >
-                    <img src="\assets\add-task.svg" alt="img" className="img-fluid me-1" />
+                  </button> : <button className="savechange-btn disabled display-none-in-mobile" >
+                    <img src="\generalassets\icons\save-change.svg" alt="img" className="img-fluid me-1" />
                     <span> Save Changes</span>
                   </button>
                 }
@@ -223,6 +177,15 @@ const GeneralHeader = ({ routes, setroute, indexwait, handleShow, routesarmy, se
                 <img src="\assets\add-task.svg" alt="img" className="img-fluid me-1" />
                 <span> Create FAQ</span>
               </button>
+
+              : ""
+          }
+            {
+            indexwait === 6 ?
+            <button className="create-squad-btn" data-bs-toggle="modal" data-bs-target="#exampleModall">
+            <img src="\assets\topic-btn.svg" alt="img" className="img-fluid me-2" />
+            <span>Start a new topic</span>
+          </button>
 
               : ""
           }
@@ -464,6 +427,30 @@ const GeneralHeader = ({ routes, setroute, indexwait, handleShow, routesarmy, se
           </div>
         </Modal.Body>
       </Modal>
+
+
+      <div className="topicmodal">
+        <div class="modal fade" id="exampleModall" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <h5>Start a New Topic</h5>
+                <p>Title</p>
+                <input type="text" placeholder="Enter Title...." />
+                <p>Description</p>
+                <textarea placeholder="Enter Description Url...."></textarea>
+                <div className="twice-btn">
+                  <button className="btn-cancel" data-bs-dismiss="modal" aria-label="Close"> <img src="\assets\cancel.svg" alt="img" className="img-fluid me-2" /> Cancel</button>
+                  <button className="btn-topic"> <img src="\assets\topic-btn.svg" alt="img" className="img-fluid me-2" /> Start a New Topic</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
     </>
   );

@@ -7,14 +7,18 @@ import Modal from 'react-bootstrap/Modal';
 import Pagination from 'react-bootstrap/Pagination';
 import Accordion from 'react-bootstrap/Accordion';
 import "./generaltask.scss"
-const GeneralTask = () => {
+const GeneralTask = ({setShowtask}) => {
   return (
     <>
-      <div className="formobile-heading d-none display-block-in-mobile">
+     <div className="formobile-heading d-none display-block-in-mobile">
         <div className="inner-heading">
-          <h6>ALL TASKS  </h6>
-          <p>VIEW AND complete TASKS</p>
+          <h6>ALL TASKS</h6>
+          <p>VIEW AND CREATE TASKS FOR YOUR ARMY</p>
         </div>
+        <button onClick={() => setShowtask(true)} className="create-btn" >
+          <img src="\assets\add-task.svg" alt="img" className="img-fluid me-2" />
+          Create Task
+        </button>
       </div>
       <section className='main-task'>
         <div className='container-fluid padd-sm p-0'>
@@ -114,43 +118,20 @@ const GeneralTask = () => {
                         </div>
                         <Accordion defaultActiveKey="0">
                           <Accordion.Item eventKey="0">
-                            <Accordion.Header>Like our facebook page</Accordion.Header>
+                            <Accordion.Header>0x0F4D...B5D8</Accordion.Header>
                             <Accordion.Body>
                               <div className="inner-fields">
                                 <div className="inner-item">
-                                  <h6>Points</h6>
-                                  <p>+5</p>
+                                  <h6>Date Created</h6>
+                                  <p>01/01/22</p>
                                 </div>
                                 <div className="inner-item">
-                                  <h6>Status</h6>
-                                  <button className="btn-green">Completed</button>
+                                  <h6>Date Expires</h6>
+                                  <p>01/01/22</p>
                                 </div>
-                                <div className="inner-item">
-                                  <h6>Expiry</h6>
-                                  <p>12:34 12/12/23</p>
-                                </div>
-                                <div className="inner-item">
-                                  <h6>Actions</h6>
-                                  <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
-                                </div>
-                              </div>
-                            </Accordion.Body>
-                          </Accordion.Item>
-                          <Accordion.Item eventKey="1">
-                            <Accordion.Header>Follow our twitter acc...</Accordion.Header>
-                            <Accordion.Body>
-                              <div className="inner-fields">
                                 <div className="inner-item">
                                   <h6>Points</h6>
-                                  <p>+5</p>
-                                </div>
-                                <div className="inner-item">
-                                  <h6>Status</h6>
-                                  <button className="btn-green">Completed</button>
-                                </div>
-                                <div className="inner-item">
-                                  <h6>Expiry</h6>
-                                  <p>12:34 12/12/23</p>
+                                  <p>+5 Points</p>
                                 </div>
                                 <div className="inner-item">
                                   <h6>Actions</h6>
@@ -213,7 +194,7 @@ const GeneralTask = () => {
                                         <Dropdown.Item href="#/action-1">
                                           <p><img src='\generalassets\icons\detail.svg' alt='img' className='img-fluid' />Details</p>
                                           <p><img src='\generalassets\icons\edit.svg' alt='img' className='img-fluid' />Edit</p>
-                                          <p><img src='\generalassets\icons\delete.svg' alt='img' className='img-fluid' />Delete</p>
+                                          <p><img src='\generalassets\icons\trash.svg' alt='img' className='img-fluid' />Delete</p>
                                         </Dropdown.Item>
                                       </Dropdown.Menu>
                                     </Dropdown>
@@ -250,43 +231,20 @@ const GeneralTask = () => {
                         </div>
                         <Accordion defaultActiveKey="0">
                           <Accordion.Item eventKey="0">
-                            <Accordion.Header>Like our facebook page</Accordion.Header>
+                            <Accordion.Header>0x0F4D...B5D8</Accordion.Header>
                             <Accordion.Body>
                               <div className="inner-fields">
                                 <div className="inner-item">
-                                  <h6>Points</h6>
-                                  <p>+5</p>
+                                  <h6>Date Created</h6>
+                                  <p>01/01/22</p>
                                 </div>
                                 <div className="inner-item">
-                                  <h6>Status</h6>
-                                  <button className="btn-green">Completed</button>
+                                  <h6>Date Expires</h6>
+                                  <p>01/01/22</p>
                                 </div>
-                                <div className="inner-item">
-                                  <h6>Expiry</h6>
-                                  <p>12:34 12/12/23</p>
-                                </div>
-                                <div className="inner-item">
-                                  <h6>Actions</h6>
-                                  <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
-                                </div>
-                              </div>
-                            </Accordion.Body>
-                          </Accordion.Item>
-                          <Accordion.Item eventKey="1">
-                            <Accordion.Header>Follow our twitter acc...</Accordion.Header>
-                            <Accordion.Body>
-                              <div className="inner-fields">
                                 <div className="inner-item">
                                   <h6>Points</h6>
-                                  <p>+5</p>
-                                </div>
-                                <div className="inner-item">
-                                  <h6>Status</h6>
-                                  <button className="btn-green">Completed</button>
-                                </div>
-                                <div className="inner-item">
-                                  <h6>Expiry</h6>
-                                  <p>12:34 12/12/23</p>
+                                  <p>+5 Points</p>
                                 </div>
                                 <div className="inner-item">
                                   <h6>Actions</h6>

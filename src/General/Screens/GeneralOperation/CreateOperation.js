@@ -45,7 +45,7 @@ const CreateOperation = () => {
                     <div className="col-xl-6 col-12 pe-0 padd-sm">
                         <div className="createoperation-form">
                             <div className="upload-field">
-                                <p>Upload Image</p>
+                                <p>Upload NFT</p>
                                 <div className="upload">
                                     <img src="\generalassets\icons\upload-icon.svg" alt="img" className="img-fluid" />
                                     <h6>Drop your image here, or <label htmlFor="upload">browse</label></h6>
@@ -64,7 +64,7 @@ const CreateOperation = () => {
                         <p>VIEW AND CREATE TASKS FOR this operation</p>
                     </div>
                     <div className="right-side">
-                        <button onClick={handleShow} className="create-squad-btn display-none-in-mobile" >
+                        <button onClick={handleShow} className="create-squad-btn " >
                             <img src="\assets\add-task.svg" alt="img" className="img-fluid me-1" />
                             <span> Create Task</span>
                         </button>
@@ -81,7 +81,7 @@ const CreateOperation = () => {
                     <div className="middle-item">
                         <img src="\generalassets\other-imgs\creat-task.svg" alt="img" className='img-fluid' />
                         <h6>No task available for this operation.</h6>
-                        <button className="create-squad-btn display-none-in-mobile" >
+                        <button onClick={handleShow} className="create-squad-btn" >
                             <img src="\assets\add-task.svg" alt="img" className="img-fluid me-1" />
                             <span> Create Task</span>
                         </button>
