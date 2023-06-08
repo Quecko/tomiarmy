@@ -43,7 +43,7 @@ const MyRank = (props) => {
     let tok = localStorage.getItem("accessToken");
     var config = {
       method: "get",
-      url: `${API_URL}/army-ranks`,
+      url: `${API_URL}/tasks/army-ranks`,
       headers: {
         authorization: `Bearer ` + tok
       },

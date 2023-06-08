@@ -6,14 +6,14 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const TopSquad = (props, GetUserTopSquad) => {
-  console.log("topsquad", props)
+const TopSquad = ({topSquad, GetUserTopSquad}) => {
+  // console.log("topsquad", props)
   let tok = localStorage.getItem("accessToken");
   const SendInvite = async (id) => {
     // e.preventDefault();
     // setLoader(true);
     await axios
-      .post(`${API_URL}/squad-invitation-requests`, {
+      .post(`${API_URL}/tasks/squad-invitation-requests`, {
         squadId: id.toString(),
       }, {
         headers: {
@@ -66,7 +66,7 @@ const TopSquad = (props, GetUserTopSquad) => {
                 </tr>
               </thead>
               <tbody>
-                {props?.props?.map((elem) => {
+                {topSquad?.map((elem) => {
                   return (
                     <>
                       <tr>
@@ -177,7 +177,6 @@ const TopSquad = (props, GetUserTopSquad) => {
                   </div>
                 </Accordion.Body>
               </Accordion.Item>
-
             </Accordion>
           </div>
         </div>
