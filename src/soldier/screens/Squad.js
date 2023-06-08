@@ -92,15 +92,11 @@ const Squad = () => {
     }
     else if(selecttab === 'freesoldier'){
       setUsers([])
-
       SquadUsers()
-
     }
     else{
       setUsers([])
-
       SquadUsers()
-
     }
   }, [selecttab]);
 

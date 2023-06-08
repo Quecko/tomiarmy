@@ -1,0 +1,176 @@
+.general-home{
+    .tomystats{
+        background: rgba(22, 26, 34, 0.9);
+        backdrop-filter: blur(2px);
+        border-radius: 20px;
+        padding: 20px;
+        height: 286px;
+        .upper-heading{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            h6{
+                font-style: normal;
+                font-weight: 700;
+                font-size: 18px;
+                line-height: 110%;
+                text-transform: uppercase;
+                color: #FFFFFF;
+            }
+           
+        }
+        .stats-data-boxes{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            margin-top: 20px;
+            .inner-data-box{
+                flex: 0 0 19%;
+                .stats-item-box{
+                    display: flex;
+                    justify-content: flex-start;
+                    align-items: flex-start;
+                    flex-direction: column;
+                    p{
+                        font-style: normal;
+                        font-weight: 500;
+                        font-size: 12px;
+                        line-height: 100%;
+                        color: #81828A;
+                        text-align: start;
+                        margin-top: 22px;
+                        margin-bottom: 12px;
+                        white-space: nowrap;
+                    }
+                    h4{
+                        font-style: normal;
+                        font-weight: 700;
+                        font-size: 20px;
+                        line-height: 100%;
+                        letter-spacing: 0.01em;
+                        color: #FFFFFF;
+                        text-align: start;
+                    }
+                }
+            }
+        }
+    }
+    .rank-armygrowth{
+        margin: 20px 0;
+    }
+    .pending-recruit{
+        margin-bottom: 20px;
+    }
+    .data-box{
+        height: 100%;
+    }
+
+    .stats-dropdown {
+        .stats-dropdown-menu {
+            transform: translate(-50px, 50px) !important;
+        }
+
+        .dropdown-toggle {
+            padding: 10px 20px;
+            background: #191D26;
+            border: 1px solid #343742;
+            border-radius: 10px;
+            transition: 0.3s linear;
+            &::after{
+                display: none;
+            }
+            &[aria-expanded="true"]{
+               
+                svg{
+                    transition: 0.3s linear;
+                    transform: rotate(180deg);
+                }
+            }
+        }
+       
+    }
+    .btn-check:active+.btn-primary:focus, .btn-check:checked+.btn-primary:focus, .btn-primary.active:focus, .btn-primary:active:focus, .show>.btn-primary.dropdown-toggle:focus{
+        border: 1px solid #FF0083 !important;
+        svg path{
+                stroke: #ff0083;
+        }
+
+    }
+
+    .graph-section{
+        background: rgba(22, 26, 34, 0.9);
+        backdrop-filter: blur(2px);
+        border-radius: 20px;
+        padding: 20px;
+        height: 100%;
+        .upper-heading{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            h6{
+                font-style: normal;
+                font-weight: 700;
+                font-size: 18px;
+                line-height: 110%;
+                text-transform: uppercase;
+                color: #FFFFFF;
+            }
+           
+        }
+    }
+    .set-custom-padd-table{
+        .set-custom{
+            img{
+                width: 34px;
+                height: 34px;
+            }
+        }
+    }
+ 
+}
+
+
+@media (max-width:600px){
+    .general-home .tomystats .stats-data-boxes{
+        flex-direction: column;
+    }
+    .maincard-global .maintable{
+        overflow-x: auto;
+    }
+    .general-home .tomystats{
+        height: auto !important;
+    }
+    .general-home .tomystats .stats-data-boxes .inner-data-box{
+        width: 100%;
+    }
+    .general-home .tomystats .stats-data-boxes .inner-data-box .stats-item-box{
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 22px;
+    }
+    .general-home .tomystats .stats-data-boxes .inner-data-box .stats-item-box p{
+        margin-top: 0;
+    }
+    .general-home .graph-section{
+        margin-top: 20px;
+        height: auto;
+    }
+    .general-home .stats-dropdown .dropdown-toggle span{
+        display: none;
+    }
+    .general-home .stats-dropdown .dropdown-toggle svg{
+        display: none;
+    }
+    .general-home .stats-dropdwon-mobile .dropdown-toggle{
+        width: 36px !important;
+        height: 36px !important;
+        padding: 8px !important;
+    }
+    .general-home .data-box{
+        height: auto;
+    }
+    .set-custom-mbl-top-margin{
+        margin-top: 20px;
+    }
+}
