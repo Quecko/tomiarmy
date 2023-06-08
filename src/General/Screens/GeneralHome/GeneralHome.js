@@ -176,7 +176,7 @@ const GeneralHome = ({ setShowtask }) => {
                                             <tr>
                                                 <td>
                                                     <div className="set-custom">
-                                                        <img src="\assets\private.svg" alt="img" className='img-fluid' />
+                                                        <img src="\static-icons\private-rank.png" alt="img" className='img-fluid' style={{ width: "40px", height: "40px" }} />
                                                         <p className='paratable'>Private</p>
                                                     </div>
                                                 </td>
@@ -205,8 +205,8 @@ const GeneralHome = ({ setShowtask }) => {
                                             <tr>
                                                 <td>
                                                     <div className="set-custom">
-                                                        <img src="\assets\private.svg" alt="img" className='img-fluid' />
-                                                        <p className='paratable'>Private</p>
+                                                        <img src="\static-icons\sergeant.png" alt="img" className='img-fluid' style={{ width: "40px", height: "40px" }} />
+                                                        <p className='paratable'>Sergeant</p>
                                                     </div>
                                                 </td>
                                                 <td>
@@ -234,8 +234,8 @@ const GeneralHome = ({ setShowtask }) => {
                                             <tr>
                                                 <td>
                                                     <div className="set-custom">
-                                                        <img src="\assets\private.svg" alt="img" className='img-fluid' />
-                                                        <p className='paratable'>Private</p>
+                                                        <img src="\static-icons\lieutenant.png" alt="img" className='img-fluid' style={{ width: "40px", height: "40px" }} />
+                                                        <p className='paratable'>Lieutenant</p>
                                                     </div>
                                                 </td>
                                                 <td>
@@ -263,8 +263,8 @@ const GeneralHome = ({ setShowtask }) => {
                                             <tr>
                                                 <td>
                                                     <div className="set-custom">
-                                                        <img src="\assets\private.svg" alt="img" className='img-fluid' />
-                                                        <p className='paratable'>Private</p>
+                                                        <img src="\static-icons\captain.png" alt="img" className='img-fluid' style={{ width: "40px", height: "40px" }} />
+                                                        <p className='paratable'>Captain</p>
                                                     </div>
                                                 </td>
                                                 <td>
@@ -292,8 +292,8 @@ const GeneralHome = ({ setShowtask }) => {
                                             <tr>
                                                 <td>
                                                     <div className="set-custom">
-                                                        <img src="\assets\private.svg" alt="img" className='img-fluid' />
-                                                        <p className='paratable'>Private</p>
+                                                        <img src="\generalassets\icons\major.png" alt="img" className='img-fluid' style={{ width: "40px", height: "40px" }} />
+                                                        <p className='paratable'>Major</p>
                                                     </div>
                                                 </td>
                                                 <td>
@@ -321,8 +321,8 @@ const GeneralHome = ({ setShowtask }) => {
                                             <tr>
                                                 <td>
                                                     <div className="set-custom">
-                                                        <img src="\assets\private.svg" alt="img" className='img-fluid' />
-                                                        <p className='paratable'>Private</p>
+                                                        <img src="\generalassets\icons\colonel.png" alt="img" className='img-fluid' style={{ width: "40px", height: "40px" }} />
+                                                        <p className='paratable'>Colonel</p>
                                                     </div>
                                                 </td>
                                                 <td>
@@ -350,8 +350,8 @@ const GeneralHome = ({ setShowtask }) => {
                                             <tr>
                                                 <td>
                                                     <div className="set-custom">
-                                                        <img src="\assets\private.svg" alt="img" className='img-fluid' />
-                                                        <p className='paratable'>Private</p>
+                                                        <img src="\generalassets\icons\majorgeneral.png" alt="img" className='img-fluid' style={{ width: "40px", height: "40px" }} />
+                                                        <p className='paratable'>Major General</p>
                                                     </div>
                                                 </td>
                                                 <td>
@@ -379,8 +379,8 @@ const GeneralHome = ({ setShowtask }) => {
                                             <tr>
                                                 <td>
                                                     <div className="set-custom">
-                                                        <img src="\assets\private.svg" alt="img" className='img-fluid' />
-                                                        <p className='paratable'>Private</p>
+                                                        <img src="\generalassets\icons\general.png" alt="img" className='img-fluid' style={{ width: "40px", height: "40px" }} />
+                                                        <p className='paratable'>General</p>
                                                     </div>
                                                 </td>
                                                 <td>
@@ -461,7 +461,7 @@ const GeneralHome = ({ setShowtask }) => {
                                             <tr>
                                                 <td>
                                                     <div className="set-custom">
-                                                        <img src="\static-icons\dc-squad.png" alt="img" className='img-fluid' style={{ width: "34px", height: "34px" }} />
+                                                        <img src="\static-icons\dc-squad.png" alt="img" className='img-fluid' style={{ width: "40px", height: "40px" }} />
                                                         <p className='paratable'>DC Squad</p>
                                                     </div>
                                                 </td>
@@ -475,7 +475,7 @@ const GeneralHome = ({ setShowtask }) => {
                                             <tr>
                                                 <td>
                                                     <div className="set-custom">
-                                                        <img src="\static-icons\dc-squad.png" alt="img" className='img-fluid' style={{ width: "34px", height: "34px" }} />
+                                                        <img src="\static-icons\dc-squad.png" alt="img" className='img-fluid' style={{ width: "40px", height: "40px" }} />
                                                         <p className='paratable'>DC Squad</p>
                                                     </div>
                                                 </td>
@@ -489,7 +489,7 @@ const GeneralHome = ({ setShowtask }) => {
                                             <tr>
                                                 <td>
                                                     <div className="set-custom">
-                                                        <img src="\static-icons\dc-squad.png" alt="img" className='img-fluid' style={{ width: "34px", height: "34px" }} />
+                                                        <img src="\static-icons\dc-squad.png" alt="img" className='img-fluid' style={{ width: "40px", height: "40px" }} />
                                                         <p className='paratable'>DC Squad</p>
                                                     </div>
                                                 </td>
@@ -503,7 +503,7 @@ const GeneralHome = ({ setShowtask }) => {
                                             <tr>
                                                 <td>
                                                     <div className="set-custom">
-                                                        <img src="\static-icons\dc-squad.png" alt="img" className='img-fluid' style={{ width: "34px", height: "34px" }} />
+                                                        <img src="\static-icons\dc-squad.png" alt="img" className='img-fluid' style={{ width: "40px", height: "40px" }} />
                                                         <p className='paratable'>DC Squad</p>
                                                     </div>
                                                 </td>
@@ -517,7 +517,7 @@ const GeneralHome = ({ setShowtask }) => {
                                             <tr>
                                                 <td>
                                                     <div className="set-custom">
-                                                        <img src="\static-icons\dc-squad.png" alt="img" className='img-fluid' style={{ width: "34px", height: "34px" }} />
+                                                        <img src="\static-icons\dc-squad.png" alt="img" className='img-fluid' style={{ width: "40px", height: "40px" }} />
                                                         <p className='paratable'>DC Squad</p>
                                                     </div>
                                                 </td>
@@ -754,7 +754,7 @@ const GeneralHome = ({ setShowtask }) => {
                                                     </div>
                                                     <div className="inner-item">
                                                         <h6>Tomi Tokens</h6>
-                                                       <p>1,000,000</p>
+                                                        <p>1,000,000</p>
                                                     </div>
                                                     <div className="inner-item">
                                                         <h6>Actions</h6>
@@ -763,7 +763,7 @@ const GeneralHome = ({ setShowtask }) => {
                                                 </div>
                                             </Accordion.Body>
                                         </Accordion.Item>
-                                      
+
                                     </Accordion>
                                 </div>
                             </div>
@@ -916,7 +916,7 @@ const GeneralHome = ({ setShowtask }) => {
                                                 </div>
                                             </Accordion.Body>
                                         </Accordion.Item>
-                                      
+
                                     </Accordion>
                                 </div>
                             </div>

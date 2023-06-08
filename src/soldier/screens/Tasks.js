@@ -24,6 +24,25 @@ const Tasks = () => {
   const setProfilePic = (evt) => {
     setProfilePicture(evt.target.files[0]);
   }
+
+
+  const [inputList, setInputList] = useState([{ firstName: "", lastName: "" }]);
+  const handleInputChange = (e, index) => {
+    const { name, value } = e.target;
+    const list = [...inputList];
+    list[index][name] = value;
+    setInputList(list);
+  };
+  const handleRemoveClick = index => {
+    const list = [...inputList];
+    list.splice(index, 1);
+    setInputList(list);
+  };
+  const handleAddClick = () => {
+    setInputList([...inputList, { firstName: "", lastName: "" }]);
+  };
+
+
   return (
     <>
       <div className="formobile-heading d-none display-block-in-mobile">
@@ -563,8 +582,8 @@ const Tasks = () => {
               <img src='\picframe.png' alt='img' className='img-fluid' />
             </div>
             <div className='endbtn'>
-              <button><span><img src='\Subtract.svg' alt='img' className='img-fluid' /></span>Cancel</button>
-              <button onClick={() => {
+              <button className='btn-blackk'><span><img src='\Subtract.svg' alt='img' className='img-fluid' /></span>Cancel</button>
+              <button className='btn-pinkk' onClick={() => {
                 handleShow1();
                 handleClose();
               }}>Submit proof of work</button>
@@ -614,10 +633,29 @@ const Tasks = () => {
                 <input type="file" className="d-none" id="upload" onChange={(e) => setProfilePic(e)} />
 
               </div>
+              <div className="others-upload">
+                {inputList.map((x, i) => {
+                  return (
+                    <>
+
+                      <div className="upload">
+                        <label htmlFor="upload">+</label>
+                        {inputList.length !== 1 && <button
+                        className="btn-remove"
+                        onClick={() => handleRemoveClick(i)}>x</button>}
+                      </div>
+                      {inputList.length - 1 === i && inputList.length < 4 ? <button onClick={handleAddClick} className='btn-addmore'>Add More</button> : ""}
+                    </>
+                  );
+                })}
+              </div>
+
             </div>
+
+
             <div className='endbtn'>
-              <button><span><img src='\Subtract.svg' alt='img' className='img-fluid' /></span>Cancel</button>
-              <button onClick={() => {
+              <button className='btn-blackk'><span><img src='\Subtract.svg' alt='img' className='img-fluid' /></span>Cancel</button>
+              <button className='btn-pinkk' onClick={() => {
                 handleShow2();
                 handleClose1();
               }} ><img src='\send-square.svg' alt='img' className='img-fluid' /> Submit proof of work</button>

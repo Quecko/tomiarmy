@@ -1718,6 +1718,55 @@ table {
                             align-items: center;
                         }
                     }
+                    .others-upload{
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        margin: 15px 0;
+                       
+                        .upload{
+                            flex: 0 0 24%;
+                            height: 100px;
+                            width: 100%;
+                            cursor: pointer;
+                            position: relative;
+                            label{
+                                font-size: 24px;
+                                padding: 100%;
+                                cursor: pointer;
+                            }
+                        }
+                        .btn-remove{
+                            position: absolute;
+                            top: 10px;
+                            right: 10px;
+                            background: linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0) 34.22%), #FF0083;
+                            border: none;
+                            border-bottom: 1px solid #F058A6;
+                            box-shadow: 0px 3px 1px #88134F;
+                            border-radius: 10px;
+                            font-style: normal;
+                            font-weight: 600;
+                            font-size: 14px;
+                            line-height: 100%;
+                            letter-spacing: 0.01em;
+                            color: #FFFFFF;
+                        }
+                    }
+                    .btn-addmore{
+                        background: linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0) 34.22%), #FF0083;
+                        border: none;
+                        border-bottom: 1px solid #F058A6;
+                        box-shadow: 0px 3px 1px #88134F;
+                        border-radius: 10px;
+                        font-style: normal;
+                        font-weight: 600;
+                        font-size: 14px;
+                        line-height: 100%;
+                        letter-spacing: 0.01em;
+                        color: #FFFFFF;
+                        padding: 14px 20px;
+                    }
 
                     .dropimage {
                         font-style: normal;
