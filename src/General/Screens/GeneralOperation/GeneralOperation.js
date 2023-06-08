@@ -23,7 +23,7 @@ const GeneralOperation = ({ setroute, routes }) => {
                     </button>
                 </div> :
                     <>
-                        <button onClick={() => setroute(!routes)} className="btn-goback goback-btn-mbl-block"><img src="\assets\goback.svg" alt="img" className="img-fluid me-2" /><span>Go Back</span></button>
+                        <button onClick={() => setroute(!routes)} className="btn-goback goback-btn-mbl-block d-none"><img src="\assets\goback.svg" alt="img" className="img-fluid me-2" /><span>Go Back</span></button>
                         <button className="savechange-btn disabled w-100 justify-content-center mb-4 mt-2" >
                             <img src="\generalassets\icons\save-change.svg" alt="img" className="img-fluid me-1" />
                             <span> Save Changes</span>
