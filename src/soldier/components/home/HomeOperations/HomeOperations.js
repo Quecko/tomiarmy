@@ -27,7 +27,7 @@ const HomeOperations = () => {
     console.log("token", tok)
     var config = {
       method: "get",
-      url: `${API_URL}/squads?offset=1&limit=10`,
+      url: `${API_URL}/tasks/squads?offset=1&limit=10`,
       headers: {
         authorization: `Bearer ` + tok
       },
@@ -54,7 +54,7 @@ const HomeOperations = () => {
     // e.preventDefault();
     // setLoader(true);
     await axios
-      .post(`${API_URL}/squad-invitation-requests`, {
+      .post(`${API_URL}/tasks/squad-invitation-requests`, {
         squadId: id.toString(),
       }, {
         headers: {
@@ -84,32 +84,31 @@ const HomeOperations = () => {
     //     valu = 1;
     // }
     let wall = localStorage.getItem("wallet");
-        var config = {
-            method: "get",
-            url: `${API_URL}/users?offset=1&&limit=5`,
-            headers: {
-                authorization: `Bearer ` + tok
-            },
-        };
-        axios(config)
-            .then(function (response) {
-                // setLoader(false);
-                setCommander(response?.data?.data?.commanderWalletAddress)
-  // console.log("data11", response)
-
-                setUsers(response?.data?.data?.users);
-                // let arr = Array.from(Array(parseInt(response.data.data.pages)).keys());
-                // setPages(arr);
-                // setCurrentPage(valu)
-            })
-            .catch(function (error) {
-                // console.log(error);
-                // setLoader(false);
-                // localStorage.removeItem("accessToken");
-                // localStorage.removeItem("user");
-                // window.location.reload();
-            });
-}
+    var config = {
+      method: "get",
+      url: `${API_URL}/auth/users/squad-members?offset=1&&limit=5&queryParam=Active Squad`,
+      headers: {
+        authorization: `Bearer ` + tok
+      },
+    };
+    axios(config)
+      .then(function (response) {
+        // setLoader(false);
+        setCommander(response?.data?.data?.commanderWalletAddress)
+        // console.log("data11", response)
+        setUsers(response?.data?.data?.users);
+        // let arr = Array.from(Array(parseInt(response.data.data.pages)).keys());
+        // setPages(arr);
+        // setCurrentPage(valu)
+      })
+      .catch(function (error) {
+        // console.log(error);
+        // setLoader(false);
+        // localStorage.removeItem("accessToken");
+        // localStorage.removeItem("user");
+        // window.location.reload();
+      });
+  }
 
   useEffect(() => {
     GetUserTopSquad()
@@ -223,9 +222,7 @@ const HomeOperations = () => {
                         <Dropdown>
                           <Dropdown.Toggle variant="success" id="dropdown-basic">
                             <img src='\Vectordots.svg' alt='img' className='' />
-
                           </Dropdown.Toggle>
-
                           <Dropdown.Menu>
                             <Dropdown.Item href="#/action-1">
                               <p><img src='\Vector.svg' alt='img' className='img-fluid' />Submit Proof</p>
@@ -261,9 +258,7 @@ const HomeOperations = () => {
                         <Dropdown>
                           <Dropdown.Toggle variant="success" id="dropdown-basic">
                             <img src='\Vectordots.svg' alt='img' className='' />
-
                           </Dropdown.Toggle>
-
                           <Dropdown.Menu>
                             <Dropdown.Item href="#/action-1">
                               <p><img src='\Vector.svg' alt='img' className='img-fluid' />Submit Proof</p>
@@ -299,9 +294,7 @@ const HomeOperations = () => {
                         <Dropdown>
                           <Dropdown.Toggle variant="success" id="dropdown-basic">
                             <img src='\Vectordots.svg' alt='img' className='' />
-
                           </Dropdown.Toggle>
-
                           <Dropdown.Menu>
                             <Dropdown.Item href="#/action-1">
                               <p><img src='\Vector.svg' alt='img' className='img-fluid' />Submit Proof</p>
@@ -472,8 +465,7 @@ const HomeOperations = () => {
       </div>
       {data?.isCommander === false && data?.memberOfSquad === false
         ?
-        <TopSquad  props={topSquad} GetUserTopSquad={GetUserTopSquad}/>
-
+        <TopSquad topSquad={topSquad} GetUserTopSquad={GetUserTopSquad} />
         :
         <>
           <section className="home-operations border-grad1">
@@ -504,29 +496,29 @@ const HomeOperations = () => {
                     </tr>
                   </thead>
                   <tbody>
-                  {users?.map((elem) => {
-                  return (
-                    <>
-                     <tr>
-                      <td>
-                        <p className='paratable'>{elem?.nickName}</p>
-                      </td>
-                      <td>
-                        <p className='paratable'><img src={elem?.rank?.icon} alt="img" className='img-fluid me-2' style={{ width: "50px", height: "50px" }} />{elem?.rank?.name}</p>
-                      </td>
-                      <td>
-                        <p className='paratable'>{elem?.walletAddress}</p>
-                      </td>
-                      <td>
-                        <p className='paratable'>-</p>
-                      </td>
-                      <td>
-                        <p className='paratable'>{elem?.tomiTokens} TOMI</p>
-                      </td>
-                    </tr>
-                    </>
-                  )
-                })}
+                    {users?.map((elem) => {
+                      return (
+                        <>
+                          <tr>
+                            <td>
+                              <p className='paratable'>{elem?.nickName}</p>
+                            </td>
+                            <td>
+                              <p className='paratable'><img src={elem?.rank?.icon} alt="img" className='img-fluid me-2' style={{ width: "50px", height: "50px" }} />{elem?.rank?.name}</p>
+                            </td>
+                            <td>
+                              <p className='paratable'>{elem?.walletAddress}</p>
+                            </td>
+                            <td>
+                              <p className='paratable'>-</p>
+                            </td>
+                            <td>
+                              <p className='paratable'>{elem?.tomiTokens} TOMI</p>
+                            </td>
+                          </tr>
+                        </>
+                      )
+                    })}
                   </tbody>
                 </table>
               </div>

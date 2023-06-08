@@ -26,7 +26,7 @@ const Home = ({setShow2}) => {
     if (account) {
       var config = {
         method: "get",
-        url: `${API_URL}/users/profile`,
+        url: `${API_URL}/auth/users/profile`,
         headers: {
           authorization: `Bearer ` + tok
         },
@@ -176,7 +176,7 @@ const Home = ({setShow2}) => {
           </div>
         </div>
       </div>
-      <HomeOperations  />
+      <HomeOperations />
     </>
   );
 };

@@ -22,6 +22,12 @@ const Sidebar = () => {
 
   const indexvv = localStorage.getItem("indexvalue");
   const [indexwait, setindexwait] = useState(0);
+  const [routes, setroute] = useState(false);
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  const [show2, setShow2] = useState(false);
+
   useEffect(() => {
     if (indexvv == "0") {
       setindexwait(0)
@@ -64,26 +70,13 @@ const Sidebar = () => {
     setindexwait(asd)
     localStorage.setItem("indexvalue", asd);
   }
-
   const Lougout = () => {
     localStorage.clear();
     window.location.assign("/")
   }
-
-
-
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [])
-
-
-
-  const [routes, setroute] = useState(false);
-
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-
   const sidebar = () => {
     console.log("adfdssdf");
     if (show === true) {
@@ -92,8 +85,6 @@ const Sidebar = () => {
       setShow(true);
     }
   };
-
-  const [show2, setShow2] = useState(false);
 
 
 
@@ -165,7 +156,6 @@ const Sidebar = () => {
                           ? "list-item active"
                           : "list-item "
                       }
-
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -444,8 +434,6 @@ const Sidebar = () => {
                           </clipPath>
                         </defs>
                       </svg>
-
-
                       <span>FAQs</span>
                     </a>
                   </li>
@@ -554,12 +542,12 @@ const Sidebar = () => {
                                     </>
                                   ) :
                                   indexwait == 11 ?
-                                  (
-                                    <>
-                                      <Recruiting />
-                                    </>
-                                  ) :
-                                  ""
+                                    (
+                                      <>
+                                        <Recruiting />
+                                      </>
+                                    ) :
+                                    ""
             }
 
           </div>
