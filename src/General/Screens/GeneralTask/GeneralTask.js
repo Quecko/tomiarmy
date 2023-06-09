@@ -86,11 +86,8 @@ const GeneralTask = ({setShowtask}) => {
                                       </Dropdown.Menu>
                                     </Dropdown>
                                   </div>
-
-
                                 </td>
                               </tr>
-                           
                             </tbody>
                           </table>
                         </div>

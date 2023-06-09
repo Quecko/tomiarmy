@@ -9,7 +9,6 @@ import Modal from 'react-bootstrap/Modal';
 
 const GeneralHeader = ({ routes, setroute, indexwait, handleShow, routesarmy, setroutearmy, setShowtask, showtask, showannounce, setShowannounce, showfaq, setShowfaq }) => {
 
- 
   const handleClosetask = () => setShowtask(false);
   const handleShowtask = () => setShowtask(true);
 
@@ -25,8 +24,6 @@ const GeneralHeader = ({ routes, setroute, indexwait, handleShow, routesarmy, se
   const handleClosetask3 = () => setShowtask3(false);
   const handleShowtask3 = () => setShowtask3(true);
 
-
- 
   const handleCloseannounce = () => setShowannounce(false);
   const handleShowannounce = () => setShowannounce(true);
 
@@ -34,7 +31,6 @@ const GeneralHeader = ({ routes, setroute, indexwait, handleShow, routesarmy, se
   const handleCloseannounce1 = () => setShowannounce1(false);
   const handleShowannounce1 = () => setShowannounce1(true);
 
-  
   const handleClosefaq = () => setShowfaq(false);
   const handleShowfaq = () => setShowfaq(true);
 
@@ -108,13 +104,13 @@ const GeneralHeader = ({ routes, setroute, indexwait, handleShow, routesarmy, se
               <p>Engage with your army</p>
             </div>
           ) : null}
-             {indexwait === 7 ? (
+          {indexwait === 7 ? (
             <div className="soldier-name">
               <h4>Bugs Report</h4>
               <p>View Bugs report</p>
             </div>
           ) : null}
-            {indexwait === 8 ? (
+          {indexwait === 8 ? (
             <div className="soldier-name">
               <h4>faqs</h4>
               <p>Create faqs for your army</p>
@@ -130,7 +126,7 @@ const GeneralHeader = ({ routes, setroute, indexwait, handleShow, routesarmy, se
                   <span> Create Operation</span>
                 </button>
                 <button onClick={handleShowtask} className="create-squad-btn display-none-in-mobile" >
-                <img src="\generalassets\icons\create-task.svg" alt="img" className="img-fluid me-2" />
+                  <img src="\generalassets\icons\create-task.svg" alt="img" className="img-fluid me-2" />
                   <span> Create Task</span>
                 </button>
               </>
@@ -158,7 +154,6 @@ const GeneralHeader = ({ routes, setroute, indexwait, handleShow, routesarmy, se
                     <span> Save Changes</span>
                   </button>
                 }
-
               </>
               : ""
           }
@@ -171,7 +166,7 @@ const GeneralHeader = ({ routes, setroute, indexwait, handleShow, routesarmy, se
 
               : ""
           }
-            {
+          {
             indexwait === 8 ?
               <button onClick={handleShowfaq} className="create-squad-btn display-none-in-mobile" >
                 <img src="\assets\add-task.svg" alt="img" className="img-fluid me-1" />
@@ -180,12 +175,12 @@ const GeneralHeader = ({ routes, setroute, indexwait, handleShow, routesarmy, se
 
               : ""
           }
-            {
+          {
             indexwait === 6 ?
-            <button className="create-squad-btn" data-bs-toggle="modal" data-bs-target="#exampleModall">
-            <img src="\assets\topic-btn.svg" alt="img" className="img-fluid me-2" />
-            <span>Start a new topic</span>
-          </button>
+              <button className="create-squad-btn" data-bs-toggle="modal" data-bs-target="#exampleModall">
+                <img src="\assets\topic-btn.svg" alt="img" className="img-fluid me-2" />
+                <span>Start a new topic</span>
+              </button>
 
               : ""
           }
@@ -344,13 +339,10 @@ const GeneralHeader = ({ routes, setroute, indexwait, handleShow, routesarmy, se
         <Modal.Body>
           <div className="task-created">
             <img src="\generalassets\icons\tasksuccessfulllycreated.png" alt="img" className="img-fluid" />
-            <h6>tASK SUCCESSFULLY CREATED</h6>
+            <h6>TASK SUCCESSFULLY CREATED</h6>
           </div>
-
         </Modal.Body>
       </Modal>
-
-
 
       {/* announcement modal here ........................ */}
 
@@ -398,10 +390,8 @@ const GeneralHeader = ({ routes, setroute, indexwait, handleShow, routesarmy, se
             <img src="\generalassets\other-imgs\announcement.svg" alt="img" className="img-fluid" />
             <h6>ANNOUNCEMENT SENT SUCCESSFULLY</h6>
           </div>
-
         </Modal.Body>
       </Modal>
-
 
       {/* create faq modal here.................................... */}
 
@@ -428,7 +418,6 @@ const GeneralHeader = ({ routes, setroute, indexwait, handleShow, routesarmy, se
         </Modal.Body>
       </Modal>
 
-
       <div className="topicmodal">
         <div class="modal fade" id="exampleModall" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered" role="document">
@@ -451,7 +440,6 @@ const GeneralHeader = ({ routes, setroute, indexwait, handleShow, routesarmy, se
           </div>
         </div>
       </div>
-
     </>
   );
 };
