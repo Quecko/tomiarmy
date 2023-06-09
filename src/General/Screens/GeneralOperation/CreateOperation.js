@@ -113,11 +113,11 @@ const CreateOperation = () => {
                         </div>
                     </div>
                     <div className="twice-btns">
-                        <button onClick={handleClose} className="btn-cancel">Cancel</button>
+                        <button onClick={handleClose} className="btn-blackk"><img src="\generalassets\icons\cancel-icon.svg" alt="img" className='img-fluid' />Cancel</button>
                         <button onClick={() => {
                             handleClose();
                             handleShowtask();
-                        }} className="btn-create">CREATE TASK</button>
+                        }} className="btn-pinkk"><img src="\generalassets\icons\add.svg" alt="img" className='img-fluid' />CREATE TASK</button>
                     </div>
                 </Modal.Body>
             </Modal>

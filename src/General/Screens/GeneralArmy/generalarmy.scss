@@ -71,6 +71,8 @@
             border-radius: 10px;
             width: 100%;
             padding: 5px;
+            min-width: 135px;
+            width: 100%;
             a{
                 font-style: normal;
                 font-weight: 500;
@@ -80,6 +82,9 @@
                 color: #FFFFFF;
                 padding: 7px 10px;
                 border-bottom: 1px solid #343742;
+                &:hover{
+                    background-color: transparent;
+                }
             }
         }
     }
@@ -125,6 +130,7 @@
         }
     }
     .main-heading{
+        margin-left: 20px;
         h6{
             font-style: normal;
             font-weight: 700;
@@ -247,5 +253,15 @@
     .general-army .dropdown .dropdown-toggle{
         justify-content: center;
         gap: 8px;
+    }
+    .detail-army .upper-army .inner-content{
+        flex-wrap: wrap;
+    }
+    .detail-army .upper-army .inner-content .text{
+        max-width: 144px;
+        margin-bottom: 38px;
+    }
+    .detail-army .upper-army .inner-content{
+        margin-bottom: 0;
     }
 }

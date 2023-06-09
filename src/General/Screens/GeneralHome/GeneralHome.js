@@ -9,16 +9,16 @@ import CreateOperation from "../GeneralOperation/CreateOperation";
 
 
 
-const GeneralHome = ({ setShowtask, setroute, routes }) => {
+const GeneralHome = ({ setShowtask, setroutehome, routeshome }) => {
     return (
         <>
-        {!routes ? <div className="formobile-heading d-none display-block-in-mobile">
+        {!routeshome ? <div className="formobile-heading d-none display-block-in-mobile">
                 <div className="inner-heading">
                     <h6>Welcome general, </h6>
                     <p>your army awaits your orders</p>
                 </div>
                 <div className="twice-btn">
-                    <button onClick={() => { setroute(!routes); }} className="create-op-btn" >
+                    <button onClick={() => { setroutehome(!routeshome); }} className="create-op-btn" >
                         <img src="\generalassets\icons\createoperation.svg" alt="img" className="img-fluid me-2" />
                         Create Operation
                     </button>
@@ -28,14 +28,14 @@ const GeneralHome = ({ setShowtask, setroute, routes }) => {
                     </button>
                 </div>
             </div> :  <>
-                        <button onClick={() => setroute(!routes)} className="btn-goback goback-btn-mbl-block d-none"><img src="\assets\goback.svg" alt="img" className="img-fluid me-2" /><span>Go Back</span></button>
+                        <button onClick={() => setroutehome(!routeshome)} className="btn-goback goback-btn-mbl-block d-none"><img src="\assets\goback.svg" alt="img" className="img-fluid me-2" /><span>Go Back</span></button>
                         <button className="savechange-btn savechange-btn-mbl disabled w-100 justify-content-center mb-4 mt-2 d-none" >
                             <img src="\generalassets\icons\save-change.svg" alt="img" className="img-fluid me-1" />
                             <span> Save Changes</span>
                         </button>
                     </>}
             
-            {routes ? <CreateOperation /> :
+            {routeshome ? <CreateOperation /> :
                 <>
                     <section className="general-home">
                         <div className="row">
@@ -439,7 +439,7 @@ const GeneralHome = ({ setShowtask, setroute, routes }) => {
                                             </Dropdown>
                                         </div>
                                         <div className="inner-grap mt-5">
-                                            <img src="\assets\dummy-graph-img.png" alt="img" className="img-fluid" />
+                                            <img src="\assets\dummy-graph-img.png" alt="img" className="img-fluid w-100" />
                                         </div>
                                     </div>
                                 </div>
@@ -545,7 +545,7 @@ const GeneralHome = ({ setShowtask, setroute, routes }) => {
                                     </div>
                                 </div>
                                 <div className="col-xl-6 col-12 pe-0 padd-sm">
-                                    <div className='maincard-global set-custom-padd-table border-grad1 set-custom-mbl-top-margin'>
+                                    <div className='maincard-global set-custom-padd-table border-grad1 set-custom-mbl-top-margin set-custom-height'>
                                         <div className="table-heading">
                                             <h6>top soldiers</h6>
                                         </div>
@@ -712,7 +712,10 @@ const GeneralHome = ({ setShowtask, setroute, routes }) => {
                             <div className="row">
                                 <div className="col-xl-6 col-12 p-0 padd-sm">
                                     <div className="data-box general-tasks-wrappergeneral border-grad1">
+                                        <div className="d-flex justify-content-between align-item-center">
                                         <h4 className="heading-gen">pending Recruiting  Requests</h4>
+                                            <a href="#" className="btn-view">View All <img src="\generalassets\icons\arrow-right.svg" alt="img" className="img-fluid" /></a>
+                                        </div>
                                         <Table striped bordered hover responsive className="general-tasks-table display-none-in-mobile">
                                             <thead>
                                                 <tr>
@@ -780,7 +783,11 @@ const GeneralHome = ({ setShowtask, setroute, routes }) => {
                                 </div>
                                 <div className="col-xl-6 col-12 pe-0 padd-sm">
                                     <div className="data-box general-tasks-wrappergeneral border-grad1 set-custom-mbl-top-margin">
-                                        <h4 className="heading-gen">pending proof of work approvals</h4>
+                                    <div className="d-flex justify-content-between align-item-center">
+                                    <h4 className="heading-gen">pending proof of work approvals</h4>
+                                            <a href="#" className="btn-view">View All <img src="\generalassets\icons\arrow-right.svg" alt="img" className="img-fluid" /></a>
+                                        </div>
+                                       
                                         <Table striped bordered hover responsive className="general-tasks-table display-none-in-mobile">
                                             <thead>
                                                 <tr>

@@ -85,11 +85,11 @@ const CreateTaskModals = ({showtask, setShowtask}) => {
             </div>
           </div>
           <div className="twice-btns">
-            <button onClick={handleClosetask1} className="btn-cancel">Cancel</button>
+            <button onClick={handleClosetask1} className="btn-blackk"><img src="\generalassets\icons\cancel-icon.svg" alt="img" className='img-fluid' />Cancel</button>
             <button onClick={() => {
               handleClosetask1();
               handleShowtask3();
-            }} className="btn-create">CREATE TASK</button>
+            }} className="btn-pinkk"><img src="\generalassets\icons\add.svg" alt="img" className='img-fluid' />CREATE TASK</button>
           </div>
         </Modal.Body>
       </Modal>
@@ -152,11 +152,11 @@ const CreateTaskModals = ({showtask, setShowtask}) => {
             </div>
           </div>
           <div className="twice-btns">
-            <button onClick={handleClosetask2} className="btn-cancel">Cancel</button>
+            <button onClick={handleClosetask2} className="btn-blackk"><img src="\generalassets\icons\cancel-icon.svg" alt="img" className='img-fluid' />Cancel</button>
             <button onClick={() => {
               handleClosetask2();
               handleShowtask3();
-            }} className="btn-create">CREATE TASK</button>
+            }} className="btn-pinkk"><img src="\generalassets\icons\add.svg" alt="img" className='img-fluid' />CREATE TASK</button>
           </div>
         </Modal.Body>
       </Modal>

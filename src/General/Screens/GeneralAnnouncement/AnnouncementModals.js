@@ -39,11 +39,11 @@ const AnnouncementModals = ({showannounce, setShowannounce}) => {
             </div>
           </div>
           <div className="twice-btns">
-            <button onClick={handleCloseannounce} className="btn-cancel">Cancel</button>
+            <button onClick={handleCloseannounce} className="btn-blackk"><img src="\generalassets\icons\cancel-icon.svg" alt="img" className='img-fluid' />Cancel</button>
             <button onClick={() => {
               handleCloseannounce();
               handleShowannounce1();
-            }} className="btn-create">Send</button>
+            }} className="btn-pinkk"><img src="\generalassets\icons\send.svg" alt="img" className='img-fluid' />Send</button>
           </div>
         </Modal.Body>
       </Modal>

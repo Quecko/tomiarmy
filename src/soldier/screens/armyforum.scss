@@ -675,6 +675,7 @@
                         text-align: start;
                         display: block;
                         width: 100%;
+                        text-transform: capitalize;
                     }
 
                     p {
@@ -837,6 +838,7 @@
             align-items: center;
             padding: 0 20px;
             margin-bottom: 10px;
+            padding-right: 85px;
 
             p {
                 font-style: normal;
