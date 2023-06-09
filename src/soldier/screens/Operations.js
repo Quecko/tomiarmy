@@ -6,7 +6,7 @@ import ActiveOperation from './ActiveOperation';
 import ExpiredOperation from './ExpiredOperation';
 
 
-const Operations = ({ setroute, routes }) => {
+const Operations = ({ setroute, routes, setShowtask }) => {
   return (
     <>
      <div className="formobile-heading d-none display-block-in-mobile">
@@ -22,7 +22,7 @@ const Operations = ({ setroute, routes }) => {
           className={routes ? "opeartions-tab d-none" : "opeartions-tab"}
         >
           <Tab eventKey="activeop" title="Active Operation">
-            <ActiveOperation />
+            <ActiveOperation setShowtask={setShowtask} />
           </Tab>
           <Tab eventKey="expiredop" title="Expired Operations">
             <ExpiredOperation setroute={setroute} routes={routes} />

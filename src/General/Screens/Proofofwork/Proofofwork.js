@@ -508,6 +508,20 @@ const Proofofwork = () => {
                                 <div className="powimg">
                                     <img src="\generalassets\other-imgs\proofofwork.png" alt="powimginner" className="powimginner" />
                                 </div>
+                                <div className="others-imgs">
+                                <div className="powimg">
+                                    <img src="\generalassets\other-imgs\proofofwork.png" alt="powimginner" className="powimginner" />
+                                </div>
+                                <div className="powimg">
+                                    <img src="\generalassets\other-imgs\proofofwork.png" alt="powimginner" className="powimginner" />
+                                </div>
+                                <div className="powimg">
+                                    <img src="\generalassets\other-imgs\proofofwork.png" alt="powimginner" className="powimginner" />
+                                </div>
+                                <div className="powimg">
+                                    <img src="\generalassets\other-imgs\proofofwork.png" alt="powimginner" className="powimginner" />
+                                </div>
+                                </div>
                             </div>
                         </div>
                     </div>

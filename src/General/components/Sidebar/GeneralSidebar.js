@@ -14,6 +14,9 @@ import GeneralForum from "../../Screens/GeneralForum/GeneralForum";
 import GeneralReport from "../../Screens/GeneralReport/GeneralReport";
 import Generalfaqs from "../../Screens/Generalfaqs/Generalfaqs";
 import { Offcanvas } from "react-bootstrap";
+import CreateTaskModals from "../../Screens/GeneralHome/CreateTaskModals";
+import AnnouncementModals from "../../Screens/GeneralAnnouncement/AnnouncementModals";
+import CreateFaqModal from "../../Screens/Generalfaqs/CreateFaqModal";
 
 
 
@@ -385,7 +388,7 @@ const GeneralSidebar = () => {
             {indexwait == 0 ?
               (
                 <>
-                  <GeneralHome setShowtask={setShowtask} />
+                  <GeneralHome setShowtask={setShowtask} routes={routes} setroute={setroute} />
                 </>
               )
               :
@@ -752,6 +755,11 @@ const GeneralSidebar = () => {
           </div>
         </Offcanvas.Body>
       </Offcanvas>
+
+
+      <CreateTaskModals showtask={showtask} setShowtask={setShowtask} />
+      <AnnouncementModals showannounce={showannounce} setShowannounce={setShowannounce} />
+      <CreateFaqModal showfaq={showfaq} setShowfaq={setShowfaq} />
     </>
   );
 };

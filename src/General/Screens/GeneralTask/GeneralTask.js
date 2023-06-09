@@ -74,9 +74,7 @@ const GeneralTask = ({setShowtask}) => {
                                     <Dropdown>
                                       <Dropdown.Toggle variant="success" id="dropdown-basic">
                                         <img src='\Vectordots.svg' alt='img' className='img-fluid ' />
-
                                       </Dropdown.Toggle>
-
                                       <Dropdown.Menu>
                                         <Dropdown.Item href="#/action-1">
                                           <p><img src='\generalassets\icons\detail.svg' alt='img' className='img-fluid' />Details</p>

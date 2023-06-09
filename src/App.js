@@ -19,13 +19,14 @@ import Sidebar from "./soldier/components/sidebar/Sidebar";
 import Settings from "./soldier/screens/Settings";
 import GeneralSidebar from "./General/components/Sidebar/GeneralSidebar";
 import useEagerConnect from './hooks/useEagerConnect';
+import SquadModals from "./soldier/components/home/HomeOperations/SquadModals";
 function App() {
 
   useEagerConnect();
 
   return (
     <>
-     <ToastContainer autoClose={5000} style={{ fontSize: 12, fontWeight: 300 }} theme="dark" position="bottom-center" />
+     {/* <ToastContainer autoClose={5000} style={{ fontSize: 12, fontWeight: 300 }} theme="dark" position="bottom-center" /> */}
       <Router>
         <Switch>
 
@@ -34,6 +35,7 @@ function App() {
           <Route exact path="/dcsquad" component={Dcsquad} />
           {/* soldier + leader all routes here........................... */}
           <Route exact path="/soldier" component={Sidebar} />
+          <Route exact path="/squadmodal" component={SquadModals} />
           <Route exact path="/leader" component={Sidebar} />
           <Route exact path="/home" component={Home} />
           <Route exact path="/tasks" component={Tasks} />
@@ -47,6 +49,7 @@ function App() {
           {/* General + Major all routes here......................... */}
           <Route exact path="/general" component={GeneralSidebar} />
           <Route exact path="/majorgenerL" component={GeneralSidebar} />
+
         </Switch>
       </Router>
     </>

@@ -163,7 +163,7 @@
 
                     .powimg {
                         width: 266px;
-                        height: 371px;
+                        height: 171px;
                         background: #191D26;
                         border: 1px dashed #343742;
                         border-radius: 10px;
@@ -172,12 +172,33 @@
                         display: flex;
                         justify-content: center;
                         align-items: center;
+                        overflow: hidden;
 
                         .powimginner {
-                            width: 171px;
-                            height: 351px;
+                            width: 100%;
+                            height: 100%;
+                            object-fit: contain;
+                            object-position: center;
+                        }
+                    }
+                    .others-imgs{
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+                        flex-wrap: wrap;
+                        margin-top: 10px;
+                        .powimg{
+                            flex: 0 0 48%;
+                            height: 100px;
+                            background: #191D26;
+                            border: 1px dashed #343742;
+                            border-radius: 10px;
                             object-fit: cover;
                             object-position: center;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            overflow: hidden;
                         }
                     }
 
