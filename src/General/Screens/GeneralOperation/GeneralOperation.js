@@ -24,14 +24,15 @@ const GeneralOperation = ({ setroute, routes }) => {
                 </div> :
                     <>
                         <button onClick={() => setroute(!routes)} className="btn-goback goback-btn-mbl-block d-none"><img src="\assets\goback.svg" alt="img" className="img-fluid me-2" /><span>Go Back</span></button>
-                        <button className="savechange-btn disabled w-100 justify-content-center mb-4 mt-2" >
+                        <button className="savechange-btn savechange-btn-mbl disabled w-100 justify-content-center mb-4 mt-2 d-none" >
                             <img src="\generalassets\icons\save-change.svg" alt="img" className="img-fluid me-1" />
                             <span> Save Changes</span>
                         </button>
                     </>
             }
             {
-                routes ? <><CreateOperation /></> : <section className='main-task'>
+                routes ? <><CreateOperation /></> : 
+                <section className='main-task'>
                     <div className='container-fluid padd-sm p-0'>
                         <div className='row'>
                             <div className='col-sm-12 padd-sm p-0'>
