@@ -115,6 +115,12 @@
                     width: 100%;
                     &[aria-expanded="true"]{
                         border: 1px solid #FF0083;
+                        img{
+                            transform: rotate(180deg);
+                        }
+                    }
+                    &::after{
+                        display: none;
                     }
                 }
                 .dropdown-menu{
@@ -205,5 +211,15 @@
             text-transform: uppercase;
             color: #FFFFFF;
         }
+    }
+}
+
+
+@media (max-width:600px){
+    .createbasic-modal .inner-content .twice-field{
+        flex-direction: column;
+    }
+    .createbasic-modal .inner-content .twice-field .option-field{
+        width: 100%;
     }
 }

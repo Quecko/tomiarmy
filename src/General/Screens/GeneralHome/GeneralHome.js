@@ -684,7 +684,7 @@ const GeneralHome = ({ setShowtask, setroutehome, routeshome }) => {
                                                             <div className="inner-fields">
                                                                 <div className="inner-item">
                                                                     <h6>Rank</h6>
-                                                                    <p>Private</p>
+                                                                    <p><img style={{width: "30px", height: "30px"}} src="\static-icons\private-rank.png" alt="img" className="img-fluid me-2" />Private</p>
                                                                 </div>
                                                                 <div className="inner-item">
                                                                     <h6>Wallet Address</h6>

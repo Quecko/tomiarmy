@@ -145,7 +145,7 @@ const GeneralReport = () => {
 
                         </section>
                     </Tab>
-                    <Tab eventKey="expiredop" title="Resloved">
+                    <Tab eventKey="expiredop" title="Resolved">
                         <div className='maincard border-grad1'>
                             <div className="display-none-in-mobile">
                                 <div className="maintable table-responsive">
@@ -205,7 +205,7 @@ const GeneralReport = () => {
                             </div>
                             <div className="mobile-responsive-table d-none display-block-in-mobile">
                                 <div className="heading-mobile">
-                                    <p>Date Submitted</p>
+                                    <p>Date received</p>
                                 </div>
                                 <Accordion defaultActiveKey="0">
                                     <Accordion.Item eventKey="0">
