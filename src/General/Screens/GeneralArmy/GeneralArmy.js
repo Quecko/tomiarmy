@@ -26,7 +26,7 @@ const GeneralArmy = ({ routesarmy, setroutearmy }) => {
             {
                 routesarmy ?
                     <>
-                        <ArmyDetail />
+                        <ArmyDetail setroutearmy={setroutearmy} routesarmy={routesarmy} />
                     </>
                     :
                     <>
@@ -223,14 +223,14 @@ const GeneralArmy = ({ routesarmy, setroutearmy }) => {
                                     <button onClick={() => {
                                         handleClose();
                                         handleShowapprove();
-                                    }} className="greenbtn"><img src="\generalassets\other-imgs\checkmark.svg" alt="crossimg" className="crossimg" /> Approve</button>
+                                    }} className="greenbtn"><img src="\generalassets\other-imgs\checkmark.svg" alt="crossimg" className="crossimg" /> Promote</button>
                                 </div>
                             </Modal.Body>
                         </Modal>
 
                         <Modal className="createdsuccess-modal global-modal-style powmodal" show={showapprove} onHide={handleCloseapprove} centered>
                             <Modal.Header closeButton>
-                                <Modal.Title>proof of work</Modal.Title>
+                                <Modal.Title>RANK UPDATE approval</Modal.Title>
                             </Modal.Header>
                             <Modal.Body>
                                 <div className="approvemain">
@@ -242,7 +242,7 @@ const GeneralArmy = ({ routesarmy, setroutearmy }) => {
 
                         <Modal className="createdsuccess-modal global-modal-style powmodal" show={showreject} onHide={handleClosereject} centered>
                             <Modal.Header closeButton>
-                                <Modal.Title>proof of work</Modal.Title>
+                                <Modal.Title>pRANK UPDATE approval</Modal.Title>
                             </Modal.Header>
                             <Modal.Body>
                                 <div className="approvemain">

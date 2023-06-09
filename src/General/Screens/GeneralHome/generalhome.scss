@@ -67,9 +67,9 @@
     }
 
     .stats-dropdown {
-        .stats-dropdown-menu {
-            transform: translate(-50px, 50px) !important;
-        }
+        // .stats-dropdown-menu {
+        //     transform: translate(-50px, 50px) !important;
+        // }
 
         .dropdown-toggle {
             padding: 10px 20px;
@@ -87,6 +87,9 @@
                     transform: rotate(180deg);
                 }
             }
+        }
+        .dropdown-menu{
+            width: 100% !important;
         }
        
     }
@@ -130,8 +133,14 @@
  
 }
 
+.set-custom-height{
+    height: 100%;
+}
 
 @media (max-width:600px){
+    .set-custom-height{
+        height: auto !important;
+    }
     .general-home .tomystats .stats-data-boxes{
         flex-direction: column;
     }

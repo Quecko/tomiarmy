@@ -7,7 +7,7 @@ import { Button, Offcanvas } from "react-bootstrap";
 import mobileLogo from "../../../assets/icons/mobileLogo.svg";
 import Modal from 'react-bootstrap/Modal';
 
-const GeneralHeader = ({ routes, setroute, indexwait, handleShow, routesarmy, setroutearmy, setShowtask, showtask, showannounce, setShowannounce, showfaq, setShowfaq }) => {
+const GeneralHeader = ({ routes, setroute, routeshome, setroutehome, indexwait, handleShow, routesarmy, setroutearmy, setShowtask, showtask, showannounce, setShowannounce, showfaq, setShowfaq }) => {
 
 
   return (
@@ -28,9 +28,9 @@ const GeneralHeader = ({ routes, setroute, indexwait, handleShow, routesarmy, se
           {indexwait === 0 ? (
             <>
               {
-                routes ?
+                routeshome ?
 
-                  <button onClick={() => setroute(!routes)} className="btn-goback"><img src="\assets\goback.svg" alt="img" className="img-fluid me-2" />Go Back</button> :
+                  <button onClick={() => setroutehome(!routeshome)} className="btn-goback"><img src="\assets\goback.svg" alt="img" className="img-fluid me-2" />Go Back</button> :
                   <div className="soldier-name">
                     <h4>Welcome major general,</h4>
                     <p>your army awaits your orders</p>
@@ -100,15 +100,15 @@ const GeneralHeader = ({ routes, setroute, indexwait, handleShow, routesarmy, se
             </div>
           ) : null}
         </div>
-        <div className="header-buttons">
+        <div className="header-buttons" style={{maxWidth: "360px", width: "100%", justifyContent: "flex-end"}}>
           {
             indexwait === 0 ?
               <>
-                {!routes ? <> <button onClick={() => { setroute(!routes); }} className="create-op-btn display-none-in-mobile" >
+                {!routeshome ? <> <button style={{maxWidth: "171px", width: "100%"}} onClick={() => { setroutehome(!routeshome); }} className="create-op-btn display-none-in-mobile" >
                   <img src="\generalassets\icons\createoperation.svg" alt="img" className="img-fluid me-2" />
                   <span> Create Operation</span>
                 </button>
-                  <button onClick={setShowtask} className="create-squad-btn display-none-in-mobile" >
+                  <button style={{maxWidth: "171px", width: "100%"}} onClick={setShowtask} className="create-squad-btn display-none-in-mobile" >
                     <img src="\generalassets\icons\create-task.svg" alt="img" className="img-fluid me-2" />
                     <span> Create Task</span>
                   </button> </> : <button className="savechange-btn disabled display-none-in-mobile" >

@@ -26,8 +26,8 @@ const CreateFaqModal = ({showfaq, setShowfaq}) => {
             </div>
           </div>
           <div className="twice-btns">
-            <button onClick={handleClosefaq} className="btn-cancel">Cancel</button>
-            <button className="btn-create">Create FAQ</button>
+            <button onClick={handleClosefaq} className="btn-blackk"><img src="\generalassets\icons\cancel-icon.svg" alt="img" className='img-fluid' />Cancel</button>
+            <button className="btn-pinkk"><img src="\generalassets\icons\add.svg" alt="img" className='img-fluid' />Create FAQ</button>
           </div>
         </Modal.Body>
       </Modal>

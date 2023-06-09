@@ -66,6 +66,7 @@ const GeneralSidebar = () => {
 
 
   const [routes, setroute] = useState(false);
+  const [routeshome, setroutehome] = useState(false);
   const [routesarmy, setroutearmy] = useState(false);
 
   const [show, setShow] = useState(false);
@@ -384,11 +385,11 @@ const GeneralSidebar = () => {
             </div>
           </div>
           <div className="content-column">
-            <GeneralHeader handleShow={handleShow} indexwait={indexwait} routes={routes} setroute={setroute} routesarmy={routesarmy} setroutearmy={setroutearmy} showtask={showtask} setShowtask={setShowtask} showannounce={showannounce} setShowannounce={setShowannounce} showfaq={showfaq} setShowfaq={setShowfaq} />
+            <GeneralHeader handleShow={handleShow} indexwait={indexwait} routes={routes} setroute={setroute} routeshome={routeshome} setroutehome={setroutehome} routesarmy={routesarmy} setroutearmy={setroutearmy} showtask={showtask} setShowtask={setShowtask} showannounce={showannounce} setShowannounce={setShowannounce} showfaq={showfaq} setShowfaq={setShowfaq} />
             {indexwait == 0 ?
               (
                 <>
-                  <GeneralHome setShowtask={setShowtask} routes={routes} setroute={setroute} />
+                  <GeneralHome setShowtask={setShowtask} routeshome={routeshome} setroutehome={setroutehome} />
                 </>
               )
               :
