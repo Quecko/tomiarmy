@@ -11,7 +11,8 @@ import Modal from 'react-bootstrap/Modal';
 import { API_URL } from "../../../utils/ApiUrl"
 import axios from "axios";
 
-const Header = ({ routes, setroute, indexwait, handleShow, setShow2, show2 }) => {
+
+const Header = ({ routes, setroute, indexwait, handleShow, setShow2 }) => {
   const datacommander = localStorage.getItem('user')
   const data = JSON.parse(datacommander)
   const { account } = useWeb3React();
@@ -53,28 +54,6 @@ const Header = ({ routes, setroute, indexwait, handleShow, setShow2, show2 }) =>
     GetUserProfiledata()
   }, [account]);
 
-  const [show1, setShow1] = useState(false);
-  const handleClose1 = () => setShow1(false);
-  const handleShow1 = () => setShow1(true);
-
-
-
-  const handleClose2 = () => setShow2(false);
-  const handleShow2 = () => setShow2(true);
-
-  const [show3, setShow3] = useState(false);
-  const handleClose3 = () => setShow3(false);
-  const handleShow3 = () => setShow3(true);
-
-  const [show4, setShow4] = useState(false);
-  const handleClose4 = () => setShow4(false);
-  const handleShow4 = () => setShow4(true);
-
-
-  const [profilePicture, setProfilePicture] = useState(null);
-  const setProfilePic = (evt) => {
-    setProfilePicture(evt.target.files[0]);
-  }
   return (
     <>
       <div
@@ -205,7 +184,7 @@ const Header = ({ routes, setroute, indexwait, handleShow, setShow2, show2 }) =>
                     </div>
                   </ul>
                 </div>
-                <button className="create-squad-btn display-none-in-mobile" onClick={handleShow2}>
+                <button className="create-squad-btn display-none-in-mobile" onClick={() => setShow2(true)}>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="20"
@@ -247,13 +226,13 @@ const Header = ({ routes, setroute, indexwait, handleShow, setShow2, show2 }) =>
                   :
                   (
                     <>
-                      <button className="leave display-none-in-mobile" onClick={handleShow4}>
+                      <button className="leave display-none-in-mobile" >
                       <svg width="19" height="18" viewBox="0 0 19 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M13.35 1.5H11.4C9 1.5 7.5 3 7.5 5.4V8.4375H12.1875C12.495 8.4375 12.75 8.6925 12.75 9C12.75 9.3075 12.495 9.5625 12.1875 9.5625H7.5V12.6C7.5 15 9 16.5 11.4 16.5H13.3425C15.7425 16.5 17.2425 15 17.2425 12.6V5.4C17.25 3 15.75 1.5 13.35 1.5Z" fill="white" />
                         <path d="M4.17008 8.43751L5.72258 6.88501C5.83508 6.77251 5.88758 6.63 5.88758 6.4875C5.88758 6.345 5.83508 6.195 5.72258 6.09C5.50508 5.8725 5.14508 5.8725 4.92758 6.09L2.41508 8.60251C2.19758 8.82001 2.19758 9.18 2.41508 9.3975L4.92758 11.91C5.14508 12.1275 5.50508 12.1275 5.72258 11.91C5.94008 11.6925 5.94008 11.3325 5.72258 11.115L4.17008 9.56251H7.50008V8.43751H4.17008Z" fill="white" />
                       </svg>
                       <span> Leave Squad</span></button>
-                    <button className="create-squad-btn display-none-in-mobile" onClick={handleShow2}>
+                    <button className="create-squad-btn display-none-in-mobile">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="20"
@@ -307,109 +286,6 @@ const Header = ({ routes, setroute, indexwait, handleShow, setShow2, show2 }) =>
 
 
         </div>
-        <Modal className='detailmodal' show={show1} onHide={handleClose1} centered>
-          <Modal.Header closeButton>
-            <Modal.Title>create Squad</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <div className='imagesmodal'>
-              <img src='\imagesmodals.svg' alt='img' className='img-fluid' />
-              <p>Are you sure you want to leave this squad and create a new one?</p>
-              {/* <p>Are you sure you want to leave this squad?</p> */}
-            </div>
-            <div className='endbtn'>
-              <button><span><img src='\Subtract.svg' alt='img' className='img-fluid' /></span>Cancel</button>
-              <button onClick={handleShow2}><img src='\up.svg' alt='img' className='img-fluid' />Yes’ I am sure</button>
-            </div>
-          </Modal.Body>
-        </Modal>
-
-
-        <Modal className='detailmodal' show={show2} onHide={handleClose2} centered>
-          <Modal.Header closeButton>
-            <Modal.Title>
-              create Squad
-            </Modal.Title>
-
-          </Modal.Header>
-          <Modal.Body>
-            <div className="upload-parent">
-              <p className='uehyuj'>Upload Squad Symbol</p>
-              <div className="upload uploadsss">
-                {
-                  profilePicture ? <label htmlFor="upload">
-                    {" "}
-                    <img
-                      src={profilePicture ? URL?.createObjectURL(profilePicture) : ""}
-                      alt="img"
-                      className="img-fluid"
-                    />
-                  </label> : <label htmlFor="upload">
-                    {" "}
-                    <img
-                      src="\uploadimage.svg"
-                      alt="img"
-                      className="img-fluid"
-                    />
-                    <p className='dropimage'>Drop your image here, or<span>browse</span> </p>
-                    <h6 className='support1'>Supports: JPG, JPEG, PNG</h6>
-                    <p className='optimal'>Optimal Image size: 500x500 px</p>
-                  </label>
-                }
-
-                <input type="file" className="d-none" id="upload" onChange={(e) => setProfilePic(e)} />
-
-              </div>
-            </div>
-            <div className='maininput'>
-              <p className="squad">Squad Name</p>
-              <input type='text' placeholder='Enter Squad Name....' />
-            </div>
-            <div className='endbtn'>
-              <button className="btn-blackk" onClick={handleClose2}><span><img src='\Subtract.svg' alt='img' className='img-fluid' /></span>Cancel</button>
-              <button className="btn-pinkk" onClick={() => {
-                handleClose2();
-                handleShow3();
-              }}><img src='\add.svg' alt='img' className='img-fluid' /> Create Squad</button>
-            </div>
-          </Modal.Body>
-        </Modal>
-
-
-        <Modal className='detailmodal' show={show3} onHide={handleClose3} centered>
-          <Modal.Header closeButton>
-            <Modal.Title>
-              Leave Squad
-            </Modal.Title>
-
-          </Modal.Header>
-          <Modal.Body>
-
-            <div className='arrowimg'>
-              <img src='\Groupsquad.svg' alt='img' className='img-fluid' />
-              <p>Squad successfully created</p>
-            </div>
-
-          </Modal.Body>
-
-        </Modal>
-
-        <Modal className='detailmodal' show={show4} onHide={handleClose4} centered>
-          <Modal.Header closeButton>
-            <Modal.Title>Leave Squad</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <div className='imagesmodal'>
-              <img src='\imagesmodals.svg' alt='img' className='img-fluid' />
-              {/* <p>Are you sure you want to leave this squad and create a new one?</p> */}
-              <p>Are you sure you want to leave this squad?</p>
-            </div>
-            <div className='endbtn'>
-              <button className="btn-blackk" onClick={handleClose4}><span><img src='\Subtract.svg' alt='img' className='img-fluid' /></span>Cancel</button>
-              <button className="btn-pinkk"><img src='\up.svg' alt='img' className='img-fluid' />Yes’ I am sure</button>
-            </div>
-          </Modal.Body>
-        </Modal>
 
       </div>
       <div className="topicmodal">
@@ -434,6 +310,8 @@ const Header = ({ routes, setroute, indexwait, handleShow, setShow2, show2 }) =>
           </div>
         </div>
       </div>
+
+      
 
     </>
   );

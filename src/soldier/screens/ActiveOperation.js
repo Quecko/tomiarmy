@@ -5,20 +5,20 @@ import Pagination from 'react-bootstrap/Pagination';
 import Modal from 'react-bootstrap/Modal';
 import Accordion from 'react-bootstrap/Accordion';
 
-const ActiveOperation = () => {
+const ActiveOperation = ({setShowtask}) => {
 
-    const [show1, setShow1] = useState(false);
-    const handleClose1 = () => setShow1(false);
-    const handleShow1 = () => setShow1(true);
+    // const [show1, setShow1] = useState(false);
+    // const handleClose1 = () => setShow1(false);
+    // const handleShow1 = () => setShow1(true);
 
-    const [show2, setShow2] = useState(false);
-    const handleClose2 = () => setShow2(false);
-    const handleShow2 = () => setShow2(true);
+    // const [show2, setShow2] = useState(false);
+    // const handleClose2 = () => setShow2(false);
+    // const handleShow2 = () => setShow2(true);
 
-    const [profilePicture, setProfilePicture] = useState(null);
-    const setProfilePic = (evt) => {
-        setProfilePicture(evt.target.files[0]);
-    }
+    // const [profilePicture, setProfilePicture] = useState(null);
+    // const setProfilePic = (evt) => {
+    //     setProfilePicture(evt.target.files[0]);
+    // }
     return (
         <>
             <section className="active-operations">
@@ -121,7 +121,7 @@ const ActiveOperation = () => {
 
                                                 <Dropdown.Menu>
                                                     <Dropdown.Item href="#/action-1">
-                                                        <p onClick={handleShow1}><img src='\Vector.svg' alt='img' className='img-fluid' />Submit Proof</p>
+                                                        <p onClick={() => setShowtask(true)}><img src='\Vector.svg' alt='img' className='img-fluid' />Submit Proof</p>
                                                     </Dropdown.Item>
                                                 </Dropdown.Menu>
                                             </Dropdown>
@@ -363,7 +363,7 @@ const ActiveOperation = () => {
                 </div>
             </section>
 
-            <Modal className='detailmodal' show={show1} onHide={handleClose1} centered>
+            {/* <Modal className='detailmodal' show={show1} onHide={handleClose1} centered>
                 <Modal.Header closeButton>
                     <Modal.Title>
                         <div className='heading'>
@@ -432,7 +432,7 @@ const ActiveOperation = () => {
 
                 </Modal.Body>
 
-            </Modal>
+            </Modal> */}
         </>
     )
 }

@@ -17,6 +17,8 @@ import Settings from "../../screens/Settings";
 import BugReport from "../../screens/BugReport";
 import FAQS from "../../screens/FAQS";
 import Recruiting from "../../screens/Recruiting";
+import SquadModals from "../home/HomeOperations/SquadModals";
+import AllTaskModals from "../../screens/AllTaskModals";
 
 const Sidebar = () => {
 
@@ -27,6 +29,7 @@ const Sidebar = () => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const [show2, setShow2] = useState(false);
+  const [showtask, setShowtask] = useState(false);
 
   useEffect(() => {
     if (indexvv == "0") {
@@ -476,14 +479,14 @@ const Sidebar = () => {
               indexwait === 1 ?
                 (
                   <>
-                    <Tasks />
+                    <Tasks setShowtask={setShowtask} />
                   </>
                 )
                 :
                 indexwait === 2 ?
                   (
                     <>
-                      <Operations setroute={setroute} routes={routes} />
+                      <Operations setroute={setroute} routes={routes} setShowtask={setShowtask} />
                     </>
                   )
                   :
@@ -947,6 +950,10 @@ const Sidebar = () => {
           </div>
         </Offcanvas.Body>
       </Offcanvas>
+
+
+      <SquadModals show2={show2} setShow2={setShow2} />
+      <AllTaskModals showtask={showtask} setShowtask={setShowtask} />
     </>
   );
 };
