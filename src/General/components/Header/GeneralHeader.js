@@ -35,7 +35,6 @@ const GeneralHeader = ({ routes, setroute, routeshome, setroutehome, indexwait, 
                     <h4>Welcome major general,</h4>
                     <p>your army awaits your orders</p>
                   </div>
-
               }
             </>
           ) : null}
@@ -140,7 +139,6 @@ const GeneralHeader = ({ routes, setroute, routeshome, setroutehome, indexwait, 
                     <span> Save Changes</span>
                   </button>
                 }
-
               </>
               : ""
           }
@@ -176,10 +174,6 @@ const GeneralHeader = ({ routes, setroute, routeshome, setroutehome, indexwait, 
           </button>
         </div>
       </div>
-
-
-
-
       <div className="topicmodal">
         <div class="modal fade" id="exampleModall" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered" role="document">
@@ -202,7 +196,6 @@ const GeneralHeader = ({ routes, setroute, routeshome, setroutehome, indexwait, 
           </div>
         </div>
       </div>
-
     </>
   );
 };
