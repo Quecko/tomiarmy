@@ -29,13 +29,11 @@ const GeneralHeader = ({ routes, setroute, indexwait, handleShow, routesarmy, se
             <>
               {
                 routes ?
-
                   <button onClick={() => setroute(!routes)} className="btn-goback"><img src="\assets\goback.svg" alt="img" className="img-fluid me-2" />Go Back</button> :
                   <div className="soldier-name">
                     <h4>Welcome major general,</h4>
                     <p>your army awaits your orders</p>
                   </div>
-
               }
             </>
           ) : null}
@@ -175,9 +173,6 @@ const GeneralHeader = ({ routes, setroute, indexwait, handleShow, routesarmy, se
           </button>
         </div>
       </div>
-
-
-
       <div className="topicmodal">
         <div class="modal fade" id="exampleModall" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered" role="document">
