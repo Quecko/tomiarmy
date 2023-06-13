@@ -11,8 +11,8 @@ import { getLibrary } from "./utils/web3React";
 ReactDOM.render(
   <Provider store={store}>
      <Web3ReactProvider getLibrary={getLibrary}>
-      <App />,
-     </Web3ReactProvider>,
+      <App />
+     </Web3ReactProvider>
    </Provider>,
   document.getElementById('root')
 );
