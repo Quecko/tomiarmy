@@ -34,6 +34,7 @@
     "merge-images": "^2.0.0",
     "merge-images-horizontally-with-text": "^1.0.2",
     "moralis": "0.0.54",
+    "moment": "^2.29.4",
     "node-sass": "^6.0.1",
     "react": "^16.12.0",
     "react-bootstrap": "^2.5.0",

@@ -17,6 +17,7 @@ import { Offcanvas } from "react-bootstrap";
 import CreateTaskModals from "../../Screens/GeneralHome/CreateTaskModals";
 import AnnouncementModals from "../../Screens/GeneralAnnouncement/AnnouncementModals";
 import CreateFaqModal from "../../Screens/Generalfaqs/CreateFaqModal";
+import EditTaskModals from "../../Screens/GeneralTask/EditTaskModals";
 
 
 
@@ -68,6 +69,8 @@ const GeneralSidebar = () => {
   const [routes, setroute] = useState(false);
   const [routeshome, setroutehome] = useState(false);
   const [routesarmy, setroutearmy] = useState(false);
+  const [showtaskdetail, setShowtaskdetail] = useState(false);
+  const [showtaskedit, setShowtaskedit] = useState(false);
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -393,7 +396,7 @@ const GeneralSidebar = () => {
               indexwait == 1 ?
                 (
                   <>
-                    <GeneralTask setShowtask={setShowtask} />
+                    <GeneralTask setShowtask={setShowtask} setShowtaskdetail={setShowtaskdetail} setShowtaskedit={setShowtaskedit} />
                   </>
                 )
                 :
@@ -756,6 +759,7 @@ const GeneralSidebar = () => {
       <CreateTaskModals showtask={showtask} setShowtask={setShowtask} />
       <AnnouncementModals showannounce={showannounce} setShowannounce={setShowannounce} />
       <CreateFaqModal showfaq={showfaq} setShowfaq={setShowfaq} />
+      <EditTaskModals showtaskdetail={showtaskdetail} setShowtaskdetail={setShowtaskdetail} showtaskedit={showtaskedit} setShowtaskedit={setShowtaskedit} />
     </>
   );
 };

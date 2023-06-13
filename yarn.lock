@@ -16012,6 +16012,11 @@
   "resolved" "https://registry.npmjs.org/module-error/-/module-error-1.0.2.tgz"
   "version" "1.0.2"
 
+"moment@^2.29.4":
+  "integrity" "sha512-5LC9SOxjSc2HF6vO2CyuTDNivEdoz2IvyJJGj6X8DJ0eFyfszE0QiEd+iXmBvUP3WHxSjFH/vIsA0EN00cgr8w=="
+  "resolved" "https://registry.npmjs.org/moment/-/moment-2.29.4.tgz"
+  "version" "2.29.4"
+
 "moralis@0.0.54":
   "integrity" "sha512-oK+vzvtTP5kzf7eYyCtdeycd8EKAsM6/23yHx3I5VZ31Wdu10cqvClI8oj8jcfvOhmkqKdhDiF0tGtWnni2ikQ=="
   "resolved" "https://registry.npmjs.org/moralis/-/moralis-0.0.54.tgz"

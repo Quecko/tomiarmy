@@ -2849,7 +2849,7 @@ table {
     }
 }
 
-@media(max-width: 600px) {
+@media(max-width: 991px) {
 
     .Header-wrapper .header-buttons .leave span {
         display: none;
@@ -3298,7 +3298,7 @@ tr td:last-child {
 }
 
 
-@media (max-width:600px) {
+@media (max-width:991px) {
     .display-none-in-mobile {
         display: none !important;
     }
@@ -3724,6 +3724,8 @@ tr td:last-child {
                                     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
                                     border-radius: 10px;
                                     padding: 5px;
+                                    left: unset !important;
+                                    right: 0 !important;
 
                                 }
 
@@ -4066,7 +4068,7 @@ tr td:last-child {
     border-width: 0 2px 2px 0 !important;
 }
 
-@media (max-width:600px){
+@media (max-width:991px){
     .calendar-drop .dropdown-toggle span, .calendar-drop .dropdown-toggle svg{
         display: none !important;
     }
@@ -4121,7 +4123,7 @@ tr td:last-child {
     }
 }
 
-@media (max-width:600px){
+@media (max-width:991px){
     .btn-goback{
         display: none !important;
     }

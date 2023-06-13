@@ -13,9 +13,10 @@ import { API_URL } from '../../../utils/ApiUrl';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 import Loader from '../../../hooks/loader';
+import moment from "moment";
 import { useWeb3React } from "@web3-react/core";
 
-const GeneralTask = ({ setShowtask }) => {
+const GeneralTask = ({ setShowtask, setShowtaskdetail, setShowtaskedit }) => {
   const [loader, setLoader] = useState(false);
   const [expired, setexpired] = useState(false);
   const [tasks, settasks] = useState([]);
@@ -124,36 +125,44 @@ const GeneralTask = ({ setShowtask }) => {
                               </tr>
                             </thead>
                             <tbody>
-                              <tr>
-                                <td>
-                                  <p className='paratable'>Follow this Twitter Account....</p>
-                                </td>
-                                <td>
-                                  <p className='paratable'>01/01/22</p>
-                                </td>
-                                <td>
-                                  <p className='paratable'>01/01/22</p>
-                                </td>
-                                <td>
-                                  <p className='paratable'>+5 Points</p>
-                                </td>
-                                <td>
-                                  <div className='dropbtn global-dropdown-style'>
-                                    <Dropdown>
-                                      <Dropdown.Toggle variant="success" id="dropdown-basic">
-                                        <img src='\Vectordots.svg' alt='img' className='img-fluid ' />
-                                      </Dropdown.Toggle>
-                                      <Dropdown.Menu>
-                                        <Dropdown.Item href="#/action-1">
-                                          <p><img src='\generalassets\icons\detail.svg' alt='img' className='img-fluid' />Details</p>
-                                          <p><img src='\generalassets\icons\edit.svg' alt='img' className='img-fluid' />Edit</p>
-                                          <p><img src='\generalassets\icons\trash.svg' alt='img' className='img-fluid' />Delete</p>
-                                        </Dropdown.Item>
-                                      </Dropdown.Menu>
-                                    </Dropdown>
-                                  </div>
-                                </td>
-                              </tr>
+                              {tasks?.map((elem, index) => {
+                                let expiredate = new Date(elem?.expirationDate);
+                                const ExpireDate = moment(expiredate).format("DD-MM-YYYY");
+                                let createdate = new Date(elem?.createdAt);
+                                const createDate = moment(createdate).format("DD-MM-YYYY");
+                                return (
+                                  <tr key={index}>
+                                    <td>
+                                      <p className='paratable'>{elem?.name}</p>
+                                    </td>
+                                    <td>
+                                      <p className='paratable'>{createDate}</p>
+                                    </td>
+                                    <td>
+                                      <p className='paratable'>{ExpireDate}</p>
+                                    </td>
+                                    <td>
+                                      <p className='paratable'>{elem?.reward} Points</p>
+                                    </td>
+                                    <td>
+                                      <div className='dropbtn global-dropdown-style'>
+                                        <Dropdown>
+                                          <Dropdown.Toggle variant="success" id="dropdown-basic">
+                                            <img src='\Vectordots.svg' alt='img' className='img-fluid ' />
+                                          </Dropdown.Toggle>
+                                          <Dropdown.Menu>
+                                            <Dropdown.Item href="#/action-1">
+                                              <p onClick={setShowtaskdetail}><img src='\generalassets\icons\detail.svg' alt='img' className='img-fluid' />Details</p>
+                                              <p onClick={setShowtaskedit}><img src='\generalassets\icons\edit.svg' alt='img' className='img-fluid' />Edit</p>
+                                              <p><img src='\generalassets\icons\trash.svg' alt='img' className='img-fluid' />Delete</p>
+                                            </Dropdown.Item>
+                                          </Dropdown.Menu>
+                                        </Dropdown>
+                                      </div>
+                                    </td>
+                                  </tr>
+                                )
+                              })}
                             </tbody>
                           </table>
                         </div>
@@ -233,19 +242,23 @@ const GeneralTask = ({ setShowtask }) => {
                             </thead>
                             <tbody>
                               {tasks?.map((elem, index) => {
+                                let expiredate = new Date(elem?.expirationDate);
+                                const ExpireDate = moment(expiredate).format("DD-MM-YYYY");
+                                let createdate = new Date(elem?.createdAt);
+                                const createDate = moment(createdate).format("DD-MM-YYYY");
                                 return (
                                   <tr key={index}>
                                     <td>
-                                      <p className='paratable'>Follow this Twitter Account....</p>
+                                      <p className='paratable'>{elem?.name}</p>
                                     </td>
                                     <td>
-                                      <p className='paratable'>01/01/22</p>
+                                      <p className='paratable'>{createDate}</p>
                                     </td>
                                     <td>
-                                      <p className='paratable'>01/01/22</p>
+                                      <p className='paratable'>{ExpireDate}</p>
                                     </td>
                                     <td>
-                                      <p className='paratable'>+5 Points</p>
+                                      <p className='paratable'>{elem?.reward} Points</p>
                                     </td>
                                     <td>
                                       <div className='dropbtn global-dropdown-style'>
@@ -255,8 +268,8 @@ const GeneralTask = ({ setShowtask }) => {
                                           </Dropdown.Toggle>
                                           <Dropdown.Menu>
                                             <Dropdown.Item href="#/action-1">
-                                              <p><img src='\generalassets\icons\detail.svg' alt='img' className='img-fluid' />Details</p>
-                                              <p><img src='\generalassets\icons\edit.svg' alt='img' className='img-fluid' />Edit</p>
+                                              <p onClick={setShowtaskdetail}><img src='\generalassets\icons\detail.svg' alt='img' className='img-fluid' />Details</p>
+                                              <p onClick={setShowtaskedit}><img src='\generalassets\icons\edit.svg' alt='img' className='img-fluid' />Edit</p>
                                               <p><img src='\generalassets\icons\trash.svg' alt='img' className='img-fluid' />Delete</p>
                                             </Dropdown.Item>
                                           </Dropdown.Menu>
