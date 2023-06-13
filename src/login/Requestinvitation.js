@@ -31,7 +31,7 @@ const Requestinvitation = () => {
             });
             var config = {
                 method: "patch",
-                url: `${API_URL}/users`,
+                url: `${API_URL}/auth/users`,
                 headers: {
                     authorization: `Bearer ` + tok
                 },
