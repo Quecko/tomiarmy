@@ -7,12 +7,10 @@ import submitIcon from "../../../assets/icons/submitIcon.svg";
 import { Calendar } from "react-multi-date-picker"
 import CreateOperation from "../GeneralOperation/CreateOperation";
 
-
-
 const GeneralHome = ({ setShowtask, setroutehome, routeshome }) => {
     return (
         <>
-        {!routeshome ? <div className="formobile-heading d-none display-block-in-mobile">
+            {!routeshome ? <div className="formobile-heading d-none display-block-in-mobile">
                 <div className="inner-heading">
                     <h6>Welcome general, </h6>
                     <p>your army awaits your orders</p>
@@ -27,14 +25,14 @@ const GeneralHome = ({ setShowtask, setroutehome, routeshome }) => {
                         Create Task
                     </button>
                 </div>
-            </div> :  <>
-                        <button onClick={() => setroutehome(!routeshome)} className="btn-goback goback-btn-mbl-block d-none"><img src="\assets\goback.svg" alt="img" className="img-fluid me-2" /><span>Go Back</span></button>
-                        <button className="savechange-btn savechange-btn-mbl disabled w-100 justify-content-center mb-4 mt-2 d-none" >
-                            <img src="\generalassets\icons\save-change.svg" alt="img" className="img-fluid me-1" />
-                            <span> Save Changes</span>
-                        </button>
-                    </>}
-            
+            </div> : <>
+                <button onClick={() => setroutehome(!routeshome)} className="btn-goback goback-btn-mbl-block d-none"><img src="\assets\goback.svg" alt="img" className="img-fluid me-2" /><span>Go Back</span></button>
+                <button className="savechange-btn savechange-btn-mbl disabled w-100 justify-content-center mb-4 mt-2 d-none" >
+                    <img src="\generalassets\icons\save-change.svg" alt="img" className="img-fluid me-1" />
+                    <span> Save Changes</span>
+                </button>
+            </>}
+
             {routeshome ? <CreateOperation /> :
                 <>
                     <section className="general-home">
@@ -684,7 +682,7 @@ const GeneralHome = ({ setShowtask, setroutehome, routeshome }) => {
                                                             <div className="inner-fields">
                                                                 <div className="inner-item">
                                                                     <h6>Rank</h6>
-                                                                    <p><img style={{width: "30px", height: "30px"}} src="\static-icons\private-rank.png" alt="img" className="img-fluid me-2" />Private</p>
+                                                                    <p><img style={{ width: "30px", height: "30px" }} src="\static-icons\private-rank.png" alt="img" className="img-fluid me-2" />Private</p>
                                                                 </div>
                                                                 <div className="inner-item">
                                                                     <h6>Wallet Address</h6>
@@ -713,7 +711,7 @@ const GeneralHome = ({ setShowtask, setroutehome, routeshome }) => {
                                 <div className="col-xl-6 col-12 p-0 padd-sm">
                                     <div className="data-box general-tasks-wrappergeneral border-grad1">
                                         <div className="d-flex justify-content-between align-item-center">
-                                        <h4 className="heading-gen">pending Recruiting  Requests</h4>
+                                            <h4 className="heading-gen">pending Recruiting  Requests</h4>
                                             <a href="#" className="btn-view">View All <img src="\generalassets\icons\arrow-right.svg" alt="img" className="img-fluid" /></a>
                                         </div>
                                         <Table striped bordered hover responsive className="general-tasks-table display-none-in-mobile">
@@ -783,11 +781,11 @@ const GeneralHome = ({ setShowtask, setroutehome, routeshome }) => {
                                 </div>
                                 <div className="col-xl-6 col-12 pe-0 padd-sm">
                                     <div className="data-box general-tasks-wrappergeneral border-grad1 set-custom-mbl-top-margin">
-                                    <div className="d-flex justify-content-between align-item-center">
-                                    <h4 className="heading-gen">pending proof of work approvals</h4>
+                                        <div className="d-flex justify-content-between align-item-center">
+                                            <h4 className="heading-gen">pending proof of work approvals</h4>
                                             <a href="#" className="btn-view">View All <img src="\generalassets\icons\arrow-right.svg" alt="img" className="img-fluid" /></a>
                                         </div>
-                                       
+
                                         <Table striped bordered hover responsive className="general-tasks-table display-none-in-mobile">
                                             <thead>
                                                 <tr>

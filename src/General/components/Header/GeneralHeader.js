@@ -39,7 +39,7 @@ const GeneralHeader = ({ routes, setroute, routeshome, setroutehome, indexwait, 
             </>
           ) : null}
           {indexwait === 1 ? (
-            <div className="soldier-name">
+            <div className="soldier-name"> 
               <h4>ALL TASKS </h4>
               <p>VIEW AND CREATE TASKS FOR YOUR ARMY</p>
             </div>

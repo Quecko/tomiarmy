@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import Dropdown from 'react-bootstrap/Dropdown';
@@ -7,10 +7,77 @@ import Modal from 'react-bootstrap/Modal';
 import Pagination from 'react-bootstrap/Pagination';
 import Accordion from 'react-bootstrap/Accordion';
 import "./generaltask.scss"
-const GeneralTask = ({setShowtask}) => {
+import "react-datepicker/dist/react-datepicker.css";
+import "react-toastify/dist/ReactToastify.css";
+import { API_URL } from '../../../utils/ApiUrl';
+import { toast } from 'react-toastify';
+import axios from 'axios';
+import Loader from '../../../hooks/loader';
+import { useWeb3React } from "@web3-react/core";
+
+const GeneralTask = ({ setShowtask }) => {
+  const [loader, setLoader] = useState(false);
+  const [expired, setexpired] = useState(false);
+  const [tasks, settasks] = useState([]);
+  const { account } = useWeb3React();
+
+
+  useEffect(() => {
+    // if (currentPage > 1) {
+    //     getData(currentPage);
+    // } else {
+    getData();
+    // }
+  }, [account, expired])
+
+  const getData = async (off) => {
+    // let valu = null;
+    // if (off) {
+    //     valu = off;
+    // } else {
+    //     valu = 1;
+    // }
+    let tok = localStorage.getItem("accessToken");
+    // let wall = localStorage.getItem("wallet");
+    if (account) {
+      var config = {
+        method: "get",
+        url: `${API_URL}/tasks?offset=1&&limit=5&&expired=${expired}`,
+        headers: {
+          authorization: `Bearer ` + tok
+        },
+      };
+      axios(config)
+        .then(function (response) {
+          setLoader(false);
+          // setCount(response.data.data.count)
+          settasks(response?.data?.data?.tasks);
+          // let arr = Array.from(Array(parseInt(response.data.data.pages)).keys());
+          // setPages(arr);
+          // setCurrentPage(valu)
+        })
+        .catch(function (error) {
+          setLoader(false);
+          // localStorage.removeItem("accessToken");
+          // localStorage.removeItem("user");
+          // window.location.assign("/")
+          // window.location.reload();
+        });
+    }
+  }
+
+  const settabss = (event) => {
+    if (event === 'home') {
+      setexpired(false)
+    }
+    else if (event === 'profile') {
+      setexpired(true)
+    }
+  }
+
   return (
     <>
-     <div className="formobile-heading d-none display-block-in-mobile">
+      <div className="formobile-heading d-none display-block-in-mobile">
         <div className="inner-heading">
           <h6>ALL TASKS</h6>
           <p>VIEW AND CREATE TASKS FOR YOUR ARMY</p>
@@ -30,6 +97,7 @@ const GeneralTask = ({setShowtask}) => {
                   transition={false}
                   id="noanim-tab-example"
                   className="mb-3"
+                  onSelect={settabss}
                 >
                   <Tab eventKey="home" title="Active">
                     <div className='maincard'>
@@ -63,9 +131,9 @@ const GeneralTask = ({setShowtask}) => {
                                 <td>
                                   <p className='paratable'>01/01/22</p>
                                 </td>
-                               <td>
-                               <p className='paratable'>01/01/22</p>
-                               </td>
+                                <td>
+                                  <p className='paratable'>01/01/22</p>
+                                </td>
                                 <td>
                                   <p className='paratable'>+5 Points</p>
                                 </td>
@@ -140,7 +208,7 @@ const GeneralTask = ({setShowtask}) => {
                     </div>
                   </Tab>
                   <Tab eventKey="profile" title="Expired Tasks">
-                  <div className='maincard'>
+                    <div className='maincard'>
                       <div className='display-none-in-mobile'>
                         <div className="maintable">
                           <table class="table table-striped">
@@ -164,41 +232,40 @@ const GeneralTask = ({setShowtask}) => {
                               </tr>
                             </thead>
                             <tbody>
-                              <tr>
-                                <td>
-                                  <p className='paratable'>Follow this Twitter Account....</p>
-                                </td>
-                                <td>
-                                  <p className='paratable'>01/01/22</p>
-                                </td>
-                               <td>
-                               <p className='paratable'>01/01/22</p>
-                               </td>
-                                <td>
-                                  <p className='paratable'>+5 Points</p>
-                                </td>
-                                <td>
-                                  <div className='dropbtn global-dropdown-style'>
-                                    <Dropdown>
-                                      <Dropdown.Toggle variant="success" id="dropdown-basic">
-                                        <img src='\Vectordots.svg' alt='img' className='img-fluid ' />
-
-                                      </Dropdown.Toggle>
-
-                                      <Dropdown.Menu>
-                                        <Dropdown.Item href="#/action-1">
-                                          <p><img src='\generalassets\icons\detail.svg' alt='img' className='img-fluid' />Details</p>
-                                          <p><img src='\generalassets\icons\edit.svg' alt='img' className='img-fluid' />Edit</p>
-                                          <p><img src='\generalassets\icons\trash.svg' alt='img' className='img-fluid' />Delete</p>
-                                        </Dropdown.Item>
-                                      </Dropdown.Menu>
-                                    </Dropdown>
-                                  </div>
-
-
-                                </td>
-                              </tr>
-                           
+                              {tasks?.map((elem, index) => {
+                                return (
+                                  <tr key={index}>
+                                    <td>
+                                      <p className='paratable'>Follow this Twitter Account....</p>
+                                    </td>
+                                    <td>
+                                      <p className='paratable'>01/01/22</p>
+                                    </td>
+                                    <td>
+                                      <p className='paratable'>01/01/22</p>
+                                    </td>
+                                    <td>
+                                      <p className='paratable'>+5 Points</p>
+                                    </td>
+                                    <td>
+                                      <div className='dropbtn global-dropdown-style'>
+                                        <Dropdown>
+                                          <Dropdown.Toggle variant="success" id="dropdown-basic">
+                                            <img src='\Vectordots.svg' alt='img' className='img-fluid ' />
+                                          </Dropdown.Toggle>
+                                          <Dropdown.Menu>
+                                            <Dropdown.Item href="#/action-1">
+                                              <p><img src='\generalassets\icons\detail.svg' alt='img' className='img-fluid' />Details</p>
+                                              <p><img src='\generalassets\icons\edit.svg' alt='img' className='img-fluid' />Edit</p>
+                                              <p><img src='\generalassets\icons\trash.svg' alt='img' className='img-fluid' />Delete</p>
+                                            </Dropdown.Item>
+                                          </Dropdown.Menu>
+                                        </Dropdown>
+                                      </div>
+                                    </td>
+                                  </tr>
+                                )
+                              })}
                             </tbody>
                           </table>
                         </div>
@@ -257,7 +324,7 @@ const GeneralTask = ({setShowtask}) => {
             </div>
           </div>
         </div>
-       
+
       </section>
     </>
   )
