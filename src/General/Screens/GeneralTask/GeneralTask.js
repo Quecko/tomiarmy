@@ -7,7 +7,7 @@ import Modal from 'react-bootstrap/Modal';
 import Pagination from 'react-bootstrap/Pagination';
 import Accordion from 'react-bootstrap/Accordion';
 import "./generaltask.scss"
-const GeneralTask = ({setShowtask}) => {
+const GeneralTask = ({setShowtask, setShowtaskdetail, setShowtaskedit}) => {
   return (
     <>
      <div className="formobile-heading d-none display-block-in-mobile">
@@ -77,8 +77,8 @@ const GeneralTask = ({setShowtask}) => {
                                       </Dropdown.Toggle>
                                       <Dropdown.Menu>
                                         <Dropdown.Item href="#/action-1">
-                                          <p><img src='\generalassets\icons\detail.svg' alt='img' className='img-fluid' />Details</p>
-                                          <p><img src='\generalassets\icons\edit.svg' alt='img' className='img-fluid' />Edit</p>
+                                          <p onClick={setShowtaskdetail}><img src='\generalassets\icons\detail.svg' alt='img' className='img-fluid' />Details</p>
+                                          <p onClick={setShowtaskedit}><img src='\generalassets\icons\edit.svg' alt='img' className='img-fluid' />Edit</p>
                                           <p><img src='\generalassets\icons\trash.svg' alt='img' className='img-fluid' />Delete</p>
                                         </Dropdown.Item>
                                       </Dropdown.Menu>
