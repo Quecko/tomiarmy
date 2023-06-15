@@ -4274,6 +4274,9 @@ tbody td:last-child {
     .maincard-global .maintable .table-striped tbody tr td .dropbtn .dropdown .dropdown-toggle{
         margin-left: auto !important;
     }
+    .Header-wrapper .header-buttons .create-squad-btn {
+        display: none;
+    }
 }
 
 @media (max-width:600px) {
