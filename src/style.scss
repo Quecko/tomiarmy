@@ -4270,6 +4270,12 @@ tbody td:last-child {
     text-align: end !important;
 }
 
+@media (max-width:991px){
+    .maincard-global .maintable .table-striped tbody tr td .dropbtn .dropdown .dropdown-toggle{
+        margin-left: auto !important;
+    }
+}
+
 @media (max-width:600px) {
     .general-tasks-wrappergeneral .heading-gen {
         font-size: 16px;
@@ -4295,6 +4301,7 @@ tbody td:last-child {
     .general-army .parent-field .option-field1{
         max-width: 100% !important;
     }
+    
 }
 
 

@@ -84,7 +84,7 @@ const GeneralForum = () => {
                       </div>
                     </div>
                     <div className="forcmnt">
-                      <h5>Leave a comments</h5>
+                      <h5>Leave a comment</h5>
                       <p>Comment</p>
                       <textarea placeholder="Write comment"></textarea>
                       <button>Post Comment</button>
