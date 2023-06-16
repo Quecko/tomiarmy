@@ -6,17 +6,17 @@ import { toast } from "react-toastify";
 import './login.scss';
 import ConnectWallet from './ConnectWallet';
 
-const Invitecode = ({role}) => {
+const Invitecode = ({ role }) => {
     const [joinsquad, setjoinsquad] = useState(false)
     const [invitecode, setinvitecode] = useState('')
     const joinsquadwallet = () => {
-        if(invitecode === ''){
+        if (invitecode === '') {
             toast.error('Please Enter Invite Code First', {
                 position: 'top-center',
                 autoClose: 5000,
             });
         }
-        else{
+        else {
             setjoinsquad(true)
         }
     }
@@ -24,7 +24,7 @@ const Invitecode = ({role}) => {
         <>
             {joinsquad ?
                 (
-                    <ConnectWallet setjoinsquad={setjoinsquad} setinvitecode={setinvitecode} invitecode={invitecode} role={role} joinsquad={joinsquad}/>
+                    <ConnectWallet setjoinsquad={setjoinsquad} setinvitecode={setinvitecode} invitecode={invitecode} role={role} joinsquad={joinsquad} />
                 )
                 :
                 (
@@ -32,7 +32,7 @@ const Invitecode = ({role}) => {
                         <div className='army-textImg'>
                             {/* <img src={armyCap} alt="armyCap" className='capImg' />
                             <img src={armyText} alt="armyText" className='textImg' /> */}
-                             <img src="\login-logo.svg" alt="img" className='img-fluid' />
+                            <img src="\login-logo.svg" alt="img" className='img-fluid' />
                         </div>
                         <div className="mainhead">
                             <h5 className="innerhead">Enter Invite Code</h5>

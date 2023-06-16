@@ -26,7 +26,7 @@ function App() {
 
   return (
     <>
-     {/* <ToastContainer autoClose={5000} style={{ fontSize: 12, fontWeight: 300 }} theme="dark" position="bottom-center" /> */}
+     <ToastContainer autoClose={5000} style={{ fontSize: 12, fontWeight: 300 }} theme="dark" position="bottom-center" />
       <Router>
         <Switch>
 

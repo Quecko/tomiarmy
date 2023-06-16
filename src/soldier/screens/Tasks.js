@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import Dropdown from 'react-bootstrap/Dropdown';
@@ -6,8 +6,85 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Pagination from 'react-bootstrap/Pagination';
 import Accordion from 'react-bootstrap/Accordion';
-const Tasks = ({setShowtask}) => {
- 
+import { useState, useEffect } from "react";
+import { API_URL } from '../../utils/ApiUrl';
+import { toast } from 'react-toastify';
+import axios from 'axios';
+import Loader from '../../hooks/loader';
+import moment from "moment";
+import { useWeb3React } from "@web3-react/core";
+
+
+const Tasks = ({ setShowtask ,settaskdetail}) => {
+  const [loader, setLoader] = useState(false);
+  const [expired, setexpired] = useState(false);
+  const [tasks, settasks] = useState([]);
+  const { account } = useWeb3React();
+  useEffect(() => {
+    // if (currentPage > 1) {
+    //     getData(currentPage);
+    // } else {
+    getData();
+    // }
+  }, [account, expired])
+
+
+  const getData = async (off) => {
+    // let valu = null;
+    // if (off) {
+    //     valu = off;
+    // } else {
+    //     valu = 1;
+    // }
+    let tok = localStorage.getItem("accessToken");
+    // let wall = localStorage.getItem("wallet");
+    if (account) {
+      var config = {
+        method: "get",
+        url: `${API_URL}/tasks?offset=1&&limit=5&&expired=${expired}`,
+        headers: {
+          authorization: `Bearer ` + tok
+        },
+      };
+      axios(config)
+        .then(function (response) {
+          setLoader(false);
+          // setCount(response.data.data.count)
+          settasks(response?.data?.data?.tasks);
+          // let arr = Array.from(Array(parseInt(response.data.data.pages)).keys());
+          // setPages(arr);
+          // setCurrentPage(valu)
+        })
+        .catch(function (error) {
+          setLoader(false);
+          // localStorage.removeItem("accessToken");
+          // localStorage.removeItem("user");
+          // window.location.assign("/")
+          // window.location.reload();
+        });
+    }
+  }
+
+
+  const settabss = (event) => {
+    if (event === 'home') {
+      setexpired(false)
+    }
+    else if (event === 'profile') {
+      setexpired(true)
+    }
+  }
+
+
+
+
+  const SubmitProofOfWork =(elem)=>{
+    setShowtask(true)
+    settaskdetail(elem)
+  }
+
+
+
   return (
     <>
       <div className="formobile-heading d-none display-block-in-mobile">
@@ -26,6 +103,7 @@ const Tasks = ({setShowtask}) => {
                   transition={false}
                   id="noanim-tab-example"
                   className="mb-3"
+                  onSelect={settabss}
                 >
                   <Tab eventKey="home" title="Active">
                     <div className='maincard'>
@@ -52,140 +130,57 @@ const Tasks = ({setShowtask}) => {
                               </tr>
                             </thead>
                             <tbody>
-                              <tr>
-                                <td>
-                                  <p className='paratable'>Like our facebook page</p>
-                                </td>
-                                <td>
-                                  <p className='paratable'>+5</p>
-                                </td>
-                                <td>
-                                  <div className='completebtn'>
-                                    <button className=''>Completed</button>
-                                  </div>
-                                </td>
-                                <td>
-                                  <p className='paratable'>12:34 12/12/23</p>
-                                </td>
-                                <td>
-                                  <div className='dropbtn'>
-                                    <Dropdown>
-                                      <Dropdown.Toggle variant="success" id="dropdown-basic">
-                                        <img src='\Vectordots.svg' alt='img' className='img-fluid ' />
+                              {tasks?.map((elem, index) => {
+                                let expiredate = new Date(elem?.expirationDate);
+                                const ExpireDate = moment(expiredate).format("DD-MM-YYYY");
+                                let createdate = new Date(elem?.createdAt);
+                                const createDate = moment(createdate).format("DD-MM-YYYY");
+                                console.log('task', tasks);
+                                return (
+                                  <tr>
+                                    <td>
+                                      <p className='paratable'>{elem?.name}</p>
+                                    </td>
+                                    <td>
+                                      <p className='paratable'>+{elem?.reward}</p>
+                                    </td>
+                                    <td>
+                                      <div className='completebtn'>
+                                        {
+                                          elem?.taskSubmitted ?
+                                          <button style={{background:'#FEC600'}}>In Process</button>
+                                            : elem?.taskApproval ?
+                                              <button style={{background:'#04C453'}}>Completed</button>
+                                              :
+                                              <button style={{background:'#FF8936'}}>Pending</button>
+                                        }
+                                        
+                                      </div>
+                                    </td>
+                                    <td>
+                                      <p className='paratable'>{ExpireDate}</p>
+                                    </td>
+                                    <td>
+                                      <div className='dropbtn'>
+                                        <Dropdown>
+                                          <Dropdown.Toggle variant="success" id="dropdown-basic">
+                                            <img src='\Vectordots.svg' alt='img' className='img-fluid ' />
 
-                                      </Dropdown.Toggle>
+                                          </Dropdown.Toggle>
 
-                                      <Dropdown.Menu>
-                                        <Dropdown.Item href="#/action-1">
-                                          <p onClick={() => setShowtask(true)}><img src='\Vector.svg' alt='img' className='img-fluid' />Submit Proofff</p>
-                                        </Dropdown.Item>
-                                      </Dropdown.Menu>
-                                    </Dropdown>
-                                  </div>
-
-
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  <p className='paratable'>Like our facebook page</p>
-                                </td>
-                                <td>
-                                  <p className='paratable'>+5</p>
-                                </td>
-                                <td>
-                                  <div className='completebtn'>
-                                    <button className='orange'>Pending</button>
-                                  </div>
-                                </td>
-                                <td>
-                                  <p className='paratable'>12:34 12/12/23</p>
-                                </td>
-                                <td>
-                                  <div className='dropbtn'>
-                                    <Dropdown>
-                                      <Dropdown.Toggle variant="success" id="dropdown-basic">
-                                        <img src='\Vectordots.svg' alt='img' className='img-fluid' />
-
-                                      </Dropdown.Toggle>
-
-                                      <Dropdown.Menu>
-                                        <Dropdown.Item href="#/action-1">
-                                          <p><img src='\Vector.svg' alt='img' className='img-fluid' />Submit Proof</p>
-                                        </Dropdown.Item>
-                                      </Dropdown.Menu>
-                                    </Dropdown>
-                                  </div>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  <p className='paratable'>Follow our twitter acc...</p>
-                                </td>
-                                <td>
-                                  <p className='paratable'>+5</p>
-                                </td>
-                                <td>
-                                  <div className='completebtn'>
-                                    <button className='orange'>Pending</button>
-                                  </div>
-                                </td>
-                                <td>
-                                  <p className='paratable'>12:34 12/12/23</p>
-                                </td>
-                                <td>
-                                  <div className='dropbtn'>
-                                    <Dropdown>
-                                      <Dropdown.Toggle variant="success" id="dropdown-basic">
-                                        <img src='\Vectordots.svg' alt='img' className='img-fluid' />
-
-                                      </Dropdown.Toggle>
-
-                                      <Dropdown.Menu>
-                                        <Dropdown.Item href="#/action-1">
-                                          <p><img src='\Vector.svg' alt='img' className='img-fluid' />Submit Proof</p>
-                                        </Dropdown.Item>
-                                      </Dropdown.Menu>
-                                    </Dropdown>
-                                  </div>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  <p className='paratable'>Follow our twitter acc...</p>
-                                </td>
-                                <td>
-                                  <p className='paratable'>+5</p>
-                                </td>
-                                <td>
-                                  <div className='completebtn'>
-                                    <button className='red'>Rejected</button>
-                                  </div>
-                                </td>
-                                <td>
-                                  <p className='paratable'>12:34 12/12/23</p>
-                                </td>
-                                <td>
-                                  <div className='dropbtn'>
-                                    <Dropdown>
-                                      <Dropdown.Toggle variant="success" id="dropdown-basic">
-                                        <img src='\Vectordots.svg' alt='img' className='img-fluid' />
-
-                                      </Dropdown.Toggle>
-
-                                      <Dropdown.Menu>
-                                        <Dropdown.Item href="#/action-1">
-                                          <p><img src='\Vector.svg' alt='img' className='img-fluid' />Submit Proof</p>
-                                        </Dropdown.Item>
-                                      </Dropdown.Menu>
-                                    </Dropdown>
-                                  </div>
-                                </td>
-                              </tr>
+                                          <Dropdown.Menu>
+                                            <Dropdown.Item href="#/action-1">
+                                              <p onClick={()=>SubmitProofOfWork(elem)}><img src='\Vector.svg' alt='img' className='img-fluid' />Submit Proof</p>
+                                            </Dropdown.Item>
+                                          </Dropdown.Menu>
+                                        </Dropdown>
+                                      </div>
+                                    </td>
+                                  </tr>
+                                )
+                              })}
                             </tbody>
                           </table>
-
-
 
                         </div>
                         <div className="pagi">
@@ -329,6 +324,40 @@ const Tasks = ({setShowtask}) => {
                               </tr>
                             </thead>
                             <tbody>
+                              {tasks?.map((elem, index) => {
+                                let expiredate = new Date(elem?.expirationDate);
+                                const ExpireDate = moment(expiredate).format("DD-MM-YYYY");
+                                let createdate = new Date(elem?.createdAt);
+                                const createDate = moment(createdate).format("DD-MM-YYYY");
+                                return (
+                                  <tr>
+                                    <td>
+                                      <p className='paratable'>{elem?.name}</p>
+                                    </td>
+                                    <td>
+                                      <p className='paratable'>+{elem?.reward}</p>
+                                    </td>
+                                    <td>
+                                      <div className='completebtn'>
+                                        {
+                                          elem?.taskSubmitted ?
+                                          <button style={{background:'#FEC600'}}>In Process</button>
+                                            : elem?.taskApproval ?
+                                              <button style={{background:'#04C453'}}>Completed</button>
+                                              :
+                                              <button style={{background:'#FF8936'}}>Pending</button>
+                                        }
+                                        
+                                      </div>
+                                    </td>
+                                    <td>
+                                      <p className='paratable'>{ExpireDate}</p>
+                                    </td>
+                                  </tr>
+                                )
+                              })}
+                            </tbody>
+                            {/* <tbody>
                               <tr>
                                 <td>
                                   <p className='paratable'>Like our facebook page</p>
@@ -393,7 +422,7 @@ const Tasks = ({setShowtask}) => {
                                   <p className='paratable'>12:34 12/12/23</p>
                                 </td>
                               </tr>
-                            </tbody>
+                            </tbody> */}
                           </table>
                         </div>
                         <div className="pagi">
@@ -508,7 +537,7 @@ const Tasks = ({setShowtask}) => {
             </div>
           </div>
         </div>
-        
+
       </section>
     </>
   )

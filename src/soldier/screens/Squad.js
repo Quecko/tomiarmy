@@ -9,6 +9,7 @@ import { API_URL } from "../../utils/ApiUrl"
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
+import { useWeb3React } from '@web3-react/core';
 
 const Squad = () => {
 
@@ -41,8 +42,12 @@ const Squad = () => {
   const [show5, setShow5] = useState(false);
   const handleClose5 = () => setShow5(false);
   const handleShow5 = () => setShow5(true);
+  const {account}=useWeb3React()
+  const [loader,setLoader]=useState()
+  const [call,setCall]=useState()
 
   const [selecttab, setselecttab] = useState('Active Squad')
+  const [inputs, setInputs] = useState({})
 
   const [profilePicture, setProfilePicture] = useState(null);
   const setProfilePic = (evt) => {
@@ -103,6 +108,66 @@ const Squad = () => {
   const selecttabs = (event) =>{
     setselecttab(event)
   }
+
+  const creatAquad = () => {
+    if (inputs?.name) {
+      if (profilePicture) {
+        const data = new FormData();
+        data.append("name", inputs?.name);
+        data.append("squadImage", profilePicture);
+        setLoader(true);
+        let tok = localStorage.getItem("accessToken");
+        if (account) {
+          window.$("#exampleModalLabel11").modal("hide");
+          var config = {
+            method: "post",
+            url: `${API_URL}/squads`,
+            headers: {
+              authorization: `Bearer ` + tok
+            },
+            data: data
+          };
+
+          axios(config)
+            .then(async (response) => {
+              setLoader(false);
+              localStorage.setItem("isCommander", true);
+              localStorage.setItem("accessToken", response?.data?.accessToken);
+              window.$("#exampleModalLabel11").modal("hide");
+              window.scrollTo(0, 0);
+              // setCall(!call)
+              // GetUserProfiledata();
+              // getData();
+              // vateransApi();
+              setLoader(false);
+              // textCopiedFun();
+              // CloseModal();
+              setCall(!call)
+            })
+            .catch(function (error) {
+              // console.log(error);
+              // window.location.reload()
+              // window.$("#exampleModalLabel11").modal("hide");
+              // setLoader(false);
+              // window.$("#exampleModalLabel11").modal("hide");
+              if (error.response.data.statusCode == 409) {
+                window.$("#exampleModalLabel11").modal("hide");
+                toast.error("Squad for User already exists")
+              }
+              setLoader(false);
+            });
+        }
+      } else {
+        toast.error("Squad Image required")
+      }
+    } else {
+      toast.error("Squad Name required")
+    }
+  }
+  
+
+
+
 
   return (
     <>

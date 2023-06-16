@@ -1,25 +1,212 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Modal } from 'react-bootstrap';
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import "react-toastify/dist/ReactToastify.css";
+import { API_URL } from '../../../utils/ApiUrl';
+import { toast } from 'react-toastify';
+import axios from 'axios';
+import Loader from '../../../hooks/loader';
 
-const CreateTaskModals = ({showtask, setShowtask}) => {
 
-    const handleClosetask = () => setShowtask(false);
-    const handleShowtask = () => setShowtask(true);
-  
-    const [showtask1, setShowtask1] = useState(false);
-    const handleClosetask1 = () => setShowtask1(false);
-    const handleShowtask1 = () => setShowtask1(true);
-  
-    const [showtask2, setShowtask2] = useState(false);
-    const handleClosetask2 = () => setShowtask2(false);
-    const handleShowtask2 = () => setShowtask2(true);
-  
-    const [showtask3, setShowtask3] = useState(false);
-    const handleClosetask3 = () => setShowtask3(false);
-    const handleShowtask3 = () => setShowtask3(true);
+const CreateTaskModals = ({ showtask, setShowtask }) => {
+
+  const handleClosetask = () => setShowtask(false);
+  const handleShowtask = () => setShowtask(true);
+  const [loader, setLoader] = useState(false);
+  const [showtask1, setShowtask1] = useState(false);
+  const [showtask2, setShowtask2] = useState(false);
+  const handleClosetask2 = () => setShowtask2(false);
+  const [showtask3, setShowtask3] = useState(false);
+  const handleClosetask3 = () => setShowtask3(false);
+  const handleShowtask3 = () => setShowtask3(true);
+  const [startDate, setStartDate] = useState(null);
+  var date = new Date(startDate)
+  date.setDate(date.getDate() + 1)
+
+  console.log("sdfsfsfsf", date)
+  const [profilePicture, setProfilePicture] = useState(null);
+  const [profileP, setProfileP] = useState();
+  const [docfile, setdocfile] = useState(null);
+  const [docfilep, setdocfilep] = useState();
+  const [type, settype] = useState('');
+
+  const handleClosetask1 = () => {
+    ClearAll();
+    setStartDate()
+    setProfilePicture(null)
+    setdocfile(null)
+    setProfileP(null)
+    setdocfilep(null)
+    setShowtask1(false)
+  }
+
+  const handleShowtask2 = () => {
+    settype('social')
+    setShowtask2(true);
+  }
+
+  const handleShowtask1 = () => {
+    settype('basic')
+    setShowtask1(true);
+  }
+
+  const setProfilePic = (evt) => {
+    const file = evt.target.files[0];
+    if (file.size >= 2872139) {
+      toast.error("File cannot be greater than 3mbs")
+    } else {
+      setProfilePicture(evt.target.files[0]);
+      const file = evt.target.files[0]
+      setProfileP(file)
+    }
+  };
+
+  const setProfile = (evt) => {
+    const file = evt.target.files[0];
+    if (file.size >= 2872139) {
+      toast.error("File cannot be greater than 3mbs")
+    } else {
+      setdocfile(evt.target.files[0]);
+      const file = evt.target.files[0]
+      setdocfilep(file)
+    }
+  };
+
+  const [allFormData, setAllFormData] = useState({
+    name: '',
+    link: '',
+    reward: '',
+    description: '',
+    hashtag: '',
+    mention: ''
+  })
+
+  const handleChange = (event) => {
+    allFormData[event.target.name] = event.target.value;
+    setAllFormData({ ...allFormData });
+  }
+
+  const ClearAll = () => {
+    setAllFormData({
+      name: '',
+      link: '',
+      reward: '',
+      description: '',
+      hashtag: '',
+      mention: ''
+    })
+  }
+
+  const CreateTask = async () => {
+    let tok = localStorage.getItem("accessToken");
+    var data1 = new FormData();
+    data1.append("name", allFormData?.name)
+    data1.append("reward", allFormData?.reward)
+    data1.append("type", type)
+    data1.append("description", allFormData?.description)
+    if (allFormData?.link) {
+      data1.append("relatedLink", allFormData?.link)
+    }
+    if (date) {
+      data1.append("expirationDate", date)
+    }
+    if (type === 'social') {
+      if (allFormData?.hashtag) {
+        data1.append("hashtag", allFormData?.hashtag)
+      }
+      if (allFormData?.mention) {
+        data1.append("mention", allFormData?.mention)
+      }
+    }
+    if (profileP) {
+      data1.append("image", profileP)
+    }
+    if (docfilep) {
+      data1.append("attachment", docfilep)
+    }
+    if (allFormData?.name != '') {
+      if (allFormData?.reward != '') {
+        if (allFormData?.description != '') {
+          var config = {
+            method: "post",
+            url: `${API_URL}/tasks`,
+            headers: {
+              authorization: `Bearer ` + tok
+            },
+            data: data1,
+          };
+          axios(config)
+            .then(function (response) {
+              setLoader(false);
+              toast.success('Task Created Successfully', {
+                position: "top-right",
+                autoClose: 2000,
+              });
+              setStartDate()
+              setProfilePicture(null)
+              setdocfile(null)
+              setProfileP(null)
+              setdocfilep(null)
+              ClearAll();
+              if (type === 'basic') {
+                handleClosetask1();
+                handleShowtask3();
+              }
+              else {
+                handleClosetask2();
+                handleShowtask3();
+              }
+
+            })
+            .catch(function (error) {
+              setLoader(false);
+              if (error.response.data.statusCode == 409) {
+                toast.error('Tasks with this name already exist', {
+                  position: 'top-right',
+                  autoClose: 5000,
+                });
+              } else if (error.response.data.statusCode == 500) {
+                toast.error('Something went wrong', {
+                  position: 'top-right',
+                  autoClose: 5000,
+                });
+              }
+              else if (error.response.data.statusCode == 400) {
+                toast.error('Validation Failed', {
+                  position: 'top-right',
+                  autoClose: 5000,
+                });
+              }
+            });
+        }
+        else {
+          toast.error('Please Write Description', {
+            position: "top-right",
+            autoClose: 2000,
+          });
+        }
+      }
+      else {
+        toast.error('Please Write Reward Points', {
+          position: "top-right",
+          autoClose: 2000,
+        });
+      }
+    }
+    else {
+      console.log()
+      toast.error('Please Write Title of Task', {
+        position: "top-right",
+        autoClose: 2000,
+      });
+    }
+  }
+
+
   return (
     <>
-      
+      {loader && <Loader />}
       {/* general task all modals here................................. */}
       <Modal className="createtask-modal global-modal-style" show={showtask} onHide={handleClosetask} centered>
         <Modal.Header closeButton>
@@ -46,50 +233,68 @@ const CreateTaskModals = ({showtask, setShowtask}) => {
             <div className="twice-field">
               <div className="option-field">
                 <label>Task Title</label>
-                <input type="text" placeholder="Enter task title...." />
+                <input value={allFormData?.name} name="name" onChange={handleChange} type="text" placeholder="Enter task title...." />
               </div>
               <div className="option-field">
                 <label>Reward Points</label>
-                <input type="text" placeholder="Enter reward points...." />
+                <input value={allFormData?.reward} name="reward" onChange={handleChange} type="text" placeholder="Enter reward points...." />
               </div>
             </div>
             <div className="twice-field">
               <div className="option-field">
                 <label>Expiration Date</label>
-                <input type="date" placeholder="Select expiration date..." />
+                <DatePicker selected={startDate} placeholder="Select expiration date..." onChange={(date) => setStartDate(date)} />
+                {/* <input type="date" placeholder="Select expiration date..." /> */}
               </div>
               <div className="option-field">
                 <label>Related link</label>
-                <input type="text" placeholder="Enter Related link..." />
+                <input value={allFormData?.link} name="link" onChange={handleChange} type="text" placeholder="Enter Related link..." />
               </div>
             </div>
             <div className="option-field">
               <label>DESCRIPTION</label>
-              <textarea placeholder="Enter task description...."></textarea>
+              <textarea value={allFormData?.description} name="description" onChange={handleChange} placeholder="Enter task description...."></textarea>
             </div>
             <div className="option-field">
               <label>Add Attachment</label>
               <div className="choose">
-                <label htmlFor="upload" className="btn-choose">Choose</label>
-                <h6>No file Selected</h6>
+                <label htmlFor="uploadfile" className="btn-choose">Choose</label>
+                {docfile ? <h6>{URL?.createObjectURL(docfile)}</h6> : <h6>No file Selected</h6>}
+                <input type="file" className="d-none" onChange={(e) => setProfile(e)} id="uploadfile" />
               </div>
             </div>
             <div className="upload-field">
               <p>Upload Image</p>
               <div className="upload">
-                <img src="\generalassets\icons\upload-icon.svg" alt="img" className="img-fluid" />
-                <h6>Drop your image here, or <label htmlFor="upload">browse</label></h6>
-                <p>Supports: JPG, JPEG, PNG</p>
-                <input type="file" className="d-none" id="upload" />
+                {
+                  profilePicture ? <label htmlFor="upload" className="w-100 h-100">
+                    {" "}
+                    <img
+                      src={profilePicture ? URL?.createObjectURL(profilePicture) : ""}
+                      alt="img"
+                      className="img-fluid setimg-p"
+                    />
+                  </label> : <label htmlFor="upload">
+                    {" "}
+                    <img
+                      src="\generalassets\icons\upload-icon.svg"
+                      alt="img"
+                      className="img-fluid"
+                    />
+                    <h6><label htmlFor="upload">browse</label></h6>
+                    <p className="text">Supports: JPG, JPEG, PNG</p>
+                  </label>
+                }
+                {/* <img src="\generalassets\icons\upload-icon.svg" alt="img" className="img-fluid" />
+                <h6><label >browse</label></h6>
+                <p>Supports: JPG, JPEG, PNG</p> */}
+                <input type="file" accept="image/png, image/jpeg, image/jpg" className="d-none" onChange={(e) => setProfilePic(e)} id="upload" />
               </div>
             </div>
           </div>
           <div className="twice-btns">
             <button onClick={handleClosetask1} className="btn-blackk"><img src="\generalassets\icons\cancel-icon.svg" alt="img" className='img-fluid' />Cancel</button>
-            <button onClick={() => {
-              handleClosetask1();
-              handleShowtask3();
-            }} className="btn-pinkk"><img src="\generalassets\icons\add.svg" alt="img" className='img-fluid' />CREATE TASK</button>
+            <button onClick={CreateTask} className="btn-pinkk"><img src="\generalassets\icons\add.svg" alt="img" className='img-fluid' />CREATE TASK</button>
           </div>
         </Modal.Body>
       </Modal>
@@ -103,74 +308,91 @@ const CreateTaskModals = ({showtask, setShowtask}) => {
             <div className="twice-field">
               <div className="option-field">
                 <label>Task Title</label>
-                <input type="text" placeholder="Enter task title...." />
+                <input value={allFormData?.name} name="name" onChange={handleChange} type="text" placeholder="Enter task title...." />
               </div>
               <div className="option-field">
                 <label>Reward Points</label>
-                <input type="text" placeholder="Enter reward points...." />
+                <input value={allFormData?.reward} name="reward" onChange={handleChange} type="text" placeholder="Enter reward points...." />
               </div>
             </div>
             <div className="twice-field">
               <div className="option-field">
                 <label>Expiration Date</label>
-                <input type="date" placeholder="Select expiration date..." />
+                <DatePicker selected={startDate} placeholder="Select expiration date..." onChange={(date) => setStartDate(date)} />
+                {/* <input type="date" placeholder="Select expiration date..." /> */}
               </div>
               <div className="option-field">
                 <label>Related link</label>
-                <input type="text" placeholder="Enter Related link..." />
+                <input value={allFormData?.link} name="link" onChange={handleChange} type="text" placeholder="Enter Related link..." />
               </div>
             </div>
             <div className="twice-field">
               <div className="option-field">
                 <label>Hashtag</label>
-                <input type="text" placeholder="Enter Hashtag...." />
+                <input value={allFormData?.hashtag} name="hashtag" onChange={handleChange} type="text" placeholder="Enter Hashtag...." />
               </div>
               <div className="option-field">
                 <label>Mention</label>
-                <input type="text" placeholder="Mention" />
+                <input value={allFormData?.mention} name="mention" onChange={handleChange} type="text" placeholder="Mention" />
               </div>
             </div>
             <div className="option-field">
               <label>DESCRIPTION</label>
-              <textarea placeholder="Enter task description...."></textarea>
+              <textarea value={allFormData?.description} name="description" onChange={handleChange} placeholder="Enter task description...."></textarea>
             </div>
             <div className="option-field">
               <label>Add Attachment</label>
               <div className="choose">
-                <label htmlFor="upload" className="btn-choose">Choose</label>
-                <h6>No file Selected</h6>
+                <label htmlFor="uploadfile" className="btn-choose">Choose</label>
+                {docfile ? <h6>{URL?.createObjectURL(docfile)}</h6> : <h6>No file Selected</h6>}
+                <input type="file" className="d-none" onChange={(e) => setProfile(e)} id="uploadfile" />
               </div>
             </div>
             <div className="upload-field">
               <p>Upload Image</p>
               <div className="upload">
-                <img src="\generalassets\icons\upload-icon.svg" alt="img" className="img-fluid" />
-                <h6>Drop your image here, or <label htmlFor="upload">browse</label></h6>
-                <p>Supports: JPG, JPEG, PNG</p>
-                <input type="file" className="d-none" id="upload" />
+                {
+                  profilePicture ? <label htmlFor="upload" className="w-100 h-100">
+                    {" "}
+                    <img
+                      src={profilePicture ? URL?.createObjectURL(profilePicture) : ""}
+                      alt="img"
+                      className="img-fluid setimg-p"
+                    />
+                  </label> : <label htmlFor="upload">
+                    {" "}
+                    <img
+                      src="\generalassets\icons\upload-icon.svg"
+                      alt="img"
+                      className="img-fluid"
+                    />
+                    <h6><label htmlFor="upload">browse</label></h6>
+                    <p className="text">Supports: JPG, JPEG, PNG</p>
+                  </label>
+                }
+                {/* <img src="\generalassets\icons\upload-icon.svg" alt="img" className="img-fluid" />
+                <h6><label >browse</label></h6>
+                <p>Supports: JPG, JPEG, PNG</p> */}
+                <input type="file" accept="image/png, image/jpeg, image/jpg" className="d-none" onChange={(e) => setProfilePic(e)} id="upload" />
               </div>
             </div>
           </div>
           <div className="twice-btns">
             <button onClick={handleClosetask2} className="btn-blackk"><img src="\generalassets\icons\cancel-icon.svg" alt="img" className='img-fluid' />Cancel</button>
-            <button onClick={() => {
-              handleClosetask2();
-              handleShowtask3();
-            }} className="btn-pinkk"><img src="\generalassets\icons\add.svg" alt="img" className='img-fluid' />CREATE TASK</button>
+            <button onClick={CreateTask}
+              className="btn-pinkk"><img src="\generalassets\icons\add.svg" alt="img" className='img-fluid' />CREATE TASK</button>
           </div>
         </Modal.Body>
       </Modal>
 
       <Modal className="createdsuccess-modal global-modal-style" show={showtask3} onHide={handleClosetask3} centered>
         <Modal.Header closeButton>
-          <Modal.Title>Create New task</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <div className="task-created">
             <img src="\generalassets\icons\tasksuccessfulllycreated.png" alt="img" className="img-fluid" />
-            <h6>tASK SUCCESSFULLY CREATED</h6>
+            <h6>{type} Task SUCCESSFULLY CREATED</h6>
           </div>
-
         </Modal.Body>
       </Modal>
 
