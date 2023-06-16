@@ -18,12 +18,68 @@ import CreateTaskModals from "../../Screens/GeneralHome/CreateTaskModals";
 import AnnouncementModals from "../../Screens/GeneralAnnouncement/AnnouncementModals";
 import CreateFaqModal from "../../Screens/Generalfaqs/CreateFaqModal";
 import EditTaskModals from "../../Screens/GeneralTask/EditTaskModals";
-
+import { useWeb3React } from "@web3-react/core";
+import "react-toastify/dist/ReactToastify.css";
+import { API_URL } from '../../../utils/ApiUrl';
+import { toast } from 'react-toastify';
+import axios from 'axios';
 
 
 const GeneralSidebar = () => {
 
   const indexvv = localStorage.getItem("indexvalue");
+  const [tasks, settasks] = useState([]);
+  const [expired, setexpired] = useState(false);
+  const { account } = useWeb3React();
+
+
+  useEffect(() => {
+    // if (currentPage > 1) {
+    //     getData(currentPage);
+    // } else {
+    getData();
+    // }
+  }, [account, expired])
+
+  const getData = async (off) => {
+    // let valu = null;
+    // if (off) {
+    //     valu = off;
+    // } else {
+    //     valu = 1;
+    // }
+    let tok = localStorage.getItem("accessToken");
+    // let wall = localStorage.getItem("wallet");
+    if (account) {
+      var config = {
+        method: "get",
+        url: `${API_URL}/tasks?offset=1&&limit=5&&expired=${expired}`,
+        headers: {
+          authorization: `Bearer ` + tok
+        },
+      };
+      axios(config)
+        .then(function (response) {
+          // setLoader(false);
+          // setCount(response.data.data.count)
+          settasks(response?.data?.data?.tasks);
+          // let arr = Array.from(Array(parseInt(response.data.data.pages)).keys());
+          // setPages(arr);
+          // setCurrentPage(valu)
+        })
+        .catch(function (error) {
+          // setLoader(false);
+          // localStorage.removeItem("accessToken");
+          // localStorage.removeItem("user");
+          // window.location.assign("/")
+          // window.location.reload();
+        });
+    }
+  }
+
+
+
+
   const [indexwait, setindexwait] = useState(0);
   useEffect(() => {
     if (indexvv == "0") {
@@ -71,6 +127,8 @@ const GeneralSidebar = () => {
   const [routesarmy, setroutearmy] = useState(false);
   const [showtaskdetail, setShowtaskdetail] = useState(false);
   const [showtaskedit, setShowtaskedit] = useState(false);
+
+  const [detailtask, setdetailtask] = useState(null);
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -396,7 +454,7 @@ const GeneralSidebar = () => {
               indexwait == 1 ?
                 (
                   <>
-                    <GeneralTask setShowtask={setShowtask} setShowtaskdetail={setShowtaskdetail} setShowtaskedit={setShowtaskedit} />
+                    <GeneralTask setShowtask={setShowtask} setexpired={setexpired} tasks={tasks} getData={getData} setShowtaskdetail={setShowtaskdetail} setdetailtask={setdetailtask} setShowtaskedit={setShowtaskedit} />
                   </>
                 )
                 :
@@ -754,12 +812,10 @@ const GeneralSidebar = () => {
           </div>
         </Offcanvas.Body>
       </Offcanvas>
-
-
-      <CreateTaskModals showtask={showtask} setShowtask={setShowtask} />
+      <CreateTaskModals showtask={showtask} getData={getData} setShowtask={setShowtask} />
       <AnnouncementModals showannounce={showannounce} setShowannounce={setShowannounce} />
       <CreateFaqModal showfaq={showfaq} setShowfaq={setShowfaq} />
-      <EditTaskModals showtaskdetail={showtaskdetail} setShowtaskdetail={setShowtaskdetail} showtaskedit={showtaskedit} setShowtaskedit={setShowtaskedit} />
+      <EditTaskModals showtaskdetail={showtaskdetail} setdetailtask={setdetailtask} getData={getData} taskdetail={detailtask} setShowtaskdetail={setShowtaskdetail} showtaskedit={showtaskedit} setShowtaskedit={setShowtaskedit} />
     </>
   );
 };

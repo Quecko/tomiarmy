@@ -16,56 +16,9 @@ import Loader from '../../../hooks/loader';
 import moment from "moment";
 import { useWeb3React } from "@web3-react/core";
 
-const GeneralTask = ({ setShowtask, setShowtaskdetail, setShowtaskedit }) => {
+const GeneralTask = ({ setShowtask, setShowtaskdetail, setShowtaskedit, setdetailtask, setexpired, getData, tasks }) => {
   const [loader, setLoader] = useState(false);
-  const [expired, setexpired] = useState(false);
-  const [tasks, settasks] = useState([]);
-  const { account } = useWeb3React();
 
-
-  useEffect(() => {
-    // if (currentPage > 1) {
-    //     getData(currentPage);
-    // } else {
-    getData();
-    // }
-  }, [account, expired])
-
-  const getData = async (off) => {
-    // let valu = null;
-    // if (off) {
-    //     valu = off;
-    // } else {
-    //     valu = 1;
-    // }
-    let tok = localStorage.getItem("accessToken");
-    // let wall = localStorage.getItem("wallet");
-    if (account) {
-      var config = {
-        method: "get",
-        url: `${API_URL}/tasks?offset=1&&limit=5&&expired=${expired}`,
-        headers: {
-          authorization: `Bearer ` + tok
-        },
-      };
-      axios(config)
-        .then(function (response) {
-          setLoader(false);
-          // setCount(response.data.data.count)
-          settasks(response?.data?.data?.tasks);
-          // let arr = Array.from(Array(parseInt(response.data.data.pages)).keys());
-          // setPages(arr);
-          // setCurrentPage(valu)
-        })
-        .catch(function (error) {
-          setLoader(false);
-          // localStorage.removeItem("accessToken");
-          // localStorage.removeItem("user");
-          // window.location.assign("/")
-          // window.location.reload();
-        });
-    }
-  }
 
   const settabss = (event) => {
     if (event === 'home') {
@@ -75,6 +28,44 @@ const GeneralTask = ({ setShowtask, setShowtaskdetail, setShowtaskedit }) => {
       setexpired(true)
     }
   }
+
+  const deletetask = (elem) => {
+   
+    let tok = localStorage.getItem("accessToken");
+    // setOpens(true);
+    axios
+        .delete(
+            API_URL + "/tasks/" +
+            elem?._id,
+            { headers: { authorization: `Bearer ${tok}` } }
+        )
+        .then((response) => {
+          getData();
+            // setOpens(false);
+            // setCall(!call);
+            toast
+                .success("Successfully Delete Task", {
+                    position: "top-right",
+                    autoClose: 3000,
+                })
+            window.$('#exampleModal2').modal('hide')
+                .catch((err) => {
+                    // setOpens(false);
+                    toast.warning(
+                        "Error",
+                        {
+                            position: "top-right",
+                            autoClose: 3000,
+                        }
+                    );
+                    return false;
+                });
+        });
+}
+
+  // const detailfunction = (elem) =>{
+  //   setdetailtask(elem)
+  // }
 
   return (
     <>
@@ -126,8 +117,9 @@ const GeneralTask = ({ setShowtask, setShowtaskdetail, setShowtaskedit }) => {
                             </thead>
                             <tbody>
                               {tasks?.map((elem, index) => {
+                                console.log("sdfsdfdsf",elem?.expirationDate)
                                 let expiredate = new Date(elem?.expirationDate);
-                                const ExpireDate = moment(expiredate).format("DD-MM-YYYY");
+                                const ExpireDate = moment(elem?.expirationDate).format("DD-MM-YYYY");
                                 let createdate = new Date(elem?.createdAt);
                                 const createDate = moment(createdate).format("DD-MM-YYYY");
                                 return (
@@ -152,9 +144,9 @@ const GeneralTask = ({ setShowtask, setShowtaskdetail, setShowtaskedit }) => {
                                           </Dropdown.Toggle>
                                           <Dropdown.Menu>
                                             <Dropdown.Item href="#/action-1">
-                                              <p onClick={setShowtaskdetail}><img src='\generalassets\icons\detail.svg' alt='img' className='img-fluid' />Details</p>
-                                              <p onClick={setShowtaskedit}><img src='\generalassets\icons\edit.svg' alt='img' className='img-fluid' />Edit</p>
-                                              <p><img src='\generalassets\icons\trash.svg' alt='img' className='img-fluid' />Delete</p>
+                                              <p onClick={() => {setShowtaskdetail(true); setdetailtask(elem)}}><img src='\generalassets\icons\detail.svg' alt='img' className='img-fluid' />Details</p>
+                                              <p onClick={() => {setShowtaskedit(true); setdetailtask(elem)}}><img src='\generalassets\icons\edit.svg' alt='img' className='img-fluid' />Edit</p>
+                                              <p onClick={()=> deletetask(elem)}><img src='\generalassets\icons\trash.svg' alt='img' className='img-fluid' />Delete</p>
                                             </Dropdown.Item>
                                           </Dropdown.Menu>
                                         </Dropdown>
@@ -268,9 +260,9 @@ const GeneralTask = ({ setShowtask, setShowtaskdetail, setShowtaskedit }) => {
                                           </Dropdown.Toggle>
                                           <Dropdown.Menu>
                                             <Dropdown.Item href="#/action-1">
-                                              <p onClick={setShowtaskdetail}><img src='\generalassets\icons\detail.svg' alt='img' className='img-fluid' />Details</p>
-                                              <p onClick={setShowtaskedit}><img src='\generalassets\icons\edit.svg' alt='img' className='img-fluid' />Edit</p>
-                                              <p><img src='\generalassets\icons\trash.svg' alt='img' className='img-fluid' />Delete</p>
+                                              <p onClick={() => {setShowtaskdetail(true); setdetailtask(elem)}}><img src='\generalassets\icons\detail.svg' alt='img' className='img-fluid' />Details</p>
+                                              <p onClick={() => {setShowtaskedit(true); setdetailtask(elem)}}><img src='\generalassets\icons\edit.svg' alt='img' className='img-fluid' />Edit</p>
+                                              <p onClick={()=> deletetask(elem)}><img src='\generalassets\icons\trash.svg' alt='img' className='img-fluid' />Delete</p>
                                             </Dropdown.Item>
                                           </Dropdown.Menu>
                                         </Dropdown>
