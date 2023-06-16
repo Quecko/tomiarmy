@@ -9,7 +9,7 @@ import axios from 'axios';
 import Loader from '../../../hooks/loader';
 
 
-const CreateTaskModals = ({ showtask, setShowtask }) => {
+const CreateTaskModals = ({ showtask, setShowtask, getData }) => {
 
   const handleClosetask = () => setShowtask(false);
   const handleShowtask = () => setShowtask(true);
@@ -21,10 +21,9 @@ const CreateTaskModals = ({ showtask, setShowtask }) => {
   const handleClosetask3 = () => setShowtask3(false);
   const handleShowtask3 = () => setShowtask3(true);
   const [startDate, setStartDate] = useState(null);
-  var date = new Date(startDate)
-  date.setDate(date.getDate() + 1)
 
-  console.log("sdfsfsfsf", date)
+  // console.log("asfsdfdsf",typeof date)
+  // console.log("sdfsfsfsf", date)
   const [profilePicture, setProfilePicture] = useState(null);
   const [profileP, setProfileP] = useState();
   const [docfile, setdocfile] = useState(null);
@@ -108,8 +107,8 @@ const CreateTaskModals = ({ showtask, setShowtask }) => {
     if (allFormData?.link) {
       data1.append("relatedLink", allFormData?.link)
     }
-    if (date) {
-      data1.append("expirationDate", date)
+    if (startDate) {
+      data1.append("expirationDate", startDate)
     }
     if (type === 'social') {
       if (allFormData?.hashtag) {
@@ -143,6 +142,7 @@ const CreateTaskModals = ({ showtask, setShowtask }) => {
                 position: "top-right",
                 autoClose: 2000,
               });
+              getData()
               setStartDate()
               setProfilePicture(null)
               setdocfile(null)
@@ -312,7 +312,7 @@ const CreateTaskModals = ({ showtask, setShowtask }) => {
               </div>
               <div className="option-field">
                 <label>Reward Points</label>
-                <input value={allFormData?.reward} name="reward" onChange={handleChange} type="text" placeholder="Enter reward points...." />
+                <input value={allFormData?.reward} name="reward" onChange={handleChange} type="number" placeholder="Enter reward points...." />
               </div>
             </div>
             <div className="twice-field">
