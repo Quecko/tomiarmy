@@ -16,6 +16,20 @@ const Proofofwork = () => {
     const [showreject, setShowreject] = useState(false);
     const handleClosereject = () => setShowreject(false);
     const handleShowreject = () => setShowreject(true);
+    const [expired, setexpired] = useState(false);
+
+
+    const settabss = (event) => {
+        if (event === 'home') {
+          setexpired(false)
+        }
+        else if (event === 'profile') {
+          setexpired(true)
+        }
+      }
+    
+
+
     return (
         <>
             <div className="formobile-heading d-none display-block-in-mobile">
@@ -34,6 +48,7 @@ const Proofofwork = () => {
                                     transition={false}
                                     id="noanim-tab-example"
                                     className="mb-3"
+                                    onSelect={settabss}
                                 >
                                     <Tab eventKey="home" title="Tasks Proof of Work">
                                         <div className="col-xl-12 col-12 pe-0 padd-sm">
