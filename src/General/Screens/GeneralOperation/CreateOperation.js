@@ -1,5 +1,12 @@
 import React, { useState } from 'react'
 import "./generaloperation.scss"
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import "react-toastify/dist/ReactToastify.css";
+import { API_URL } from '../../../utils/ApiUrl';
+import { toast } from 'react-toastify';
+import axios from 'axios';
+import Loader from '../../../hooks/loader';
 import Modal from 'react-bootstrap/Modal';
 
 const CreateOperation = () => {
@@ -10,6 +17,45 @@ const CreateOperation = () => {
     const [showtask, setShowtask] = useState(false);
     const handleClosetask = () => setShowtask(false);
     const handleShowtask = () => setShowtask(true);
+
+    const [startDate, setStartDate] = useState(null);
+    const [profilePicture, setProfilePicture] = useState(null);
+    const [profileP, setProfileP] = useState();
+
+    const [allFormData, setAllFormData] = useState({
+        name: '',
+        reward: '',
+        tomitoken: '',
+        description: '',
+      })
+    
+      const handleChange = (event) => {
+        allFormData[event.target.name] = event.target.value;
+        setAllFormData({ ...allFormData });
+      }
+    
+      const ClearAll = () => {
+        setAllFormData({
+            name: '',
+            reward: '',
+            tomitoken: '',
+            description: '',
+        })
+      }
+    
+    
+    const setProfilePic = (evt) => {
+        const file = evt.target.files[0];
+        if (file.size >= 2872139) {
+          toast.error("File cannot be greater than 3mbs")
+        } else {
+          setProfilePicture(evt.target.files[0]);
+          const file = evt.target.files[0]
+          setProfileP(file)
+        }
+      };
+
+
     return (
         <>
             <section className="create-operation border-grad1">
@@ -19,26 +65,28 @@ const CreateOperation = () => {
                             <div className="twice-field">
                                 <div className="option-field">
                                     <label>Operation Name</label>
-                                    <input type="text" placeholder="Enter operation name...." />
+                                    <input value={allFormData?.name} name="name" onChange={handleChange}  type="text" placeholder="Enter operation name...." />
                                 </div>
                                 <div className="option-field">
                                     <label>Reward Points</label>
-                                    <input type="text" placeholder="Enter reward points...." />
+                                    <input value={allFormData?.reward} name="reward" onChange={handleChange}  type="text" placeholder="Enter reward points...." />
                                 </div>
                             </div>
                             <div className="twice-field">
                                 <div className="option-field">
                                     <label>Expiration Date</label>
-                                    <input type="date" placeholder="Select expiration date..." />
+                                    <DatePicker selected={startDate} placeholder="Select expiration date..." onChange={(date) => setStartDate(date)} />
+                                    {/* <input type="date" placeholder="Select expiration date..." />
+                                     */}
                                 </div>
                                 <div className="option-field">
                                     <label>TOMI Tokens</label>
-                                    <input type="text" placeholder="Enter TOMI Tokens..." />
+                                    <input value={allFormData?.tomitoken} name="tomitoken" onChange={handleChange} type="text" placeholder="Enter TOMI Tokens..." />
                                 </div>
                             </div>
                             <div className="option-field mb-0">
                                 <label>DESCRIPTION</label>
-                                <textarea placeholder="Enter task description...."></textarea>
+                                <textarea value={allFormData?.description} name="description" onChange={handleChange} placeholder="Enter task description...."></textarea>
                             </div>
                         </div>
                     </div>
@@ -47,10 +95,26 @@ const CreateOperation = () => {
                             <div className="upload-field">
                                 <p>Upload NFT</p>
                                 <div className="upload">
-                                    <img src="\generalassets\icons\upload-icon.svg" alt="img" className="img-fluid" />
-                                    <h6>Drop your image here, or <label htmlFor="upload">browse</label></h6>
-                                    <p>Supports: JPG, JPEG, PNG</p>
-                                    <input type="file" className="d-none" id="upload" />
+                                    {
+                                        profilePicture ? <label htmlFor="upload" className="w-100 h-100">
+                                            {" "}
+                                            <img
+                                                src={profilePicture ? URL?.createObjectURL(profilePicture) : ""}
+                                                alt="img"
+                                                className="img-fluid setimg-p"
+                                            />
+                                        </label> : <label htmlFor="upload">
+                                            {" "}
+                                            <img
+                                                src="\generalassets\icons\upload-icon.svg"
+                                                alt="img"
+                                                className="img-fluid"
+                                            />
+                                            <h6><label htmlFor="upload">browse</label></h6>
+                                            <p className="text">Supports: JPG, JPEG, PNG</p>
+                                        </label>
+                                    }
+                                    <input type="file" accept="image/png, image/jpeg, image/jpg" className="d-none" onChange={(e) => setProfilePic(e)} id="upload" />
                                 </div>
                             </div>
                         </div>

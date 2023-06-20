@@ -9,6 +9,7 @@ import Accordion from 'react-bootstrap/Accordion';
 import "./generaloperation.scss"
 import CreateOperation from './CreateOperation';
 const GeneralOperation = ({ setroute, routes }) => {
+
     return (
         <>
             {
