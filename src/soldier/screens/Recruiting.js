@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import Dropdown from 'react-bootstrap/Dropdown';
@@ -7,12 +7,18 @@ import Modal from 'react-bootstrap/Modal';
 import Pagination from 'react-bootstrap/Pagination';
 import Accordion from 'react-bootstrap/Accordion';
 import "./recruiting.scss"
+import axios from 'axios';
+import { API_URL } from '../../utils/ApiUrl';
+import { toast } from 'react-toastify';
+import Loader from '../../hooks/loader';
+import moment from "moment";
+import { useWeb3React } from "@web3-react/core";
+
 const Recruiting = () => {
   const [show, setShow] = useState(false);
-
   const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
-
+  // const handleShow = () => setShow(true);
+  const { account } = useWeb3React()
   const [show1, setShow1] = useState(false);
   const handleClose1 = () => setShow1(false);
   const handleShow1 = () => setShow1(true);
@@ -25,6 +31,113 @@ const Recruiting = () => {
   const setProfilePic = (evt) => {
     setProfilePicture(evt.target.files[0]);
   }
+
+  const [loader, setLoader] = useState(false);
+  const [requests, setRequests] = useState([]);
+
+
+  const getData = async () => {
+    let tok = localStorage.getItem("accessToken");
+    // let wall = localStorage.getItem("wallet");
+    if (account) {
+      var config = {
+        method: "get",
+        url: `${API_URL}/tasks/squad-invitation-requests?offset=1&&limit=5`,
+        headers: {
+          authorization: `Bearer ` + tok
+        },
+      };
+      axios(config)
+        .then(function (response) {
+          setLoader(false);
+          // setCount(response.data.data.count)
+          const filteredData = response?.data?.data?.squadInvitationRequests.filter(item => !item.hidden_request);
+          setRequests(filteredData);
+          // let arr = Array.from(Array(parseInt(response.data.data.pages)).keys());
+          // setPages(arr);
+          // setCurrentPage(valu)
+        })
+        .catch(function (error) {
+          setLoader(false);
+          // localStorage.removeItem("accessToken");
+          // localStorage.removeItem("user");
+          // window.location.assign("/")
+          // window.location.reload();
+        });
+    }
+  }
+
+  useEffect(() => {
+    // if (currentPage > 1) {
+    //     getData(currentPage);
+    // } else {
+    getData();
+    // }
+  }, [account])
+
+  const UserRecrruit = (id) => {
+    let tok = localStorage.getItem("accessToken");
+    setLoader(true);
+    var data = ({
+      squadInvitationRequestId: id,
+    });
+    var config = {
+        method: "post",
+        url: `${API_URL}/tasks/squad-invitation-requests/recruite-accept`,
+        headers: {
+            authorization: `Bearer ` + tok
+        },
+        data: data,
+    };
+
+    axios(config)
+        .then(function (response) {
+            setLoader(false);
+            getData();
+            toast.success('User Recruited Successfully', {
+                position: "top-right",
+                autoClose: 2000,
+            });
+            // setrecruitess(recruitess + 1)
+            // window.location.reload()
+        })
+        .catch(function (error) {
+            getData();
+            // setrecruitess(recruitess + 1)
+            setLoader(false);
+            toast.error(error?.response?.data?.message)
+        });
+}
+
+const hiderecruit = (id) => {
+    // console.log("id we get", id)
+    let tok = localStorage.getItem("accessToken");
+    setLoader(true);
+    var data = ({
+      squadInvitationRequestId: id,
+    });
+    var config = {
+        method: "post",
+        url: `${API_URL}/tasks/squad-invitation-requests/squad-hidden-requests`,
+        headers: {
+            authorization: `Bearer ` + tok
+        },
+        data: data,
+    };
+
+    axios(config)
+        .then(function (response) {
+            setLoader(false);
+            getData();
+        })
+        .catch(function (error) {
+            getData();
+            setLoader(false);
+            toast.error(error?.response?.data?.message)
+        });
+}
+
+
   return (
     <>
       <div className="formobile-heading d-none display-block-in-mobile">
@@ -66,32 +179,44 @@ const Recruiting = () => {
                               </tr>
                             </thead>
                             <tbody>
-                              <tr>
-                                <td>
-                                  <p className='paratable'>0x0F4D...B5D8</p>
-                                </td>
-                                <td>
-                                  <p className='paratable'>@sharjeel</p>
-                                </td>
-                                <td>
-                                  <p className='paratable'>1,000,000</p>
-                                </td>
-                                <td>
-                                  <div className='dropbtn'>
-                                    <Dropdown>
-                                      <Dropdown.Toggle variant="success" id="dropdown-basic">
-                                        <img src='\Vectordots.svg' alt='img' className='img-fluid ' />
-                                      </Dropdown.Toggle>
-                                      <Dropdown.Menu>
-                                        <Dropdown.Item href="#/action-1">
-                                          <p onClick={handleShow}><img src='\Vector.svg' alt='img' className='img-fluid' />Submit Proof</p>
-                                        </Dropdown.Item>
-                                      </Dropdown.Menu>
-                                    </Dropdown>
-                                  </div>
-                                </td>
-                              </tr>
-                             
+                              {requests?.map((elem, index) => {
+                                const walletAddressLength = elem?.walletAddress?.length;
+                                return (
+                                  <tr key={index}>
+                                    <td>
+                                      <p className='paratable'>
+                                        {`${elem?.walletAddress.slice(0, 8)}...${elem?.walletAddress.slice(
+                                          walletAddressLength - 8
+                                        )}`}
+                                      </p>
+                                    </td>
+                                    <td>
+                                      <p className='paratable'>@{elem?.nickName}</p>
+                                    </td>
+                                    <td>
+                                      <p className='paratable'>{elem?.tomiTokens}</p>
+                                    </td>
+                                    <td>
+                                      <div className='dropbtn'>
+                                        <Dropdown>
+                                          <Dropdown.Toggle variant="success" id="dropdown-basic">
+                                            <img src='\Vectordots.svg' alt='img' className='img-fluid ' />
+                                          </Dropdown.Toggle>
+                                          <Dropdown.Menu>
+                                            <Dropdown.Item href="#/action-1">
+                                              <p onClick={()=>UserRecrruit(elem?._id)}><img src='\Vector.svg' alt='img' className='img-fluid' />Recruit</p>
+                                            </Dropdown.Item>
+                                            <Dropdown.Item href="#/action-1">
+                                              <p onClick={()=>hiderecruit(elem?._id)}><img src='\Vector.svg' alt='img' className='img-fluid' />Hide</p>
+                                            </Dropdown.Item>
+                                          </Dropdown.Menu>
+                                        </Dropdown>
+                                      </div>
+                                    </td>
+                                  </tr>
+
+                                )
+                              })}
                             </tbody>
                           </table>
 

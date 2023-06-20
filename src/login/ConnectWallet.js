@@ -91,8 +91,11 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role, setinvitecode, invitecod
                         }
                         else if (res?.data?.data?.isCommander === false && res?.data?.data?.squad?.name !=='') {
                             history.push("/soldier");
-                        }else {
+                        }else if (res?.data?.data?.isCommander === false && res?.data?.data?.squad?.name == ''){
                             history.push("/soldier");    
+                        }
+                        else{
+                            history.push("/");   
                         }
                         localStorage.setItem("wallet", account);
                     })
@@ -174,6 +177,12 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role, setinvitecode, invitecod
                             // localStorage.removeItem("wallet");
                             // history.push("/")
                         }
+                        else if(err?.response?.data?.statusCode ==409){
+                            toast.error('You hava already memeber', {
+                                position: 'top-center',
+                                autoClose: 5000,
+                            }); 
+                        }
                         localStorage.removeItem("connectorId");
                         localStorage.removeItem("flag");
                         // console.log("does not work")
@@ -218,8 +227,7 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role, setinvitecode, invitecod
             loginUser();
         }
     }, [account, log])
-
-
+    
     const backtoinvitecode = () => {
         setjoinsquad(false)
         setinvitecode('')

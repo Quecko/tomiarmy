@@ -6,27 +6,27 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import { API_URL } from "../../utils/ApiUrl"
-import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
+import { useWeb3React } from '@web3-react/core';
+import { toast } from 'react-toastify';
 
-const Squad = () => {
-
+const Squad = ({ show1, setShow1, show2, setShow2,show4, setShow4, show5, setShow5  }) => {
   const datacommander = localStorage.getItem('user')
   const data = JSON.parse(datacommander)
   let tok = localStorage.getItem("accessToken");
-
   const [users, setUsers] = useState([]);
-  // console.log("adasdasdasd".users)
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const [show1, setShow1] = useState(false);
+  const { account } = useWeb3React()
+  const [loader, setLoader] = useState()
+
+  // const [show1, setShow1] = useState(false);
   const handleClose1 = () => setShow1(false);
   const handleShow1 = () => setShow1(true);
 
-  const [show2, setShow2] = useState(false);
+  // const [show2, setShow2] = useState(false);
   const handleClose2 = () => setShow2(false);
   const handleShow2 = () => setShow2(true);
 
@@ -34,23 +34,22 @@ const Squad = () => {
   const handleClose3 = () => setShow3(false);
   const handleShow3 = () => setShow3(true);
 
-  const [show4, setShow4] = useState(false);
+  // const [show4, setShow4] = useState(false);
   const handleClose4 = () => setShow4(false);
   const handleShow4 = () => setShow4(true);
 
-  const [show5, setShow5] = useState(false);
+  // const [show5, setShow5] = useState(false);
   const handleClose5 = () => setShow5(false);
   const handleShow5 = () => setShow5(true);
 
-  const [selecttab, setselecttab] = useState('Active Squad')
 
+  const [selecttab, setselecttab] = useState('Active Squad')
   const [profilePicture, setProfilePicture] = useState(null);
   const setProfilePic = (evt) => {
     setProfilePicture(evt.target.files[0]);
   }
 
   const SquadUsers = async (off, value) => {
-    console.log("dfdfdfdf",value)
     let valu = null;
     // if (off) {
     //     valu = off;
@@ -86,23 +85,27 @@ const Squad = () => {
   }
 
   useEffect(() => {
-    if(selecttab === 'activesquad'){
+    if (selecttab === 'activesquad') {
       setUsers([])
       SquadUsers()
     }
-    else if(selecttab === 'freesoldier'){
+    else if (selecttab === 'freesoldier') {
       setUsers([])
       SquadUsers()
     }
-    else{
+    else {
       setUsers([])
       SquadUsers()
     }
   }, [selecttab]);
 
-  const selecttabs = (event) =>{
+  const selecttabs = (event) => {
     setselecttab(event)
   }
+
+
+  
+
 
   return (
     <>
@@ -113,16 +116,25 @@ const Squad = () => {
         </div>
         {data?.isCoLeader === false && data?.isCommander === true ?
           (
-            ""
+            <div className="twice-btn">
+              <button className="btn-leave" onClick={() => setShow4(true)}>
+                <img src="\assets\leave-btn.svg" alt="img" className="img-fluid me-2" />
+                Invite Squad Member
+              </button>
+              <button className="create-btn" onClick={() => setShow5(true)}>
+                <img src="\assets\create-btn-icon.svg" alt="img" className="img-fluid me-2" />
+                Add Co Leader
+              </button>
+            </div>
           )
           :
           (
             <div className="twice-btn">
-              <button className="btn-leave" >
+              <button className="btn-leave" onClick={() => setShow1(true)} >
                 <img src="\assets\leave-btn.svg" alt="img" className="img-fluid me-2" />
                 Leave Squad
               </button>
-              <button className="create-btn" >
+              <button className="create-btn" onClick={() => setShow2(true)}>
                 <img src="\assets\create-btn-icon.svg" alt="img" className="img-fluid me-2" />
                 Create Squad
               </button>
@@ -177,7 +189,7 @@ const Squad = () => {
                                 </div>
                                 <div className='right'>
                                   <p>Total Squad Token</p>
-                                  <h6>{users?.squadData?.data?.totalTokens} Tomi</h6>
+                                  <h6>{users?.squadData?.data?.totalTokens ? users?.squadData?.data?.totalTokens : '0'} Tomi</h6>
                                 </div>
                               </div>
                             </div>
@@ -188,7 +200,7 @@ const Squad = () => {
                                 </div>
                                 <div className='right'>
                                   <p>Total Squad Members</p>
-                                  <h6>{users?.squadData?.data?.membersCount}</h6>
+                                  <h6>{users?.squadData?.data?.membersCount ? users?.squadData?.data?.membersCount : '0'}</h6>
                                 </div>
                               </div>
                             </div>
@@ -204,8 +216,8 @@ const Squad = () => {
                                       <p className='headtable'>Nick Name</p>
                                     </th>
                                     <th>
-                                        <p className='headtable'>Rank</p>
-                                      </th>
+                                      <p className='headtable'>Rank</p>
+                                    </th>
                                     <th>
                                       <p className='headtable'>Wallet Address</p>
                                     </th>
@@ -230,7 +242,7 @@ const Squad = () => {
                                         </td>
                                         <td>
                                           <div className="set-custom">
-                                            <img src={elem?.rank?.icon} alt="img" className='img-fluid' />
+                                            <img style={{width:'40px',height:'40px'}}  src={elem?.rank?.icon} alt="img" className='img-fluid' />
                                             <p className='paratable'>{elem?.rank?.name}</p>
                                           </div>
                                         </td>
@@ -410,15 +422,15 @@ const Squad = () => {
                                   </tr>
                                 </thead>
                                 <tbody>
-                                {users?.users?.map((elem, index) => {
-                                  return (
-                                    <tr key={index}>
-                                       <td>
+                                  {users?.users?.map((elem, index) => {
+                                    return (
+                                      <tr key={index}>
+                                        <td>
                                           <p className='paratable'>{elem?.nickName ? elem?.nickName : "------"}</p>
                                         </td>
                                         <td>
                                           <div className="set-custom">
-                                            <img src={elem?.rank?.icon} alt="img" className='img-fluid' />
+                                            <img style={{width:'40px',height:'40px'}}  src={elem?.rank?.icon} alt="img" className='img-fluid' />
                                             <p className='paratable'>{elem?.rank?.name}</p>
                                           </div>
                                         </td>
@@ -431,24 +443,24 @@ const Squad = () => {
                                         <td>
                                           <p className='paratable'>+{elem?.points} POINTS</p>
                                         </td>
-                                    <td>
-                                      <div className='dropbtn'>
-                                        <Dropdown>
-                                          <Dropdown.Toggle variant="success" id="dropdown-basic">
-                                            <img src='\Vectordots.svg' alt='img' className='img-fluid ' />
-                                          </Dropdown.Toggle>
-                                          <Dropdown.Menu>
-                                            <Dropdown.Item href="#/action-1">
-                                              <p onClick={handleShow}><img src='\Vector.svg' alt='img' className='img-fluid' />recruit</p>
-                                            </Dropdown.Item>
-                                          </Dropdown.Menu>
-                                        </Dropdown>
-                                      </div>
-                                    </td>
-                                  </tr>
-                                  )
-                                })}
-                           
+                                        <td>
+                                          <div className='dropbtn'>
+                                            <Dropdown>
+                                              <Dropdown.Toggle variant="success" id="dropdown-basic">
+                                                <img src='\Vectordots.svg' alt='img' className='img-fluid ' />
+                                              </Dropdown.Toggle>
+                                              <Dropdown.Menu>
+                                                <Dropdown.Item href="#/action-1">
+                                                  <p onClick={handleShow}><img src='\Vector.svg' alt='img' className='img-fluid' />recruit</p>
+                                                </Dropdown.Item>
+                                              </Dropdown.Menu>
+                                            </Dropdown>
+                                          </div>
+                                        </td>
+                                      </tr>
+                                    )
+                                  })}
+
                                 </tbody>
                               </table>
                             </div>
@@ -596,16 +608,16 @@ const Squad = () => {
                                   </tr>
                                 </thead>
                                 <tbody>
-                                {users?.users?.map((elem, index) => {
+                                  {users?.users?.map((elem, index) => {
                                     // console("console", elem)
                                     return (
                                       <tr>
-                                      <td>
+                                        <td>
                                           <p className='paratable'>{elem?.nickName ? elem?.nickName : "------"}</p>
                                         </td>
                                         <td>
                                           <div className="set-custom">
-                                            <img src={elem?.rank?.icon} alt="img" className='img-fluid' />
+                                            <img style={{width:'40px',height:'40px'}}  src={elem?.rank?.icon} alt="img" className='img-fluid' />
                                             <p className='paratable'>{elem?.rank?.name}</p>
                                           </div>
                                         </td>
@@ -618,25 +630,25 @@ const Squad = () => {
                                         <td>
                                           <p className='paratable'>+{elem?.points} POINTS</p>
                                         </td>
-                                      <td>
-                                        <div className='dropbtn'>
-                                          <Dropdown>
-                                            <Dropdown.Toggle variant="success" id="dropdown-basic">
-                                              <img src='\Vectordots.svg' alt='img' className='img-fluid ' />
-  
-                                            </Dropdown.Toggle>
-  
-                                            <Dropdown.Menu>
-                                              <Dropdown.Item href="#/action-1">
-                                                <p onClick={handleShow}><img src='\Vector.svg' alt='img' className='img-fluid' />recruit</p>
-                                              </Dropdown.Item>
-                                            </Dropdown.Menu>
-                                          </Dropdown>
-                                        </div>
-                                      </td>
-                                    </tr>
+                                        <td>
+                                          <div className='dropbtn'>
+                                            <Dropdown>
+                                              <Dropdown.Toggle variant="success" id="dropdown-basic">
+                                                <img src='\Vectordots.svg' alt='img' className='img-fluid ' />
+
+                                              </Dropdown.Toggle>
+
+                                              <Dropdown.Menu>
+                                                <Dropdown.Item href="#/action-1">
+                                                  <p onClick={handleShow}><img src='\Vector.svg' alt='img' className='img-fluid' />recruit</p>
+                                                </Dropdown.Item>
+                                              </Dropdown.Menu>
+                                            </Dropdown>
+                                          </div>
+                                        </td>
+                                      </tr>
                                     )
-                                    })}
+                                  })}
                                 </tbody>
                               </table>
                             </div>
@@ -896,11 +908,11 @@ const Squad = () => {
                       <div className='innercard1 border-grad'>
                         <div className='parent' onClick={handleShow}>
                           <div className='left'>
-                            <img src='\Grouppic.svg' alt='img' className='img-fluid' />
+                            <img src={users?.squadData?.data?.symbol} alt='img' className='img-fluid jwebferwjgfnerw' />
                           </div>
                           <div className='right'>
                             <p>My Squad</p>
-                            <h6>DC Squad</h6>
+                            <h6>{users?.squadData?.data?.name}</h6>
                           </div>
                         </div>
                       </div>
@@ -911,7 +923,7 @@ const Squad = () => {
                           </div>
                           <div className='right'>
                             <p>Squad Owner</p>
-                            <h6>X2JZ</h6>
+                            <h6>{users?.commander?.nickName}</h6>
                           </div>
                         </div>
                       </div>
@@ -922,7 +934,7 @@ const Squad = () => {
                           </div>
                           <div className='right'>
                             <p>Total Squad Tokens</p>
-                            <h6>500 TOMI</h6>
+                            <h6>{users?.squadData?.data?.totalTokens ? users?.squadData?.data?.totalTokens : '0'}</h6>
                           </div>
                         </div>
                       </div>
@@ -933,7 +945,7 @@ const Squad = () => {
                           </div>
                           <div className='right'>
                             <p>Total Squad Members</p>
-                            <h6>1,531</h6>
+                            <h6>{users?.squadData?.data?.membersCount ? users?.squadData?.data?.membersCount : '0'}</h6>
                           </div>
                         </div>
                       </div>
@@ -954,33 +966,43 @@ const Squad = () => {
                               <th>
                                 <p className='headtable'>Wallet Address</p>
                               </th>
-                              <th>
+                              {/* <th>
                                 <p className='headtable'>Username</p>
-                              </th>
+                              </th> */}
                               <th>
                                 <p className='headtable lefts'>TOMI Balance</p>
                               </th>
                             </tr>
                           </thead>
+                          {/* sufyan */}
                           <tbody>
-                            <tr>
-                              <td>
-                                <p className='paratable'>Sharjeel</p>
-                              </td>
-                              <td>
-                                <p className='paratable'><img src='\static-icons\private-rank.png' alt='img' className='img-fluid' style={{ width: "50px", height: "50px" }} /> Private</p>
-                              </td>
-                              <td>
-                                <p className='paratable'>  0x2F78aB0Cd05c...6j88</p>
-                              </td>
-                              <td>
-                                <p className='paratable'>@sharjeel</p>
-                              </td>
-                              <td>
-                                <p className='paratable lefts'>@500 TOMI</p>
-                              </td>
-                            </tr>
-                            <tr>
+                            {users?.users?.map((elem, index) => {
+                              const walletAddressLength = elem?.walletAddress?.length;
+                              return (
+                                <tr>
+                                  <td>
+                                    <p className='paratable'>{elem?.nickName ? elem?.nickName : "------"}</p>
+                                  </td>
+                                  <td>
+                                    <p className='paratable'><img style={{width:'40px',height:'40px'}}  src={elem?.rank?.icon} alt='img' className='img-fluid' /> {elem?.rank?.name}</p>
+                                  </td>
+                                  <td>
+                                    <p className='paratable'>
+                                      {`${elem?.walletAddress.slice(0, 8)}...${elem?.walletAddress.slice(
+                                        walletAddressLength - 8
+                                      )}`}
+                                    </p>
+                                  </td>
+                                  {/* <td>
+                                    <p className='paratable'>@sharjeel</p>
+                                  </td> */}
+                                  <td>
+                                    <p className='paratable lefts'>{elem?.tomiTokens} TOMI</p>
+                                  </td>
+                                </tr>
+                              )
+                            })}
+                            {/* <tr>
                               <td>
                                 <p className='paratable'>Umar_x2jz</p>
                               </td>
@@ -1030,7 +1052,7 @@ const Squad = () => {
                               <td>
                                 <p className='paratable lefts'>@500 TOMI</p>
                               </td>
-                            </tr>
+                            </tr> */}
                           </tbody>
                         </table>
                       </div>
@@ -1264,9 +1286,6 @@ const Squad = () => {
         )
       }
 
-
-
-
       <Modal className='detailmodal' show={show3} onHide={handleClose3} centered>
         <Modal.Header closeButton>
           <Modal.Title>dismiss user</Modal.Title>
@@ -1286,193 +1305,6 @@ const Squad = () => {
       {/* <button onClick={handleShow4}>search member</button>
                 <button onClick={handleShow5}>invite member</button> */}
 
-      <Modal className='detailmodal' show={show4} onHide={handleClose4} centered>
-        <Modal.Header closeButton>
-          <Modal.Title>Search Member</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <div className='maincard'>
-            <div className='display-none-in-mobile'>
-              <div className="maintable">
-                <table class="table table-striped">
-                  <thead>
-                    <tr>
-                      <th>
-                        <p className='headtable'>Nickname</p>
-                      </th>
-                      <th>
-                        <p className='headtable'>Rank</p>
-                      </th>
-                      <th>
-                        <p className='headtable'>Wallet Address</p>
-                      </th>
-                      <th>
-                        <p className='headtable'>Action</p>
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>
-                        <p className='paratable'>Sharjeel</p>
-                      </td>
-                      <td>
-                        <div className="set-custom">
-                          <img src="\assets\private.svg" alt="img" className='img-fluid' />
-                          <p className='paratable'>Private</p>
-                        </div>
-                      </td>
-                      <td>
-                        <p className='paratable'>0x0F4D...B5D8</p>
-                      </td>
-                      <td>
-                        <div className='dropbtn'>
-                          <Dropdown>
-                            <Dropdown.Toggle variant="success" id="dropdown-basic">
-                              <img src='\Vectordots.svg' alt='img' className='img-fluid ' />
-
-                            </Dropdown.Toggle>
-
-                            <Dropdown.Menu>
-                              <Dropdown.Item href="#/action-1">
-                                <p onClick={handleShow3}><img src='\Vector.svg' alt='img' className='img-fluid' />recruit</p>
-                              </Dropdown.Item>
-                            </Dropdown.Menu>
-                          </Dropdown>
-                        </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-            <div className="mobile-responsive-table d-none display-block-in-mobile">
-              <div className="heading-mobile">
-                <p>Task</p>
-              </div>
-              <Accordion defaultActiveKey="0">
-                <Accordion.Item eventKey="0">
-                  <Accordion.Header>Like our facebook page</Accordion.Header>
-                  <Accordion.Body>
-                    <div className="inner-fields">
-                      <div className="inner-item">
-                        <h6>Points</h6>
-                        <p>+5</p>
-                      </div>
-                      <div className="inner-item">
-                        <h6>Status</h6>
-                        <button className="btn-green">Completed</button>
-                      </div>
-                      <div className="inner-item">
-                        <h6>Expiry</h6>
-                        <p>12:34 12/12/23</p>
-                      </div>
-                      <div className="inner-item">
-                        <h6>Actions</h6>
-                        <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
-                      </div>
-                    </div>
-                  </Accordion.Body>
-                </Accordion.Item>
-                <Accordion.Item eventKey="1">
-                  <Accordion.Header>Follow our twitter acc...</Accordion.Header>
-                  <Accordion.Body>
-                    <div className="inner-fields">
-                      <div className="inner-item">
-                        <h6>Points</h6>
-                        <p>+5</p>
-                      </div>
-                      <div className="inner-item">
-                        <h6>Status</h6>
-                        <button className="btn-green">Completed</button>
-                      </div>
-                      <div className="inner-item">
-                        <h6>Expiry</h6>
-                        <p>12:34 12/12/23</p>
-                      </div>
-                      <div className="inner-item">
-                        <h6>Actions</h6>
-                        <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
-                      </div>
-                    </div>
-                  </Accordion.Body>
-                </Accordion.Item>
-                <Accordion.Item eventKey="2">
-                  <Accordion.Header>Like our facebook page</Accordion.Header>
-                  <Accordion.Body>
-                    <div className="inner-fields">
-                      <div className="inner-item">
-                        <h6>Points</h6>
-                        <p>+5</p>
-                      </div>
-                      <div className="inner-item">
-                        <h6>Status</h6>
-                        <button className="btn-green">Completed</button>
-                      </div>
-                      <div className="inner-item">
-                        <h6>Expiry</h6>
-                        <p>12:34 12/12/23</p>
-                      </div>
-                      <div className="inner-item">
-                        <h6>Actions</h6>
-                        <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
-                      </div>
-                    </div>
-                  </Accordion.Body>
-                </Accordion.Item>
-                <Accordion.Item eventKey="3">
-                  <Accordion.Header>Like our facebook page</Accordion.Header>
-                  <Accordion.Body>
-                    <div className="inner-fields">
-                      <div className="inner-item">
-                        <h6>Points</h6>
-                        <p>+5</p>
-                      </div>
-                      <div className="inner-item">
-                        <h6>Status</h6>
-                        <button className="btn-green">Completed</button>
-                      </div>
-                      <div className="inner-item">
-                        <h6>Expiry</h6>
-                        <p>12:34 12/12/23</p>
-                      </div>
-                      <div className="inner-item">
-                        <h6>Actions</h6>
-                        <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
-                      </div>
-                    </div>
-                  </Accordion.Body>
-                </Accordion.Item>
-              </Accordion>
-            </div>
-          </div>
-          <div className='endbtn'>
-            <button className='btn-blackk'><span><img src='\Subtract.svg' alt='img' className='img-fluid' /></span>Cancel</button>
-            <button className='btn-pinkk'><img src='\up.svg' alt='img' className='img-fluid' />Yes’ I am sure</button>
-          </div>
-        </Modal.Body>
-      </Modal>
-
-      <Modal className='detailmodal invitemember-modal' show={show5} onHide={handleClose5} centered>
-        <Modal.Header closeButton>
-          <Modal.Title>Invite a squad member</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-
-          <div className="inviteamember">
-            <div className="left">
-              <h6>Twitter</h6>
-            </div>
-            <div className="right">
-              <p>@Umar_x2jz <img src="\assets\copy.svg" alt="img" className='img-fluid ms-2' /></p>
-            </div>
-          </div>
-
-          <div className='endbtn'>
-            <button className='btn-pinkk w-100'><span><img src='\Subtract.svg' alt='img' className='img-fluid' /></span>Ok</button>
-          </div>
-        </Modal.Body>
-      </Modal>
     </>
   )
 }
