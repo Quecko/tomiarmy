@@ -203,7 +203,6 @@ const AllTaskModals = ({ showtask, setShowtask, settaskdetail, taskdetail }) => 
     ]);
   };
 
-
   const handleChange1 = (e) => {
     const { name, value } = e.target;
     setInputs(inputs => ({ ...inputs, [name]: value }));
@@ -211,9 +210,6 @@ const AllTaskModals = ({ showtask, setShowtask, settaskdetail, taskdetail }) => 
 
   var result=taskdetail?.attachment?.split("_")?.pop();
 
-
-
-  
   return (
     <>
       <Modal className='detailmodal' show={showtask} onHide={handleClosetask} centered>

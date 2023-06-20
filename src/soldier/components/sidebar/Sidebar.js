@@ -19,6 +19,13 @@ import FAQS from "../../screens/FAQS";
 import Recruiting from "../../screens/Recruiting";
 import SquadModals from "../home/HomeOperations/SquadModals";
 import AllTaskModals from "../../screens/AllTaskModals";
+import LeaderModals from "../home/HomeOperations/LeaderModals";
+import { toast } from 'react-toastify';
+import { useWeb3React } from "@web3-react/core";
+import axios from "axios";
+import Signature from "../../../hooks/dataSenders/userSign";
+import { useHistory } from "react-router-dom";
+import { API_URL } from '../../../utils/ApiUrl'
 
 const Sidebar = () => {
 
@@ -26,11 +33,19 @@ const Sidebar = () => {
   const [indexwait, setindexwait] = useState(0);
   const [routes, setroute] = useState(false);
   const [show, setShow] = useState(false);
+  const [show1, setShow1] = useState(false);
+  const [show2, setShow2] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const [show2, setShow2] = useState(false);
   const [showtask, setShowtask] = useState(false);
   const [taskdetail, settaskdetail] = useState(null);
+  const { account } = useWeb3React()
+  const history = useHistory();
+  const { userSign } = Signature();
+
+  const [show4, setShow4] = useState(false);
+  const [show5, setShow5] = useState(false);
+
 
   useEffect(() => {
     if (indexvv == "0") {
@@ -91,6 +106,97 @@ const Sidebar = () => {
   };
 
 
+  //  const wallet= localStorage.getItem('wallet')
+
+  //  console.log('wallet',);
+
+  //   useEffect(()=>{
+
+  //   })
+  var user12 = localStorage.getItem("user");
+  user12 = JSON.parse(user12)
+  useEffect(() => {
+    if (account === user12?.walletAddress) {
+    }
+    else if (account) {
+      // window.scrollTo(0, 0);
+      // console.log("asassaasdasda", account)
+      loginUser();
+    }
+  }, [account])
+
+
+  const loginUser = async () => {
+    // console.log("values get here is",account)
+    // let tok = localStorage.getItem("accessToken");
+    // let wall = localStorage.getItem("wallet");
+    // setShow(false);
+    if (account) {
+      const res0 = await userSign(account);
+      if (account && res0) {
+        await axios
+          .post(`${API_URL}/auth/signin`, {
+            walletAddress: account,
+            sign: res0,
+            rememberMe: true
+          })
+          .then((res) => {
+            // toast.success('User Logged in Successfully', {
+            //     position: 'top-center',
+            //     autoClose: 5000,
+            // });
+            localStorage.setItem("accessToken", res?.data?.data?.accessToken);
+            // setShow(false)
+            localStorage.setItem("user", JSON.stringify(res?.data?.data));
+            if (res?.data?.data?.rank.name === "general") {
+              history.push("/general");
+            } else if (res?.data?.data?.rank.name === "major general") {
+              history.push("/majorgenerL");
+            }
+            else if (res?.data?.data?.isCommander === true) {
+              history.push("/leader");
+            }
+            else if (res?.data?.data?.isCommander === false && res?.data?.data?.squad?.name !== '') {
+              history.push("/soldier");
+            } else if (res?.data?.data?.isCommander === false && res?.data?.data?.squad?.name == '') {
+              history.push("/soldier");
+            }
+            else {
+              history.push("/");
+            }
+            localStorage.setItem("wallet", account);
+          })
+          .catch((err) => {
+            if (err?.response?.data?.statusCode === 404) {
+              toast.error('No User Found', {
+                position: 'top-center',
+                autoClose: 5000,
+              });
+              localStorage.removeItem("connectorId");
+              localStorage.removeItem("flag");
+              // console.log("logout", err)
+              // setShow(false);
+              localStorage.removeItem("accessToken");
+              localStorage.removeItem("user");
+              localStorage.removeItem("wallet");
+              history.push("/")
+            }
+            localStorage.removeItem("connectorId");
+            localStorage.removeItem("flag");
+            // console.log("does not work")
+          });
+      }
+      else {
+        history.push('/')
+      }
+    }
+    else {
+      toast.error('Wallet Not Connected', {
+        position: 'top-center',
+        autoClose: 5000,
+      });
+    }
+  };
 
   return (
     <>
@@ -469,7 +575,7 @@ const Sidebar = () => {
             </div>
           </div>
           <div className="content-column">
-            <Header handleShow={handleShow} indexwait={indexwait} routes={routes} setroute={setroute} show2={show2} setShow2={setShow2} />
+            <Header handleShow={handleShow} indexwait={indexwait} routes={routes} setroute={setroute} show1={show1} setShow1={setShow1} show2={show2} setShow2={setShow2} setShow4={setShow4} setShow5={setShow5} />
             {indexwait === 0 ?
               (
                 <>
@@ -480,7 +586,7 @@ const Sidebar = () => {
               indexwait === 1 ?
                 (
                   <>
-                    <Tasks setShowtask={setShowtask} settaskdetail={settaskdetail}/>
+                    <Tasks setShowtask={setShowtask} settaskdetail={settaskdetail} />
                   </>
                 )
                 :
@@ -494,7 +600,9 @@ const Sidebar = () => {
                   indexwait == 3 ?
                     (
                       <>
-                        <Squad />
+                        <Squad show1={show1} setShow1={setShow1} show2={show2} setShow2={setShow2} 
+                        show4={show4} setShow4={setShow4} show5={show5} setShow5={setShow5} 
+                        />
                       </>
                     )
                     :
@@ -953,8 +1061,9 @@ const Sidebar = () => {
       </Offcanvas>
 
 
-      <SquadModals show2={show2} setShow2={setShow2} />
-      <AllTaskModals showtask={showtask} setShowtask={setShowtask} settaskdetail={settaskdetail} taskdetail={taskdetail}  />
+      <SquadModals show1={show1} setShow1={setShow1} show2={show2} setShow2={setShow2}  />
+      <LeaderModals show4={show4} setShow4={setShow4} show5={show5} setShow5={setShow5} />
+      <AllTaskModals showtask={showtask} setShowtask={setShowtask} settaskdetail={settaskdetail} taskdetail={taskdetail} />
     </>
   );
 };

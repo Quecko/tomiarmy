@@ -1,9 +1,15 @@
 import React, { useState } from 'react'
 import { Modal } from 'react-bootstrap';
+import { useWeb3React } from '@web3-react/core';
+import { API_URL } from "../../../../utils/ApiUrl"
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import axios from 'axios';
 
-const SquadModals = ({setShow2, show2}) => {
+const SquadModals = ({show1,setShow1, setShow2, show2 }) => {
 
-    const [show1, setShow1] = useState(false);
+
+  // const [show1, setShow1] = useState(false);
   const handleClose1 = () => setShow1(false);
 
   const handleClose2 = () => setShow2(false);
@@ -16,117 +22,221 @@ const SquadModals = ({setShow2, show2}) => {
   const [show4, setShow4] = useState(false);
   const handleClose4 = () => setShow4(false);
 
-
-  
   const [profilePicture, setProfilePicture] = useState(null);
   const setProfilePic = (evt) => {
     setProfilePicture(evt.target.files[0]);
   }
+
+  const [inputs, setInputs] = useState({})
+  const { account } = useWeb3React()
+  const handleChange1 = (e) => {
+    const { name, value } = e.target;
+    setInputs(inputs => ({ ...inputs, [name]: value }));
+  }
+
+  const [loader, setLoader] = useState()
+  const creatAquad = () => {
+    setShow2(true)
+    if (inputs?.name) {
+      if (profilePicture) {
+        const data = new FormData();
+        data.append("name", inputs?.name);
+        data.append("squadImage", profilePicture);
+        setLoader(true);
+        let tok = localStorage.getItem("accessToken");
+        if (account) {
+          // window.$("#exampleModalLabel11").modal("hide");
+          var config = {
+            method: "post",
+            url: `${API_URL}/tasks/squads`,
+            headers: {
+              authorization: `Bearer ` + tok
+            },
+            data: data
+          };
+
+          axios(config)
+            .then(async (response) => {
+              setLoader(false);
+              const userString = JSON.parse(localStorage.getItem('user'));
+              userString.isCommander = true;
+              // Update local storage object with the updated data
+              localStorage.setItem('user', JSON.stringify(userString));
+              // localStorage.setItem('user', JSON.stringify(updateduser));
+              // localStorage.setItem('user', JSON.stringify(response?.data?.data));
+              localStorage.setItem("accessToken", response?.data?.accessToken);
+              // window.$("#exampleModalLabel11").modal("hide");
+              window.scrollTo(0, 0);
+              handleClose2();
+              handleShow3();
+              // setCall(!call)
+              // GetUserProfiledata();
+              // getData();
+              // vateransApi();
+              setLoader(false);
+              // textCopiedFun();
+              // CloseModal();
+            })
+            .catch(function (error) {
+              // console.log(error);
+              // window.location.reload()
+              // window.$("#exampleModalLabel11").modal("hide");
+              // setLoader(false);
+              // window.$("#exampleModalLabel11").modal("hide");
+              if (error.response.data.statusCode == 409) {
+                window.$("#exampleModalLabel11").modal("hide");
+                toast.error("Squad for User already exists")
+              }
+              setLoader(false);
+            });
+        }
+      } else {
+        toast.error("Squad Image required")
+      }
+    } else {
+      toast.error("Squad Name required")
+    }
+  }
+
+  const leaveSquad = () => {
+    let tok = localStorage.getItem("accessToken");
+    axios.patch(`${API_URL}/tasks/squads/leave-squad`, {},
+      {
+        headers: {
+          authorization: `Bearer ` + tok
+        }
+      }
+    ).then((response) => {
+      localStorage.removeItem("isCommander")
+      toast.success("Squad Left Successfully");
+      localStorage.setItem("accessToken", response?.data?.accessToken);
+      localStorage.setItem("user", JSON.stringify(response?.data?.data));
+      handleClose1()
+      // window.location.reload();
+      // SquadUsers();
+      // getDataTask();
+      // window.$(`#exampleModal1`).modal("hide");
+      // Code
+    }).catch((error) => {
+      // Code
+      toast.error(error.response.data.message)
+    })
+  }
+
+
+
+
+
   return (
     <>
       <Modal className='detailmodal' show={show1} onHide={handleClose1} centered>
-          <Modal.Header closeButton>
-            <Modal.Title>create Squad</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <div className='imagesmodal'>
-              <img src='\imagesmodals.svg' alt='img' className='img-fluid' />
-              <p>Are you sure you want to leave this squad and create a new one?</p>
-              {/* <p>Are you sure you want to leave this squad?</p> */}
+        <Modal.Header closeButton>
+          <Modal.Title>Dismiss User</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div className='imagesmodal'>
+            <img src='\imagesmodals.svg' alt='img' className='img-fluid' />
+            <p>Are you sure you want to leave this squad and create a new one?</p>
+            {/* <p>Are you sure you want to leave this squad?</p> */}
+          </div>
+          <div className='endbtn'>
+            <button  className="btn-blackk" ><span><img src='\Subtract.svg' alt='img' className='img-fluid' /></span>Cancel</button>
+            <button onClick={handleShow2}  className="btn-pinkk" ><img src='\up.svg' alt='img' className='img-fluid' />Yes’ I am sure</button>
+          </div>
+        </Modal.Body>
+      </Modal>
+
+
+      <Modal className='detailmodal' show={show2} onHide={handleClose2} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>
+            create Squad
+          </Modal.Title>
+
+        </Modal.Header>
+        <Modal.Body>
+          <div className="upload-parent">
+            <p className='uehyuj'>Upload Squad Symbol</p>
+            <div className="upload uploadsss">
+              {
+                profilePicture ? <label htmlFor="upload">
+                  {" "}
+                  <img
+                    src={profilePicture ? URL?.createObjectURL(profilePicture) : ""}
+                    alt="img"
+                    className="img-fluid"
+                  />
+                </label> : <label htmlFor="upload">
+                  {" "}
+                  <img
+                    src="\uploadimage.svg"
+                    alt="img"
+                    className="img-fluid"
+                  />
+                  <p className='dropimage'>Drop your image here, or<span>browse</span> </p>
+                  <h6 className='support1'>Supports: JPG, JPEG, PNG</h6>
+                  <p className='optimal'>Optimal Image size: 500x500 px</p>
+                </label>
+              }
+
+              <input type="file"  className="d-none" id="upload" onChange={(e) => setProfilePic(e)} />
+
             </div>
-            <div className='endbtn'>
-              <button><span><img src='\Subtract.svg' alt='img' className='img-fluid' /></span>Cancel</button>
-              <button onClick={handleShow2}><img src='\up.svg' alt='img' className='img-fluid' />Yes’ I am sure</button>
-            </div>
-          </Modal.Body>
-        </Modal>
+          </div>
+          <div className='maininput'>
+            <p className="squad">Squad Name</p>
+            <input type='text' value={inputs?.name ? inputs?.name :''} name="name" onChange={(e)=>handleChange1(e)} placeholder='Enter Squad Name....' />
+          </div>
+          <div className='endbtn'>
+            <button className="btn-blackk" onClick={handleClose2}><span><img src='\Subtract.svg' alt='img' className='img-fluid' /></span>Cancel</button>
+            <button className="btn-pinkk" 
+            
+            onClick={creatAquad}
+            // onClick={() => {
+            //   handleClose2();
+            //   handleShow3();
+            // }}
+            >
+              <img src='\add.svg' alt='img' className='img-fluid' /> Create Squad</button>
+          </div>
+        </Modal.Body>
+      </Modal>
 
 
-        <Modal className='detailmodal' show={show2} onHide={handleClose2} centered>
-          <Modal.Header closeButton>
-            <Modal.Title>
-              create Squad
-            </Modal.Title>
+      <Modal className='detailmodal' show={show3} onHide={handleClose3} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>
+            Create Squad
+          </Modal.Title>
 
-          </Modal.Header>
-          <Modal.Body>
-            <div className="upload-parent">
-              <p className='uehyuj'>Upload Squad Symbol</p>
-              <div className="upload uploadsss">
-                {
-                  profilePicture ? <label htmlFor="upload">
-                    {" "}
-                    <img
-                      src={profilePicture ? URL?.createObjectURL(profilePicture) : ""}
-                      alt="img"
-                      className="img-fluid"
-                    />
-                  </label> : <label htmlFor="upload">
-                    {" "}
-                    <img
-                      src="\uploadimage.svg"
-                      alt="img"
-                      className="img-fluid"
-                    />
-                    <p className='dropimage'>Drop your image here, or<span>browse</span> </p>
-                    <h6 className='support1'>Supports: JPG, JPEG, PNG</h6>
-                    <p className='optimal'>Optimal Image size: 500x500 px</p>
-                  </label>
-                }
+        </Modal.Header>
+        <Modal.Body>
 
-                <input type="file" className="d-none" id="upload" onChange={(e) => setProfilePic(e)} />
+          <div className='arrowimg'>
+            <img src='\Groupsquad.svg' alt='img' className='img-fluid' />
+            <p>Squad successfully created</p>
+          </div>
 
-              </div>
-            </div>
-            <div className='maininput'>
-              <p className="squad">Squad Name</p>
-              <input type='text' placeholder='Enter Squad Name....' />
-            </div>
-            <div className='endbtn'>
-              <button className="btn-blackk" onClick={handleClose2}><span><img src='\Subtract.svg' alt='img' className='img-fluid' /></span>Cancel</button>
-              <button className="btn-pinkk" onClick={() => {
-                handleClose2();
-                handleShow3();
-              }}><img src='\add.svg' alt='img' className='img-fluid' /> Create Squad</button>
-            </div>
-          </Modal.Body>
-        </Modal>
+        </Modal.Body>
 
+      </Modal>
 
-        <Modal className='detailmodal' show={show3} onHide={handleClose3} centered>
-          <Modal.Header closeButton>
-            <Modal.Title>
-              Leave Squad
-            </Modal.Title>
-
-          </Modal.Header>
-          <Modal.Body>
-
-            <div className='arrowimg'>
-              <img src='\Groupsquad.svg' alt='img' className='img-fluid' />
-              <p>Squad successfully created</p>
-            </div>
-
-          </Modal.Body>
-
-        </Modal>
-
-        <Modal className='detailmodal' show={show4} onHide={handleClose4} centered>
-          <Modal.Header closeButton>
-            <Modal.Title>Leave Squad</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <div className='imagesmodal'>
-              <img src='\imagesmodals.svg' alt='img' className='img-fluid' />
-              {/* <p>Are you sure you want to leave this squad and create a new one?</p> */}
-              <p>Are you sure you want to leave this squad?</p>
-            </div>
-            <div className='endbtn'>
-              <button className="btn-blackk" onClick={handleClose4}><span><img src='\Subtract.svg' alt='img' className='img-fluid' /></span>Cancel</button>
-              <button className="btn-pinkk"><img src='\up.svg' alt='img' className='img-fluid' />Yes’ I am sure</button>
-            </div>
-          </Modal.Body>
-        </Modal>
+      <Modal className='detailmodal' show={show1}  onHide={handleClose1} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Leave Squad</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div className='imagesmodal'>
+            <img src='\imagesmodals.svg' alt='img' className='img-fluid' />
+            {/* <p>Are you sure you want to leave this squad and create a new one?</p> */}
+            <p>Are you sure you want to leave this squad?</p>
+          </div>
+          <div className='endbtn'>
+            <button className="btn-blackk" onClick={handleClose1}><span><img src='\Subtract.svg' alt='img' className='img-fluid' /></span>Cancel</button>
+            <button className="btn-pinkk" onClick={leaveSquad}><img src='\up.svg' alt='img' className='img-fluid' />Yes’ I am sure</button>
+          </div>
+        </Modal.Body>
+      </Modal>
     </>
   )
 }

@@ -75,9 +75,6 @@ const Tasks = ({ setShowtask ,settaskdetail}) => {
     }
   }
 
-
-
-
   const SubmitProofOfWork =(elem)=>{
     setShowtask(true)
     settaskdetail(elem)

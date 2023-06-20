@@ -91,8 +91,11 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role, setinvitecode, invitecod
                         }
                         else if (res?.data?.data?.isCommander === false && res?.data?.data?.squad?.name !=='') {
                             history.push("/soldier");
-                        }else {
+                        }else if (res?.data?.data?.isCommander === false && res?.data?.data?.squad?.name == ''){
                             history.push("/soldier");    
+                        }
+                        else{
+                            history.push("/");   
                         }
                         localStorage.setItem("wallet", account);
                     })

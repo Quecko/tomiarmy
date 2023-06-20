@@ -51,7 +51,8 @@ const Recruiting = () => {
         .then(function (response) {
           setLoader(false);
           // setCount(response.data.data.count)
-          setRequests(response?.data?.data?.squadInvitationRequests);
+          const filteredData = response?.data?.data?.squadInvitationRequests.filter(item => !item.hidden_request);
+          setRequests(filteredData);
           // let arr = Array.from(Array(parseInt(response.data.data.pages)).keys());
           // setPages(arr);
           // setCurrentPage(valu)
@@ -65,11 +66,6 @@ const Recruiting = () => {
         });
     }
   }
-
-
-  console.log('requests', requests);
-
-
 
   useEffect(() => {
     // if (currentPage > 1) {
