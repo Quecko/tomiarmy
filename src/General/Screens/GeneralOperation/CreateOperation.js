@@ -27,33 +27,31 @@ const CreateOperation = () => {
         reward: '',
         tomitoken: '',
         description: '',
-      })
-    
-      const handleChange = (event) => {
+    })
+
+    const handleChange = (event) => {
         allFormData[event.target.name] = event.target.value;
         setAllFormData({ ...allFormData });
-      }
-    
-      const ClearAll = () => {
+    }
+
+    const ClearAll = () => {
         setAllFormData({
             name: '',
             reward: '',
             tomitoken: '',
             description: '',
         })
-      }
-    
-    
+    }
     const setProfilePic = (evt) => {
         const file = evt.target.files[0];
         if (file.size >= 2872139) {
-          toast.error("File cannot be greater than 3mbs")
+            toast.error("File cannot be greater than 3mbs")
         } else {
-          setProfilePicture(evt.target.files[0]);
-          const file = evt.target.files[0]
-          setProfileP(file)
+            setProfilePicture(evt.target.files[0]);
+            const file = evt.target.files[0]
+            setProfileP(file)
         }
-      };
+    };
 
 
     return (
@@ -65,11 +63,11 @@ const CreateOperation = () => {
                             <div className="twice-field">
                                 <div className="option-field">
                                     <label>Operation Name</label>
-                                    <input value={allFormData?.name} name="name" onChange={handleChange}  type="text" placeholder="Enter operation name...." />
+                                    <input value={allFormData?.name} name="name" onChange={handleChange} type="text" placeholder="Enter operation name...." />
                                 </div>
                                 <div className="option-field">
                                     <label>Reward Points</label>
-                                    <input value={allFormData?.reward} name="reward" onChange={handleChange}  type="text" placeholder="Enter reward points...." />
+                                    <input value={allFormData?.reward} name="reward" onChange={handleChange} type="text" placeholder="Enter reward points...." />
                                 </div>
                             </div>
                             <div className="twice-field">
@@ -136,10 +134,8 @@ const CreateOperation = () => {
                 </div>
                 <div className="bottom-content border-grad1">
                     <div className="inner-field">
-                        <p>Task</p>
-                        <p>Date Created</p>
-                        <p>Date Expires</p>
-                        <p>Points</p>
+                        <p>Task Title</p>
+                        <p>Task Description</p>
                         <p>Actions</p>
                     </div>
                     <div className="middle-item">

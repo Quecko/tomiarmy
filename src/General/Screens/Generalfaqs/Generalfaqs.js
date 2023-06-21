@@ -35,7 +35,6 @@ const Generalfaqs = ({setShowfaq}) => {
                                                     <th>
                                                         <p className='headtable'>Actions</p>
                                                     </th>
-
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -53,7 +52,6 @@ const Generalfaqs = ({setShowfaq}) => {
                                                                     <img src='\Vectordots.svg' alt='img' className='img-fluid ' />
 
                                                                 </Dropdown.Toggle>
-
                                                                 <Dropdown.Menu>
                                                                     <Dropdown.Item href="#/action-1">
                                                                         <p ><img src='\generalassets\icons\edit.svg' alt='img' className='img-fluid' />Edit</p>
@@ -62,11 +60,8 @@ const Generalfaqs = ({setShowfaq}) => {
                                                                 </Dropdown.Menu>
                                                             </Dropdown>
                                                         </div>
-
-
                                                     </td>
                                                 </tr>
-
                                             </tbody>
                                         </table>
                                     </div>
