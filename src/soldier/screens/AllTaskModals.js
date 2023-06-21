@@ -10,13 +10,7 @@ const AllTaskModals = ({ showtask, setShowtask, settaskdetail, taskdetail }) => 
 
   const handleClosetask = () => setShowtask(false);
   const [loader, setLoader] = useState(false);
-  console.log({ taskdetail });
-
   const { account } = useWeb3React()
-
-
-
-  console.log({taskdetail});
 
   const [show1, setShow1] = useState(false);
   const handleClose1 = () => setShow1(false);

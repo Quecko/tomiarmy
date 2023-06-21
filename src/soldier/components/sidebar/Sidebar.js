@@ -26,6 +26,7 @@ import axios from "axios";
 import Signature from "../../../hooks/dataSenders/userSign";
 import { useHistory } from "react-router-dom";
 import { API_URL } from '../../../utils/ApiUrl'
+import ArmyForumModal from "../../screens/ArmyForumModal";
 
 const Sidebar = () => {
 
@@ -39,13 +40,14 @@ const Sidebar = () => {
   const handleShow = () => setShow(true);
   const [showtask, setShowtask] = useState(false);
   const [taskdetail, settaskdetail] = useState(null);
+  const [coLeaderDetails,setCoLeaderDetails ] = useState(null);
   const { account } = useWeb3React()
   const history = useHistory();
   const { userSign } = Signature();
 
   const [show4, setShow4] = useState(false);
   const [show5, setShow5] = useState(false);
-
+  const [show6, setShow6] = useState(false);
 
   useEffect(() => {
     if (indexvv == "0") {
@@ -575,7 +577,7 @@ const Sidebar = () => {
             </div>
           </div>
           <div className="content-column">
-            <Header handleShow={handleShow} indexwait={indexwait} routes={routes} setroute={setroute} show1={show1} setShow1={setShow1} show2={show2} setShow2={setShow2} setShow4={setShow4} setShow5={setShow5} />
+            <Header handleShow={handleShow} indexwait={indexwait} routes={routes} setroute={setroute} show1={show1} setShow1={setShow1} show2={show2} setShow2={setShow2} setShow4={setShow4} setShow5={setShow5}  />
             {indexwait === 0 ?
               (
                 <>
@@ -602,6 +604,8 @@ const Sidebar = () => {
                       <>
                         <Squad show1={show1} setShow1={setShow1} show2={show2} setShow2={setShow2} 
                         show4={show4} setShow4={setShow4} show5={show5} setShow5={setShow5} 
+                        show6={show6} setShow6={setShow6} 
+                        setCoLeaderDetail={setCoLeaderDetails}
                         />
                       </>
                     )
@@ -625,7 +629,7 @@ const Sidebar = () => {
                         indexwait == 6 ?
                           (
                             <>
-                              <ArmyForum />
+                              <ArmyForum  />
                             </>
                           )
                           :
@@ -1062,8 +1066,9 @@ const Sidebar = () => {
 
 
       <SquadModals show1={show1} setShow1={setShow1} show2={show2} setShow2={setShow2}  />
-      <LeaderModals show4={show4} setShow4={setShow4} show5={show5} setShow5={setShow5} />
+      <LeaderModals show4={show4} setShow4={setShow4} show5={show5} setShow5={setShow5} show6={show6} setShow6={setShow6} item={coLeaderDetails}  />
       <AllTaskModals showtask={showtask} setShowtask={setShowtask} settaskdetail={settaskdetail} taskdetail={taskdetail} />
+      {/* <ArmyForumModal /> */}
     </>
   );
 };
