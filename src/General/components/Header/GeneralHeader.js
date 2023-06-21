@@ -8,8 +8,6 @@ import mobileLogo from "../../../assets/icons/mobileLogo.svg";
 import Modal from 'react-bootstrap/Modal';
 
 const GeneralHeader = ({ routes, setroute, routeshome, setroutehome, indexwait, handleShow, routesarmy, setroutearmy, setShowtask, showtask, showannounce, setShowannounce, showfaq, setShowfaq }) => {
-
-
   return (
     <>
       <div
@@ -110,7 +108,7 @@ const GeneralHeader = ({ routes, setroute, routeshome, setroutehome, indexwait, 
                   <button style={{maxWidth: "171px", width: "100%"}} onClick={setShowtask} className="create-squad-btn display-none-in-mobile" >
                     <img src="\generalassets\icons\create-task.svg" alt="img" className="img-fluid me-2" />
                     <span> Create Task</span>
-                  </button> </> : <button className="savechange-btn disabled display-none-in-mobile" >
+                  </button> </> : <button  className="savechange-btn disabled display-none-in-mobile" >
                   <img src="\generalassets\icons\save-change.svg" alt="img" className="img-fluid me-1" />
                   <span> Save Changes</span>
                 </button>}

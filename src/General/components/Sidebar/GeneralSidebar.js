@@ -31,8 +31,6 @@ const GeneralSidebar = () => {
   const [tasks, settasks] = useState([]);
   const [expired, setexpired] = useState(false);
   const { account } = useWeb3React();
-
-
   useEffect(() => {
     // if (currentPage > 1) {
     //     getData(currentPage);
@@ -443,7 +441,7 @@ const GeneralSidebar = () => {
             </div>
           </div>
           <div className="content-column">
-            <GeneralHeader handleShow={handleShow} indexwait={indexwait} routes={routes} setroute={setroute} routeshome={routeshome} setroutehome={setroutehome} routesarmy={routesarmy} setroutearmy={setroutearmy} showtask={showtask} setShowtask={setShowtask} showannounce={showannounce} setShowannounce={setShowannounce} showfaq={showfaq} setShowfaq={setShowfaq} />
+            <GeneralHeader handleShow={handleShow} indexwait={indexwait}  routes={routes} setroute={setroute} routeshome={routeshome} setroutehome={setroutehome} routesarmy={routesarmy} setroutearmy={setroutearmy} showtask={showtask} setShowtask={setShowtask} showannounce={showannounce} setShowannounce={setShowannounce} showfaq={showfaq} setShowfaq={setShowfaq} />
             {indexwait == 0 ?
               (
                 <>
@@ -461,7 +459,7 @@ const GeneralSidebar = () => {
                 indexwait == 2 ?
                   (
                     <>
-                      <GeneralOperation routes={routes} setroute={setroute} />
+                      <GeneralOperation routes={routes}  setroute={setroute} />
                     </>
                   )
                   :

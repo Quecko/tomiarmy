@@ -18,17 +18,14 @@ const Proofofwork = () => {
     const handleShowreject = () => setShowreject(true);
     const [expired, setexpired] = useState(false);
 
-
     const settabss = (event) => {
         if (event === 'home') {
-          setexpired(false)
+            setexpired(false)
         }
         else if (event === 'profile') {
-          setexpired(true)
+            setexpired(true)
         }
-      }
-    
-
+    }
 
     return (
         <>
@@ -248,7 +245,7 @@ const Proofofwork = () => {
                                                                     </div>
                                                                 </Accordion.Body>
                                                             </Accordion.Item>
-                                                          
+
                                                         </Accordion>
                                                     </div>
 
@@ -454,7 +451,7 @@ const Proofofwork = () => {
                                                                     </div>
                                                                 </Accordion.Body>
                                                             </Accordion.Item>
-                                                          
+
                                                         </Accordion>
                                                     </div>
 
@@ -524,18 +521,18 @@ const Proofofwork = () => {
                                     <img src="\generalassets\other-imgs\proofofwork.png" alt="powimginner" className="powimginner" />
                                 </div>
                                 <div className="others-imgs">
-                                <div className="powimg">
-                                    <img src="\generalassets\other-imgs\proofofwork.png" alt="powimginner" className="powimginner" />
-                                </div>
-                                <div className="powimg">
-                                    <img src="\generalassets\other-imgs\proofofwork.png" alt="powimginner" className="powimginner" />
-                                </div>
-                                <div className="powimg">
-                                    <img src="\generalassets\other-imgs\proofofwork.png" alt="powimginner" className="powimginner" />
-                                </div>
-                                <div className="powimg">
-                                    <img src="\generalassets\other-imgs\proofofwork.png" alt="powimginner" className="powimginner" />
-                                </div>
+                                    <div className="powimg">
+                                        <img src="\generalassets\other-imgs\proofofwork.png" alt="powimginner" className="powimginner" />
+                                    </div>
+                                    <div className="powimg">
+                                        <img src="\generalassets\other-imgs\proofofwork.png" alt="powimginner" className="powimginner" />
+                                    </div>
+                                    <div className="powimg">
+                                        <img src="\generalassets\other-imgs\proofofwork.png" alt="powimginner" className="powimginner" />
+                                    </div>
+                                    <div className="powimg">
+                                        <img src="\generalassets\other-imgs\proofofwork.png" alt="powimginner" className="powimginner" />
+                                    </div>
                                 </div>
                             </div>
                         </div>

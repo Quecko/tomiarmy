@@ -30,8 +30,8 @@ const CreateFaqModal = ({ showfaq, setShowfaq }) => {
   const CreateFAQ = async () => {
     let tok = localStorage.getItem("accessToken");
     var data1 = ({
-    question: allFormData?.name,
-    answer: allFormData?.description
+    title: allFormData?.name,
+    description: allFormData?.description
     });
 
     if (allFormData?.name != '') {
