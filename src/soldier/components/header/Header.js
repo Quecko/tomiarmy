@@ -12,7 +12,7 @@ import { API_URL } from "../../../utils/ApiUrl"
 import axios from "axios";
 
 
-const Header = ({ routes, setroute, indexwait, handleShow, setShow2,setShow1,setShow4,setShow5 }) => {
+const Header = ({ routes, setroute, indexwait, handleShow, setShow2,setShow1,setShow4,setShow5,setShowForumModal  }) => {
   const datacommander = localStorage.getItem('user')
   const data = JSON.parse(datacommander)
   const { account } = useWeb3React();
@@ -321,36 +321,8 @@ const Header = ({ routes, setroute, indexwait, handleShow, setShow2,setShow1,set
           <button className="toggle-menu-btn" onClick={handleShow}>
             <img src={menuIcon} alt="menuIcon" />
           </button>
-
-
-        </div>
-
-      </div>
-      <div className="topicmodal">
-        <div class="modal fade" id="exampleModall" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body">
-                <h5>Start a New Topic</h5>
-                <p>Title</p>
-                <input type="text" placeholder="Enter Title...." />
-                <p>Description</p>
-                <textarea placeholder="Enter Description Url...."></textarea>
-                <div className="twice-btn">
-                  <button className="btn-cancel" data-bs-dismiss="modal" aria-label="Close"> <img src="\assets\cancel.svg" alt="img" className="img-fluid me-2" /> Cancel</button>
-                  <button className="btn-topic"> <img src="\assets\topic-btn.svg" alt="img" className="img-fluid me-2" /> Start a New Topic</button>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
-
-      
-
     </>
   );
 };

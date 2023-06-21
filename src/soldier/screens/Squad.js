@@ -10,7 +10,7 @@ import axios from 'axios';
 import { useWeb3React } from '@web3-react/core';
 import { toast } from 'react-toastify';
 
-const Squad = ({ show1, setShow1, show2, setShow2,show4, setShow4, show5, setShow5  }) => {
+const Squad = ({ show1, setShow1, show2, setShow2,show4, setShow4, show5, setShow5,show6,setShow6,setCoLeaderDetail  }) => {
   const datacommander = localStorage.getItem('user')
   const data = JSON.parse(datacommander)
   let tok = localStorage.getItem("accessToken");
@@ -101,6 +101,13 @@ const Squad = ({ show1, setShow1, show2, setShow2,show4, setShow4, show5, setSho
 
   const selecttabs = (event) => {
     setselecttab(event)
+  }
+
+
+  const addCoLeader = (elem) => {
+    console.log('elem',elem);
+    setCoLeaderDetail(elem)
+    setShow6(true)
   }
 
 
@@ -263,7 +270,7 @@ const Squad = ({ show1, setShow1, show2, setShow2,show4, setShow4, show5, setSho
                                               </Dropdown.Toggle>
                                               <Dropdown.Menu>
                                                 <Dropdown.Item href="#/action-1">
-                                                  <p onClick={handleShow3}><img src='\Vector.svg' alt='img' className='img-fluid' />Promote to Co leader</p>
+                                                  <p onClick={()=>addCoLeader(elem)}><img src='\Vector.svg' alt='img' className='img-fluid' />Promote to Co leader</p>
                                                 </Dropdown.Item>
                                                 <Dropdown.Item href="#/action-1">
                                                   <p onClick={handleShow3}><img src='\Vector.svg' alt='img' className='img-fluid' />Dismiss</p>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Pagination from 'react-bootstrap/Pagination';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
@@ -6,11 +6,51 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Accordion from 'react-bootstrap/Accordion';
+import { API_URL } from '../../utils/ApiUrl';
+import axios from 'axios';
 const Announcements = () => {
   const [show, setShow] = useState(false);
-
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const [loader,setLoader]=useState(false)
+  const [announcements,setAnnouncements]=useState([])
+  let tok = localStorage.getItem("accessToken");
+  const [selecttab, setselecttab] = useState('home')
+  const [read,setRead] = useState(true)
+  const getAnnouncements = async (event) => {
+    console.log('event',event);
+    var config = {
+      method: "get",
+      url: `${API_URL}/announcements/user-announcements?offset=1&limit=5&isRead=${read}`,
+      headers: {
+        authorization: `Bearer ` + tok
+      },
+    };
+    axios(config)
+      .then(function (response) {
+        setAnnouncements(response?.data?.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+        setLoader(false);
+      });
+  }
+
+  useEffect(() => {
+    if (selecttab === 'profile') { 
+      setRead(false)
+      getAnnouncements()
+    }
+    else {
+      setRead(true)
+      getAnnouncements()
+    }
+  }, [selecttab]);
+
+
+  console.log('announcements',announcements);
+   
+
   return (
     <>
       <div className="formobile-heading d-none display-block-in-mobile">
@@ -29,6 +69,7 @@ const Announcements = () => {
                   transition={false}
                   id="noanim-tab-example"
                   className="mb-3 border-grad1"
+                  onSelect={setselecttab}
                 >
                   <Tab eventKey="home" title="Read Announcements">
                     {/* <Sonnet /> */}
