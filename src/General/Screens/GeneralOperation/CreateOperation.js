@@ -8,7 +8,8 @@ import { toast } from 'react-toastify';
 import axios from 'axios';
 import Loader from '../../../hooks/loader';
 import Modal from 'react-bootstrap/Modal';
-
+import { Accordion, Dropdown, Pagination, Tab, Table, Tabs } from 'react-bootstrap'
+import dosts from "../../../assets/icons/dots.svg";
 const CreateOperation = () => {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
@@ -42,6 +43,8 @@ const CreateOperation = () => {
             description: '',
         })
     }
+
+
     const setProfilePic = (evt) => {
         const file = evt.target.files[0];
         if (file.size >= 2872139) {
@@ -153,6 +156,193 @@ const CreateOperation = () => {
                             <a href="#" className='active'>1</a>
                             <h6>Next</h6>
                         </div>
+                    </div>
+                </div>
+                <div className="data-box general-tasks-wrappergeneral border-grad1 p-0">
+                    <div className="maincard-global">
+                        <Table striped bordered hover responsive className="general-tasks-table display-none-in-mobile">
+                            <thead>
+                                <tr>
+                                    <th>Task Title</th>
+                                    <th>Task Description</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Follow this Twitter Account....</td>
+                                    <td>Sed ut perspiciatis unde omnis iste natus error sit voluptatem...</td>
+
+                                    <td>
+                                        <div className="tbl-dropdown text-end">
+                                            <Dropdown>
+                                                <Dropdown.Toggle id="dropdown-basic">
+                                                    <img src={dosts} alt="dosts" />
+                                                </Dropdown.Toggle>
+
+                                                <Dropdown.Menu className="stats-dropdown-menu">
+                                                    <div className="stats-dropdown-bg">
+                                                        <Dropdown.Item>
+                                                            <img src="\generalassets\icons\detail.svg" alt="submitIcon" />
+                                                            Details
+                                                        </Dropdown.Item>
+                                                        <Dropdown.Item >
+                                                            <img src="\generalassets\icons\checkmark.svg" alt="submitIcon" />
+                                                            Approve
+                                                        </Dropdown.Item>
+                                                        <Dropdown.Item>
+                                                            <img src="\generalassets\icons\Subtract.svg" alt="submitIcon" />
+                                                            Reject
+                                                        </Dropdown.Item>
+                                                    </div>
+                                                </Dropdown.Menu>
+                                            </Dropdown>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Follow this Twitter AcRetweet the following tweet...</td>
+                                    <td>Sed ut perspiciatis unde omnis iste natus error sit voluptatem...</td>
+
+                                    <td>
+                                        <div className="tbl-dropdown  text-end">
+                                            <Dropdown>
+                                                <Dropdown.Toggle id="dropdown-basic">
+                                                    <img src={dosts} alt="dosts" />
+                                                </Dropdown.Toggle>
+
+                                                <Dropdown.Menu className="stats-dropdown-menu">
+                                                    <div className="stats-dropdown-bg">
+                                                        <Dropdown.Item>
+                                                            <img src="\generalassets\icons\detail.svg" alt="submitIcon" />
+                                                            Details
+                                                        </Dropdown.Item>
+                                                        <Dropdown.Item>
+                                                            <img src="\generalassets\icons\checkmark.svg" alt="submitIcon" />
+                                                            Approve
+                                                        </Dropdown.Item>
+                                                        <Dropdown.Item>
+                                                            <img src="\generalassets\icons\Subtract.svg" alt="submitIcon" />
+                                                            Reject
+                                                        </Dropdown.Item>
+                                                    </div>
+                                                </Dropdown.Menu>
+                                            </Dropdown>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Start a discussion on tomi discord server</td>
+                                    <td>Sed ut perspiciatis unde omnis iste natus error sit voluptatem...</td>
+
+                                    <td>
+                                        <div className="tbl-dropdown  text-end">
+                                            <Dropdown>
+                                                <Dropdown.Toggle id="dropdown-basic">
+                                                    <img src={dosts} alt="dosts" />
+                                                </Dropdown.Toggle>
+
+                                                <Dropdown.Menu className="stats-dropdown-menu">
+                                                    <div className="stats-dropdown-bg">
+                                                        <Dropdown.Item>
+                                                            <img src="\generalassets\icons\detail.svg" alt="submitIcon" />
+                                                            Details
+                                                        </Dropdown.Item>
+                                                        <Dropdown.Item>
+                                                            <img src="\generalassets\icons\checkmark.svg" alt="submitIcon" />
+                                                            Approve
+                                                        </Dropdown.Item>
+                                                        <Dropdown.Item>
+                                                            <img src="\generalassets\icons\Subtract.svg" alt="submitIcon" />
+                                                            Reject
+                                                        </Dropdown.Item>
+                                                    </div>
+                                                </Dropdown.Menu>
+                                            </Dropdown>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>join the telegram channel</td>
+                                    <td>Sed ut perspiciatis unde omnis iste natus error sit voluptatem...</td>
+                                    <td>
+                                        <div className="tbl-dropdown  text-end">
+                                            <Dropdown>
+                                                <Dropdown.Toggle id="dropdown-basic">
+                                                    <img src={dosts} alt="dosts" />
+                                                </Dropdown.Toggle>
+
+                                                <Dropdown.Menu className="stats-dropdown-menu">
+                                                    <div className="stats-dropdown-bg">
+                                                        <Dropdown.Item>
+                                                            <img src="\generalassets\icons\detail.svg" alt="submitIcon" />
+                                                            Details
+                                                        </Dropdown.Item>
+                                                        <Dropdown.Item>
+                                                            <img src="\generalassets\icons\checkmark.svg" alt="submitIcon" />
+                                                            Approve
+                                                        </Dropdown.Item>
+                                                        <Dropdown.Item>
+                                                            <img src="\generalassets\icons\Subtract.svg" alt="submitIcon" />
+                                                            Reject
+                                                        </Dropdown.Item>
+                                                    </div>
+                                                </Dropdown.Menu>
+                                            </Dropdown>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </Table>
+                        <div className="pagi display-none-in-mobile">
+                            <div className="left">
+                                <p>Showing 1 to 10 of 57 entries</p>
+                            </div>
+                            <div className="right">
+                                <p>Previous</p>
+                                <Pagination>
+                                    <Pagination.Item active>{1}</Pagination.Item>
+                                    <Pagination.Item>{2}</Pagination.Item>
+                                    <Pagination.Item >{3}</Pagination.Item>
+                                    <Pagination.Item>{4}</Pagination.Item>
+                                    <Pagination.Item >{5}</Pagination.Item>
+                                    <Pagination.Item>{6}</Pagination.Item>
+                                </Pagination>
+                                <p>Next</p>
+                            </div>
+                        </div>
+                        <div className="mobile-responsive-table d-none display-block-in-mobile">
+                            <div className="heading-mobile">
+                                <p>User</p>
+                            </div>
+                            <Accordion defaultActiveKey="0">
+                                <Accordion.Item eventKey="0">
+                                    <Accordion.Header>sharjeel</Accordion.Header>
+                                    <Accordion.Body>
+                                        <div className="inner-fields">
+                                            <div className="inner-item">
+                                                <h6>Tasks</h6>
+                                                <p>Like our facebook..</p>
+                                            </div>
+                                            <div className="inner-item">
+                                                <h6>Points</h6>
+                                                <p>1,000,000</p>
+                                            </div>
+                                            <div className="inner-item">
+                                                <h6>Status</h6>
+                                                <button className="btn-green">Completed</button>
+                                            </div>
+                                            <div className="inner-item">
+                                                <h6>Actions</h6>
+                                                <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
+                                            </div>
+                                        </div>
+                                    </Accordion.Body>
+                                </Accordion.Item>
+
+                            </Accordion>
+                        </div>
+
                     </div>
                 </div>
             </section>
