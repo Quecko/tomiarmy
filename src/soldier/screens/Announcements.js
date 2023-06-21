@@ -16,12 +16,10 @@ const Announcements = () => {
   const [announcements,setAnnouncements]=useState([])
   let tok = localStorage.getItem("accessToken");
   const [selecttab, setselecttab] = useState('home')
-  const [read,setRead] = useState(true)
-  const getAnnouncements = async (event) => {
-    console.log('event',event);
+  const getAnnouncements = async () => {
     var config = {
       method: "get",
-      url: `${API_URL}/announcements/user-announcements?offset=1&limit=5&isRead=${read}`,
+      url: `${API_URL}/announcements/user-announcements?offset=1&limit=5&isRead=${selecttab==='home' ? true:false }`,
       headers: {
         authorization: `Bearer ` + tok
       },
@@ -37,18 +35,9 @@ const Announcements = () => {
   }
 
   useEffect(() => {
-    if (selecttab === 'profile') { 
-      setRead(false)
-      getAnnouncements()
-    }
-    else {
-      setRead(true)
-      getAnnouncements()
-    }
+   getAnnouncements()
   }, [selecttab]);
 
-
-  console.log('announcements',announcements);
    
 
   return (
