@@ -1,12 +1,110 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import "./bugreport.scss"
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import Dropdown from 'react-bootstrap/Dropdown';
 import Pagination from 'react-bootstrap/Pagination';
 import Accordion from 'react-bootstrap/Accordion';
+import { API_URL } from "../../utils/ApiUrl"
+import { toast } from 'react-toastify';
+import axios from 'axios';
+import moment from 'moment';
 
 const BugReport = () => {
+    const [reportBug, setReportedBug] = useState([]);
+    const [allFormData, setAllFormData] = useState({
+        issue: '',
+        description: '',
+    })
+
+    console.log('reportBug', reportBug);
+
+    const [imageUrl, setImageUrl] = useState(null)
+
+    const handleChange = (event) => {
+        allFormData[event.target.name] = event.target.value;
+        setAllFormData({ ...allFormData });
+    }
+
+    const [loader, setLoader] = useState()
+    const createBug = () => {
+        setLoader(true);
+        let tok = localStorage.getItem("accessToken");
+        var data = ({
+            issue: allFormData.issue,
+            description: allFormData.description,
+            imageUrl: imageUrl
+        });
+        if (allFormData.issue !== "" && allFormData.description !== "" && imageUrl !== "") {
+            axios.defaults.headers.post[
+                "Authorization"
+            ] = `Bearer ${tok}`;
+            var config = {
+                method: "post",
+                url: `${API_URL}/content/bug-reports/add-bugs-report`,
+                data: data
+            };
+
+            axios(config)
+                .then(async (response) => {
+                    setLoader(false);
+                    toast.success("Bug report Successfully");
+                })
+                .catch(function (error) {
+                    setLoader(false);
+                });
+
+        } else {
+            toast.error("Please fill all fields")
+        }
+    }
+
+    const handleInputChange = async (e) => {
+        const file = e.target.files[0]
+        if (file.size >= 2872139) {
+            toast.error("File cannot be greater than 3mbs")
+        } else {
+            let tok = localStorage.getItem("accessToken");
+            axios.defaults.headers.post[
+                "Authorization"
+            ] = `Bearer ${tok}`;
+            var data = new FormData();
+            data.append("image", file);
+            if (file) {
+                const responses = await axios.post(
+                    `${API_URL}/tasks/metadata/upload-image`,
+                    data
+                );
+                setImageUrl(responses?.data?.url);
+                e.target.value = null;
+            }
+        }
+    };
+
+    const getListing = async () => {
+        let tok = localStorage.getItem("accessToken");
+        var config = {
+            method: "get",
+            url: `${API_URL}/content/bug-reports/get-bugs-report-list?offset=1&limit=5`,
+            headers: {
+                authorization: `Bearer ` + tok
+            },
+        };
+        axios(config)
+            .then(function (response) {
+                setReportedBug(response?.data?.data);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+
+    }
+
+    useEffect(() => {
+        getListing()
+    }, [])
+
+
     return (
         <>
             <div className="formobile-heading d-none display-block-in-mobile">
@@ -23,29 +121,35 @@ const BugReport = () => {
                 >
                     <Tab eventKey="activeop" title="Report a Bug">
                         <div className="reportabug border-grad1">
-                          <div style={{maxWidth: "542px", width: "100%"}}>
-                          <div className="option-field">
-                                <label>Issue</label>
-                                <input type="text" placeholder='Write your issue...' />
-                            </div>
-                            <div className="option-field">
-                                <label>Additional Note</label>
-                                <textarea placeholder='Describe your issue' />
-                                <span className='words-count'>0/500</span>
-                            </div>
-                            <div className="option-field">
-                                <label>Add Attachment</label>
-                                <div className="upload-file">
-                                    <label htmlFor="upload">Choose</label>
-                                    <p>No file Selected</p>
-                                    <input type="file" className='d-none' id='upload' />
+                            <div style={{ maxWidth: "542px", width: "100%" }}>
+                                <div className="option-field">
+                                    <label>Issue</label>
+                                    <input onChange={handleChange} value={allFormData?.issue} name="issue" type="text" placeholder='Write your issue...' />
                                 </div>
+                                <div className="option-field">
+                                    <label>Additional Note</label>
+                                    <textarea
+                                        onChange={handleChange} value={allFormData?.description} name="description"
+                                        placeholder='Describe your issue' />
+                                    <span className='words-count'>0/500</span>
+                                </div>
+                                <div className="option-field">
+                                    <label>Add Attachment</label>
+                                    <div className="upload-file">
+                                        <label htmlFor="upload">Choose</label>
+                                        {!imageUrl ?
+                                            <p>No file Selected</p> :
+                                            <p>{imageUrl}</p>
+                                        }
+                                        <input type="file" accept="image/png, image/jpeg" onChange={(e) => handleInputChange(e)} className='d-none' id='upload' />
+                                    </div>
+                                </div>
+                                <button className='btn-save' onClick={createBug}>Save</button>
                             </div>
-                            <button className='btn-save'>Save</button>
-                          </div>
                         </div>
                     </Tab>
-                    <Tab eventKey="expiredop" title="Reported Bugs">
+                    <Tab eventKey="expiredop"
+                        title="Reported Bugs">
                         <div className='maincard border-grad1'>
                             <div className="display-none-in-mobile">
                                 <div className="maintable table-responsive">
@@ -64,58 +168,27 @@ const BugReport = () => {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>
-                                                    <p className='paratable'>23/05/2023 01:58</p>
-                                                </td>
-                                                <td>
-                                                    <p className='paratable'>Button Is Not Working</p>
-                                                </td>
-                                                <td>
-                                                    <div className='completebtn'>
-                                                        <button className=''>Resolved</button>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <p className='paratable'>23/05/2023 01:58</p>
-                                                </td>
-                                                <td>
-                                                    <p className='paratable'>Button Is Not Working</p>
-                                                </td>
-                                                <td>
-                                                    <div className='completebtn'>
-                                                        <button className=''>Resolved</button>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <p className='paratable'>23/05/2023 01:58</p>
-                                                </td>
-                                                <td>
-                                                    <p className='paratable'>Button Is Not Working</p>
-                                                </td>
-                                                <td>
-                                                    <div className='completebtn'>
-                                                        <button className=''>Resolved</button>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <p className='paratable'>23/05/2023 01:58</p>
-                                                </td>
-                                                <td>
-                                                    <p className='paratable'>Button Is Not Working</p>
-                                                </td>
-                                                <td>
-                                                    <div className='completebtn'>
-                                                        <button className=''>Resolved</button>
-                                                    </div>
-                                                </td>
-                                            </tr>
+                                            {reportBug?.bugReports?.map((elem, index) => {
+                                                console.log('elem', elem);
+                                                let createdate = new Date(elem?.createdAt);
+                                                const createDate = moment(createdate).format("DD-MM-YYYY");
+                                                return (
+                                                    <tr>
+                                                        <td>
+                                                            <p className='paratable'>{createDate}</p>
+                                                        </td>
+                                                        <td>
+                                                            <p className='paratable'>{elem?.issue}</p>
+                                                        </td>
+                                                        <td>
+                                                            <div className='completebtn'>
+                                                                <button className=''>{elem?.status}</button>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                )
+                                            })
+                                            }
 
                                         </tbody>
                                     </table>

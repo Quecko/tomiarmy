@@ -137,10 +137,8 @@ const CreateOperation = () => {
                 </div>
                 <div className="bottom-content border-grad1">
                     <div className="inner-field">
-                        <p>Task</p>
-                        <p>Date Created</p>
-                        <p>Date Expires</p>
-                        <p>Points</p>
+                        <p>Task Title</p>
+                        <p>Task Description</p>
                         <p>Actions</p>
                     </div>
                     <div className="middle-item">

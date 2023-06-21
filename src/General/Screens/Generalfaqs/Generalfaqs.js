@@ -3,19 +3,19 @@ import Accordion from 'react-bootstrap/Accordion';
 import Pagination from 'react-bootstrap/Pagination';
 import Dropdown from 'react-bootstrap/Dropdown';
 
-const Generalfaqs = ({setShowfaq}) => {
+const Generalfaqs = ({ setShowfaq }) => {
     return (
         <>
-        <div className="formobile-heading d-none display-block-in-mobile">
-                    <div className="inner-heading">
-                        <h6>faqs</h6>
-                        <p>Create faqs for your army</p>
-                    </div>
-                    <button onClick={setShowfaq} className="create-btn" >
-                        <img src="\assets\add-task.svg" alt="img" className="img-fluid me-2" />
-                        Create FAQ
-                    </button>
+            <div className="formobile-heading d-none display-block-in-mobile">
+                <div className="inner-heading">
+                    <h6>faqs</h6>
+                    <p>Create faqs for your army</p>
                 </div>
+                <button onClick={setShowfaq} className="create-btn" >
+                    <img src="\assets\add-task.svg" alt="img" className="img-fluid me-2" />
+                    Create FAQ
+                </button>
+            </div>
             <section className='main-task general-army'>
                 <div className='container-fluid padd-sm p-0'>
                     <div className='row'>
@@ -35,7 +35,6 @@ const Generalfaqs = ({setShowfaq}) => {
                                                     <th>
                                                         <p className='headtable'>Actions</p>
                                                     </th>
-
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -53,7 +52,6 @@ const Generalfaqs = ({setShowfaq}) => {
                                                                     <img src='\Vectordots.svg' alt='img' className='img-fluid ' />
 
                                                                 </Dropdown.Toggle>
-
                                                                 <Dropdown.Menu>
                                                                     <Dropdown.Item href="#/action-1">
                                                                         <p ><img src='\generalassets\icons\edit.svg' alt='img' className='img-fluid' />Edit</p>
@@ -62,11 +60,8 @@ const Generalfaqs = ({setShowfaq}) => {
                                                                 </Dropdown.Menu>
                                                             </Dropdown>
                                                         </div>
-
-
                                                     </td>
                                                 </tr>
-
                                             </tbody>
                                         </table>
                                     </div>
@@ -99,7 +94,7 @@ const Generalfaqs = ({setShowfaq}) => {
                                                 <div className="inner-fields">
                                                     <div className="inner-item">
                                                         <h6>Description</h6>
-                                                        <p style={{maxWidth: "142px", textAlign: "start"}}>Sed ut perspiciatis unde omnis iste natus error sit voluptatem...</p>
+                                                        <p style={{ maxWidth: "142px", textAlign: "start" }}>Sed ut perspiciatis unde omnis iste natus error sit voluptatem...</p>
                                                     </div>
                                                     <div className="inner-item">
                                                         <h6>Actions</h6>
@@ -108,7 +103,7 @@ const Generalfaqs = ({setShowfaq}) => {
                                                 </div>
                                             </Accordion.Body>
                                         </Accordion.Item>
-                                       
+
                                     </Accordion>
                                 </div>
                             </div>
