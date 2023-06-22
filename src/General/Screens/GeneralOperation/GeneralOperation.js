@@ -31,8 +31,8 @@ const GeneralOperation = ({ setroute, routes, setsvaebutton, svaebutton }) => {
                     </>
             }
             {
-  
-    routes ? <><CreateOperation    svaebutton={svaebutton}/></> :
+
+                routes ? <><CreateOperation  /></> :
                     <section className='main-task'>
                         <div className='container-fluid padd-sm p-0'>
                             <div className='row'>

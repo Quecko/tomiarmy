@@ -10,7 +10,7 @@ import Loader from '../../../hooks/loader';
 import Modal from 'react-bootstrap/Modal';
 import { Accordion, Dropdown, Pagination, Tab, Table, Tabs } from 'react-bootstrap'
 import dosts from "../../../assets/icons/dots.svg";
-const CreateOperation = ({svaebutton}) => {
+const CreateOperation = ({ svaebutton }) => {
     const [show, setShow] = useState(false);
     const handleClose = () => {
         setEditableTask(null)
@@ -23,7 +23,7 @@ const CreateOperation = ({svaebutton}) => {
     const handleClosetask = () => setShowtask(false);
     const handleShowtask = () => setShowtask(true);
     const [rend, setRend] = useState(false);
-    const [indexid, setindexid]= useState(null)
+    const [indexid, setindexid] = useState(null)
     const [startDate, setStartDate] = useState(null);
     const [profilePicture, setProfilePicture] = useState(null);
     const [profileP, setProfileP] = useState();
@@ -73,14 +73,14 @@ const CreateOperation = ({svaebutton}) => {
         // const { name, value } = e.target;
         // temp[name] = value
         // setspecification({ ...temp })
-        setspecification({...specification,[e.target.name] : e.target.value})
+        setspecification({ ...specification, [e.target.name]: e.target.value })
     };
 
     const [editableTask, setEditableTask] = useState(null);
     const [subtask, setsubtask] = useState([])
 
     const createsub = () => {
-        setsubtask([...subtask, { ...specification}])
+        setsubtask([...subtask, { ...specification }])
         setShow(false)
 
     }
@@ -89,12 +89,12 @@ const CreateOperation = ({svaebutton}) => {
     }
 
     function updatetask() {
-           const index= subtask.findIndex((v, index)=>index===indexid)
-           const newSubtasks = subtask
-           newSubtasks.splice(index,1,specification)
-           setsubtask(newSubtasks)
-           setEditableTask(null)
-           setShow(false)
+        const index = subtask.findIndex((v, index) => index === indexid)
+        const newSubtasks = subtask
+        newSubtasks.splice(index, 1, specification)
+        setsubtask(newSubtasks)
+        setEditableTask(null)
+        setShow(false)
     }
 
     function editVideo(id) {
@@ -104,14 +104,14 @@ const CreateOperation = ({svaebutton}) => {
         setShow(true)
     }
 
-    useEffect(() =>{
-        if(editableTask){
+    useEffect(() => {
+        if (editableTask) {
             setspecification(editableTask)
         }
-    },[editableTask])
+    }, [editableTask])
 
- 
-    
+
+
     const Createoperation = async () => {
         let tok = localStorage.getItem("accessToken");
         var data1 = new FormData();
@@ -130,78 +130,85 @@ const CreateOperation = ({svaebutton}) => {
             data1.append("tomiToken", allFormData?.tomitoken)
         }
         if (startDate) {
-          data1.append("expirationDate", startDate.toISOString())
+            data1.append("expirationDate", startDate.toISOString())
         }
         if (profileP) {
-          data1.append("operationImage", profileP)
+            data1.append("operationImage", profileP)
         }
         if (allFormData?.name != '') {
-          if (allFormData?.reward != '') {
-            if (allFormData?.description != '') {
-              var config = {
-                method: "post",
-                url: `${API_URL}/tasks/operations`,
-                headers: {
-                  authorization: `Bearer ` + tok
-                },
-                data: data1,
-              };
-              axios(config)
-                .then(function (response) {
-                //   setLoader(false);
-                  toast.success('Task Created Successfully', {
-                    position: "top-right",
-                    autoClose: 2000,
-                  })
-    
-                })
-                .catch(function (error) {
-                //   setLoader(false);
-                  if (error.response.data.statusCode == 409) {
-                    toast.error('Tasks with this name already exist', {
-                      position: 'top-right',
-                      autoClose: 5000,
+            if (allFormData?.reward != '') {
+                if (allFormData?.description != '') {
+                    var config = {
+                        method: "post",
+                        url: `${API_URL}/tasks/operations`,
+                        headers: {
+                            authorization: `Bearer ` + tok
+                        },
+                        data: data1,
+                    };
+                    axios(config)
+                        .then(function (response) {
+                            //   setLoader(false);
+                            toast.success('Task Created Successfully', {
+                                position: "top-right",
+                                autoClose: 2000,
+                            })
+
+                        })
+                        .catch(function (error) {
+                            //   setLoader(false);
+                            if (error.response.data.statusCode == 409) {
+                                toast.error('Tasks with this name already exist', {
+                                    position: 'top-right',
+                                    autoClose: 5000,
+                                });
+                            } else if (error.response.data.statusCode == 500) {
+                                toast.error('Something went wrong', {
+                                    position: 'top-right',
+                                    autoClose: 5000,
+                                });
+                            }
+                            else if (error.response.data.statusCode == 400) {
+                                toast.error('Validation Failed', {
+                                    position: 'top-right',
+                                    autoClose: 5000,
+                                });
+                            }
+                        });
+                }
+                else {
+                    toast.error('Please Write Description', {
+                        position: "top-right",
+                        autoClose: 2000,
                     });
-                  } else if (error.response.data.statusCode == 500) {
-                    toast.error('Something went wrong', {
-                      position: 'top-right',
-                      autoClose: 5000,
-                    });
-                  }
-                  else if (error.response.data.statusCode == 400) {
-                    toast.error('Validation Failed', {
-                      position: 'top-right',
-                      autoClose: 5000,
-                    });
-                  }
-                });
+                }
             }
             else {
-              toast.error('Please Write Description', {
-                position: "top-right",
-                autoClose: 2000,
-              });
+                toast.error('Please Write Reward Points', {
+                    position: "top-right",
+                    autoClose: 2000,
+                });
             }
-          }
-          else {
-            toast.error('Please Write Reward Points', {
-              position: "top-right",
-              autoClose: 2000,
-            });
-          }
         }
         else {
-          console.log()
-          toast.error('Please Write Title of Task', {
-            position: "top-right",
-            autoClose: 2000,
-          });
+            console.log()
+            toast.error('Please Write Title of Task', {
+                position: "top-right",
+                autoClose: 2000,
+            });
         }
-      }
+    }
 
 
     return (
         <>
+            <div className='alkdaskdasdasd'>
+                <button className="btn-goback"><img src="\assets\goback.svg" alt="img" className="img-fluid me-2" />Go Back</button>
+                <button onClick={Createoperation} className="savechange-btn disabled display-none-in-mobile" >
+                    <img src="\generalassets\icons\save-change.svg" alt="img" className="img-fluid me-1" />
+                    <span> Save Changes</span>
+                </button>
+            </div>
             <section className="create-operation border-grad1">
                 <div className="row">
                     <div className="col-xl-6 col-12 p-0 padd-sm">
@@ -296,7 +303,6 @@ const CreateOperation = ({svaebutton}) => {
                                             <tr>
                                                 <td>{elem?.name}</td>
                                                 <td>{elem?.description}</td>
-
                                                 <td>
                                                     <div className="tbl-dropdown text-end">
                                                         <Dropdown>
@@ -368,7 +374,6 @@ const CreateOperation = ({svaebutton}) => {
                                             </div>
                                         </Accordion.Body>
                                     </Accordion.Item>
-
                                 </Accordion>
                             </div>
 
@@ -438,7 +443,6 @@ const CreateOperation = ({svaebutton}) => {
                         <button onClick={handleClose} className="btn-blackk"><img src="\generalassets\icons\cancel-icon.svg" alt="img" className='img-fluid' />Cancel</button>
                         {editableTask ? (
                             <button onClick={updatetask} className="btn-pinkk"><img src="\generalassets\icons\add.svg" alt="img" className='img-fluid' />Edit Task</button>
-
                         ) : (
                             <button onClick={createsub} className="btn-pinkk"><img src="\generalassets\icons\add.svg" alt="img" className='img-fluid' />CREATE TASK</button>
                         )}
