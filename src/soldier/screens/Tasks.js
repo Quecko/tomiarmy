@@ -15,63 +15,62 @@ import moment from "moment";
 import { useWeb3React } from "@web3-react/core";
 
 
-const Tasks = ({ setShowtask ,settaskdetail}) => {
+const Tasks = ({ setShowtask ,settaskdetail,tasks,setexpireds}) => {
   const [loader, setLoader] = useState(false);
-  const [expired, setexpired] = useState(false);
-  const [tasks, settasks] = useState([]);
+  // const [tasks, settasks] = useState([]);
   const { account } = useWeb3React();
-  useEffect(() => {
-    // if (currentPage > 1) {
-    //     getData(currentPage);
-    // } else {
-    getData();
-    // }
-  }, [account, expired])
+  // useEffect(() => {
+  //   // if (currentPage > 1) {
+  //   //     getData(currentPage);
+  //   // } else {
+  //   getData();
+  //   // }
+  // }, [account, expired])
 
 
-  const getData = async (off) => {
-    // let valu = null;
-    // if (off) {
-    //     valu = off;
-    // } else {
-    //     valu = 1;
-    // }
-    let tok = localStorage.getItem("accessToken");
-    // let wall = localStorage.getItem("wallet");
-    if (account) {
-      var config = {
-        method: "get",
-        url: `${API_URL}/tasks?offset=1&&limit=5&&expired=${expired}`,
-        headers: {
-          authorization: `Bearer ` + tok
-        },
-      };
-      axios(config)
-        .then(function (response) {
-          setLoader(false);
-          // setCount(response.data.data.count)
-          settasks(response?.data?.data?.tasks);
-          // let arr = Array.from(Array(parseInt(response.data.data.pages)).keys());
-          // setPages(arr);
-          // setCurrentPage(valu)
-        })
-        .catch(function (error) {
-          setLoader(false);
-          // localStorage.removeItem("accessToken");
-          // localStorage.removeItem("user");
-          // window.location.assign("/")
-          // window.location.reload();
-        });
-    }
-  }
+  // const getData = async (off) => {
+  //   // let valu = null;
+  //   // if (off) {
+  //   //     valu = off;
+  //   // } else {
+  //   //     valu = 1;
+  //   // }
+  //   let tok = localStorage.getItem("accessToken");
+  //   // let wall = localStorage.getItem("wallet");
+  //   if (account) {
+  //     var config = {
+  //       method: "get",
+  //       url: `${API_URL}/tasks?offset=1&&limit=5&&expired=${expired}`,
+  //       headers: {
+  //         authorization: `Bearer ` + tok
+  //       },
+  //     };
+  //     axios(config)
+  //       .then(function (response) {
+  //         setLoader(false);
+  //         // setCount(response.data.data.count)
+  //         settasks(response?.data?.data?.tasks);
+  //         // let arr = Array.from(Array(parseInt(response.data.data.pages)).keys());
+  //         // setPages(arr);
+  //         // setCurrentPage(valu)
+  //       })
+  //       .catch(function (error) {
+  //         setLoader(false);
+  //         // localStorage.removeItem("accessToken");
+  //         // localStorage.removeItem("user");
+  //         // window.location.assign("/")
+  //         // window.location.reload();
+  //       });
+  //   }
+  // }
 
 
   const settabss = (event) => {
     if (event === 'home') {
-      setexpired(false)
+      setexpireds(false)
     }
     else if (event === 'profile') {
-      setexpired(true)
+      setexpireds(true)
     }
   }
 

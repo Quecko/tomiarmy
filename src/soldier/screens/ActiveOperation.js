@@ -6,7 +6,7 @@ import Modal from 'react-bootstrap/Modal';
 import Accordion from 'react-bootstrap/Accordion';
 import Countdown from 'react-countdown';
 
-const ActiveOperation = ({ setShowtask1, tasks,settaskdetail1 }) => {
+const ActiveOperation = ({ setShowtask1, tasks,settaskdetail1,setOperationId }) => {
 
     // const [show1, setShow1] = useState(false);
     // const handleClose1 = () => setShow1(false);
@@ -20,6 +20,8 @@ const ActiveOperation = ({ setShowtask1, tasks,settaskdetail1 }) => {
     // const setProfilePic = (evt) => {
     //     setProfilePicture(evt.target.files[0]);
     // }
+
+
     const GetTime = (time) => {
         let endtime = new Date(time)
         return endtime;
@@ -28,6 +30,7 @@ const ActiveOperation = ({ setShowtask1, tasks,settaskdetail1 }) => {
 
 
     const SubmitProofOfWork =(elem)=>{
+        setOperationId(tasks)
         setShowtask1(true)
         settaskdetail1(elem)
       }

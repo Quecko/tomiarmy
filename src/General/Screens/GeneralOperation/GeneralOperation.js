@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import Dropdown from 'react-bootstrap/Dropdown';
@@ -16,18 +16,21 @@ import axios from 'axios';
 import Loader from '../../../hooks/loader';
 import { useWeb3React } from "@web3-react/core";
 import GeneralActive from './GeneralActive';
+import moment from "moment";
 
 const GeneralOperation = ({ setroute, routes, setsvaebutton, svaebutton }) => {
 
     const [expired, setexpired] = useState(false);
     const { account } = useWeb3React();
-      const [tasks, settasks] = useState([]);
+    const [tasks, settasks] = useState([]);
 
     const settabss = (event) => {
         if (event === 'home') {
+            // settasks()
             setexpired(false)
         }
         else if (event === 'profile') {
+            // settasks()
             setexpired(true)
         }
     }
@@ -37,7 +40,7 @@ const GeneralOperation = ({ setroute, routes, setsvaebutton, svaebutton }) => {
         // } else {
         getData();
         // }
-      }, [account, expired])
+    }, [account, expired])
     const getData = async (off, dsfdsgds) => {
         // let valu = null;
         // if (off) {
@@ -48,31 +51,36 @@ const GeneralOperation = ({ setroute, routes, setsvaebutton, svaebutton }) => {
         let tok = localStorage.getItem("accessToken");
         // let wall = localStorage.getItem("wallet");
         if (account) {
-          var config = {
-            method: "get",
-            url: `${API_URL}/tasks/operations?offset=1&&limit=10&&expired=${expired}`,
-            headers: {
-              authorization: `Bearer ` + tok
-            },
-          };
-          axios(config)
-            .then(function (response) {
-              // setLoader(false);
-              // setCount(response.data.data.count)
-              settasks(response?.data?.data?.operation);
-              // let arr = Array.from(Array(parseInt(response.data.data.pages)).keys());
-              // setPages(arr);
-              // setCurrentPage(valu)
-            })
-            .catch(function (error) {
-              // setLoader(false);
-              // localStorage.removeItem("accessToken");
-              // localStorage.removeItem("user");
-              // window.location.assign("/")
-              // window.location.reload();
-            });
+            var config = {
+                method: "get",
+                url: `${API_URL}/tasks/operations?offset=1&&limit=10&&expired=${expired}`,
+                headers: {
+                    authorization: `Bearer ` + tok
+                },
+            };
+            axios(config)
+                .then(function (response) {
+                    // setLoader(false);
+                    // setCount(response.data.data.count)
+                    settasks(response?.data?.data?.operation);
+                    // let arr = Array.from(Array(parseInt(response.data.data.pages)).keys());
+                    // setPages(arr);
+                    // setCurrentPage(valu)
+                })
+                .catch(function (error) {
+                    // setLoader(false);
+                    // localStorage.removeItem("accessToken");
+                    // localStorage.removeItem("user");
+                    // window.location.assign("/")
+                    // window.location.reload();
+                });
         }
-      }
+    }
+
+    const Getlength = (task) =>{
+        const result = task?.length
+        return result
+    }
 
     return (
         <>
@@ -270,42 +278,48 @@ const GeneralOperation = ({ setroute, routes, setsvaebutton, svaebutton }) => {
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
-                                                                    <tr>
-                                                                        <td>
-                                                                            <p className='paratable'>Ilong MAA</p>
-                                                                        </td>
-                                                                        <td>
-                                                                            <p className='paratable'>01/01/22</p>
-                                                                        </td>
-                                                                        <td>
-                                                                            <p className='paratable'>01/01/22</p>
-                                                                        </td>
-                                                                        <td>
-                                                                            <p className='paratable'>+5 Points</p>
-                                                                        </td>
-                                                                        <td>
-                                                                            <p className='paratable'>100 TOMI</p>
-                                                                        </td>
-                                                                        <td>
-                                                                            <p className='paratable'>25</p>
-                                                                        </td>
-                                                                        <td>
-                                                                            <div className='dropbtn global-dropdown-style'>
-                                                                                <Dropdown>
-                                                                                    <Dropdown.Toggle variant="success" id="dropdown-basic">
-                                                                                        <img src='\Vectordots.svg' alt='img' className='img-fluid ' />
-                                                                                    </Dropdown.Toggle>
-                                                                                    <Dropdown.Menu>
-                                                                                        <Dropdown.Item href="#/action-1">
-                                                                                            <p><img src='\generalassets\icons\detail.svg' alt='img' className='img-fluid' />Details</p>
-                                                                                            <p><img src='\generalassets\icons\edit.svg' alt='img' className='img-fluid' />Edit</p>
-                                                                                            <p><img src='\generalassets\icons\trash.svg' alt='img' className='img-fluid' />Delete</p>
-                                                                                        </Dropdown.Item>
-                                                                                    </Dropdown.Menu>
-                                                                                </Dropdown>
-                                                                            </div>
-                                                                        </td>
-                                                                    </tr>
+                                                                    {tasks?.map((elem, index) => {
+                                                                             const ExpireDate = moment(elem?.expirationDate).format("DD-MM-YYYY");
+                                                                            //  console.log("sdfsdfsdfds", elem?.tasksList)
+                                                                        return (
+                                                                            <tr key={index}>
+                                                                                <td>
+                                                                                    <p className='paratable'>{elem?.name}</p>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <p className='paratable'>01/01/22</p>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <p className='paratable'>{ExpireDate}</p>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <p className='paratable'>{elem?.reward} Points</p>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <p className='paratable'>{elem?.tomiToken} TOMI</p>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <p className='paratable'>{Getlength(elem?.tasksList)}</p>
+                                                                                </td>
+                                                                                <td>
+                                                                                    <div className='dropbtn global-dropdown-style'>
+                                                                                        <Dropdown>
+                                                                                            <Dropdown.Toggle variant="success" id="dropdown-basic">
+                                                                                                <img src='\Vectordots.svg' alt='img' className='img-fluid ' />
+                                                                                            </Dropdown.Toggle>
+                                                                                            <Dropdown.Menu>
+                                                                                                <Dropdown.Item href="#/action-1">
+                                                                                                    <p><img src='\generalassets\icons\detail.svg' alt='img' className='img-fluid' />Details</p>
+                                                                                                    <p><img src='\generalassets\icons\edit.svg' alt='img' className='img-fluid' />Edit</p>
+                                                                                                    <p><img src='\generalassets\icons\trash.svg' alt='img' className='img-fluid' />Delete</p>
+                                                                                                </Dropdown.Item>
+                                                                                            </Dropdown.Menu>
+                                                                                        </Dropdown>
+                                                                                    </div>
+                                                                                </td>
+                                                                            </tr>
+                                                                        )
+                                                                    })}
                                                                 </tbody>
                                                             </table>
                                                         </div>

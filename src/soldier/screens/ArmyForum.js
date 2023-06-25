@@ -3,6 +3,7 @@ import "./armyforum.scss"
 import { API_URL } from "../../utils/ApiUrl"
 import { toast } from 'react-toastify';
 import axios from 'axios';
+import moment from "moment";
 
 const ArmyForum = () => {
   const [army, setArmy] = useState([]);
@@ -23,6 +24,7 @@ const ArmyForum = () => {
   const [detail, setdetail] = useState()
 
   let indexvalue = localStorage.getItem("indexvalue");
+
 
   const [allFormData, setAllFormData] = useState({
     title: '',
@@ -66,6 +68,14 @@ const ArmyForum = () => {
     }
   }
 
+  useEffect(() => {
+    if (indexvalue === '13') {
+      setrankid('false')
+    }
+    else {
+      setrankid('true')
+    }
+  }, [indexvalue])
   // get top user or member
   const gettopusers = async () => {
     let tok = localStorage.getItem("accessToken");
@@ -106,114 +116,114 @@ const ArmyForum = () => {
   const commentnull = () => {
     setcomment('')
     setRend(!rend)
-}
+  }
   const createComment = (id) => {
     // setcountss(0)
     setLoader(true);
     let tok = localStorage.getItem("accessToken");
     axios.post(`${API_URL}/forums/posts/${id}/comments`,
-        {
-            content: comment
-        },
-        {
-            headers: {
-                authorization: `Bearer ` + tok
-            }
+      {
+        content: comment
+      },
+      {
+        headers: {
+          authorization: `Bearer ` + tok
         }
+      }
     ).then((response) => {
-        setLoader(false);
-        toast.success("Comment Created Successfully");
-        mainid(commentid, "add");
-        commentnull();
-        setcomment('');
+      setLoader(false);
+      toast.success("Comment Created Successfully");
+      mainid(commentid, "add");
+      commentnull();
+      setcomment('');
     }).catch((error) => {
-        setLoader(false);
-        toast.error(error.response.data.message)
+      setLoader(false);
+      toast.error(error.response.data.message)
     })
-}
+  }
 
-const GetPosts = (val) => {
+  const GetPosts = (val) => {
     let tok = localStorage.getItem("accessToken");
     var config = {
-        method: "get",
-        url: `${API_URL}/forums/posts?offset=${limit}&&limit=10&&forumPost=${rankid}`,
-        headers: {
-            authorization: `Bearer ` + tok
-        },
+      method: "get",
+      url: `${API_URL}/forums/posts?offset=${limit}&&limit=10&&forumPost=${rankid}`,
+      headers: {
+        authorization: `Bearer ` + tok
+      },
     };
     axios(config)
-        .then(function (response) {
-            getMyPosts()
-            // setArmy(response?.data?.data);
-            if (response?.data?.data?.length === 0) {
-                setLimit(limit - 1);
-            }
-            if (val) {
-                setArmy(response?.data?.data?.post);
-            } else {
-                setArmy([
-                    ...army,
-                    ...response?.data?.data?.post,
-                ]);
-            }
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
-}
-
-
-useEffect(() => {
-  if (limit > 1) {
-      GetPosts();
+      .then(function (response) {
+        getMyPosts()
+        // setArmy(response?.data?.data);
+        if (response?.data?.data?.length === 0) {
+          setLimit(limit - 1);
+        }
+        if (val) {
+          setArmy(response?.data?.data?.post);
+        } else {
+          setArmy([
+            ...army,
+            ...response?.data?.data?.post,
+          ]);
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   }
-}, [limit])
 
-const mainid = (id, val) => {
-  let ido = null;
-  let dumArr = [];
-  if (id) {
+
+  useEffect(() => {
+    if (limit > 1) {
+      GetPosts();
+    }
+  }, [limit])
+
+  const mainid = (id, val) => {
+    let ido = null;
+    let dumArr = [];
+    if (id) {
       ido = id;
       dumArr = [];
       setcommentid(ido);
-  } else {
+    } else {
       ido = commentid;
-  }
-  // console.log("main id commebnts",id)
-  let tok = localStorage.getItem("accessToken");
-  var config = {
+    }
+    // console.log("main id commebnts",id)
+    let tok = localStorage.getItem("accessToken");
+    var config = {
       method: "get",
       url: `${API_URL}/forums/posts/${ido}/comments?offset=1&&limit=100000`,
       headers: {
-          authorization: `Bearer ` + tok
+        authorization: `Bearer ` + tok
       },
-  };
-  axios(config)
+    };
+    axios(config)
       .then(function (response) {
-          if (val) {
-              setListComment(response?.data?.data?.comments);
+        if (val) {
+          setListComment(response?.data?.data?.comments);
 
-          } else {
-              setListComment([...dumArr, ...response?.data?.data?.comments]);
-          }
+        } else {
+          setListComment([...dumArr, ...response?.data?.data?.comments]);
+        }
       })
       .catch(function (error) {
       });
-}
+  }
 
-useEffect(() => {
-  if (limit0 > 1) {
+  useEffect(() => {
+    if (limit0 > 1) {
       mainid();
-  }
-}, [limit0])
+    }
+  }, [limit0])
 
-const UpdateCurrent = (index) => {
-  if (index === current) {
+  const UpdateCurrent = (index) => {
+    if (index === current) {
       setCurrent(-1);
-  } else {
+    } else {
       setCurrent(index);
+    }
   }
-}
 
   useEffect(() => {
     gettopusers()
@@ -243,104 +253,102 @@ const UpdateCurrent = (index) => {
   }, [rankid])
 
 
-
-
   const deletemodalopen = (iddd) => {
     setdeleteid(iddd)
     window.$('#exampleModal2').modal('show')
-}
+  }
 
-const deletetask = () => {
+  const deletetask = () => {
     // console.log("============= we get",id)
     let tok = localStorage.getItem("accessToken");
     // setOpens(true);
     axios
-        .delete(
-            API_URL + "/forums/posts/" +
-            deleteid,
-            { headers: { authorization: `Bearer ${tok}` } }
-        )
-        .then((response) => {
-            getMyPosts()
-            toast
-                .success("Successfully Delete Post", {
-                    position: "top-right",
-                    autoClose: 3000,
-                })
-            window.$('#exampleModal2').modal('hide')
-                .catch((err) => {
-                    // setOpens(false);
-                    toast.warning(
-                        "Error",
-                        {
-                            position: "top-right",
-                            autoClose: 3000,
-                        }
-                    );
-                    return false;
-                });
-        });
-}
+      .delete(
+        API_URL + "/forums/posts/" +
+        deleteid,
+        { headers: { authorization: `Bearer ${tok}` } }
+      )
+      .then((response) => {
+        getMyPosts()
+        toast
+          .success("Successfully Delete Post", {
+            position: "top-right",
+            autoClose: 3000,
+          })
+        window.$('#exampleModal2').modal('hide')
+          .catch((err) => {
+            // setOpens(false);
+            toast.warning(
+              "Error",
+              {
+                position: "top-right",
+                autoClose: 3000,
+              }
+            );
+            return false;
+          });
+      });
+  }
 
-const detailmodalopen = (iddd) => {
+  const detailmodalopen = (iddd) => {
     // console.log("we get id value here is", iddd)
     setdetail(iddd)
     getSingleDetail(iddd)
     window.$('#exampleModal1').modal('show')
-}
+  }
 
-const getSingleDetail = async (detailid) => {
+  const getSingleDetail = async (detailid) => {
     // console.log("abdullah======================")
     let tok = localStorage.getItem("accessToken");
     axios
-        .get(
-            API_URL + "/forums/posts/" +
-            detailid,
-            { headers: { authorization: `Bearer ${tok}` } }
-        )
-        .then((response) => {
-            setdetailsingle(response.data.data)
-        });
-}
+      .get(
+        API_URL + "/forums/posts/" +
+        detailid,
+        { headers: { authorization: `Bearer ${tok}` } }
+      )
+      .then((response) => {
+        setdetailsingle(response.data.data)
+      });
+  }
 
-const UpdateDescription = (val) => {
+  const UpdateDescription = (val) => {
     let dumObj = detailsingle;
     dumObj.description = val;
     setdetailsingle(dumObj);
     setRend(!rend);
-}
+  }
 
-const UpdateName = (val) => {
+  const UpdateName = (val) => {
     let dumObj = detailsingle;
     dumObj.title = val;
     setdetailsingle(dumObj);
     setRend(!rend);
-}
+  }
 
-const UpdateTask = (objj) => {
+  const UpdateTask = (objj) => {
     let tok = localStorage.getItem("accessToken");
     axios.patch(`${API_URL}/forums/posts/${objj._id}`,
-        {
-            title: detailsingle.title,
-            description: detailsingle.description
-        },
-        {
-            headers: {
-                authorization: `Bearer ` + tok
-            }
+      {
+        title: detailsingle.title,
+        description: detailsingle.description
+      },
+      {
+        headers: {
+          authorization: `Bearer ` + tok
         }
+      }
     ).then((response) => {
-        getMyPosts()
-        toast.success(" Updated Successfully");
-        window.$(`#exampleModal1`).modal("hide");
-        // Code
+      getMyPosts()
+      toast.success(" Updated Successfully");
+      window.$(`#exampleModal1`).modal("hide");
+      // Code
     }).catch((error) => {
-        // Code
-        toast.error(error.response.data.message)
+      // Code
+      toast.error(error.response.data.message)
     })
-}
+  }
 
-     
+
   return (
     <>
       <div className="formobile-heading d-none display-block-in-mobile">
@@ -364,23 +372,30 @@ const UpdateTask = (objj) => {
                     <p className="serial">56</p>
                     <img src="\assets\arrow-down.png" alt="img" className="arrow" style={{width: "25px" , height: "25px"}} />
                   </div> */}
+                  {army?.map((elem)=>{
+
+return(
                   <section className="first">
-                    <div className="saying">
+                  
+                      <div className="saying">
                       <div className="texts">
-                        <h4>What does the general say?</h4>
-                        <p className="upperpara">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. </p>
-                        <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p>
+                        <h4>{elem?.name}</h4>
+                        <p className="upperpara">
+                              {elem?.description}</p>
+                       
                       </div>
                       <div className="lowercontent">
                         <div className="ranked">
                           <h4>Posted by</h4>
                           <div className="inner-parent">
                             <div className="inner-side">
-                              <h6><img src="\assets\profile-icon.svg" alt="img" className="rankimg me-2" />John_Doe_04 </h6>
+                              <h6><img src="\assets\profile-icon.svg" alt="img" className="rankimg me-2" />{elem?.author?.name} </h6>
                             </div>
                             <div className="inner-side">
-                              <h6><img src="\assets\private.svg" alt="img" className="rankimg" /> Private </h6>
-                              <span>15:21</span>
+                              <h6><img src="\assets\private.svg" alt="img" className="rankimg" /> 
+                              Private 
+                              </h6>
+                              <span>{moment(elem?.createdAt).fromNow()}</span>
                             </div>
                           </div>
                         </div>
@@ -391,6 +406,8 @@ const UpdateTask = (objj) => {
                       </div>
                     </div>
                   </section>
+                    )
+                  })}
 
                   <section className="comments collapse set-bg-color" id="tab1">
                     <div className="maincomment">
@@ -452,10 +469,19 @@ const UpdateTask = (objj) => {
                           </div>
                         )
                       })} */}
-                      <div className="inner-item">
-                        <h6>Sharjeel</h6>
-                        <h6><img src="\assets\memberrank.svg" alt="img" className="img-fluid me-2" />Private</h6>
-                      </div>
+                      {topuser?.map((elem) => {
+                        console.log('elem',elem );
+                        return (
+                          <div className="inner-item">
+                            <h6>{elem?._id?.name}</h6>
+                            <h6>
+                              <img src={elem?._id?.profileImage} alt="img" className="img-fluid me-2" />
+                              {/* Private */}
+                              </h6>
+                          </div>
+                        )
+                      })
+                      }
 
                     </div>
                   </div>

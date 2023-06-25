@@ -6,7 +6,7 @@ import { API_URL } from '../../utils/ApiUrl';
 import { toast } from 'react-toastify';
 import { useWeb3React } from '@web3-react/core';
 
-const AllTaskModals = ({ showtask, setShowtask, settaskdetail, taskdetail }) => {
+const AllTaskModals = ({ showtask, setShowtask, settaskdetail, taskdetail,getData }) => {
 
   const handleClosetask = () => setShowtask(false);
   const [loader, setLoader] = useState(false);
@@ -103,8 +103,11 @@ const AllTaskModals = ({ showtask, setShowtask, settaskdetail, taskdetail }) => 
         axios(config)
           .then(async (response) => {
             setLoader(false);
+            getData()
+            setShow1(false)
+            setShow2(true)
             // window.$("#exampleModalworkproof").modal("hide");
-            toast.success("Work submitted successfully")
+            // toast.success("Work submitted successfully")
             // setcheckmodal('');
             // setProfilePicture(null);
             // setShowpow(false);

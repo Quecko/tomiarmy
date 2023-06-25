@@ -10,7 +10,7 @@ import axios from 'axios';
 import { useWeb3React } from '@web3-react/core';
 
 
-const Operations = ({ setroute, routes, setShowtask1,settaskdetail1, detailmodaloperations, deletemodaloperation, call,operations ,setexpired}) => {
+const Operations = ({ setroute, routes, setShowtask1,settaskdetail1, detailmodaloperations, deletemodaloperation, call,operations ,setexpired,setOperationId}) => {
 
   const { account } = useWeb3React()
   const [loader, setLoader] = useState(false);
@@ -158,10 +158,10 @@ const Operations = ({ setroute, routes, setShowtask1,settaskdetail1, detailmodal
           onSelect={settabss}
         >
           <Tab eventKey="activeop" title="Active Operation">
-            <ActiveOperation setShowtask1={setShowtask1} settaskdetail1={settaskdetail1}  tasks={operations} />
+              <ActiveOperation setShowtask1={setShowtask1} settaskdetail1={settaskdetail1}  tasks={operations} setOperationId={setOperationId}/>
           </Tab>
           <Tab eventKey="expiredop" title="Expired Operations">
-            <ExpiredOperation setroute={setroute} routes={routes} />
+            <ExpiredOperation setroute={setroute} routes={routes} tasks={operations} />
           </Tab>
         </Tabs>
       </section>

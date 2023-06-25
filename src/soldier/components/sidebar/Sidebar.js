@@ -43,6 +43,7 @@ const Sidebar = () => {
   const [taskdetail, settaskdetail] = useState(null);
   const [showtask1, setShowtask1] = useState(false);
   const [taskdetail1, settaskdetail1] = useState(null);
+  const [operationId, setOperationId] = useState(null);
   const [coLeaderDetails, setCoLeaderDetails] = useState(null);
   const { account } = useWeb3React()
   const history = useHistory();
@@ -205,7 +206,10 @@ const Sidebar = () => {
   };
 
   const [operations, setOperations] = useState([])
+  const [tasks, settasks] = useState([]);
   const [expired, setexpired] = useState(false);
+  const [expireds, setexpireds] = useState(false);
+
   
   const getDataOperation = async (off) => {
 
@@ -228,8 +232,52 @@ const Sidebar = () => {
       axios(config)
         .then(function (response) {
           setLoader(false);
+          console.log('response',response);
           // setCount(response.data.data.count)
-          setOperations(response?.data?.data?.operation[0]);
+          if(expired===true){
+            console.log('innnnnn');
+            setOperations(response?.data?.data?.operation);
+          }
+          else{
+            console.log('out');
+            setOperations(response?.data?.data?.operation[0]);
+          }
+          // let arr = Array.from(Array(parseInt(response.data.data.pages)).keys());
+          // setPages(arr);
+          // setCurrentPage(valu)
+        })
+        .catch(function (error) {
+          setLoader(false);
+          // localStorage.removeItem("accessToken");
+          // localStorage.removeItem("user");
+          // window.location.assign("/")
+          // window.location.reload();
+        });
+    }
+  }
+
+  const getData = async (off) => {
+    // let valu = null;
+    // if (off) {
+    //     valu = off;
+    // } else {
+    //     valu = 1;
+    // }
+    let tok = localStorage.getItem("accessToken");
+    // let wall = localStorage.getItem("wallet");
+    if (account) {
+      var config = {
+        method: "get",
+        url: `${API_URL}/tasks?offset=1&&limit=5&&expired=${expireds}`,
+        headers: {
+          authorization: `Bearer ` + tok
+        },
+      };
+      axios(config)
+        .then(function (response) {
+          setLoader(false);
+          // setCount(response.data.data.count)
+          settasks(response?.data?.data?.tasks);
           // let arr = Array.from(Array(parseInt(response.data.data.pages)).keys());
           // setPages(arr);
           // setCurrentPage(valu)
@@ -246,8 +294,12 @@ const Sidebar = () => {
 
 
   useEffect(()=>{
+    getData()
+  },[account,expireds])
+
+  useEffect(()=>{
     getDataOperation()
-  },[account])
+  },[account,expired])
   return (
     <>
       <div className="theme-custom-container">
@@ -514,12 +566,34 @@ const Sidebar = () => {
                                 </clipPath>
                               </defs>
                             </svg>
-                            <span>Army Forum</span>
+                            <span>Forum</span>
                           </div>
 
                         </Accordion.Header>
                         <Accordion.Body>
+                        <li>
+                            <a
+                              onClick={() => { hitfunctionss(12); }}
+                              className={
+                                indexwait === 12 ? "list-item active" : "list-item"
+                              }
+
+                            >
+                              <span>Squad Forum</span>
+                            </a>
+                          </li>
                           <li>
+                            <a
+                              onClick={() => { hitfunctionss(12); }}
+                              className={
+                                indexwait === 13 ? "list-item active" : "list-item"
+                              }
+
+                            >
+                              <span>Army Forum</span>
+                            </a>
+                          </li>
+                          {/* <li>
                             <a
                               onClick={() => { hitfunctionss(6); }}
                               className={
@@ -529,18 +603,7 @@ const Sidebar = () => {
                             >
                               <span>My Posts</span>
                             </a>
-                          </li>
-                          <li>
-                            <a
-                              onClick={() => { hitfunctionss(12); }}
-                              className={
-                                indexwait === 12 ? "list-item active" : "list-item"
-                              }
-
-                            >
-                              <span>My Squad Forum</span>
-                            </a>
-                          </li>
+                          </li> */}
                         </Accordion.Body>
                       </Accordion.Item>
 
@@ -662,14 +725,14 @@ const Sidebar = () => {
               indexwait === 1 ?
                 (
                   <>
-                    <Tasks setShowtask={setShowtask} settaskdetail={settaskdetail} />
+                    <Tasks setShowtask={setShowtask} settaskdetail={settaskdetail}  tasks={tasks} setexpireds={setexpireds} />
                   </>
                 )
                 :
                 indexwait === 2 ?
                   (
                     <>
-                      <Operations setroute={setroute} routes={routes} setShowtask1={setShowtask1} settaskdetail1={settaskdetail1} operations={operations} setexpired={setexpired} />
+                      <Operations setroute={setroute} routes={routes} setShowtask1={setShowtask1} settaskdetail1={settaskdetail1} operations={operations} setexpired={setexpired} setOperationId={setOperationId}/>
                     </>
                   )
                   :
@@ -743,6 +806,12 @@ const Sidebar = () => {
                                           <ArmyForum />
                                         </>
                                       ) :
+                                      indexwait == 13 ?
+                                      (
+                                        <>
+                                          <ArmyForum />
+                                        </>
+                                      )  :
                                       ""
             }
 
@@ -1029,12 +1098,34 @@ const Sidebar = () => {
                                 </clipPath>
                               </defs>
                             </svg>
-                            <span>Army Forum</span>
+                            <span>Forum</span>
                           </div>
 
                         </Accordion.Header>
                         <Accordion.Body>
+                        <li>
+                            <a
+                              onClick={() => { hitfunctionss(12); sidebar(); }}
+                              className={
+                                indexwait === 12 ? "list-item active" : "list-item"
+                              }
+
+                            >
+                              <span>Squad Forum</span>
+                            </a>
+                          </li>
                           <li>
+                            <a
+                              onClick={() => { hitfunctionss(12); sidebar(); }}
+                              className={
+                                indexwait === 13 ? "list-item active" : "list-item"
+                              }
+
+                            >
+                              <span>Army Forum</span>
+                            </a>
+                          </li>
+                          {/* <li>
                             <a
                               onClick={() => { hitfunctionss(6); sidebar(); }}
                               className={
@@ -1044,18 +1135,7 @@ const Sidebar = () => {
                             >
                               <span>My Posts</span>
                             </a>
-                          </li>
-                          <li>
-                            <a
-                              onClick={() => { hitfunctionss(12); sidebar(); }}
-                              className={
-                                indexwait === 12 ? "list-item active" : "list-item"
-                              }
-
-                            >
-                              <span>My Squad Forum</span>
-                            </a>
-                          </li>
+                          </li> */}
                         </Accordion.Body>
                       </Accordion.Item>
                     </Accordion>
@@ -1172,8 +1252,8 @@ const Sidebar = () => {
 
       <SquadModals show1={show1} setShow1={setShow1} show2={show2} setShow2={setShow2} />
       <LeaderModals show4={show4} setShow4={setShow4} show5={show5} setShow5={setShow5} show6={show6} setShow6={setShow6} item={coLeaderDetails} />
-      <AllTaskModals showtask={showtask} setShowtask={setShowtask} settaskdetail={settaskdetail} taskdetail={taskdetail} />
-      <AllOperationTaskModal showtask1={showtask1} setShowtask1={setShowtask1} settaskdetail1={settaskdetail1} taskdetail1={taskdetail1} getDataOperation={getDataOperation} />
+      <AllTaskModals showtask={showtask} setShowtask={setShowtask} settaskdetail={settaskdetail} taskdetail={taskdetail} getData={getData}/>
+      <AllOperationTaskModal showtask1={showtask1} setShowtask1={setShowtask1} settaskdetail1={settaskdetail1} taskdetail1={taskdetail1} getDataOperation={getDataOperation} operationId={operationId} />
       {/* <ArmyForumModal /> */}
     </>
   );
