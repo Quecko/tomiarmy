@@ -10,14 +10,13 @@ import Loader from '../../../hooks/loader';
 import Modal from 'react-bootstrap/Modal';
 import { Accordion, Dropdown, Pagination, Tab, Table, Tabs } from 'react-bootstrap'
 import dosts from "../../../assets/icons/dots.svg";
-const CreateOperation = ({ svaebutton }) => {
+const CreateOperation = ({ svaebutton, routes, setroute }) => {
     const [show, setShow] = useState(false);
     const handleClose = () => {
         setEditableTask(null)
         setShow(false)
     };
     const handleShow = () => setShow(true);
-
 
     const [showtask, setShowtask] = useState(false);
     const handleClosetask = () => setShowtask(false);
@@ -78,12 +77,12 @@ const CreateOperation = ({ svaebutton }) => {
 
     const [editableTask, setEditableTask] = useState(null);
     const [subtask, setsubtask] = useState([])
-
     const createsub = () => {
-        setsubtask([...subtask, { ...specification }])
+        setsubtask([...subtask, {...specification }])
         setShow(false)
 
     }
+    console.log("ewrewewrew",subtask)
     const deletesubtask = (id) => {
         setsubtask(subtask.filter((elem, index) => index !== id))
     }
@@ -110,18 +109,9 @@ const CreateOperation = ({ svaebutton }) => {
         }
     }, [editableTask])
 
-
-
     const Createoperation = async () => {
         let tok = localStorage.getItem("accessToken");
         var data1 = new FormData();
-        // data1.append("expirationDate", startDate)
-        // data1.append("name", allFormDataoperation?.name)
-        // data1.append("reward", parseInt(allFormDataoperation?.reward))
-        // data1.append("tomiToken", parseInt(allFormDataoperation?.tomiToken))
-        // data1.append("tasks", JSON.stringify(specification))
-        // data1.append("description", allFormDataoperation?.description)
-        // data1.append("operationImage", profileP)
         data1.append("name", allFormData?.name)
         data1.append("reward", allFormData?.reward)
         data1.append("description", allFormData?.description)
@@ -138,43 +128,70 @@ const CreateOperation = ({ svaebutton }) => {
         if (allFormData?.name != '') {
             if (allFormData?.reward != '') {
                 if (allFormData?.description != '') {
-                    var config = {
-                        method: "post",
-                        url: `${API_URL}/tasks/operations`,
-                        headers: {
-                            authorization: `Bearer ` + tok
-                        },
-                        data: data1,
-                    };
-                    axios(config)
-                        .then(function (response) {
-                            //   setLoader(false);
-                            toast.success('Task Created Successfully', {
+                    if (startDate) {
+                        if(profileP){
+                            if(allFormData?.tomitoken != ''){
+                                var config = {
+                                    method: "post",
+                                    url: `${API_URL}/tasks/operations`,
+                                    headers: {
+                                        authorization: `Bearer ` + tok
+                                    },
+                                    data: data1,
+                                };
+                                axios(config)
+                                    .then(function (response) {
+                                        //   setLoader(false);
+                                        setroute(!routes)
+                                        ClearAll();
+                                        setProfileP(null);
+                                        setProfilePicture(null)
+                                        toast.success('Operation Created Successfully', {
+                                            position: "top-right",
+                                            autoClose: 2000,
+                                        })
+                                    })
+                                    .catch(function (error) {
+                                        //   setLoader(false);
+                                        if (error.response.data.statusCode == 409) {
+                                            toast.error('Tasks with this name already exist', {
+                                                position: 'top-right',
+                                                autoClose: 5000,
+                                            });
+                                        } else if (error.response.data.statusCode == 500) {
+                                            toast.error('Something went wrong', {
+                                                position: 'top-right',
+                                                autoClose: 5000,
+                                            });
+                                        }
+                                        else if (error.response.data.statusCode == 400) {
+                                            toast.error('Validation Failed', {
+                                                position: 'top-right',
+                                                autoClose: 5000,
+                                            });
+                                        }
+                                    });
+                            }
+                            else{
+                                toast.error('Please Write TomiToken', {
+                                    position: "top-right",
+                                    autoClose: 2000,
+                                });
+                            }
+                        }
+                        else{
+                            toast.error('Please Select Operation Image', {
                                 position: "top-right",
                                 autoClose: 2000,
-                            })
-
-                        })
-                        .catch(function (error) {
-                            //   setLoader(false);
-                            if (error.response.data.statusCode == 409) {
-                                toast.error('Tasks with this name already exist', {
-                                    position: 'top-right',
-                                    autoClose: 5000,
-                                });
-                            } else if (error.response.data.statusCode == 500) {
-                                toast.error('Something went wrong', {
-                                    position: 'top-right',
-                                    autoClose: 5000,
-                                });
-                            }
-                            else if (error.response.data.statusCode == 400) {
-                                toast.error('Validation Failed', {
-                                    position: 'top-right',
-                                    autoClose: 5000,
-                                });
-                            }
-                        });
+                            }); 
+                        }
+                    }
+                    else{
+                        toast.error('Please Select Expiration Date', {
+                            position: "top-right",
+                            autoClose: 2000,
+                        }); 
+                    }
                 }
                 else {
                     toast.error('Please Write Description', {
@@ -192,7 +209,7 @@ const CreateOperation = ({ svaebutton }) => {
         }
         else {
             console.log()
-            toast.error('Please Write Title of Task', {
+            toast.error('Please Write Name of Task', {
                 position: "top-right",
                 autoClose: 2000,
             });
@@ -204,7 +221,7 @@ const CreateOperation = ({ svaebutton }) => {
         <>
             <div className='alkdaskdasdasd'>
                 <button className="btn-goback"><img src="\assets\goback.svg" alt="img" className="img-fluid me-2" />Go Back</button>
-                <button onClick={Createoperation} className="savechange-btn disabled display-none-in-mobile" >
+                <button onClick={Createoperation} className={subtask.lenght > 0 ? "savechange-btn disabled display-none-in-mobile" : "savechange-btn disabled display-none-in-mobile"} >
                     <img src="\generalassets\icons\save-change.svg" alt="img" className="img-fluid me-1" />
                     <span> Save Changes</span>
                 </button>
@@ -232,7 +249,7 @@ const CreateOperation = ({ svaebutton }) => {
                                 </div>
                                 <div className="option-field">
                                     <label>TOMI Tokens</label>
-                                    <input value={allFormData?.tomitoken} name="tomitoken" onChange={handleChange} type="text" placeholder="Enter TOMI Tokens..." />
+                                    <input value={allFormData?.tomitoken} name="tomitoken" onChange={handleChange} type="number" placeholder="Enter TOMI Tokens..." />
                                 </div>
                             </div>
                             <div className="option-field mb-0">

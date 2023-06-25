@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import Dropdown from 'react-bootstrap/Dropdown';
@@ -8,7 +8,71 @@ import Pagination from 'react-bootstrap/Pagination';
 import Accordion from 'react-bootstrap/Accordion';
 import "./generaloperation.scss"
 import CreateOperation from './CreateOperation';
+import "react-datepicker/dist/react-datepicker.css";
+import "react-toastify/dist/ReactToastify.css";
+import { API_URL } from '../../../utils/ApiUrl';
+import { toast } from 'react-toastify';
+import axios from 'axios';
+import Loader from '../../../hooks/loader';
+import { useWeb3React } from "@web3-react/core";
+
 const GeneralOperation = ({ setroute, routes, setsvaebutton, svaebutton }) => {
+
+    const [expired, setexpired] = useState(false);
+    const { account } = useWeb3React();
+      const [tasks, settasks] = useState([]);
+
+    const settabss = (event) => {
+        if (event === 'home') {
+            setexpired(false)
+        }
+        else if (event === 'profile') {
+            setexpired(true)
+        }
+    }
+    useEffect(() => {
+        // if (currentPage > 1) {
+        //     getData(currentPage);
+        // } else {
+        getData();
+        // }
+      }, [account, expired])
+    const getData = async (off, dsfdsgds) => {
+        // let valu = null;
+        // if (off) {
+        //     valu = off;
+        // } else {
+        //     valu = 1;
+        // }
+        let tok = localStorage.getItem("accessToken");
+        // let wall = localStorage.getItem("wallet");
+        if (account) {
+          var config = {
+            method: "get",
+            url: `${API_URL}/tasks/operations?offset=1&&limit=10&&expired=${expired}`,
+            headers: {
+              authorization: `Bearer ` + tok
+            },
+          };
+          axios(config)
+            .then(function (response) {
+              // setLoader(false);
+              // setCount(response.data.data.count)
+              settasks(response?.data?.data?.tasks);
+              // let arr = Array.from(Array(parseInt(response.data.data.pages)).keys());
+              // setPages(arr);
+              // setCurrentPage(valu)
+            })
+            .catch(function (error) {
+              // setLoader(false);
+              // localStorage.removeItem("accessToken");
+              // localStorage.removeItem("user");
+              // window.location.assign("/")
+              // window.location.reload();
+            });
+        }
+      }
+
     return (
         <>
             {
@@ -32,7 +96,7 @@ const GeneralOperation = ({ setroute, routes, setsvaebutton, svaebutton }) => {
             }
             {
 
-                routes ? <><CreateOperation  /></> :
+                routes ? <><CreateOperation setroute={setroute} routes={routes} /></> :
                     <section className='main-task'>
                         <div className='container-fluid padd-sm p-0'>
                             <div className='row'>

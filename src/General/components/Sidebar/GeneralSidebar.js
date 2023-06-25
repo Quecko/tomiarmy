@@ -51,7 +51,7 @@ const GeneralSidebar = () => {
     if (account) {
       var config = {
         method: "get",
-        url: `${API_URL}/tasks?offset=1&&limit=5&&expired=${expired}`,
+        url: `${API_URL}/tasks?offset=1&&limit=10&&expired=${expired}`,
         headers: {
           authorization: `Bearer ` + tok
         },
