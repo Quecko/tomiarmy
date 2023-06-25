@@ -18,17 +18,14 @@ const Proofofwork = () => {
     const handleShowreject = () => setShowreject(true);
     const [expired, setexpired] = useState(false);
 
-
     const settabss = (event) => {
         if (event === 'home') {
-          setexpired(false)
+            setexpired(false)
         }
         else if (event === 'profile') {
-          setexpired(true)
+            setexpired(true)
         }
-      }
-    
-
+    }
 
     return (
         <>
@@ -248,7 +245,7 @@ const Proofofwork = () => {
                                                                     </div>
                                                                 </Accordion.Body>
                                                             </Accordion.Item>
-                                                          
+
                                                         </Accordion>
                                                     </div>
 
@@ -257,6 +254,91 @@ const Proofofwork = () => {
                                         </div>
                                     </Tab>
                                     <Tab eventKey="profile" title="Operations Proof of Work">
+
+                                    <div className="col-xl-12 col-12 pe-0 padd-sm">
+                                            <div className="data-box general-tasks-wrappergeneral border-grad1 p-0">
+                                                <div className="maincard-global">
+                                                    <Table striped bordered hover responsive className="general-tasks-table display-none-in-mobile">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>User</th>
+                                                                <th>Tasks</th>
+                                                                <th>Points</th>
+                                                                <th>Status</th>
+                                                                <th>Action</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>sharjeel</td>
+                                                                <td>Like our facebook..</td>
+                                                                <td>1,000,000</td>
+                                                                <td>
+                                                                    <div style={{ maxWidth: '83px', width: '100%' }} className="completed">Completed</div>
+                                                                </td>
+                                                                <td>
+                                                                    <div className="tbl-dropdown text-end">
+                                                                        <button className='btn-detail'>Detail</button>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            
+                                                        </tbody>
+                                                    </Table>
+                                                    <div className="pagi display-none-in-mobile">
+                                                        <div className="left">
+                                                            <p>Showing 1 to 10 of 57 entries</p>
+                                                        </div>
+                                                        <div className="right">
+                                                            <p>Previous</p>
+                                                            <Pagination>
+                                                                <Pagination.Item active>{1}</Pagination.Item>
+                                                                <Pagination.Item>{2}</Pagination.Item>
+                                                                <Pagination.Item >{3}</Pagination.Item>
+                                                                <Pagination.Item>{4}</Pagination.Item>
+                                                                <Pagination.Item >{5}</Pagination.Item>
+                                                                <Pagination.Item>{6}</Pagination.Item>
+                                                            </Pagination>
+                                                            <p>Next</p>
+                                                        </div>
+                                                    </div>
+                                                    <div className="mobile-responsive-table d-none display-block-in-mobile">
+                                                        <div className="heading-mobile">
+                                                            <p>User</p>
+                                                        </div>
+                                                        <Accordion defaultActiveKey="0">
+                                                            <Accordion.Item eventKey="0">
+                                                                <Accordion.Header>sharjeel</Accordion.Header>
+                                                                <Accordion.Body>
+                                                                    <div className="inner-fields">
+                                                                        <div className="inner-item">
+                                                                            <h6>Tasks</h6>
+                                                                            <p>Like our facebook..</p>
+                                                                        </div>
+                                                                        <div className="inner-item">
+                                                                            <h6>Points</h6>
+                                                                            <p>1,000,000</p>
+                                                                        </div>
+                                                                        <div className="inner-item">
+                                                                            <h6>Status</h6>
+                                                                            <button className="btn-green">Completed</button>
+                                                                        </div>
+                                                                        <div className="inner-item">
+                                                                            <h6>Actions</h6>
+                                                                            <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
+                                                                        </div>
+                                                                    </div>
+                                                                </Accordion.Body>
+                                                            </Accordion.Item>
+
+                                                        </Accordion>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        {/* 2nd table ........................... */}
                                         <div className="col-xl-12 col-12 pe-0 padd-sm">
                                             <div className="data-box general-tasks-wrappergeneral border-grad1 p-0">
                                                 <div className="maincard-global">
@@ -454,7 +536,7 @@ const Proofofwork = () => {
                                                                     </div>
                                                                 </Accordion.Body>
                                                             </Accordion.Item>
-                                                          
+
                                                         </Accordion>
                                                     </div>
 
@@ -524,18 +606,18 @@ const Proofofwork = () => {
                                     <img src="\generalassets\other-imgs\proofofwork.png" alt="powimginner" className="powimginner" />
                                 </div>
                                 <div className="others-imgs">
-                                <div className="powimg">
-                                    <img src="\generalassets\other-imgs\proofofwork.png" alt="powimginner" className="powimginner" />
-                                </div>
-                                <div className="powimg">
-                                    <img src="\generalassets\other-imgs\proofofwork.png" alt="powimginner" className="powimginner" />
-                                </div>
-                                <div className="powimg">
-                                    <img src="\generalassets\other-imgs\proofofwork.png" alt="powimginner" className="powimginner" />
-                                </div>
-                                <div className="powimg">
-                                    <img src="\generalassets\other-imgs\proofofwork.png" alt="powimginner" className="powimginner" />
-                                </div>
+                                    <div className="powimg">
+                                        <img src="\generalassets\other-imgs\proofofwork.png" alt="powimginner" className="powimginner" />
+                                    </div>
+                                    <div className="powimg">
+                                        <img src="\generalassets\other-imgs\proofofwork.png" alt="powimginner" className="powimginner" />
+                                    </div>
+                                    <div className="powimg">
+                                        <img src="\generalassets\other-imgs\proofofwork.png" alt="powimginner" className="powimginner" />
+                                    </div>
+                                    <div className="powimg">
+                                        <img src="\generalassets\other-imgs\proofofwork.png" alt="powimginner" className="powimginner" />
+                                    </div>
                                 </div>
                             </div>
                         </div>

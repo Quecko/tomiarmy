@@ -157,7 +157,6 @@ const CreateTaskModals = ({ showtask, setShowtask, getData }) => {
                 handleClosetask2();
                 handleShowtask3();
               }
-
             })
             .catch(function (error) {
               setLoader(false);

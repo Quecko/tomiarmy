@@ -22,7 +22,6 @@ const EditTaskModals = ({ showtaskdetail, setShowtaskdetail, showtaskedit, setSh
   const [exsistimage, setexsistimage] = useState(null);
   const [docfilepp, setdocfilepp] = useState(null);
 
-
   // console.log("asfsdfdsf",typeof date)
   var result = taskdetail?.attachment?.split("_")?.pop();
 

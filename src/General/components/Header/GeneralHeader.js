@@ -8,8 +8,6 @@ import mobileLogo from "../../../assets/icons/mobileLogo.svg";
 import Modal from 'react-bootstrap/Modal';
 
 const GeneralHeader = ({ routes, setroute, routeshome, setroutehome, indexwait, handleShow, routesarmy, setroutearmy, setShowtask, showtask, showannounce, setShowannounce, showfaq, setShowfaq }) => {
-
-
   return (
     <>
       <div
@@ -68,7 +66,7 @@ const GeneralHeader = ({ routes, setroute, routeshome, setroutehome, indexwait, 
               <p>VIEW AND CREATE ANNOUNCEMENTS FOR YOUR ARMY</p>
             </div>
           ) : null}
-          {indexwait === 5 ? (
+          {indexwait === 5 || indexwait === 9 ? (
             <>
               {
                 routesarmy ?
@@ -80,7 +78,7 @@ const GeneralHeader = ({ routes, setroute, routeshome, setroutehome, indexwait, 
               }
             </>
           ) : null}
-          {indexwait === 6 ? (
+          {indexwait === 6 || indexwait === 10 ? (
             <div className="soldier-name">
               <h4>Army Forum</h4>
               <p>Engage with your army</p>
@@ -110,7 +108,7 @@ const GeneralHeader = ({ routes, setroute, routeshome, setroutehome, indexwait, 
                   <button style={{maxWidth: "171px", width: "100%"}} onClick={setShowtask} className="create-squad-btn display-none-in-mobile" >
                     <img src="\generalassets\icons\create-task.svg" alt="img" className="img-fluid me-2" />
                     <span> Create Task</span>
-                  </button> </> : <button className="savechange-btn disabled display-none-in-mobile" >
+                  </button> </> : <button  className="savechange-btn disabled display-none-in-mobile" >
                   <img src="\generalassets\icons\save-change.svg" alt="img" className="img-fluid me-1" />
                   <span> Save Changes</span>
                 </button>}
@@ -161,7 +159,7 @@ const GeneralHeader = ({ routes, setroute, routeshome, setroutehome, indexwait, 
               : ""
           }
           {
-            indexwait === 6 ?
+            indexwait === 6 || indexwait === 10 ?
               <button className="create-squad-btn" data-bs-toggle="modal" data-bs-target="#exampleModall">
                 <img src="\assets\topic-btn.svg" alt="img" className="img-fluid me-2" />
                 <span>Start a new topic</span>
