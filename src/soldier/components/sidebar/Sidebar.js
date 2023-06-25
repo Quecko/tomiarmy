@@ -28,6 +28,7 @@ import { useHistory } from "react-router-dom";
 import { API_URL } from '../../../utils/ApiUrl'
 import Accordion from 'react-bootstrap/Accordion';
 import ArmyForumModal from "../../screens/ArmyForumModal";
+import AllOperationTaskModal from "../../screens/AllOperationTaskModal";
 const Sidebar = () => {
 
   const indexvv = localStorage.getItem("indexvalue");
@@ -40,10 +41,13 @@ const Sidebar = () => {
   const handleShow = () => setShow(true);
   const [showtask, setShowtask] = useState(false);
   const [taskdetail, settaskdetail] = useState(null);
+  const [showtask1, setShowtask1] = useState(false);
+  const [taskdetail1, settaskdetail1] = useState(null);
   const [coLeaderDetails, setCoLeaderDetails] = useState(null);
   const { account } = useWeb3React()
   const history = useHistory();
   const { userSign } = Signature();
+  const [loader, setLoader] = useState(false);
 
   const [show4, setShow4] = useState(false);
   const [show5, setShow5] = useState(false);
@@ -200,6 +204,50 @@ const Sidebar = () => {
     }
   };
 
+  const [operations, setOperations] = useState([])
+  const [expired, setexpired] = useState(false);
+  
+  const getDataOperation = async (off) => {
+
+    // let valu = null;
+    // if (off) {
+    //   valu = off;
+    // } else {
+    //   valu = 1;
+    // }
+    let tok = localStorage.getItem("accessToken");
+    let wall = localStorage.getItem("wallet");
+    if (account) {
+      var config = {
+        method: "get",
+        url: `${API_URL}/tasks/operations?offset=1&&limit=5&&expired=${expired}`,
+        headers: {
+          authorization: `Bearer ` + tok
+        },
+      };
+      axios(config)
+        .then(function (response) {
+          setLoader(false);
+          // setCount(response.data.data.count)
+          setOperations(response?.data?.data?.operation[0]);
+          // let arr = Array.from(Array(parseInt(response.data.data.pages)).keys());
+          // setPages(arr);
+          // setCurrentPage(valu)
+        })
+        .catch(function (error) {
+          setLoader(false);
+          // localStorage.removeItem("accessToken");
+          // localStorage.removeItem("user");
+          // window.location.assign("/")
+          // window.location.reload();
+        });
+    }
+  }
+
+
+  useEffect(()=>{
+    getDataOperation()
+  },[account])
   return (
     <>
       <div className="theme-custom-container">
@@ -621,7 +669,7 @@ const Sidebar = () => {
                 indexwait === 2 ?
                   (
                     <>
-                      <Operations setroute={setroute} routes={routes} setShowtask={setShowtask} />
+                      <Operations setroute={setroute} routes={routes} setShowtask1={setShowtask1} settaskdetail1={settaskdetail1} operations={operations} setexpired={setexpired} />
                     </>
                   )
                   :
@@ -1125,6 +1173,7 @@ const Sidebar = () => {
       <SquadModals show1={show1} setShow1={setShow1} show2={show2} setShow2={setShow2} />
       <LeaderModals show4={show4} setShow4={setShow4} show5={show5} setShow5={setShow5} show6={show6} setShow6={setShow6} item={coLeaderDetails} />
       <AllTaskModals showtask={showtask} setShowtask={setShowtask} settaskdetail={settaskdetail} taskdetail={taskdetail} />
+      <AllOperationTaskModal showtask1={showtask1} setShowtask1={setShowtask1} settaskdetail1={settaskdetail1} taskdetail1={taskdetail1} getDataOperation={getDataOperation} />
       {/* <ArmyForumModal /> */}
     </>
   );

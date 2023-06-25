@@ -4,12 +4,10 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import Pagination from 'react-bootstrap/Pagination';
 import Modal from 'react-bootstrap/Modal';
 import Accordion from 'react-bootstrap/Accordion';
+import Countdown from 'react-countdown';
 
-const ActiveOperation = ({setShowtask,tasks}) => {
+const ActiveOperation = ({ setShowtask1, tasks,settaskdetail1 }) => {
 
-
-
-       console.log('tasks',tasks);
     // const [show1, setShow1] = useState(false);
     // const handleClose1 = () => setShow1(false);
     // const handleShow1 = () => setShow1(true);
@@ -22,33 +20,48 @@ const ActiveOperation = ({setShowtask,tasks}) => {
     // const setProfilePic = (evt) => {
     //     setProfilePicture(evt.target.files[0]);
     // }
+    const GetTime = (time) => {
+        let endtime = new Date(time)
+        return endtime;
+    }
+
+
+
+    const SubmitProofOfWork =(elem)=>{
+        setShowtask1(true)
+        settaskdetail1(elem)
+      }
+    
+
+
+
     return (
         <>
             <section className="active-operations">
                 <div className="upper-item">
                     <div className='left'>
-                        <h6>operation : {tasks?.name} <span>ENDS IN: 23:34:12</span></h6>
+                        <h6>operation : {tasks?.name} <span>ENDS IN:<Countdown date={GetTime(tasks?.expirationDate)} /></span></h6>
                         <p>{tasks?.description}</p>
                     </div>
                     {/* <a href="#">View All Operation Tasks <img src="\assets\arrow-right.svg" alt="img" className='img-fluid ms-2' /></a> */}
                 </div>
                 <div className="bottom-cards">
                     <div className="card-item border-grad">
-                    <img src="\static-icons\points.png" alt="img" className='img-fluid' style={{width: "50px", height: "50px"}} />
+                        <img src="\static-icons\points.png" alt="img" className='img-fluid' style={{ width: "50px", height: "50px" }} />
                         <div className="inner-content">
                             <p>Points</p>
                             <h6>{tasks?.reward}</h6>
                         </div>
                     </div>
                     <div className="card-item border-grad">
-                    <img src="\static-icons\tomi-icon.png" alt="img" className='img-fluid' style={{width: "50px", height: "50px"}} />
+                        <img src="\static-icons\tomi-icon.png" alt="img" className='img-fluid' style={{ width: "50px", height: "50px" }} />
                         <div className="inner-content">
                             <p>TOMI Tokens</p>
                             <h6>{tasks?.tomiToken}</h6>
                         </div>
                     </div>
                     <div className="card-item border-grad">
-                    <img src="\static-icons\tomitasks.png" alt="img" className='img-fluid' style={{width: "50px", height: "50px"}} />
+                        <img src="\static-icons\tomitasks.png" alt="img" className='img-fluid' style={{ width: "50px", height: "50px" }} />
                         <div className="inner-content">
                             <p>Total Tasks</p>
                             <h6>55</h6>
@@ -56,14 +69,14 @@ const ActiveOperation = ({setShowtask,tasks}) => {
                     </div>
                     <div className="card-item border-grad unique-item">
                         <div className='inner-set'>
-                        <img src="\static-icons\rewardnft.png" alt="img" className='img-fluid' style={{width: "50px", height: "50px"}} />
+                            <img src="\static-icons\rewardnft.png" alt="img" className='img-fluid' style={{ width: "50px", height: "50px" }} />
                             <div className="inner-content">
                                 <p>Reward NFT</p>
-                                <h6>ELN MSK #41234</h6>
+                                <h6>ELN MSK</h6>
                             </div>
                         </div>
                         <div className="nft-img">
-                            <img src="\assets\nft.svg" alt="img" className='img-fluid' />
+                            <img src={tasks?.imageUrl} alt="img" className='img-fluid' />
                         </div>
                     </div>
                 </div>
@@ -75,11 +88,14 @@ const ActiveOperation = ({setShowtask,tasks}) => {
                                     <th>
                                         <p className='headtable'>Task</p>
                                     </th>
-                                    <th>
+                                    {/* <th>
                                         <p className='headtable'>Points</p>
-                                    </th>
-                                    <th>
+                                    </th> */}
+                                    {/* <th>
                                         <p className='headtable'>TOMI Tokens</p>
+                                    </th> */}
+                                    <th>
+                                        <p className='headtable'>Description</p>
                                     </th>
                                     <th>
                                         <p className='headtable'>Progress</p>
@@ -93,158 +109,53 @@ const ActiveOperation = ({setShowtask,tasks}) => {
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>
-                                        <p className='paratable'>Like our facebook page</p>
-                                    </td>
-                                    <td>
-                                        <p className='paratable'>+5</p>
-                                    </td>
-                                    <td>
-                                        <p className='paratable'>500 TOMI</p>
-                                    </td>
-                                    <td>
-                                        <div className="twice">
-                                            <img src="\assets\greenline.svg" alt="img" className='img-fluid' />
-                                            <p className='paratable'>100 of 100</p>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div className='completebtn'>
-                                            <button className=''>Completed</button>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div className='dropbtn'>
-                                            <Dropdown>
-                                                <Dropdown.Toggle variant="success" id="dropdown-basic">
-                                                    <img src='\Vectordots.svg' alt='img' className='img-fluid' />
 
-                                                </Dropdown.Toggle>
+                                {tasks?.tasksList?.map((elem, index) => {
+                                    return (
+                                        <tr key={index}>
+                                            <td>
+                                                <p className='paratable'>{elem?.name}</p>
+                                            </td>
+                                            <td>
+                                                <p className='paratable'>{elem?.description}</p>
+                                            </td>
+                                            <td>
+                                                <div className="twice">
+                                                    <img src="\assets\greenline.svg" alt="img" className='img-fluid' />
+                                                    <p className='paratable'>100 of 100</p>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div className='completebtn text-end'>
+                                                    {
+                                                        elem?.taskSubmitted ?
+                                                            <button style={{ background: '#FEC600' }}>In Process</button>
+                                                            : elem?.taskApproval ?
+                                                                <button style={{ background: '#04C453' }}>Completed</button>
+                                                                :
+                                                                <button style={{ background: '#FF8936' }}>Pending</button>
+                                                    }
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div className='dropbtn'>
+                                                    <Dropdown>
+                                                        <Dropdown.Toggle variant="success" id="dropdown-basic">
+                                                            <img src='\Vectordots.svg' alt='img' className='img-fluid' />
 
-                                                <Dropdown.Menu>
-                                                    <Dropdown.Item href="#/action-1">
-                                                        <p onClick={() => setShowtask(true)}><img src='\Vector.svg' alt='img' className='img-fluid' />Submit Proof</p>
-                                                    </Dropdown.Item>
-                                                </Dropdown.Menu>
-                                            </Dropdown>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <p className='paratable'>Like our facebook page</p>
-                                    </td>
-                                    <td>
-                                        <p className='paratable'>+5</p>
-                                    </td>
-                                    <td>
-                                        <p className='paratable'>500 TOMI</p>
-                                    </td>
-                                    <td>
-                                        <div className="twice">
-                                            <img src="\assets\orangeline.svg" alt="img" className='img-fluid' />
-                                            <p className='paratable'>67 of 100</p>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div className='completebtn'>
-                                            <button className='orange'>In Progress</button>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div className='dropbtn'>
-                                            <Dropdown>
-                                                <Dropdown.Toggle variant="success" id="dropdown-basic">
-                                                    <img src='\Vectordots.svg' alt='img' className='img-fluid' />
+                                                        </Dropdown.Toggle>
 
-                                                </Dropdown.Toggle>
-
-                                                <Dropdown.Menu>
-                                                    <Dropdown.Item href="#/action-1">
-                                                        <p><img src='\Vector.svg' alt='img' className='img-fluid' />Submit Proof</p>
-                                                    </Dropdown.Item>
-                                                </Dropdown.Menu>
-                                            </Dropdown>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <p className='paratable'>Follow our twitter acc...</p>
-                                    </td>
-                                    <td>
-                                        <p className='paratable'>+5</p>
-                                    </td>
-                                    <td>
-                                        <p className='paratable'>500 TOMI</p>
-                                    </td>
-                                    <td>
-                                        <div className="twice">
-                                            <img src="\assets\blankline.svg" alt="img" className='img-fluid' />
-                                            <p className='paratable'>0 of 100</p>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div className='completebtn'>
-                                            <button className='orange'>In Progress</button>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div className='dropbtn'>
-                                            <Dropdown>
-                                                <Dropdown.Toggle variant="success" id="dropdown-basic">
-                                                    <img src='\Vectordots.svg' alt='img' className='img-fluid' />
-
-                                                </Dropdown.Toggle>
-
-                                                <Dropdown.Menu>
-                                                    <Dropdown.Item href="#/action-1">
-                                                        <p><img src='\Vector.svg' alt='img' className='img-fluid' />Submit Proof</p>
-                                                    </Dropdown.Item>
-                                                </Dropdown.Menu>
-                                            </Dropdown>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <p className='paratable'>Follow our twitter acc...</p>
-                                    </td>
-                                    <td>
-                                        <p className='paratable'>+5</p>
-                                    </td>
-                                    <td>
-                                        <p className='paratable'>500 TOMI</p>
-                                    </td>
-                                    <td>
-                                        <div className="twice">
-                                            <img src="\assets\redline.svg" alt="img" className='img-fluid' />
-                                            <p className='paratable'>5 of 100</p>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div className='completebtn'>
-                                            <button className='red'>Not Started</button>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div className='dropbtn'>
-                                            <Dropdown>
-                                                <Dropdown.Toggle variant="success" id="dropdown-basic">
-                                                    <img src='\Vectordots.svg' alt='img' className='img-fluid' />
-
-                                                </Dropdown.Toggle>
-
-                                                <Dropdown.Menu>
-                                                    <Dropdown.Item href="#/action-1">
-                                                        <p><img src='\Vector.svg' alt='img' className='img-fluid' />Submit Proof</p>
-                                                    </Dropdown.Item>
-                                                </Dropdown.Menu>
-                                            </Dropdown>
-                                        </div>
-                                    </td>
-                                </tr>
+                                                        <Dropdown.Menu>
+                                                            <Dropdown.Item href="#/action-1">
+                                                                <p onClick={()=>SubmitProofOfWork(elem)}><img src='\Vector.svg' alt='img' className='img-fluid' />Submit Proof</p>
+                                                            </Dropdown.Item>
+                                                        </Dropdown.Menu>
+                                                    </Dropdown>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    )
+                                })}
                             </tbody>
                         </table>
                     </div>

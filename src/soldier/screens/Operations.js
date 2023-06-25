@@ -10,7 +10,7 @@ import axios from 'axios';
 import { useWeb3React } from '@web3-react/core';
 
 
-const Operations = ({ setroute, routes, setShowtask, detailmodaloperations, deletemodaloperation, call }) => {
+const Operations = ({ setroute, routes, setShowtask1,settaskdetail1, detailmodaloperations, deletemodaloperation, call,operations ,setexpired}) => {
 
   const { account } = useWeb3React()
   const [loader, setLoader] = useState(false);
@@ -18,41 +18,42 @@ const Operations = ({ setroute, routes, setShowtask, detailmodaloperations, dele
   const [pages, setPages] = useState([]);
   const [rend, setRend] = useState(false);
   const [tasks, settasks] = useState([])
-  const getData = async (off) => {
-    // let valu = null;
-    // if (off) {
-    //   valu = off;
-    // } else {
-    //   valu = 1;
-    // }
-    let tok = localStorage.getItem("accessToken");
-    let wall = localStorage.getItem("wallet");
-    if (account) {
-      var config = {
-        method: "get",
-        url: `${API_URL}/tasks/operations?offset=1&&limit=5`,
-        headers: {
-          authorization: `Bearer ` + tok
-        },
-      };
-      axios(config)
-        .then(function (response) {
-          setLoader(false);
-          // setCount(response.data.data.count)
-          settasks(response?.data?.data?.operation[0]);
-          // let arr = Array.from(Array(parseInt(response.data.data.pages)).keys());
-          // setPages(arr);
-          // setCurrentPage(valu)
-        })
-        .catch(function (error) {
-          setLoader(false);
-          localStorage.removeItem("accessToken");
-          localStorage.removeItem("user");
-          window.location.assign("/")
-          // window.location.reload();
-        });
-    }
-  }
+
+  // const getData = async (off) => {
+  //   // let valu = null;
+  //   // if (off) {
+  //   //   valu = off;
+  //   // } else {
+  //   //   valu = 1;
+  //   // }
+  //   let tok = localStorage.getItem("accessToken");
+  //   let wall = localStorage.getItem("wallet");
+  //   if (account) {
+  //     var config = {
+  //       method: "get",
+  //       url: `${API_URL}/tasks/operations?offset=1&&limit=5`,
+  //       headers: {
+  //         authorization: `Bearer ` + tok
+  //       },
+  //     };
+  //     axios(config)
+  //       .then(function (response) {
+  //         setLoader(false);
+  //         // setCount(response.data.data.count)
+  //         settasks(response?.data?.data?.operation[0]);
+  //         // let arr = Array.from(Array(parseInt(response.data.data.pages)).keys());
+  //         // setPages(arr);
+  //         // setCurrentPage(valu)
+  //       })
+  //       .catch(function (error) {
+  //         setLoader(false);
+  //         localStorage.removeItem("accessToken");
+  //         localStorage.removeItem("user");
+  //         window.location.assign("/")
+  //         // window.location.reload();
+  //       });
+  //   }
+  // }
 
   const getNextData = (off) => {
     let offset = parseInt(off) + 1;
@@ -120,15 +121,25 @@ const Operations = ({ setroute, routes, setShowtask, detailmodaloperations, dele
     }
   };
 
-  console.log('taskkkkk',tasks);
 
-  useEffect(() => {
-    if (currentPage > 1) {
-      getData(currentPage);
-    } else {
-      getData();
+
+  // useEffect(() => {
+  //   if (currentPage > 1) {
+  //     getData(currentPage);
+  //   } else {
+  //     getData();
+  //   }
+  // }, [account, call])
+
+  const settabss = (event) => {
+    if (event === 'activeop') {
+      setexpired(false)
     }
-  }, [account, call])
+    else if (event === 'expiredop') {
+      setexpired(true)
+    }
+  }
+
 
 
   return (
@@ -144,9 +155,10 @@ const Operations = ({ setroute, routes, setShowtask, detailmodaloperations, dele
           defaultActiveKey="activeop"
           id="uncontrolled-tab-example"
           className={routes ? "opeartions-tab d-none" : "opeartions-tab"}
+          onSelect={settabss}
         >
           <Tab eventKey="activeop" title="Active Operation">
-            <ActiveOperation setShowtask={setShowtask}  tasks={tasks}/>
+            <ActiveOperation setShowtask1={setShowtask1} settaskdetail1={settaskdetail1}  tasks={operations} />
           </Tab>
           <Tab eventKey="expiredop" title="Expired Operations">
             <ExpiredOperation setroute={setroute} routes={routes} />
