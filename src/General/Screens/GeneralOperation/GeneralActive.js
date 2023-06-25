@@ -86,7 +86,7 @@ const GeneralActive = ({ setShowtask, tasks }) => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {tasks[0]?.tasksList.map((elem, index) => {
+                                {tasks[0]?.tasksList?.map((elem, index) => {
                                     return (
                                         <tr key={index}>
                                             <td>
