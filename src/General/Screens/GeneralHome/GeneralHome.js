@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./generalhome.scss"
 import { Dropdown, Table } from "react-bootstrap";
 import Accordion from 'react-bootstrap/Accordion';
@@ -6,8 +6,12 @@ import dosts from "../../../assets/icons/dots.svg";
 import submitIcon from "../../../assets/icons/submitIcon.svg";
 import { Calendar } from "react-multi-date-picker"
 import CreateOperation from "../GeneralOperation/CreateOperation";
+import { Modal } from 'react-bootstrap';
 
 const GeneralHome = ({ setShowtask, setroutehome, routeshome }) => {
+    const [showmajor, setShowmajor] = useState(false);
+    const handleClosemajor = () => setShowmajor(false);
+    const handleShowmajor = () => setShowmajor(true);
     return (
         <>
             {!routeshome ? <div className="formobile-heading d-none display-block-in-mobile">
@@ -201,7 +205,7 @@ const GeneralHome = ({ setShowtask, setroutehome, routeshome }) => {
 
                                                                     <Dropdown.Menu>
                                                                         <Dropdown.Item href="#/action-1">
-                                                                            <p><img src='\Vector.svg' alt='img' className='img-fluid' />recruit</p>
+                                                                            <p onClick={handleShowmajor}><img src='\Vector.svg' alt='img' className='img-fluid' />Add</p>
                                                                         </Dropdown.Item>
                                                                     </Dropdown.Menu>
                                                                 </Dropdown>
@@ -230,7 +234,7 @@ const GeneralHome = ({ setShowtask, setroutehome, routeshome }) => {
 
                                                                     <Dropdown.Menu>
                                                                         <Dropdown.Item href="#/action-1">
-                                                                            <p><img src='\Vector.svg' alt='img' className='img-fluid' />recruit</p>
+                                                                            <p><img src='\Vector.svg' alt='img' className='img-fluid' />Add</p>
                                                                         </Dropdown.Item>
                                                                     </Dropdown.Menu>
                                                                 </Dropdown>
@@ -259,7 +263,7 @@ const GeneralHome = ({ setShowtask, setroutehome, routeshome }) => {
 
                                                                     <Dropdown.Menu>
                                                                         <Dropdown.Item href="#/action-1">
-                                                                            <p><img src='\Vector.svg' alt='img' className='img-fluid' />recruit</p>
+                                                                            <p><img src='\Vector.svg' alt='img' className='img-fluid' />Add</p>
                                                                         </Dropdown.Item>
                                                                     </Dropdown.Menu>
                                                                 </Dropdown>
@@ -288,7 +292,7 @@ const GeneralHome = ({ setShowtask, setroutehome, routeshome }) => {
 
                                                                     <Dropdown.Menu>
                                                                         <Dropdown.Item href="#/action-1">
-                                                                            <p><img src='\Vector.svg' alt='img' className='img-fluid' />recruit</p>
+                                                                            <p><img src='\Vector.svg' alt='img' className='img-fluid' />Add</p>
                                                                         </Dropdown.Item>
                                                                     </Dropdown.Menu>
                                                                 </Dropdown>
@@ -317,7 +321,7 @@ const GeneralHome = ({ setShowtask, setroutehome, routeshome }) => {
 
                                                                     <Dropdown.Menu>
                                                                         <Dropdown.Item href="#/action-1">
-                                                                            <p><img src='\Vector.svg' alt='img' className='img-fluid' />recruit</p>
+                                                                            <p><img src='\Vector.svg' alt='img' className='img-fluid' />Add</p>
                                                                         </Dropdown.Item>
                                                                     </Dropdown.Menu>
                                                                 </Dropdown>
@@ -346,7 +350,7 @@ const GeneralHome = ({ setShowtask, setroutehome, routeshome }) => {
 
                                                                     <Dropdown.Menu>
                                                                         <Dropdown.Item href="#/action-1">
-                                                                            <p><img src='\Vector.svg' alt='img' className='img-fluid' />recruit</p>
+                                                                            <p><img src='\Vector.svg' alt='img' className='img-fluid' />Add</p>
                                                                         </Dropdown.Item>
                                                                     </Dropdown.Menu>
                                                                 </Dropdown>
@@ -375,7 +379,7 @@ const GeneralHome = ({ setShowtask, setroutehome, routeshome }) => {
 
                                                                     <Dropdown.Menu>
                                                                         <Dropdown.Item href="#/action-1">
-                                                                            <p><img src='\Vector.svg' alt='img' className='img-fluid' />recruit</p>
+                                                                            <p><img src='\Vector.svg' alt='img' className='img-fluid' />Add</p>
                                                                         </Dropdown.Item>
                                                                     </Dropdown.Menu>
                                                                 </Dropdown>
@@ -404,7 +408,7 @@ const GeneralHome = ({ setShowtask, setroutehome, routeshome }) => {
 
                                                                     <Dropdown.Menu>
                                                                         <Dropdown.Item href="#/action-1">
-                                                                            <p><img src='\Vector.svg' alt='img' className='img-fluid' />recruit</p>
+                                                                            <p><img src='\Vector.svg' alt='img' className='img-fluid' />Add</p>
                                                                         </Dropdown.Item>
                                                                     </Dropdown.Menu>
                                                                 </Dropdown>
@@ -939,6 +943,32 @@ const GeneralHome = ({ setShowtask, setroutehome, routeshome }) => {
                             </div>
                         </div>
                     </section>
+
+                    {/* add major general modal here ........................ */}
+
+                    <Modal className='createbasic-modal global-modal-style createtask-modal' show={showmajor} onHide={handleClosemajor} centered>
+                        <Modal.Header closeButton>
+                            <Modal.Title>Add Major General</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                            <div className="inner-content">
+                                <div className="option-field">
+                                    <label>Name</label>
+                                    <input type="text" placeholder="Enter Name" />
+                                </div>
+                                <div className="option-field">
+                                    <label>Wallet Address</label>
+                                    <input type="text" placeholder="Enter Wallet Address...." />
+                                </div>
+                            </div>
+                            <div className="twice-btns">
+                                <button onClick={handleClosemajor} className="btn-blackk"><img src="\generalassets\icons\cancel-icon.svg" alt="img" className='img-fluid' />Cancel</button>
+                                <button onClick={() => {
+                                    handleClosemajor();
+                                }} className="btn-pinkk"><img src="\generalassets\icons\add.svg" alt="img" className='img-fluid' />Add Major General</button>
+                            </div>
+                        </Modal.Body>
+                    </Modal>
                 </>
             }
         </>

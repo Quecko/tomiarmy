@@ -23,6 +23,8 @@ import "react-toastify/dist/ReactToastify.css";
 import { API_URL } from '../../../utils/ApiUrl';
 import { toast } from 'react-toastify';
 import axios from 'axios';
+import ArmyMembers from "../../Screens/GeneralArmy/ArmyMembers";
+import Accordion from 'react-bootstrap/Accordion';
 
 
 const GeneralSidebar = () => {
@@ -106,6 +108,12 @@ const GeneralSidebar = () => {
     }
     else if (indexvv == "8") {
       setindexwait(8)
+    }
+    else if (indexvv == "9") {
+      setindexwait(9)
+    }
+    else if (indexvv == "10") {
+      setindexwait(10)
     }
   }, [indexvv])
   const hitfunctionss = (asd) => {
@@ -280,7 +288,31 @@ const GeneralSidebar = () => {
                         </defs>
                       </svg>
 
-                      <span>Army</span>
+                      <span>Awaiting Ranks</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      onClick={() => { hitfunctionss(9); }}
+                      className={
+                        indexwait === 9 ? "list-item active" : "list-item "
+                      }
+
+                    >
+                      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <g clip-path="url(#clip0_943_10906)">
+                          <path d="M15.3825 3.91039L11.6635 3.37L10.0004 0L8.33719 3.37L4.61816 3.91039L7.3093 6.53356L6.67398 10.2375L10.0004 8.48875L13.3267 10.2375L12.6914 6.53356L15.3825 3.91039Z" fill="#81828A" />
+                          <path d="M9.9998 12.3132L3.98633 9.90063V13.3274L10.0349 15.7541L16.0133 13.3256V9.90063L9.9998 12.3132Z" fill="#81828A" />
+                          <path d="M9.9998 16.5591L3.98633 14.1465V17.5733L10.0349 20L16.0133 17.5715V14.1465L9.9998 16.5591Z" fill="#81828A" />
+                        </g>
+                        <defs>
+                          <clipPath id="clip0_943_10906">
+                            <rect width="20" height="20" fill="white" />
+                          </clipPath>
+                        </defs>
+                      </svg>
+
+                      <span>Army Members</span>
                     </a>
                   </li>
                   <li>
@@ -344,7 +376,79 @@ const GeneralSidebar = () => {
                       <span>Announcements</span>
                     </a>
                   </li>
-                  <li>
+                  <div className="mainacc">
+                    <Accordion defaultActiveKey="0">
+                      <Accordion.Item eventKey="0">
+                        <Accordion.Header>
+                          <div className="acord-text">
+                          <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="20"
+                                height="20"
+                                viewBox="0 0 20 20"
+                                fill="none"
+                              >
+                                <g clip-path="url(#clip0_260_1836)">
+                                  <path
+                                    d="M5.5268 12.175C5.5268 11.559 5.65203 10.9715 5.87832 10.4369C5.44039 10.1865 4.93414 10.0427 4.39461 10.0427C2.74035 10.0427 1.39453 11.3885 1.39453 13.0427C1.39453 14.009 1.85422 14.8695 2.56594 15.4186C1.05313 16.1136 0 17.6431 0 19.4141V20H3.94598V19.4352C3.94598 18.2102 4.31164 17.0292 5.00344 16.0199C5.36039 15.499 5.79133 15.0416 6.28109 14.6597C5.79578 13.9344 5.5268 13.0732 5.5268 12.175Z"
+                                    fill="#81828A"
+                                  />
+                                  <path
+                                    d="M17.4341 15.4185C18.1458 14.8695 18.6055 14.009 18.6055 13.0427C18.6055 11.3884 17.2597 10.0426 15.6055 10.0426C15.0659 10.0426 14.5597 10.1865 14.1217 10.4368C14.348 10.9714 14.4732 11.5589 14.4732 12.175C14.4732 13.0732 14.2042 13.9344 13.7189 14.6596C14.2087 15.0416 14.6396 15.499 14.9966 16.0198C15.6884 17.0292 16.0541 18.2102 16.0541 19.4352V20H20V19.4141C20 17.6431 18.9469 16.1136 17.4341 15.4185Z"
+                                    fill="#81828A"
+                                  />
+                                  <path
+                                    d="M11.8414 14.9139C12.7215 14.3203 13.3014 13.3141 13.3014 12.175C13.3014 10.3546 11.8204 8.87363 10 8.87363C8.17962 8.87363 6.69864 10.3546 6.69864 12.175C6.69864 13.3141 7.27856 14.3203 8.15868 14.9139C6.37677 15.6423 5.11786 17.3943 5.11786 19.4352V20H14.8822V19.4352C14.8822 17.3944 13.6233 15.6423 11.8414 14.9139Z"
+                                    fill="#81828A"
+                                  />
+                                  <path
+                                    d="M10.0527 0H0.835144V6.65488H4.27253L7.22889 8.24168L7.20694 6.65488H10.0527V0ZM7.3596 3.85379H3.52827V2.68191H7.3596V3.85379Z"
+                                    fill="#81828A"
+                                  />
+                                  <path
+                                    d="M11.3872 2.50972V8.18331H13.7222L13.7033 9.55788L16.2642 8.18331H19.1649V2.50972H11.3872ZM16.8489 5.88355H13.7033V4.71167H16.8489V5.88355Z"
+                                    fill="#81828A"
+                                  />
+                                </g>
+                                <defs>
+                                  <clipPath id="clip0_260_1836">
+                                    <rect width="20" height="20" fill="white" />
+                                  </clipPath>
+                                </defs>
+                              </svg>
+                              <span>Forum</span>
+                          </div>
+                          
+                         </Accordion.Header>
+                        <Accordion.Body>
+                        <li>
+                            <a
+                              onClick={() => { hitfunctionss(6); }}
+                              className={
+                                indexwait === 6 ? "list-item active" : "list-item"
+                              }
+
+                            >
+                              <span>Army Forum</span>
+                            </a>
+                          </li>
+                        <li>
+                            <a
+                              onClick={() => { hitfunctionss(10); }}
+                              className={
+                                indexwait === 10 ? "list-item active" : "list-item"
+                              }
+
+                            >
+                              <span>My Posts</span>
+                            </a>
+                          </li>
+                        </Accordion.Body>
+                      </Accordion.Item>
+
+                    </Accordion>
+                  </div>
+                  {/* <li>
                     <a
                       onClick={() => { hitfunctionss(6); }}
                       className={
@@ -390,7 +494,7 @@ const GeneralSidebar = () => {
 
                       <span>Army Forum</span>
                     </a>
-                  </li>
+                  </li> */}
                   <li>
                     <a
                       onClick={() => { hitfunctionss(7); }}
@@ -502,6 +606,20 @@ const GeneralSidebar = () => {
                               (
                                 <>
                                   <Generalfaqs setShowfaq={setShowfaq} />
+                                </>
+                              )
+                              :
+                              indexwait == 9 ?
+                              (
+                                <>
+                                   <ArmyMembers routesarmy={routesarmy} setroutearmy={setroutearmy} />
+                                </>
+                              )
+                              :
+                              indexwait == 10 ?
+                              (
+                                <>
+                                     <GeneralForum />
                                 </>
                               )
                               :

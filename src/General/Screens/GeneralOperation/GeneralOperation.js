@@ -15,6 +15,7 @@ import { toast } from 'react-toastify';
 import axios from 'axios';
 import Loader from '../../../hooks/loader';
 import { useWeb3React } from "@web3-react/core";
+import GeneralActive from './GeneralActive';
 
 const GeneralOperation = ({ setroute, routes, setsvaebutton, svaebutton }) => {
 
@@ -109,7 +110,7 @@ const GeneralOperation = ({ setroute, routes, setsvaebutton, svaebutton }) => {
                                             className="mb-3"
                                         >
                                             <Tab eventKey="home" title="Active Operations">
-                                                <div className='maincard'>
+                                                {/* <div className='maincard'>
                                                     <div className='display-none-in-mobile'>
                                                         <div className="maintable">
                                                             <table class="table table-striped">
@@ -240,7 +241,8 @@ const GeneralOperation = ({ setroute, routes, setsvaebutton, svaebutton }) => {
 
                                                         </Accordion>
                                                     </div>
-                                                </div>
+                                                </div> */}
+                                                <GeneralActive />
                                             </Tab>
                                             <Tab eventKey="profile" title="Expired Operations">
                                                 <div className='maincard'>
