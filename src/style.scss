@@ -588,6 +588,95 @@ table {
     }
 }
 
+.mainacc {
+    .accordion {
+        background: transparent !important;
+
+        .accordion-button::after {
+            background: url(../src/arrow-down.svg);
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        .accordion-item {
+            background:transparent !important;
+          
+            // border-radius: 0px 10px 10px 0px;
+            // padding: 10px 20px;
+        }
+
+        .accordion-header {
+            .accordion-button {
+                background: transparent !important;
+                padding: 0px;
+                box-shadow: none !important;
+                outline: none !important;
+                // background: linear-gradient(180deg, #232631 0%, rgba(29, 32, 43, 0.4) 100%) !important;
+                // border-left: 3px solid #FF0083;
+                border-radius: 0px 10px 10px 0px;
+                padding: 10px 20px;
+                border-left: 3px solid transparent;
+                &[aria-expanded="true"]{
+                    background: linear-gradient(180deg, #232631 0%, rgba(29, 32, 43, 0.4) 100%) !important;
+                    border-left: 3px solid #FF0083;
+                    .acord-text{
+                        span{
+                            color: #FFFFFF !important;
+                        }
+                    }
+                    &::after{
+                        background: url("../src/arrow-down-pink.svg");
+                        background-position: center;
+                        background-repeat: no-repeat;
+                        background-size: cover;
+                    }
+                    svg path{
+                        fill: #FF0083;
+                    }
+                }
+            }
+
+            .acord-text {
+                span {
+                    font-style: normal;
+                    font-weight: 600;
+                    font-size: 14px;
+                    line-height: 110%;
+                    color: #81828A;
+                    margin-left: 20px;
+                }
+            }
+        }
+
+        .accordion-body {
+            background: linear-gradient(180deg, #232631 0%, rgba(29, 32, 43, 0.4) 100%) !important;
+            // border-left: 3px solid #FF0083;
+            // border-radius: 0px 10px 10px 0px;
+            padding: 0px;
+            margin-top: 12px;
+            a{
+                span {
+                    font-style: normal;
+                    font-weight: 600;
+                    font-size: 14px;
+                    line-height: 110%;
+                    color: #81828A;
+                    text-align: center;
+                    margin: 0 auto;
+                }
+                &.active{
+                    border: none !important;
+                    span{
+                        color: #fff !important;
+                    }
+                }
+            }
+            
+        }
+    }
+}
+
 // End sidebar -------------------------------------------
 
 .stats-box {
@@ -4265,12 +4354,15 @@ tr td:last-child {
 thead th:last-child {
     text-align: end !important;
 }
-  .upload-parent {
+
+.upload-parent {
     position: relative;
 }
-.btn-box{
+
+.btn-box {
     margin-top: 20px;
-    .btn-addmore{
+
+    .btn-addmore {
         background: linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0) 34.22%), #FF0083;
         border: none;
         border-bottom: 1px solid #F058A6;
@@ -4285,9 +4377,10 @@ thead th:last-child {
         padding: 14px 20px;
     }
 }
-  .sfdsfadsfdfdsf {
-    
-    .btn-remove{
+
+.sfdsfadsfdfdsf {
+
+    .btn-remove {
         // position: absolute;
         // top: 10px;
         // right: 10px;
@@ -4303,26 +4396,31 @@ thead th:last-child {
         letter-spacing: 0.01em;
         color: #FFFFFF;
     }
+
     width: 100%;
     display: flex;
     justify-content: start;
     align-items: center;
     flex-wrap: wrap;
+
     .sdfdsfdsfdfdf {
         width: 100%;
         margin-left: 6px;
         margin-right: 6px;
         margin-top: 15px;
+
         .dfhsdfhdshdsfhdfdf {
             height: 240px !important;
             border-radius: 8px;
         }
     }
+
     .sdfdsfdsf {
         width: 135px;
         margin-left: 6px;
         margin-right: 6px;
         margin-top: 15px;
+
         .dfhsdfhdshdsfh {
             height: 137px !important;
             border-radius: 8px;
@@ -4334,6 +4432,7 @@ thead th:last-child {
     position: absolute;
     top: -9px;
     left: -6px;
+
     button {
         width: 27px;
         /* padding: 8px 15px !important; */
@@ -4343,16 +4442,17 @@ thead th:last-child {
 }
 
 
-.sadascav{
+.sadascav {
     opacity: 0.5;
     pointer-events: none;
 }
 
-.labelimagess{
+.labelimagess {
     width: 100%;
-        height: 100%;
-        border-radius: 10px;
-    img{
+    height: 100%;
+    border-radius: 10px;
+
+    img {
         width: 100%;
         height: 100%;
         border-radius: 10px;
@@ -4360,10 +4460,11 @@ thead th:last-child {
     }
 }
 
-@media (max-width:991px){
-    .maincard-global .maintable .table-striped tbody tr td .dropbtn .dropdown .dropdown-toggle{
+@media (max-width:991px) {
+    .maincard-global .maintable .table-striped tbody tr td .dropbtn .dropdown .dropdown-toggle {
         margin-left: auto !important;
     }
+
     .Header-wrapper .header-buttons .create-squad-btn {
         display: none;
     }
@@ -4388,13 +4489,15 @@ thead th:last-child {
             margin-left: 8px;
         }
     }
-    .general-army .parent-field .option-field input{
+
+    .general-army .parent-field .option-field input {
         width: 100%;
     }
-    .general-army .parent-field .option-field1{
+
+    .general-army .parent-field .option-field1 {
         max-width: 100% !important;
     }
-    
+
 }
 
 

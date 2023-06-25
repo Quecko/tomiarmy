@@ -124,7 +124,7 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role, setinvitecode, invitecod
                     .post(`${API_URL}/auth/signup`, {
                         walletAddress: account,
                         sign: res0,
-                        inviteCode: invitecode
+                        inviteCode: invitecode,
                     })
                     .then((res) => {
                         toast.success('Join Request Sent Successfully To Commander', {

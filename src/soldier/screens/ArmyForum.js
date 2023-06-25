@@ -22,6 +22,8 @@ const ArmyForum = () => {
   const [detailsingle, setdetailsingle] = useState()
   const [detail, setdetail] = useState()
 
+  let indexvalue = localStorage.getItem("indexvalue");
+
   const [allFormData, setAllFormData] = useState({
     title: '',
     description: '',
@@ -338,7 +340,7 @@ const UpdateTask = (objj) => {
     })
 }
 
-
+     
   return (
     <>
       <div className="formobile-heading d-none display-block-in-mobile">

@@ -5,8 +5,11 @@ import Pagination from 'react-bootstrap/Pagination';
 import Modal from 'react-bootstrap/Modal';
 import Accordion from 'react-bootstrap/Accordion';
 
-const ActiveOperation = ({setShowtask}) => {
+const ActiveOperation = ({setShowtask,tasks}) => {
 
+
+
+       console.log('tasks',tasks);
     // const [show1, setShow1] = useState(false);
     // const handleClose1 = () => setShow1(false);
     // const handleShow1 = () => setShow1(true);
@@ -24,8 +27,8 @@ const ActiveOperation = ({setShowtask}) => {
             <section className="active-operations">
                 <div className="upper-item">
                     <div className='left'>
-                        <h6>operation : ELON MUSK <span>ENDS IN: 23:34:12</span></h6>
-                        <p>make elon musk tweet about tomi</p>
+                        <h6>operation : {tasks?.name} <span>ENDS IN: 23:34:12</span></h6>
+                        <p>{tasks?.description}</p>
                     </div>
                     {/* <a href="#">View All Operation Tasks <img src="\assets\arrow-right.svg" alt="img" className='img-fluid ms-2' /></a> */}
                 </div>
@@ -34,14 +37,14 @@ const ActiveOperation = ({setShowtask}) => {
                     <img src="\static-icons\points.png" alt="img" className='img-fluid' style={{width: "50px", height: "50px"}} />
                         <div className="inner-content">
                             <p>Points</p>
-                            <h6>150,000</h6>
+                            <h6>{tasks?.reward}</h6>
                         </div>
                     </div>
                     <div className="card-item border-grad">
                     <img src="\static-icons\tomi-icon.png" alt="img" className='img-fluid' style={{width: "50px", height: "50px"}} />
                         <div className="inner-content">
                             <p>TOMI Tokens</p>
-                            <h6>100,000</h6>
+                            <h6>{tasks?.tomiToken}</h6>
                         </div>
                     </div>
                     <div className="card-item border-grad">
