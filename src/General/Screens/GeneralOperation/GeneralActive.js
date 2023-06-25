@@ -3,8 +3,9 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import Pagination from 'react-bootstrap/Pagination';
 import Modal from 'react-bootstrap/Modal';
 import Accordion from 'react-bootstrap/Accordion';
+import Countdown from 'react-countdown';
 
-const GeneralActive = ({setShowtask}) => {
+const GeneralActive = ({ setShowtask, tasks }) => {
 
     // const [show1, setShow1] = useState(false);
     // const handleClose1 = () => setShow1(false);
@@ -18,48 +19,53 @@ const GeneralActive = ({setShowtask}) => {
     // const setProfilePic = (evt) => {
     //     setProfilePicture(evt.target.files[0]);
     // }
+    const GetTime = (time) => {
+        let endtime = new Date(time)
+        return endtime;
+      }
+
     return (
         <>
             <section className="active-operations">
                 <div className="upper-item">
                     <div className='left'>
-                        <h6>operation : ELON MUSK <span>ENDS IN: 23:34:12</span></h6>
-                        <p>make elon musk tweet about tomi</p>
+                        <h6>operation : {tasks[0]?.name} <span>ENDS IN: <Countdown date={GetTime(tasks[0]?.expirationDate)} /></span></h6>
+                        <p>{tasks[0]?.description}</p>
                     </div>
                     <a href="#">View All Tasks <img src="\assets\arrow-right.svg" alt="img" className='img-fluid ms-2' /></a>
                 </div>
                 <div className="bottom-cards">
                     <div className="card-item border-grad">
-                    <img src="\static-icons\points.png" alt="img" className='img-fluid' style={{width: "50px", height: "50px"}} />
+                        <img src="\static-icons\points.png" alt="img" className='img-fluid' style={{ width: "50px", height: "50px" }} />
                         <div className="inner-content">
                             <p>Points</p>
-                            <h6>150,000</h6>
+                            <h6>{tasks[0]?.reward}</h6>
                         </div>
                     </div>
                     <div className="card-item border-grad">
-                    <img src="\static-icons\tomi-icon.png" alt="img" className='img-fluid' style={{width: "50px", height: "50px"}} />
+                        <img src="\static-icons\tomi-icon.png" alt="img" className='img-fluid' style={{ width: "50px", height: "50px" }} />
                         <div className="inner-content">
                             <p>TOMI Tokens</p>
-                            <h6>100,000</h6>
+                            <h6>{tasks[0]?.tomiToken}</h6>
                         </div>
                     </div>
                     <div className="card-item border-grad">
-                    <img src="\static-icons\tomitasks.png" alt="img" className='img-fluid' style={{width: "50px", height: "50px"}} />
+                        <img src="\static-icons\tomitasks.png" alt="img" className='img-fluid' style={{ width: "50px", height: "50px" }} />
                         <div className="inner-content">
                             <p>Total Tasks</p>
-                            <h6>55</h6>
+                            <h6>{tasks[0]?.tomiToken}</h6>
                         </div>
                     </div>
                     <div className="card-item border-grad unique-item">
                         <div className='inner-set'>
-                        <img src="\static-icons\rewardnft.png" alt="img" className='img-fluid' style={{width: "50px", height: "50px"}} />
+                            <img src="\static-icons\rewardnft.png" alt="img" className='img-fluid' style={{ width: "50px", height: "50px" }} />
                             <div className="inner-content">
                                 <p>Reward NFT</p>
-                                <h6>ELN MSK #41234</h6>
+                                <h6>Elon Mask</h6>
                             </div>
                         </div>
                         <div className="nft-img">
-                            <img src="\assets\nft.svg" alt="img" className='img-fluid' />
+                            <img src={tasks[0]?.imageUrl} alt="img" className='img-fluid' />
                         </div>
                     </div>
                 </div>
@@ -72,10 +78,7 @@ const GeneralActive = ({setShowtask}) => {
                                         <p className='headtable'>Task</p>
                                     </th>
                                     <th>
-                                        <p className='headtable'>Points</p>
-                                    </th>
-                                    <th>
-                                        <p className='headtable'>TOMI Tokens</p>
+                                        <p className='headtable'>Description</p>
                                     </th>
                                     <th>
                                         <p className='headtable'>Status</p>
@@ -83,23 +86,30 @@ const GeneralActive = ({setShowtask}) => {
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>
-                                        <p className='paratable'>Like our facebook page</p>
-                                    </td>
-                                    <td>
-                                        <p className='paratable'>+5</p>
-                                    </td>
-                                    <td>
-                                        <p className='paratable'>500 TOMI</p>
-                                    </td>
-                                    <td>
-                                        <div className='completebtn text-end'>
-                                            <button className=''>Completed</button>
-                                        </div>
-                                    </td>
-                                </tr>
-                               
+                                {tasks[0]?.tasksList.map((elem, index) => {
+                                    return (
+                                        <tr key={index}>
+                                            <td>
+                                                <p className='paratable'>{elem?.name}</p>
+                                            </td>
+                                            <td>
+                                                <p className='paratable'>{elem?.description}</p>
+                                            </td>
+                                            <td>
+                                                <div className='completebtn text-end'>
+                                                    {
+                                                        elem?.taskSubmitted ?
+                                                            <button style={{ background: '#FEC600' }}>In Process</button>
+                                                            : elem?.taskApproval ?
+                                                                <button style={{ background: '#04C453' }}>Completed</button>
+                                                                :
+                                                                <button style={{ background: '#FF8936' }}>Pending</button>
+                                                    }
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    )
+                                })}
                             </tbody>
                         </table>
                     </div>

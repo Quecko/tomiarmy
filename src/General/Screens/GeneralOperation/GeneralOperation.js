@@ -59,7 +59,7 @@ const GeneralOperation = ({ setroute, routes, setsvaebutton, svaebutton }) => {
             .then(function (response) {
               // setLoader(false);
               // setCount(response.data.data.count)
-              settasks(response?.data?.data?.tasks);
+              settasks(response?.data?.data?.operation);
               // let arr = Array.from(Array(parseInt(response.data.data.pages)).keys());
               // setPages(arr);
               // setCurrentPage(valu)
@@ -108,6 +108,7 @@ const GeneralOperation = ({ setroute, routes, setsvaebutton, svaebutton }) => {
                                             transition={false}
                                             id="noanim-tab-example"
                                             className="mb-3"
+                                            onSelect={settabss}
                                         >
                                             <Tab eventKey="home" title="Active Operations">
                                                 {/* <div className='maincard'>
@@ -164,9 +165,7 @@ const GeneralOperation = ({ setroute, routes, setsvaebutton, svaebutton }) => {
                                                                                 <Dropdown>
                                                                                     <Dropdown.Toggle variant="success" id="dropdown-basic">
                                                                                         <img src='\Vectordots.svg' alt='img' className='img-fluid ' />
-
                                                                                     </Dropdown.Toggle>
-
                                                                                     <Dropdown.Menu>
                                                                                         <Dropdown.Item href="#/action-1">
                                                                                             <p><img src='\generalassets\icons\detail.svg' alt='img' className='img-fluid' />Details</p>
@@ -176,11 +175,8 @@ const GeneralOperation = ({ setroute, routes, setsvaebutton, svaebutton }) => {
                                                                                     </Dropdown.Menu>
                                                                                 </Dropdown>
                                                                             </div>
-
-
                                                                         </td>
                                                                     </tr>
-
                                                                 </tbody>
                                                             </table>
                                                         </div>
@@ -238,11 +234,10 @@ const GeneralOperation = ({ setroute, routes, setsvaebutton, svaebutton }) => {
                                                                     </div>
                                                                 </Accordion.Body>
                                                             </Accordion.Item>
-
                                                         </Accordion>
                                                     </div>
                                                 </div> */}
-                                                <GeneralActive />
+                                                <GeneralActive tasks={tasks} />
                                             </Tab>
                                             <Tab eventKey="profile" title="Expired Operations">
                                                 <div className='maincard'>
@@ -299,9 +294,7 @@ const GeneralOperation = ({ setroute, routes, setsvaebutton, svaebutton }) => {
                                                                                 <Dropdown>
                                                                                     <Dropdown.Toggle variant="success" id="dropdown-basic">
                                                                                         <img src='\Vectordots.svg' alt='img' className='img-fluid ' />
-
                                                                                     </Dropdown.Toggle>
-
                                                                                     <Dropdown.Menu>
                                                                                         <Dropdown.Item href="#/action-1">
                                                                                             <p><img src='\generalassets\icons\detail.svg' alt='img' className='img-fluid' />Details</p>
@@ -311,11 +304,8 @@ const GeneralOperation = ({ setroute, routes, setsvaebutton, svaebutton }) => {
                                                                                     </Dropdown.Menu>
                                                                                 </Dropdown>
                                                                             </div>
-
-
                                                                         </td>
                                                                     </tr>
-
                                                                 </tbody>
                                                             </table>
                                                         </div>
@@ -373,7 +363,6 @@ const GeneralOperation = ({ setroute, routes, setsvaebutton, svaebutton }) => {
                                                                     </div>
                                                                 </Accordion.Body>
                                                             </Accordion.Item>
-
                                                         </Accordion>
                                                     </div>
                                                 </div>
