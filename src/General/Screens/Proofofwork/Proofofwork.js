@@ -1,14 +1,23 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Accordion, Dropdown, Modal, Pagination, Tab, Table, Tabs } from 'react-bootstrap'
 import dosts from "../../../assets/icons/dots.svg";
 import submitIcon from "../../../assets/icons/submitIcon.svg";
 import './proofofwork.scss'
+import "react-toastify/dist/ReactToastify.css";
+import { API_URL } from '../../../utils/ApiUrl';
+import { toast } from 'react-toastify';
+import { useWeb3React } from "@web3-react/core";
+import axios from 'axios';
 
 const Proofofwork = () => {
     const [showwork, setShowwork] = useState(false);
+    const [singledetail, setsingledetail] = useState(null)
     const handleClosework = () => setShowwork(false);
-    const handleShowwork = () => setShowwork(true);
-
+    const handleShowwork = (elem) => {
+        setsingledetail(elem)
+        setShowwork(true);
+    }
+    const { account } = useWeb3React();
     const [showapprove, setShowapprove] = useState(false);
     const handleCloseapprove = () => setShowapprove(false);
     const handleShowapprove = () => setShowapprove(true);
@@ -17,6 +26,8 @@ const Proofofwork = () => {
     const handleClosereject = () => setShowreject(false);
     const handleShowreject = () => setShowreject(true);
     const [expired, setexpired] = useState(false);
+    const [tasks, settasks] = useState([]);
+    console.log("asdasdsd", tasks)
 
     const settabss = (event) => {
         if (event === 'home') {
@@ -25,6 +36,89 @@ const Proofofwork = () => {
         else if (event === 'profile') {
             setexpired(true)
         }
+    }
+
+    useEffect(() => {
+        // if (currentPage > 1) {
+        //     getData(currentPage);
+        // } else {
+        getData();
+        // }
+    }, [account])
+
+    const getData = async (off) => {
+        // let valu = null;
+        // if (off) {
+        //     valu = off;
+        // } else {
+        //     valu = 1;
+        // }
+        let tok = localStorage.getItem("accessToken");
+        let wall = localStorage.getItem("wallet");
+        if (account) {
+            var config = {
+                method: "get",
+                url: `${API_URL}/tasks/work-proofs?offset=1&&limit=10`,
+                headers: {
+                    authorization: `Bearer ` + tok
+                },
+            };
+            axios(config)
+                .then(function (response) {
+                    // setLoader(false);
+                    // setCount(response.data.data.count)
+                    settasks(response?.data?.data?.workProof);
+                    // let arr = Array.from(Array(parseInt(response.data.data.pages)).keys());
+                    // setPages(arr);
+                    // setCurrentPage(valu)
+                })
+                .catch(function (error) {
+                    // setLoader(false);
+                    // localStorage.removeItem("accessToken");
+                    // localStorage.removeItem("user");
+                    // window.location.assign("/")
+                    // window.location.reload();
+                });
+        }
+    }
+
+    const Acceptreject = async (singledetail, approvedcheck) => {
+        // console.log("++++++++++++++++++++")
+        let tok = localStorage.getItem("accessToken");
+        // setOpens(true);
+        axios
+            .patch(
+                API_URL + "/tasks/work-proofs/" +
+                singledetail?._id,
+                {
+                    isApproved: approvedcheck
+                },
+                { headers: { authorization: `Bearer ${tok}` } }
+            )
+            .then((response) => {
+                if (response.data.data.isApproved == true) {
+                    handleClosework();
+                    handleShowapprove();
+                } else {
+                    handleClosework();
+                    handleShowreject();
+                }
+                getData()
+                // setCall(!call)
+                // window.location.reload()
+                // window.$('#powork').modal('hide')
+                    .catch((err) => {
+                        // setOpens(false);
+                        toast.warning(
+                            "Error",
+                            {
+                                position: "top-right",
+                                autoClose: 3000,
+                            }
+                        );
+                        return false;
+                    });
+            });
     }
 
     return (
@@ -62,142 +156,56 @@ const Proofofwork = () => {
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            <tr>
-                                                                <td>sharjeel</td>
-                                                                <td>Like our facebook..</td>
-                                                                <td>1,000,000</td>
-                                                                <td>
-                                                                    <div style={{ maxWidth: '83px', width: '100%' }} className="completed">Completed</div>
-                                                                </td>
-                                                                <td>
-                                                                    <div className="tbl-dropdown">
-                                                                        <Dropdown>
-                                                                            <Dropdown.Toggle id="dropdown-basic">
-                                                                                <img src={dosts} alt="dosts" />
-                                                                            </Dropdown.Toggle>
+                                                            {tasks?.map((elem, index) => {
+                                                                return (
+                                                                    <tr key={index}>
+                                                                        <td>{elem?.user?.nickName}</td>
+                                                                        <td>{elem?.task?.name?.slice(0, 40) + "..."}</td>
+                                                                        <td>{elem?.task?.reward}</td>
+                                                                        {/* <td>
+                                                                            <div className='completebtn text-end'>
+                                                                                {
+                                                                                    elem?.taskSubmitted ?
+                                                                                        <button style={{ background: '#FEC600' }}>In Process</button>
+                                                                                        : elem?.taskApproval ?
+                                                                                            <button style={{ background: '#04C453' }}>Completed</button>
+                                                                                            :
+                                                                                            <button style={{ background: '#FF8936' }}>Pending</button>
+                                                                                }
+                                                                            </div>
+                                                                        </td> */}
+                                                                        <td>
+                                                                            <div style={{ maxWidth: '83px', width: '100%' }} className="completed">Completed</div>
+                                                                        </td>
+                                                                        <td>
+                                                                            <div className="tbl-dropdown">
+                                                                                <Dropdown>
+                                                                                    <Dropdown.Toggle id="dropdown-basic">
+                                                                                        <img src={dosts} alt="dosts" />
+                                                                                    </Dropdown.Toggle>
 
-                                                                            <Dropdown.Menu className="stats-dropdown-menu">
-                                                                                <div className="stats-dropdown-bg">
-                                                                                    <Dropdown.Item onClick={handleShowwork}>
-                                                                                        <img src="\generalassets\icons\detail.svg" alt="submitIcon" />
-                                                                                        Details
-                                                                                    </Dropdown.Item>
-                                                                                    <Dropdown.Item onClick={handleShowapprove}>
+                                                                                    <Dropdown.Menu className="stats-dropdown-menu">
+                                                                                        <div className="stats-dropdown-bg">
+                                                                                            <Dropdown.Item onClick={() => { handleShowwork(elem) }}>
+                                                                                                <img src="\generalassets\icons\detail.svg" alt="submitIcon" />
+                                                                                                Details
+                                                                                            </Dropdown.Item>
+                                                                                            {/* <Dropdown.Item onClick={handleShowapprove}>
                                                                                         <img src="\generalassets\icons\checkmark.svg" alt="submitIcon" />
                                                                                         Approve
                                                                                     </Dropdown.Item>
                                                                                     <Dropdown.Item onClick={handleShowreject}>
                                                                                         <img src="\generalassets\icons\Subtract.svg" alt="submitIcon" />
                                                                                         Reject
-                                                                                    </Dropdown.Item>
-                                                                                </div>
-                                                                            </Dropdown.Menu>
-                                                                        </Dropdown>
-                                                                    </div>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>sharjeel</td>
-                                                                <td>Like our facebook..</td>
-                                                                <td>1,000,000</td>
-                                                                <td>
-                                                                    <div style={{ maxWidth: '83px', width: '100%' }} className="pending">Pending</div>
-                                                                </td>
-                                                                <td>
-                                                                    <div className="tbl-dropdown">
-                                                                        <Dropdown>
-                                                                            <Dropdown.Toggle id="dropdown-basic">
-                                                                                <img src={dosts} alt="dosts" />
-                                                                            </Dropdown.Toggle>
-
-                                                                            <Dropdown.Menu className="stats-dropdown-menu">
-                                                                                <div className="stats-dropdown-bg">
-                                                                                    <Dropdown.Item>
-                                                                                        <img src="\generalassets\icons\detail.svg" alt="submitIcon" />
-                                                                                        Details
-                                                                                    </Dropdown.Item>
-                                                                                    <Dropdown.Item>
-                                                                                        <img src="\generalassets\icons\checkmark.svg" alt="submitIcon" />
-                                                                                        Approve
-                                                                                    </Dropdown.Item>
-                                                                                    <Dropdown.Item>
-                                                                                        <img src="\generalassets\icons\Subtract.svg" alt="submitIcon" />
-                                                                                        Reject
-                                                                                    </Dropdown.Item>
-                                                                                </div>
-                                                                            </Dropdown.Menu>
-                                                                        </Dropdown>
-                                                                    </div>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>sharjeel</td>
-                                                                <td>Like our facebook..</td>
-                                                                <td>1,000,000</td>
-                                                                <td>
-                                                                    <div style={{ maxWidth: '83px', width: '100%' }} className="completed">Completed</div>
-                                                                </td>
-                                                                <td>
-                                                                    <div className="tbl-dropdown">
-                                                                        <Dropdown>
-                                                                            <Dropdown.Toggle id="dropdown-basic">
-                                                                                <img src={dosts} alt="dosts" />
-                                                                            </Dropdown.Toggle>
-
-                                                                            <Dropdown.Menu className="stats-dropdown-menu">
-                                                                                <div className="stats-dropdown-bg">
-                                                                                    <Dropdown.Item>
-                                                                                        <img src="\generalassets\icons\detail.svg" alt="submitIcon" />
-                                                                                        Details
-                                                                                    </Dropdown.Item>
-                                                                                    <Dropdown.Item>
-                                                                                        <img src="\generalassets\icons\checkmark.svg" alt="submitIcon" />
-                                                                                        Approve
-                                                                                    </Dropdown.Item>
-                                                                                    <Dropdown.Item>
-                                                                                        <img src="\generalassets\icons\Subtract.svg" alt="submitIcon" />
-                                                                                        Reject
-                                                                                    </Dropdown.Item>
-                                                                                </div>
-                                                                            </Dropdown.Menu>
-                                                                        </Dropdown>
-                                                                    </div>
-                                                                </td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>sharjeel</td>
-                                                                <td>Like our facebook..</td>
-                                                                <td>1,000,000</td>
-                                                                <td>
-                                                                    <div style={{ maxWidth: '83px', width: '100%' }} className="completed">Completed</div>
-                                                                </td>
-                                                                <td>
-                                                                    <div className="tbl-dropdown">
-                                                                        <Dropdown>
-                                                                            <Dropdown.Toggle id="dropdown-basic">
-                                                                                <img src={dosts} alt="dosts" />
-                                                                            </Dropdown.Toggle>
-
-                                                                            <Dropdown.Menu className="stats-dropdown-menu">
-                                                                                <div className="stats-dropdown-bg">
-                                                                                    <Dropdown.Item>
-                                                                                        <img src="\generalassets\icons\detail.svg" alt="submitIcon" />
-                                                                                        Details
-                                                                                    </Dropdown.Item>
-                                                                                    <Dropdown.Item>
-                                                                                        <img src="\generalassets\icons\checkmark.svg" alt="submitIcon" />
-                                                                                        Approve
-                                                                                    </Dropdown.Item>
-                                                                                    <Dropdown.Item>
-                                                                                        <img src="\generalassets\icons\Subtract.svg" alt="submitIcon" />
-                                                                                        Reject
-                                                                                    </Dropdown.Item>
-                                                                                </div>
-                                                                            </Dropdown.Menu>
-                                                                        </Dropdown>
-                                                                    </div>
-                                                                </td>
-                                                            </tr>
+                                                                                    </Dropdown.Item> */}
+                                                                                        </div>
+                                                                                    </Dropdown.Menu>
+                                                                                </Dropdown>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                )
+                                                            })}
                                                         </tbody>
                                                     </Table>
                                                     <div className="pagi display-none-in-mobile">
@@ -255,7 +263,7 @@ const Proofofwork = () => {
                                     </Tab>
                                     <Tab eventKey="profile" title="Operations Proof of Work">
 
-                                    <div className="col-xl-12 col-12 pe-0 padd-sm">
+                                        <div className="col-xl-12 col-12 pe-0 padd-sm">
                                             <div className="data-box general-tasks-wrappergeneral border-grad1 p-0">
                                                 <div className="maincard-global">
                                                     <Table striped bordered hover responsive className="general-tasks-table display-none-in-mobile">
@@ -282,7 +290,7 @@ const Proofofwork = () => {
                                                                     </div>
                                                                 </td>
                                                             </tr>
-                                                            
+
                                                         </tbody>
                                                     </Table>
                                                     <div className="pagi display-none-in-mobile">
@@ -562,26 +570,26 @@ const Proofofwork = () => {
                         <div className="proofdetailleft">
                             <div className="proofmain">
                                 <p className="detailpara">Task Title</p>
-                                <h6 className="detailhead">Like our facebook page before 10 May 2023</h6>
+                                <h6 className="detailhead">{singledetail?.task?.name}</h6>
                             </div>
-                            <div className="proofmain">
+                            {/* <div className="proofmain">
                                 <p className="detailpara">Task Description</p>
-                                <h6 className="detailhead">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto</h6>
-                            </div>
+                                <h6 className="detailhead">{singledetail?.task?.description}</h6>
+                            </div> */}
                             <div className="detailmain">
                                 <div className="proofmain">
                                     <p className="detailpara">POW Url</p>
-                                    <h6 className="detailhead" style={{ textDecoration: 'underline' }}>www.google.co.il</h6>
+                                    <h6 className="detailhead" style={{ textDecoration: 'underline' }}>{singledetail?.url}</h6>
                                 </div>
                                 <div className="proofmain">
                                     <p className="detailpara">User</p>
-                                    <h6 className="detailhead">Umar_x2jz</h6>
+                                    <h6 className="detailhead">{singledetail?.user?.nickName}</h6>
                                 </div>
                             </div>
                             <div className="detailmain">
                                 <div className="proofmain">
                                     <p className="detailpara">Points</p>
-                                    <h6 className="detailhead">1,000,000</h6>
+                                    <h6 className="detailhead">{singledetail?.task?.reward}</h6>
                                 </div>
                                 <div className="proofmain">
                                     <p className="detailpara">Status</p>
@@ -591,7 +599,14 @@ const Proofofwork = () => {
                             <div className="detailmain">
                                 <div className="proofmain">
                                     <p className="detailpara">Start Date</p>
-                                    <h6 className="detailhead">04/05/2023</h6>
+                                    <h6 className="detailhead">
+                                        {
+                                            singledetail?.createdAt
+                                                ?.slice(0, 10)
+                                                .split('-')
+                                                .reverse()
+                                                .join('-')}
+                                    </h6>
                                 </div>
                                 <div className="proofmain">
                                     <p className="detailpara">End Date</p>
@@ -602,34 +617,24 @@ const Proofofwork = () => {
                         <div className="proofdetailleft">
                             <div className="proofmain">
                                 <p className="detailpara">POW Image</p>
-                                <div className="powimg">
-                                    <img src="\generalassets\other-imgs\proofofwork.png" alt="powimginner" className="powimginner" />
-                                </div>
                                 <div className="others-imgs">
-                                    <div className="powimg">
-                                        <img src="\generalassets\other-imgs\proofofwork.png" alt="powimginner" className="powimginner" />
-                                    </div>
-                                    <div className="powimg">
-                                        <img src="\generalassets\other-imgs\proofofwork.png" alt="powimginner" className="powimginner" />
-                                    </div>
-                                    <div className="powimg">
-                                        <img src="\generalassets\other-imgs\proofofwork.png" alt="powimginner" className="powimginner" />
-                                    </div>
-                                    <div className="powimg">
-                                        <img src="\generalassets\other-imgs\proofofwork.png" alt="powimginner" className="powimginner" />
-                                    </div>
+                                    {singledetail?.image && singledetail?.image?.map((elem, index) => {
+                                        return (
+                                            <div className="powimg">
+                                                <img src={elem} alt="powimginner" className="powimginner" />
+                                            </div>
+                                        )
+                                    })}
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div className="btnss">
                         <button onClick={() => {
-                            handleClosework();
-                            handleShowreject();
+                           Acceptreject(singledetail, 'false')
                         }} className="redbtn"><img src="\generalassets\other-imgs\Subtract.svg" alt="crossimg" className="crossimg" /> Reject</button>
                         <button onClick={() => {
-                            handleClosework();
-                            handleShowapprove();
+                           Acceptreject(singledetail, 'true')
                         }} className="greenbtn"><img src="\generalassets\other-imgs\checkmark.svg" alt="crossimg" className="crossimg" /> Approve</button>
                     </div>
                 </Modal.Body>
@@ -654,7 +659,7 @@ const Proofofwork = () => {
                 <Modal.Body>
                     <div className="approvemain">
                         <img src="\generalassets\other-imgs\rejectimg.png" alt="approveimg" className="approveimg img-fluid" />
-                        <p className="approvetext">operation proof of work approved</p>
+                        <p className="approvetext">operation proof of work rejected</p>
                     </div>
                 </Modal.Body>
             </Modal>

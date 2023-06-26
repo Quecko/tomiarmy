@@ -724,7 +724,6 @@ const GeneralHome = ({ setShowtask, setroutehome, routeshome }) => {
                                                     <th>Wallet Address</th>
                                                     <th>User Name</th>
                                                     <th>Tomi Tokens</th>
-                                                    <th>Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -732,24 +731,6 @@ const GeneralHome = ({ setShowtask, setroutehome, routeshome }) => {
                                                     <td>0x0F4D...B5D8</td>
                                                     <td>@sharjeel</td>
                                                     <td>1,000,000</td>
-                                                    <td>
-                                                        <div className="tbl-dropdown">
-                                                            <Dropdown>
-                                                                <Dropdown.Toggle id="dropdown-basic">
-                                                                    <img src={dosts} alt="dosts" />
-                                                                </Dropdown.Toggle>
-
-                                                                <Dropdown.Menu className="stats-dropdown-menu">
-                                                                    <div className="stats-dropdown-bg">
-                                                                        <Dropdown.Item>
-                                                                            <img src={submitIcon} alt="submitIcon" />
-                                                                            Submit Proof
-                                                                        </Dropdown.Item>
-                                                                    </div>
-                                                                </Dropdown.Menu>
-                                                            </Dropdown>
-                                                        </div>
-                                                    </td>
                                                 </tr>
 
                                             </tbody>
@@ -770,10 +751,6 @@ const GeneralHome = ({ setShowtask, setroutehome, routeshome }) => {
                                                             <div className="inner-item">
                                                                 <h6>Tomi Tokens</h6>
                                                                 <p>1,000,000</p>
-                                                            </div>
-                                                            <div className="inner-item">
-                                                                <h6>Actions</h6>
-                                                                <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
                                                             </div>
                                                         </div>
                                                     </Accordion.Body>
@@ -797,7 +774,6 @@ const GeneralHome = ({ setShowtask, setroutehome, routeshome }) => {
                                                     <th>Tasks</th>
                                                     <th>Status</th>
                                                     <th>Points</th>
-                                                    <th>Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -808,24 +784,7 @@ const GeneralHome = ({ setShowtask, setroutehome, routeshome }) => {
                                                         <div className="completed">Completed</div>
                                                     </td>
                                                     <td>1,000,000</td>
-                                                    <td>
-                                                        <div className="tbl-dropdown">
-                                                            <Dropdown>
-                                                                <Dropdown.Toggle id="dropdown-basic">
-                                                                    <img src={dosts} alt="dosts" />
-                                                                </Dropdown.Toggle>
-
-                                                                <Dropdown.Menu className="stats-dropdown-menu">
-                                                                    <div className="stats-dropdown-bg">
-                                                                        <Dropdown.Item>
-                                                                            <img src={submitIcon} alt="submitIcon" />
-                                                                            Submit Proof
-                                                                        </Dropdown.Item>
-                                                                    </div>
-                                                                </Dropdown.Menu>
-                                                            </Dropdown>
-                                                        </div>
-                                                    </td>
+                                                    
                                                 </tr>
                                                 <tr>
                                                     <td>sharjeel</td>
@@ -834,24 +793,7 @@ const GeneralHome = ({ setShowtask, setroutehome, routeshome }) => {
                                                         <div className="pending">Pending</div>
                                                     </td>
                                                     <td>1,000,000</td>
-                                                    <td>
-                                                        <div className="tbl-dropdown">
-                                                            <Dropdown>
-                                                                <Dropdown.Toggle id="dropdown-basic">
-                                                                    <img src={dosts} alt="dosts" />
-                                                                </Dropdown.Toggle>
-
-                                                                <Dropdown.Menu className="stats-dropdown-menu">
-                                                                    <div className="stats-dropdown-bg">
-                                                                        <Dropdown.Item>
-                                                                            <img src={submitIcon} alt="submitIcon" />
-                                                                            Submit Proof
-                                                                        </Dropdown.Item>
-                                                                    </div>
-                                                                </Dropdown.Menu>
-                                                            </Dropdown>
-                                                        </div>
-                                                    </td>
+                                                    
                                                 </tr>
                                                 <tr>
                                                     <td>sharjeel</td>
@@ -860,24 +802,7 @@ const GeneralHome = ({ setShowtask, setroutehome, routeshome }) => {
                                                         <div className="completed">Completed</div>
                                                     </td>
                                                     <td>1,000,000</td>
-                                                    <td>
-                                                        <div className="tbl-dropdown">
-                                                            <Dropdown>
-                                                                <Dropdown.Toggle id="dropdown-basic">
-                                                                    <img src={dosts} alt="dosts" />
-                                                                </Dropdown.Toggle>
-
-                                                                <Dropdown.Menu className="stats-dropdown-menu">
-                                                                    <div className="stats-dropdown-bg">
-                                                                        <Dropdown.Item>
-                                                                            <img src={submitIcon} alt="submitIcon" />
-                                                                            Submit Proof
-                                                                        </Dropdown.Item>
-                                                                    </div>
-                                                                </Dropdown.Menu>
-                                                            </Dropdown>
-                                                        </div>
-                                                    </td>
+                                                    
                                                 </tr>
                                                 <tr>
                                                     <td>sharjeel</td>
@@ -886,24 +811,7 @@ const GeneralHome = ({ setShowtask, setroutehome, routeshome }) => {
                                                         <div className="completed">Completed</div>
                                                     </td>
                                                     <td>1,000,000</td>
-                                                    <td>
-                                                        <div className="tbl-dropdown">
-                                                            <Dropdown>
-                                                                <Dropdown.Toggle id="dropdown-basic">
-                                                                    <img src={dosts} alt="dosts" />
-                                                                </Dropdown.Toggle>
-
-                                                                <Dropdown.Menu className="stats-dropdown-menu">
-                                                                    <div className="stats-dropdown-bg">
-                                                                        <Dropdown.Item>
-                                                                            <img src={submitIcon} alt="submitIcon" />
-                                                                            Submit Proof
-                                                                        </Dropdown.Item>
-                                                                    </div>
-                                                                </Dropdown.Menu>
-                                                            </Dropdown>
-                                                        </div>
-                                                    </td>
+                                                    
                                                 </tr>
                                             </tbody>
                                         </Table>
@@ -927,10 +835,6 @@ const GeneralHome = ({ setShowtask, setroutehome, routeshome }) => {
                                                             <div className="inner-item">
                                                                 <h6>Status</h6>
                                                                 <button className="btn-green">Completed</button>
-                                                            </div>
-                                                            <div className="inner-item">
-                                                                <h6>Actions</h6>
-                                                                <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
                                                             </div>
                                                         </div>
                                                     </Accordion.Body>
