@@ -105,10 +105,10 @@ const Header = ({ routes, setroute, indexwait, handleShow, setShow2, setShow1, s
               <p>view your announcements</p>
             </div>
           ) : null}
-          {indexwait === 6 || indexwait === 12 ? (
+          {indexwait === 6 || indexwait === 12 || indexwait===13 ? (
             <div className="soldier-name">
-              <h4>Army Forum</h4>
-              <p>Engage with your army</p>
+              <h4>{indexwait==12 ? 'Sqaud' :'Army'} Forum</h4>
+              <p>Engage with your {indexwait==12 ? 'sqaud' :'army'}</p>
             </div>
           ) : null}
           {indexwait === 5 ? (
@@ -314,7 +314,7 @@ const Header = ({ routes, setroute, indexwait, handleShow, setShow2, setShow1, s
               : ""
           }
           {
-            indexwait === 6 || indexwait === 12 ?
+            indexwait === 6 || indexwait === 12 || indexwait===13 ?
               <>
                 <button className="create-squad-btn" data-bs-toggle="modal" data-bs-target="#exampleModall">
                   <img src="\assets\topic-btn.svg" alt="img" className="img-fluid me-2" />
