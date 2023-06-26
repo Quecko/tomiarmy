@@ -56,7 +56,7 @@ const ExpiredOperation = ({ setroute, routes, tasks }) => {
                         <img src="\static-icons\tomitasks.png" alt="img" className='img-fluid' style={{ width: "50px", height: "50px" }} />
                         <div className="inner-content">
                             <p>Total Tasks</p>
-                            <h6>55</h6>
+                            <h6>{Getlength(data?.tasksList)}</h6>
                         </div>
                     </div>
                     <div className="card-item border-grad unique-item">

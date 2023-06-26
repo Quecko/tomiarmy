@@ -80,9 +80,9 @@ const GeneralActive = ({ setShowtask, tasks }) => {
                                     <th>
                                         <p className='headtable'>Description</p>
                                     </th>
-                                    <th>
+                                    {/* <th>
                                         <p className='headtable'>Status</p>
-                                    </th>
+                                    </th> */}
                                 </tr>
                             </thead>
                             <tbody>
@@ -95,7 +95,7 @@ const GeneralActive = ({ setShowtask, tasks }) => {
                                             <td>
                                                 <p className='paratable'>{elem?.description}</p>
                                             </td>
-                                            <td>
+                                            {/* <td>
                                                 <div className='completebtn text-end'>
                                                     {
                                                         elem?.taskSubmitted ?
@@ -106,7 +106,7 @@ const GeneralActive = ({ setShowtask, tasks }) => {
                                                                 <button style={{ background: '#FF8936' }}>Pending</button>
                                                     }
                                                 </div>
-                                            </td>
+                                            </td> */}
                                         </tr>
                                     )
                                 })}
