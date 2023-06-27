@@ -584,7 +584,7 @@ const Sidebar = () => {
                           </li>
                           <li>
                             <a
-                              onClick={() => { hitfunctionss(12); }}
+                              onClick={() => { hitfunctionss(13); }}
                               className={
                                 indexwait === 13 ? "list-item active" : "list-item"
                               }
@@ -1116,7 +1116,7 @@ const Sidebar = () => {
                           </li>
                           <li>
                             <a
-                              onClick={() => { hitfunctionss(12); sidebar(); }}
+                              onClick={() => { hitfunctionss(13); sidebar(); }}
                               className={
                                 indexwait === 13 ? "list-item active" : "list-item"
                               }

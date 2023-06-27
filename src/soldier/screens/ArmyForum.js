@@ -55,8 +55,8 @@ const ArmyForum = () => {
         // console.log(response)
         setLoader(false);
         toast.success("Post Added Successfully");
-        window.$(`#exampleModall`).modal("hide");
-        // GetPosts("val");
+        GetPosts();
+        // window.$(`#exampleModall`).modal("hide");
         // ClearAlloperation()
         // Code
       }).catch((error) => {
@@ -76,6 +76,8 @@ const ArmyForum = () => {
       setrankid('true')
     }
   }, [indexvalue])
+
+  console.log('index',indexvalue);
   // get top user or member
   const gettopusers = async () => {
     let tok = localStorage.getItem("accessToken");
@@ -96,6 +98,7 @@ const ArmyForum = () => {
   }
   //  get myPost
   const getMyPosts = () => {
+    
     let tok = localStorage.getItem("accessToken");
     var config = {
       method: "get",
@@ -143,6 +146,7 @@ const ArmyForum = () => {
   }
 
   const GetPosts = (val) => {
+    setArmy([])
     let tok = localStorage.getItem("accessToken");
     var config = {
       method: "get",
@@ -158,14 +162,14 @@ const ArmyForum = () => {
         if (response?.data?.data?.length === 0) {
           setLimit(limit - 1);
         }
-        if (val) {
+        // if (val) {
           setArmy(response?.data?.data?.post);
-        } else {
-          setArmy([
-            ...army,
-            ...response?.data?.data?.post,
-          ]);
-        }
+        // } else {
+        //   setArmy([
+        //     ...army,
+        //     ...response?.data?.data?.post,
+        //   ]);
+        // }
       })
       .catch(function (error) {
         console.log(error);
@@ -177,7 +181,7 @@ const ArmyForum = () => {
     if (limit > 1) {
       GetPosts();
     }
-  }, [limit])
+  }, [limit,indexvalue])
 
   const mainid = (id, val) => {
     let ido = null;
@@ -227,7 +231,7 @@ const ArmyForum = () => {
 
   useEffect(() => {
     gettopusers()
-  }, [])
+  }, [rankid])
 
   useEffect(() => {
     if (selecttab === 'activesquad') {
@@ -348,108 +352,115 @@ const ArmyForum = () => {
     })
   }
 
+  const handleChange1 = (event) => {
+    setcomment(event.target.value);
+}
 
   return (
     <>
       <div className="formobile-heading d-none display-block-in-mobile">
         <div className="inner-heading">
-          <h6>Army Forum</h6>
-          <p>Engage with your army</p>
+          <h6>{indexvalue==12 ? 'Sqaud' :'Army'} Forum</h6>
+          <p>Engage with your {indexvalue==12 ? 'sqaud' :'army'}</p>
         </div>
         <button data-bs-toggle="modal" data-bs-target="#exampleModall" className="create-btn" >
           <img src="\assets\topic-btn.svg" alt="img" className="img-fluid me-2" />
           Start a new topic
         </button>
       </div>
+      {/* {indexvalue==12 ? */}
       <div className="topicwrapper">
         <section className="topics">
           <div className="containersss p-0">
             <div className="row fordirection">
               <div className="col-xl-9 col-12 p-0">
-                <section className="maincmntsection border-grad1">
-                  {/* <div className="arrows">
+                {/* <div className="arrows">
                     <img src="\assets\arrow-up.png" alt="img" className="arrow" style={{width: "25px" , height: "25px"}} />
                     <p className="serial">56</p>
                     <img src="\assets\arrow-down.png" alt="img" className="arrow" style={{width: "25px" , height: "25px"}} />
                   </div> */}
-                  {army?.map((elem)=>{
-
-return(
-                  <section className="first">
-                  
-                      <div className="saying">
-                      <div className="texts">
-                        <h4>{elem?.name}</h4>
-                        <p className="upperpara">
+                {army?.map((elem, index) => {
+                  return (
+                    <section className="maincmntsection border-grad1">
+                      <section className="first">
+                        <div className="saying">
+                          <div className="texts">
+                            <h4>{elem?.title}</h4>
+                            <p className="upperpara">
                               {elem?.description}</p>
-                       
-                      </div>
-                      <div className="lowercontent">
-                        <div className="ranked">
-                          <h4>Posted by</h4>
-                          <div className="inner-parent">
-                            <div className="inner-side">
-                              <h6><img src="\assets\profile-icon.svg" alt="img" className="rankimg me-2" />{elem?.author?.name} </h6>
+                          </div>
+                          <div className="lowercontent">
+                            <div className="ranked">
+                              <h4>Posted by</h4>
+                              <div className="inner-parent">
+                                <div className="inner-side">
+                                  <h6><img src="\assets\profile-icon.svg" alt="img" className="rankimg me-2" />{elem?.author?.name} </h6>
+                                </div>
+                                <div className="inner-side">
+                                  <h6><img src="\assets\private.svg" alt="img" className="rankimg" />
+                                    {/* Private */}
+                                  </h6>
+                                  <span>{moment(elem?.createdAt).fromNow()}</span>
+                                </div>
+                              </div>
                             </div>
-                            <div className="inner-side">
-                              <h6><img src="\assets\private.svg" alt="img" className="rankimg" /> 
-                              Private 
-                              </h6>
-                              <span>{moment(elem?.createdAt).fromNow()}</span>
+                            <div className="comments"  >
+                              <img src="\assets\comment.svg" alt="img"  onClick={() => { mainid(elem?._id); UpdateCurrent(index) }} className="cmnt" data-bs-toggle="collapse" href={`#${index}`} role="button" aria-expanded="false" aria-controls="collapseExample" />
+                              <p>{elem?.noOfComments}+</p>
                             </div>
                           </div>
                         </div>
-                        <div className="comments">
-                          <img src="\assets\comment.svg" alt="img" className="cmnt" data-bs-toggle="collapse" href="#tab1" role="button" aria-expanded="false" aria-controls="collapseExample" />
-                          <p>50+</p>
-                        </div>
-                      </div>
-                    </div>
-                  </section>
-                    )
-                  })}
-
-                  <section className="comments collapse set-bg-color" id="tab1">
-                    <div className="maincomment">
-                      <h1 className="headcmnt">Comments</h1>
-                      <div className="innermain">
-                        <div className="innerprofile">
-                          <div className="imageset">
-                            <img src="\assets\profileimg.png" alt="img" className="profileimg" />
+                      </section>
+                      {current === index &&
+                        <section className="comments collapse set-bg-color" id="tab1">
+                          <div className="maincomment">
+                            <h1 className="headcmnt">Comments</h1>
+                            {ListComment?.slice(0, limit0)?.map((elem, index) => {
+                              return (
+                                <div key={index} className="innermain">
+                                  <div className="innerprofile">
+                                    <div className="imageset">
+                                      <img src={elem?.author?.profileImage} alt="img" className="profileimg" />
+                                    </div>
+                                    <div className="textprofile">
+                                      <h6>{elem?.author?.name}</h6>
+                                      <p>{moment(elem?.createdAt)?.fromNow()}</p>
+                                    </div>
+                                  </div>
+                                  <p>{elem?.content} </p>
+                                </div>
+                                // <div key={index} className="innermain">
+                                //     <div className="innerprofile">
+                                //         <div className="imageset">
+                                //             <img src={elem?.author?.profileImage} style={{ borderRadius: "500px", height: 45, width: 45 }} alt="img" className="profileimg" />
+                                //         </div>
+                                //         <div className="textprofile">
+                                //             <h6>{elem?.author?.name}</h6>
+                                //             <p>{moment(elem?.createdAt).fromNow()}</p>
+                                //         </div>
+                                //     </div>
+                                //     <p>{elem?.content}</p>
+                                // </div>
+                              )
+                            })}
                           </div>
-                          <div className="textprofile">
-                            <h6>Elias Doyle</h6>
-                            <p>September 29, 2022 at 2:48 am</p>
+                          <div className="forcmnt">
+                            <h5>Leave a comment</h5>
+                            <p>Comment</p>
+                            <textarea onChange={handleChange1} value={comment} placeholder="Write comment"></textarea>
+                            <button onClick={() => createComment(elem?._id)}>Post Comment</button>
                           </div>
-                        </div>
-                        <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. </p>
-                      </div>
-                      <div className="innermain">
-                        <div className="innerprofile">
-                          <div className="imageset">
-                            <img src="\assets\profileimg.png" alt="img" className="profileimg" />
-                          </div>
-                          <div className="textprofile">
-                            <h6>Elias Doyle</h6>
-                            <p>September 29, 2022 at 2:48 am</p>
-                          </div>
-                        </div>
-                        <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. </p>
-                      </div>
-                    </div>
-                    <div className="forcmnt">
-                      <h5>Leave a comment</h5>
-                      <p>Comment</p>
-                      <textarea placeholder="Write comment"></textarea>
-                      <button>Post Comment</button>
-                    </div>
-                  </section>
-                </section>
+                        </section>
+                       } 
+                    </section>
+                  )
+                })}
+                {/* </section> */}
               </div>
               <div className='col-xl-3 col-12 pe-0 padd-sm'>
                 <div className='members-section border-grad1 display-none-in-mobile'>
                   <div className="tophead">
-                    <h6>Members <span>(192)</span></h6>
+                    <h6>Members <span>{topuser?.length}</span></h6>
                   </div>
                   <div className="option-field">
                     <img src="\assets\search-icon.svg" alt="img" className="img-fluid search-icon" />
@@ -470,14 +481,14 @@ return(
                         )
                       })} */}
                       {topuser?.map((elem) => {
-                        console.log('elem',elem );
+                        console.log('elem', elem);
                         return (
                           <div className="inner-item">
                             <h6>{elem?._id?.name}</h6>
                             <h6>
                               <img src={elem?._id?.profileImage} alt="img" className="img-fluid me-2" />
                               {/* Private */}
-                              </h6>
+                            </h6>
                           </div>
                         )
                       })
@@ -491,6 +502,7 @@ return(
           </div>
         </section>
       </div>
+      {/* :''} */}
 
 
       <div className="topicmodal">
