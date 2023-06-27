@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react';
 import "../../../soldier/screens/bugreport.scss"
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
@@ -6,13 +6,83 @@ import Dropdown from 'react-bootstrap/Dropdown';
 import Pagination from 'react-bootstrap/Pagination';
 import Accordion from 'react-bootstrap/Accordion';
 import Modal from 'react-bootstrap/Modal';
-import { useState } from 'react';
+import "react-toastify/dist/ReactToastify.css";
+import { API_URL } from '../../../utils/ApiUrl';
+import { toast } from 'react-toastify';
+import axios from 'axios';
+import { useWeb3React } from "@web3-react/core";
 import "./generalreport.scss"
-
+import moment from 'moment';
 const GeneralReport = () => {
     const [show, setShow] = useState(false);
+    const [data, setdata] = useState(null);
+    const [date, setdate] = useState(null);
     const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+    const handleShow = (elem) => {
+        setShow(true)
+        let createdate = new Date(elem?.createdAt);
+        const createDate = moment(createdate).format("DD-MM-YYYY HH:MM");
+        setdate(createDate)
+        setdata(elem)
+    };
+    const [expired, setexpired] = useState("pending");
+    const [bugs, setbugs] = useState([]);
+    const { account } = useWeb3React();
+
+
+    const settabss = (event) => {
+        if (event === 'activeop') {
+            setexpired("pending")
+        }
+        else if (event === 'expiredop') {
+            setexpired("resolved")
+        }
+    }
+
+    const getDataannou = async (off, dsfdsgds) => {
+        // let valu = null;
+        // if (off) {
+        //     valu = off;
+        // } else {
+        //     valu = 1;
+        // }
+        let tok = localStorage.getItem("accessToken");
+        // let wall = localStorage.getItem("wallet");
+        if (account) {
+            var config = {
+                method: "get",
+                url: `${API_URL}/content/bug-reports/get-bugs-report-list?offset=1&&limit=10&&status=${expired}`,
+                headers: {
+                    authorization: `Bearer ` + tok
+                },
+            };
+            axios(config)
+                .then(function (response) {
+                    // setLoader(false);
+                    // setCount(response.data.data.count)
+                    setbugs(response?.data?.data?.bugReports);
+                    // let arr = Array.from(Array(parseInt(response.data.data.pages)).keys());
+                    // setPages(arr);
+                    // setCurrentPage(valu)
+                })
+                .catch(function (error) {
+                    // setLoader(false);
+                    // localStorage.removeItem("accessToken");
+                    // localStorage.removeItem("user");
+                    // window.location.assign("/")
+                    // window.location.reload();
+                });
+        }
+    }
+
+    useEffect(() => {
+        // if (currentPage > 1) {
+        //     getData(currentPage);
+        // } else {
+        getDataannou();
+        // }
+    }, [account, expired])
+
     return (
         <>
             <div className="formobile-heading d-none display-block-in-mobile">
@@ -26,6 +96,7 @@ const GeneralReport = () => {
                     defaultActiveKey="activeop"
                     id="uncontrolled-tab-example"
                     className="opeartions-tab border-grad1"
+                    onSelect={settabss}
                 >
                     <Tab eventKey="activeop" title="Pending">
                         <section className='main-task general-army'>
@@ -41,9 +112,9 @@ const GeneralReport = () => {
                                                                 <th>
                                                                     <p className='headtable'>Date received</p>
                                                                 </th>
-                                                                <th>
+                                                                {/* <th>
                                                                     <p className='headtable'>Reported by</p>
-                                                                </th>
+                                                                </th> */}
                                                                 <th>
                                                                     <p className='headtable'>Issues</p>
                                                                 </th>
@@ -56,40 +127,44 @@ const GeneralReport = () => {
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            <tr>
-                                                                <td>
-                                                                    <p className='paratable'>23/05/2023 01:58</p>
-                                                                </td>
-                                                                <td>
-                                                                    <p className='paratable'>Umar_x2jz</p>
-                                                                </td>
-                                                                <td>
-                                                                    <p className='paratable'>Button Is Not Working</p>
-                                                                </td>
-                                                                <td>
-                                                                    <p className='status-div pending-bg'>Pending</p>
-                                                                </td>
-                                                                <td>
-                                                                    <div className='dropbtn global-dropdown-style'>
-                                                                        <Dropdown>
-                                                                            <Dropdown.Toggle variant="success" id="dropdown-basic">
-                                                                                <img src='\Vectordots.svg' alt='img' className='img-fluid ' />
+                                                            {bugs && bugs?.map((elem, index) => {
+                                                                let createdate = new Date(elem?.createdAt);
+                                                                const createDate = moment(createdate).format("DD-MM-YYYY HH:MM");
+                                                                return (
+                                                                    <tr key={index}>
+                                                                        <td>
+                                                                            <p className='paratable'>{createDate}</p>
+                                                                        </td>
+                                                                        {/* <td>
+                                                                            <p className='paratable'>Umar_x2jz</p>
+                                                                        </td> */}
+                                                                        <td>
+                                                                            <p className='paratable'>{elem?.issue}</p>
+                                                                        </td>
+                                                                        <td>
+                                                                            <p className='status-div pending-bg'>{elem?.status}</p>
+                                                                        </td>
+                                                                        <td>
+                                                                            <div className='dropbtn global-dropdown-style'>
+                                                                                <Dropdown>
+                                                                                    <Dropdown.Toggle variant="success" id="dropdown-basic">
+                                                                                        <img src='\Vectordots.svg' alt='img' className='img-fluid ' />
 
-                                                                            </Dropdown.Toggle>
+                                                                                    </Dropdown.Toggle>
 
-                                                                            <Dropdown.Menu>
-                                                                                <Dropdown.Item href="#/action-1">
-                                                                                    <p ><img src='\generalassets\icons\checkmark.svg' alt='img' className='img-fluid' />Resolved</p>
-                                                                                    <p onClick={handleShow}><img src='\generalassets\icons\detail.svg' alt='img' className='img-fluid' />Details</p>
-                                                                                </Dropdown.Item>
-                                                                            </Dropdown.Menu>
-                                                                        </Dropdown>
-                                                                    </div>
-
-
-                                                                </td>
-                                                            </tr>
-
+                                                                                    <Dropdown.Menu>
+                                                                                        <Dropdown.Item href="#/action-1">
+                                                                                            <p ><img src='\generalassets\icons\checkmark.svg' alt='img' className='img-fluid' />Resolved</p>
+                                                                                            <p onClick={() => handleShow(elem)}><img src='\generalassets\icons\detail.svg' alt='img' className='img-fluid' />Details</p>
+                                                                                        </Dropdown.Item>
+                                                                                    </Dropdown.Menu>
+                                                                                </Dropdown>
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                )
+                                                            }
+                                                            )}
                                                         </tbody>
                                                     </table>
                                                 </div>
@@ -135,14 +210,12 @@ const GeneralReport = () => {
                                                             </div>
                                                         </Accordion.Body>
                                                     </Accordion.Item>
-                                         
                                                 </Accordion>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
                         </section>
                     </Tab>
                     <Tab eventKey="expiredop" title="Resolved">
@@ -155,9 +228,9 @@ const GeneralReport = () => {
                                                 <th>
                                                     <p className='headtable'>Date received</p>
                                                 </th>
-                                                <th>
+                                                {/* <th>
                                                     <p className='headtable'>Reported by</p>
-                                                </th>
+                                                </th> */}
                                                 <th>
                                                     <p className='headtable'>Issues</p>
                                                 </th>
@@ -167,22 +240,28 @@ const GeneralReport = () => {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>
-                                                    <p className='paratable'>23/05/2023 01:58</p>
-                                                </td>
-                                                <td>
-                                                    <p className='paratable'>Umar_x2jz</p>
-                                                </td>
-                                                <td>
-                                                    <p className='paratable'>Button Is Not Working</p>
-                                                </td>
-                                                <td>
-                                                    <p className='status-div green-bg'>Resolved</p>
-                                                </td>
-                                            </tr>
-                                          
-
+                                            {bugs && bugs?.map((elem, index) => {
+                                                let createdate = new Date(elem?.createdAt);
+                                                const createDate = moment(createdate).format("DD-MM-YYYY HH:MM");
+                                                return (
+                                                    <tr key={index}>
+                                                        <td>
+                                                            <p className='paratable'>{createDate}</p>
+                                                        </td>
+                                                        {/* <td>
+                                                                            <p className='paratable'>Umar_x2jz</p>
+                                                                        </td> */}
+                                                        <td>
+                                                            <p className='paratable'>{elem?.issue}</p>
+                                                        </td>
+                                                        <td>
+                                                            <p className='status-div pending-bg'>{elem?.status}</p>
+                                                        </td>
+                                                    </tr>
+                                                )
+                                            }
+                                            )
+                                            }
                                         </tbody>
                                     </table>
                                 </div>
@@ -277,44 +356,44 @@ const GeneralReport = () => {
             </section>
 
             <Modal className='bugdetail-modal global-modal-style' show={show} onHide={handleClose} centered>
-        <Modal.Header closeButton>
-          <Modal.Title>bug details</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-            <div className="parent">
-                <div className="left">
-                    <div className="text">
-                        <p>Issue</p>
-                        <h6>Button Is Not Working</h6>
-                    </div>
-                    <div className="text">
-                        <p>Additional Note</p>
-                        <h6>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto</h6>
-                    </div>
-                    <div className="twice-text">
-                        <div className="text">
-                        <p>Reported by</p>
-                        <h6>Umar_x2jz</h6>
+                <Modal.Header closeButton>
+                    <Modal.Title>bug details</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <div className="parent">
+                        <div className="left">
+                            <div className="text">
+                                <p>Issue</p>
+                                <h6>{data?.issue}</h6>
+                            </div>
+                            <div className="text">
+                                <p>Additional Note</p>
+                                <h6>{data?.description}</h6>
+                            </div>
+                            <div className="twice-text">
+                                <div className="text">
+                                    <p>Reported by</p>
+                                    <h6>Umar_x2jz</h6>
+                                </div>
+                                <div className="text">
+                                    <p>Date received</p>
+                                    <h6>{date}</h6>
+                                </div>
+                            </div>
+                            <div className="text">
+                                <p>Status</p>
+                                <p className='status-div pending-bg'>{data?.status}</p>
+                            </div>
                         </div>
-                        <div className="text">
-                        <p>Date received</p>
-                        <h6>04/05/2023</h6>
+                        <div className="right">
+                            <h6 className="main-head">Attachment</h6>
+                            <div className="upload">
+                                <img src={data?.imageUrl} alt="img" className='img-fluid' />
+                            </div>
                         </div>
                     </div>
-                    <div className="text">
-                        <p>Status</p>
-                        <p className='status-div pending-bg'>Pending</p>
-                    </div>
-                </div>
-                <div className="right">
-                    <h6 className="main-head">Attachment</h6>
-                    <div className="upload">
-                        <img src="\generalassets\other-imgs\dummy.png" alt="img" className='img-fluid' />
-                    </div>
-                </div>
-            </div>
-        </Modal.Body>
-      </Modal>
+                </Modal.Body>
+            </Modal>
         </>
     )
 }
