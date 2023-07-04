@@ -31,12 +31,14 @@ const GeneralSidebar = () => {
 
   const indexvv = localStorage.getItem("indexvalue");
   const [tasks, settasks] = useState([]);
+  const [annou, setannou] = useState([]);
   const [expired, setexpired] = useState(false);
   const { account } = useWeb3React();
   useEffect(() => {
     // if (currentPage > 1) {
     //     getData(currentPage);
     // } else {
+    getDataannou();
     getData();
     // }
   }, [account, expired])
@@ -63,6 +65,42 @@ const GeneralSidebar = () => {
           // setLoader(false);
           // setCount(response.data.data.count)
           settasks(response?.data?.data?.tasks);
+          // let arr = Array.from(Array(parseInt(response.data.data.pages)).keys());
+          // setPages(arr);
+          // setCurrentPage(valu)
+        })
+        .catch(function (error) {
+          // setLoader(false);
+          // localStorage.removeItem("accessToken");
+          // localStorage.removeItem("user");
+          // window.location.assign("/")
+          // window.location.reload();
+        });
+    }
+  }
+
+  const getDataannou = async (off, dsfdsgds) => {
+    // let valu = null;
+    // if (off) {
+    //     valu = off;
+    // } else {
+    //     valu = 1;
+    // }
+    let tok = localStorage.getItem("accessToken");
+    // let wall = localStorage.getItem("wallet");
+    if (account) {
+      var config = {
+        method: "get",
+        url: `${API_URL}/notifications/announcements?offset=1&&limit=10`,
+        headers: {
+          authorization: `Bearer ` + tok
+        },
+      };
+      axios(config)
+        .then(function (response) {
+          // setLoader(false);
+          // setCount(response.data.data.count)
+          setannou(response?.data?.data?.announcements);
           // let arr = Array.from(Array(parseInt(response.data.data.pages)).keys());
           // setPages(arr);
           // setCurrentPage(valu)
@@ -577,7 +615,7 @@ const GeneralSidebar = () => {
                     indexwait == 4 ?
                       (
                         <>
-                          <GeneralAnnouncement setShowannounce={setShowannounce} />
+                          <GeneralAnnouncement annou={annou}  setShowannounce={setShowannounce} />
                         </>
                       )
                       :
@@ -929,7 +967,7 @@ const GeneralSidebar = () => {
         </Offcanvas.Body>
       </Offcanvas>
       <CreateTaskModals showtask={showtask} getData={getData} setShowtask={setShowtask} />
-      <AnnouncementModals showannounce={showannounce} setShowannounce={setShowannounce} />
+      <AnnouncementModals getDataannou={getDataannou} showannounce={showannounce} setShowannounce={setShowannounce} />
       <CreateFaqModal showfaq={showfaq} setShowfaq={setShowfaq} />
       <EditTaskModals showtaskdetail={showtaskdetail} setdetailtask={setdetailtask} getData={getData} taskdetail={detailtask} setShowtaskdetail={setShowtaskdetail} showtaskedit={showtaskedit} setShowtaskedit={setShowtaskedit} />
     </>

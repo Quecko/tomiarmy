@@ -7,7 +7,8 @@ import Modal from 'react-bootstrap/Modal';
 import Pagination from 'react-bootstrap/Pagination';
 import Accordion from 'react-bootstrap/Accordion';
 import "./generalannouncement.scss"
-const GeneralAnnouncement = ({ setShowannounce }) => {
+import moment from "moment";
+const GeneralAnnouncement = ({ setShowannounce, annou }) => {
     return (
         <>
             <div className="formobile-heading d-none display-block-in-mobile">
@@ -45,20 +46,27 @@ const GeneralAnnouncement = ({ setShowannounce }) => {
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td>
-                                                        <p className='paratable'>Follow this Twitter Account....</p>
-                                                    </td>
-                                                    <td>
-                                                        <p className='paratable'>All Soldiers</p>
-                                                    </td>
-                                                    <td>
-                                                        <p className='paratable'>01/01/23</p>
-                                                    </td>
-                                                    <td>
-                                                        <a href="#"><img src="\generalassets\icons\btn-delete.svg" alt="img" className='img-fluid' /></a>
-                                                    </td>
-                                                </tr>
+                                                {annou && annou?.map((elem, index) => {
+                                                       let createdate = new Date(elem?.createdAt);
+                                                       const createDate = moment(createdate).format("DD-MM-YYYY");
+                                                    return (
+                                                        <tr key={index}>
+                                                            <td>
+                                                                <p className='paratable'>{elem?.message}</p>
+                                                            </td>
+                                                            <td>
+                                                                <p className='paratable'>{elem?.recipients}</p>
+                                                            </td>
+                                                            <td>
+                                                                <p className='paratable'>{createDate}</p>
+                                                            </td>
+                                                            <td>
+                                                                <a href="#"><img src="\generalassets\icons\btn-delete.svg" alt="img" className='img-fluid' /></a>
+                                                            </td>
+                                                        </tr>
+                                                    )
+                                                })}
+
 
                                             </tbody>
                                         </table>
@@ -96,7 +104,7 @@ const GeneralAnnouncement = ({ setShowannounce }) => {
                                                     </div>
                                                     <div className="inner-item">
                                                         <h6>Date Sent</h6>
-                                                      <p>01/01/22</p>
+                                                        <p>01/01/22</p>
                                                     </div>
                                                     <div className="inner-item">
                                                         <h6>Actions</h6>
