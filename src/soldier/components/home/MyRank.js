@@ -6,7 +6,7 @@ import pointsBar from "../../../assets/icons/pointsBar.svg";
 import { API_URL } from "../../../utils/ApiUrl"
 import axios from "axios";
 
-const MyRank = (props) => {
+const MyRank = ({props}) => {
   const [army, setArmy] = useState([]);
   console.log("profileee", props)
   const GetNextRank = () => {
@@ -68,10 +68,10 @@ const MyRank = (props) => {
       <div className="rank-squad-row row">
         <div className="col-lg-6 ransk-name-left padd-sm">
           <div className="ransk-name-heading-row inner-data-box border-grad">
-            <img src={props?.props?.rank?.icon} alt="privateRank" />
+            <img src={props?.rank?.icon} alt="privateRank" />
             <div className="ransk-name-heading">
               <p>My Rank</p>
-              <h4>{props?.props?.rank?.name}</h4>
+              <h4>{props?.rank?.name}</h4>
             </div>
           </div>
         </div>
@@ -80,7 +80,8 @@ const MyRank = (props) => {
             <img src="\static-icons\dc-squad.png" alt="dcSquad" style={{ width: "50px", height: "50px" }} />
             <div className="ransk-name-heading">
               <p>My Squad</p>
-              <h4>{props?.props?.memberOfSquad === false ? '-' : ""}</h4>
+              {/* <h4>{props?.props?.memberOfSquad === false ? '-' : ""}</h4> */}
+              <h4>{props?.squad?.name}</h4>
             </div>
           </div>
         </div>
@@ -90,8 +91,8 @@ const MyRank = (props) => {
           <div className="private-sergant">
             <div className="private-rank-row">
               <div className="private-rank dc-squad">
-                <img src={props?.props?.rank?.icon} alt="earned" style={{ width: "60px", height: "60px" }} />
-                <h4>{props?.props?.rank?.name}</h4>
+                <img src={props?.rank?.icon} alt="earned" style={{ width: "60px", height: "60px" }} />
+                <h4>{props?.rank?.name}</h4>
               </div>
               {GetNextRank()}
               {/* <div className="private-rank sergeant">

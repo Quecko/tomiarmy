@@ -10,8 +10,6 @@ import Countdown from 'react-countdown';
 const ExpiredOperation = ({ setroute, routes, tasks }) => {
     // const [route, setroute] = useState(false);
     const [data, setData] = useState(null);
-
-    console.log('aaaaaa', data);
     const getdata = (elem) => {
         setroute(!routes)
         setData(elem)
@@ -293,7 +291,7 @@ const ExpiredOperation = ({ setroute, routes, tasks }) => {
 
                                         <tbody>
 
-                                            {tasks.length > 0 && tasks?.map((elem, index) => {
+                                            {tasks?.length > 0 && tasks?.map((elem, index) => {
                                                 const ExpireDate = moment(elem?.expirationDate).format("DD-MM-YYYY");
                                                 //  console.log("sdfsdfsdfds", elem?.tasksList)
                                                 return (

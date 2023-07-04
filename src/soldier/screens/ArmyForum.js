@@ -77,7 +77,6 @@ const ArmyForum = () => {
     }
   }, [indexvalue])
 
-  console.log('index',indexvalue);
   // get top user or member
   const gettopusers = async () => {
     let tok = localStorage.getItem("accessToken");
@@ -263,7 +262,6 @@ const ArmyForum = () => {
   }
 
   const deletetask = () => {
-    // console.log("============= we get",id)
     let tok = localStorage.getItem("accessToken");
     // setOpens(true);
     axios
@@ -295,7 +293,6 @@ const ArmyForum = () => {
   }
 
   const detailmodalopen = (iddd) => {
-    // console.log("we get id value here is", iddd)
     setdetail(iddd)
     getSingleDetail(iddd)
     window.$('#exampleModal1').modal('show')

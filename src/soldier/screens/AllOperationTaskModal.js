@@ -50,8 +50,6 @@ const AllOperationTaskModal = ({ showtask1, setShowtask1, settaskdetail1, taskde
 
     const [inputs, setInputs] = useState({})
 
-    console.log('taskdetail1', operationId);
-
     const SubmitWork = async () => {
         setLoader(true);
         let dumObj = {};
@@ -81,6 +79,7 @@ const AllOperationTaskModal = ({ showtask1, setShowtask1, settaskdetail1, taskde
                 }
             dumObj.image = dumarr;
             dumObj.name = taskdetail1?.name;
+            dumObj.description=taskdetail1?.description
 
             dumObj.url = m;
             dumArr = [dumObj];

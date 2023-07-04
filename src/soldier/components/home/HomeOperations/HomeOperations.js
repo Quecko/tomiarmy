@@ -9,6 +9,8 @@ import { API_URL } from "../../../../utils/ApiUrl"
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
+import { useWeb3React } from "@web3-react/core";
+import Countdown from "react-countdown";
 const HomeOperations = () => {
 
   const datacommander = localStorage.getItem('user')
@@ -21,6 +23,10 @@ const HomeOperations = () => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   let tok = localStorage.getItem("accessToken");
+  const [operations, setOperations] = useState([])
+  const [loader, setLoader] = useState(false)
+  const [expired, setexpired] = useState(false);
+  const { account } = useWeb3React()
 
   const GetUserTopSquad = () => {
     // setLoader(true);
@@ -110,10 +116,66 @@ const HomeOperations = () => {
       });
   }
 
+
+  const getDataOperation = async (off) => {
+
+    // let valu = null;
+    // if (off) {
+    //   valu = off;
+    // } else {
+    //   valu = 1;
+    // }
+    let tok = localStorage.getItem("accessToken");
+    let wall = localStorage.getItem("wallet");
+    // if (account) {
+      var config = {
+        method: "get",
+        url: `${API_URL}/tasks/operations?offset=1&&limit=5&&expired=${expired}`,
+        headers: {
+          authorization: `Bearer ` + tok
+        },
+      };
+      axios(config)
+        .then(function (response) {
+          setLoader(false);
+          setOperations(response?.data?.data?.operation[0]);
+          // if(expired===true){
+          //   setOperations(response?.data?.data?.operation);
+          // }
+          // else{
+          //   setOperations(response?.data?.data?.operation[0]);
+          // }
+          // let arr = Array.from(Array(parseInt(response.data.data.pages)).keys());
+          // setPages(arr);
+          // setCurrentPage(valu)
+        })
+        .catch(function (error) {
+          setLoader(false);
+          // localStorage.removeItem("accessToken");
+          // localStorage.removeItem("user");
+          // window.location.assign("/")
+          // window.location.reload();
+        });
+    // }
+  }
+
   useEffect(() => {
+    getDataOperation()
     GetUserTopSquad()
     SquadUsers()
   }, []);
+
+  const GetTime = (time) => {
+    let endtime = new Date(time)
+    return endtime;
+  }
+
+  const SubmitProofOfWork =(elem)=>{
+    console.log('elem',elem)
+    // setOperationId(tasks)
+    // setShowtask1(true)
+    // settaskdetail1(elem)
+  }
   return (
     <>
       <div className="warpper-lock-operation">
@@ -130,8 +192,8 @@ const HomeOperations = () => {
         <section className="home-operations border-grad1">
           <div className="upper-item">
             <div className='left'>
-              <h6>operation : ELON MUSK <span>ENDS IN: 23:34:12</span></h6>
-              <p>make elon musk tweet about tomi</p>
+              <h6>operation :  {operations?.name} <span>ENDS IN:<Countdown date={GetTime(operations?.expirationDate)} /></span></h6>
+              <p>{operations?.description}</p>
             </div>
             <a href="#">View <span>All Operation Tasks</span> <img src="\assets\arrow-right.svg" alt="img" className='img-fluid ms-2' /></a>
           </div>
@@ -140,21 +202,21 @@ const HomeOperations = () => {
               <img src="\static-icons\points.png" alt="img" className='img-fluid' style={{ width: "50px", height: "50px" }} />
               <div className="inner-content">
                 <p>Points</p>
-                <h6>150,000</h6>
+                <h6>{operations?.reward}</h6>
               </div>
             </div>
             <div className="card-item border-grad">
               <img src="\static-icons\tomi-icon.png" alt="img" className='img-fluid' style={{ width: "50px", height: "50px" }} />
               <div className="inner-content">
                 <p>TOMI Tokens</p>
-                <h6>100,000</h6>
+                <h6>{operations?.tomiToken}</h6>
               </div>
             </div>
             <div className="card-item border-grad">
               <img src="\static-icons\tomitasks.png" alt="img" className='img-fluid' style={{ width: "50px", height: "50px" }} />
               <div className="inner-content">
                 <p>Total Tasks</p>
-                <h6>55</h6>
+                <h6>{operations?.tasksList?.length}</h6>
               </div>
             </div>
             <div className="card-item border-grad unique-item">
@@ -162,11 +224,11 @@ const HomeOperations = () => {
                 <img src="\static-icons\rewardnft.png" alt="img" className='img-fluid' style={{ width: "50px", height: "50px" }} />
                 <div className="inner-content">
                   <p>Reward NFT</p>
-                  <h6>ELN MSK #41234</h6>
+                  <h6>ELN MSK</h6>
                 </div>
               </div>
               <div className="nft-img">
-                <img src="\assets\nft.svg" alt="img" className='img-fluid' />
+                <img src={operations?.imageUrl} alt="img" className='img-fluid' />
               </div>
             </div>
           </div>
@@ -179,11 +241,14 @@ const HomeOperations = () => {
                       <p className='headtable'>Task</p>
                     </th>
                     <th>
+                      <p className='headtable'>Description</p>
+                    </th>
+                    {/* <th>
                       <p className='headtable'>Points</p>
-                    </th>
-                    <th>
+                    </th> */}
+                    {/* <th>
                       <p className='headtable'>TOMI Tokens</p>
-                    </th>
+                    </th> */}
                     <th>
                       <p className='headtable'>Progress</p>
                     </th>
@@ -196,7 +261,7 @@ const HomeOperations = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
+                  {/* <tr>
                     <td>
                       <p className='paratable'>Like our facebook page</p>
                     </td>
@@ -231,117 +296,54 @@ const HomeOperations = () => {
                         </Dropdown>
                       </div>
                     </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <p className='paratable'>Like our facebook page</p>
-                    </td>
-                    <td>
-                      <p className='paratable'>+5</p>
-                    </td>
-                    <td>
-                      <p className='paratable'>500 TOMI</p>
-                    </td>
-                    <td>
-                      <div className="twice">
-                        <img src="\assets\orangeline.svg" alt="img" className='img-fluid' />
-                        <p className='paratable'>67 of 100</p>
-                      </div>
-                    </td>
-                    <td>
-                      <div className='completebtn'>
-                        <button className='orange'>In Progress</button>
-                      </div>
-                    </td>
-                    <td>
-                      <div className='dropbtn'>
-                        <Dropdown>
-                          <Dropdown.Toggle variant="success" id="dropdown-basic">
-                            <img src='\Vectordots.svg' alt='img' className='' />
-                          </Dropdown.Toggle>
-                          <Dropdown.Menu>
-                            <Dropdown.Item href="#/action-1">
-                              <p><img src='\Vector.svg' alt='img' className='img-fluid' />Submit Proof</p>
-                            </Dropdown.Item>
-                          </Dropdown.Menu>
-                        </Dropdown>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <p className='paratable'>Follow our twitter acc...</p>
-                    </td>
-                    <td>
-                      <p className='paratable'>+5</p>
-                    </td>
-                    <td>
-                      <p className='paratable'>500 TOMI</p>
-                    </td>
-                    <td>
-                      <div className="twice">
-                        <img src="\assets\blankline.svg" alt="img" className='img-fluid' />
-                        <p className='paratable'>0 of 100</p>
-                      </div>
-                    </td>
-                    <td>
-                      <div className='completebtn'>
-                        <button className='orange'>In Progress</button>
-                      </div>
-                    </td>
-                    <td>
-                      <div className='dropbtn'>
-                        <Dropdown>
-                          <Dropdown.Toggle variant="success" id="dropdown-basic">
-                            <img src='\Vectordots.svg' alt='img' className='' />
-                          </Dropdown.Toggle>
-                          <Dropdown.Menu>
-                            <Dropdown.Item href="#/action-1">
-                              <p><img src='\Vector.svg' alt='img' className='img-fluid' />Submit Proof</p>
-                            </Dropdown.Item>
-                          </Dropdown.Menu>
-                        </Dropdown>
-                      </div>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <p className='paratable'>Follow our twitter acc...</p>
-                    </td>
-                    <td>
-                      <p className='paratable'>+5</p>
-                    </td>
-                    <td>
-                      <p className='paratable'>500 TOMI</p>
-                    </td>
-                    <td>
-                      <div className="twice">
-                        <img src="\assets\redline.svg" alt="img" className='img-fluid' />
-                        <p className='paratable'>5 of 100</p>
-                      </div>
-                    </td>
-                    <td>
-                      <div className='completebtn'>
-                        <button className='red'>Not Started</button>
-                      </div>
-                    </td>
-                    <td>
-                      <div className='dropbtn'>
-                        <Dropdown>
-                          <Dropdown.Toggle variant="success" id="dropdown-basic">
-                            <img src='\Vectordots.svg' alt='img' className='' />
+                  </tr> */}
+                  
+                  {operations?.tasksList?.map((elem, index) => {
+                    return (
+                      <tr key={index}>
+                        <td>
+                          <p className='paratable'>{elem?.name}</p>
+                        </td>
+                        <td>
+                          <p className='paratable'>{elem?.description}</p>
+                        </td>
+                        <td>
+                          <div className="twice">
+                            <img src="\assets\greenline.svg" alt="img" className='img-fluid' />
+                            <p className='paratable'>100 of 100</p>
+                          </div>
+                        </td>
+                        <td>
+                          <div className='completebtn text-end'>
+                            {
+                              elem?.taskSubmitted ?
+                                <button style={{ background: '#FEC600' }}>In Process</button>
+                                : elem?.taskApproval ?
+                                  <button style={{ background: '#04C453' }}>Completed</button>
+                                  :
+                                  <button style={{ background: '#FF8936' }}>Pending</button>
+                            }
+                          </div>
+                        </td>
+                        <td>
+                          <div className='dropbtn'>
+                            <Dropdown>
+                              <Dropdown.Toggle variant="success" id="dropdown-basic">
+                                <img src='\Vectordots.svg' alt='img' className='img-fluid' />
 
-                          </Dropdown.Toggle>
+                              </Dropdown.Toggle>
 
-                          <Dropdown.Menu>
-                            <Dropdown.Item href="#/action-1">
-                              <p><img src='\Vector.svg' alt='img' className='img-fluid' />Submit Proof</p>
-                            </Dropdown.Item>
-                          </Dropdown.Menu>
-                        </Dropdown>
-                      </div>
-                    </td>
-                  </tr>
+                              <Dropdown.Menu>
+                                <Dropdown.Item href="#/action-1">
+                                  <p onClick={() => SubmitProofOfWork(elem)}><img src='\Vector.svg' alt='img' className='img-fluid' />Submit Proof</p>
+                                </Dropdown.Item>
+                              </Dropdown.Menu>
+                            </Dropdown>
+                          </div>
+                        </td>
+                      </tr>
+                    )
+                  })}
                 </tbody>
               </table>
             </div>
