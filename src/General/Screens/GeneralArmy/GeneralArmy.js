@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import Dropdown from 'react-bootstrap/Dropdown';
@@ -8,11 +8,21 @@ import Pagination from 'react-bootstrap/Pagination';
 import Accordion from 'react-bootstrap/Accordion';
 import "./generalarmy.scss"
 import ArmyDetail from './ArmyDetail';
+import "react-toastify/dist/ReactToastify.css";
+import { API_URL } from '../../../utils/ApiUrl';
+import { toast } from 'react-toastify';
+import { useWeb3React } from "@web3-react/core";
+import axios from 'axios';
+
 const GeneralArmy = ({ routesarmy, setroutearmy }) => {
 
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+    const [data3, setData3] = useState(null);
+    const handleShow = (elem) => {
+        setData3(elem);
+        setShow(true);
+    }
 
     const [showapprove, setShowapprove] = useState(false);
     const handleCloseapprove = () => setShowapprove(false);
@@ -20,7 +30,103 @@ const GeneralArmy = ({ routesarmy, setroutearmy }) => {
 
     const [showreject, setShowreject] = useState(false);
     const handleClosereject = () => setShowreject(false);
+
     const handleShowreject = () => setShowreject(true);
+
+    const [data2, setData2] = useState([]);
+    const { account } = useWeb3React();
+
+
+    
+    const GeneralApproval = async (off) => {
+        // let valu = null;
+        // if (off) {
+        //     valu = off;
+        // } else {
+        //     valu = 1;
+        // }
+        let tok = localStorage.getItem("accessToken");
+        let wall = localStorage.getItem("wallet");
+        if (account) {
+            var config = {
+                method: "get",
+                url: `${API_URL}/tasks/pending-ranks-update?offset=1&&limit=5`,
+                headers: {
+                    authorization: `Bearer ` + tok
+                },
+            };
+            axios(config)
+                .then(function (response) {
+                    // console.log("response for awaiting approval", response)
+                    // setLoader(false);
+                    // setCount2(response.data.data.count)
+                    setData2(response?.data?.data?.pendingRanksUpdate);
+                    // console.log("opopopop", response.data.data.pages)
+                    // let arr = Array.from(Array(parseInt(response.data.data.pages)).keys());
+                    // // console.log("opopopop", arr)
+                    // setPages2(arr);
+                    // setCurrentPage2(valu)
+                })
+                .catch(function (error) {
+                    // setLoader(false);
+                    // localStorage.removeItem("accessToken");
+                    // localStorage.removeItem("user");
+                    // window.location.assign("/")
+                    // window.location.reload();
+                });
+        }
+    }
+
+    useEffect(() => {
+        // if (currentPage > 1) {
+        //     getData(currentPage);
+        // } else {
+        GeneralApproval();
+        // }
+    }, [account])
+
+    const RejectAccept = (item, bool) => {
+        // setLoader(true);
+        let tok = localStorage.getItem("accessToken");
+        var data = ({
+            status: bool
+        });
+        var config = {
+            method: "patch",
+            url: `${API_URL}/tasks/pending-ranks-update/${item._id}/status`,
+            headers: {
+                authorization: `Bearer ` + tok
+            },
+            data: data,
+        };
+        axios(config)
+            .then(function (response) {
+                // setLoader(false);
+                GeneralApproval();
+                handleClose();
+                if (bool === "approve") {
+                    handleShowapprove();
+                    toast
+                        .success("Request Approved Successfully!", {
+                            position: "top-right",
+                            autoClose: 3000,
+                        })
+                    // history.push("/general")
+                } else {
+                    handleShowreject();
+                    toast
+                        .error("Request Reject Successfully!", {
+                            position: "top-right",
+                            autoClose: 3000,
+                        })
+                }
+            })
+            .catch(function (error) {
+                // setLoader(false);
+                toast.error(error.response.data.message);
+            });
+    }
+
     return (
         <>
             {
@@ -96,41 +202,44 @@ const GeneralArmy = ({ routesarmy, setroutearmy }) => {
                                                                         </tr>
                                                                     </thead>
                                                                     <tbody>
-                                                                        <tr>
-                                                                            <td>
-                                                                                <p className='paratable'>0x0F4D...B5D8</p>
-                                                                            </td>
-                                                                            <td>
-                                                                                <p className='paratable'>Umar_x2jz</p>
-                                                                            </td>
-                                                                            <td>
-                                                                                <p className='paratable'>Soldier</p>
-                                                                            </td>
-                                                                            <td>
-                                                                                <p className='paratable'>Soldier</p>
-                                                                            </td>
-                                                                            <td>
-                                                                                <div className='dropbtn global-dropdown-style'>
-                                                                                    <Dropdown>
-                                                                                        <Dropdown.Toggle variant="success" id="dropdown-basic">
-                                                                                            <img src='\Vectordots.svg' alt='img' className='img-fluid ' />
+                                                                        {
+                                                                            data2?.map((elem, ind) => {
+                                                                                return (
+                                                                                    <tr key={ind} >
+                                                                                        <td>
+                                                                                            <p className='paratable'>{elem?.walletAddress}</p>
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <p className='paratable'>{elem?.nickName}</p>
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <p className='paratable'>{elem?.from}</p>
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <p className='paratable'>{elem?.to}</p>
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            <div className='dropbtn global-dropdown-style'>
+                                                                                                <Dropdown>
+                                                                                                    <Dropdown.Toggle variant="success" id="dropdown-basic">
+                                                                                                        <img src='\Vectordots.svg' alt='img' className='img-fluid ' />
 
-                                                                                        </Dropdown.Toggle>
+                                                                                                    </Dropdown.Toggle>
 
-                                                                                        <Dropdown.Menu>
-                                                                                            <Dropdown.Item href="#/action-1">
-                                                                                                <p onClick={handleShow}><img src='\generalassets\icons\promote.svg' alt='img' className='img-fluid' />Promote</p>
-                                                                                                <p onClick={handleShowreject}><img src='\generalassets\icons\trash.svg' alt='img' className='img-fluid' />Reject</p>
-                                                                                                <p onClick={() => { setroutearmy(!routesarmy) }}><img src='\generalassets\icons\detail.svg' alt='img' className='img-fluid' />Details</p>
-                                                                                            </Dropdown.Item>
-                                                                                        </Dropdown.Menu>
-                                                                                    </Dropdown>
-                                                                                </div>
+                                                                                                    <Dropdown.Menu>
+                                                                                                        <Dropdown.Item href="#/action-1">
+                                                                                                            <p onClick={() =>handleShow(elem)} ><img src='\generalassets\icons\promote.svg' alt='img' className='img-fluid' />Promote</p>
+                                                                                                            <p onClick={() => { setroutearmy(!routesarmy) }}><img src='\generalassets\icons\detail.svg' alt='img' className='img-fluid' />Details</p>
+                                                                                                        </Dropdown.Item>
+                                                                                                    </Dropdown.Menu>
+                                                                                                </Dropdown>
+                                                                                            </div>
 
 
-                                                                            </td>
-                                                                        </tr>
-
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                )
+                                                                            })}
                                                                     </tbody>
                                                                 </table>
                                                             </div>
@@ -167,7 +276,7 @@ const GeneralArmy = ({ routesarmy, setroutearmy }) => {
                                                                             </div>
                                                                             <div className="inner-item">
                                                                                 <h6>From</h6>
-                                                                               <p>Soldier</p>
+                                                                                <p>Soldier</p>
                                                                             </div>
                                                                             <div className="inner-item">
                                                                                 <h6>To</h6>
@@ -202,28 +311,25 @@ const GeneralArmy = ({ routesarmy, setroutearmy }) => {
                                     <div className="inner-box">
                                         <div className="text">
                                             <p>Wallet</p>
-                                            <h6>0x0F4D...B5D8</h6>
+                                            <h6>{data3?.walletAddress}</h6>
                                         </div>
                                         <div className="text">
                                             <p>Nickname</p>
-                                            <h6>sharjeel</h6>
+                                            <h6>{data3?.nickName}</h6>
                                         </div>
                                         <div className="text">
                                             <p>From</p>
-                                            <h6>Captain</h6>
+                                            <h6>{data3?.from}</h6>
                                         </div>
                                         <div className="text">
                                             <p>To</p>
-                                            <h6>Private</h6>
+                                            <h6>{data3?.to}</h6>
                                         </div>
                                     </div>
                                 </div>
                                 <div className="btnss">
-                                    <button onClick={handleClose} className="redbtn"><img src="\generalassets\other-imgs\Subtract.svg" alt="crossimg" className="crossimg" /> Reject</button>
-                                    <button onClick={() => {
-                                        handleClose();
-                                        handleShowapprove();
-                                    }} className="greenbtn"><img src="\generalassets\other-imgs\checkmark.svg" alt="crossimg" className="crossimg" /> Promote</button>
+                                    <button onClick={() => RejectAccept(data3, "reject")}  className="redbtn"><img src="\generalassets\other-imgs\Subtract.svg" alt="crossimg" className="crossimg" /> Reject</button>
+                                    <button onClick={() => RejectAccept(data3, "approve")} className="greenbtn"><img src="\generalassets\other-imgs\checkmark.svg" alt="crossimg" className="crossimg" /> Promote</button>
                                 </div>
                             </Modal.Body>
                         </Modal>

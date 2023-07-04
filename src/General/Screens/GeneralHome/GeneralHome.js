@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./generalhome.scss"
 import { Dropdown, Table } from "react-bootstrap";
 import Accordion from 'react-bootstrap/Accordion';
@@ -7,11 +7,156 @@ import submitIcon from "../../../assets/icons/submitIcon.svg";
 import { Calendar } from "react-multi-date-picker"
 import CreateOperation from "../GeneralOperation/CreateOperation";
 import { Modal } from 'react-bootstrap';
+import "react-toastify/dist/ReactToastify.css";
+import { API_URL } from '../../../utils/ApiUrl';
+import { toast } from 'react-toastify';
+import { useWeb3React } from "@web3-react/core";
+import axios from 'axios';
+import Web3 from 'web3';
+
 
 const GeneralHome = ({ setShowtask, setroutehome, routeshome }) => {
+
     const [showmajor, setShowmajor] = useState(false);
     const handleClosemajor = () => setShowmajor(false);
     const handleShowmajor = () => setShowmajor(true);
+    const [rend, setRend] = useState(false);
+    const [army, setArmy] = useState([]);
+
+    const [datamajoradd, setdatamajoradd] = useState({
+        name: '',
+        walletaddres: ''
+    })
+
+    const handleChangemajoradd = (event) => {
+        datamajoradd[event.target.name] = event.target.value;
+        setdatamajoradd({ ...datamajoradd });
+    }
+
+    const ClearAllMajordata = () => {
+        setdatamajoradd({
+            name: '',
+            walletaddres: ''
+        })
+        setRend(!rend)
+    }
+
+    const GetArmy = () => {
+        let tok = localStorage.getItem("accessToken");
+        var config = {
+            method: "get",
+            url: `${API_URL}/tasks/army-ranks`,
+            headers: {
+                authorization: `Bearer ` + tok
+            },
+        };
+        axios(config)
+            .then(function (response) {
+                console.log("armymember")
+                // setLoader(false);
+                setArmy(response?.data?.data);
+            })
+            .catch(function (error) {
+                // setLoader(false);
+                // localStorage.removeItem("accessToken");
+                // localStorage.removeItem("user");
+                // window.location.assign("/")
+                // window.location.reload();
+            });
+    }
+
+    const AddMajorButton = async () => {
+        var result = Web3.utils.isAddress(datamajoradd.walletaddres);
+        let tok = localStorage.getItem("accessToken");
+        var data = ({
+            nickName: datamajoradd.name,
+            walletAddress: datamajoradd.walletaddres,
+        });
+        if (datamajoradd.name === '') {
+            toast.error('Please write major name', {
+                position: "top-right",
+                autoClose: 2000,
+            });
+        }
+        else if (datamajoradd.walletaddres === '') {
+            toast.error('Please write major walletaddress', {
+                position: "top-right",
+                autoClose: 2000,
+            });
+        }
+        else if (result === false) {
+            toast.error('Enter valid wallet address', {
+                position: "top-right",
+                autoClose: 2000,
+            });
+        }
+        else {
+            var config = {
+                method: "post",
+                url: `${API_URL}/auth/users/major-general`,
+                headers: {
+                    authorization: `Bearer ` + tok
+                },
+                data: data,
+            };
+            axios(config)
+                .then(function (response) {
+                    handleClosemajor();
+                    // setLoader(false);
+                    toast.success('Major Added Successfully', {
+                        position: "top-right",
+                        autoClose: 2000,
+                    });
+                    // window.$('#majorgeneraladd').modal('hide')
+                    // setCall(!call);
+                    ClearAllMajordata();
+                    GetArmy();
+                    // getDataTaskss();
+                    // ClearAll();
+                })
+                .catch(function (error) {
+                    // setLoader(false);
+                    // console.log(error.response.data.statusCode);
+                    if (error.response.data.statusCode == 403) {
+                        toast.error('Forbidden. Only general can add major general', {
+                            position: 'top-right',
+                            autoClose: 5000,
+                        });
+                    } else if (error.response.data.statusCode == 500) {
+                        toast.error('Something went wrong', {
+                            position: 'top-right',
+                            autoClose: 5000,
+                        });
+                    }
+                    else if (error.response.data.statusCode == 400) {
+                        toast.error('Validation Failed', {
+                            position: 'top-right',
+                            autoClose: 5000,
+                        });
+                    }
+                    else if (error.response.data.statusCode == 401) {
+                        toast.error('Jwt expired/invalid', {
+                            position: 'top-right',
+                            autoClose: 5000,
+                        });
+                    }
+                    else if (error.response.data.statusCode == 409) {
+                        toast.error('User with this walletAddress already exist', {
+                            position: 'top-right',
+                            autoClose: 5000,
+                        });
+                    }
+                    // else {
+                    //     localStorage.removeItem("accessToken");
+                    //     localStorage.removeItem("user");
+                    // }
+                    // window.location.reload();
+                });
+        }
+    }
+    useEffect(() => {
+        GetArmy();
+    }, []);
     return (
         <>
             {!routeshome ? <div className="formobile-heading d-none display-block-in-mobile">
@@ -185,239 +330,37 @@ const GeneralHome = ({ setShowtask, setroutehome, routeshome }) => {
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
-                                                        <td>
-                                                            <div className="set-custom">
-                                                                <img src="\static-icons\private-rank.png" alt="img" className='img-fluid' style={{ width: "40px", height: "40px" }} />
-                                                                <p className='paratable'>Private</p>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <p className='paratable'>1,523,645</p>
-                                                        </td>
-                                                        <td>
-                                                            <div className='dropbtn'>
-                                                                <Dropdown>
-                                                                    <Dropdown.Toggle variant="success" id="dropdown-basic">
-                                                                        <img src='\Vectordots.svg' alt='img' className='img-fluid ' />
+                                                    {army.map((elem, index) => {
+                                                        return (
+                                                            <tr>
+                                                                <td>
+                                                                    <div className="set-custom">
+                                                                        <img src={elem?.icon} alt="img" className='img-fluid' style={{ width: "40px", height: "40px" }} />
+                                                                        <p className='paratable'>{elem?.name}</p>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <p className='paratable'>{elem?.membersCount}</p>
+                                                                </td>
+                                                                <td>
+                                                                    <div className='dropbtn'>
+                                                                        <Dropdown>
+                                                                            <Dropdown.Toggle variant="success" id="dropdown-basic">
+                                                                                <img src='\Vectordots.svg' alt='img' className='img-fluid ' />
 
-                                                                    </Dropdown.Toggle>
-
-                                                                    <Dropdown.Menu>
-                                                                        <Dropdown.Item href="#/action-1">
-                                                                            <p onClick={handleShowmajor}><img src='\Vector.svg' alt='img' className='img-fluid' />Add</p>
-                                                                        </Dropdown.Item>
-                                                                    </Dropdown.Menu>
-                                                                </Dropdown>
-                                                            </div>
-
-
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <div className="set-custom">
-                                                                <img src="\static-icons\sergeant.png" alt="img" className='img-fluid' style={{ width: "40px", height: "40px" }} />
-                                                                <p className='paratable'>Sergeant</p>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <p className='paratable'>1,523,645</p>
-                                                        </td>
-                                                        <td>
-                                                            <div className='dropbtn'>
-                                                                <Dropdown>
-                                                                    <Dropdown.Toggle variant="success" id="dropdown-basic">
-                                                                        <img src='\Vectordots.svg' alt='img' className='img-fluid ' />
-
-                                                                    </Dropdown.Toggle>
-
-                                                                    <Dropdown.Menu>
-                                                                        <Dropdown.Item href="#/action-1">
-                                                                            <p><img src='\Vector.svg' alt='img' className='img-fluid' />Add</p>
-                                                                        </Dropdown.Item>
-                                                                    </Dropdown.Menu>
-                                                                </Dropdown>
-                                                            </div>
-
-
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <div className="set-custom">
-                                                                <img src="\static-icons\lieutenant.png" alt="img" className='img-fluid' style={{ width: "40px", height: "40px" }} />
-                                                                <p className='paratable'>Lieutenant</p>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <p className='paratable'>1,523,645</p>
-                                                        </td>
-                                                        <td>
-                                                            <div className='dropbtn'>
-                                                                <Dropdown>
-                                                                    <Dropdown.Toggle variant="success" id="dropdown-basic">
-                                                                        <img src='\Vectordots.svg' alt='img' className='img-fluid ' />
-
-                                                                    </Dropdown.Toggle>
-
-                                                                    <Dropdown.Menu>
-                                                                        <Dropdown.Item href="#/action-1">
-                                                                            <p><img src='\Vector.svg' alt='img' className='img-fluid' />Add</p>
-                                                                        </Dropdown.Item>
-                                                                    </Dropdown.Menu>
-                                                                </Dropdown>
-                                                            </div>
-
-
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <div className="set-custom">
-                                                                <img src="\static-icons\captain.png" alt="img" className='img-fluid' style={{ width: "40px", height: "40px" }} />
-                                                                <p className='paratable'>Captain</p>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <p className='paratable'>1,523,645</p>
-                                                        </td>
-                                                        <td>
-                                                            <div className='dropbtn'>
-                                                                <Dropdown>
-                                                                    <Dropdown.Toggle variant="success" id="dropdown-basic">
-                                                                        <img src='\Vectordots.svg' alt='img' className='img-fluid ' />
-
-                                                                    </Dropdown.Toggle>
-
-                                                                    <Dropdown.Menu>
-                                                                        <Dropdown.Item href="#/action-1">
-                                                                            <p><img src='\Vector.svg' alt='img' className='img-fluid' />Add</p>
-                                                                        </Dropdown.Item>
-                                                                    </Dropdown.Menu>
-                                                                </Dropdown>
-                                                            </div>
-
-
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <div className="set-custom">
-                                                                <img src="\generalassets\icons\major.png" alt="img" className='img-fluid' style={{ width: "40px", height: "40px" }} />
-                                                                <p className='paratable'>Major</p>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <p className='paratable'>1,523,645</p>
-                                                        </td>
-                                                        <td>
-                                                            <div className='dropbtn'>
-                                                                <Dropdown>
-                                                                    <Dropdown.Toggle variant="success" id="dropdown-basic">
-                                                                        <img src='\Vectordots.svg' alt='img' className='img-fluid ' />
-
-                                                                    </Dropdown.Toggle>
-
-                                                                    <Dropdown.Menu>
-                                                                        <Dropdown.Item href="#/action-1">
-                                                                            <p><img src='\Vector.svg' alt='img' className='img-fluid' />Add</p>
-                                                                        </Dropdown.Item>
-                                                                    </Dropdown.Menu>
-                                                                </Dropdown>
-                                                            </div>
-
-
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <div className="set-custom">
-                                                                <img src="\generalassets\icons\colonel.png" alt="img" className='img-fluid' style={{ width: "40px", height: "40px" }} />
-                                                                <p className='paratable'>Colonel</p>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <p className='paratable'>1,523,645</p>
-                                                        </td>
-                                                        <td>
-                                                            <div className='dropbtn'>
-                                                                <Dropdown>
-                                                                    <Dropdown.Toggle variant="success" id="dropdown-basic">
-                                                                        <img src='\Vectordots.svg' alt='img' className='img-fluid ' />
-
-                                                                    </Dropdown.Toggle>
-
-                                                                    <Dropdown.Menu>
-                                                                        <Dropdown.Item href="#/action-1">
-                                                                            <p><img src='\Vector.svg' alt='img' className='img-fluid' />Add</p>
-                                                                        </Dropdown.Item>
-                                                                    </Dropdown.Menu>
-                                                                </Dropdown>
-                                                            </div>
-
-
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <div className="set-custom">
-                                                                <img src="\generalassets\icons\majorgeneral.png" alt="img" className='img-fluid' style={{ width: "40px", height: "40px" }} />
-                                                                <p className='paratable'>Major General</p>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <p className='paratable'>1,523,645</p>
-                                                        </td>
-                                                        <td>
-                                                            <div className='dropbtn'>
-                                                                <Dropdown>
-                                                                    <Dropdown.Toggle variant="success" id="dropdown-basic">
-                                                                        <img src='\Vectordots.svg' alt='img' className='img-fluid ' />
-
-                                                                    </Dropdown.Toggle>
-
-                                                                    <Dropdown.Menu>
-                                                                        <Dropdown.Item href="#/action-1">
-                                                                            <p><img src='\Vector.svg' alt='img' className='img-fluid' />Add</p>
-                                                                        </Dropdown.Item>
-                                                                    </Dropdown.Menu>
-                                                                </Dropdown>
-                                                            </div>
-
-
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <div className="set-custom">
-                                                                <img src="\generalassets\icons\general.png" alt="img" className='img-fluid' style={{ width: "40px", height: "40px" }} />
-                                                                <p className='paratable'>General</p>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <p className='paratable'>1,523,645</p>
-                                                        </td>
-                                                        <td>
-                                                            <div className='dropbtn'>
-                                                                <Dropdown>
-                                                                    <Dropdown.Toggle variant="success" id="dropdown-basic">
-                                                                        <img src='\Vectordots.svg' alt='img' className='img-fluid ' />
-
-                                                                    </Dropdown.Toggle>
-
-                                                                    <Dropdown.Menu>
-                                                                        <Dropdown.Item href="#/action-1">
-                                                                            <p><img src='\Vector.svg' alt='img' className='img-fluid' />Add</p>
-                                                                        </Dropdown.Item>
-                                                                    </Dropdown.Menu>
-                                                                </Dropdown>
-                                                            </div>
-
-
-                                                        </td>
-                                                    </tr>
-
+                                                                            </Dropdown.Toggle>
+                                                                            <Dropdown.Menu>
+                                                                                <Dropdown.Item href="#/action-1">
+                                                                                    <p onClick={handleShowmajor}><img src='\Vector.svg' alt='img' className='img-fluid' />Add</p>
+                                                                                </Dropdown.Item>
+                                                                            </Dropdown.Menu>
+                                                                        </Dropdown>  
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        )
+                                                    }
+                                                    )}
                                                 </tbody>
                                             </table>
                                         </div>
@@ -784,7 +727,7 @@ const GeneralHome = ({ setShowtask, setroutehome, routeshome }) => {
                                                         <div className="completed">Completed</div>
                                                     </td>
                                                     <td>1,000,000</td>
-                                                    
+
                                                 </tr>
                                                 <tr>
                                                     <td>sharjeel</td>
@@ -793,7 +736,7 @@ const GeneralHome = ({ setShowtask, setroutehome, routeshome }) => {
                                                         <div className="pending">Pending</div>
                                                     </td>
                                                     <td>1,000,000</td>
-                                                    
+
                                                 </tr>
                                                 <tr>
                                                     <td>sharjeel</td>
@@ -802,7 +745,7 @@ const GeneralHome = ({ setShowtask, setroutehome, routeshome }) => {
                                                         <div className="completed">Completed</div>
                                                     </td>
                                                     <td>1,000,000</td>
-                                                    
+
                                                 </tr>
                                                 <tr>
                                                     <td>sharjeel</td>
@@ -811,7 +754,7 @@ const GeneralHome = ({ setShowtask, setroutehome, routeshome }) => {
                                                         <div className="completed">Completed</div>
                                                     </td>
                                                     <td>1,000,000</td>
-                                                    
+
                                                 </tr>
                                             </tbody>
                                         </Table>
@@ -858,18 +801,16 @@ const GeneralHome = ({ setShowtask, setroutehome, routeshome }) => {
                             <div className="inner-content">
                                 <div className="option-field">
                                     <label>Name</label>
-                                    <input type="text" placeholder="Enter Name" />
+                                    <input onChange={handleChangemajoradd} name="name" value={datamajoradd?.name} type="text" placeholder="Enter Name" />
                                 </div>
                                 <div className="option-field">
                                     <label>Wallet Address</label>
-                                    <input type="text" placeholder="Enter Wallet Address...." />
+                                    <input onChange={handleChangemajoradd} name="walletaddres" value={datamajoradd?.walletaddres} type="text" placeholder="Enter Wallet Address...." />
                                 </div>
                             </div>
                             <div className="twice-btns">
                                 <button onClick={handleClosemajor} className="btn-blackk"><img src="\generalassets\icons\cancel-icon.svg" alt="img" className='img-fluid' />Cancel</button>
-                                <button onClick={() => {
-                                    handleClosemajor();
-                                }} className="btn-pinkk"><img src="\generalassets\icons\add.svg" alt="img" className='img-fluid' />Add Major General</button>
+                                <button onClick={AddMajorButton} className="btn-pinkk"><img src="\generalassets\icons\add.svg" alt="img" className='img-fluid' />Add Major General</button>
                             </div>
                         </Modal.Body>
                     </Modal>

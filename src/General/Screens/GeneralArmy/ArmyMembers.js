@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import Dropdown from 'react-bootstrap/Dropdown';
@@ -8,6 +8,13 @@ import Pagination from 'react-bootstrap/Pagination';
 import Accordion from 'react-bootstrap/Accordion';
 import "./generalarmy.scss"
 import ArmyDetail from './ArmyDetail';
+import "react-toastify/dist/ReactToastify.css";
+import { API_URL } from '../../../utils/ApiUrl';
+import { toast } from 'react-toastify';
+import { useWeb3React } from "@web3-react/core";
+import axios from 'axios';
+
+
 const ArmyMembers = ({ routesarmy, setroutearmy }) => {
 
     const [show, setShow] = useState(false);
@@ -24,7 +31,136 @@ const ArmyMembers = ({ routesarmy, setroutearmy }) => {
 
     const [showrank, setShowrank] = useState(false);
     const handleCloserank = () => setShowrank(false);
-    const handleShowrank = () => setShowrank(true);
+    const [dataarmymember, setdataarmymember] = useState();
+
+    const handleShowrank = (elem) => {
+        setdataarmymember(elem)
+        setShowrank(true);
+    }
+
+    const [data, setData] = useState([]);
+    const [Armymajor, setArmymajor] = useState([]);
+    const [selectedrank, setselectedrank] = useState('Select Rank');
+    const { account } = useWeb3React();
+
+    const armyembers = async (off) => {
+        // let valu = null;
+        // if (off) {
+        //     valu = off;
+        // } else {
+        //     valu = 1;
+        // }
+        let tok = localStorage.getItem("accessToken");
+        let wall = localStorage.getItem("wallet");
+        if (account) {
+            var config = {
+                method: "get",
+                url: `${API_URL}/auth/users/army-members?offset=1&&limit=5`,
+                headers: {
+                    authorization: `Bearer ` + tok
+                },
+            };
+            axios(config)
+                .then(function (response) {
+                    // console.log("response for army members", response)
+                    // setLoader(false);
+                    // setCount(response.data.data.count)
+                    setData(response?.data?.data?.users);
+                    // console.log("opopopop", response.data.data.pages)
+                    // let arr = Array.from(Array(parseInt(response.data.data.pages)).keys());
+                    // console.log("opopopop", arr)
+                    // setPages(arr);
+                    // setCurrentPage(valu)
+                })
+                .catch(function (error) {
+                    // setLoader(false);
+                    // localStorage.removeItem("accessToken");
+                    // localStorage.removeItem("user");
+                    // window.location.assign("/")
+                    // window.location.reload();
+                });
+        }
+    }
+
+    useEffect(() => {
+        // if (currentPage > 1) {
+        //     getData(currentPage);
+        // } else {
+        GetArmymajor();
+        armyembers();
+        // }
+    }, [account])
+
+    const GetArmymajor = () => {
+        let tok = localStorage.getItem("accessToken");
+        var config = {
+            method: "get",
+            url: `${API_URL}/tasks/army-ranks?minimal=true`,
+            headers: {
+                authorization: `Bearer ` + tok
+            },
+        };
+        axios(config)
+            .then(function (response) {
+                console.log("sfsdfsdfsdfds", response)
+                // setLoader(false);
+                setArmymajor(response?.data?.data);
+            })
+            .catch(function (error) {
+                // setLoader(false);
+                // localStorage.removeItem("accessToken");
+                // localStorage.removeItem("user");
+                // window.location.assign("/")
+                // window.location.reload();
+            });
+    }
+
+    const updateRankMajor = () => {
+        if (selectedrank === 'Select Rank' || selectedrank === '') {
+            toast.error('Please Select Rank', {
+                position: "top-right",
+                autoClose: 2000,
+            });
+        }
+        else {
+            // setLoader(true);
+            // window.$(`#UpdaterankMajorArmyMemebr`).modal("hide");
+            handleCloserank();
+            let tok = localStorage.getItem("accessToken");
+            var data = ({
+                nickName: dataarmymember?.nickName,
+                walletAddress: dataarmymember?.walletAddress,
+                from: dataarmymember?.rank?.name,
+                to: selectedrank?.name,
+                userId: dataarmymember?._id,
+            });
+            var config = {
+                method: "post",
+                url: `${API_URL}/tasks/pending-ranks-update`,
+                headers: {
+                    authorization: `Bearer ` + tok
+                },
+                data: data,
+            };
+            axios(config)
+                .then(function (response) {
+                    // setLoader(false);
+                    // window.$(`#UpdaterankMajorArmyMemebr`).modal("hide");
+                    GetArmymajor();
+                    setselectedrank();
+                    toast.success('Request Send To General Successfully!', {
+                        position: "top-right",
+                        autoClose: 2000,
+                    });
+                })
+                .catch(function (error) {
+                    // setLoader(false);
+                    toast.error(error.response.data.message);
+                });
+        }
+    }
+
+
     return (
         <>
             {
@@ -89,10 +225,10 @@ const ArmyMembers = ({ routesarmy, setroutearmy }) => {
                                                                                 <p className='headtable'>Nickname</p>
                                                                             </th>
                                                                             <th>
-                                                                                <p className='headtable'>From</p>
+                                                                                <p className='headtable'>Rank</p>
                                                                             </th>
                                                                             <th>
-                                                                                <p className='headtable'>To</p>
+                                                                                <p className='headtable'>Points</p>
                                                                             </th>
                                                                             <th>
                                                                                 <p className='headtable'>Actions</p>
@@ -100,40 +236,39 @@ const ArmyMembers = ({ routesarmy, setroutearmy }) => {
                                                                         </tr>
                                                                     </thead>
                                                                     <tbody>
-                                                                        <tr>
-                                                                            <td>
-                                                                                <p className='paratable'>0x0F4D...B5D8</p>
-                                                                            </td>
-                                                                            <td>
-                                                                                <p className='paratable'>Umar_x2jz</p>
-                                                                            </td>
-                                                                            <td>
-                                                                                <p className='paratable'>Soldier</p>
-                                                                            </td>
-                                                                            <td>
-                                                                                <p className='paratable'>Soldier</p>
-                                                                            </td>
-                                                                            <td>
-                                                                                <div className='dropbtn global-dropdown-style'>
-                                                                                    <Dropdown>
-                                                                                        <Dropdown.Toggle variant="success" id="dropdown-basic">
-                                                                                            <img src='\Vectordots.svg' alt='img' className='img-fluid ' />
-
-                                                                                        </Dropdown.Toggle>
-
-                                                                                        <Dropdown.Menu>
-                                                                                            <Dropdown.Item href="#/action-1">
-                                                                                                <p onClick={handleShowrank}><img src='\generalassets\icons\promote.svg' alt='img' className='img-fluid' />Rank Update</p>
-                                                                                                <p onClick={() => { setroutearmy(!routesarmy) }}><img src='\generalassets\icons\detail.svg' alt='img' className='img-fluid' />Details</p>
-                                                                                            </Dropdown.Item>
-                                                                                        </Dropdown.Menu>
-                                                                                    </Dropdown>
-                                                                                </div>
-
-
-                                                                            </td>
-                                                                        </tr>
-
+                                                                        {data && data?.map((elem, index) => {
+                                                                            return (
+                                                                                <tr key={index}>
+                                                                                    <td>
+                                                                                        <p className='paratable'>{elem?.walletAddress}</p>
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <p className='paratable'>{elem.nickName}</p>
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <p className='paratable'>{elem?.rank?.name}</p>
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <p className='paratable'>{elem?.points}</p>
+                                                                                    </td>
+                                                                                    <td>
+                                                                                        <div className='dropbtn global-dropdown-style'>
+                                                                                            <Dropdown>
+                                                                                                <Dropdown.Toggle variant="success" id="dropdown-basic">
+                                                                                                    <img src='\Vectordots.svg' alt='img' className='img-fluid ' />
+                                                                                                </Dropdown.Toggle>
+                                                                                                <Dropdown.Menu>
+                                                                                                    <Dropdown.Item href="#/action-1">
+                                                                                                        <p onClick={() =>handleShowrank(elem)}><img src='\generalassets\icons\promote.svg' alt='img' className='img-fluid' />Rank Update</p>
+                                                                                                        <p onClick={() => { setroutearmy(!routesarmy) }}><img src='\generalassets\icons\detail.svg' alt='img' className='img-fluid' />Details</p>
+                                                                                                    </Dropdown.Item>
+                                                                                                </Dropdown.Menu>
+                                                                                            </Dropdown>
+                                                                                        </div>
+                                                                                    </td>
+                                                                                </tr>
+                                                                            )
+                                                                        })}
                                                                     </tbody>
                                                                 </table>
                                                             </div>
@@ -170,7 +305,7 @@ const ArmyMembers = ({ routesarmy, setroutearmy }) => {
                                                                             </div>
                                                                             <div className="inner-item">
                                                                                 <h6>From</h6>
-                                                                               <p>Soldier</p>
+                                                                                <p>Soldier</p>
                                                                             </div>
                                                                             <div className="inner-item">
                                                                                 <h6>To</h6>
@@ -257,35 +392,34 @@ const ArmyMembers = ({ routesarmy, setroutearmy }) => {
 
 
                         <Modal className='createbasic-modal global-modal-style createtask-modal' show={showrank} onHide={handleCloserank} centered>
-        <Modal.Header closeButton>
-          <Modal.Title>Rank Update</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <div className="inner-content">
-            <div className="option-field">
-              <label>Rank Update</label>
-              <div class="dropdown">
-                <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Select Rank
-                  <img src="\generalassets\icons\arrow-down.svg" alt="img" className='img-fluid' />
-                </button>
-                <ul class="dropdown-menu">
-                  <li><a class="dropdown-item" href="#">Major Generals</a></li>
-                  <li><a class="dropdown-item" href="#">Colonels</a></li>
-                  <li><a class="dropdown-item" href="#">Majors</a></li>
-                  <li><a class="dropdown-item" href="#">All Soldiers</a></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          <div className="twice-btns">
-            <button onClick={handleCloserank} className="btn-blackk"><img src="\generalassets\icons\cancel-icon.svg" alt="img" className='img-fluid' />Cancel</button>
-            <button onClick={() => {
-            }} className="btn-pinkk"><img src="\generalassets\icons\send.svg" alt="img" className='img-fluid' />Update</button>
-          </div>
-        </Modal.Body>
-      </Modal>
-
+                            <Modal.Header closeButton>
+                                <Modal.Title>Rank Update</Modal.Title>
+                            </Modal.Header>
+                            <Modal.Body>
+                                <div className="inner-content">
+                                    <div className="option-field">
+                                        <label>Rank Update</label>
+                                        <div class="dropdown">
+                                            <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                {selectedrank?.name ? selectedrank.name : selectedrank}
+                                                <img src="\generalassets\icons\arrow-down.svg" alt="img" className='img-fluid' />
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                {Armymajor?.map((item, index) => {
+                                                    return (
+                                                        <li><a class="dropdown-item"  onClick={() => setselectedrank(item)}>{item?.name}</a></li>
+                                                    )
+                                                })}
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="twice-btns">
+                                    <button onClick={handleCloserank} className="btn-blackk"><img src="\generalassets\icons\cancel-icon.svg" alt="img" className='img-fluid' />Cancel</button>
+                                    <button onClick={updateRankMajor} className="btn-pinkk"><img src="\generalassets\icons\send.svg" alt="img" className='img-fluid' />Update</button>
+                                </div>
+                            </Modal.Body>
+                        </Modal>
                     </>
             }
 
