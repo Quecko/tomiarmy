@@ -7,19 +7,22 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Accordion from 'react-bootstrap/Accordion';
 import { API_URL } from '../../utils/ApiUrl';
+import moment from 'moment';
+import { io } from "socket.io-client";
+import { toast } from 'react-toastify';
 import axios from 'axios';
 const Announcements = () => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const [loader,setLoader]=useState(false)
-  const [announcements,setAnnouncements]=useState([])
+  const [loader, setLoader] = useState(false)
+  const [announcements, setAnnouncements] = useState([])
   let tok = localStorage.getItem("accessToken");
   const [selecttab, setselecttab] = useState('home')
   const getAnnouncements = async () => {
     var config = {
       method: "get",
-      url: `${API_URL}/announcements/user-announcements?offset=1&limit=5&isRead=${selecttab==='home' ? true:false }`,
+      url: `${API_URL}/notifications/announcements/user-announcements?offset=1&limit=5&isRead=${selecttab === 'home' ? true : false}`,
       headers: {
         authorization: `Bearer ` + tok
       },
@@ -35,10 +38,84 @@ const Announcements = () => {
   }
 
   useEffect(() => {
-   getAnnouncements()
+    getAnnouncements()
   }, [selecttab]);
 
-   
+
+  const [detail, setDeatils] = useState(null)
+
+  const getDetail = (elem) => {
+    handleShow()
+    setDeatils(elem)
+
+  }
+  const readAnnuncement = async () => {
+    var config = {
+      method: "patch",
+      url: `${API_URL}/notifications/announcements/user-announcements/${detail?.announcement?.id}`,
+      headers: {
+        authorization: `Bearer ` + tok
+      },
+    };
+    axios(config)
+      .then(function (response) {
+        getAnnouncements()
+        handleClose()
+      })
+      .catch(function (error) {
+        console.log(error);
+        setLoader(false);
+      });
+  }
+
+
+  useEffect(() => {
+
+    const socket = io("https://api.tomiarmy.com", {
+      transports: ["websocket", "polling"],
+    });
+    //  const socket = io("http://10.10.10.115:8094")
+    let tok = localStorage.getItem("accessToken");
+    socket.on("connect", () => {
+      // console.log('socket connected++++++++++++++++++++++++++', socket.connected);  
+      // console.log(tok)           
+      socket.emit("authentication", {
+        token: tok,
+      });
+    });
+
+    // socket.on('WORK_PROOF_REJECTED', (notification) => {
+    //   toast.info("Update on your submitted task!");
+    //   GetTasks()
+    //   GetOpts()
+    //   // ShowResp(notification);
+    // });
+
+    // socket.on('Veteran_recruite_Invite', (notification) => {
+    //   getNotif("soc");
+    // });
+
+    socket.on('message', (notification) => {
+      console.log('Received notification:', notification);
+      // getNotif("soc");
+      // setNotn(true);
+      // ShowResp(notification);
+    });
+
+    // socket.on('Rank_Updated', (notification) => {
+    //   updateToken();
+    // });
+
+    // socket.on('Rank_Updated_By_General', (notification) => {
+    //   updateToken();
+    // });
+
+    socket.on("disconnect", (reason) => {
+      console.log(`Disconnected: ${reason}`);
+    });
+  }, [])
+
+
 
   return (
     <>
@@ -80,139 +157,46 @@ const Announcements = () => {
                               </tr>
                             </thead>
                             <tbody>
-                              <tr>
-                                <td>
-                                  <p className='paratable'>Follow this Twitter Account....</p>
-                                </td>
-                                <td>
-                                  <p className='paratable'>01/01/23</p>
-                                </td>
-                                <td>
-                                  <div className='dropbtn'>
-                                    <Dropdown>
-                                      <Dropdown.Toggle variant="success" id="dropdown-basic">
-                                        <img src='\Vectordots.svg' alt='img' className='img-fluid' />
+                              {announcements?.userAnnouncements?.map((elem) => {
+                                let createdate = new Date(elem?.createdAt);
+                                const createDate = moment(createdate).format("DD-MM-YYYY");
+                                return (
+                                  <tr>
+                                    <td>
+                                      <p className='paratable'>{elem?.announcement?.message}</p>
+                                    </td>
+                                    <td>
+                                      <p className='paratable'>{createDate}</p>
+                                    </td>
+                                    <td>
+                                      <div className='dropbtn'>
+                                        <Dropdown>
+                                          <Dropdown.Toggle variant="success" id="dropdown-basic">
+                                            <img src='\Vectordots.svg' alt='img' className='img-fluid' />
 
-                                      </Dropdown.Toggle>
+                                          </Dropdown.Toggle>
 
-                                      <Dropdown.Menu>
-                                        <Dropdown.Item href="#/action-1">
-                                          <p><img src='\reading-book1.svg' alt='img' className='img-fluid' />Mark as read</p>
-                                        </Dropdown.Item>
-                                        <div className='brdr'></div>
-                                        <Dropdown.Item href="#/action-1">
-                                          <p onClick={handleShow}><img src='\Vectordetail.svg' alt='img' className='img-fluid' />details</p>
-                                        </Dropdown.Item>
-                                        <div className='brdr'></div>
-                                        <Dropdown.Item href="#/action-1">
-                                          <p><img src='\trash.svg' alt='img' className='img-fluid' />delete</p>
-                                        </Dropdown.Item>
+                                          <Dropdown.Menu>
+                                            <Dropdown.Item href="#/action-1">
+                                              <p><img src='\Vector.svg' alt='img' className='img-fluid' />Submit Proof</p>
+                                            </Dropdown.Item>
+                                            <div className='brdr'></div>
+                                            <Dropdown.Item href="#/action-1">
+                                              <p onClick={() => getDetail(elem)}><img src='\Vectordetail.svg' alt='img' className='img-fluid' />details</p>
+                                            </Dropdown.Item>
+                                            <div className='brdr'></div>
+                                            <Dropdown.Item href="#/action-1">
+                                              <p><img src='\trash.svg' alt='img' className='img-fluid' />delete</p>
+                                            </Dropdown.Item>
 
-                                      </Dropdown.Menu>
-                                    </Dropdown>
-                                  </div>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  <p className='paratable'>Follow this Twitter Account....</p>
-                                </td>
-                                <td>
-                                  <p className='paratable'>01/01/23</p>
-                                </td>
-                                <td>
-                                  <div className='dropbtn'>
-                                    <Dropdown>
-                                      <Dropdown.Toggle variant="success" id="dropdown-basic">
-                                        <img src='\Vectordots.svg' alt='img' className='img-fluid' />
+                                          </Dropdown.Menu>
+                                        </Dropdown>
+                                      </div>
+                                    </td>
+                                  </tr>
+                                )
+                              })}
 
-                                      </Dropdown.Toggle>
-
-                                      <Dropdown.Menu>
-                                        <Dropdown.Item href="#/action-1">
-                                          <p><img src='\reading-book1.svg' alt='img' className='img-fluid' />Mark as read</p>
-                                        </Dropdown.Item>
-                                        <div className='brdr'></div>
-                                        <Dropdown.Item href="#/action-1">
-                                          <p onClick={handleShow}><img src='\Vectordetail.svg' alt='img' className='img-fluid' />details</p>
-                                        </Dropdown.Item>
-                                        <div className='brdr'></div>
-                                        <Dropdown.Item href="#/action-1">
-                                          <p><img src='\trash.svg' alt='img' className='img-fluid' />delete</p>
-                                        </Dropdown.Item>
-
-                                      </Dropdown.Menu>
-                                    </Dropdown>
-                                  </div>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  <p className='paratable'>Follow this Twitter Account....</p>
-                                </td>
-                                <td>
-                                  <p className='paratable'>01/01/23</p>
-                                </td>
-                                <td>
-                                  <div className='dropbtn'>
-                                    <Dropdown>
-                                      <Dropdown.Toggle variant="success" id="dropdown-basic">
-                                        <img src='\Vectordots.svg' alt='img' className='img-fluid' />
-
-                                      </Dropdown.Toggle>
-
-                                      <Dropdown.Menu>
-                                        <Dropdown.Item href="#/action-1">
-                                          <p><img src='\reading-book1.svg' alt='img' className='img-fluid' />Mark as read</p>
-                                        </Dropdown.Item>
-                                        <div className='brdr'></div>
-                                        <Dropdown.Item href="#/action-1">
-                                          <p onClick={handleShow}><img src='\Vectordetail.svg' alt='img' className='img-fluid' />details</p>
-                                        </Dropdown.Item>
-                                        <div className='brdr'></div>
-                                        <Dropdown.Item href="#/action-1">
-                                          <p><img src='\trash.svg' alt='img' className='img-fluid' />delete</p>
-                                        </Dropdown.Item>
-
-                                      </Dropdown.Menu>
-                                    </Dropdown>
-                                  </div>
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  <p className='paratable'>Follow this Twitter Account....</p>
-                                </td>
-                                <td>
-                                  <p className='paratable'>01/01/23</p>
-                                </td>
-                                <td>
-                                  <div className='dropbtn'>
-                                    <Dropdown>
-                                      <Dropdown.Toggle variant="success" id="dropdown-basic">
-                                        <img src='\Vectordots.svg' alt='img' className='img-fluid' />
-
-                                      </Dropdown.Toggle>
-
-                                      <Dropdown.Menu>
-                                        <Dropdown.Item href="#/action-1">
-                                          <p><img src='\reading-book1.svg' alt='img' className='img-fluid' />Mark as read</p>
-                                        </Dropdown.Item>
-                                        <div className='brdr'></div>
-                                        <Dropdown.Item href="#/action-1">
-                                          <p onClick={handleShow}><img src='\Vectordetail.svg' alt='img' className='img-fluid' />details</p>
-                                        </Dropdown.Item>
-                                        <div className='brdr'></div>
-                                        <Dropdown.Item href="#/action-1">
-                                          <p><img src='\trash.svg' alt='img' className='img-fluid' />delete</p>
-                                        </Dropdown.Item>
-
-                                      </Dropdown.Menu>
-                                    </Dropdown>
-                                  </div>
-                                </td>
-                              </tr>
-                           
                             </tbody>
                           </table>
                         </div>
@@ -303,7 +287,9 @@ const Announcements = () => {
                       </div>
                     </div>
                   </Tab>
-                  <Tab eventKey="profile" title={<p>Unread Announcements <img src='\two.svg' alt='img' className='img-fluid' /></p>}>
+                  <Tab eventKey="profile" title={<p>Unread Announcements <img src='\two.svg' alt='img' className='img-fluid' />
+                  {/* {selecttab === 'profile' && announcements?.userAnnouncements?.length} */}
+                    </p>}>
                     {/* <Sonnet /> */}
                     <div className='maincard border-grad1'>
                       <div className="maintable display-none-in-mobile">
@@ -322,172 +308,45 @@ const Announcements = () => {
                             </tr>
                           </thead>
                           <tbody>
-                            <tr>
-                              <td>
-                                <p className='paratable'>Follow this Twitter Account....</p>
-                              </td>
-                              <td>
-                                <p className='paratable'>01/01/23</p>
-                              </td>
-                              <td>
-                                <div className='dropbtn'>
-                                  <Dropdown>
-                                    <Dropdown.Toggle variant="success" id="dropdown-basic">
-                                      <img src='\Vectordots.svg' alt='img' className='img-fluid' />
+                            {announcements?.userAnnouncements?.map((elem) => {
+                              let createdate = new Date(elem?.createdAt);
+                              const createDate = moment(createdate).format("DD-MM-YYYY");
+                              return (
+                                <tr>
+                                  <td>
+                                    <p className='paratable'>{elem?.announcement?.message}</p>
+                                  </td>
+                                  <td>
+                                    <p className='paratable'>{createDate}</p>
+                                  </td>
+                                  <td>
+                                    <div className='dropbtn'>
+                                      <Dropdown>
+                                        <Dropdown.Toggle variant="success" id="dropdown-basic">
+                                          <img src='\Vectordots.svg' alt='img' className='img-fluid' />
 
-                                    </Dropdown.Toggle>
+                                        </Dropdown.Toggle>
 
-                                    <Dropdown.Menu>
-                                      <Dropdown.Item href="#/action-1">
-                                        <p><img src='\Vector.svg' alt='img' className='img-fluid' />Submit Proof</p>
-                                      </Dropdown.Item>
-                                      <div className='brdr'></div>
-                                      <Dropdown.Item href="#/action-1">
-                                        <p onClick={handleShow}><img src='\Vectordetail.svg' alt='img' className='img-fluid' />details</p>
-                                      </Dropdown.Item>
-                                      <div className='brdr'></div>
-                                      <Dropdown.Item href="#/action-1">
-                                        <p><img src='\trash.svg' alt='img' className='img-fluid' />delete</p>
-                                      </Dropdown.Item>
+                                        <Dropdown.Menu>
+                                          <Dropdown.Item href="#/action-1">
+                                            <p><img src='\Vector.svg' alt='img' className='img-fluid' />Submit Proof</p>
+                                          </Dropdown.Item>
+                                          <div className='brdr'></div>
+                                          <Dropdown.Item href="#/action-1">
+                                            <p onClick={() => getDetail(elem)}><img src='\Vectordetail.svg' alt='img' className='img-fluid' />details</p>
+                                          </Dropdown.Item>
+                                          <div className='brdr'></div>
+                                          <Dropdown.Item href="#/action-1">
+                                            <p><img src='\trash.svg' alt='img' className='img-fluid' />delete</p>
+                                          </Dropdown.Item>
 
-                                    </Dropdown.Menu>
-                                  </Dropdown>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <p className='paratable'>Follow this Twitter Account....</p>
-                              </td>
-                              <td>
-                                <p className='paratable'>01/01/23</p>
-                              </td>
-                              <td>
-                                <div className='dropbtn'>
-                                  <Dropdown>
-                                    <Dropdown.Toggle variant="success" id="dropdown-basic">
-                                      <img src='\Vectordots.svg' alt='img' className='img-fluid' />
-
-                                    </Dropdown.Toggle>
-
-                                    <Dropdown.Menu>
-                                      <Dropdown.Item href="#/action-1">
-                                        <p><img src='\Vector.svg' alt='img' className='img-fluid' />Submit Proof</p>
-                                      </Dropdown.Item>
-                                      <div className='brdr'></div>
-                                      <Dropdown.Item href="#/action-1">
-                                        <p onClick={handleShow}><img src='\Vectordetail.svg' alt='img' className='img-fluid' />details</p>
-                                      </Dropdown.Item>
-                                      <div className='brdr'></div>
-                                      <Dropdown.Item href="#/action-1">
-                                        <p><img src='\trash.svg' alt='img' className='img-fluid' />delete</p>
-                                      </Dropdown.Item>
-
-                                    </Dropdown.Menu>
-                                  </Dropdown>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <p className='paratable'>Follow this Twitter Account....</p>
-                              </td>
-                              <td>
-                                <p className='paratable'>01/01/23</p>
-                              </td>
-                              <td>
-                                <div className='dropbtn'>
-                                  <Dropdown>
-                                    <Dropdown.Toggle variant="success" id="dropdown-basic">
-                                      <img src='\Vectordots.svg' alt='img' className='img-fluid' />
-
-                                    </Dropdown.Toggle>
-
-                                    <Dropdown.Menu>
-                                      <Dropdown.Item href="#/action-1">
-                                        <p><img src='\Vector.svg' alt='img' className='img-fluid' />Submit Proof</p>
-                                      </Dropdown.Item>
-                                      <div className='brdr'></div>
-                                      <Dropdown.Item href="#/action-1">
-                                        <p onClick={handleShow}><img src='\Vectordetail.svg' alt='img' className='img-fluid' />details</p>
-                                      </Dropdown.Item>
-                                      <div className='brdr'></div>
-                                      <Dropdown.Item href="#/action-1">
-                                        <p><img src='\trash.svg' alt='img' className='img-fluid' />delete</p>
-                                      </Dropdown.Item>
-
-                                    </Dropdown.Menu>
-                                  </Dropdown>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <p className='paratable'>Follow this Twitter Account....</p>
-                              </td>
-                              <td>
-                                <p className='paratable'>01/01/23</p>
-                              </td>
-                              <td>
-                                <div className='dropbtn'>
-                                  <Dropdown>
-                                    <Dropdown.Toggle variant="success" id="dropdown-basic">
-                                      <img src='\Vectordots.svg' alt='img' className='img-fluid' />
-
-                                    </Dropdown.Toggle>
-
-                                    <Dropdown.Menu>
-                                      <Dropdown.Item href="#/action-1">
-                                        <p><img src='\Vector.svg' alt='img' className='img-fluid' />Submit Proof</p>
-                                      </Dropdown.Item>
-                                      <div className='brdr'></div>
-                                      <Dropdown.Item href="#/action-1">
-                                        <p onClick={handleShow}><img src='\Vectordetail.svg' alt='img' className='img-fluid' />details</p>
-                                      </Dropdown.Item>
-                                      <div className='brdr'></div>
-                                      <Dropdown.Item href="#/action-1">
-                                        <p><img src='\trash.svg' alt='img' className='img-fluid' />delete</p>
-                                      </Dropdown.Item>
-
-                                    </Dropdown.Menu>
-                                  </Dropdown>
-                                </div>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td>
-                                <p className='paratable'>Follow this Twitter Account....</p>
-                              </td>
-                              <td>
-                                <p className='paratable'>01/01/23</p>
-                              </td>
-                              <td>
-                                <div className='dropbtn'>
-                                  <Dropdown>
-                                    <Dropdown.Toggle variant="success" id="dropdown-basic">
-                                      <img src='\Vectordots.svg' alt='img' className='img-fluid' />
-
-                                    </Dropdown.Toggle>
-
-                                    <Dropdown.Menu>
-                                      <Dropdown.Item href="#/action-1">
-                                        <p><img src='\Vector.svg' alt='img' className='img-fluid' />Submit Proof</p>
-                                      </Dropdown.Item>
-                                      <div className='brdr'></div>
-                                      <Dropdown.Item href="#/action-1">
-                                        <p onClick={handleShow}><img src='\Vectordetail.svg' alt='img' className='img-fluid' />details</p>
-                                      </Dropdown.Item>
-                                      <div className='brdr'></div>
-                                      <Dropdown.Item href="#/action-1">
-                                        <p><img src='\trash.svg' alt='img' className='img-fluid' />delete</p>
-                                      </Dropdown.Item>
-
-                                    </Dropdown.Menu>
-                                  </Dropdown>
-                                </div>
-                              </td>
-                            </tr>
-                           
+                                        </Dropdown.Menu>
+                                      </Dropdown>
+                                    </div>
+                                  </td>
+                                </tr>
+                              )
+                            })}
                           </tbody>
                         </table>
                       </div>
@@ -573,14 +432,14 @@ const Announcements = () => {
           <Modal.Body>
             <div className='modalcard'>
               <h4>Announcement</h4>
-              <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architectoSed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architectoSed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architectoSed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architectoSed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto</p>
+              <p>{detail?.announcement?.message}</p>
             </div>
             <div className='modalcard mt-4'>
               <h4>Date Received</h4>
-              <p>01/01/23</p>
+              <p>{moment(detail?.createdate).format("DD-MM-YYYY")}</p>
             </div>
             <div className='okbtn'>
-              <button><span><img src='\checkmarks.svg' alt='img' className='img-fluid' /></span>Okay</button>
+              <button onClick={readAnnuncement}><span><img src='\checkmarks.svg' alt='img' className='img-fluid' /></span>Okay</button>
             </div>
           </Modal.Body>
 

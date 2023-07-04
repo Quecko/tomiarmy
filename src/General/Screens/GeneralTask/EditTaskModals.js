@@ -181,7 +181,6 @@ const EditTaskModals = ({ showtaskdetail, setShowtaskdetail, showtaskedit, setSh
       }
     }
     else {
-      console.log()
       toast.error('Please Write Title of Task', {
         position: "top-right",
         autoClose: 2000,

@@ -105,7 +105,6 @@ const Squad = ({ show1, setShow1, show2, setShow2,show4, setShow4, show5, setSho
 
 
   const addCoLeader = (elem) => {
-    console.log('elem',elem);
     setCoLeaderDetail(elem)
     setShow6(true)
   }

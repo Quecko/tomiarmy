@@ -232,14 +232,11 @@ const Sidebar = () => {
       axios(config)
         .then(function (response) {
           setLoader(false);
-          console.log('response',response);
           // setCount(response.data.data.count)
           if(expired===true){
-            console.log('innnnnn');
             setOperations(response?.data?.data?.operation);
           }
           else{
-            console.log('out');
             setOperations(response?.data?.data?.operation[0]);
           }
           // let arr = Array.from(Array(parseInt(response.data.data.pages)).keys());

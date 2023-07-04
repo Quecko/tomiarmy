@@ -58,39 +58,42 @@ const LeaderModals = ({ show4, setShow4, show5, setShow5, show6, setShow6,item }
         console.log('id', item?._id);
         // setShow2(true)
         let tok = localStorage.getItem("accessToken");
-        // if (account) {
-        //     // window.$("#exampleModalLabel11").modal("hide");
-        //     var config = {
-        //         method: "post",
-        //         url: `${API_URL}/tasks/squad-co-leaders/add-coLeader`,
-        //         headers: {
-        //             authorization: `Bearer ` + tok
-        //         },
-        //         coLeaderId: "6399ab0e84e0b5f46b53603b"
-        //     };
+        if (account) {
+            // window.$("#exampleModalLabel11").modal("hide");
+            var config = {
+                method: "post",
+                url: `${API_URL}/tasks/squad-co-leaders/add-coLeader`,
+                headers: {
+                    authorization: `Bearer ` + tok
+                },
+                data:{
+                    coLeaderId: `${item?._id}`
+                }
+            };
 
-        //     axios(config)
-        //         .then(async (response) => {
-        //             setLoader(false);
-        //             localStorage.setItem("accessToken", response?.data?.accessToken);
-        //             handleClose1();
-        //             setLoader(false);
-        //         })
-        //         .catch(function (error) {
-        //             // console.log(error);
-        //             // window.location.reload()
-        //             // window.$("#exampleModalLabel11").modal("hide");
-        //             // setLoader(false);
-        //             // window.$("#exampleModalLabel11").modal("hide");
-        //             if (error.response.data.statusCode == 409) {
-        //                 window.$("#exampleModalLabel11").modal("hide");
-        //                 toast.error("Squad for User already exists")
-        //             }
-        //             setLoader(false);
-        //         });
-        // }
+            axios(config)
+                .then(async (response) => {
+                    setLoader(false);
+                    toast.success("Add coleader successfully")
+                    handleClose1();
+                    setLoader(false);
+                })
+                .catch(function (error) {
+                    // console.log(error);
+                    // window.location.reload()
+                    // window.$("#exampleModalLabel11").modal("hide");
+                    // setLoader(false);
+                    // window.$("#exampleModalLabel11").modal("hide");
+                    if (error.response.data.statusCode == 409) {
+                        window.$("#exampleModalLabel11").modal("hide");
+                        toast.error("Squad for User already exists")
+                    }
+                    setLoader(false);
+                });
+        }
 
     }
+
     const inviteSquadMember = () => {
         // setShow2(true)
         let tok = localStorage.getItem("accessToken");

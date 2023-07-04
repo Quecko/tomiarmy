@@ -29,8 +29,6 @@ const FAQS = () => {
         getFaqs()
       }, []);
 
-      console.log('faqs',faqs);
-
     return (
         <>
          <div className="formobile-heading d-none display-block-in-mobile">

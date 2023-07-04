@@ -67,7 +67,7 @@ const ActiveOperation = ({ setShowtask1, tasks,settaskdetail1,setOperationId }) 
                         <img src="\static-icons\tomitasks.png" alt="img" className='img-fluid' style={{ width: "50px", height: "50px" }} />
                         <div className="inner-content">
                             <p>Total Tasks</p>
-                            <h6>55</h6>
+                            <h6>{tasks?.tasksList?.length}</h6>
                         </div>
                     </div>
                     <div className="card-item border-grad unique-item">
