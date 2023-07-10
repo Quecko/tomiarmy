@@ -600,8 +600,8 @@ table {
         }
 
         .accordion-item {
-            background:transparent !important;
-          
+            background: transparent !important;
+
             // border-radius: 0px 10px 10px 0px;
             // padding: 10px 20px;
         }
@@ -617,21 +617,25 @@ table {
                 border-radius: 0px 10px 10px 0px;
                 padding: 10px 20px;
                 border-left: 3px solid transparent;
-                &[aria-expanded="true"]{
+
+                &[aria-expanded="true"] {
                     background: linear-gradient(180deg, #232631 0%, rgba(29, 32, 43, 0.4) 100%) !important;
                     border-left: 3px solid #FF0083;
-                    .acord-text{
-                        span{
+
+                    .acord-text {
+                        span {
                             color: #FFFFFF !important;
                         }
                     }
-                    &::after{
+
+                    &::after {
                         background: url("../src/arrow-down-pink.svg");
                         background-position: center;
                         background-repeat: no-repeat;
                         background-size: cover;
                     }
-                    svg path{
+
+                    svg path {
                         fill: #FF0083;
                     }
                 }
@@ -655,7 +659,8 @@ table {
             // border-radius: 0px 10px 10px 0px;
             padding: 0px;
             margin-top: 12px;
-            a{
+
+            a {
                 span {
                     font-style: normal;
                     font-weight: 600;
@@ -665,14 +670,16 @@ table {
                     text-align: center;
                     margin: 0 auto;
                 }
-                &.active{
+
+                &.active {
                     border: none !important;
-                    span{
+
+                    span {
                         color: #fff !important;
                     }
                 }
             }
-            
+
         }
     }
 }
@@ -4506,4 +4513,32 @@ input[type="date"]::-webkit-inner-spin-button,
 input[type="date"]::-webkit-calendar-picker-indicator {
     display: none;
     -webkit-appearance: none;
+}
+
+
+.progress {
+    margin-top: 10px;
+    display: flex;
+    // height: 1rem;
+    overflow: hidden;
+    font-size: .75rem;
+    border-radius: 10px;
+    height: 18px;
+    // background: linear-gradient(180deg, rgba(255, 255, 255, 0.50) 0%, rgba(255, 255, 255, 0.00) 100%), #8147FF;
+    background: #161A22;
+    // box-shadow: 0px 0px 10px 0px #8147FF;
+}
+
+.progress-bar {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden;
+    color: #fff;
+    text-align: center;
+    white-space: nowrap;
+    border-radius: 10px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.50) 0%, rgba(255, 255, 255, 0.00) 100%), #8147FF;
+    box-shadow: 0px 0px 10px 0px #8147FF;
+    transition: width .6s ease;
 }

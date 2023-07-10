@@ -109,6 +109,34 @@ const Squad = ({ show1, setShow1, show2, setShow2,show4, setShow4, show5, setSho
     setShow6(true)
   }
 
+  const recruitJoin = async (elem) => {
+    var config = {
+      method: "post",
+      url: `${API_URL}/tasks/recruite-invites`,
+      headers: {
+        authorization: `Bearer ` + tok
+      },
+      data:{
+        userId:elem?._id
+      },
+    };
+    axios(config)
+      .then(function (response) {
+        setLoader(false);
+        toast.success('User Recruited Successfully', {
+          position: "top-right",
+          autoClose: 2000,
+        });
+        SquadUsers()
+      })
+      .catch(function (error) {
+        console.log(error);
+        setLoader(false);
+        // localStorage.removeItem("accessToken");
+        // localStorage.removeItem("user");
+        // window.location.reload();
+      });
+  }
 
   
 
@@ -457,7 +485,7 @@ const Squad = ({ show1, setShow1, show2, setShow2,show4, setShow4, show5, setSho
                                               </Dropdown.Toggle>
                                               <Dropdown.Menu>
                                                 <Dropdown.Item href="#/action-1">
-                                                  <p onClick={handleShow}><img src='\Vector.svg' alt='img' className='img-fluid' />recruit</p>
+                                                  <p onClick={()=>recruitJoin(elem)}><img src='\Vector.svg' alt='img' className='img-fluid' />recruit</p>
                                                 </Dropdown.Item>
                                               </Dropdown.Menu>
                                             </Dropdown>

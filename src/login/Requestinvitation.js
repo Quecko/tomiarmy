@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 import armyCap from '../assets/icons/mobileLogo.svg';
 import armyText from '../assets/icons/armyText.svg';
 import { useHistory } from 'react-router-dom'
@@ -41,11 +41,20 @@ const Requestinvitation = () => {
                 .then(function (response) {
                     // setLoader(false);
                     // history.push("/squad");
-                    if(id == 'solider'){
-                    history.push("/soldier");
+                    console.log('response', response?.data?.data?.nickName);
+                    if (id == 'solider') {
+                        const existingData = JSON.parse(localStorage.getItem('user'));
+                        existingData.nickName = response?.data?.data?.nickName
+                        const updatedData = JSON.stringify(existingData);
+                        localStorage.setItem('user', updatedData);
+                        history.push("/soldier");
                     }
-                    else{
-                    history.push("/dcsquad");
+                    else {
+                        const existingData = JSON.parse(localStorage.getItem('user'));
+                        existingData.nickName = response?.data?.data?.nickName
+                        const updatedData = JSON.stringify(existingData);
+                        localStorage.setItem('user', updatedData);
+                        history.push("/dcsquad");
                     }
                 })
                 .catch(function (error) {
@@ -69,7 +78,7 @@ const Requestinvitation = () => {
                 <div className='army-textImg'>
                     {/* <img src={armyCap} alt="armyCap" className='capImg' />
                     <img src={armyText} alt="armyText" className='textImg' /> */}
-                      <img src="\login-logo.svg" alt="img" className='img-fluid' />
+                    <img src="\login-logo.svg" alt="img" className='img-fluid' />
                 </div>
                 <div className="mainhead">
                     <h5 className="innerhead">enter your nickname</h5>

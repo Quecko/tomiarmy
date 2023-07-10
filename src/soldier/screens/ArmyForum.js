@@ -68,15 +68,6 @@ const ArmyForum = () => {
     }
   }
 
-  useEffect(() => {
-    if (indexvalue === '13') {
-      setrankid('false')
-    }
-    else {
-      setrankid('true')
-    }
-  }, [indexvalue])
-
   // get top user or member
   const gettopusers = async () => {
     let tok = localStorage.getItem("accessToken");
@@ -97,11 +88,10 @@ const ArmyForum = () => {
   }
   //  get myPost
   const getMyPosts = () => {
-    
     let tok = localStorage.getItem("accessToken");
     var config = {
       method: "get",
-      url: `${API_URL}/forums/posts/my-posts?offset=1&&limit=100000&&forumPost=${rankid}`,
+      url: `${API_URL}/forums/posts/my-posts?offset=1&&limit=100000&&forumPost=false`,
       headers: {
         authorization: `Bearer ` + tok
       },
@@ -114,6 +104,9 @@ const ArmyForum = () => {
         console.log(error);
       });
   }
+
+
+  console.log('my post', post);
 
   const commentnull = () => {
     setcomment('')
@@ -144,25 +137,26 @@ const ArmyForum = () => {
     })
   }
 
-  const GetPosts = (val) => {
-    setArmy([])
+  const GetPosts = () => {
+    // setArmy([])
     let tok = localStorage.getItem("accessToken");
     var config = {
       method: "get",
-      url: `${API_URL}/forums/posts?offset=${limit}&&limit=10&&forumPost=${rankid}`,
+      url: `${API_URL}/forums/posts?offset=${limit}&&limit=10&&forumPost=false`,
       headers: {
         authorization: `Bearer ` + tok
       },
     };
     axios(config)
       .then(function (response) {
-        getMyPosts()
+        // getMyPosts()
         // setArmy(response?.data?.data);
         if (response?.data?.data?.length === 0) {
           setLimit(limit - 1);
         }
         // if (val) {
-          setArmy(response?.data?.data?.post);
+        // setArmy(response?.data?.data?.post);
+        setPost(response?.data?.data?.post);
         // } else {
         //   setArmy([
         //     ...army,
@@ -176,11 +170,11 @@ const ArmyForum = () => {
   }
 
 
-  useEffect(() => {
-    if (limit > 1) {
-      GetPosts();
-    }
-  }, [limit,indexvalue])
+  // useEffect(() => {
+  //   if (limit > 1) {
+  //     GetPosts();
+  //   }
+  // }, [limit,indexvalue])
 
   const mainid = (id, val) => {
     let ido = null;
@@ -228,6 +222,8 @@ const ArmyForum = () => {
     }
   }
 
+  console.log('current', current);
+
   useEffect(() => {
     gettopusers()
   }, [rankid])
@@ -249,16 +245,16 @@ const ArmyForum = () => {
   }, [])
   useEffect(() => {
     if (rankid != undefined) {
-      GetPosts()
+      // GetPosts()
       gettopusers()
-      getMyPosts()
+      // getMyPosts()
     }
   }, [rankid])
 
 
   const deletemodalopen = (iddd) => {
     setdeleteid(iddd)
-    window.$('#exampleModal2').modal('show')
+    window.$('#deletemodal').modal('show')
   }
 
   const deletetask = () => {
@@ -293,9 +289,10 @@ const ArmyForum = () => {
   }
 
   const detailmodalopen = (iddd) => {
+    console.log('iddd',iddd);
     setdetail(iddd)
     getSingleDetail(iddd)
-    window.$('#exampleModal1').modal('show')
+    window.$('#exampleModal11').modal('show')
   }
 
   const getSingleDetail = async (detailid) => {
@@ -351,14 +348,29 @@ const ArmyForum = () => {
 
   const handleChange1 = (event) => {
     setcomment(event.target.value);
-}
+  }
+
+
+  console.log('deleteid', deleteid);
+
+
+  useEffect(() => {
+    if (indexvalue === '13') {
+      GetPosts()
+      setrankid('false')
+    }
+    else {
+      getMyPosts()
+      setrankid('true')
+    }
+  }, [indexvalue])
 
   return (
     <>
       <div className="formobile-heading d-none display-block-in-mobile">
         <div className="inner-heading">
-          <h6>{indexvalue==12 ? 'Sqaud' :'Army'} Forum</h6>
-          <p>Engage with your {indexvalue==12 ? 'sqaud' :'army'}</p>
+          <h6>{indexvalue == 12 ? 'My Post' : 'Army Forum'} </h6>
+          <p>Engage with your {indexvalue == 12 ? 'post' : 'army'}</p>
         </div>
         <button data-bs-toggle="modal" data-bs-target="#exampleModall" className="create-btn" >
           <img src="\assets\topic-btn.svg" alt="img" className="img-fluid me-2" />
@@ -376,7 +388,7 @@ const ArmyForum = () => {
                     <p className="serial">56</p>
                     <img src="\assets\arrow-down.png" alt="img" className="arrow" style={{width: "25px" , height: "25px"}} />
                   </div> */}
-                {army?.map((elem, index) => {
+                {post?.map((elem, index) => {
                   return (
                     <section className="maincmntsection border-grad1">
                       <section className="first">
@@ -402,14 +414,24 @@ const ArmyForum = () => {
                               </div>
                             </div>
                             <div className="comments"  >
-                              <img src="\assets\comment.svg" alt="img"  onClick={() => { mainid(elem?._id); UpdateCurrent(index) }} className="cmnt" data-bs-toggle="collapse" href={`#${index}`} role="button" aria-expanded="false" aria-controls="collapseExample" />
+                              <img src="\assets\comment.svg" alt="img" onClick={() => { mainid(elem?._id); UpdateCurrent(index) }} className="cmnt" data-toggle="collapse" href={`#${index}`} role="button" aria-expanded="false" aria-controls="collapseExample" />
                               <p>{elem?.noOfComments}+</p>
                             </div>
+                            <button className="comments"  
+                               onClick={() => detailmodalopen(elem?._id)}
+                               >
+                              <p>Edit</p>
+                            </button>
+                            <button data-bs-toggle="modal" className="comments" data-bs-target="#deletemodal"
+                              onClick={() => deletemodalopen(elem?._id)}
+                            >
+                              <p>Delete</p>
+                            </button>
                           </div>
                         </div>
                       </section>
-                      {current === index &&
-                        <section className="comments collapse set-bg-color" id="tab1">
+                      {current == index &&
+                        <section className="comments">
                           <div className="maincomment">
                             <h1 className="headcmnt">Comments</h1>
                             {ListComment?.slice(0, limit0)?.map((elem, index) => {
@@ -448,7 +470,7 @@ const ArmyForum = () => {
                             <button onClick={() => createComment(elem?._id)}>Post Comment</button>
                           </div>
                         </section>
-                       } 
+                      }
                     </section>
                   )
                 })}
@@ -502,6 +524,8 @@ const ArmyForum = () => {
       {/* :''} */}
 
 
+
+      {/* create new post or forum modal */}
       <div className="topicmodal">
         <div class="modal fade" id="exampleModall" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered" role="document">
@@ -527,7 +551,56 @@ const ArmyForum = () => {
         </div>
       </div>
 
+      {/*  edit post or forum modal */}
+      <div className="topicmodal">
+        <div class="modal fade" id="exampleModall11" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <h5>Edit Your Post</h5>
+                <p>Title</p>
+                <input onChange={(e) => UpdateName(e.target.value)} value={detailsingle?.title} name="title" type="text" placeholder="Enter Title...." />
+                <p>Description</p>
+                <textarea
+                 onChange={(e) => UpdateDescription(e.target.value)} value={detailsingle?.description} name="description"
+                  placeholder="Enter Description Url...."></textarea>
+                <div className="twice-btn">
+                  <button className="btn-cancel" data-bs-dismiss="modal" aria-label="Close"> <img src="\assets\cancel.svg" alt="img" className="img-fluid me-2" /> Cancel</button>
+                  <button className="btn-topic"onClick={() => UpdateTask(detailsingle)}> <img src="\assets\topic-btn.svg" alt="img" className="img-fluid me-2" /> Update</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
 
+      {/* delete post */}
+      <div className="topicmodal">
+        <div class="modal fade" id="deletemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <h5>Are you sure you want to <br /> delete?</h5>
+                <div className="twice-btn">
+                  <button className="btn-cancel" data-bs-dismiss="modal" aria-label="Close">
+                    <img src="\assets\cancel.svg" alt="img" className="img-fluid me-2" />
+                    Cancel
+                  </button>
+                  <button className="btn-topic" onClick={deletetask}>
+                    <img src="\assets\topic-btn.svg" alt="img" className="img-fluid me-2" />
+                    Delete</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </>
   )
 }

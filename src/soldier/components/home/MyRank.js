@@ -4,9 +4,10 @@ import dcSquad from "../../../assets/icons/dcSquad.svg";
 import Sergeant from "../../../assets/icons/Sergeant.svg";
 import pointsBar from "../../../assets/icons/pointsBar.svg";
 import { API_URL } from "../../../utils/ApiUrl"
+import ProgressBar from "react-bootstrap/ProgressBar";
 import axios from "axios";
 
-const MyRank = ({props}) => {
+const MyRank = ({ props }) => {
   const [army, setArmy] = useState([]);
   console.log("profileee", props)
   const GetNextRank = () => {
@@ -14,7 +15,7 @@ const MyRank = ({props}) => {
       let dumObj = null;
       dumObj = army.findIndex((i) => {
         console.log("rrrii", i)
-        return i.name === props?.props?.rank?.name;
+        return i.name === props?.rank?.name;
       })
       dumObj = army[dumObj + 1];
       console.log("dum", dumObj)
@@ -109,7 +110,28 @@ const MyRank = ({props}) => {
                   <p>5,000 POINTS</p>
                 </div>
               </div>
-              <img src={pointsBar} className="img-fluid" alt="img" style={{ marginLeft: "-15px", width: "100%" }} />
+              {props?.rank?.name === "private" &&
+                <ProgressBar min={0} max={100} now={props?.points} />
+              }
+              {props?.rank?.name === "sergeant" &&
+                <ProgressBar min={100} max={250} now={props?.points} />
+              }
+              {props?.rank?.name === "lieutenant" &&
+                <ProgressBar min={250} max={500} now={props?.points} />
+              }
+              {props?.rank?.name === "captain" &&
+                <ProgressBar min={500} max={1000} now={props?.points} />
+              }
+              {props?.rank?.name === "major" &&
+                <ProgressBar min={1000} max={1500} now={props?.points} />
+              }
+              {props?.rank?.name === "colonel" &&
+                <ProgressBar min={1500} max={3000} now={props?.points} />
+              }
+              {props?.rank?.name === "major general" &&
+                <ProgressBar min={3000} max={3000} now={props?.points} />
+              }
+              {/* <img src={pointsBar} className="img-fluid" alt="img" style={{ marginLeft: "-15px", width: "100%" }} /> */}
               <img src="\Framedots.svg" alt="img" className="img-fluid w-100" />
             </div>
           </div>

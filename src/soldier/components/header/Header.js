@@ -10,6 +10,9 @@ import mobileLogo from "../../../assets/icons/mobileLogo.svg";
 import Modal from 'react-bootstrap/Modal';
 import { API_URL } from "../../../utils/ApiUrl"
 import axios from "axios";
+import moment from "moment";
+import { toast } from "react-toastify";
+import { io } from "socket.io-client";
 
 
 const Header = ({ routes, setroute, indexwait, handleShow, setShow2, setShow1, setShow4, setShow5, setShowForumModal }) => {
@@ -17,6 +20,7 @@ const Header = ({ routes, setroute, indexwait, handleShow, setShow2, setShow1, s
   const data = JSON.parse(datacommander)
   const { account } = useWeb3React();
   const [squaddetail, setsquaddetail] = useState()
+  const [loader, setLoader] = useState(false)
   // console.log("asdasdasdasd", squaddetail)
   const GetUserProfiledata = () => {
     // setLoader(true);
@@ -48,11 +52,135 @@ const Header = ({ routes, setroute, indexwait, handleShow, setShow2, setShow1, s
         });
     }
   }
+  //notification
+  const [notifs, setNotifs] = useState([]);
+  const [rend, setRend] = useState(false);
+  const getNotif = (soc) => {
+    let tok = localStorage.getItem("accessToken");
+    setNotifs([]);
+    if (account || soc) {
+      var config = {
+        method: "get",
+        url: `${API_URL}/notifications/user-notifications?offset=1&&limit=100000`,
+        headers: {
+          authorization: `Bearer ` + tok
+        },
+      };
+      axios(config)
+        .then(function (response) {
+          setNotifs(response?.data?.data.userNotifications);
+          // setRend(!rend);
+        })
+        .catch(function (error) {
+          console.log(error);
+          // localStorage.removeItem("accessToken");
+          // localStorage.removeItem("user");
+          // window.location.assign("/")
+        });
+    }
+  }
+  // const [msgObj, setMsgObj] = useState(null);
+  // const [squadids, setSquadids] = useState()
+  // useEffect(() => {
+  //     if(msgObj){
+  //         setSquadids(JSON.parse(msgObj?.notification?.metadata?.squadId));
+  //     }
+  //     // console.log("sdfdsfdsfdsf",squadidd)
+  // }, [msgObj?.notification?.metadata !== undefined])
+
+  useEffect(() => {
+
+    const socket = io("https://stagingapi.tomiarmy.com", {
+      transports: ["websocket", "polling"],
+    });
+    //  const socket = io("http://10.10.10.115:8094")
+    let tok = localStorage.getItem("accessToken");
+    socket.on("connect", () => {
+      console.log('socket connected++++++++++++++++++++++++++', socket.connected);  
+      // console.log(tok)           
+      socket.emit("authentication", {
+        token: tok,
+      });
+    });
+
+    // socket.on('WORK_PROOF_REJECTED', (notification) => {
+    //   toast.info("Update on your submitted task!");
+    //   // GetTasks()
+    //   // GetOpts()
+    //   // ShowResp(notification);
+    // });
+
+    // socket.on('Veteran_recruite_Invite', (notification) => {
+    //   getNotif("soc");
+    // });
+
+    // socket.on('message', (notification) => {
+    //   getNotif("soc");
+    //   setNotn(true);
+    //   // ShowResp(notification);
+    // });
+
+    // socket.on('Rank_Updated', (notification) => {
+    //   updateToken();
+    // });
+
+    // socket.on('Rank_Updated_By_General', (notification) => {
+    //   updateToken();
+    // });
+
+    socket.on("disconnect", (reason) => {
+      console.log(`Disconnected: ${reason}`);
+    });
+  }, [])
+
+  const AcceptInvite = async (item) => {
+    const { squadId } = JSON.parse(item.notification.metadata);
+    console.log('squadids', squadId);
+    let tok = localStorage.getItem("accessToken");
+    setLoader(true);
+    var data = ({
+      squad: squadId,
+    });
+    var config = {
+      method: "post",
+      url: `${API_URL}/tasks/recruite-invites/join`,
+      headers: {
+        authorization: `Bearer ` + tok
+      },
+      data: data,
+    };
+
+    axios(config)
+      .then(function (response) {
+        setLoader(false);
+        // getData();
+        toast.success('Squad joined Successfully', {
+          position: "top-right",
+          autoClose: 2000,
+        });
+        console.log("response",response)
+        const userString = JSON.parse(localStorage.getItem('user'));
+        userString.memberOfSquad = response?.data?.data?.memberOfSquad;
+        localStorage.setItem('user', JSON.stringify(userString));
+        localStorage.setItem("accessToken", response?.data?.accessToken);
+        // window.location.reload();
+        // updateToken();
+        // window.location.reload();
+      })
+      .catch(function (error) {
+        setLoader(false);
+        toast.error(error?.response?.data?.message)
+      });
+    // setShow1(false);
+  }
 
 
   useEffect(() => {
+    getNotif()
     GetUserProfiledata()
   }, [account]);
+
+
 
   return (
     <>
@@ -105,10 +233,10 @@ const Header = ({ routes, setroute, indexwait, handleShow, setShow2, setShow1, s
               <p>view your announcements</p>
             </div>
           ) : null}
-          {indexwait === 6 || indexwait === 12 || indexwait===13 ? (
+          {indexwait === 6 || indexwait === 12 || indexwait === 13 ? (
             <div className="soldier-name">
-              <h4>{indexwait==12 ? 'Sqaud' :'Army'} Forum</h4>
-              <p>Engage with your {indexwait==12 ? 'sqaud' :'army'}</p>
+              <h4>{indexwait == 12 ? 'My Post' : 'Army Forum'} </h4>
+              <p>Engage with your {indexwait == 12 ? 'post' : 'army'}</p>
             </div>
           ) : null}
           {indexwait === 5 ? (
@@ -157,16 +285,38 @@ const Header = ({ routes, setroute, indexwait, handleShow, setShow2, setShow1, s
                     <img src={notificationIcon} alt="notificationIcon" />
                   </button>
                   <ul class="dropdown-menu border-grad1">
-                    <div className="inner-div border-grad">
+                    {notifs?.length > 0 ?
+                      <>
+                        {notifs?.map((item, index) => {
+                          return (
+                            <div className="inner-div border-grad">
+                              <div className="upper-text">
+                                <h6>Join DC SQUAD Again</h6>
+                                <p><span></span>{moment(item?.createdAt).fromNow()}</p>
+                              </div>
+                              <p className="para">{item?.notification?.message}</p>
+                              <div className="twice-btn">
+                                <button className="btn-reject"><img src="\assets\reject-icon.svg" alt="img" className="img-fluid me-2" />Reject</button>
+                                <button className="btn-accept" onClick={() => AcceptInvite(item)}><img src="\assets\checkmark.svg" alt="img" className="img-fluid me-2" />Accept</button>
+                              </div>
+                            </div>
+                          )
+                        })}
+                      </>
+                      :
+                      <div className="inner-div border-grad">
+                        <div className="upper-text">
+                          <h6 className='para'>No Notifications to show.</h6>
+                        </div>
+                      </div>
+                    }
+
+                    {/* <div className="inner-div border-grad">
                       <div className="upper-text">
                         <h6>Join DC SQUAD Again</h6>
                         <p><span></span>Just Now</p>
                       </div>
                       <p className="para">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                      <div className="twice-btn">
-                        <button className="btn-reject"><img src="\assets\reject-icon.svg" alt="img" className="img-fluid me-2" />Reject</button>
-                        <button className="btn-accept"><img src="\assets\checkmark.svg" alt="img" className="img-fluid me-2" />Accept</button>
-                      </div>
                     </div>
                     <div className="inner-div border-grad">
                       <div className="upper-text">
@@ -174,14 +324,7 @@ const Header = ({ routes, setroute, indexwait, handleShow, setShow2, setShow1, s
                         <p><span></span>Just Now</p>
                       </div>
                       <p className="para">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                    </div>
-                    <div className="inner-div border-grad">
-                      <div className="upper-text">
-                        <h6>Join DC SQUAD Again</h6>
-                        <p><span></span>Just Now</p>
-                      </div>
-                      <p className="para">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                    </div>
+                    </div> */}
                   </ul>
                 </div>
 
@@ -314,7 +457,7 @@ const Header = ({ routes, setroute, indexwait, handleShow, setShow2, setShow1, s
               : ""
           }
           {
-            indexwait === 6 || indexwait === 12 || indexwait===13 ?
+            indexwait === 6 || indexwait === 12 || indexwait === 13 ?
               <>
                 <button className="create-squad-btn" data-bs-toggle="modal" data-bs-target="#exampleModall">
                   <img src="\assets\topic-btn.svg" alt="img" className="img-fluid me-2" />
