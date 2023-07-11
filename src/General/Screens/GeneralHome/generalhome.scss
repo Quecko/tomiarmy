@@ -189,3 +189,18 @@
     //     text-align: center;
     // }
 }
+
+
+// graph scss here........................?..
+
+.apexcharts-tooltip.apexcharts-theme-light{
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.50) 0%, rgba(255, 255, 255, 0.00) 100%), #FF0083;
+    filter: drop-shadow(0px 4px 7px rgba(3, 2, 41, 0.07));
+    border: none !important;
+}
+
+.apexcharts-tooltip.apexcharts-theme-light .apexcharts-tooltip-title{
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.50) 0%, rgba(255, 255, 255, 0.00) 100%), #FF0083;
+    filter: drop-shadow(0px 4px 7px rgba(3, 2, 41, 0.07));
+    border: none !important;
+}
