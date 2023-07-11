@@ -4,6 +4,7 @@ import { API_URL } from "../../utils/ApiUrl"
 import { toast } from 'react-toastify';
 import axios from 'axios';
 import moment from "moment";
+import { Modal } from 'react-bootstrap';
 
 const ArmyForum = () => {
   const [army, setArmy] = useState([]);
@@ -22,6 +23,12 @@ const ArmyForum = () => {
   const [deleteid, setdeleteid] = useState()
   const [detailsingle, setdetailsingle] = useState()
   const [detail, setdetail] = useState()
+  const [showForumModal, setShowForumModal] = useState(false);
+  const handleCloseForum = () => setShowForumModal(false);
+  const [showForumDeleteModal, setShowForumDeleteModal] = useState(false);
+  const  handleCloseDeleteForum= () => setShowForumDeleteModal(false);
+  const [showForumEditModal, setShowForumEditModal] = useState(false);
+  const  handleCloseEditForum= () => setShowForumEditModal(false);
 
   let indexvalue = localStorage.getItem("indexvalue");
 
@@ -56,6 +63,7 @@ const ArmyForum = () => {
         setLoader(false);
         toast.success("Post Added Successfully");
         GetPosts();
+        handleCloseForum()
         // window.$(`#exampleModall`).modal("hide");
         // ClearAlloperation()
         // Code
@@ -169,6 +177,7 @@ const ArmyForum = () => {
       });
   }
 
+  console.log('detailsingle',detailsingle);
 
   // useEffect(() => {
   //   if (limit > 1) {
@@ -254,7 +263,7 @@ const ArmyForum = () => {
 
   const deletemodalopen = (iddd) => {
     setdeleteid(iddd)
-    window.$('#deletemodal').modal('show')
+    setShowForumDeleteModal(true)
   }
 
   const deletetask = () => {
@@ -273,7 +282,7 @@ const ArmyForum = () => {
             position: "top-right",
             autoClose: 3000,
           })
-        window.$('#exampleModal2').modal('hide')
+          handleCloseDeleteForum()
           .catch((err) => {
             // setOpens(false);
             toast.warning(
@@ -292,7 +301,7 @@ const ArmyForum = () => {
     console.log('iddd',iddd);
     setdetail(iddd)
     getSingleDetail(iddd)
-    window.$('#exampleModal11').modal('show')
+    setShowForumEditModal(true)
   }
 
   const getSingleDetail = async (detailid) => {
@@ -351,9 +360,6 @@ const ArmyForum = () => {
   }
 
 
-  console.log('deleteid', deleteid);
-
-
   useEffect(() => {
     if (indexvalue === '13') {
       GetPosts()
@@ -367,12 +373,12 @@ const ArmyForum = () => {
 
   return (
     <>
-      <div className="formobile-heading d-none display-block-in-mobile">
-        <div className="inner-heading">
+      <div className="formobile-heading shsvhsvhsdhsd  display-block-in-mobile">
+        <div className="inner-heading soldier-name">
           <h6>{indexvalue == 12 ? 'My Post' : 'Army Forum'} </h6>
           <p>Engage with your {indexvalue == 12 ? 'post' : 'army'}</p>
         </div>
-        <button data-bs-toggle="modal" data-bs-target="#exampleModall" className="create-btn" >
+        <button onClick={()=>setShowForumModal(true)} className="create-squad-btn" >
           <img src="\assets\topic-btn.svg" alt="img" className="img-fluid me-2" />
           Start a new topic
         </button>
@@ -422,7 +428,7 @@ const ArmyForum = () => {
                                >
                               <p>Edit</p>
                             </button>
-                            <button data-bs-toggle="modal" className="comments" data-bs-target="#deletemodal"
+                            <button className="comments" 
                               onClick={() => deletemodalopen(elem?._id)}
                             >
                               <p>Delete</p>
@@ -526,7 +532,7 @@ const ArmyForum = () => {
 
 
       {/* create new post or forum modal */}
-      <div className="topicmodal">
+      {/* <div className="topicmodal">
         <div class="modal fade" id="exampleModall" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -549,7 +555,7 @@ const ArmyForum = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
 
       {/*  edit post or forum modal */}
       <div className="topicmodal">
@@ -578,7 +584,7 @@ const ArmyForum = () => {
       </div>
 
       {/* delete post */}
-      <div className="topicmodal">
+      {/* <div className="topicmodal">
         <div class="modal fade" id="deletemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
@@ -600,7 +606,55 @@ const ArmyForum = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
+      <>
+      {/* create new post or forum modal */}
+      <Modal className='topic-new-modal' show={showForumModal} onHide={handleCloseForum} centered>
+      <Modal.Header closeButton>
+                    <Modal.Title>Start a New Topic</Modal.Title>
+                </Modal.Header>
+        <Modal.Body>
+          <p>Title</p>
+          <input onChange={handleChange} value={allFormData?.title} name="title"  type="text" placeholder="Enter Title...." />
+          <p>Description</p>
+          <textarea
+           onChange={handleChange} value={allFormData?.description} name="description"
+            placeholder="Enter Description Url...."></textarea>
+          <div className="twice-btn">
+            <button className="btn-cancel" onClick={handleCloseForum} aria-label="Close"> <img src="\assets\cancel.svg" alt="img" className="img-fluid me-2" /> Cancel</button>
+            <button className="btn-topic" onClick={putQuestion}> <img src="\assets\topic-btn.svg" alt="img" className="img-fluid me-2" /> Start a New Topic</button>
+          </div>
+        </Modal.Body>
+      </Modal>
+      {/*  edit post or forum modal */}
+      <Modal className='topic-new-modal' show={showForumEditModal} onHide={handleCloseEditForum} centered>
+        <Modal.Body>
+          <h5>Edit Your Post</h5>
+          <p>Title</p>
+          <input
+          onChange={(e) => UpdateName(e.target.value)} value={detailsingle?.title} name="title"
+            type="text" placeholder="Enter Title...." />
+          <p>Description</p>
+          <textarea
+          onChange={(e) => UpdateDescription(e.target.value)} value={detailsingle?.description} name="description"
+            placeholder="Enter Description Url...."></textarea>
+          <div className="twice-btn">
+            <button className="btn-cancel" onClick={handleCloseEditForum} aria-label="Close"> <img src="\assets\cancel.svg" alt="img" className="img-fluid me-2" /> Cancel</button>
+            <button className="btn-topic" onClick={() => UpdateTask(detailsingle)}> <img src="\assets\topic-btn.svg" alt="img" className="img-fluid me-2" /> Update</button>
+          </div>
+        </Modal.Body>
+      </Modal>
+      {/*  delete post or forum modal */}
+      <Modal className='topic-new-modal' show={showForumDeleteModal} onHide={handleCloseDeleteForum} centered>
+        <Modal.Body>
+          <h5>Are you sure you want to <br /> delete?</h5>
+          <div className="twice-btn">
+            <button className="btn-cancel" onClick={handleCloseDeleteForum} aria-label="Close"> <img src="\assets\cancel.svg" alt="img" className="img-fluid me-2" /> Cancel</button>
+            <button className="btn-topic" onClick={deletetask}> <img src="\assets\topic-btn.svg" alt="img" className="img-fluid me-2" /> Delete</button>
+          </div>
+        </Modal.Body>
+      </Modal>
+    </>
     </>
   )
 }

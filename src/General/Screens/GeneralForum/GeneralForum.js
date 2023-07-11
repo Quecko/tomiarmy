@@ -1,142 +1,661 @@
 import React, { useEffect, useState } from "react";
 import "../../../soldier/screens/armyforum.scss"
+import { API_URL } from "../../../utils/ApiUrl"
+import { toast } from 'react-toastify';
+import axios from 'axios';
+import moment from "moment";
+import { Modal } from 'react-bootstrap';
 
 
 const GeneralForum = () => {
+  const [army, setArmy] = useState([]);
+  const [topuser, settopuser] = useState([]);
+  const [ListComment, setListComment] = useState([]);
+  const [post, setPost] = useState([]);
+  const [commentid, setcommentid] = useState();
+  const [limit, setLimit] = useState(1);
+  const [limit0, setLimit0] = useState(5);
+  const [rend, setRend] = useState(false);
+  const [comment, setcomment] = useState()
+  const [rankid, setrankid] = useState();
+  const [loader, setLoader] = useState()
+  const [showSide, setShowSide] = useState();
+  const [current, setCurrent] = useState(-1);
+  const [deleteid, setdeleteid] = useState()
+  const [detailsingle, setdetailsingle] = useState()
+  const [detail, setdetail] = useState()
+  const [showForumModal, setShowForumModal] = useState(false);
+  const handleCloseForum = () => setShowForumModal(false);
+  const [showForumDeleteModal, setShowForumDeleteModal] = useState(false);
+  const  handleCloseDeleteForum= () => setShowForumDeleteModal(false);
+  const [showForumEditModal, setShowForumEditModal] = useState(false);
+  const  handleCloseEditForum= () => setShowForumEditModal(false);
+
+  let indexvalue = localStorage.getItem("indexvalue");
+
+
+  const [allFormData, setAllFormData] = useState({
+    title: '',
+    description: '',
+  })
+  const [selecttab, setselecttab] = useState('Active Squad')
+  const handleChange = (event) => {
+    allFormData[event.target.name] = event.target.value;
+    setAllFormData({ ...allFormData });
+  }
+  //  create new forum
+  const putQuestion = () => {
+    setLoader(true);
+    let tok = localStorage.getItem("accessToken");
+    if (allFormData.title !== "" && allFormData.description !== "") {
+      axios.post(`${API_URL}/forums/posts/`,
+        {
+          title: allFormData.title,
+          description: allFormData.description,
+          isForumPost: rankid,
+        },
+        {
+          headers: {
+            authorization: `Bearer ` + tok
+          }
+        }
+      ).then((response) => {
+        // console.log(response)
+        setLoader(false);
+        toast.success("Post Added Successfully");
+        GetPosts();
+        handleCloseForum()
+        // window.$(`#exampleModall`).modal("hide");
+        // ClearAlloperation()
+        // Code
+      }).catch((error) => {
+        setLoader(false);
+        toast.error(error.response.data.message)
+      })
+    } else {
+      toast.error("Please fill all fields")
+    }
+  }
+
+  // get top user or member
+  const gettopusers = async () => {
+    let tok = localStorage.getItem("accessToken");
+    var config = {
+      method: "get",
+      url: `${API_URL}/forums/top-user?limit=100000&&isForumPost=${rankid}`,
+      headers: {
+        authorization: `Bearer ` + tok
+      },
+    };
+    axios(config)
+      .then(function (response) {
+        settopuser(response?.data?.data?.topUsers);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
+  //  get myPost
+  const getMyPosts = () => {
+    let tok = localStorage.getItem("accessToken");
+    var config = {
+      method: "get",
+      url: `${API_URL}/forums/posts/my-posts?offset=1&&limit=100000&&forumPost=false`,
+      headers: {
+        authorization: `Bearer ` + tok
+      },
+    };
+    axios(config)
+      .then(function (response) {
+        setPost(response?.data?.data?.post)
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
+
+
+  console.log('my post', post);
+
+  const commentnull = () => {
+    setcomment('')
+    setRend(!rend)
+  }
+  const createComment = (id) => {
+    // setcountss(0)
+    setLoader(true);
+    let tok = localStorage.getItem("accessToken");
+    axios.post(`${API_URL}/forums/posts/${id}/comments`,
+      {
+        content: comment
+      },
+      {
+        headers: {
+          authorization: `Bearer ` + tok
+        }
+      }
+    ).then((response) => {
+      setLoader(false);
+      toast.success("Comment Created Successfully");
+      mainid(commentid, "add");
+      commentnull();
+      setcomment('');
+    }).catch((error) => {
+      setLoader(false);
+      toast.error(error.response.data.message)
+    })
+  }
+
+  const GetPosts = () => {
+    // setArmy([])
+    let tok = localStorage.getItem("accessToken");
+    var config = {
+      method: "get",
+      url: `${API_URL}/forums/posts?offset=${limit}&&limit=10&&forumPost=false`,
+      headers: {
+        authorization: `Bearer ` + tok
+      },
+    };
+    axios(config)
+      .then(function (response) {
+        // getMyPosts()
+        // setArmy(response?.data?.data);
+        if (response?.data?.data?.length === 0) {
+          setLimit(limit - 1);
+        }
+        // if (val) {
+        // setArmy(response?.data?.data?.post);
+        setPost(response?.data?.data?.post);
+        // } else {
+        //   setArmy([
+        //     ...army,
+        //     ...response?.data?.data?.post,
+        //   ]);
+        // }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
+
+  console.log('detailsingle',detailsingle);
+
+  // useEffect(() => {
+  //   if (limit > 1) {
+  //     GetPosts();
+  //   }
+  // }, [limit,indexvalue])
+
+  const mainid = (id, val) => {
+    let ido = null;
+    let dumArr = [];
+    if (id) {
+      ido = id;
+      dumArr = [];
+      setcommentid(ido);
+    } else {
+      ido = commentid;
+    }
+    // console.log("main id commebnts",id)
+    let tok = localStorage.getItem("accessToken");
+    var config = {
+      method: "get",
+      url: `${API_URL}/forums/posts/${ido}/comments?offset=1&&limit=100000`,
+      headers: {
+        authorization: `Bearer ` + tok
+      },
+    };
+    axios(config)
+      .then(function (response) {
+        if (val) {
+          setListComment(response?.data?.data?.comments);
+
+        } else {
+          setListComment([...dumArr, ...response?.data?.data?.comments]);
+        }
+      })
+      .catch(function (error) {
+      });
+  }
+
+  useEffect(() => {
+    if (limit0 > 1) {
+      mainid();
+    }
+  }, [limit0])
+
+  const UpdateCurrent = (index) => {
+    if (index === current) {
+      setCurrent(-1);
+    } else {
+      setCurrent(index);
+    }
+  }
+
+  console.log('current', current);
+
+  useEffect(() => {
+    gettopusers()
+  }, [rankid])
+
+  useEffect(() => {
+    if (selecttab === 'activesquad') {
+      setrankid(true)
+    }
+    else if (selecttab === 'freesoldier') {
+      setrankid(false)
+    }
+    else {
+
+    }
+  }, [selecttab]);
+
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [])
+  useEffect(() => {
+    if (rankid != undefined) {
+      // GetPosts()
+      gettopusers()
+      // getMyPosts()
+    }
+  }, [rankid])
+
+
+  const deletemodalopen = (iddd) => {
+    setdeleteid(iddd)
+    setShowForumDeleteModal(true)
+  }
+
+  const deletetask = () => {
+    let tok = localStorage.getItem("accessToken");
+    // setOpens(true);
+    axios
+      .delete(
+        API_URL + "/forums/posts/" +
+        deleteid,
+        { headers: { authorization: `Bearer ${tok}` } }
+      )
+      .then((response) => {
+        getMyPosts()
+        toast
+          .success("Successfully Delete Post", {
+            position: "top-right",
+            autoClose: 3000,
+          })
+          handleCloseDeleteForum()
+          .catch((err) => {
+            // setOpens(false);
+            toast.warning(
+              "Error",
+              {
+                position: "top-right",
+                autoClose: 3000,
+              }
+            );
+            return false;
+          });
+      });
+  }
+
+  const detailmodalopen = (iddd) => {
+    console.log('iddd',iddd);
+    setdetail(iddd)
+    getSingleDetail(iddd)
+    setShowForumEditModal(true)
+  }
+
+  const getSingleDetail = async (detailid) => {
+    // console.log("abdullah======================")
+    let tok = localStorage.getItem("accessToken");
+    axios
+      .get(
+        API_URL + "/forums/posts/" +
+        detailid,
+        { headers: { authorization: `Bearer ${tok}` } }
+      )
+      .then((response) => {
+        setdetailsingle(response.data.data)
+      });
+  }
+
+  const UpdateDescription = (val) => {
+    let dumObj = detailsingle;
+    dumObj.description = val;
+    setdetailsingle(dumObj);
+    setRend(!rend);
+  }
+
+  const UpdateName = (val) => {
+    let dumObj = detailsingle;
+    dumObj.title = val;
+    setdetailsingle(dumObj);
+    setRend(!rend);
+  }
+
+  const UpdateTask = (objj) => {
+    let tok = localStorage.getItem("accessToken");
+    axios.patch(`${API_URL}/forums/posts/${objj._id}`,
+      {
+        title: detailsingle.title,
+        description: detailsingle.description
+      },
+      {
+        headers: {
+          authorization: `Bearer ` + tok
+        }
+      }
+    ).then((response) => {
+      getMyPosts()
+      toast.success(" Updated Successfully");
+      window.$(`#exampleModal1`).modal("hide");
+      // Code
+    }).catch((error) => {
+      // Code
+      toast.error(error.response.data.message)
+    })
+  }
+
+  const handleChange1 = (event) => {
+    setcomment(event.target.value);
+  }
+
+
+  useEffect(() => {
+    if (indexvalue === '13') {
+      GetPosts()
+      setrankid('false')
+    }
+    else {
+      getMyPosts()
+      setrankid('true')
+    }
+  }, [indexvalue])
 
   return (
     <>
-     <div className="formobile-heading d-none display-block-in-mobile">
-                    <div className="inner-heading">
-                        <h6>Army Forum</h6>
-                        <p>Engage with your army</p>
-                    </div>
-                    <button data-bs-toggle="modal" data-bs-target="#exampleModall" className="create-btn" >
-                        <img src="\assets\topic-btn.svg" alt="img" className="img-fluid me-2" />
-                        Start a new topic
-                    </button>
-                </div>
+      <div className="formobile-heading shsvhsvhsdhsd  display-block-in-mobile">
+        <div className="inner-heading soldier-name">
+          <h6>{indexvalue == 12 ? 'My Post' : 'Army Forum'} </h6>
+          <p>Engage with your {indexvalue == 12 ? 'post' : 'army'}</p>
+        </div>
+        <button onClick={()=>setShowForumModal(true)} className="create-squad-btn" >
+          <img src="\assets\topic-btn.svg" alt="img" className="img-fluid me-2" />
+          Start a new topic
+        </button>
+      </div>
+      {/* {indexvalue==12 ? */}
       <div className="topicwrapper">
         <section className="topics">
           <div className="containersss p-0">
             <div className="row fordirection">
               <div className="col-xl-9 col-12 p-0">
-                <section className="maincmntsection border-grad1">
-                  <div className="arrows">
+                {/* <div className="arrows">
                     <img src="\assets\arrow-up.png" alt="img" className="arrow" style={{width: "25px" , height: "25px"}} />
                     <p className="serial">56</p>
                     <img src="\assets\arrow-down.png" alt="img" className="arrow" style={{width: "25px" , height: "25px"}} />
-                  </div>
-                  <section className="first">
-                    <div className="saying">
-                      <div className="texts">
-                        <h4>What does the general say?</h4>
-                        <p className="upperpara">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. </p>
-                        <p>Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p>
-                      </div>
-                      <div className="lowercontent">
-                        <div className="ranked">
-                          <h4>Posted by</h4>
-                          <div className="inner-parent">
-                            <div className="inner-side">
-                            <h6><img src="\assets\profile-icon.svg" alt="img" className="rankimg me-2" />John_Doe_04 </h6>
+                  </div> */}
+                {post?.map((elem, index) => {
+                  return (
+                    <section className="maincmntsection border-grad1">
+                      <section className="first">
+                        <div className="saying">
+                          <div className="texts">
+                            <h4>{elem?.title}</h4>
+                            <p className="upperpara">
+                              {elem?.description}</p>
+                          </div>
+                          <div className="lowercontent">
+                            <div className="ranked">
+                              <h4>Posted by</h4>
+                              <div className="inner-parent">
+                                <div className="inner-side">
+                                  <h6><img src="\assets\profile-icon.svg" alt="img" className="rankimg me-2" />{elem?.author?.name} </h6>
+                                </div>
+                                <div className="inner-side">
+                                  <h6><img src="\assets\private.svg" alt="img" className="rankimg" />
+                                    {/* Private */}
+                                  </h6>
+                                  <span>{moment(elem?.createdAt).fromNow()}</span>
+                                </div>
+                              </div>
                             </div>
-                            <div className="inner-side">
-                            <h6><img src="\assets\private.svg" alt="img" className="rankimg" /> Private </h6>
-                            <span>15:21</span>
+                            <div className="comments"  >
+                              <img src="\assets\comment.svg" alt="img" onClick={() => { mainid(elem?._id); UpdateCurrent(index) }} className="cmnt" data-toggle="collapse" href={`#${index}`} role="button" aria-expanded="false" aria-controls="collapseExample" />
+                              <p>{elem?.noOfComments}+</p>
                             </div>
+                            <button className="comments"  
+                               onClick={() => detailmodalopen(elem?._id)}
+                               >
+                              <p>Edit</p>
+                            </button>
+                            <button className="comments" 
+                              onClick={() => deletemodalopen(elem?._id)}
+                            >
+                              <p>Delete</p>
+                            </button>
                           </div>
                         </div>
-                        <div className="comments">
-                          <img src="\assets\comment.svg" alt="img" className="cmnt" data-bs-toggle="collapse" href="#tab1" role="button" aria-expanded="false" aria-controls="collapseExample" />
-                          <p>50+</p>
-                        </div>
-                      </div>
-                    </div>
-                  </section>
-
-                  <section className="comments collapse set-bg-color" id="tab1">
-                    <div className="maincomment">
-                      <h1 className="headcmnt">Comments</h1>
-                      <div className="innermain">
-                        <div className="innerprofile">
-                          <div className="imageset">
-                            <img src="\assets\profileimg.png" alt="img" className="profileimg" />
+                      </section>
+                      {current == index &&
+                        <section className="comments">
+                          <div className="maincomment">
+                            <h1 className="headcmnt">Comments</h1>
+                            {ListComment?.slice(0, limit0)?.map((elem, index) => {
+                              return (
+                                <div key={index} className="innermain">
+                                  <div className="innerprofile">
+                                    <div className="imageset">
+                                      <img src={elem?.author?.profileImage} alt="img" className="profileimg" />
+                                    </div>
+                                    <div className="textprofile">
+                                      <h6>{elem?.author?.name}</h6>
+                                      <p>{moment(elem?.createdAt)?.fromNow()}</p>
+                                    </div>
+                                  </div>
+                                  <p>{elem?.content} </p>
+                                </div>
+                                // <div key={index} className="innermain">
+                                //     <div className="innerprofile">
+                                //         <div className="imageset">
+                                //             <img src={elem?.author?.profileImage} style={{ borderRadius: "500px", height: 45, width: 45 }} alt="img" className="profileimg" />
+                                //         </div>
+                                //         <div className="textprofile">
+                                //             <h6>{elem?.author?.name}</h6>
+                                //             <p>{moment(elem?.createdAt).fromNow()}</p>
+                                //         </div>
+                                //     </div>
+                                //     <p>{elem?.content}</p>
+                                // </div>
+                              )
+                            })}
                           </div>
-                          <div className="textprofile">
-                            <h6>Elias Doyle</h6>
-                            <p>September 29, 2022 at 2:48 am</p>
+                          <div className="forcmnt">
+                            <h5>Leave a comment</h5>
+                            <p>Comment</p>
+                            <textarea onChange={handleChange1} value={comment} placeholder="Write comment"></textarea>
+                            <button onClick={() => createComment(elem?._id)}>Post Comment</button>
                           </div>
-                        </div>
-                        <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. </p>
-                      </div>
-                      <div className="innermain">
-                        <div className="innerprofile">
-                          <div className="imageset">
-                            <img src="\assets\profileimg.png" alt="img" className="profileimg" />
-                          </div>
-                          <div className="textprofile">
-                            <h6>Elias Doyle</h6>
-                            <p>September 29, 2022 at 2:48 am</p>
-                          </div>
-                        </div>
-                        <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. </p>
-                      </div>
-                    </div>
-                    <div className="forcmnt">
-                      <h5>Leave a comment</h5>
-                      <p>Comment</p>
-                      <textarea placeholder="Write comment"></textarea>
-                      <button>Post Comment</button>
-                    </div>
-                  </section>
-                </section>
+                        </section>
+                      }
+                    </section>
+                  )
+                })}
+                {/* </section> */}
               </div>
               <div className='col-xl-3 col-12 pe-0 padd-sm'>
                 <div className='members-section border-grad1 display-none-in-mobile'>
                   <div className="tophead">
-                    <h6>Members <span>(192)</span></h6>
+                    <h6>Members <span>{topuser?.length}</span></h6>
                   </div>
                   <div className="option-field">
                     <img src="\assets\search-icon.svg" alt="img" className="img-fluid search-icon" />
                     <input type="search" placeholder="Search members" />
                   </div>
-                <div className="bottom-table">
-                  <div className="upper-heading">
-                    <p>Nickname</p>
-                    <p>Rank</p>
+                  <div className="bottom-table">
+                    <div className="upper-heading">
+                      <p>Nickname</p>
+                      <p>Rank</p>
+                    </div>
+                    <div className="bottom-fields">
+                      {/* {topuser?.map((elem, index) => {
+                        return (
+                          <div className="inner-item">
+                            <h6>Sharjeel</h6>
+                            <h6><img src="\assets\memberrank.svg" alt="img" className="img-fluid me-2" />Private</h6>
+                          </div>
+                        )
+                      })} */}
+                      {topuser?.map((elem) => {
+                        console.log('elem', elem);
+                        return (
+                          <div className="inner-item">
+                            <h6>{elem?._id?.name}</h6>
+                            <h6>
+                              <img src={elem?._id?.profileImage} alt="img" className="img-fluid me-2" />
+                              {/* Private */}
+                            </h6>
+                          </div>
+                        )
+                      })
+                      }
+
+                    </div>
                   </div>
-                  <div className="bottom-fields">
-                    <div className="inner-item">
-                      <h6>Sharjeel</h6>
-                      <h6><img src="\assets\memberrank.svg" alt="img" className="img-fluid me-2" />Private</h6>
-                    </div>
-                    <div className="inner-item">
-                      <h6>Sharjeel</h6>
-                      <h6><img src="\assets\memberrank.svg" alt="img" className="img-fluid me-2" />Private</h6>
-                    </div>
-                    <div className="inner-item">
-                      <h6>Sharjeel</h6>
-                      <h6><img src="\assets\memberrank.svg" alt="img" className="img-fluid me-2" />Private</h6>
-                    </div>
-                    <div className="inner-item">
-                      <h6>Sharjeel</h6>
-                      <h6><img src="\assets\memberrank.svg" alt="img" className="img-fluid me-2" />Private</h6>
-                    </div>
-                    <div className="inner-item">
-                      <h6>Sharjeel</h6>
-                      <h6><img src="\assets\memberrank.svg" alt="img" className="img-fluid me-2" />Private</h6>
-                    </div>
-                  </div>
-                </div>
                 </div>
               </div>
             </div>
           </div>
         </section>
       </div>
-    
-     
+      {/* :''} */}
+
+
+
+      {/* create new post or forum modal */}
+      {/* <div className="topicmodal">
+        <div class="modal fade" id="exampleModall" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <h5>Start a New Topic</h5>
+                <p>Title</p>
+                <input onChange={handleChange} value={allFormData?.title} name="title" type="text" placeholder="Enter Title...." />
+                <p>Description</p>
+                <textarea
+                  onChange={handleChange} value={allFormData?.description} name="description"
+                  placeholder="Enter Description Url...."></textarea>
+                <div className="twice-btn">
+                  <button className="btn-cancel" data-bs-dismiss="modal" aria-label="Close"> <img src="\assets\cancel.svg" alt="img" className="img-fluid me-2" /> Cancel</button>
+                  <button className="btn-topic" onClick={putQuestion}> <img src="\assets\topic-btn.svg" alt="img" className="img-fluid me-2" /> Start a New Topic</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div> */}
+
+      {/*  edit post or forum modal */}
+      <div className="topicmodal">
+        <div class="modal fade" id="exampleModall11" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <h5>Edit Your Post</h5>
+                <p>Title</p>
+                <input onChange={(e) => UpdateName(e.target.value)} value={detailsingle?.title} name="title" type="text" placeholder="Enter Title...." />
+                <p>Description</p>
+                <textarea
+                 onChange={(e) => UpdateDescription(e.target.value)} value={detailsingle?.description} name="description"
+                  placeholder="Enter Description Url...."></textarea>
+                <div className="twice-btn">
+                  <button className="btn-cancel" data-bs-dismiss="modal" aria-label="Close"> <img src="\assets\cancel.svg" alt="img" className="img-fluid me-2" /> Cancel</button>
+                  <button className="btn-topic"onClick={() => UpdateTask(detailsingle)}> <img src="\assets\topic-btn.svg" alt="img" className="img-fluid me-2" /> Update</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* delete post */}
+      {/* <div className="topicmodal">
+        <div class="modal fade" id="deletemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <h5>Are you sure you want to <br /> delete?</h5>
+                <div className="twice-btn">
+                  <button className="btn-cancel" data-bs-dismiss="modal" aria-label="Close">
+                    <img src="\assets\cancel.svg" alt="img" className="img-fluid me-2" />
+                    Cancel
+                  </button>
+                  <button className="btn-topic" onClick={deletetask}>
+                    <img src="\assets\topic-btn.svg" alt="img" className="img-fluid me-2" />
+                    Delete</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div> */}
+      <>
+      {/* create new post or forum modal */}
+      <Modal className='topic-new-modal' show={showForumModal} onHide={handleCloseForum} centered>
+      <Modal.Header closeButton>
+                    <Modal.Title>Start a New Topic</Modal.Title>
+                </Modal.Header>
+        <Modal.Body>
+          <p>Title</p>
+          <input onChange={handleChange} value={allFormData?.title} name="title"  type="text" placeholder="Enter Title...." />
+          <p>Description</p>
+          <textarea
+           onChange={handleChange} value={allFormData?.description} name="description"
+            placeholder="Enter Description Url...."></textarea>
+          <div className="twice-btn">
+            <button className="btn-cancel" onClick={handleCloseForum} aria-label="Close"> <img src="\assets\cancel.svg" alt="img" className="img-fluid me-2" /> Cancel</button>
+            <button className="btn-topic" onClick={putQuestion}> <img src="\assets\topic-btn.svg" alt="img" className="img-fluid me-2" /> Start a New Topic</button>
+          </div>
+        </Modal.Body>
+      </Modal>
+      {/*  edit post or forum modal */}
+      <Modal className='topic-new-modal' show={showForumEditModal} onHide={handleCloseEditForum} centered>
+        <Modal.Body>
+          <h5>Edit Your Post</h5>
+          <p>Title</p>
+          <input
+          onChange={(e) => UpdateName(e.target.value)} value={detailsingle?.title} name="title"
+            type="text" placeholder="Enter Title...." />
+          <p>Description</p>
+          <textarea
+          onChange={(e) => UpdateDescription(e.target.value)} value={detailsingle?.description} name="description"
+            placeholder="Enter Description Url...."></textarea>
+          <div className="twice-btn">
+            <button className="btn-cancel" onClick={handleCloseEditForum} aria-label="Close"> <img src="\assets\cancel.svg" alt="img" className="img-fluid me-2" /> Cancel</button>
+            <button className="btn-topic" onClick={() => UpdateTask(detailsingle)}> <img src="\assets\topic-btn.svg" alt="img" className="img-fluid me-2" /> Update</button>
+          </div>
+        </Modal.Body>
+      </Modal>
+      {/*  delete post or forum modal */}
+      <Modal className='topic-new-modal' show={showForumDeleteModal} onHide={handleCloseDeleteForum} centered>
+        <Modal.Body>
+          <h5>Are you sure you want to <br /> delete?</h5>
+          <div className="twice-btn">
+            <button className="btn-cancel" onClick={handleCloseDeleteForum} aria-label="Close"> <img src="\assets\cancel.svg" alt="img" className="img-fluid me-2" /> Cancel</button>
+            <button className="btn-topic" onClick={deletetask}> <img src="\assets\topic-btn.svg" alt="img" className="img-fluid me-2" /> Delete</button>
+          </div>
+        </Modal.Body>
+      </Modal>
+    </>
     </>
   )
 }

@@ -79,7 +79,7 @@ const AllOperationTaskModal = ({ showtask1, setShowtask1, settaskdetail1, taskde
                 }
             dumObj.image = dumarr;
             dumObj.name = taskdetail1?.name;
-            dumObj.description=taskdetail1?.description
+            dumObj.description = taskdetail1?.description
 
             dumObj.url = m;
             dumArr = [dumObj];
