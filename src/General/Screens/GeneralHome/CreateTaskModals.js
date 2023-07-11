@@ -21,9 +21,6 @@ const CreateTaskModals = ({ showtask, setShowtask, getData }) => {
   const handleClosetask3 = () => setShowtask3(false);
   const handleShowtask3 = () => setShowtask3(true);
   const [startDate, setStartDate] = useState(null);
-
-  // console.log("asfsdfdsf",typeof date)
-  // console.log("sdfsfsfsf", date)
   const [profilePicture, setProfilePicture] = useState(null);
   const [profileP, setProfileP] = useState();
   const [docfile, setdocfile] = useState(null);
@@ -194,7 +191,6 @@ const CreateTaskModals = ({ showtask, setShowtask, getData }) => {
       }
     }
     else {
-      console.log()
       toast.error('Please Write Title of Task', {
         position: "top-right",
         autoClose: 2000,

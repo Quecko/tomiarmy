@@ -115,7 +115,6 @@ const GeneralTask = ({ setShowtask, setShowtaskdetail, setShowtaskedit, setdetai
                             </thead>
                             <tbody>
                               {tasks?.map((elem, index) => {
-                                console.log("sdfsdfdsf",elem?.expirationDate)
                                 let expiredate = new Date(elem?.expirationDate);
                                 const ExpireDate = moment(elem?.expirationDate).format("DD-MM-YYYY");
                                 let createdate = new Date(elem?.createdAt);

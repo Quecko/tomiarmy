@@ -9,12 +9,7 @@ const useAuth = () => {
   const { toastError } = useToast();
 
   const login = useCallback((connectorID) => {
-    // console.log("---------->", connectorID);
-
-    // console.log("---------->", connectorsByName);
-
     const connector = connectorsByName[connectorID];
-    // console.log("---------->", connector);
     if (connector) {
       activate(connector, async (error) => {
         if (error instanceof UnsupportedChainIdError) {

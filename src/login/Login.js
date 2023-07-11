@@ -18,8 +18,7 @@ const Login = () => {
     const onselecttab = (rolee) =>{
         setRole(rolee)
     }
-    // console.log("roles we get here", role)
-
+    
     return (
         <div className='login-wrapper'>
             <img src='\loginTopLeftImg.png' alt='img' className='img-fluid border-left-shadow' />

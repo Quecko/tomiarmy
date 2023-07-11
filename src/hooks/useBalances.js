@@ -35,7 +35,6 @@ const useBalanceUSDT = () => {
             const approved = await contract.methods.balanceOf(account).call();
             return approved/10 **18;
         }catch(e){
-            console.log("eeerrrrrr", e)
         }
        
     }, [contract]);
@@ -65,7 +64,6 @@ const useBalanceUSDT = () => {
     useEffect(() => {
         const fetchBalance = async () => {
             const approved = await contract.methods.proposals(id).call()
-            // console.log("userinf0::::::::::",approved)
             setBalance((approved))
         }
         fetchBalance()

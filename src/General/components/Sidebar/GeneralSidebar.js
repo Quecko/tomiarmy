@@ -187,7 +187,6 @@ const GeneralSidebar = () => {
   const handleShow = () => setShow(true);
 
   const sidebar = () => {
-    console.log("adfdssdf");
     if (show === true) {
       setShow(false);
     } else {

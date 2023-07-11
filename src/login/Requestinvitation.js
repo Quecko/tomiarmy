@@ -21,7 +21,6 @@ const Requestinvitation = () => {
         var val = window.location.href;
         val = new URL(val);
         var id = val.searchParams.get("id");
-        console.log("paramss get", id)
         e.preventDefault();
         if (nick?.length > 2) {
             // setLoader(true);
@@ -41,7 +40,6 @@ const Requestinvitation = () => {
                 .then(function (response) {
                     // setLoader(false);
                     // history.push("/squad");
-                    console.log('response', response?.data?.data?.nickName);
                     if (id == 'solider') {
                         const existingData = JSON.parse(localStorage.getItem('user'));
                         existingData.nickName = response?.data?.data?.nickName

@@ -50,15 +50,13 @@ const AllTaskModals = ({ showtask, setShowtask, settaskdetail, taskdetail,getDat
 
   const [inputs, setInputs] = useState({})
 
-
-  console.log('nputs?.name',inputs?.name);
   const SubmitWork = () => {
 
 
       // handleShow2();
       // handleClose1();
   
-    console.log('submit');
+
 
     if ((multiplemages[0]?.multorimg != '' || inputs?.name)) {
       var expression = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)?/gi;
@@ -66,7 +64,6 @@ const AllTaskModals = ({ showtask, setShowtask, settaskdetail, taskdetail,getDat
       var t = inputs?.name;
       var m = '';
       if (t === undefined) {
-        console.log('empty')
       }
       else if (t.match(regex)) {
         m = inputs?.name;
@@ -133,7 +130,6 @@ const AllTaskModals = ({ showtask, setShowtask, settaskdetail, taskdetail,getDat
             setInputs({
               name: ''
             })
-            console.log(error);
             if (error.response.data.statusCode == 409) {
               toast.error("Proof of work for mention task for User already exists")
             }
@@ -190,7 +186,6 @@ const AllTaskModals = ({ showtask, setShowtask, settaskdetail, taskdetail,getDat
     const list = [...multiplemages];
     list.splice(index, 1)
     setmultiplemages(list);
-    console.log(list)
   };
   const handleAddClick = () => {
     setmultiplemages([...multiplemages,

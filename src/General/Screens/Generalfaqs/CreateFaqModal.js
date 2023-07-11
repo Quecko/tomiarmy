@@ -67,7 +67,6 @@ const CreateFaqModal = ({ showfaq, setShowfaq }) => {
       }
     }
     else {
-      console.log()
       toast.error('Please Write Question', {
         position: "top-right",
         autoClose: 2000,

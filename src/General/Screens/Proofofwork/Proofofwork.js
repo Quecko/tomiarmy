@@ -20,7 +20,6 @@ const Proofofwork = () => {
         setShowwork(true);
     }
     const handleShowwork1 = (elem) => {
-        // console.log("sdewdwdw",elem)
         setsingledetail(elem)
         setShowwork1(true);
     }
@@ -189,7 +188,6 @@ const Proofofwork = () => {
 
 
     const Acceptreject = async (singledetail, approvedcheck) => {
-        // console.log("++++++++++++++++++++")
         let tok = localStorage.getItem("accessToken");
         // setOpens(true);
         axios
@@ -227,7 +225,6 @@ const Proofofwork = () => {
             });
     }
     const Acceptrejectoperation = async (taskdetail , singledetail , approvedcheck) => {
-        // console.log("++++++++++++++++++++")
         let tok = localStorage.getItem("accessToken");
         // setOpens(true);
         axios

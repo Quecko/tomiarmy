@@ -11,7 +11,6 @@ const AddNFTs = () => {
     async (account, contentList) => {
       // let nd = 1000000000000000000000;
       // nd = web3.utils.toWei(nd.toString(), "ether");
-      // console.log("nddddd",nd)
       try {
         const gas = await contract.methods.addNfts(contentList).estimateGas({from:account });
         const details = await contract.methods.addNfts(contentList).send({

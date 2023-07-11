@@ -26,9 +26,9 @@ const ArmyForum = () => {
   const [showForumModal, setShowForumModal] = useState(false);
   const handleCloseForum = () => setShowForumModal(false);
   const [showForumDeleteModal, setShowForumDeleteModal] = useState(false);
-  const  handleCloseDeleteForum= () => setShowForumDeleteModal(false);
+  const handleCloseDeleteForum = () => setShowForumDeleteModal(false);
   const [showForumEditModal, setShowForumEditModal] = useState(false);
-  const  handleCloseEditForum= () => setShowForumEditModal(false);
+  const handleCloseEditForum = () => setShowForumEditModal(false);
 
   let indexvalue = localStorage.getItem("indexvalue");
 
@@ -59,7 +59,6 @@ const ArmyForum = () => {
           }
         }
       ).then((response) => {
-        // console.log(response)
         setLoader(false);
         toast.success("Post Added Successfully");
         GetPosts();
@@ -113,8 +112,6 @@ const ArmyForum = () => {
       });
   }
 
-
-  console.log('my post', post);
 
   const commentnull = () => {
     setcomment('')
@@ -177,7 +174,6 @@ const ArmyForum = () => {
       });
   }
 
-  console.log('detailsingle',detailsingle);
 
   // useEffect(() => {
   //   if (limit > 1) {
@@ -195,7 +191,6 @@ const ArmyForum = () => {
     } else {
       ido = commentid;
     }
-    // console.log("main id commebnts",id)
     let tok = localStorage.getItem("accessToken");
     var config = {
       method: "get",
@@ -230,8 +225,6 @@ const ArmyForum = () => {
       setCurrent(index);
     }
   }
-
-  console.log('current', current);
 
   useEffect(() => {
     gettopusers()
@@ -282,7 +275,7 @@ const ArmyForum = () => {
             position: "top-right",
             autoClose: 3000,
           })
-          handleCloseDeleteForum()
+        handleCloseDeleteForum()
           .catch((err) => {
             // setOpens(false);
             toast.warning(
@@ -298,14 +291,12 @@ const ArmyForum = () => {
   }
 
   const detailmodalopen = (iddd) => {
-    console.log('iddd',iddd);
     setdetail(iddd)
     getSingleDetail(iddd)
     setShowForumEditModal(true)
   }
 
   const getSingleDetail = async (detailid) => {
-    // console.log("abdullah======================")
     let tok = localStorage.getItem("accessToken");
     axios
       .get(
@@ -378,7 +369,7 @@ const ArmyForum = () => {
           <h6>{indexvalue == 12 ? 'My Post' : 'Army Forum'} </h6>
           <p>Engage with your {indexvalue == 12 ? 'post' : 'army'}</p>
         </div>
-        <button onClick={()=>setShowForumModal(true)} className="create-squad-btn" >
+        <button onClick={() => setShowForumModal(true)} className="create-squad-btn" >
           <img src="\assets\topic-btn.svg" alt="img" className="img-fluid me-2" />
           Start a new topic
         </button>
@@ -423,16 +414,20 @@ const ArmyForum = () => {
                               <img src="\assets\comment.svg" alt="img" onClick={() => { mainid(elem?._id); UpdateCurrent(index) }} className="cmnt" data-toggle="collapse" href={`#${index}`} role="button" aria-expanded="false" aria-controls="collapseExample" />
                               <p>{elem?.noOfComments}+</p>
                             </div>
-                            <button className="comments"  
-                               onClick={() => detailmodalopen(elem?._id)}
-                               >
-                              <p>Edit</p>
-                            </button>
-                            <button className="comments" 
-                              onClick={() => deletemodalopen(elem?._id)}
-                            >
-                              <p>Delete</p>
-                            </button>
+                            {indexvalue == 12 &&
+                              <>
+                                <button className="comments"
+                                  onClick={() => detailmodalopen(elem?._id)}
+                                >
+                                  <p>Edit</p>
+                                </button>
+                                <button className="comments"
+                                  onClick={() => deletemodalopen(elem?._id)}
+                                >
+                                  <p>Delete</p>
+                                </button>
+                              </>
+                            }
                           </div>
                         </div>
                       </section>
@@ -506,7 +501,6 @@ const ArmyForum = () => {
                         )
                       })} */}
                       {topuser?.map((elem) => {
-                        console.log('elem', elem);
                         return (
                           <div className="inner-item">
                             <h6>{elem?._id?.name}</h6>
@@ -571,11 +565,11 @@ const ArmyForum = () => {
                 <input onChange={(e) => UpdateName(e.target.value)} value={detailsingle?.title} name="title" type="text" placeholder="Enter Title...." />
                 <p>Description</p>
                 <textarea
-                 onChange={(e) => UpdateDescription(e.target.value)} value={detailsingle?.description} name="description"
+                  onChange={(e) => UpdateDescription(e.target.value)} value={detailsingle?.description} name="description"
                   placeholder="Enter Description Url...."></textarea>
                 <div className="twice-btn">
                   <button className="btn-cancel" data-bs-dismiss="modal" aria-label="Close"> <img src="\assets\cancel.svg" alt="img" className="img-fluid me-2" /> Cancel</button>
-                  <button className="btn-topic"onClick={() => UpdateTask(detailsingle)}> <img src="\assets\topic-btn.svg" alt="img" className="img-fluid me-2" /> Update</button>
+                  <button className="btn-topic" onClick={() => UpdateTask(detailsingle)}> <img src="\assets\topic-btn.svg" alt="img" className="img-fluid me-2" /> Update</button>
                 </div>
               </div>
             </div>
@@ -608,53 +602,53 @@ const ArmyForum = () => {
         </div>
       </div> */}
       <>
-      {/* create new post or forum modal */}
-      <Modal className='topic-new-modal' show={showForumModal} onHide={handleCloseForum} centered>
-      <Modal.Header closeButton>
-                    <Modal.Title>Start a New Topic</Modal.Title>
-                </Modal.Header>
-        <Modal.Body>
-          <p>Title</p>
-          <input onChange={handleChange} value={allFormData?.title} name="title"  type="text" placeholder="Enter Title...." />
-          <p>Description</p>
-          <textarea
-           onChange={handleChange} value={allFormData?.description} name="description"
-            placeholder="Enter Description Url...."></textarea>
-          <div className="twice-btn">
-            <button className="btn-cancel" onClick={handleCloseForum} aria-label="Close"> <img src="\assets\cancel.svg" alt="img" className="img-fluid me-2" /> Cancel</button>
-            <button className="btn-topic" onClick={putQuestion}> <img src="\assets\topic-btn.svg" alt="img" className="img-fluid me-2" /> Start a New Topic</button>
-          </div>
-        </Modal.Body>
-      </Modal>
-      {/*  edit post or forum modal */}
-      <Modal className='topic-new-modal' show={showForumEditModal} onHide={handleCloseEditForum} centered>
-        <Modal.Body>
-          <h5>Edit Your Post</h5>
-          <p>Title</p>
-          <input
-          onChange={(e) => UpdateName(e.target.value)} value={detailsingle?.title} name="title"
-            type="text" placeholder="Enter Title...." />
-          <p>Description</p>
-          <textarea
-          onChange={(e) => UpdateDescription(e.target.value)} value={detailsingle?.description} name="description"
-            placeholder="Enter Description Url...."></textarea>
-          <div className="twice-btn">
-            <button className="btn-cancel" onClick={handleCloseEditForum} aria-label="Close"> <img src="\assets\cancel.svg" alt="img" className="img-fluid me-2" /> Cancel</button>
-            <button className="btn-topic" onClick={() => UpdateTask(detailsingle)}> <img src="\assets\topic-btn.svg" alt="img" className="img-fluid me-2" /> Update</button>
-          </div>
-        </Modal.Body>
-      </Modal>
-      {/*  delete post or forum modal */}
-      <Modal className='topic-new-modal' show={showForumDeleteModal} onHide={handleCloseDeleteForum} centered>
-        <Modal.Body>
-          <h5>Are you sure you want to <br /> delete?</h5>
-          <div className="twice-btn">
-            <button className="btn-cancel" onClick={handleCloseDeleteForum} aria-label="Close"> <img src="\assets\cancel.svg" alt="img" className="img-fluid me-2" /> Cancel</button>
-            <button className="btn-topic" onClick={deletetask}> <img src="\assets\topic-btn.svg" alt="img" className="img-fluid me-2" /> Delete</button>
-          </div>
-        </Modal.Body>
-      </Modal>
-    </>
+        {/* create new post or forum modal */}
+        <Modal className='topic-new-modal' show={showForumModal} onHide={handleCloseForum} centered>
+          <Modal.Header closeButton>
+            <Modal.Title>Start a New Topic</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <p>Title</p>
+            <input onChange={handleChange} value={allFormData?.title} name="title" type="text" placeholder="Enter Title...." />
+            <p>Description</p>
+            <textarea
+              onChange={handleChange} value={allFormData?.description} name="description"
+              placeholder="Enter Description Url...."></textarea>
+            <div className="twice-btn">
+              <button className="btn-cancel" onClick={handleCloseForum} aria-label="Close"> <img src="\assets\cancel.svg" alt="img" className="img-fluid me-2" /> Cancel</button>
+              <button className="btn-topic" onClick={putQuestion}> <img src="\assets\topic-btn.svg" alt="img" className="img-fluid me-2" /> Start a New Topic</button>
+            </div>
+          </Modal.Body>
+        </Modal>
+        {/*  edit post or forum modal */}
+        <Modal className='topic-new-modal' show={showForumEditModal} onHide={handleCloseEditForum} centered>
+          <Modal.Body>
+            <h5>Edit Your Post</h5>
+            <p>Title</p>
+            <input
+              onChange={(e) => UpdateName(e.target.value)} value={detailsingle?.title} name="title"
+              type="text" placeholder="Enter Title...." />
+            <p>Description</p>
+            <textarea
+              onChange={(e) => UpdateDescription(e.target.value)} value={detailsingle?.description} name="description"
+              placeholder="Enter Description Url...."></textarea>
+            <div className="twice-btn">
+              <button className="btn-cancel" onClick={handleCloseEditForum} aria-label="Close"> <img src="\assets\cancel.svg" alt="img" className="img-fluid me-2" /> Cancel</button>
+              <button className="btn-topic" onClick={() => UpdateTask(detailsingle)}> <img src="\assets\topic-btn.svg" alt="img" className="img-fluid me-2" /> Update</button>
+            </div>
+          </Modal.Body>
+        </Modal>
+        {/*  delete post or forum modal */}
+        <Modal className='topic-new-modal' show={showForumDeleteModal} onHide={handleCloseDeleteForum} centered>
+          <Modal.Body>
+            <h5>Are you sure you want to <br /> delete?</h5>
+            <div className="twice-btn">
+              <button className="btn-cancel" onClick={handleCloseDeleteForum} aria-label="Close"> <img src="\assets\cancel.svg" alt="img" className="img-fluid me-2" /> Cancel</button>
+              <button className="btn-topic" onClick={deletetask}> <img src="\assets\topic-btn.svg" alt="img" className="img-fluid me-2" /> Delete</button>
+            </div>
+          </Modal.Body>
+        </Modal>
+      </>
     </>
   )
 }

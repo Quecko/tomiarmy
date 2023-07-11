@@ -68,7 +68,6 @@ const Squad = ({ show1, setShow1, show2, setShow2,show4, setShow4, show5, setSho
       .then(function (response) {
         // setLoader(false);
         // setCommander(response?.data?.data?.commanderWalletAddress)
-        // console.log("data11", response)
 
         setUsers(response?.data?.data);
         // let arr = Array.from(Array(parseInt(response.data.data.pages)).keys());
@@ -76,7 +75,7 @@ const Squad = ({ show1, setShow1, show2, setShow2,show4, setShow4, show5, setSho
         // setCurrentPage(valu)
       })
       .catch(function (error) {
-        // console.log(error);
+        console.log(error);
         // setLoader(false);
         // localStorage.removeItem("accessToken");
         // localStorage.removeItem("user");

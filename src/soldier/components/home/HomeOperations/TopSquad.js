@@ -7,7 +7,6 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const TopSquad = ({topSquad, GetUserTopSquad}) => {
-  // console.log("topsquad", props)
   let tok = localStorage.getItem("accessToken");
   const SendInvite = async (id) => {
     // e.preventDefault();

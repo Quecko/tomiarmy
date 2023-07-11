@@ -91,6 +91,12 @@ const Sidebar = () => {
     else if (indexvv == "11") {
       setindexwait(11)
     }
+    else if (indexvv == "12") {
+      setindexwait(12)
+    }
+    else if (indexvv == "13") {
+      setindexwait(13)
+    }
   }, [indexvv])
   const hitfunctionss = (asd) => {
     setindexwait(asd)
@@ -104,7 +110,6 @@ const Sidebar = () => {
     window.scrollTo(0, 0)
   }, [])
   const sidebar = () => {
-    console.log("adfdssdf");
     if (show === true) {
       setShow(false);
     } else {
@@ -113,13 +118,7 @@ const Sidebar = () => {
   };
 
 
-  //  const wallet= localStorage.getItem('wallet')
 
-  //  console.log('wallet',);
-
-  //   useEffect(()=>{
-
-  //   })
   var user12 = localStorage.getItem("user");
   user12 = JSON.parse(user12)
   useEffect(() => {
@@ -127,14 +126,12 @@ const Sidebar = () => {
     }
     else if (account) {
       // window.scrollTo(0, 0);
-      // console.log("asassaasdasda", account)
       loginUser();
     }
   }, [account])
 
 
   const loginUser = async () => {
-    // console.log("values get here is",account)
     // let tok = localStorage.getItem("accessToken");
     // let wall = localStorage.getItem("wallet");
     // setShow(false);
@@ -181,7 +178,6 @@ const Sidebar = () => {
               });
               localStorage.removeItem("connectorId");
               localStorage.removeItem("flag");
-              // console.log("logout", err)
               // setShow(false);
               localStorage.removeItem("accessToken");
               localStorage.removeItem("user");
@@ -190,7 +186,6 @@ const Sidebar = () => {
             }
             localStorage.removeItem("connectorId");
             localStorage.removeItem("flag");
-            // console.log("does not work")
           });
       }
       else {

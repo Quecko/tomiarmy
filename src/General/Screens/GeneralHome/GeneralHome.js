@@ -65,7 +65,6 @@ const GeneralHome = ({ setShowtask, setroutehome, routeshome }) => {
         };
         axios(config)
             .then(function (response) {
-                console.log("armymember")
                 // setLoader(false);
                 setArmy(response?.data?.data);
             })
@@ -129,7 +128,6 @@ const GeneralHome = ({ setShowtask, setroutehome, routeshome }) => {
                 })
                 .catch(function (error) {
                     // setLoader(false);
-                    // console.log(error.response.data.statusCode);
                     if (error.response.data.statusCode == 403) {
                         toast.error('Forbidden. Only general can add major general', {
                             position: 'top-right',

@@ -9,12 +9,10 @@ export const GetUsers = (account,token) => async (dispatch) => {
   // });
 
   if(account && token){
-    // console.log("accccc in reduc",account)
     await axios.post(API_URL + "users/getUser", {walletAddress:account}, { headers: { "Authorization": `Bearer ${token}` } })
     .then(async (res) => {
       if (res.data.user != null ) {
         // loader=false
-        // console.log("iff  s",res.data.user)
         dispatch({
           type: "GETUSER",
           payload: res.data.user,
@@ -24,7 +22,6 @@ export const GetUsers = (account,token) => async (dispatch) => {
         //   payload: false,
         // });
       }else{
-        // console.log('else')
         // loader=false
         dispatch({
           type: "GETUSER",

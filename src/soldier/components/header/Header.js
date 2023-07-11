@@ -15,17 +15,15 @@ import { toast } from "react-toastify";
 import { io } from "socket.io-client";
 
 
-const Header = ({ routes, setroute, indexwait, handleShow, setShow2, setShow1, setShow4, setShow5,setShowForumModal }) => {
+const Header = ({ routes, setroute, indexwait, handleShow, setShow2, setShow1, setShow4, setShow5, setShowForumModal }) => {
   const datacommander = localStorage.getItem('user')
   const data = JSON.parse(datacommander)
   const { account } = useWeb3React();
   const [squaddetail, setsquaddetail] = useState()
   const [loader, setLoader] = useState(false)
-  // console.log("asdasdasdasd", squaddetail)
   const GetUserProfiledata = () => {
     // setLoader(true);
     let tok = localStorage.getItem("accessToken");
-    // console.log("token", tok)
     if (account) {
       var config = {
         method: "get",
@@ -36,7 +34,6 @@ const Header = ({ routes, setroute, indexwait, handleShow, setShow2, setShow1, s
       };
       axios(config)
         .then(async (response) => {
-          // console.log("resProfile",response)
           // setLoader(false);
           setsquaddetail(response.data.data)
           // setcoms(response?.data?.data?.squad?.commander)
@@ -85,30 +82,28 @@ const Header = ({ routes, setroute, indexwait, handleShow, setShow2, setShow1, s
   //     if(msgObj){
   //         setSquadids(JSON.parse(msgObj?.notification?.metadata?.squadId));
   //     }
-  //     // console.log("sdfdsfdsfdsf",squadidd)
+
   // }, [msgObj?.notification?.metadata !== undefined])
 
   useEffect(() => {
-
-    const socket = io("https://stagingapi.tomiarmy.com", {
-      transports: ["websocket", "polling"],
-    });
-    //  const socket = io("http://10.10.10.115:8094")
     let tok = localStorage.getItem("accessToken");
+    let socket = io('https://stagingapi.tomiarmy.com', {
+      transports: ["websocket", "polling"],
+      path: "/chats/sockets",
+    });
     socket.on("connect", () => {
-      console.log('socket connected++++++++++++++++++++++++++', socket.connected);  
-      // console.log(tok)           
+      console.log('socket connected++++++++++++++++++++++++++', socket.connected);
       socket.emit("authentication", {
         token: tok,
       });
     });
 
-    // socket.on('WORK_PROOF_REJECTED', (notification) => {
-    //   toast.info("Update on your submitted task!");
-    //   // GetTasks()
-    //   // GetOpts()
-    //   // ShowResp(notification);
-    // });
+    socket.on('WORK_PROOF_REJECTED', (notification) => {
+      toast.info("Update on your submitted task!");
+      // GetTasks()
+      // GetOpts()
+      // ShowResp(notification);
+    });
 
     // socket.on('Veteran_recruite_Invite', (notification) => {
     //   getNotif("soc");
@@ -135,7 +130,6 @@ const Header = ({ routes, setroute, indexwait, handleShow, setShow2, setShow1, s
 
   const AcceptInvite = async (item) => {
     const { squadId } = JSON.parse(item.notification.metadata);
-    console.log('squadids', squadId);
     let tok = localStorage.getItem("accessToken");
     setLoader(true);
     var data = ({
@@ -158,7 +152,6 @@ const Header = ({ routes, setroute, indexwait, handleShow, setShow2, setShow1, s
           position: "top-right",
           autoClose: 2000,
         });
-        console.log("response",response)
         const userString = JSON.parse(localStorage.getItem('user'));
         userString.memberOfSquad = response?.data?.data?.memberOfSquad;
         localStorage.setItem('user', JSON.stringify(userString));
@@ -288,6 +281,7 @@ const Header = ({ routes, setroute, indexwait, handleShow, setShow2, setShow1, s
                     {notifs?.length > 0 ?
                       <>
                         {notifs?.map((item, index) => {
+                           console.log('notifs',item);
                           return (
                             <div className="inner-div border-grad">
                               <div className="upper-text">

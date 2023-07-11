@@ -110,7 +110,6 @@ const Recruiting = () => {
 }
 
 const hiderecruit = (id) => {
-    // console.log("id we get", id)
     let tok = localStorage.getItem("accessToken");
     setLoader(true);
     var data = ({

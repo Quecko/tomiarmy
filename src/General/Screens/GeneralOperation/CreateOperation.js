@@ -82,7 +82,6 @@ const CreateOperation = ({ svaebutton, routes, setroute }) => {
         setShow(false)
 
     }
-    console.log("ewrewewrew",subtask)
     const deletesubtask = (id) => {
         setsubtask(subtask.filter((elem, index) => index !== id))
     }
@@ -208,7 +207,6 @@ const CreateOperation = ({ svaebutton, routes, setroute }) => {
             }
         }
         else {
-            console.log()
             toast.error('Please Write Name of Task', {
                 position: "top-right",
                 autoClose: 2000,
