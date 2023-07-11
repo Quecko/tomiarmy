@@ -155,6 +155,12 @@ const GeneralSidebar = () => {
     else if (indexvv == "10") {
       setindexwait(10)
     }
+    else if (indexvv == "12") {
+      setindexwait(12)
+    }
+    else if (indexvv == "13") {
+      setindexwait(13)
+    }
   }, [indexvv])
   const hitfunctionss = (asd) => {
     setindexwait(asd)
@@ -422,7 +428,7 @@ const GeneralSidebar = () => {
                     </a>
                   </li>
                   <div className="mainacc">
-                    <Accordion defaultActiveKey="0">
+                    <Accordion>
                       <Accordion.Item eventKey="0">
                         <Accordion.Header>
                           <div className="acord-text">
@@ -468,26 +474,37 @@ const GeneralSidebar = () => {
                         <Accordion.Body>
                           <li>
                             <a
-                              onClick={() => { hitfunctionss(6); }}
+                              onClick={() => { hitfunctionss(12); }}
                               className={
-                                indexwait === 6 ? "list-item active" : "list-item"
+                                indexwait === 12 ? "list-item active" : "list-item"
+                              }
+
+                            >
+                              <span>My Post</span>
+                            </a>
+                          </li>
+                          <li>
+                            <a
+                              onClick={() => { hitfunctionss(13); }}
+                              className={
+                                indexwait === 13 ? "list-item active" : "list-item"
                               }
 
                             >
                               <span>Army Forum</span>
                             </a>
                           </li>
-                          <li>
+                          {/* <li>
                             <a
-                              onClick={() => { hitfunctionss(10); }}
+                              onClick={() => { hitfunctionss(6); }}
                               className={
-                                indexwait === 10 ? "list-item active" : "list-item"
+                                indexwait === 6 ? "list-item active" : "list-item"
                               }
 
                             >
                               <span>My Posts</span>
                             </a>
-                          </li>
+                          </li> */}
                         </Accordion.Body>
                       </Accordion.Item>
 
@@ -661,13 +678,18 @@ const GeneralSidebar = () => {
                                   </>
                                 )
                                 :
-                                indexwait == 10 ?
+                                indexwait == 12 ?
+                                (
+                                  <>
+                                     <GeneralForum />
+                                  </>
+                                ) :
+                                indexwait == 13 ?
                                   (
                                     <>
                                       <GeneralForum />
                                     </>
-                                  )
-                                  :
+                                  ) :
                                   ""
             }
 

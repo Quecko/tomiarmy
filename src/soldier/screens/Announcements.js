@@ -71,18 +71,18 @@ const Announcements = () => {
 
   useEffect(() => {
 
-    const socket = io("https://api.tomiarmy.com", {
-      transports: ["websocket", "polling"],
-    });
-    //  const socket = io("http://10.10.10.115:8094")
-    let tok = localStorage.getItem("accessToken");
-    socket.on("connect", () => {
-      // console.log('socket connected++++++++++++++++++++++++++', socket.connected);  
-      // console.log(tok)           
-      socket.emit("authentication", {
-        token: tok,
-      });
-    });
+    // const socket = io("https://stagingapi.tomiarmy.com", {
+    //   transports: ["websocket", "polling"],
+    // });
+    // //  const socket = io("http://10.10.10.115:8094")
+    // let tok = localStorage.getItem("accessToken");
+    // socket.on("connect", () => {
+    //   // console.log('socket connected++++++++++++++++++++++++++', socket.connected);  
+    //   // console.log(tok)           
+    //   socket.emit("authentication", {
+    //     token: tok,
+    //   });
+    // });
 
     // socket.on('WORK_PROOF_REJECTED', (notification) => {
     //   toast.info("Update on your submitted task!");
@@ -95,12 +95,12 @@ const Announcements = () => {
     //   getNotif("soc");
     // });
 
-    socket.on('message', (notification) => {
-      console.log('Received notification:', notification);
-      // getNotif("soc");
-      // setNotn(true);
-      // ShowResp(notification);
-    });
+    // socket.on('message', (notification) => {
+    //   console.log('Received notification:', notification);
+    //   // getNotif("soc");
+    //   // setNotn(true);
+    //   // ShowResp(notification);
+    // });
 
     // socket.on('Rank_Updated', (notification) => {
     //   updateToken();
@@ -110,9 +110,9 @@ const Announcements = () => {
     //   updateToken();
     // });
 
-    socket.on("disconnect", (reason) => {
-      console.log(`Disconnected: ${reason}`);
-    });
+    // socket.on("disconnect", (reason) => {
+    //   console.log(`Disconnected: ${reason}`);
+    // });
   }, [])
 
 

@@ -13,6 +13,7 @@ import { toast } from 'react-toastify';
 import { useWeb3React } from "@web3-react/core";
 import axios from 'axios';
 import Web3 from 'web3';
+import ArmyGrowthGraph from "./ArmyGrowthGraph";
 
 
 const GeneralHome = ({ setShowtask, setroutehome, routeshome }) => {
@@ -559,7 +560,8 @@ const GeneralHome = ({ setShowtask, setroutehome, routeshome }) => {
                                             </Dropdown>
                                         </div>
                                         <div className="inner-grap mt-5">
-                                            <img src="\assets\dummy-graph-img.png" alt="img" className="img-fluid w-100" />
+                                            {/* <img src="\assets\dummy-graph-img.png" alt="img" className="img-fluid w-100" /> */}
+                                            <ArmyGrowthGraph />
                                         </div>
                                     </div>
                                 </div>
