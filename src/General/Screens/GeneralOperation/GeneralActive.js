@@ -22,7 +22,7 @@ const GeneralActive = ({ setShowtask, tasks }) => {
     const GetTime = (time) => {
         let endtime = new Date(time)
         return endtime;
-      }
+    }
 
     return (
         <>

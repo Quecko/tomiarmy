@@ -20,8 +20,20 @@ const GeneralHome = ({ setShowtask, setroutehome, routeshome }) => {
     const [showmajor, setShowmajor] = useState(false);
     const handleClosemajor = () => setShowmajor(false);
     const handleShowmajor = () => setShowmajor(true);
+    let tok = localStorage.getItem("accessToken");
     const [rend, setRend] = useState(false);
     const [army, setArmy] = useState([]);
+    const [tasks, settasks] = useState([]);
+    const [taskss, settaskss] = useState([]);
+    const [tasksss, settasksss] = useState(null);
+    const [topsoli, settopsoli] = useState([]);
+    const [Users, setUsers] = useState([]);
+    const [data2, setData2] = useState([]);
+    const [Armydataa, setArmydataa] = useState(null);
+    const [DropDownAll, setDropDownAll] = useState('all time');
+    let user1 = localStorage.getItem("user");
+    user1 = JSON.parse(user1);
+    const { account } = useWeb3React();
 
     const [datamajoradd, setdatamajoradd] = useState({
         name: '',
@@ -154,9 +166,172 @@ const GeneralHome = ({ setShowtask, setroutehome, routeshome }) => {
                 });
         }
     }
+    const GetArmydata = () => {
+        let tok = localStorage.getItem("accessToken");
+        var config = {
+            method: "get",
+            url: `${API_URL}/tasks/stats/squads?queryBy=${DropDownAll}`,
+            headers: {
+                authorization: `Bearer ` + tok
+            },
+        };
+        axios(config)
+            .then(function (response) {
+                // setLoader(false);
+                setArmydataa(response?.data?.data);
+            })
+            .catch(function (error) {
+                // setLoader(false);
+                // localStorage.removeItem("accessToken");
+                // localStorage.removeItem("user");
+                // window.location.assign("/")
+                // window.location.reload();
+            });
+    }
+    const topsolider = () => {
+        let tok = localStorage.getItem("accessToken");
+        var config = {
+            method: "get",
+            url: `${API_URL}/auth/users/all-users?offset=1&&limit=5&&topSoldier=true`,
+            headers: {
+                authorization: `Bearer ` + tok
+            },
+        };
+        axios(config)
+            .then(function (response) {
+                // setLoader(false);
+                settopsoli(response?.data?.data?.users);
+            })
+            .catch(function (error) {
+                // setLoader(false);
+                // localStorage.removeItem("accessToken");
+                // localStorage.removeItem("user");
+                // window.location.assign("/")
+                // window.location.reload();
+            });
+    }
+
+    const SquadUsers = async (off) => {
+        let valu = null;
+        // if (off) {
+        //     valu = off;
+        // } else {
+        //     valu = 1;
+        // }
+        let wall = localStorage.getItem("wallet");
+        var config = {
+            method: "get",
+            url: `${API_URL}/tasks/squads?offset=1&&limit=5`,
+            headers: {
+                authorization: `Bearer ` + tok
+            },
+        };
+        axios(config)
+            .then(function (response) {
+                // setLoader(false);
+                // setCommander(response?.data?.data?.commanderWalletAddress)
+                // console.log("data11", response)
+                setUsers(response?.data?.data?.squad);
+                // let arr = Array.from(Array(parseInt(response.data.data.pages)).keys());
+                // setPages(arr);
+                // setCurrentPage(valu)
+            })
+            .catch(function (error) {
+                // console.log(error);
+                // setLoader(false);
+                // localStorage.removeItem("accessToken");
+                // localStorage.removeItem("user");
+                // window.location.reload();
+            });
+    }
+
+    const GeneralApproval = async (off) => {
+        // let valu = null;
+        // if (off) {
+        //     valu = off;
+        // } else {
+        //     valu = 1;
+        // }
+        let tok = localStorage.getItem("accessToken");
+        let wall = localStorage.getItem("wallet");
+        if (account) {
+            var config = {
+                method: "get",
+                url: `${API_URL}/tasks/pending-ranks-update?offset=1&&limit=5`,
+                headers: {
+                    authorization: `Bearer ` + tok
+                },
+            };
+            axios(config)
+                .then(function (response) {
+                    // console.log("response for awaiting approval", response)
+                    // setLoader(false);
+                    // setCount2(response.data.data.count)
+                    setData2(response?.data?.data?.pendingRanksUpdate);
+                    // console.log("opopopop", response.data.data.pages)
+                    // let arr = Array.from(Array(parseInt(response.data.data.pages)).keys());
+                    // // console.log("opopopop", arr)
+                    // setPages2(arr);
+                    // setCurrentPage2(valu)
+                })
+                .catch(function (error) {
+                    // setLoader(false);
+                    // localStorage.removeItem("accessToken");
+                    // localStorage.removeItem("user");
+                    // window.location.assign("/")
+                    // window.location.reload();
+                });
+        }
+    }
+
+    const getData = async (off) => {
+        // let valu = null;
+        // if (off) {
+        //     valu = off;
+        // } else {
+        //     valu = 1;
+        // }
+        let tok = localStorage.getItem("accessToken");
+        let wall = localStorage.getItem("wallet");
+        if (account) {
+            var config = {
+                method: "get",
+                url: `${API_URL}/tasks/work-proofs?offset=1&&limit=10`,
+                headers: {
+                    authorization: `Bearer ` + tok
+                },
+            };
+            axios(config)
+                .then(function (response) {
+                    // setLoader(false);
+                    // setCount(response.data.data.count)
+                    settasks(response?.data?.data?.workProof);
+                    // let arr = Array.from(Array(parseInt(response.data.data.pages)).keys());
+                    // setPages(arr);
+                    // setCurrentPage(valu)
+                })
+                .catch(function (error) {
+                    // setLoader(false);
+                    // localStorage.removeItem("accessToken");
+                    // localStorage.removeItem("user");
+                    // window.location.assign("/")
+                    // window.location.reload();
+                });
+        }
+    }
+
     useEffect(() => {
         GetArmy();
+        topsolider();
+        SquadUsers();
+        getData();
+        GeneralApproval();
     }, []);
+
+    useEffect(() => {
+        GetArmydata();
+    }, [DropDownAll]);
+
     return (
         <>
             {!routeshome ? <div className="formobile-heading d-none display-block-in-mobile">
@@ -186,25 +361,20 @@ const GeneralHome = ({ setShowtask, setroutehome, routeshome }) => {
                 <>
                     <section className="general-home">
                         <div className="row">
-                            <div className="col-xl-8 col-12 p-0">
+                            <div className="col-xl-12 col-12 p-0">
                                 <div className="tomystats">
                                     <div className="upper-heading">
                                         <h6>Tomi Army Stats</h6>
                                         <Dropdown className="stats-dropdown">
-                                            <Dropdown.Toggle id="dropdown-basic">All Time <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <Dropdown.Toggle id="dropdown-basic">{DropDownAll} <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                 <path d="M13.2797 5.9668L8.93306 10.3135C8.41973 10.8268 7.57973 10.8268 7.06639 10.3135L2.71973 5.9668" stroke="#81828A" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
                                             </svg></Dropdown.Toggle>
                                             <Dropdown.Menu className="stats-dropdown-menu">
                                                 <div className="stats-dropdown-bg">
-                                                    <Dropdown.Item href="#/action-1">Today</Dropdown.Item>
-                                                    <Dropdown.Item href="#/action-2">This Week</Dropdown.Item>
-                                                    <Dropdown.Item href="#/action-3">This Month</Dropdown.Item>
-                                                    <Dropdown.Item
-                                                        href="#/action-3"
-                                                        className="border-bottom-0 item-active"
-                                                    >
-                                                        All Time
-                                                    </Dropdown.Item>
+                                                    <Dropdown.Item onClick={() => setDropDownAll('today')}>Today</Dropdown.Item>
+                                                    <Dropdown.Item onClick={() => setDropDownAll('week')}>This Week</Dropdown.Item>
+                                                    <Dropdown.Item onClick={() => setDropDownAll('month')}>This Month</Dropdown.Item>
+                                                    <Dropdown.Item onClick={() => setDropDownAll('all time')}>All Time</Dropdown.Item>
                                                 </div>
                                             </Dropdown.Menu>
                                         </Dropdown>
@@ -212,54 +382,53 @@ const GeneralHome = ({ setShowtask, setroutehome, routeshome }) => {
                                     <div className="stats-data-boxes">
                                         <div className="inner-data-box border-grad">
                                             <div className="stats-item-box">
-                                                <img src="\generalassets\icons\newrecruittoday.png" alt="earned" style={{ width: "50px", height: "50px" }} />
+                                                <img src="\generalassets\icons\newrecruittoday.png" alt="earned" style={{ width: "70px", height: "70px" }} />
                                                 <div>
                                                     <p>New Recruits Today</p>
-                                                    <h4>432,012</h4>
+                                                    <h4>{Armydataa?.todayUsers}</h4>
                                                 </div>
                                             </div>
                                         </div>
                                         <div className="inner-data-box border-grad">
                                             <div className="stats-item-box">
-                                                <img src="\generalassets\icons\totalsoldiers.png" alt="earned" style={{ width: "50px", height: "50px" }} />
+                                                <img src="\generalassets\icons\totalsoldiers.png" alt="earned" style={{ width: "70px", height: "70px" }} />
                                                 <div>
                                                     <p>Total Soldiers</p>
-                                                    <h4>1,235,123</h4>
+                                                    <h4>{Armydataa?.totalUsers}</h4>
                                                 </div>
                                             </div>
                                         </div>
                                         <div className="inner-data-box border-grad">
                                             <div className="stats-item-box">
-                                                <img src="\generalassets\icons\totalsquads.png" alt="earned" style={{ width: "50px", height: "50px" }} />
+                                                <img src="\generalassets\icons\totalsquads.png" alt="earned" style={{ width: "70px", height: "70px" }} />
                                                 <div>
                                                     <p>Total Squads</p>
-                                                    <h4>112</h4>
+                                                    <h4>{Armydataa?.totalSquads}</h4>
                                                 </div>
                                             </div>
                                         </div>
                                         <div className="inner-data-box border-grad">
                                             <div className="stats-item-box">
-                                                <img src="\generalassets\icons\taskscompleted.png" alt="earned" style={{ width: "50px", height: "50px" }} />
+                                                <img src="\generalassets\icons\taskscompleted.png" alt="earned" style={{ width: "70px", height: "70px" }} />
                                                 <div>
                                                     <p>Tasks Completed</p>
-                                                    <h4>295</h4>
+                                                    <h4>{Armydataa?.todayTasks}</h4>
                                                 </div>
                                             </div>
                                         </div>
                                         <div className="inner-data-box border-grad">
                                             <div className="stats-item-box">
-                                                <img src="\generalassets\icons\tomirewarded.png" alt="earned" style={{ width: "50px", height: "50px" }} />
+                                                <img src="\generalassets\icons\tomirewarded.png" alt="earned" style={{ width: "70px", height: "70px" }} />
                                                 <div>
                                                     <p>Tomi Rewarded</p>
                                                     <h4>112</h4>
                                                 </div>
                                             </div>
                                         </div>
-
                                     </div>
                                 </div>
                             </div>
-                            <div className="col-lg-4 task-status pe-0">
+                            {/* <div className="col-lg-4 task-status pe-0">
                                 <div className="data-box border-grad1">
                                     <div className="task-status-box-header">
                                         <h4>Tasks Status</h4>
@@ -305,7 +474,7 @@ const GeneralHome = ({ setShowtask, setroutehome, routeshome }) => {
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> */}
                         </div>
                         <div className="rank-armygrowth">
                             <div className="row">
@@ -330,9 +499,9 @@ const GeneralHome = ({ setShowtask, setroutehome, routeshome }) => {
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    {army.map((elem, index) => {
+                                                    {army?.map((elem, index) => {
                                                         return (
-                                                            <tr>
+                                                            <tr key={index}>
                                                                 <td>
                                                                     <div className="set-custom">
                                                                         <img src={elem?.icon} alt="img" className='img-fluid' style={{ width: "40px", height: "40px" }} />
@@ -345,16 +514,22 @@ const GeneralHome = ({ setShowtask, setroutehome, routeshome }) => {
                                                                 <td>
                                                                     <div className='dropbtn'>
                                                                         <Dropdown>
-                                                                            <Dropdown.Toggle variant="success" id="dropdown-basic">
-                                                                                <img src='\Vectordots.svg' alt='img' className='img-fluid ' />
-
-                                                                            </Dropdown.Toggle>
+                                                                            {elem?.name == 'major general' && user1?.rank?.name === 'general' ? (
+                                                                                <Dropdown.Toggle variant="success" id="dropdown-basic">
+                                                                                    <img src='\Vectordots.svg' alt='img' classNa me='img-fluid ' />
+                                                                                </Dropdown.Toggle>
+                                                                            )
+                                                                                :
+                                                                                (
+                                                                                    ""
+                                                                                )
+                                                                            }
                                                                             <Dropdown.Menu>
                                                                                 <Dropdown.Item href="#/action-1">
                                                                                     <p onClick={handleShowmajor}><img src='\Vector.svg' alt='img' className='img-fluid' />Add</p>
                                                                                 </Dropdown.Item>
                                                                             </Dropdown.Menu>
-                                                                        </Dropdown>  
+                                                                        </Dropdown>
                                                                     </div>
                                                                 </td>
                                                             </tr>
@@ -408,82 +583,29 @@ const GeneralHome = ({ setShowtask, setroutehome, routeshome }) => {
                                                             <p className='headtable'>Total Members</p>
                                                         </th>
                                                         <th>
-                                                            <p className='headtable'>TOMI Balance</p>
+                                                            <p className='headtable'>Tomi Tokens</p>
                                                         </th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
-                                                        <td>
-                                                            <div className="set-custom">
-                                                                <img src="\static-icons\dc-squad.png" alt="img" className='img-fluid' style={{ width: "40px", height: "40px" }} />
-                                                                <p className='paratable'>DC Squad</p>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <p className='paratable'>25</p>
-                                                        </td>
-                                                        <td>
-                                                            <p className='paratable'>500 TOMI</p>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <div className="set-custom">
-                                                                <img src="\static-icons\dc-squad.png" alt="img" className='img-fluid' style={{ width: "40px", height: "40px" }} />
-                                                                <p className='paratable'>DC Squad</p>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <p className='paratable'>25</p>
-                                                        </td>
-                                                        <td>
-                                                            <p className='paratable'>500 TOMI</p>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <div className="set-custom">
-                                                                <img src="\static-icons\dc-squad.png" alt="img" className='img-fluid' style={{ width: "40px", height: "40px" }} />
-                                                                <p className='paratable'>DC Squad</p>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <p className='paratable'>25</p>
-                                                        </td>
-                                                        <td>
-                                                            <p className='paratable'>500 TOMI</p>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <div className="set-custom">
-                                                                <img src="\static-icons\dc-squad.png" alt="img" className='img-fluid' style={{ width: "40px", height: "40px" }} />
-                                                                <p className='paratable'>DC Squad</p>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <p className='paratable'>25</p>
-                                                        </td>
-                                                        <td>
-                                                            <p className='paratable'>500 TOMI</p>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <div className="set-custom">
-                                                                <img src="\static-icons\dc-squad.png" alt="img" className='img-fluid' style={{ width: "40px", height: "40px" }} />
-                                                                <p className='paratable'>DC Squad</p>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <p className='paratable'>25</p>
-                                                        </td>
-                                                        <td>
-                                                            <p className='paratable'>500 TOMI</p>
-                                                        </td>
-                                                    </tr>
-
+                                                    {Users?.map((elem, index) => {
+                                                        return (
+                                                            <tr key={index}>
+                                                                <td>
+                                                                    <div className="set-custom">
+                                                                        <img src={elem?.symbol} alt="img" className='img-fluid' style={{ width: "40px", height: "40px" }} />
+                                                                        <p className='paratable'>{elem?.name}</p>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <p className='paratable'>{elem?.membersCount}</p>
+                                                                </td>
+                                                                <td>
+                                                                    <p className='paratable'>{elem?.totalTokens}</p>
+                                                                </td>
+                                                            </tr>
+                                                        )
+                                                    })}
                                                 </tbody>
                                             </table>
                                         </div>
@@ -508,114 +630,34 @@ const GeneralHome = ({ setShowtask, setroutehome, routeshome }) => {
                                                             <p className='headtable'>Wallet Address</p>
                                                         </th>
                                                         <th>
-                                                            <p className='headtable'>Username</p>
-                                                        </th>
-                                                        <th>
-                                                            <p className='headtable'>TOMI Balance</p>
+                                                            <p className='headtable'>TOMI Points</p>
                                                         </th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
-                                                        <td>
-                                                            <p className='paratable'>Sharjeel</p>
-                                                        </td>
-                                                        <td>
-                                                            <div className="set-custom">
-                                                                <img src="\assets\private-new.png" alt="img" className='img-fluid' />
-                                                                <p className='paratable'>Private</p>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <p className='paratable'>0x2F78....aB0C</p>
-                                                        </td>
-                                                        <td>
-                                                            <p className='paratable'>@sharjeel</p>
-                                                        </td>
-                                                        <td>
-                                                            <p className='paratable'>500 TOMI</p>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <p className='paratable'>Sharjeel</p>
-                                                        </td>
-                                                        <td>
-                                                            <div className="set-custom">
-                                                                <img src="\assets\private-new.png" alt="img" className='img-fluid' />
-                                                                <p className='paratable'>Private</p>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <p className='paratable'>0x2F78....aB0C</p>
-                                                        </td>
-                                                        <td>
-                                                            <p className='paratable'>@sharjeel</p>
-                                                        </td>
-                                                        <td>
-                                                            <p className='paratable'>500 TOMI</p>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <p className='paratable'>Sharjeel</p>
-                                                        </td>
-                                                        <td>
-                                                            <div className="set-custom">
-                                                                <img src="\assets\private-new.png" alt="img" className='img-fluid' />
-                                                                <p className='paratable'>Private</p>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <p className='paratable'>0x2F78....aB0C</p>
-                                                        </td>
-                                                        <td>
-                                                            <p className='paratable'>@sharjeel</p>
-                                                        </td>
-                                                        <td>
-                                                            <p className='paratable'>500 TOMI</p>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <p className='paratable'>Sharjeel</p>
-                                                        </td>
-                                                        <td>
-                                                            <div className="set-custom">
-                                                                <img src="\assets\private-new.png" alt="img" className='img-fluid' />
-                                                                <p className='paratable'>Private</p>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <p className='paratable'>0x2F78....aB0C</p>
-                                                        </td>
-                                                        <td>
-                                                            <p className='paratable'>@sharjeel</p>
-                                                        </td>
-                                                        <td>
-                                                            <p className='paratable'>500 TOMI</p>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <p className='paratable'>Sharjeel</p>
-                                                        </td>
-                                                        <td>
-                                                            <div className="set-custom">
-                                                                <img src="\assets\private-new.png" alt="img" className='img-fluid' />
-                                                                <p className='paratable'>Private</p>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <p className='paratable'>0x2F78....aB0C</p>
-                                                        </td>
-                                                        <td>
-                                                            <p className='paratable'>@sharjeel</p>
-                                                        </td>
-                                                        <td>
-                                                            <p className='paratable'>500 TOMI</p>
-                                                        </td>
-                                                    </tr>
+                                                    {topsoli?.map((elem, index) => {
+                                                        return (
+                                                            <tr key={index}>
+                                                                <td>
+                                                                    <p className='paratable'>{elem?.nickName}</p>
+                                                                </td>
+                                                                <td>
+                                                                    <div className="set-custom">
+                                                                        <img src={elem?.rank?.icon} alt="img" className='img-fluid' />
+                                                                        <p className='paratable'>{elem?.rank?.name}</p>
+                                                                    </div>
+                                                                </td>
+                                                                <td>
+                                                                    <p className='paratable'>{elem?.walletAddress?.slice(0, 12) + "..."}</p>
+                                                                </td>
+                                                                <td>
+                                                                    <p className='paratable'>{elem?.points} Points</p>
+                                                                </td>
+                                                            </tr>
+                                                        )
+                                                    }
+                                                    )
+                                                    }
                                                 </tbody>
                                             </table>
                                             <div className="mobile-responsive-table d-none display-block-in-mobile">
@@ -656,57 +698,9 @@ const GeneralHome = ({ setShowtask, setroutehome, routeshome }) => {
                         <div className="pending-recruit">
                             <div className="row">
                                 <div className="col-xl-6 col-12 p-0 padd-sm">
-                                    <div className="data-box general-tasks-wrappergeneral border-grad1">
-                                        <div className="d-flex justify-content-between align-item-center">
-                                            <h4 className="heading-gen">pending Recruiting  Requests</h4>
-                                            <a href="#" className="btn-view">View All <img src="\generalassets\icons\arrow-right.svg" alt="img" className="img-fluid" /></a>
-                                        </div>
-                                        <Table striped bordered hover responsive className="general-tasks-table display-none-in-mobile">
-                                            <thead>
-                                                <tr>
-                                                    <th>Wallet Address</th>
-                                                    <th>User Name</th>
-                                                    <th>Tomi Tokens</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>0x0F4D...B5D8</td>
-                                                    <td>@sharjeel</td>
-                                                    <td>1,000,000</td>
-                                                </tr>
-
-                                            </tbody>
-                                        </Table>
-                                        <div className="mobile-responsive-table d-none display-block-in-mobile">
-                                            <div className="heading-mobile">
-                                                <p>Wallet Address</p>
-                                            </div>
-                                            <Accordion defaultActiveKey="0">
-                                                <Accordion.Item eventKey="0">
-                                                    <Accordion.Header>0x0F4D...B5D8</Accordion.Header>
-                                                    <Accordion.Body>
-                                                        <div className="inner-fields">
-                                                            <div className="inner-item">
-                                                                <h6>User Name</h6>
-                                                                <p>@sharjeel</p>
-                                                            </div>
-                                                            <div className="inner-item">
-                                                                <h6>Tomi Tokens</h6>
-                                                                <p>1,000,000</p>
-                                                            </div>
-                                                        </div>
-                                                    </Accordion.Body>
-                                                </Accordion.Item>
-
-                                            </Accordion>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="col-xl-6 col-12 pe-0 padd-sm">
                                     <div className="data-box general-tasks-wrappergeneral border-grad1 set-custom-mbl-top-margin">
                                         <div className="d-flex justify-content-between align-item-center">
-                                            <h4 className="heading-gen">pending proof of work approvals</h4>
+                                            <h4 className="heading-gen">tasks pending proof of work approvals</h4>
                                             <a href="#" className="btn-view">View All <img src="\generalassets\icons\arrow-right.svg" alt="img" className="img-fluid" /></a>
                                         </div>
 
@@ -720,42 +714,31 @@ const GeneralHome = ({ setShowtask, setroutehome, routeshome }) => {
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td>sharjeel</td>
-                                                    <td>Like our facebook..</td>
-                                                    <td>
-                                                        <div className="completed">Completed</div>
-                                                    </td>
-                                                    <td>1,000,000</td>
+                                                {tasks?.map((elem, index) => {
+                                                    return (
+                                                        <tr key={index}>
+                                                            <td>{elem?.user?.nickName}</td>
+                                                            <td>{elem?.task?.name?.slice(0, 40) + "..."}</td>
+                                                            <td>
+                                                                <div style={{ maxWidth: '83px', width: '100%' }} className="completed">Completed</div>
+                                                            </td>
+                                                            <td>{elem?.task?.reward}</td>
+                                                            {/* <td>
+                                                                            <div className='completebtn text-end'>
+                                                                                {
+                                                                                    elem?.taskSubmitted ?
+                                                                                        <button style={{ background: '#FEC600' }}>In Process</button>
+                                                                                        : elem?.taskApproval ?
+                                                                                            <button style={{ background: '#04C453' }}>Completed</button>
+                                                                                            :
+                                                                                            <button style={{ background: '#FF8936' }}>Pending</button>
+                                                                                }
+                                                                            </div>
+                                                                        </td> */}
 
-                                                </tr>
-                                                <tr>
-                                                    <td>sharjeel</td>
-                                                    <td>Like our facebook..</td>
-                                                    <td>
-                                                        <div className="pending">Pending</div>
-                                                    </td>
-                                                    <td>1,000,000</td>
-
-                                                </tr>
-                                                <tr>
-                                                    <td>sharjeel</td>
-                                                    <td>Like our facebook..</td>
-                                                    <td>
-                                                        <div className="completed">Completed</div>
-                                                    </td>
-                                                    <td>1,000,000</td>
-
-                                                </tr>
-                                                <tr>
-                                                    <td>sharjeel</td>
-                                                    <td>Like our facebook..</td>
-                                                    <td>
-                                                        <div className="completed">Completed</div>
-                                                    </td>
-                                                    <td>1,000,000</td>
-
-                                                </tr>
+                                                        </tr>
+                                                    )
+                                                })}
                                             </tbody>
                                         </Table>
                                         <div className="mobile-responsive-table d-none display-block-in-mobile">
@@ -782,7 +765,63 @@ const GeneralHome = ({ setShowtask, setroutehome, routeshome }) => {
                                                         </div>
                                                     </Accordion.Body>
                                                 </Accordion.Item>
+                                            </Accordion>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="col-xl-6 col-12 pe-0 padd-sm">
+                                    <div className="data-box general-tasks-wrappergeneral border-grad1 set-custom-mbl-top-margin">
+                                        <div className="d-flex justify-content-between align-item-center">
+                                            <h4 className="heading-gen">Pending rank approvals</h4>
+                                            <a href="#" className="btn-view">View All <img src="\generalassets\icons\arrow-right.svg" alt="img" className="img-fluid" /></a>
+                                        </div>
 
+                                        <Table striped bordered hover responsive className="general-tasks-table display-none-in-mobile">
+                                            <thead>
+                                                <tr>
+                                                    <th>Wallet</th>
+                                                    <th>Nickname</th>
+                                                    <th>From</th>
+                                                    <th>To</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {data2?.map((elem, index) => {
+                                                    return (
+                                                        <tr key={index}>
+                                                            <td>{elem?.walletAddress?.slice(0, 14) + "..."}</td>
+                                                            <td>{elem?.nickName}</td>
+                                                            <td>{elem?.from}</td>
+                                                            <td>{elem?.to}</td>
+                                                        </tr>
+                                                    )
+                                                })}
+                                            </tbody>
+                                        </Table>
+                                        <div className="mobile-responsive-table d-none display-block-in-mobile">
+                                            <div className="heading-mobile">
+                                                <p>User</p>
+                                            </div>
+                                            <Accordion defaultActiveKey="0">
+                                                <Accordion.Item eventKey="0">
+                                                    <Accordion.Header>sharjeel</Accordion.Header>
+                                                    <Accordion.Body>
+                                                        <div className="inner-fields">
+                                                            <div className="inner-item">
+                                                                <h6>Tasks</h6>
+                                                                <p>Like our facebook..</p>
+                                                            </div>
+                                                            <div className="inner-item">
+                                                                <h6>Points</h6>
+                                                                <p>1,000,000</p>
+                                                            </div>
+                                                            <div className="inner-item">
+                                                                <h6>Status</h6>
+                                                                <button className="btn-green">Completed</button>
+                                                            </div>
+                                                        </div>
+                                                    </Accordion.Body>
+                                                </Accordion.Item>
                                             </Accordion>
                                         </div>
                                     </div>

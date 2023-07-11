@@ -8,6 +8,9 @@ import mobileLogo from "../../../assets/icons/mobileLogo.svg";
 import Modal from 'react-bootstrap/Modal';
 
 const GeneralHeader = ({ routes, setroute, routeshome, setroutehome, indexwait, handleShow, routesarmy, setroutearmy, setShowtask, showtask, showannounce, setShowannounce, showfaq, setShowfaq }) => {
+  let user1 = localStorage.getItem("user");
+  user1 = JSON.parse(user1);
+  console.log("sdsadsada",user1)
   return (
     <>
       <div
@@ -27,10 +30,9 @@ const GeneralHeader = ({ routes, setroute, routeshome, setroutehome, indexwait, 
             <>
               {
                 routeshome ?
-
                   <button onClick={() => setroutehome(!routeshome)} className="btn-goback"><img src="\assets\goback.svg" alt="img" className="img-fluid me-2" />Go Back</button> :
                   <div className="soldier-name">
-                    <h4>Welcome major general,</h4>
+                    <h4>Welcome {user1?.rank?.name},</h4>
                     <p>your army awaits your orders</p>
                   </div>
               }
@@ -78,12 +80,12 @@ const GeneralHeader = ({ routes, setroute, routeshome, setroutehome, indexwait, 
               }
             </>
           ) : null}
-          {indexwait === 6 || indexwait === 10 ? (
+          {/* {indexwait === 6 || indexwait === 10 ? (
             <div className="soldier-name">
               <h4>Army Forum</h4>
               <p>Engage with your army</p>
             </div>
-          ) : null}
+          ) : null} */}
           {indexwait === 7 ? (
             <div className="soldier-name">
               <h4>Bugs Report</h4>
@@ -158,7 +160,7 @@ const GeneralHeader = ({ routes, setroute, routeshome, setroutehome, indexwait, 
 
               : ""
           }
-          {
+          {/* {
             indexwait === 6 || indexwait === 10 ?
               <button className="create-squad-btn" data-bs-toggle="modal" data-bs-target="#exampleModall">
                 <img src="\assets\topic-btn.svg" alt="img" className="img-fluid me-2" />
@@ -166,7 +168,7 @@ const GeneralHeader = ({ routes, setroute, routeshome, setroutehome, indexwait, 
               </button>
 
               : ""
-          }
+          } */}
           <button className="toggle-menu-btn" onClick={handleShow}>
             <img src={menuIcon} alt="menuIcon" />
           </button>

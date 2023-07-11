@@ -17,47 +17,46 @@ const AnnouncementModals = ({ showannounce, setShowannounce, getDataannou }) => 
   const SendMessage = (e) => {
     e?.preventDefault();
     if (message !== "") {
-        let tok = localStorage.getItem("accessToken");
-        var data = "null";
-        if (selectedItem?.name) {
-            data = ({
-                message: message,
-                recipients: selectedItem?.name,
-            });
-        } else {
-            data = ({
-                message: message,
-                // recipientRankId: "",
-            });
-        }
-        var config = {
-            method: "post",
-            url: `${API_URL}/notifications/announcements`,
-            headers: {
-                authorization: `Bearer ` + tok
-            },
-            data: data,
-        };
-
-        axios(config)
-            .then(function (response) {
-              getDataannou();
-              handleCloseannounce1();
-              handleShowannounce1();
-                // setLoader(false);
-                toast.success('Message Sent Successfully', {
-                    position: "top-right",
-                    autoClose: 2000,
-                });
-                setMessage("")
-            })
-            .catch(function (error) {
-                // setLoader(false);
-            });
+      let tok = localStorage.getItem("accessToken");
+      var data = "null";
+      if (selectedItem?.name) {
+        data = ({
+          message: message,
+          recipients: selectedItem?.name,
+        });
+      } else {
+        data = ({
+          message: message,
+          // recipientRankId: "",
+        });
+      }
+      var config = {
+        method: "post",
+        url: `${API_URL}/notifications/announcements`,
+        headers: {
+          authorization: `Bearer ` + tok
+        },
+        data: data,
+      };
+      axios(config)
+        .then(function (response) {
+          getDataannou();
+          handleCloseannounce1();
+          handleShowannounce1();
+          // setLoader(false);
+          toast.success('Message Sent Successfully', {
+            position: "top-right",
+            autoClose: 2000,
+          });
+          setMessage("")
+        })
+        .catch(function (error) {
+          // setLoader(false);
+        });
     } else {
-        toast.error("Message can't be empty!")
+      toast.error("Message can't be empty!")
     }
-}
+  }
   const [army, setArmy] = useState([]);
   const [message, setMessage] = useState("")
   const [selectedItem, setSelectedItem] = useState("All Soldiers");

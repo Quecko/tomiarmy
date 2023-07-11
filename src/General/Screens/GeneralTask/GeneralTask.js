@@ -62,11 +62,9 @@ const GeneralTask = ({ setShowtask, setShowtaskdetail, setShowtaskedit, setdetai
                 });
         });
 }
-
   // const detailfunction = (elem) =>{
   //   setdetailtask(elem)
   // }
-
   return (
     <>
       <div className="formobile-heading d-none display-block-in-mobile">

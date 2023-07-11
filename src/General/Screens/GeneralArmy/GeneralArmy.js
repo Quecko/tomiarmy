@@ -27,17 +27,12 @@ const GeneralArmy = ({ routesarmy, setroutearmy }) => {
     const [showapprove, setShowapprove] = useState(false);
     const handleCloseapprove = () => setShowapprove(false);
     const handleShowapprove = () => setShowapprove(true);
-
     const [showreject, setShowreject] = useState(false);
     const handleClosereject = () => setShowreject(false);
-
     const handleShowreject = () => setShowreject(true);
-
     const [data2, setData2] = useState([]);
     const { account } = useWeb3React();
 
-
-    
     const GeneralApproval = async (off) => {
         // let valu = null;
         // if (off) {
@@ -228,7 +223,7 @@ const GeneralArmy = ({ routesarmy, setroutearmy }) => {
 
                                                                                                     <Dropdown.Menu>
                                                                                                         <Dropdown.Item href="#/action-1">
-                                                                                                            <p onClick={() =>handleShow(elem)} ><img src='\generalassets\icons\promote.svg' alt='img' className='img-fluid' />Promote</p>
+                                                                                                            <p onClick={() => handleShow(elem)} ><img src='\generalassets\icons\promote.svg' alt='img' className='img-fluid' />Promote</p>
                                                                                                             <p onClick={() => { setroutearmy(!routesarmy) }}><img src='\generalassets\icons\detail.svg' alt='img' className='img-fluid' />Details</p>
                                                                                                         </Dropdown.Item>
                                                                                                     </Dropdown.Menu>
@@ -328,7 +323,7 @@ const GeneralArmy = ({ routesarmy, setroutearmy }) => {
                                     </div>
                                 </div>
                                 <div className="btnss">
-                                    <button onClick={() => RejectAccept(data3, "reject")}  className="redbtn"><img src="\generalassets\other-imgs\Subtract.svg" alt="crossimg" className="crossimg" /> Reject</button>
+                                    <button onClick={() => RejectAccept(data3, "reject")} className="redbtn"><img src="\generalassets\other-imgs\Subtract.svg" alt="crossimg" className="crossimg" /> Reject</button>
                                     <button onClick={() => RejectAccept(data3, "approve")} className="greenbtn"><img src="\generalassets\other-imgs\checkmark.svg" alt="crossimg" className="crossimg" /> Promote</button>
                                 </div>
                             </Modal.Body>

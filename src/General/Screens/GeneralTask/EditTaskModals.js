@@ -340,7 +340,6 @@ const EditTaskModals = ({ showtaskdetail, setShowtaskdetail, showtaskedit, setSh
                     </>
                   )
                 }
-
                 <input type="file" className="d-none" onChange={(e) => setProfile(e)} id="uploadfile" />
               </div>
             </div>
