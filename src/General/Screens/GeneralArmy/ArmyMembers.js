@@ -62,13 +62,10 @@ const ArmyMembers = ({ routesarmy, setroutearmy }) => {
             };
             axios(config)
                 .then(function (response) {
-                    // console.log("response for army members", response)
                     // setLoader(false);
                     // setCount(response.data.data.count)
                     setData(response?.data?.data?.users);
-                    // console.log("opopopop", response.data.data.pages)
                     // let arr = Array.from(Array(parseInt(response.data.data.pages)).keys());
-                    // console.log("opopopop", arr)
                     // setPages(arr);
                     // setCurrentPage(valu)
                 })
@@ -102,7 +99,6 @@ const ArmyMembers = ({ routesarmy, setroutearmy }) => {
         };
         axios(config)
             .then(function (response) {
-                console.log("sfsdfsdfsdfds", response)
                 // setLoader(false);
                 setArmymajor(response?.data?.data);
             })

@@ -293,7 +293,6 @@ const ExpiredOperation = ({ setroute, routes, tasks }) => {
 
                                             {tasks?.length > 0 && tasks?.map((elem, index) => {
                                                 const ExpireDate = moment(elem?.expirationDate).format("DD-MM-YYYY");
-                                                //  console.log("sdfsdfsdfds", elem?.tasksList)
                                                 return (
                                                     <tr key={index} onClick={() => getdata(elem)}>
                                                         <td>

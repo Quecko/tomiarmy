@@ -23,7 +23,6 @@ const UserProposalInteraction = () => {
         //   let a = [calldatas]
         //   let a= parseInt(calldatas)
         //   calldatas=[parseInt(calldatas)]
-        //   console.log('detailed' , a)
             // let convertedvalue =[web3.utils.toWei(values.toString(), "ether")]
             try {
                 // let gasPrice = await web3.eth.getGasPrice();

@@ -16,9 +16,6 @@ const BugReport = () => {
         issue: '',
         description: '',
     })
-
-    console.log('reportBug', reportBug);
-
     const [imageUrl, setImageUrl] = useState(null)
 
     const handleChange = (event) => {
@@ -169,7 +166,6 @@ const BugReport = () => {
                                         </thead>
                                         <tbody>
                                             {reportBug?.bugReports?.map((elem, index) => {
-                                                console.log('elem', elem);
                                                 let createdate = new Date(elem?.createdAt);
                                                 const createDate = moment(createdate).format("DD-MM-YYYY");
                                                 return (

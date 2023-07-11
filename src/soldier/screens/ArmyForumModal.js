@@ -39,7 +39,6 @@ const ArmyForumModal = ({ showForumModal, setShowForumModal, setforumkdetail1, f
           }
         }
       ).then((response) => {
-        // console.log(response)
         setLoader(false);
         toast.success("Post Added Successfully");
         GetPosts();

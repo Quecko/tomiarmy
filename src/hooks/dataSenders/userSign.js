@@ -22,7 +22,7 @@ export const Signature = (data) => {
   if (connectorId === 'injected' && account) {
     library = getLibraryForSign(web3?.givenProvider);
   } else {
-    // return console.log("connectorsByName", connectorsByName['walletconnect'])
+    // return
     if (connectorsByName['walletconnect'].walletConnectProvider) {
       library = getLibraryForSign(connectorsByName['walletconnect'].walletConnectProvider);
     }
@@ -34,12 +34,10 @@ export const Signature = (data) => {
   // }, [account, web3, connectorsByName])
 
   const sign = useCallback(async (accountData) => {
-    console.log("account here is for", accountData)
     if ((library && account)) {
       try {
         if (account) {
           const connectorId = window.localStorage.getItem("connectorId")
-          // console.log("sdfdfsdfdsf", connectorId);
           if (connectorId === 'injected') {
             library = getLibraryForSign(web3?.givenProvider);
           } else {

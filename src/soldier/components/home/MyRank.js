@@ -9,16 +9,13 @@ import axios from "axios";
 
 const MyRank = ({ props }) => {
   const [army, setArmy] = useState([]);
-  console.log("profileee", props)
   const GetNextRank = () => {
     if (props) {
       let dumObj = null;
       dumObj = army.findIndex((i) => {
-        console.log("rrrii", i)
         return i.name === props?.rank?.name;
       })
       dumObj = army[dumObj + 1];
-      console.log("dum", dumObj)
       return <>
         <div className="private-rank sergeant">
           <img src={dumObj?.icon} alt="earned" style={{ width: "60px", height: "60px" }} />

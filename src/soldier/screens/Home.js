@@ -15,15 +15,11 @@ import axios from "axios";
 const Home = ({setShow2}) => {
   const datacommander = localStorage.getItem('user')
   const [squaddetail, setsquaddetail] = useState()
-  console.log('squaddetail',squaddetail);
   const { account } = useWeb3React();
   const commander = JSON.parse(datacommander)
-  console.log("userrr",squaddetail, account)
-
   const GetUserProfiledata = () => {
     // setLoader(true);
     let tok = localStorage.getItem("accessToken");
-    // console.log("token", tok)
     if (account) {
       var config = {
         method: "get",
@@ -34,7 +30,6 @@ const Home = ({setShow2}) => {
       };
       axios(config)
         .then(async (response) => {
-          // console.log("resProfile",response)
           // setLoader(false);
           setsquaddetail(response.data.data)
           // setcoms(response?.data?.data?.squad?.commander)

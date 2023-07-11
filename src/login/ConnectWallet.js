@@ -21,7 +21,6 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role, setinvitecode, invitecod
     const { account } = useWeb3React();
     const { userSign } = Signature();
     const [log, setLog] = useState(false)
-    console.log("value",account)
     const history = useHistory();
     const { login, logout } = useAuth();
     const trustWallet = async () => {
@@ -59,7 +58,6 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role, setinvitecode, invitecod
     };
 
     const loginUser = async () => {
-        // console.log("values get here is",account)
         // let tok = localStorage.getItem("accessToken");
         // let wall = localStorage.getItem("wallet");
         // setShow(false);
@@ -73,7 +71,6 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role, setinvitecode, invitecod
                         rememberMe: true
                     })
                     .then((res) => {
-                        console.log(res, "response for already member")
                         toast.success('User Logged in Successfully', {
                             position: 'top-center',
                             autoClose: 5000,
@@ -107,7 +104,6 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role, setinvitecode, invitecod
                             });
                             localStorage.removeItem("connectorId");
                             localStorage.removeItem("flag");
-                            // console.log("logout", err)
                             // setShow(false);
                             localStorage.removeItem("accessToken");
                             localStorage.removeItem("user");
@@ -116,7 +112,6 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role, setinvitecode, invitecod
                         }
                         localStorage.removeItem("connectorId");
                         localStorage.removeItem("flag");
-                        // console.log("does not work")
                     });
             }
             else if (account && res0 && role === 'squadjoin') {
@@ -170,7 +165,6 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role, setinvitecode, invitecod
                             });
                             localStorage.removeItem("connectorId");
                             localStorage.removeItem("flag");
-                            // console.log("logout", err)
                             // setShow(false);
                             // localStorage.removeItem("accessToken");
                             // localStorage.removeItem("user");
@@ -185,7 +179,6 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role, setinvitecode, invitecod
                         }
                         localStorage.removeItem("connectorId");
                         localStorage.removeItem("flag");
-                        // console.log("does not work")
                     });
             }
         }
@@ -203,12 +196,10 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role, setinvitecode, invitecod
         //         setCall(true);
         //     }
         //     if (user1?.rank === "general" || user1?.rank === "major general") {
-        //         console.log("major00000")
         //         history.push("/general");
         //         getData();
         //         GetArmy();
         //     } else if (user1?.rank === "squad member") {
-        //         console.log("major44444")
         //         history.push("/squad");
         //         GetTaskss();
         //         GetUserProfiledata();
@@ -223,7 +214,6 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role, setinvitecode, invitecod
     useEffect(() => {
         if (account && log) {
             setLog(false)
-            // console.log("asjasdaskjaskjdha",account)
             loginUser();
         }
     }, [account, log])

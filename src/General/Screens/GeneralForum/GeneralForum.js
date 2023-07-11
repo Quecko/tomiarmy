@@ -60,7 +60,6 @@ const GeneralForum = () => {
           }
         }
       ).then((response) => {
-        // console.log(response)
         setLoader(false);
         toast.success("Post Added Successfully");
         GetPosts();
@@ -113,9 +112,6 @@ const GeneralForum = () => {
         console.log(error);
       });
   }
-
-
-  console.log('my post', post);
 
   const commentnull = () => {
     setcomment('')
@@ -178,7 +174,6 @@ const GeneralForum = () => {
       });
   }
 
-  console.log('detailsingle',detailsingle);
 
   // useEffect(() => {
   //   if (limit > 1) {
@@ -196,7 +191,6 @@ const GeneralForum = () => {
     } else {
       ido = commentid;
     }
-    // console.log("main id commebnts",id)
     let tok = localStorage.getItem("accessToken");
     var config = {
       method: "get",
@@ -231,8 +225,6 @@ const GeneralForum = () => {
       setCurrent(index);
     }
   }
-
-  console.log('current', current);
 
   useEffect(() => {
     gettopusers()
@@ -299,14 +291,12 @@ const GeneralForum = () => {
   }
 
   const detailmodalopen = (iddd) => {
-    console.log('iddd',iddd);
     setdetail(iddd)
     getSingleDetail(iddd)
     setShowForumEditModal(true)
   }
 
   const getSingleDetail = async (detailid) => {
-    // console.log("abdullah======================")
     let tok = localStorage.getItem("accessToken");
     axios
       .get(
@@ -507,7 +497,6 @@ const GeneralForum = () => {
                         )
                       })} */}
                       {topuser?.map((elem) => {
-                        console.log('elem', elem);
                         return (
                           <div className="inner-item">
                             <h6>{elem?._id?.name}</h6>

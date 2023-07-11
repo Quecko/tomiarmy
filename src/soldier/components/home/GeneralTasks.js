@@ -89,7 +89,6 @@ const GeneralTasks = () => {
             const ExpireDate = moment(expiredate).format("DD-MM-YYYY");
             let createdate = new Date(elem?.createdAt);
             const createDate = moment(createdate).format("DD-MM-YYYY");
-            console.log('task', tasks);
             return (
               <tr>
                 <td>{elem?.name}</td>

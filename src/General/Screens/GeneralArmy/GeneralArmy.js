@@ -57,13 +57,10 @@ const GeneralArmy = ({ routesarmy, setroutearmy }) => {
             };
             axios(config)
                 .then(function (response) {
-                    // console.log("response for awaiting approval", response)
                     // setLoader(false);
                     // setCount2(response.data.data.count)
                     setData2(response?.data?.data?.pendingRanksUpdate);
-                    // console.log("opopopop", response.data.data.pages)
                     // let arr = Array.from(Array(parseInt(response.data.data.pages)).keys());
-                    // // console.log("opopopop", arr)
                     // setPages2(arr);
                     // setCurrentPage2(valu)
                 })

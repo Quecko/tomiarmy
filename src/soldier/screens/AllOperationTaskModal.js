@@ -61,7 +61,6 @@ const AllOperationTaskModal = ({ showtask1, setShowtask1, settaskdetail1, taskde
             var t = powUrl;
             var m = '';
             if (t === undefined) {
-                console.log('empty')
             }
             else if (t.match(regex)) {
                 m = powUrl;

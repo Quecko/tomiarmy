@@ -77,8 +77,7 @@ const Announcements = () => {
     // //  const socket = io("http://10.10.10.115:8094")
     // let tok = localStorage.getItem("accessToken");
     // socket.on("connect", () => {
-    //   // console.log('socket connected++++++++++++++++++++++++++', socket.connected);  
-    //   // console.log(tok)           
+    //   // console.log('socket connected++++++++++++++++++++++++++', socket.connected);          
     //   socket.emit("authentication", {
     //     token: tok,
     //   });

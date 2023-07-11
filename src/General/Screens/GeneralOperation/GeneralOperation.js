@@ -280,7 +280,6 @@ const GeneralOperation = ({ setroute, routes, setsvaebutton, svaebutton }) => {
                                                                 <tbody>
                                                                     {tasks?.map((elem, index) => {
                                                                              const ExpireDate = moment(elem?.expirationDate).format("DD-MM-YYYY");
-                                                                            //  console.log("sdfsdfsdfds", elem?.tasksList)
                                                                         return (
                                                                             <tr key={index}>
                                                                                 <td>

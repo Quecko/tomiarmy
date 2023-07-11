@@ -18,7 +18,6 @@ const HomeOperations = () => {
   const [show, setShow] = useState(false);
   const [users, setUsers] = useState([]);
   const [topSquad, setTopSquad] = useState([]);
-  console.log("data", topSquad)
   const [commander, setCommander] = useState();
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -30,7 +29,6 @@ const HomeOperations = () => {
 
   const GetUserTopSquad = () => {
     // setLoader(true);
-    console.log("token", tok)
     var config = {
       method: "get",
       url: `${API_URL}/tasks/squads?offset=1&limit=10`,
@@ -40,7 +38,6 @@ const HomeOperations = () => {
     };
     axios(config)
       .then(async (response) => {
-        // console.log("resProfile",response)
         // setLoader(false);
         setTopSquad(response.data.data.squad)
         // setcoms(response?.data?.data?.squad?.commander)
@@ -101,7 +98,6 @@ const HomeOperations = () => {
       .then(function (response) {
         // setLoader(false);
         setCommander(response?.data?.data?.commanderWalletAddress)
-        // console.log("data11", response)
         setUsers(response?.data?.data?.users);
         // let arr = Array.from(Array(parseInt(response.data.data.pages)).keys());
         // setPages(arr);
@@ -171,7 +167,6 @@ const HomeOperations = () => {
   }
 
   const SubmitProofOfWork =(elem)=>{
-    console.log('elem',elem)
     // setOperationId(tasks)
     // setShowtask1(true)
     // settaskdetail1(elem)

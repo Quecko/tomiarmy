@@ -22,8 +22,6 @@ const LeaderModals = ({ show4, setShow4, show5, setShow5, show6, setShow6,item }
 
     const [squadMembers, setSquadMembers] = useState([]);
 
-    console.log('squadMembers', squadMembers);
-
     const getData = async () => {
 
         let tok = localStorage.getItem("accessToken");
@@ -55,7 +53,6 @@ const LeaderModals = ({ show4, setShow4, show5, setShow5, show6, setShow6,item }
     }, [account])
 
     const addCoLeader = (item) => {
-        console.log('id', item?._id);
         // setShow2(true)
         let tok = localStorage.getItem("accessToken");
         if (account) {

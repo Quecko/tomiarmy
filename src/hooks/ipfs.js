@@ -18,17 +18,12 @@ const client = create({
 //     const url = `https://ipfs.infura.io/ipfs/${added.path}`;
 //     return url;
 //   } catch (error) {
-//     console.log("Error uploading file: ", error);
 //   }
 // };
 export const IpfsStorage = async (file) => {
   try {
-    console.log('file::::' , file)
     let converted = dataURLtoFile(file , "something.png")
-    console.log('converted::::' , converted)
     const addImage = await client.add(converted, {pin : true});
-    console.log('waleed qureshi:::::' , addImage)
-
     // const imageUrl = `ipfs://${addImage.path}`;
     const imageUrl = `https://ipfs.io/ipfs/${addImage.path}`;
     // const imageUrl = `https://ipfs.infura.io/ipfs/${addImage.path}`;

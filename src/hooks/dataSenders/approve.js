@@ -11,7 +11,6 @@ const AmountApprove = () => {
         async (account) => {
             // let nd = 1000000000000000000000;
             // nd = web3.utils.toWei(nd.toString(), "ether");
-            // console.log("nddddd",nd)
             try {
                 const details = await contract.methods
                     .approve(environment.DoaContract, '1000000000000000000000')
