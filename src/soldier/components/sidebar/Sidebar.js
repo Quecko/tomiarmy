@@ -283,7 +283,36 @@ const Sidebar = () => {
         });
     }
   }
+  const [notifs, setNotifs] = useState([]);
+  const [rend, setRend] = useState(false);
+  const getNotif = (soc) => {
+    let tok = localStorage.getItem("accessToken");
+    setNotifs([]);
+    // if (account || soc) {
+      var config = {
+        method: "get",
+        url: `${API_URL}/notifications/user-notifications?offset=1&&limit=100000`,
+        headers: {
+          authorization: `Bearer ` + tok
+        },
+      };
+      axios(config)
+        .then(function (response) {
+          setNotifs(response?.data?.data.userNotifications);
+          setRend(!rend);
+        })
+        .catch(function (error) {
+          console.log(error);
+          // localStorage.removeItem("accessToken");
+          // localStorage.removeItem("user");
+          // window.location.assign("/")
+        });
+    // }
+  }
 
+  useEffect(()=>{
+    getNotif()
+  },[account])
   useEffect(() => {
     getData()
   }, [account, expireds])
@@ -710,7 +739,7 @@ const Sidebar = () => {
             </div>
           </div>
           <div className="content-column">
-            <Header handleShow={handleShow} indexwait={indexwait} routes={routes} setroute={setroute} show1={show1} setShow1={setShow1} show2={show2} setShow2={setShow2} setShow4={setShow4} setShow5={setShow5} />
+            <Header handleShow={handleShow} indexwait={indexwait} routes={routes} setroute={setroute} show1={show1} setShow1={setShow1} show2={show2} setShow2={setShow2} setShow4={setShow4} setShow5={setShow5} notifs={notifs}/>
             {indexwait === 0 ?
               (
                 <>
