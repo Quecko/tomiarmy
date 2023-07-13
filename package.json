@@ -26,6 +26,7 @@
     "ethers": "^5.7.2",
     "get-orientation": "^1.1.2",
     "html-to-image": "^1.11.1",
+    "rsuite": "^5.35.1",
     "idb": "^7.1.1",
     "ipfs": "^0.64.2",
     "ipfs-http-client": "^56.0.3",

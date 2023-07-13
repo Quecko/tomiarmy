@@ -10,13 +10,15 @@ import Loader from '../../../hooks/loader';
 import Modal from 'react-bootstrap/Modal';
 import { Accordion, Dropdown, Pagination, Tab, Table, Tabs } from 'react-bootstrap'
 import dosts from "../../../assets/icons/dots.svg";
-const CreateOperation = ({ svaebutton, routes, setroute }) => {
+const CreateOperation = ({ svaebutton, setexpired, tasks, operationdata, routes, setoperationdata, setroute }) => {
     const [show, setShow] = useState(false);
     const handleClose = () => {
         setEditableTask(null)
         setShow(false)
     };
     const handleShow = () => setShow(true);
+
+    console.log(' operationdata', operationdata);
 
     const [showtask, setShowtask] = useState(false);
     const handleClosetask = () => setShowtask(false);
@@ -28,10 +30,10 @@ const CreateOperation = ({ svaebutton, routes, setroute }) => {
     const [profileP, setProfileP] = useState();
 
     const [allFormData, setAllFormData] = useState({
-        name: '',
-        reward: '',
-        tomitoken: '',
-        description: '',
+        name: operationdata?.name,
+        reward: operationdata?.reward,
+        tomitoken: operationdata?.tomiToken,
+        description: operationdata?.description,
     })
 
     const handleChange = (event) => {
@@ -76,9 +78,9 @@ const CreateOperation = ({ svaebutton, routes, setroute }) => {
     };
 
     const [editableTask, setEditableTask] = useState(null);
-    const [subtask, setsubtask] = useState([])
+    const [subtask, setsubtask] = useState(operationdata?.tasksList ? operationdata?.tasksList : [])
     const createsub = () => {
-        setsubtask([...subtask, {...specification }])
+        setsubtask([...subtask, { ...specification }])
         setShow(false)
 
     }
@@ -128,8 +130,8 @@ const CreateOperation = ({ svaebutton, routes, setroute }) => {
             if (allFormData?.reward != '') {
                 if (allFormData?.description != '') {
                     if (startDate) {
-                        if(profileP){
-                            if(allFormData?.tomitoken != ''){
+                        if (profileP) {
+                            if (allFormData?.tomitoken != '') {
                                 var config = {
                                     method: "post",
                                     url: `${API_URL}/tasks/operations`,
@@ -171,25 +173,25 @@ const CreateOperation = ({ svaebutton, routes, setroute }) => {
                                         }
                                     });
                             }
-                            else{
+                            else {
                                 toast.error('Please Write TomiToken', {
                                     position: "top-right",
                                     autoClose: 2000,
                                 });
                             }
                         }
-                        else{
+                        else {
                             toast.error('Please Select Operation Image', {
                                 position: "top-right",
                                 autoClose: 2000,
-                            }); 
+                            });
                         }
                     }
-                    else{
+                    else {
                         toast.error('Please Select Expiration Date', {
                             position: "top-right",
                             autoClose: 2000,
-                        }); 
+                        });
                     }
                 }
                 else {
@@ -214,15 +216,52 @@ const CreateOperation = ({ svaebutton, routes, setroute }) => {
         }
     }
 
+    const backgo = () => {
+        setexpired(false)
+        setoperationdata('')
+        setroute(!routes)
+    }
+    var tasklentthfind = tasks.length
 
     return (
         <>
             <div className='alkdaskdasdasd'>
-                <button className="btn-goback"><img src="\assets\goback.svg" alt="img" className="img-fluid me-2" />Go Back</button>
-                <button onClick={Createoperation} className={subtask.lenght > 0 ? "savechange-btn disabled display-none-in-mobile" : "savechange-btn disabled display-none-in-mobile"} >
-                    <img src="\generalassets\icons\save-change.svg" alt="img" className="img-fluid me-1" />
-                    <span> Save Changes</span>
-                </button>
+                <button className="btn-goback" onClick={() => backgo()}><img src="\assets\goback.svg" alt="img" className="img-fluid me-2" />Go Back</button>
+                {operationdata == '' && tasklentthfind > 0 ?
+                    (
+                        <button  className={subtask.lenght > 0 ? "savechange-btn disabled display-none-in-mobile" : "savechange-btn disabled display-none-in-mobile"} >
+                            <img src="\generalassets\icons\save-change.svg" alt="img" className="img-fluid me-1" />
+                            <span>Create Operation</span>
+                        </button>
+                    )
+                    :
+                    operationdata == '' && tasklentthfind <= 0 ?
+                    (
+                        <button onClick={Createoperation} className={subtask.lenght > 0 ? "savechange-btn disabled display-none-in-mobile" : "savechange-btn "} >
+                            <img src="\generalassets\icons\save-change.svg" alt="img" className="img-fluid me-1" />
+                            <span>Create Operation</span>
+                        </button>
+                    )
+                    :
+                    operationdata !== '' && tasklentthfind > 0 ?
+                    (
+                        <button  className={subtask.lenght > 0 ? "savechange-btn disabled display-none-in-mobile" : "savechange-btn disabled display-none-in-mobile"} >
+                            <img src="\generalassets\icons\save-change.svg" alt="img" className="img-fluid me-1" />
+                            <span>Save Changes</span>
+                        </button>
+                    )
+                    :
+                    operationdata !== '' && tasklentthfind <= 0 ?
+                    (
+                        <button onClick={Createoperation} className={subtask.lenght > 0 ? "savechange-btn disabled display-none-in-mobile" : "savechange-btn "} >
+                            <img src="\generalassets\icons\save-change.svg" alt="img" className="img-fluid me-1" />
+                            <span>Save Changes</span>
+                        </button>
+                    )
+                    :
+                    ""
+                }
+
             </div>
             <section className="create-operation border-grad1">
                 <div className="row">
@@ -261,25 +300,59 @@ const CreateOperation = ({ svaebutton, routes, setroute }) => {
                             <div className="upload-field">
                                 <p>Upload NFT</p>
                                 <div className="upload">
-                                    {
-                                        profilePicture ? <label htmlFor="upload" className="w-100 h-100">
-                                            {" "}
-                                            <img
-                                                src={profilePicture ? URL?.createObjectURL(profilePicture) : ""}
-                                                alt="img"
-                                                className="img-fluid setimg-p"
-                                            />
-                                        </label> : <label htmlFor="upload">
-                                            {" "}
-                                            <img
-                                                src="\generalassets\icons\upload-icon.svg"
-                                                alt="img"
-                                                className="img-fluid"
-                                            />
-                                            <h6><label htmlFor="upload">browse</label></h6>
-                                            <p className="text">Supports: JPG, JPEG, PNG</p>
-                                        </label>
+                                    {profilePicture ?
+                                        (
+                                            <>
+                                                {
+                                                    profilePicture ? <label htmlFor="upload" className="w-100 h-100">
+                                                        {" "}
+                                                        <img
+                                                            src={profilePicture ? URL?.createObjectURL(profilePicture) : ""}
+                                                            alt="img"
+                                                            className="img-fluid setimg-p"
+                                                        />
+                                                    </label> : <label htmlFor="upload">
+                                                        {" "}
+                                                        <img
+                                                            src="\generalassets\icons\upload-icon.svg"
+                                                            alt="img"
+                                                            className="img-fluid"
+                                                        />
+                                                        <h6><label htmlFor="upload">browse</label></h6>
+                                                        <p className="text">Supports: JPG, JPEG, PNG</p>
+                                                    </label>
+                                                }
+                                            </>
+                                        )
+                                        :
+                                        (
+                                            <>
+                                                {
+                                                    operationdata?.imageUrl ? <label htmlFor="upload" className="w-100 h-100">
+                                                        {" "}
+                                                        <img
+                                                            src={operationdata?.imageUrl ? operationdata?.imageUrl : ""}
+                                                            alt="img"
+                                                            className="img-fluid setimg-p"
+                                                        />
+                                                    </label> : <label htmlFor="upload">
+                                                        {" "}
+                                                        <img
+                                                            src="\generalassets\icons\upload-icon.svg"
+                                                            alt="img"
+                                                            className="img-fluid"
+                                                        />
+                                                        <h6><label htmlFor="upload">browse</label></h6>
+                                                        <p className="text">Supports: JPG, JPEG, PNG</p>
+                                                    </label>
+                                                }
+                                            </>
+                                        )
                                     }
+
+                                    {/* <img src="\generalassets\icons\upload-icon.svg" alt="img" className="img-fluid" />
+                <h6><label >browse</label></h6>
+                <p>Supports: JPG, JPEG, PNG</p> */}
                                     <input type="file" accept="image/png, image/jpeg, image/jpg" className="d-none" onChange={(e) => setProfilePic(e)} id="upload" />
                                 </div>
                             </div>

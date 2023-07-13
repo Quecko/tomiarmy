@@ -8,7 +8,7 @@ const ArmyGrowthGraph = () => {
           
         series: [{
             name: "Total Tasks",
-            data: [10, 41, 35, 51, 49, 62, 69, 91, 148]
+            data: [10,20]
         }],
         options: {
           chart: {
@@ -40,7 +40,7 @@ const ArmyGrowthGraph = () => {
             },
           },
           xaxis: {
-            categories: ['10AM', '11Am', '12Am', '01AM', '02AM', '03AM', '04AM', '05AM', '06AM'],
+            categories: ['10AM','12AM'],
             axisBorder: {
                 show: false,
                 color: '#78909C',

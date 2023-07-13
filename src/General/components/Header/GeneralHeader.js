@@ -48,7 +48,7 @@ const GeneralHeader = ({ routes, setroute, routeshome, setroutehome, indexwait, 
             <>
               {
                 routes ?
-                  <button onClick={() => setroute(!routes)} className="btn-goback"><img src="\assets\goback.svg" alt="img" className="img-fluid me-2" />Go Back</button> :
+                  "":
                   <div className="soldier-name">
                     <h4>Operations</h4>
                     <p>VIEW AND complete operations</p>
@@ -131,12 +131,9 @@ const GeneralHeader = ({ routes, setroute, routeshome, setroutehome, indexwait, 
             indexwait === 2 ?
               <>
                 {
-                  !routes ? <button onClick={() => { setroute(!routes); }} className="create-squad-btn display-none-in-mobile" >
+                  !routes && <button onClick={() => { setroute(!routes); }} className="create-squad-btn display-none-in-mobile" >
                     <img src="\assets\add-task.svg" alt="img" className="img-fluid me-1" />
                     <span> Create Operation</span>
-                  </button> : <button className="savechange-btn disabled display-none-in-mobile" >
-                    <img src="\generalassets\icons\save-change.svg" alt="img" className="img-fluid me-1" />
-                    <span> Save Changes</span>
                   </button>
                 }
               </>

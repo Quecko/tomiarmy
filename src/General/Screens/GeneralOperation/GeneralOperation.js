@@ -21,6 +21,7 @@ import moment from "moment";
 const GeneralOperation = ({ setroute, routes, setsvaebutton, svaebutton }) => {
 
     const [expired, setexpired] = useState(false);
+    const [operationdata, setoperationdata] = useState('');
     const { account } = useWeb3React();
     const [tasks, settasks] = useState([]);
 
@@ -49,6 +50,7 @@ const GeneralOperation = ({ setroute, routes, setsvaebutton, svaebutton }) => {
         //     valu = 1;
         // }
         let tok = localStorage.getItem("accessToken");
+        settasks([]);
         // let wall = localStorage.getItem("wallet");
         if (account) {
             var config = {
@@ -60,6 +62,7 @@ const GeneralOperation = ({ setroute, routes, setsvaebutton, svaebutton }) => {
             };
             axios(config)
                 .then(function (response) {
+
                     // setLoader(false);
                     // setCount(response.data.data.count)
                     settasks(response?.data?.data?.operation);
@@ -82,30 +85,33 @@ const GeneralOperation = ({ setroute, routes, setsvaebutton, svaebutton }) => {
         return result
     }
 
+    const operationedit = (elem)=>{
+        console.log("sdfsdfdsfdsfsdf")
+        setoperationdata(elem)
+        setroute(!routes)
+    }
+    const createoperationpage = () =>{
+        setoperationdata('')
+        setroute(!routes)
+    }
+
     return (
         <>
             {
-                !routes ? <div className="formobile-heading d-none display-block-in-mobile">
+                !routes && <div className="formobile-heading d-none display-block-in-mobile">
                     <div className="inner-heading">
                         <h6>Operations</h6>
                         <p>VIEW AND CREATE operations FOR YOUR ARMY</p>
                     </div>
-                    <button onClick={() => { setroute(!routes) }} className="create-btn" >
+                    <button onClick={() => createoperationpage()} className="create-btn" >
                         <img src="\assets\add-task.svg" alt="img" className="img-fluid me-2" />
                         Create Operation
                     </button>
-                </div> :
-                    <>
-                        <button onClick={() => setroute(!routes)} className="btn-goback goback-btn-mbl-block d-none"><img src="\assets\goback.svg" alt="img" className="img-fluid me-2" /><span>Go Back</span></button>
-                        <button className="savechange-btn savechange-btn-mbl disabled w-100 justify-content-center mb-4 mt-2 d-none" >
-                            <img src="\generalassets\icons\save-change.svg" alt="img" className="img-fluid me-1" />
-                            <span> Save Changes</span>
-                        </button>
-                    </>
+                </div>
             }
             {
 
-                routes ? <><CreateOperation setroute={setroute} routes={routes} /></> :
+                routes ? <><CreateOperation tasks={tasks} setexpired={setexpired} operationdata={operationdata} setoperationdata={setoperationdata} setroute={setroute} routes={routes} /></> :
                     <section className='main-task'>
                         <div className='container-fluid padd-sm p-0'>
                             <div className='row'>
@@ -308,8 +314,8 @@ const GeneralOperation = ({ setroute, routes, setsvaebutton, svaebutton }) => {
                                                                                             </Dropdown.Toggle>
                                                                                             <Dropdown.Menu>
                                                                                                 <Dropdown.Item href="#/action-1">
-                                                                                                    <p><img src='\generalassets\icons\detail.svg' alt='img' className='img-fluid' />Details</p>
-                                                                                                    <p><img src='\generalassets\icons\edit.svg' alt='img' className='img-fluid' />Edit</p>
+                                                                                                    {/* <p><img src='\generalassets\icons\detail.svg' alt='img' className='img-fluid' />Details</p> */}
+                                                                                                    <p onClick={() =>operationedit(elem)}><img src='\generalassets\icons\edit.svg' alt='img' className='img-fluid' />Edit</p>
                                                                                                     <p><img src='\generalassets\icons\trash.svg' alt='img' className='img-fluid' />Delete</p>
                                                                                                 </Dropdown.Item>
                                                                                             </Dropdown.Menu>

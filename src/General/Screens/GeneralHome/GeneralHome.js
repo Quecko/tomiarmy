@@ -6,6 +6,7 @@ import dosts from "../../../assets/icons/dots.svg";
 import submitIcon from "../../../assets/icons/submitIcon.svg";
 import { Calendar } from "react-multi-date-picker"
 import CreateOperation from "../GeneralOperation/CreateOperation";
+import DateRangePicker from 'rsuite/DateRangePicker';
 import { Modal } from 'react-bootstrap';
 import "react-toastify/dist/ReactToastify.css";
 import { API_URL } from '../../../utils/ApiUrl';
@@ -14,6 +15,7 @@ import { useWeb3React } from "@web3-react/core";
 import axios from 'axios';
 import Web3 from 'web3';
 import ArmyGrowthGraph from "./ArmyGrowthGraph";
+import moment from "moment";
 
 
 const GeneralHome = ({ setShowtask, setroutehome, routeshome }) => {
@@ -319,17 +321,126 @@ const GeneralHome = ({ setShowtask, setroutehome, routeshome }) => {
         }
     }
 
+    const graphchat = async (off) => {
+        // let valu = null;
+        // if (off) {
+        //     valu = off;
+        // } else {
+        //     valu = 1;
+        // }
+        let tok = localStorage.getItem("accessToken");
+        let wall = localStorage.getItem("wallet");
+        if (account) {
+            var config = {
+                method: "get",
+                url: `${API_URL}/tasks/work-proofs?offset=1&&limit=10`,
+                headers: {
+                    authorization: `Bearer ` + tok
+                },
+            };
+            axios(config)
+                .then(function (response) {
+                    // setLoader(false);
+                    // setCount(response.data.data.count)
+                    settasks(response?.data?.data?.workProof);
+                    // let arr = Array.from(Array(parseInt(response.data.data.pages)).keys());
+                    // setPages(arr);
+                    // setCurrentPage(valu)
+                })
+                .catch(function (error) {
+                    // setLoader(false);
+                    // localStorage.removeItem("accessToken");
+                    // localStorage.removeItem("user");
+                    // window.location.assign("/")
+                    // window.location.reload();
+                });
+        }
+    }
+
     useEffect(() => {
         GetArmy();
         topsolider();
         SquadUsers();
         getData();
         GeneralApproval();
+        // graphchat();
     }, []);
 
     useEffect(() => {
         GetArmydata();
     }, [DropDownAll]);
+
+const [value,setValue]= useState([])
+const [minted,setMinted]= useState([])
+const [datee,setDatee]= useState([])
+const [datee2,setDatee2]= useState([])
+const [format,setFormat]= useState('')
+const aToken = localStorage.getItem("accessToken");
+const getMintedDomains = () => {
+    let date = null;
+    let date1 = null;
+    if(value[0]){
+        date = moment(value[0]).utc().format('Y-MM-DDT00:00:00')
+        date1 = moment(value[1]).utc().format('Y-MM-DDT23:59:59')
+    }
+    else{
+        var date12 = new Date();
+        // var datesnd = (date12.getDate() - 7)
+        var dateOffset = (24*60*60*1000) * 7; //7 days
+        var myDate = new Date();
+        myDate.setTime(myDate.getTime() - dateOffset);
+        // console.log("dsdssdfsdfsdf",myDate,date12)
+    //     let a = new Date(datesnd)
+        date = moment(myDate).utc().format('Y-MM-DDT00:00:00')
+        date1 = moment(date12).utc().format('Y-MM-DDT23:59:59')
+    // console.log("dateeeee",date12,datesnd, a)
+
+    }
+    // console.log("dateeeee",date,date1)
+
+ 
+      axios.get(`${API_URL}/tasks/stats/army-growth?startDate=${date}&endDate=${date1}`, { headers: { "Authorization": `Bearer ${aToken}` } })
+        .then((response) => {
+            let dumArry = [];
+            let dumArry1 = [];
+            let data = response.data.data;
+            console.log("data",data)
+            let data1 = [];
+            data.map((val,i) => {
+                const sta1 = moment(val.createdAt).format("DD/MM/YYYY ")
+                const sta2=val?._id?.hour
+                console.log("resss1",val)
+                if(dumArry !== sta1 && val?._id?.day){
+                    console.log("sta1",sta1)
+                    setFormat('day')
+                    dumArry.push(sta1)
+                }else if(val?._id?.hour){
+                    const sta1 = moment(val.createdAt).format("DD/MM/YYYY ")
+                    console.log("sta2",sta2)
+                    dumArry1.push(sta1)
+                    setFormat('hour')
+                    dumArry.push(sta2)
+                }
+                data1.push(val.totalDomainsMinted)
+            })
+            setDatee2(dumArry1)
+            setDatee(dumArry)
+            setMinted(data1)
+        })
+        .catch((err) => {
+          // setOpen1(false)
+          // toast.error(err.response?.data.msg, {
+          //     position: "top-center",
+          //     autoClose: 2000,
+          // });
+        })
+  }
+
+  useEffect(() => {
+      if(value!= null){
+          getMintedDomains()
+      }
+  }, [value])
 
     return (
         <>
@@ -544,18 +655,9 @@ const GeneralHome = ({ setShowtask, setroutehome, routeshome }) => {
                                     <div className="graph-section border-grad1">
                                         <div className="upper-heading">
                                             <h6>army growth</h6>
-                                            <Dropdown className="calendar-drop stats-dropdwon-mobile">
-                                                <Dropdown.Toggle id="dropdown-basic"><img src="\assets\calendar.svg" alt="img" className="img-fluid me-2" /><span>09/05/2023 - 10/05/2023</span> <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                    <path d="M13.2797 5.9668L8.93306 10.3135C8.41973 10.8268 7.57973 10.8268 7.06639 10.3135L2.71973 5.9668" stroke="#81828A" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
-                                                </svg></Dropdown.Toggle>
-                                                <Dropdown.Menu className="">
-                                                    <Calendar
-                                                        numberOfMonths={2}
-                                                        disableMonthPicker
-                                                        disableYearPicker
-                                                    />
-                                                </Dropdown.Menu>
-                                            </Dropdown>
+                                            <div className="custom-daterangepicker">
+                                                <DateRangePicker placement='bottomEnd' appearance="This week" placeholder="This week" onChange={(newValue) => setValue(newValue)} />
+                                            </div>
                                         </div>
                                         <div className="inner-grap mt-5">
                                             {/* <img src="\assets\dummy-graph-img.png" alt="img" className="img-fluid w-100" /> */}

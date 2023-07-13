@@ -29,7 +29,7 @@ const GeneralActive = ({ setShowtask, tasks }) => {
             <section className="active-operations">
                 <div className="upper-item">
                     <div className='left'>
-                        <h6>operation : {tasks[0]?.name} <span>ENDS IN: <Countdown date={GetTime(tasks[0]?.expirationDate)} /></span></h6>
+                        <h6>operation : {tasks[0]?.name} <span>ENDS IN: {tasks?.length > 0 && <Countdown date={GetTime(tasks[0]?.expirationDate)} />}</span></h6>
                         <p>{tasks[0]?.description}</p>
                     </div>
                     <a href="#">View All Tasks <img src="\assets\arrow-right.svg" alt="img" className='img-fluid ms-2' /></a>

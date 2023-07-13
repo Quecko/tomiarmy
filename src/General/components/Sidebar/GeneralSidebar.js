@@ -165,6 +165,10 @@ const GeneralSidebar = () => {
   const hitfunctionss = (asd) => {
     setindexwait(asd)
     localStorage.setItem("indexvalue", asd);
+    if (asd === 2) {
+      setroute(false)
+    }
+
   }
 
 
@@ -678,18 +682,18 @@ const GeneralSidebar = () => {
                                 )
                                 :
                                 indexwait == 12 ?
-                                (
-                                  <>
-                                     <GeneralForum />
-                                  </>
-                                ) :
-                                indexwait == 13 ?
                                   (
                                     <>
                                       <GeneralForum />
                                     </>
                                   ) :
-                                  ""
+                                  indexwait == 13 ?
+                                    (
+                                      <>
+                                        <GeneralForum />
+                                      </>
+                                    ) :
+                                    ""
             }
 
           </div>
