@@ -409,7 +409,10 @@ const GroupChat = () => {
                 </div>
 
               </div>
-              <div className="bottom-side">
+           
+            </div>
+            <div className='chat-section dfdsfsfdsfsdfsdfsdf'>
+            <div className="bottom-side">
                 <div className="option-field">
                   <input type="text" placeholder='Write your message...' value={message} onChange={(e) => handleInputChange(e)} />
                 </div>
@@ -472,6 +475,7 @@ const GroupChat = () => {
                 </div>
               </div>
             </div>
+          
           </div>
           <div className="col-xl-3 col-12 pe-0 padd-sm ordersm-1">
             <div className='members-section border-grad1 display-none-in-mobile'>

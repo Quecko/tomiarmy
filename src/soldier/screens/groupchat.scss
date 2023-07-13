@@ -441,3 +441,33 @@
         top: -10px;
     }
 }
+
+.group-chat .chat-section{
+    height: 73.5vh;
+    overflow-y: scroll;
+}
+
+.group-chat .chat-section::-webkit-scrollbar { 
+    display: none;  /* Safari and Chrome */
+}
+
+.group-chat .chat-section .bottom-side{
+    width: 100%;
+    margin-top:2px!important;
+}
+
+.group-chat .chat-section.dfdsfsfdsfsdfsdfsdf{
+    height: auto!important;
+}
+
+.group-chat .chat-section.dfdsfsfdsfsdfsdfsdf{
+    border-top-left-radius: 0px!important;
+    border-top-right-radius: 0px!important;
+    border-bottom-left-radius: 15px!important;
+    border-bottom-right-radius: 15px!important;
+}
+
+.group-chat .chat-section{
+    border-bottom-left-radius: 0px!important;
+    border-bottom-right-radius: 0px!important;
+}
