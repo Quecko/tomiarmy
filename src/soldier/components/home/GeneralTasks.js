@@ -3,72 +3,10 @@ import { Dropdown, Table } from "react-bootstrap";
 import dosts from "../../../assets/icons/dots.svg";
 import submitIcon from "../../../assets/icons/submitIcon.svg";
 import Accordion from 'react-bootstrap/Accordion';
-import { useState, useEffect } from "react";
-import { API_URL } from '../../../utils/ApiUrl';
-import { toast } from 'react-toastify';
-import axios from 'axios';
-import Loader from '../../../hooks/loader';
 import moment from "moment";
-import { useWeb3React } from "@web3-react/core";
 
-const GeneralTasks = () => {
-  const [loader, setLoader] = useState(false);
-  const [expired, setexpired] = useState(false);
-  const [tasks, settasks] = useState([]);
-  const { account } = useWeb3React();
-  useEffect(() => {
-    // if (currentPage > 1) {
-    //     getData(currentPage);
-    // } else {
-    getData();
-    // }
-  }, [account, expired])
+const GeneralTasks = ({tasks}) => {
 
-  const getData = async (off) => {
-    // let valu = null;
-    // if (off) {
-    //     valu = off;
-    // } else {
-    //     valu = 1;
-    // }
-    let tok = localStorage.getItem("accessToken");
-    // let wall = localStorage.getItem("wallet");
-    if (account) {
-      var config = {
-        method: "get",
-        url: `${API_URL}/tasks?offset=1&&limit=5&&expired=${expired}`,
-        headers: {
-          authorization: `Bearer ` + tok
-        },
-      };
-      axios(config)
-        .then(function (response) {
-          setLoader(false);
-          // setCount(response.data.data.count)
-          settasks(response?.data?.data?.tasks);
-          // let arr = Array.from(Array(parseInt(response.data.data.pages)).keys());
-          // setPages(arr);
-          // setCurrentPage(valu)
-        })
-        .catch(function (error) {
-          setLoader(false);
-          // localStorage.removeItem("accessToken");
-          // localStorage.removeItem("user");
-          // window.location.assign("/")
-          // window.location.reload();
-        });
-    }
-  }
-
-
-  const settabss = (event) => {
-    if (event === 'home') {
-      setexpired(false)
-    }
-    else if (event === 'profile') {
-      setexpired(true)
-    }
-  }
 
   return (
     <div className="data-box general-tasks-wrapper border-grad1">
@@ -95,9 +33,9 @@ const GeneralTasks = () => {
                 <td>+{elem?.reward}</td>
                 <td>
                   {
-                    elem?.taskSubmitted ?
+                    elem?.taskSubmitted &&!elem?.taskApproval ?
                       <div className="completed" style={{ background: '#FEC600' }}>In Process</div>
-                      : elem?.taskApproval ?
+                      : elem?.taskApproval===true ?
                         <div className="completed" style={{ background: '#04C453' }}>Completed</div>
                         :
                         <div className="completed" style={{ background: '#FF8936' }}>Pending</div>

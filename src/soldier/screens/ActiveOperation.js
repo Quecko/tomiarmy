@@ -27,8 +27,6 @@ const ActiveOperation = ({ setShowtask1, tasks,settaskdetail1,setOperationId }) 
         return endtime;
     }
 
-
-
     const SubmitProofOfWork =(elem)=>{
         setOperationId(tasks)
         setShowtask1(true)
@@ -131,9 +129,9 @@ const ActiveOperation = ({ setShowtask1, tasks,settaskdetail1,setOperationId }) 
                                             <td>
                                                 <div className='completebtn text-end'>
                                                     {
-                                                        elem?.taskSubmitted ?
+                                                        elem?._id && !elem?.isApproved  ?
                                                             <button style={{ background: '#FEC600' }}>In Process</button>
-                                                            : elem?.taskApproval ?
+                                                            : elem?.isApproved === true && elem?._id ?
                                                                 <button style={{ background: '#04C453' }}>Completed</button>
                                                                 :
                                                                 <button style={{ background: '#FF8936' }}>Pending</button>
