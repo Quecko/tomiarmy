@@ -82,8 +82,8 @@ const getChat = async () => {
   axios(config)
     .then(function (response) {
       allPages(response?.data?.data?.pages)
-        let rev = reverse([...response?.data?.data?.groupMessages])
-        setChat([...chat, ...rev])
+        let rev = [...response?.data?.data?.groupMessages]
+        setChat([...rev, ...chat])
       // setChat((chat) => ([...chat],[...response?.data?.data?.groupMessages] ));
    
       // setChat(rev);

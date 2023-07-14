@@ -1,4 +1,4 @@
-// export const API_URL = 'http://192.168.20.48:8094'
+// export const API_URL = 'http://192.168.20.49:8092'
 export const API_URL = 'https://stagingapi.tomiarmy.com'
 // export const API_URL = 'http://tomi-army-2109225670.us-west-2.elb.amazonaws.com' 
 // export const API_URL = 'https://stagingapi.tomiarmy.com'
