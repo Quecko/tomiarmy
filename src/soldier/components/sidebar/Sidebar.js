@@ -216,7 +216,7 @@ const Sidebar = () => {
     // }
     let tok = localStorage.getItem("accessToken");
     let wall = localStorage.getItem("wallet");
-    if (account) {
+    // if (account) {
       var config = {
         method: "get",
         url: `${API_URL}/tasks/operations?offset=1&&limit=5&&expired=${expired}`,
@@ -245,7 +245,7 @@ const Sidebar = () => {
           // window.location.assign("/")
           // window.location.reload();
         });
-    }
+    // }
   }
 
   const getData = async (off) => {
@@ -257,7 +257,7 @@ const Sidebar = () => {
     // }
     let tok = localStorage.getItem("accessToken");
     // let wall = localStorage.getItem("wallet");
-    if (account) {
+    // if (account) {
       var config = {
         method: "get",
         url: `${API_URL}/tasks?offset=1&&limit=5&&expired=${expireds}`,
@@ -281,7 +281,7 @@ const Sidebar = () => {
           // window.location.assign("/")
           // window.location.reload();
         });
-    }
+    // }
   }
   const [notifs, setNotifs] = useState([]);
   const [rend, setRend] = useState(false);
@@ -320,6 +320,8 @@ const Sidebar = () => {
   useEffect(() => {
     getDataOperation()
   }, [account, expired])
+
+  console.log("account",account)
   return (
     <>
       <div className="theme-custom-container">
@@ -739,11 +741,11 @@ const Sidebar = () => {
             </div>
           </div>
           <div className="content-column">
-            <Header handleShow={handleShow} indexwait={indexwait} routes={routes} setroute={setroute} show1={show1} setShow1={setShow1} show2={show2} setShow2={setShow2} setShow4={setShow4} setShow5={setShow5} notifs={notifs}/>
+            <Header handleShow={handleShow} indexwait={indexwait} routes={routes} setroute={setroute} show1={show1} setShow1={setShow1} show2={show2} setShow2={setShow2} setShow4={setShow4} setShow5={setShow5} notifs={notifs} getNotif={getNotif} getData={getData} getDataOperation={getDataOperation}/>
             {indexwait === 0 ?
               (
                 <>
-                  <Home show2={show2} setShow2={setShow2} />
+                  <Home show2={show2} setShow2={setShow2} tasks={tasks} />
                 </>
               )
               :

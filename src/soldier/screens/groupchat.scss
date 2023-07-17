@@ -445,8 +445,8 @@
 .group-chat .chat-section{
     height: 73.5vh;
     overflow-y: scroll;
-    // display: flex;
-    // flex-direction: column-reverse;
+    display: flex;
+    flex-direction: column-reverse;
     
 }
 
@@ -473,14 +473,23 @@
 .group-chat .chat-section{
     border-bottom-left-radius: 0px!important;
     border-bottom-right-radius: 0px!important;
+    border-top-left-radius: 0px!important;
+    border-top-right-radius: 0px!important;
 }
 
-.chat-section.border-grad1{
-    display: flex;
-    flex-direction: column-reverse;
+.group-chat .chat-section.sdsdsdsdsd{
+    border-top-left-radius: 15px!important;
+    border-top-right-radius: 15px!important;
+    border-bottom-left-radius: 0px!important;
+    border-bottom-right-radius: 0px!important;
+    padding-bottom: 0px;
 }
 
-// .chat-inside{
-//     display: flex;
-//     flex-direction: column-reverse;
-// }
+.group-chat .chat-section.sdsdsdsdsd{
+    height: auto!important;
+}
+
+.group-chat .chat-section .chat-heading{
+    margin-bottom: 0px!important;
+    border-bottom: 0px!important;
+}

@@ -15,7 +15,7 @@ import { toast } from "react-toastify";
 import { io } from "socket.io-client";
 
 
-const Header = ({ routes, setroute, indexwait, handleShow, setShow2, setShow1, setShow4, setShow5, notifs }) => {
+const Header = ({ routes, setroute, indexwait, handleShow, setShow2, setShow1, setShow4, setShow5, notifs, getNotif, getData, getDataOperation }) => {
   const datacommander = localStorage.getItem('user')
   const data = JSON.parse(datacommander)
   const { account } = useWeb3React();
@@ -49,33 +49,7 @@ const Header = ({ routes, setroute, indexwait, handleShow, setShow2, setShow1, s
         });
     }
   }
-  //notification
-  // const [notifs, setNotifs] = useState([]);
-  // const [rend, setRend] = useState(false);
-  // const getNotif = (soc) => {
-  //   let tok = localStorage.getItem("accessToken");
-  //   setNotifs([]);
-  //   // if (account || soc) {
-  //     var config = {
-  //       method: "get",
-  //       url: `${API_URL}/notifications/user-notifications?offset=1&&limit=100000`,
-  //       headers: {
-  //         authorization: `Bearer ` + tok
-  //       },
-  //     };
-  //     axios(config)
-  //       .then(function (response) {
-  //         setNotifs(response?.data?.data.userNotifications);
-  //         setRend(!rend);
-  //       })
-  //       .catch(function (error) {
-  //         console.log(error);
-  //         // localStorage.removeItem("accessToken");
-  //         // localStorage.removeItem("user");
-  //         // window.location.assign("/")
-  //       });
-  //   // }
-  // }
+
   // const [msgObj, setMsgObj] = useState(null);
   // const [squadids, setSquadids] = useState()
   // useEffect(() => {
@@ -85,48 +59,60 @@ const Header = ({ routes, setroute, indexwait, handleShow, setShow2, setShow1, s
 
   // }, [msgObj?.notification?.metadata !== undefined])
 
-  // useEffect(() => {
-  //   let tok = localStorage.getItem("accessToken");
-  //   let socket = io('https://stagingapi.tomiarmy.com', {
-  //     transports: ["websocket", "polling"],
-  //     path: "/chats/sockets",
-  //   });
-  //   socket.on("connect", () => {
-  //     console.log('socket connected++++++++++++++++++++++++++', socket.connected);
-  //     socket.emit("authentication", {
-  //       token: tok,
-  //     });
-  //   });
+  useEffect(() => {
+    let tok = localStorage.getItem("accessToken");
+    let socket = io('https://stagingapi.tomiarmy.com', {
+      transports: ["websocket", "polling"],
+      path: "/chats/sockets",
+    });
+    socket.on("connect", () => {
+      console.log('socket connected in header++++++++++++++++++++++++++', socket.connected);
+      socket.emit("authentication", {
+        token: tok,
+      });
+    });
 
-  //   socket.on('WORK_PROOF_REJECTED', (notification) => {
-  //     toast.info("Update on your submitted task!");
-  //     // GetTasks()
-  //     // GetOpts()
-  //     // ShowResp(notification);
-  //   });
+    socket.on('WORK_PROOF_REJECTED', (notification) => {
+      toast.info("Update on your submitted task!");
+      getNotif()
+      getData()
+      getDataOperation()
+      // getNotif()
+      // GetTasks()
+      // GetOpts()
+      // ShowResp(notification);
+    });
+    socket.on('Squad_Recruite_Invite', (notification) => {
+      toast.info("recevied invitation of solider!");
+      getNotif()
+    });
+    socket.on('Squad_Recruite_Accepted', (notification) => {
+      toast.info("commander accept your invite");
+  
+    });
 
-  //   // socket.on('Veteran_recruite_Invite', (notification) => {
-  //   //   getNotif("soc");
-  //   // });
+    //   // socket.on('Veteran_recruite_Invite', (notification) => {
+    //   //   getNotif("soc");
+    //   // });
 
-  //   // socket.on('message', (notification) => {
-  //   //   getNotif("soc");
-  //   //   setNotn(true);
-  //   //   // ShowResp(notification);
-  //   // });
+    //   // socket.on('message', (notification) => {
+    //   //   getNotif("soc");
+    //   //   setNotn(true);
+    //   //   // ShowResp(notification);
+    //   // });
 
-  //   // socket.on('Rank_Updated', (notification) => {
-  //   //   updateToken();
-  //   // });
+    //   // socket.on('Rank_Updated', (notification) => {
+    //   //   updateToken();
+    //   // });
 
-  //   // socket.on('Rank_Updated_By_General', (notification) => {
-  //   //   updateToken();
-  //   // });
+    //   // socket.on('Rank_Updated_By_General', (notification) => {
+    //   //   updateToken();
+    //   // });
 
-  //   socket.on("disconnect", (reason) => {
-  //     console.log(`Disconnected: ${reason}`);
-  //   });
-  // }, [])
+    socket.on("disconnect", (reason) => {
+      console.log(`Disconnected: ${reason}`);
+    });
+  }, [])
 
   const AcceptInvite = async (item) => {
     const { squadId } = JSON.parse(item?.notification?.metadata);
@@ -282,7 +268,7 @@ const Header = ({ routes, setroute, indexwait, handleShow, setShow2, setShow1, s
                       <>
                         {notifs?.map((item, index) => {
                           const metadataString = item.notification.metadata;
-                          const squadId = metadataString?.substring(metadataString.indexOf('squadId":"') + 10,metadataString.indexOf('"}'));
+                          const squadId = metadataString?.substring(metadataString.indexOf('squadId":"') + 10, metadataString.indexOf('"}'));
                           return (
                             <div className="inner-div border-grad">
                               <div className="upper-text">
@@ -290,7 +276,7 @@ const Header = ({ routes, setroute, indexwait, handleShow, setShow2, setShow1, s
                                 <p><span></span>{moment(item?.createdAt).fromNow()}</p>
                               </div>
                               <p className="para">{item?.notification?.message}</p>
-                              {squadId.length>20 &&
+                              {squadId.length > 20 &&
                                 <div className="twice-btn">
                                   <button className="btn-reject"><img src="\assets\reject-icon.svg" alt="img" className="img-fluid me-2" />Reject</button>
                                   <button className="btn-accept" onClick={() => AcceptInvite(item)}><img src="\assets\checkmark.svg" alt="img" className="img-fluid me-2" />Accept</button>

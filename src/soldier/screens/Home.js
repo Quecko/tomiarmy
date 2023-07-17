@@ -12,7 +12,7 @@ import {API_URL} from "../../utils/ApiUrl"
 import axios from "axios";
 
 
-const Home = ({setShow2}) => {
+const Home = ({setShow2,tasks}) => {
   const datacommander = localStorage.getItem('user')
   const [squaddetail, setsquaddetail] = useState()
   const { account } = useWeb3React();
@@ -168,7 +168,7 @@ const Home = ({setShow2}) => {
             <MyRank  props={squaddetail ? squaddetail : ''}/>
           </div>
           <div className="col-lg-7 general-task-box">
-            <GeneralTasks />
+            <GeneralTasks tasks={tasks} />
           </div>
         </div>
       </div>

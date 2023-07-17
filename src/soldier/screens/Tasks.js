@@ -142,9 +142,9 @@ const Tasks = ({ setShowtask ,settaskdetail,tasks,setexpireds}) => {
                                     <td>
                                       <div className='completebtn'>
                                         {
-                                          elem?.taskSubmitted ?
+                                          elem?.taskSubmitted && !elem?.taskApproval ?
                                           <button style={{background:'#FEC600'}}>In Process</button>
-                                            : elem?.taskApproval ?
+                                            : elem?.taskApproval === true ?
                                               <button style={{background:'#04C453'}}>Completed</button>
                                               :
                                               <button style={{background:'#FF8936'}}>Pending</button>

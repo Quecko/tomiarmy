@@ -103,17 +103,21 @@ const GeneralHeader = ({ routes, setroute, routeshome, setroutehome, indexwait, 
           {
             indexwait === 0 ?
               <>
-                {!routeshome ? <> <button style={{maxWidth: "171px", width: "100%"}} onClick={() => { setroutehome(!routeshome); }} className="create-op-btn display-none-in-mobile" >
+                {!routeshome ? <> 
+                {/* <button style={{maxWidth: "171px", width: "100%"}} onClick={() => { setroutehome(!routeshome); }} className="create-op-btn display-none-in-mobile" >
                   <img src="\generalassets\icons\createoperation.svg" alt="img" className="img-fluid me-2" />
                   <span> Create Operation</span>
-                </button>
+                </button> */}
                   <button style={{maxWidth: "171px", width: "100%"}} onClick={setShowtask} className="create-squad-btn display-none-in-mobile" >
                     <img src="\generalassets\icons\create-task.svg" alt="img" className="img-fluid me-2" />
                     <span> Create Task</span>
-                  </button> </> : <button  className="savechange-btn disabled display-none-in-mobile" >
-                  <img src="\generalassets\icons\save-change.svg" alt="img" className="img-fluid me-1" />
-                  <span> Save Changes</span>
-                </button>}
+                  </button> </> : 
+                  ""
+                //   <button  className="savechange-btn disabled display-none-in-mobile" >
+                //   <img src="\generalassets\icons\save-change.svg" alt="img" className="img-fluid me-1" />
+                //   <span> Save Changes</span>
+                // </button>
+                }
               </>
               : ""
           }

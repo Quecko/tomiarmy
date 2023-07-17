@@ -51,7 +51,7 @@ const GeneralReport = () => {
         if (account) {
             var config = {
                 method: "get",
-                url: `${API_URL}/content/bug-reports/get-bugs-report-list?offset=1&&limit=10&&status=${expired}`,
+                url: `${API_URL}/content/bug-reports/get-bugs-report-list?offset=1&&limit=100&&status=${expired}`,
                 headers: {
                     authorization: `Bearer ` + tok
                 },
@@ -82,6 +82,35 @@ const GeneralReport = () => {
         getDataannou();
         // }
     }, [account, expired])
+
+    const resolvebug = (elem) => {
+        let tok = localStorage.getItem("accessToken");
+        var data = "null";
+        data = ({
+            status: "resolved"
+        });
+        var config = {
+            method: "patch",
+            url: `${API_URL}/content/bug-reports/${elem?._id}`,
+            headers: {
+                authorization: `Bearer ` + tok
+            },
+            data: data,
+        };
+        axios(config)
+            .then(function (response) {
+                getDataannou();
+                // setLoader(false);
+                toast.success('Bug Report resolved Successfully', {
+                    position: "top-right",
+                    autoClose: 2000,
+                });
+            })
+            .catch(function (error) {
+                // setLoader(false);
+            });
+    }
+
 
     return (
         <>
@@ -142,7 +171,7 @@ const GeneralReport = () => {
                                                                             <p className='paratable'>{elem?.issue}</p>
                                                                         </td>
                                                                         <td>
-                                                                            <p className='status-div pending-bg'>{elem?.status}</p>
+                                                                            <p className={elem?.status === 'Pending' ? 'status-div pending-bg' : 'status-div reolved-bg'}>{elem?.status}</p>
                                                                         </td>
                                                                         <td>
                                                                             <div className='dropbtn global-dropdown-style'>
@@ -154,7 +183,7 @@ const GeneralReport = () => {
 
                                                                                     <Dropdown.Menu>
                                                                                         <Dropdown.Item href="#/action-1">
-                                                                                            <p ><img src='\generalassets\icons\checkmark.svg' alt='img' className='img-fluid' />Resolved</p>
+                                                                                            <p onClick={() => resolvebug(elem)}><img src='\generalassets\icons\checkmark.svg' alt='img' className='img-fluid' />Resolved</p>
                                                                                             <p onClick={() => handleShow(elem)}><img src='\generalassets\icons\detail.svg' alt='img' className='img-fluid' />Details</p>
                                                                                         </Dropdown.Item>
                                                                                     </Dropdown.Menu>
@@ -255,7 +284,7 @@ const GeneralReport = () => {
                                                             <p className='paratable'>{elem?.issue}</p>
                                                         </td>
                                                         <td>
-                                                            <p className='status-div pending-bg'>{elem?.status}</p>
+                                                            <p className={elem?.status === 'Pending' ? 'status-div pending-bg' : 'status-div reolved-bg'}>{elem?.status}</p>
                                                         </td>
                                                     </tr>
                                                 )
@@ -265,7 +294,7 @@ const GeneralReport = () => {
                                         </tbody>
                                     </table>
                                 </div>
-                                <div className="pagi">
+                                {/* <div className="pagi">
                                     <div className="left">
                                         <p>Showing 1 to 10 of 57 entries</p>
                                     </div>
@@ -280,7 +309,7 @@ const GeneralReport = () => {
                                         </Pagination>
                                         <p>Next</p>
                                     </div>
-                                </div>
+                                </div> */}
                             </div>
                             <div className="mobile-responsive-table d-none display-block-in-mobile">
                                 <div className="heading-mobile">
