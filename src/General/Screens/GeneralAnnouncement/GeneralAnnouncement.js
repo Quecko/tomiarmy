@@ -7,8 +7,47 @@ import Modal from 'react-bootstrap/Modal';
 import Pagination from 'react-bootstrap/Pagination';
 import Accordion from 'react-bootstrap/Accordion';
 import "./generalannouncement.scss"
+import "react-toastify/dist/ReactToastify.css";
+import { API_URL } from '../../../utils/ApiUrl';
+import { toast } from 'react-toastify';
+import { useWeb3React } from "@web3-react/core";
+import axios from 'axios';
 import moment from "moment";
-const GeneralAnnouncement = ({ setShowannounce, annou }) => {
+const GeneralAnnouncement = ({ setShowannounce, annou, getDataannou }) => {
+
+    const deleteannouncement = (elem) => {
+      
+        let tok = localStorage.getItem("accessToken");
+        // setOpens(true);
+        axios
+            .delete(
+                API_URL + "/notifications/announcements/user-announcements/" +
+                elem?._id,
+                { headers: { authorization: `Bearer ${tok}` } }
+            )
+            .then((response) => {
+              getDataannou();
+                // setOpens(false);
+                // setCall(!call);
+                toast
+                    .success("Successfully Delete Announcement", {
+                        position: "top-right",
+                        autoClose: 3000,
+                    })
+                window.$('#exampleModal2').modal('hide')
+                    .catch((err) => {
+                        // setOpens(false);
+                        toast.warning(
+                            "Error",
+                            {
+                                position: "top-right",
+                                autoClose: 3000,
+                            }
+                        );
+                        return false;
+                    });
+            });
+    }
     return (
         <>
             <div className="formobile-heading d-none display-block-in-mobile">
@@ -61,17 +100,15 @@ const GeneralAnnouncement = ({ setShowannounce, annou }) => {
                                                                 <p className='paratable'>{createDate}</p>
                                                             </td>
                                                             <td>
-                                                                <a href="#"><img src="\generalassets\icons\btn-delete.svg" alt="img" className='img-fluid' /></a>
+                                                                <a href="#"><img onClick={() =>deleteannouncement(elem)} src="\generalassets\icons\btn-delete.svg" alt="img" className='img-fluid' /></a>
                                                             </td>
                                                         </tr>
                                                     )
                                                 })}
-
-
                                             </tbody>
                                         </table>
                                     </div>
-                                    <div className="pagi">
+                                    {/* <div className="pagi">
                                         <div className="left">
                                             <p>Showing 1 to 10 of 57 entries</p>
                                         </div>
@@ -87,7 +124,7 @@ const GeneralAnnouncement = ({ setShowannounce, annou }) => {
                                             </Pagination>
                                             <p>Next</p>
                                         </div>
-                                    </div>
+                                    </div> */}
                                 </div>
                                 <div className="mobile-responsive-table d-none display-block-in-mobile">
                                     <div className="heading-mobile">
@@ -119,7 +156,6 @@ const GeneralAnnouncement = ({ setShowannounce, annou }) => {
                         </div>
                     </div>
                 </div>
-
             </section>
         </>
     )

@@ -5,7 +5,7 @@ import Modal from 'react-bootstrap/Modal';
 import Accordion from 'react-bootstrap/Accordion';
 import Countdown from 'react-countdown';
 
-const GeneralActive = ({ setShowtask, tasks }) => {
+const GeneralActive = ({routes, setoperationdata, setcall, call, setroute,  setShowtask, tasks }) => {
 
     // const [show1, setShow1] = useState(false);
     // const handleClose1 = () => setShow1(false);
@@ -24,6 +24,12 @@ const GeneralActive = ({ setShowtask, tasks }) => {
         return endtime;
     }
 
+    const operationdetailactive = (elem)=>{
+        setcall(true)
+        setoperationdata(elem[0])
+        setroute(!routes)
+    }
+
     return (
         <>
             <section className="active-operations">
@@ -32,7 +38,7 @@ const GeneralActive = ({ setShowtask, tasks }) => {
                         <h6>operation : {tasks[0]?.name} <span>ENDS IN: {tasks?.length > 0 && <Countdown date={GetTime(tasks[0]?.expirationDate)} />}</span></h6>
                         <p>{tasks[0]?.description}</p>
                     </div>
-                    <a href="#">View All Tasks <img src="\assets\arrow-right.svg" alt="img" className='img-fluid ms-2' /></a>
+                    <a href="#" onClick={() =>operationdetailactive(tasks)}>View All Tasks <img src="\assets\arrow-right.svg" alt="img" className='img-fluid ms-2' /></a>
                 </div>
                 <div className="bottom-cards">
                     <div className="card-item border-grad">
@@ -113,7 +119,7 @@ const GeneralActive = ({ setShowtask, tasks }) => {
                             </tbody>
                         </table>
                     </div>
-                    <div className="pagi">
+                    {/* <div className="pagi">
                         <div className="left">
                             <p>Showing 1 to 10 of 57 entries</p>
                         </div>
@@ -128,7 +134,7 @@ const GeneralActive = ({ setShowtask, tasks }) => {
                             </Pagination>
                             <p>Next</p>
                         </div>
-                    </div>
+                    </div> */}
                 </div>
                 <div className="mobile-responsive-table d-none display-block-in-mobile">
                     <div className="heading-mobile">

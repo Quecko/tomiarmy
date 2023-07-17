@@ -5,6 +5,8 @@ import Accordion from 'react-bootstrap/Accordion';
 import dosts from "../../../assets/icons/dots.svg";
 import submitIcon from "../../../assets/icons/submitIcon.svg";
 import { Calendar } from "react-multi-date-picker"
+import Tab from 'react-bootstrap/Tab';
+import Tabs from 'react-bootstrap/Tabs';
 import CreateOperation from "../GeneralOperation/CreateOperation";
 import DateRangePicker from 'rsuite/DateRangePicker';
 import { Modal } from 'react-bootstrap';
@@ -25,6 +27,7 @@ const GeneralHome = ({ setShowtask, setroutehome, routeshome }) => {
     const handleShowmajor = () => setShowmajor(true);
     let tok = localStorage.getItem("accessToken");
     const [rend, setRend] = useState(false);
+    const [rendss, setRendss] = useState('totalsol');
     const [army, setArmy] = useState([]);
     const [tasks, settasks] = useState([]);
     const [taskss, settaskss] = useState([]);
@@ -37,6 +40,11 @@ const GeneralHome = ({ setShowtask, setroutehome, routeshome }) => {
     let user1 = localStorage.getItem("user");
     user1 = JSON.parse(user1);
     const { account } = useWeb3React();
+
+    const [value, setValue] = useState([])
+    const [minted, setMinted] = useState([])
+    const [datee, setDatee] = useState([])
+    const [format, setFormat] = useState('')
 
     const [datamajoradd, setdatamajoradd] = useState({
         name: '',
@@ -54,6 +62,20 @@ const GeneralHome = ({ setShowtask, setroutehome, routeshome }) => {
             walletaddres: ''
         })
         setRend(!rend)
+    }
+
+    
+    const settabss = (event) => {
+        if (event === 'totalsol') {
+            setDatee([])
+            setMinted([])
+            setRendss("totalsol")
+        }
+        else if (event === 'totaltask') {
+            setDatee([])
+            setMinted([])
+            setRendss("totaltask")
+        }
     }
 
     const GetArmy = () => {
@@ -370,77 +392,78 @@ const GeneralHome = ({ setShowtask, setroutehome, routeshome }) => {
         GetArmydata();
     }, [DropDownAll]);
 
-const [value,setValue]= useState([])
-const [minted,setMinted]= useState([])
-const [datee,setDatee]= useState([])
-const [datee2,setDatee2]= useState([])
-const [format,setFormat]= useState('')
-const aToken = localStorage.getItem("accessToken");
-const getMintedDomains = () => {
-    let date = null;
-    let date1 = null;
-    if(value[0]){
-        date = moment(value[0]).utc().format('Y-MM-DDT00:00:00')
-        date1 = moment(value[1]).utc().format('Y-MM-DDT23:59:59')
-    }
-    else{
-        var date12 = new Date();
-        // var datesnd = (date12.getDate() - 7)
-        var dateOffset = (24*60*60*1000) * 7; //7 days
-        var myDate = new Date();
-        myDate.setTime(myDate.getTime() - dateOffset);
-        // console.log("dsdssdfsdfsdf",myDate,date12)
-    //     let a = new Date(datesnd)
-        date = moment(myDate).utc().format('Y-MM-DDT00:00:00')
-        date1 = moment(date12).utc().format('Y-MM-DDT23:59:59')
-    // console.log("dateeeee",date12,datesnd, a)
 
-    }
-    // console.log("dateeeee",date,date1)
+    const aToken = localStorage.getItem("accessToken");
+    const getMintedDomains = () => {
+        let date = null;
+        let date1 = null;
+        if (value[0]) {
+            date = moment(value[0]).utc().format('Y-MM-DDT00:00:00')
+            date1 = moment(value[1]).utc().format('Y-MM-DDT23:59:59')
+        }
+        else {
+            var date12 = new Date();
+            // var datesnd = (date12.getDate() - 7)
+            var dateOffset = (24 * 60 * 60 * 1000) * 7; //7 days
+            var myDate = new Date();
+            myDate.setTime(myDate.getTime() - dateOffset);
+            // console.log("dsdssdfsdfsdf",myDate,date12)
+            //     let a = new Date(datesnd)
+            date = moment(myDate).utc().format('Y-MM-DDT00:00:00')
+            date1 = moment(date12).utc().format('Y-MM-DDT23:59:59')
+            // console.log("dateeeee",date12,datesnd, a)
 
- 
-      axios.get(`${API_URL}/tasks/stats/army-growth?startDate=${date}&endDate=${date1}`, { headers: { "Authorization": `Bearer ${aToken}` } })
-        .then((response) => {
-            let dumArry = [];
-            let dumArry1 = [];
-            let data = response.data.data;
-            console.log("data",data)
-            let data1 = [];
-            data.map((val,i) => {
-                const sta1 = moment(val.createdAt).format("DD/MM/YYYY ")
-                const sta2=val?._id?.hour
-                console.log("resss1",val)
-                if(dumArry !== sta1 && val?._id?.day){
-                    console.log("sta1",sta1)
-                    setFormat('day')
-                    dumArry.push(sta1)
-                }else if(val?._id?.hour){
-                    const sta1 = moment(val.createdAt).format("DD/MM/YYYY ")
-                    console.log("sta2",sta2)
-                    dumArry1.push(sta1)
-                    setFormat('hour')
-                    dumArry.push(sta2)
+        }
+        // console.log("dateeeee",date,date1)
+
+        axios.get(`${API_URL}/tasks/stats/army-growth?startDate=${date}&endDate=${date1}`, { headers: { "Authorization": `Bearer ${aToken}` } })
+            .then((response) => {
+                setDatee([])
+                setMinted([])
+                console.log("asdfsfssd",response)
+                let dumArry = [];
+                if(rendss === 'totalsol'){
+                    var data = response?.data?.data?.totalSoldiers?.data;
                 }
-                data1.push(val.totalDomainsMinted)
+                else{
+                    var data = response?.data?.data?.tasksCompleted?.data;
+                }
+                // console.log("sdfdsfsdfdsfs",data)
+                let data1 = [];
+                data.map((val, i) => {
+                    const sta1 = moment(val.createdAt).format("DD/MM/YYYY")
+                    const sta2 = val?._id?.hour
+                    console.log("resss1", val)
+                    if (dumArry !== sta1 && val?._id?.day) {
+                        console.log("sta1", sta1)
+                        setFormat('day')
+                        dumArry.push(sta1)
+                    } else if (val?._id?.hour) {
+                        setFormat('hour')
+                        dumArry.push(sta2)
+                    }
+                    data1.push(val.count)
+                })
+                setDatee(dumArry)
+                setMinted(data1)
+                console.log("asdasdas", data1)
             })
-            setDatee2(dumArry1)
-            setDatee(dumArry)
-            setMinted(data1)
-        })
-        .catch((err) => {
-          // setOpen1(false)
-          // toast.error(err.response?.data.msg, {
-          //     position: "top-center",
-          //     autoClose: 2000,
-          // });
-        })
-  }
+            .catch((err) => {
+                // setOpen1(false)
+                // toast.error(err.response?.data.msg, {
+                //     position: "top-center",
+                //     autoClose: 2000,
+                // });
+            })
+    }
 
-  useEffect(() => {
-      if(value!= null){
-          getMintedDomains()
-      }
-  }, [value])
+    console.log("sdfsdfsdfdsfdsf",datee)
+
+    useEffect(() => {
+        if (value != null) {
+            getMintedDomains()
+        }
+    }, [value,rendss])
 
     return (
         <>
@@ -661,7 +684,19 @@ const getMintedDomains = () => {
                                         </div>
                                         <div className="inner-grap mt-5">
                                             {/* <img src="\assets\dummy-graph-img.png" alt="img" className="img-fluid w-100" /> */}
-                                            <ArmyGrowthGraph />
+                                            <Tabs
+                                                defaultActiveKey="totalsol"
+                                                id="uncontrolled-tab-example"
+                                                className="opeartions-tab border-grad1"
+                                                onSelect={settabss}
+                                            >
+                                                <Tab eventKey="totalsol" title="Total soldiers">
+                                                    <ArmyGrowthGraph date={datee} rendss={rendss} minte={minted} format={format} />
+                                                </Tab>
+                                                <Tab eventKey="totaltask" title="Tasks">
+                                                    <ArmyGrowthGraph date={datee} rendss={rendss} minte={minted} format={format} />
+                                                </Tab>
+                                            </Tabs>
                                         </div>
                                     </div>
                                 </div>

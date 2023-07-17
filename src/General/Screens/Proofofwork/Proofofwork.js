@@ -81,7 +81,7 @@ const Proofofwork = () => {
         if (account) {
             var config = {
                 method: "get",
-                url: `${API_URL}/tasks/work-proofs?offset=1&&limit=10`,
+                url: `${API_URL}/tasks/work-proofs?offset=1&&limit=100`,
                 headers: {
                     authorization: `Bearer ` + tok
                 },
@@ -117,7 +117,7 @@ const Proofofwork = () => {
         if (account) {
             var config = {
                 method: "get",
-                url: `${API_URL}/tasks/operations?offset=1&&limit=10&&expired=false`,
+                url: `${API_URL}/tasks/operations?offset=1&&limit=100&&expired=false`,
                 headers: {
                     authorization: `Bearer ` + tok
                 },
@@ -153,7 +153,7 @@ const Proofofwork = () => {
         if (account) {
             var config = {
                 method: "get",
-                url: `${API_URL}/tasks/operations/work-proof?offset=1&limit=10&operationId=${taskss}`,
+                url: `${API_URL}/tasks/operations/work-proof?offset=1&limit=100&operationId=${taskss}`,
                 headers: {
                     authorization: `Bearer ` + tok
                 },
@@ -224,7 +224,7 @@ const Proofofwork = () => {
                     });
             });
     }
-    const Acceptrejectoperation = async (taskdetail , singledetail , approvedcheck) => {
+    const Acceptrejectoperation = async (taskdetail, singledetail, approvedcheck) => {
         let tok = localStorage.getItem("accessToken");
         // setOpens(true);
         axios
@@ -350,7 +350,7 @@ const Proofofwork = () => {
                                                                                     </Dropdown.Item> */}
                                                                                         </div>
                                                                                     </Dropdown.Menu>
-                                                                                </Dropdown>
+                                                                                </Dropdown>+
                                                                             </div>
                                                                         </td>
                                                                     </tr>
@@ -358,7 +358,7 @@ const Proofofwork = () => {
                                                             })}
                                                         </tbody>
                                                     </Table>
-                                                    <div className="pagi display-none-in-mobile">
+                                                    {/* <div className="pagi display-none-in-mobile">
                                                         <div className="left">
                                                             <p>Showing 1 to 10 of 57 entries</p>
                                                         </div>
@@ -374,7 +374,7 @@ const Proofofwork = () => {
                                                             </Pagination>
                                                             <p>Next</p>
                                                         </div>
-                                                    </div>
+                                                    </div> */}
                                                     <div className="mobile-responsive-table d-none display-block-in-mobile">
                                                         <div className="heading-mobile">
                                                             <p>User</p>
@@ -448,7 +448,7 @@ const Proofofwork = () => {
                                                                 })}
                                                             </tbody>
                                                         </Table>
-                                                        <div className="pagi display-none-in-mobile">
+                                                        {/* <div className="pagi display-none-in-mobile">
                                                             <div className="left">
                                                                 <p>Showing 1 to 10 of 57 entries</p>
                                                             </div>
@@ -464,7 +464,7 @@ const Proofofwork = () => {
                                                                 </Pagination>
                                                                 <p>Next</p>
                                                             </div>
-                                                        </div>
+                                                        </div> */}
                                                         <div className="mobile-responsive-table d-none display-block-in-mobile">
                                                             <div className="heading-mobile">
                                                                 <p>User</p>
@@ -553,7 +553,7 @@ const Proofofwork = () => {
                                                                 })}
                                                             </tbody>
                                                         </Table>
-                                                        <div className="pagi display-none-in-mobile">
+                                                        {/* <div className="pagi display-none-in-mobile">
                                                             <div className="left">
                                                                 <p>Showing 1 to 10 of 57 entries</p>
                                                             </div>
@@ -569,7 +569,7 @@ const Proofofwork = () => {
                                                                 </Pagination>
                                                                 <p>Next</p>
                                                             </div>
-                                                        </div>
+                                                        </div> */}
                                                         <div className="mobile-responsive-table d-none display-block-in-mobile">
                                                             <div className="heading-mobile">
                                                                 <p>User</p>
@@ -754,7 +754,7 @@ const Proofofwork = () => {
                     </div>
                     <div className="btnss">
                         <button onClick={() => {
-                            Acceptrejectoperation(taskdetail, singledetail , 'false')
+                            Acceptrejectoperation(taskdetail, singledetail, 'false')
                         }} className="redbtn"><img src="\generalassets\other-imgs\Subtract.svg" alt="crossimg" className="crossimg" /> Reject</button>
                         <button onClick={() => {
                             Acceptrejectoperation(taskdetail, singledetail, 'true')

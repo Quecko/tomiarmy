@@ -1,9 +1,86 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import Accordion from 'react-bootstrap/Accordion';
 import Pagination from 'react-bootstrap/Pagination';
 import Dropdown from 'react-bootstrap/Dropdown';
+import "react-toastify/dist/ReactToastify.css";
+import { API_URL } from '../../../utils/ApiUrl';
+import { toast } from 'react-toastify';
+import axios from 'axios';
+import Loader from '../../../hooks/loader';
+import { useWeb3React } from "@web3-react/core";
+
 
 const Generalfaqs = ({ setShowfaq }) => {
+    const { account } = useWeb3React();
+    const [faqs, setfaqs] = useState([]);
+
+    const getDataannou = async (off, dsfdsgds) => {
+        // let valu = null;
+        // if (off) {
+        //     valu = off;
+        // } else {
+        //     valu = 1;
+        // }
+        let tok = localStorage.getItem("accessToken");
+        // let wall = localStorage.getItem("wallet");
+
+            var config = {
+                method: "get",
+                url: `${API_URL}/content/faqs/get-faq-list?offset=1&&limit=100`,
+                headers: {
+                    authorization: `Bearer ` + tok
+                },
+            };
+            axios(config)
+                .then(function (response) {
+                    // setLoader(false);
+                    // setCount(response.data.data.count)
+                    setfaqs(response?.data?.data?.faq);
+                    // let arr = Array.from(Array(parseInt(response.data.data.pages)).keys());
+                    // setPages(arr);
+                    // setCurrentPage(valu)
+                })
+                .catch(function (error) {
+                    // setLoader(false);
+                    // localStorage.removeItem("accessToken");
+                    // localStorage.removeItem("user");
+                    // window.location.assign("/")
+                    // window.location.reload();
+                });
+        
+    }
+
+    useEffect(() => {
+        // if (currentPage > 1) {
+        //     getData(currentPage);
+        // } else {
+        getDataannou();
+        // }
+    }, [account])
+
+    const deletefaq = (elem) => {
+        let tok = localStorage.getItem("accessToken");
+        var config = {
+            method: "delete",
+            url: `${API_URL}/content/faqs/${elem?._id}`,
+            headers: {
+                authorization: `Bearer ` + tok
+            },
+        };
+        axios(config)
+            .then(function (response) {
+                getDataannou();
+                // setLoader(false);
+                toast.success('Faq Deleted Successfully', {
+                    position: "top-right",
+                    autoClose: 2000,
+                });
+            })
+            .catch(function (error) {
+                // setLoader(false);
+            });
+    }
+
     return (
         <>
             <div className="formobile-heading d-none display-block-in-mobile">
@@ -38,12 +115,14 @@ const Generalfaqs = ({ setShowfaq }) => {
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
+                                            {faqs && faqs?.map((elem, index) => {
+                                                return (
+                                                    <tr key={index}>
                                                     <td>
-                                                        <p className='paratable'>Sed ut perspiciatis unde</p>
+                                                        <p className='paratable'>{elem?.title}</p>
                                                     </td>
                                                     <td>
-                                                        <p className='paratable'>Sed ut perspiciatis unde omnis iste natus error sit voluptatem...</p>
+                                                        <p className='paratable'>{elem?.description}</p>
                                                     </td>
                                                     <td>
                                                         <div className='dropbtn global-dropdown-style'>
@@ -54,14 +133,15 @@ const Generalfaqs = ({ setShowfaq }) => {
                                                                 </Dropdown.Toggle>
                                                                 <Dropdown.Menu>
                                                                     <Dropdown.Item href="#/action-1">
-                                                                        <p ><img src='\generalassets\icons\edit.svg' alt='img' className='img-fluid' />Edit</p>
-                                                                        <p ><img src='\generalassets\icons\trash.svg' alt='img' className='img-fluid' />Delete</p>
+                                                                        <p onClick={() =>deletefaq(elem)}><img src='\generalassets\icons\edit.svg' alt='img' className='img-fluid' />Edit</p>
+                                                                        <p onClick={() =>deletefaq(elem)}><img src='\generalassets\icons\trash.svg' alt='img' className='img-fluid' />Delete</p>
                                                                     </Dropdown.Item>
                                                                 </Dropdown.Menu>
                                                             </Dropdown>
                                                         </div>
                                                     </td>
                                                 </tr>
+                                                )})}
                                             </tbody>
                                         </table>
                                     </div>
