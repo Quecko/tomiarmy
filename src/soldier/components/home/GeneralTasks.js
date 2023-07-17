@@ -5,9 +5,13 @@ import submitIcon from "../../../assets/icons/submitIcon.svg";
 import Accordion from 'react-bootstrap/Accordion';
 import moment from "moment";
 
-const GeneralTasks = ({tasks}) => {
+const GeneralTasks = ({setShowtask ,settaskdetail,tasks}) => {
 
 
+  const SubmitProofOfWork =(elem)=>{
+    setShowtask(true)
+    settaskdetail(elem)
+  }
   return (
     <div className="data-box general-tasks-wrapper border-grad1">
       <h4 className="general">recent tasks from general</h4>
@@ -50,7 +54,7 @@ const GeneralTasks = ({tasks}) => {
                       </Dropdown.Toggle>
 
                       <Dropdown.Menu className="stats-dropdown-menu">
-                        <div className="stats-dropdown-bg">
+                        <div className="stats-dropdown-bg"  onClick={()=>SubmitProofOfWork(elem)}>
                           <Dropdown.Item>
                             <img src={submitIcon} alt="submitIcon" />
                             Submit Proof

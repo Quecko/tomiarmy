@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 import './login.scss';
 import ConnectWallet from './ConnectWallet';
 
-const Invitecode = ({ role }) => {
+const Invitecode = ({ role,setRole }) => {
     const [joinsquad, setjoinsquad] = useState(false)
     const [invitecode, setinvitecode] = useState('')
     const joinsquadwallet = () => {
@@ -29,6 +29,7 @@ const Invitecode = ({ role }) => {
                 :
                 (
                     <div className='ConnectWallet-wrapper border-grad1'>
+                        <button className='omomomomom' onClick={() =>setRole('')}>Back To Sign Up</button>
                         <div className='army-textImg'>
                             {/* <img src={armyCap} alt="armyCap" className='capImg' />
                             <img src={armyText} alt="armyText" className='textImg' /> */}

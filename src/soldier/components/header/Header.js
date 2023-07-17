@@ -83,10 +83,10 @@ const Header = ({ routes, setroute, indexwait, handleShow, setShow2, setShow1, s
       // ShowResp(notification);
     });
     socket.on('Squad_Recruite_Invite', (notification) => {
-      toast.info("requst for task!");
+      toast.info("Squad_Recruite_Invite!");
       getNotif()
     });
-    socket.on('Squad_Recruite_Invite', (notification) => {
+    socket.on('Squad_Recruite_Accepted', (notification) => {
       toast.info("Squad_Recruite_Accepted");
   
     });
@@ -276,7 +276,7 @@ const Header = ({ routes, setroute, indexwait, handleShow, setShow2, setShow1, s
                                 <p><span></span>{moment(item?.createdAt).fromNow()}</p>
                               </div>
                               <p className="para">{item?.notification?.message}</p>
-                              {squadId.length > 20 &&
+                              {squadId?.length > 20 &&
                                 <div className="twice-btn">
                                   <button className="btn-reject"><img src="\assets\reject-icon.svg" alt="img" className="img-fluid me-2" />Reject</button>
                                   <button className="btn-accept" onClick={() => AcceptInvite(item)}><img src="\assets\checkmark.svg" alt="img" className="img-fluid me-2" />Accept</button>
@@ -353,12 +353,12 @@ const Header = ({ routes, setroute, indexwait, handleShow, setShow2, setShow1, s
               <>
                 {data?.isCoLeader === false && data?.isCommander === true ? (
                   <>
-                    <button className="leave display-none-in-mobile" onClick={() => setShow4(true)}>
+                    {/* <button className="leave display-none-in-mobile" onClick={() => setShow4(true)}>
                       <svg width="19" height="18" viewBox="0 0 19 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M13.35 1.5H11.4C9 1.5 7.5 3 7.5 5.4V8.4375H12.1875C12.495 8.4375 12.75 8.6925 12.75 9C12.75 9.3075 12.495 9.5625 12.1875 9.5625H7.5V12.6C7.5 15 9 16.5 11.4 16.5H13.3425C15.7425 16.5 17.2425 15 17.2425 12.6V5.4C17.25 3 15.75 1.5 13.35 1.5Z" fill="white" />
                         <path d="M4.17008 8.43751L5.72258 6.88501C5.83508 6.77251 5.88758 6.63 5.88758 6.4875C5.88758 6.345 5.83508 6.195 5.72258 6.09C5.50508 5.8725 5.14508 5.8725 4.92758 6.09L2.41508 8.60251C2.19758 8.82001 2.19758 9.18 2.41508 9.3975L4.92758 11.91C5.14508 12.1275 5.50508 12.1275 5.72258 11.91C5.94008 11.6925 5.94008 11.3325 5.72258 11.115L4.17008 9.56251H7.50008V8.43751H4.17008Z" fill="white" />
                       </svg>
-                      <span>Invite Squad Member</span></button>
+                      <span>Invite Squad Member</span></button> */}
                     <button className="create-squad-btn display-none-in-mobile" onClick={() => setShow5(true)}>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"

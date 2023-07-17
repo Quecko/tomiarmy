@@ -145,12 +145,12 @@ const GroupChat = () => {
     if (uploadImage) {
       data.append("chatsImage", uploadImage)
     }
+    axios.defaults.headers.post[
+      "Authorization"
+    ] = `Bearer ${tok}`;
     var config = {
       method: "post",
       url: `${API_URL}/chats/group-messages`,
-      headers: {
-        authorization: `Bearer ` + tok,
-      },
       data: data
     };
     axios(config)

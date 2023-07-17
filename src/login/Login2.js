@@ -5,8 +5,9 @@ import Tabs from 'react-bootstrap/Tabs';
 import ConnectWallet from './ConnectWallet';
 import Invitecode from './Invitecode';
 // import Freesoldier from './Freesoldier';
+import SignUp from './SignUp';
 
-const Login = () => {
+const Login2 = () => {
     useEffect(() => {
         localStorage.removeItem("data");
         document.body.classList.add("padding-remove");
@@ -30,14 +31,14 @@ const Login = () => {
                     id="noanim-tab-example"
                     onSelect={onselecttab}
                 >
-                    {/* <Tab eventKey="alreadymember" title="Already a member">
+                    <Tab eventKey="alreadymember" title="Login">
                         <ConnectWallet role={role} />
-                    </Tab> */}
-                    <Tab eventKey="squadjoin" title="Join Squad">
-                        <Invitecode role={role} />
                     </Tab>
-                    <Tab eventKey="solider" title="Free Solider">
-                        <ConnectWallet role={role} />
+                    {/* <Tab eventKey="Signup" title="Signup">
+                        <Invitecode role={role} />
+                    </Tab> */}
+                    <Tab eventKey="solider" title="Sign up">
+                        <SignUp role={role} />
                     </Tab>
                 </Tabs>
             </div>
@@ -45,4 +46,4 @@ const Login = () => {
     )
 }
 
-export default Login
+export default Login2

@@ -17,12 +17,13 @@ import { useHistory } from "react-router-dom";
 import { useLocation } from 'react-router-dom';
 import { API_URL } from '../utils/ApiUrl'
 
-const ConnectWallet = ({ setjoinsquad, joinsquad, role, setinvitecode, invitecode }) => {
+const ConnectWallet = ({ setjoinsquad, joinsquad, role, setRole, setinvitecode, invitecode }) => {
     const { account } = useWeb3React();
     const { userSign } = Signature();
     const [log, setLog] = useState(false)
     const history = useHistory();
     const { login, logout } = useAuth();
+    console.log('sssss',role);
     const trustWallet = async () => {
         localStorage.setItem("flag", "true");
         localStorage.setItem("connectorId", "walletconnect");
@@ -232,6 +233,11 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role, setinvitecode, invitecod
                     (
                         ''
                     )
+                }
+                {
+                    role === 'solider' &&
+                        <button className='omomomomom' onClick={() =>setRole('')}>Back To Sign Up</button>
+
                 }
                 <div className='army-textImg'>
                     {/* <img src={armyCap} alt="armyCap" className='capImg' />

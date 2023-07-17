@@ -42,7 +42,7 @@ const Recruiting = () => {
     if (account) {
       var config = {
         method: "get",
-        url: `${API_URL}/tasks/squad-invitation-requests?offset=1&&limit=5`,
+        url: `${API_URL}/tasks/squad-invitation-requests?offset=1&&limit=100`,
         headers: {
           authorization: `Bearer ` + tok
         },
@@ -222,7 +222,7 @@ const hiderecruit = (id) => {
 
 
                         </div>
-                        <div className="pagi">
+                        {/* <div className="pagi">
                           <div className="left">
                             <p>Showing 1 to 10 of 57 entries</p>
                           </div>
@@ -238,7 +238,7 @@ const hiderecruit = (id) => {
                             </Pagination>
                             <p>Next</p>
                           </div>
-                        </div>
+                        </div> */}
                       </div>
                       <div className="mobile-responsive-table d-none display-block-in-mobile">
                         <div className="heading-mobile">

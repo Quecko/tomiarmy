@@ -6,8 +6,7 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 
-const SquadModals = ({show1,setShow1, setShow2, show2 }) => {
-
+const SquadModals = ({show1,setShow1, setShow2, show2, SquadUsers,GetUserProfiledata }) => {
 
   // const [show1, setShow1] = useState(false);
   const handleClose1 = () => setShow1(false);
@@ -60,11 +59,14 @@ const SquadModals = ({show1,setShow1, setShow2, show2 }) => {
               setLoader(false);
               const userString = JSON.parse(localStorage.getItem('user'));
               userString.isCommander = true;
+              userString.memberOfSquad=true
               // Update local storage object with the updated data
               localStorage.setItem('user', JSON.stringify(userString));
               // localStorage.setItem('user', JSON.stringify(updateduser));
               // localStorage.setItem('user', JSON.stringify(response?.data?.data));
               localStorage.setItem("accessToken", response?.data?.accessToken);
+              GetUserProfiledata()
+              SquadUsers()
               // window.$("#exampleModalLabel11").modal("hide");
               window.scrollTo(0, 0);
               handleClose2();
@@ -179,7 +181,7 @@ const SquadModals = ({show1,setShow1, setShow2, show2 }) => {
                 </label>
               }
 
-              <input type="file"  className="d-none" id="upload" onChange={(e) => setProfilePic(e)} />
+              <input type="file" accept="image/png, image/jpeg, image/jpg"  className="d-none" id="upload" onChange={(e) => setProfilePic(e)} />
 
             </div>
           </div>

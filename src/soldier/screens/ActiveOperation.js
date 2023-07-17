@@ -160,7 +160,7 @@ const ActiveOperation = ({ setShowtask1, tasks,settaskdetail1,setOperationId }) 
                             </tbody>
                         </table>
                     </div>
-                    <div className="pagi">
+                    {/* <div className="pagi">
                         <div className="left">
                             <p>Showing 1 to 10 of 57 entries</p>
                         </div>
@@ -175,7 +175,7 @@ const ActiveOperation = ({ setShowtask1, tasks,settaskdetail1,setOperationId }) 
                             </Pagination>
                             <p>Next</p>
                         </div>
-                    </div>
+                    </div> */}
                 </div>
                 <div className="mobile-responsive-table d-none display-block-in-mobile">
                     <div className="heading-mobile">
