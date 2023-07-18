@@ -9,15 +9,36 @@ import MyRank from "../components/home/MyRank";
 import GeneralTasks from "../components/home/GeneralTasks";
 import HomeOperations from "../components/home/HomeOperations/HomeOperations";
 import { API_URL } from "../../utils/ApiUrl"
-import axios from "axios";
+import ReactApexChart from 'react-apexcharts';
 
+const Home = ({ setShow2, tasks, setShowtask, settaskdetail, setShowtask1, settaskdetail1, operations, setOperationId, users, squaddetail, statusData }) => {
 
-const Home = ({ setShow2, tasks, setShowtask, settaskdetail, setShowtask1, settaskdetail1, operations, setOperationId,users,squaddetail }) => {
-  const user = localStorage.getItem('user')
-    const { account } = useWeb3React();
+  let total = (statusData?.ApprovedTasks / statusData?.totalTasks) * 100
+  const state = {
+    series: [total > 0 ? total.toFixed(2) : '0'],
+    options: {
+      chart: {
+        height: 300,
+        type: 'radialBar',
+      },
+      plotOptions: {
+        radialBar: {
+          hollow: {
+            size: '60%',
+          }
+        },
+      },
+      labels: ['Completed'],
+    }
+  }
+  // const user = localStorage.getItem('user')
+  // const { account } = useWeb3React();
   // const commander = JSON.parse(datacommander)
-  const [DropDownAll, setDropDownAll] = useState('all time');
-  const [DropDownAll1, setDropDownAll1] = useState('all time');
+  // const [DropDownAll, setDropDownAll] = useState('all time');
+  // const [DropDownAll1, setDropDownAll1] = useState('all time');
+
+
+
   return (
     <>
       <div className="formobile-heading d-none display-block-in-mobile">
@@ -79,7 +100,7 @@ const Home = ({ setShow2, tasks, setShowtask, settaskdetail, setShowtask1, setta
                   <img src="\static-icons\squad-tokens.png" alt="earned" style={{ width: "50px", height: "50px" }} />
                   <div>
                     <p>Total Squad Tokens </p>
-                    <h4>{squaddetail?.squad?.totalTokens ? squaddetail?.squad?.totalTokens :'0'} TOMI</h4>
+                    <h4>{squaddetail?.squad?.totalTokens ? squaddetail?.squad?.totalTokens : '0'} TOMI</h4>
                   </div>
                 </div>
               </div>
@@ -89,7 +110,7 @@ const Home = ({ setShow2, tasks, setShowtask, settaskdetail, setShowtask1, setta
             <div className="data-box border-grad1">
               <div className="task-status-box-header">
                 <h4>My Tasks Status</h4>
-                <Dropdown className="tasks-status-dropdown">
+                {/* <Dropdown className="tasks-status-dropdown">
                   <Dropdown.Toggle id="dropdown-basic">{DropDownAll1} <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M13.2797 5.9668L8.93306 10.3135C8.41973 10.8268 7.57973 10.8268 7.06639 10.3135L2.71973 5.9668" stroke="#81828A" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
                   </svg></Dropdown.Toggle>
@@ -108,25 +129,27 @@ const Home = ({ setShow2, tasks, setShowtask, settaskdetail, setShowtask1, setta
                     </Dropdown.Item>
                   </div>
                   </Dropdown.Menu>
-                </Dropdown>
+                </Dropdown> */}
               </div>
               <div className="row m-0 tasks-box-row inner-data-box border-grad padd">
                 <div className="col-6 task-completed-graph">
-                  <img src="\static-icons\taskstatus.png" alt="taskCompleteds" style={{ width: "140px", height: "140px" }} />
+                  <div id="chart">
+                    <ReactApexChart options={state.options} series={state.series} type="radialBar" height={200} />
+                  </div>
                 </div>
                 <div className="col-6">
                   <div className="tasks-list-items">
                     <div className="tasks-items">
                       <p>Total Tasks</p>
-                      <h4>295</h4>
+                      <h4>{statusData?.totalTasks ? statusData?.totalTasks : '0'}</h4>
                     </div>
                     <div className="tasks-items">
                       <p>Completed Tasks</p>
-                      <h4>265</h4>
+                      <h4>{statusData?.ApprovedTasks ? statusData?.ApprovedTasks : '0'}</h4>
                     </div>
                     <div className="tasks-items">
                       <p>Remaining Tasks</p>
-                      <h4>30</h4>
+                      <h4>{statusData?.totalTasks > 0 ? statusData?.totalTasks - statusData?.ApprovedTasks : '0'}</h4>
                     </div>
                   </div>
                 </div>

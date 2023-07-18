@@ -128,7 +128,7 @@ const HomeOperations = ({setShowtask1, settaskdetail1, operations,setOperationId
   useEffect(() => {
     // getDataOperation()
     GetUserTopSquad()
-  }, []);
+  }, [account]);
 
   const GetTime = (time) => {
     let endtime = new Date(time)
@@ -152,7 +152,6 @@ const HomeOperations = ({setShowtask1, settaskdetail1, operations,setOperationId
           </div>
           : ''
         }
-
         <section className="home-operations border-grad1">
           <div className="upper-item">
             <div className='left'>

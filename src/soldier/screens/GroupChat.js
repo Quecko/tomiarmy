@@ -13,18 +13,16 @@ import { Modal } from 'react-bootstrap';
 import { io } from "socket.io-client";
 import { useRef } from 'react';
 
-const GroupChat = () => {
+const GroupChat = ({setPage, page, setChat, chat, getChat, pages,message, setMessage}) => {
   const [show, setshow] = useState(false);
   const [show1, setShow1] = useState(false);
   const handleClose1 = () => setShow1(false);
   const handleShow1 = () => setShow1(true);
   const [topuser, settopuser] = useState([]);
-  const [chat, setChat] = useState([]);
-  const [message, setMessage] = useState('');
   const [image, setImage] = useState(null);
   const [uploadImage, setUploadImage] = useState(null);
   const [showImageModal, setShowImageModal] = useState(false);
-  const [firstTime, setFirstTime] = useState(true);
+
 
   const handleCloseImageModal = () => setShowImageModal(false);
   const [imageDetail, setImagedetail] = useState()
@@ -48,17 +46,10 @@ const GroupChat = () => {
     // }
   };
 
-  const [page, setPage] = useState(1)
-  const [pages, allPages] = useState(1)
-  useEffect(() => {
-    // if(page!=pages){
-    console.log("guss raha", pages)
-    getChat()
-    // }
-  }, [page])
+
 
   const handleScroll = () => {
-    console.log('scroll');
+    // console.log('scroll');
     const container = chatSectionRef.current;
     let scrollTop = Math.abs(container.scrollTop);
     if (scrollTop + container.clientHeight >= container.scrollHeight - 1 && page != pages) {
@@ -68,38 +59,9 @@ const GroupChat = () => {
 
 
   // get top user or member
-  const getChat = async () => {
-    let tok = localStorage.getItem("accessToken");
-    // page = message!='' ?1 :page; 
-    setPage(message!='' ? 1 : page)
-    var config = {
-      method: "get",
-      url: `${API_URL}/chats/group-messages?offset=${page}&limit=10`,
-      headers: {
-        authorization: `Bearer ` + tok
-      },
-    };
-    axios(config)
-      .then(function (response) {
-        allPages(response?.data?.data?.pages)
-        if (firstTime || message!='') {
-          console.log('if');
-          let rev = reverse([...response?.data?.data?.groupMessages])
-          setChat(rev);
-          setFirstTime(false)
-        }
-        else {
-        console.log('else');
-        let rev = reverse([...response?.data?.data?.groupMessages])
-          setChat([...rev, ...chat])
-        }
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  }
 
-  console.log("sdsdfsdfds",chat)
+
+  // console.log("sdsdfsdfds",chat)
 
 
 
@@ -188,27 +150,26 @@ const GroupChat = () => {
 
   //socket
 
-  useEffect(() => {
-    let tok = localStorage.getItem("accessToken");
-    let socket = io('https://stagingapi.tomiarmy.com', {
-      transports: ["websocket", "polling"],
-      path: "/chats/sockets",
-    });
-    socket.on("connect", () => {
-      console.log('socket connected group chat++++++++++++++++++++++++++', socket.connected);
-      socket.emit("authentication", {
-        token: tok,
-      });
-    });
+  // useEffect(() => {
+  //   let tok = localStorage.getItem("accessToken");
+  //   let socket = io('https://stagingapi.tomiarmy.com', {
+  //     transports: ["websocket", "polling"],
+  //     path: "/chats/sockets",
+  //   });
+  //   socket.on("connect", () => {
+  //     console.log('socket connected group chat++++++++++++++++++++++++++', socket.connected);
+  //     socket.emit("authentication", {
+  //       token: tok,
+  //     });
+  //   });
 
-    socket.on('Group_Message', () => {
-      toast.info("group message chat notification");
-      // getChat()
-    });
-    socket.on("disconnect", (reason) => {
-      console.log(`Disconnected: ${reason}`);
-    });
-  }, [])
+  //   
+
+  //   socket.on("disconnect", (reason) => {
+  //     console.log(`Disconnected groupchat: ${reason}`);
+  //   });
+  // }, [chat])
+
   return (
     <>
       <div className="formobile-heading d-none display-block-in-mobile forchatgroup" >

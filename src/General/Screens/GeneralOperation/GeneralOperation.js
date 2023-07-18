@@ -19,7 +19,6 @@ import GeneralActive from './GeneralActive';
 import moment from "moment";
 
 const GeneralOperation = ({ setroute, routes, setroutehome,routeshome, setsvaebutton, svaebutton }) => {
-    console.log("sdfsdfsdf",routeshome)
     const [expired, setexpired] = useState(false);
     const [call, setcall] = useState(false);
     const [operationdata, setoperationdata] = useState('');

@@ -18,6 +18,7 @@ import BugReport from "../../screens/BugReport";
 import FAQS from "../../screens/FAQS";
 import Recruiting from "../../screens/Recruiting";
 import SquadModals from "../home/HomeOperations/SquadModals";
+import { reverse } from "lodash";
 import AllTaskModals from "../../screens/AllTaskModals";
 import LeaderModals from "../home/HomeOperations/LeaderModals";
 import { toast } from 'react-toastify';
@@ -50,10 +51,25 @@ const Sidebar = () => {
   const history = useHistory();
   const { userSign } = Signature();
   const [loader, setLoader] = useState(false);
+  const [operations, setOperations] = useState([])
+  const [tasks, settasks] = useState([]);
+  const [users, setUsers] = useState([]);
+  const [squaddetail, setsquaddetail] = useState()
+  const [expired, setexpired] = useState(false);
+  const [expireds, setexpireds] = useState(false);
 
+  const [chat, setChat] = useState([]);
+  const [page, setPage] = useState(1)
+  const [firstTime, setFirstTime] = useState(true);
+  const [pages, allPages] = useState(1)
+  const [message, setMessage] = useState('');
   const [show4, setShow4] = useState(false);
   const [show5, setShow5] = useState(false);
   const [show6, setShow6] = useState(false);
+  const [notifs, setNotifs] = useState([]);
+  const [rend, setRend] = useState(false);
+  const [statusData,setStatus]=useState('')
+
   useEffect(() => {
     if (indexvv == "0") {
       setindexwait(0)
@@ -116,8 +132,6 @@ const Sidebar = () => {
       setShow(true);
     }
   };
-
-
 
   var user12 = localStorage.getItem("user");
   user12 = JSON.parse(user12)
@@ -200,14 +214,6 @@ const Sidebar = () => {
     }
   };
 
-  const [operations, setOperations] = useState([])
-  const [tasks, settasks] = useState([]);
-  const [users, setUsers] = useState([]);
-  const [squaddetail, setsquaddetail] = useState()
-  const [expired, setexpired] = useState(false);
-  const [expireds, setexpireds] = useState(false);
-
-
   const getDataOperation = async (off) => {
 
     // let valu = null;
@@ -285,8 +291,7 @@ const Sidebar = () => {
       });
     // }
   }
-  const [notifs, setNotifs] = useState([]);
-  const [rend, setRend] = useState(false);
+
   const getNotif = (soc) => {
     let tok = localStorage.getItem("accessToken");
     setNotifs([]);
@@ -344,10 +349,41 @@ const Sidebar = () => {
       });
   }
 
+  const getChat = async () => {
+    let tok = localStorage.getItem("accessToken");
+    // page = message!='' ?1 :page; 
+    setPage(message!='' ? 1 : page)
+    var config = {
+      method: "get",
+      url: `${API_URL}/chats/group-messages?offset=${page}&limit=10`,
+      headers: {
+        authorization: `Bearer ` + tok
+      },
+    };
+    axios(config)
+      .then(function (response) {
+        allPages(response?.data?.data?.pages)
+        if (firstTime || message!='') {
+          console.log('if');
+          let rev = reverse([...response?.data?.data?.groupMessages])
+          setChat(rev);
+          setFirstTime(false)
+        }
+        else {
+        console.log('else');
+        let rev = reverse([...response?.data?.data?.groupMessages])
+          setChat([...rev, ...chat])
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
+
   const GetUserProfiledata = () => {
     // setLoader(true);
     let tok = localStorage.getItem("accessToken");
-    if (account) {
+    // if (account) {
       var config = {
         method: "get",
         url: `${API_URL}/auth/users/profile`,
@@ -370,11 +406,46 @@ const Sidebar = () => {
           // localStorage.removeItem("user");
           // window.location.assign("/")
         });
-    }
+    // }
+  }
+
+  const GetTaskStatusData = () => {
+    // setLoader(true);
+    let tok = localStorage.getItem("accessToken");
+    // if (account) {
+      var config = {
+        method: "get",
+        url: `${API_URL}/tasks/task-status`,
+        headers: {
+          authorization: `Bearer ` + tok
+        },
+      };
+      axios(config)
+        .then(async (response) => {
+          // setLoader(false);
+          setStatus(response.data.data[0])
+          // setcoms(response?.data?.data?.squad?.commander)
+          // setnewss(response?.data?.data?._id)
+          window.scrollTo(0, 0);
+        })
+        .catch(function (error) {
+          console.log(error);
+          // setLoader(false);
+          // localStorage.removeItem("accessToken");
+          // localStorage.removeItem("user");
+          // window.location.assign("/")
+        });
+    // }
   }
   useEffect(() => {
+    if(datacommander?.memberOfSquad===true){
+      getChat()
+      SquadUsers()
+    }
+}, [page])
+  useEffect(() => {
+    GetTaskStatusData()
     getNotif()
-    SquadUsers()
     GetUserProfiledata()
   }, [account])
   useEffect(() => {
@@ -384,8 +455,6 @@ const Sidebar = () => {
   useEffect(() => {
     getDataOperation()
   }, [account, expired])
-
-  console.log("account", account)
   return (
     <>
       <div className="theme-custom-container">
@@ -807,11 +876,11 @@ const Sidebar = () => {
             </div>
           </div>
           <div className="content-column">
-            <Header handleShow={handleShow} indexwait={indexwait} routes={routes} setroute={setroute} show1={show1} setShow1={setShow1} show2={show2} setShow2={setShow2} setShow4={setShow4} setShow5={setShow5} notifs={notifs} getNotif={getNotif} getData={getData} getDataOperation={getDataOperation}  />
+            <Header handleShow={handleShow} getChat={getChat} indexwait={indexwait} routes={routes} setroute={setroute} show1={show1} setShow1={setShow1} show2={show2} setShow2={setShow2} setShow4={setShow4} setShow5={setShow5} notifs={notifs} getNotif={getNotif} getData={getData} getDataOperation={getDataOperation}  />
             {indexwait === 0 ?
               (
                 <>
-                  <Home show2={show2} setShow2={setShow2} tasks={tasks} setShowtask={setShowtask} settaskdetail={settaskdetail} setShowtask1={setShowtask1} settaskdetail1={settaskdetail1} operations={operations} setOperationId={setOperationId} users={users} squaddetail={squaddetail} />
+                  <Home show2={show2} setShow2={setShow2} tasks={tasks} setShowtask={setShowtask} settaskdetail={settaskdetail} setShowtask1={setShowtask1} settaskdetail1={settaskdetail1} operations={operations} setOperationId={setOperationId} users={users} squaddetail={squaddetail} statusData={statusData}/>
                 </>
               )
               :
@@ -845,15 +914,13 @@ const Sidebar = () => {
                         <>
                           <Announcements />
                         </>
-
                       )
                       :
                       indexwait == 5 ?
                         (
                           <>
-                            <GroupChat />
+                            <GroupChat setPage={setPage} page={page} setChat={setChat} chat={chat} getChat={getChat} pages={pages} setMessage={setMessage} message={message}/>
                           </>
-
                         )
                         :
                         indexwait == 6 ?

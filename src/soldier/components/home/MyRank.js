@@ -5,9 +5,11 @@ import Sergeant from "../../../assets/icons/Sergeant.svg";
 import pointsBar from "../../../assets/icons/pointsBar.svg";
 import { API_URL } from "../../../utils/ApiUrl"
 import ProgressBar from "react-bootstrap/ProgressBar";
+import { useWeb3React } from "@web3-react/core";
 import axios from "axios";
 
 const MyRank = ({ props }) => {
+  const {account}=useWeb3React()
   const [army, setArmy] = useState([]);
   const GetNextRank = () => {
     if (props) {
@@ -59,7 +61,7 @@ const MyRank = ({ props }) => {
 
   useEffect(() => {
     GetArmy();
-  }, [])
+  }, [account])
   return (
     <div className="data-box border-grad1">
       <h4>my rank</h4>

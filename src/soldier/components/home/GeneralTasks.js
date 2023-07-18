@@ -7,11 +7,11 @@ import moment from "moment";
 
 const GeneralTasks = ({setShowtask ,settaskdetail,tasks}) => {
 
-
   const SubmitProofOfWork =(elem)=>{
     setShowtask(true)
     settaskdetail(elem)
   }
+  
   return (
     <div className="data-box general-tasks-wrapper border-grad1">
       <h4 className="general">recent tasks from general</h4>
@@ -26,7 +26,7 @@ const GeneralTasks = ({setShowtask ,settaskdetail,tasks}) => {
           </tr>
         </thead>
         <tbody>
-          {tasks?.map((elem, index) => {
+          {tasks?.slice(0, 5).map((elem, index) => {
             let expiredate = new Date(elem?.expirationDate);
             const ExpireDate = moment(expiredate).format("DD-MM-YYYY");
             let createdate = new Date(elem?.createdAt);
@@ -207,7 +207,7 @@ const GeneralTasks = ({setShowtask ,settaskdetail,tasks}) => {
         <div className="heading-mobile">
           <p>Task</p>
         </div>
-        <Accordion defaultActiveKey="0">
+        <Accordion defaultActiveKey="">
           <Accordion.Item eventKey="0">
             <Accordion.Header>Like our facebook page</Accordion.Header>
             <Accordion.Body>
