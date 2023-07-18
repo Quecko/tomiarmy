@@ -23,6 +23,12 @@ const BugReport = () => {
         setAllFormData({ ...allFormData });
     }
 
+    const ClearAll = () => {
+        setAllFormData({
+            issue: '',
+            description: '',
+        })
+    }
     const [loader, setLoader] = useState()
     const createBug = () => {
         setLoader(true);
@@ -46,6 +52,9 @@ const BugReport = () => {
                 .then(async (response) => {
                     setLoader(false);
                     toast.success("Bug report Successfully");
+                    ClearAll();
+                    setImageUrl()
+                    getListing()
                 })
                 .catch(function (error) {
                     setLoader(false);
@@ -82,7 +91,7 @@ const BugReport = () => {
         let tok = localStorage.getItem("accessToken");
         var config = {
             method: "get",
-            url: `${API_URL}/content/bug-reports/get-bugs-report-list?offset=1&limit=5`,
+            url: `${API_URL}/content/bug-reports/get-bugs-report-list?offset=1&limit=100`,
             headers: {
                 authorization: `Bearer ` + tok
             },
@@ -100,6 +109,9 @@ const BugReport = () => {
     useEffect(() => {
         getListing()
     }, [])
+
+
+    var result = imageUrl?.split("_")?.pop();
 
 
     return (
@@ -136,9 +148,12 @@ const BugReport = () => {
                                         <label htmlFor="upload">Choose</label>
                                         {!imageUrl ?
                                             <p>No file Selected</p> :
-                                            <p>{imageUrl}</p>
+                                            <p>{result}</p>
                                         }
-                                        <input type="file" accept="image/png, image/jpeg" onChange={(e) => handleInputChange(e)} className='d-none' id='upload' />
+                                        <input type="file"
+                                            accept="image/png, image/jpeg, image/jpg"
+
+                                            onChange={(e) => handleInputChange(e)} className='d-none' id='upload' />
                                     </div>
                                 </div>
                                 <button className='btn-save' onClick={createBug}>Save</button>
@@ -189,7 +204,7 @@ const BugReport = () => {
                                         </tbody>
                                     </table>
                                 </div>
-                                <div className="pagi">
+                                {/* <div className="pagi">
                                     <div className="left">
                                         <p>Showing 1 to 10 of 57 entries</p>
                                     </div>
@@ -204,7 +219,7 @@ const BugReport = () => {
                                         </Pagination>
                                         <p>Next</p>
                                     </div>
-                                </div>
+                                </div> */}
                             </div>
                             <div className="mobile-responsive-table d-none display-block-in-mobile">
                                 <div className="heading-mobile">

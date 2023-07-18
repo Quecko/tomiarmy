@@ -199,7 +199,7 @@ const Announcements = () => {
                             </tbody>
                           </table>
                         </div>
-                        <div className="pagi">
+                        {/* <div className="pagi">
                           <div className="left">
                             <p>Showing 1 to 10 of 57 entries</p>
                           </div>
@@ -215,7 +215,7 @@ const Announcements = () => {
                             </Pagination>
                             <p>Next</p>
                           </div>
-                        </div>
+                        </div> */}
                       </div>
                       <div className="mobile-responsive-table d-none display-block-in-mobile">
                         <div className="heading-mobile">
@@ -286,7 +286,8 @@ const Announcements = () => {
                       </div>
                     </div>
                   </Tab>
-                  <Tab eventKey="profile" title={<p>Unread Announcements <img src='\two.svg' alt='img' className='img-fluid' />
+                  <Tab eventKey="profile" title={<p>Unread Announcements
+                     {/* <img src='\two.svg' alt='img' className='img-fluid' /> */}
                   {/* {selecttab === 'profile' && announcements?.userAnnouncements?.length} */}
                     </p>}>
                     {/* <Sonnet /> */}

@@ -202,6 +202,8 @@ const Sidebar = () => {
 
   const [operations, setOperations] = useState([])
   const [tasks, settasks] = useState([]);
+  const [users, setUsers] = useState([]);
+  const [squaddetail, setsquaddetail] = useState()
   const [expired, setexpired] = useState(false);
   const [expireds, setexpireds] = useState(false);
 
@@ -217,34 +219,34 @@ const Sidebar = () => {
     let tok = localStorage.getItem("accessToken");
     let wall = localStorage.getItem("wallet");
     // if (account) {
-      var config = {
-        method: "get",
-        url: `${API_URL}/tasks/operations?offset=1&&limit=5&&expired=${expired}`,
-        headers: {
-          authorization: `Bearer ` + tok
-        },
-      };
-      axios(config)
-        .then(function (response) {
-          setLoader(false);
-          // setCount(response.data.data.count)
-          if (expired === true) {
-            setOperations(response?.data?.data?.operation);
-          }
-          else {
-            setOperations(response?.data?.data?.operation[0]);
-          }
-          // let arr = Array.from(Array(parseInt(response.data.data.pages)).keys());
-          // setPages(arr);
-          // setCurrentPage(valu)
-        })
-        .catch(function (error) {
-          setLoader(false);
-          // localStorage.removeItem("accessToken");
-          // localStorage.removeItem("user");
-          // window.location.assign("/")
-          // window.location.reload();
-        });
+    var config = {
+      method: "get",
+      url: `${API_URL}/tasks/operations?offset=1&&limit=100&&expired=${expired}`,
+      headers: {
+        authorization: `Bearer ` + tok
+      },
+    };
+    axios(config)
+      .then(function (response) {
+        setLoader(false);
+        // setCount(response.data.data.count)
+        if (expired === true) {
+          setOperations(response?.data?.data?.operation);
+        }
+        else {
+          setOperations(response?.data?.data?.operation[0]);
+        }
+        // let arr = Array.from(Array(parseInt(response.data.data.pages)).keys());
+        // setPages(arr);
+        // setCurrentPage(valu)
+      })
+      .catch(function (error) {
+        setLoader(false);
+        // localStorage.removeItem("accessToken");
+        // localStorage.removeItem("user");
+        // window.location.assign("/")
+        // window.location.reload();
+      });
     // }
   }
 
@@ -258,29 +260,29 @@ const Sidebar = () => {
     let tok = localStorage.getItem("accessToken");
     // let wall = localStorage.getItem("wallet");
     // if (account) {
-      var config = {
-        method: "get",
-        url: `${API_URL}/tasks?offset=1&&limit=5&&expired=${expireds}`,
-        headers: {
-          authorization: `Bearer ` + tok
-        },
-      };
-      axios(config)
-        .then(function (response) {
-          setLoader(false);
-          // setCount(response.data.data.count)
-          settasks(response?.data?.data?.tasks);
-          // let arr = Array.from(Array(parseInt(response.data.data.pages)).keys());
-          // setPages(arr);
-          // setCurrentPage(valu)
-        })
-        .catch(function (error) {
-          setLoader(false);
-          // localStorage.removeItem("accessToken");
-          // localStorage.removeItem("user");
-          // window.location.assign("/")
-          // window.location.reload();
-        });
+    var config = {
+      method: "get",
+      url: `${API_URL}/tasks?offset=1&&limit=100&&expired=${expireds}`,
+      headers: {
+        authorization: `Bearer ` + tok
+      },
+    };
+    axios(config)
+      .then(function (response) {
+        setLoader(false);
+        // setCount(response.data.data.count)
+        settasks(response?.data?.data?.tasks);
+        // let arr = Array.from(Array(parseInt(response.data.data.pages)).keys());
+        // setPages(arr);
+        // setCurrentPage(valu)
+      })
+      .catch(function (error) {
+        setLoader(false);
+        // localStorage.removeItem("accessToken");
+        // localStorage.removeItem("user");
+        // window.location.assign("/")
+        // window.location.reload();
+      });
     // }
   }
   const [notifs, setNotifs] = useState([]);
@@ -289,30 +291,92 @@ const Sidebar = () => {
     let tok = localStorage.getItem("accessToken");
     setNotifs([]);
     // if (account || soc) {
+    var config = {
+      method: "get",
+      url: `${API_URL}/notifications/user-notifications?offset=1&&limit=100000`,
+      headers: {
+        authorization: `Bearer ` + tok
+      },
+    };
+    axios(config)
+      .then(function (response) {
+        setNotifs(response?.data?.data.userNotifications);
+        setRend(!rend);
+      })
+      .catch(function (error) {
+        console.log(error);
+        // localStorage.removeItem("accessToken");
+        // localStorage.removeItem("user");
+        // window.location.assign("/")
+      });
+    // }
+  }
+
+  const SquadUsers = async (off) => {
+    let valu = null;
+    // if (off) {
+    //     valu = off;
+    // } else {
+    //     valu = 1;
+    // }
+    let tok = localStorage.getItem("accessToken");
+    var config = {
+      method: "get",
+      url: `${API_URL}/auth/users/squad-members?offset=1&&limit=100&queryParam=Active Squad`,
+      headers: {
+        authorization: `Bearer ` + tok
+      },
+    };
+    axios(config)
+      .then(function (response) {
+        // setLoader(false);
+        setUsers(response?.data?.data?.users);
+        // let arr = Array.from(Array(parseInt(response.data.data.pages)).keys());
+        // setPages(arr);
+        // setCurrentPage(valu)
+      })
+      .catch(function (error) {
+        // console.log(error);
+        // setLoader(false);
+        // localStorage.removeItem("accessToken");
+        // localStorage.removeItem("user");
+        // window.location.reload();
+      });
+  }
+
+  const GetUserProfiledata = () => {
+    // setLoader(true);
+    let tok = localStorage.getItem("accessToken");
+    if (account) {
       var config = {
         method: "get",
-        url: `${API_URL}/notifications/user-notifications?offset=1&&limit=100000`,
+        url: `${API_URL}/auth/users/profile`,
         headers: {
           authorization: `Bearer ` + tok
         },
       };
       axios(config)
-        .then(function (response) {
-          setNotifs(response?.data?.data.userNotifications);
-          setRend(!rend);
+        .then(async (response) => {
+          // setLoader(false);
+          setsquaddetail(response.data.data)
+          // setcoms(response?.data?.data?.squad?.commander)
+          // setnewss(response?.data?.data?._id)
+          window.scrollTo(0, 0);
         })
         .catch(function (error) {
           console.log(error);
+          // setLoader(false);
           // localStorage.removeItem("accessToken");
           // localStorage.removeItem("user");
           // window.location.assign("/")
         });
-    // }
+    }
   }
-
-  useEffect(()=>{
+  useEffect(() => {
     getNotif()
-  },[account])
+    SquadUsers()
+    GetUserProfiledata()
+  }, [account])
   useEffect(() => {
     getData()
   }, [account, expireds])
@@ -321,7 +385,7 @@ const Sidebar = () => {
     getDataOperation()
   }, [account, expired])
 
-  console.log("account",account)
+  console.log("account", account)
   return (
     <>
       <div className="theme-custom-container">
@@ -412,44 +476,46 @@ const Sidebar = () => {
                       </a>
                     </li>
                   }
-                  <li>
-                    <a
-                      onClick={() => { hitfunctionss(3); }}
-                      className={
-                        indexwait === 3 ? "list-item active" : "list-item "
-                      }
+                  {data?.memberOfSquad === true &&
+                    <li>
+                      <a
+                        onClick={() => { hitfunctionss(3); }}
+                        className={
+                          indexwait === 3 ? "list-item active" : "list-item "
+                        }
 
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="20"
-                        height="20"
-                        viewBox="0 0 20 20"
-                        fill="none"
                       >
-                        <g clip-path="url(#clip0_260_1810)">
-                          <path
-                            d="M15.3822 3.91039L11.6631 3.37L9.99999 0L8.33682 3.37L4.6178 3.91039L7.30893 6.53356L6.67362 10.2375L9.99999 8.48875L13.3264 10.2375L12.6911 6.53356L15.3822 3.91039Z"
-                            fill="#81828A"
-                          />
-                          <path
-                            d="M9.99999 12.3132L3.98651 9.90067V13.3275L10.0351 15.7541L16.0135 13.3256V9.90067L9.99999 12.3132Z"
-                            fill="#81828A"
-                          />
-                          <path
-                            d="M9.99999 16.5591L3.98651 14.1466V17.5734L10.0351 20L16.0135 17.5715V14.1466L9.99999 16.5591Z"
-                            fill="#81828A"
-                          />
-                        </g>
-                        <defs>
-                          <clipPath id="clip0_260_1810">
-                            <rect width="20" height="20" fill="white" />
-                          </clipPath>
-                        </defs>
-                      </svg>
-                      <span>Your Squad</span>
-                    </a>
-                  </li>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="20"
+                          height="20"
+                          viewBox="0 0 20 20"
+                          fill="none"
+                        >
+                          <g clip-path="url(#clip0_260_1810)">
+                            <path
+                              d="M15.3822 3.91039L11.6631 3.37L9.99999 0L8.33682 3.37L4.6178 3.91039L7.30893 6.53356L6.67362 10.2375L9.99999 8.48875L13.3264 10.2375L12.6911 6.53356L15.3822 3.91039Z"
+                              fill="#81828A"
+                            />
+                            <path
+                              d="M9.99999 12.3132L3.98651 9.90067V13.3275L10.0351 15.7541L16.0135 13.3256V9.90067L9.99999 12.3132Z"
+                              fill="#81828A"
+                            />
+                            <path
+                              d="M9.99999 16.5591L3.98651 14.1466V17.5734L10.0351 20L16.0135 17.5715V14.1466L9.99999 16.5591Z"
+                              fill="#81828A"
+                            />
+                          </g>
+                          <defs>
+                            <clipPath id="clip0_260_1810">
+                              <rect width="20" height="20" fill="white" />
+                            </clipPath>
+                          </defs>
+                        </svg>
+                        <span>Your Squad</span>
+                      </a>
+                    </li>
+                  }
                   {data?.isCommander === true &&
                     <li>
                       <a
@@ -530,11 +596,11 @@ const Sidebar = () => {
                       </svg>
                       <div className="set-flex-for-value">
                         <span>Announcements </span>
-                        <span className="set-value">2</span>
+                        {/* <span className="set-value">2</span> */}
                       </div>
                     </a>
                   </li>
-                  {data?.memberOfSquad === true &&
+                  {data?.memberOfSquad === true  &&
                     <li>
                       <a
                         onClick={() => { hitfunctionss(5); }}
@@ -549,7 +615,7 @@ const Sidebar = () => {
                         </svg>
                         <div className="set-flex-for-value">
                           <span>Group Chat </span>
-                          <span className="set-value">2</span>
+                          {/* <span className="set-value">2</span> */}
                         </div>
                       </a>
                     </li>}
@@ -741,11 +807,11 @@ const Sidebar = () => {
             </div>
           </div>
           <div className="content-column">
-            <Header handleShow={handleShow} indexwait={indexwait} routes={routes} setroute={setroute} show1={show1} setShow1={setShow1} show2={show2} setShow2={setShow2} setShow4={setShow4} setShow5={setShow5} notifs={notifs} getNotif={getNotif} getData={getData} getDataOperation={getDataOperation}/>
+            <Header handleShow={handleShow} indexwait={indexwait} routes={routes} setroute={setroute} show1={show1} setShow1={setShow1} show2={show2} setShow2={setShow2} setShow4={setShow4} setShow5={setShow5} notifs={notifs} getNotif={getNotif} getData={getData} getDataOperation={getDataOperation}  />
             {indexwait === 0 ?
               (
                 <>
-                  <Home show2={show2} setShow2={setShow2} tasks={tasks} />
+                  <Home show2={show2} setShow2={setShow2} tasks={tasks} setShowtask={setShowtask} settaskdetail={settaskdetail} setShowtask1={setShowtask1} settaskdetail1={settaskdetail1} operations={operations} setOperationId={setOperationId} users={users} squaddetail={squaddetail} />
                 </>
               )
               :
@@ -1277,7 +1343,7 @@ const Sidebar = () => {
       </Offcanvas>
 
 
-      <SquadModals show1={show1} setShow1={setShow1} show2={show2} setShow2={setShow2} />
+      <SquadModals show1={show1} setShow1={setShow1} show2={show2} setShow2={setShow2} SquadUsers={SquadUsers} GetUserProfiledata={GetUserProfiledata} />
       <LeaderModals show4={show4} setShow4={setShow4} show5={show5} setShow5={setShow5} show6={show6} setShow6={setShow6} item={coLeaderDetails} />
       <AllTaskModals showtask={showtask} setShowtask={setShowtask} settaskdetail={settaskdetail} taskdetail={taskdetail} getData={getData} />
       <AllOperationTaskModal showtask1={showtask1} setShowtask1={setShowtask1} settaskdetail1={settaskdetail1} taskdetail1={taskdetail1} getDataOperation={getDataOperation} operationId={operationId} />

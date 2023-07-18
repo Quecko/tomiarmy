@@ -146,7 +146,7 @@ const GeneralArmy = ({ routesarmy, setroutearmy }) => {
                                                 className="mb-3"
                                             >
                                                 <Tab eventKey="home" title="Rank Approvals">
-                                                    <div className="parent-field">
+                                                    {/* <div className="parent-field">
                                                         <div className="option-field option-field1">
                                                             <input type="text" placeholder='Search' />
                                                             <img src="\assets\search-icon.svg" alt="img" className='img-fluid search-icon' />
@@ -169,7 +169,7 @@ const GeneralArmy = ({ routesarmy, setroutearmy }) => {
                                                                 </ul>
                                                             </div>
                                                         </div>
-                                                    </div>
+                                                    </div> */}
                                                     <div className='maincard'>
                                                         <div className='display-none-in-mobile'>
                                                             <div className="maintable">
@@ -226,8 +226,6 @@ const GeneralArmy = ({ routesarmy, setroutearmy }) => {
                                                                                                     </Dropdown.Menu>
                                                                                                 </Dropdown>
                                                                                             </div>
-
-
                                                                                         </td>
                                                                                     </tr>
                                                                                 )
@@ -235,7 +233,7 @@ const GeneralArmy = ({ routesarmy, setroutearmy }) => {
                                                                     </tbody>
                                                                 </table>
                                                             </div>
-                                                            <div className="pagi">
+                                                            {/* <div className="pagi">
                                                                 <div className="left">
                                                                     <p>Showing 1 to 10 of 57 entries</p>
                                                                 </div>
@@ -251,7 +249,7 @@ const GeneralArmy = ({ routesarmy, setroutearmy }) => {
                                                                     </Pagination>
                                                                     <p>Next</p>
                                                                 </div>
-                                                            </div>
+                                                            </div> */}
                                                         </div>
                                                         <div className="mobile-responsive-table d-none display-block-in-mobile">
                                                             <div className="heading-mobile">

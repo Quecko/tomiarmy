@@ -13,6 +13,7 @@ import ArmyForum from "./soldier/screens/ArmyForum";
 import ClaimRewards from "./soldier/screens/ClaimRewards";
 import { useEffect, useState } from "react";
 import Login from "./login/Login";
+import Login2 from "./login/Login2";
 import Requestinvitation from "./login/Requestinvitation";
 import Dcsquad from "./login/Dcsquad";
 import Sidebar from "./soldier/components/sidebar/Sidebar";
@@ -30,7 +31,7 @@ function App() {
       <Router>
         <Switch>
 
-          <Route exact path="/" component={Login} />
+          <Route exact path="/" component={Login2} />
           <Route exact path="/requestinvitation" component={Requestinvitation} />
           <Route exact path="/dcsquad" component={Dcsquad} />
           {/* soldier + leader all routes here........................... */}

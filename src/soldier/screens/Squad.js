@@ -59,7 +59,7 @@ const Squad = ({ show1, setShow1, show2, setShow2,show4, setShow4, show5, setSho
     let wall = localStorage.getItem("wallet");
     var config = {
       method: "get",
-      url: `${API_URL}/auth/users/squad-members?offset=1&&limit=5&queryParam=${selecttab}`,
+      url: `${API_URL}/auth/users/squad-members?offset=1&&limit=100&queryParam=${selecttab}`,
       headers: {
         authorization: `Bearer ` + tok
       },
@@ -150,10 +150,10 @@ const Squad = ({ show1, setShow1, show2, setShow2,show4, setShow4, show5, setSho
         {data?.isCoLeader === false && data?.isCommander === true ?
           (
             <div className="twice-btn">
-              <button className="btn-leave" onClick={() => setShow4(true)}>
+              {/* <button className="btn-leave" onClick={() => setShow4(true)}>
                 <img src="\assets\leave-btn.svg" alt="img" className="img-fluid me-2" />
                 Invite Squad Member
-              </button>
+              </button> */}
               <button className="create-btn" onClick={() => setShow5(true)}>
                 <img src="\assets\create-btn-icon.svg" alt="img" className="img-fluid me-2" />
                 Add Co Leader
@@ -311,7 +311,7 @@ const Squad = ({ show1, setShow1, show2, setShow2,show4, setShow4, show5, setSho
                                 </tbody>
                               </table>
                             </div>
-                            <div className="pagi">
+                            {/* <div className="pagi">
                               <div className="left">
                                 <p>Showing 1 to 10 of 57 entries</p>
                               </div>
@@ -327,7 +327,7 @@ const Squad = ({ show1, setShow1, show2, setShow2,show4, setShow4, show5, setSho
                                 </Pagination>
                                 <p>Next</p>
                               </div>
-                            </div>
+                            </div> */}
                           </div>
                           <div className="mobile-responsive-table d-none display-block-in-mobile">
                             <div className="heading-mobile">
@@ -497,7 +497,7 @@ const Squad = ({ show1, setShow1, show2, setShow2,show4, setShow4, show5, setSho
                                 </tbody>
                               </table>
                             </div>
-                            <div className="pagi">
+                            {/* <div className="pagi">
                               <div className="left">
                                 <p>Showing 1 to 10 of 57 entries</p>
                               </div>
@@ -513,7 +513,7 @@ const Squad = ({ show1, setShow1, show2, setShow2,show4, setShow4, show5, setSho
                                 </Pagination>
                                 <p>Next</p>
                               </div>
-                            </div>
+                            </div> */}
                           </div>
                           <div className="mobile-responsive-table d-none display-block-in-mobile">
                             <div className="heading-mobile">
@@ -685,7 +685,7 @@ const Squad = ({ show1, setShow1, show2, setShow2,show4, setShow4, show5, setSho
                                 </tbody>
                               </table>
                             </div>
-                            <div className="pagi">
+                            {/* <div className="pagi">
                               <div className="left">
                                 <p>Showing 1 to 10 of 57 entries</p>
                               </div>
@@ -701,7 +701,7 @@ const Squad = ({ show1, setShow1, show2, setShow2,show4, setShow4, show5, setSho
                                 </Pagination>
                                 <p>Next</p>
                               </div>
-                            </div>
+                            </div> */}
                           </div>
                           <div className="mobile-responsive-table d-none display-block-in-mobile">
                             <div className="heading-mobile">

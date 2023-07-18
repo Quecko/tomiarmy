@@ -11,18 +11,19 @@ import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 import { useWeb3React } from "@web3-react/core";
 import Countdown from "react-countdown";
-const HomeOperations = () => {
+
+
+const HomeOperations = ({setShowtask1, settaskdetail1, operations,setOperationId,users}) => {
 
   const datacommander = localStorage.getItem('user')
   const data = JSON.parse(datacommander)
   const [show, setShow] = useState(false);
-  const [users, setUsers] = useState([]);
   const [topSquad, setTopSquad] = useState([]);
   const [commander, setCommander] = useState();
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   let tok = localStorage.getItem("accessToken");
-  const [operations, setOperations] = useState([])
+  // const [operations, setOperations] = useState([])
   const [loader, setLoader] = useState(false)
   const [expired, setexpired] = useState(false);
   const { account } = useWeb3React()
@@ -31,7 +32,7 @@ const HomeOperations = () => {
     // setLoader(true);
     var config = {
       method: "get",
-      url: `${API_URL}/tasks/squads?offset=1&limit=10`,
+      url: `${API_URL}/tasks/squads?offset=1&limit=100`,
       headers: {
         authorization: `Bearer ` + tok
       },
@@ -79,86 +80,54 @@ const HomeOperations = () => {
       });
   }
 
-  const SquadUsers = async (off) => {
-    let valu = null;
-    // if (off) {
-    //     valu = off;
-    // } else {
-    //     valu = 1;
-    // }
-    let wall = localStorage.getItem("wallet");
-    var config = {
-      method: "get",
-      url: `${API_URL}/auth/users/squad-members?offset=1&&limit=5&queryParam=Active Squad`,
-      headers: {
-        authorization: `Bearer ` + tok
-      },
-    };
-    axios(config)
-      .then(function (response) {
-        // setLoader(false);
-        setCommander(response?.data?.data?.commanderWalletAddress)
-        setUsers(response?.data?.data?.users);
-        // let arr = Array.from(Array(parseInt(response.data.data.pages)).keys());
-        // setPages(arr);
-        // setCurrentPage(valu)
-      })
-      .catch(function (error) {
-        // console.log(error);
-        // setLoader(false);
-        // localStorage.removeItem("accessToken");
-        // localStorage.removeItem("user");
-        // window.location.reload();
-      });
-  }
+ 
 
 
-  const getDataOperation = async (off) => {
+  // const getDataOperation = async (off) => {
 
-    // let valu = null;
-    // if (off) {
-    //   valu = off;
-    // } else {
-    //   valu = 1;
-    // }
-    let tok = localStorage.getItem("accessToken");
-    let wall = localStorage.getItem("wallet");
-    // if (account) {
-      var config = {
-        method: "get",
-        url: `${API_URL}/tasks/operations?offset=1&&limit=5&&expired=${expired}`,
-        headers: {
-          authorization: `Bearer ` + tok
-        },
-      };
-      axios(config)
-        .then(function (response) {
-          setLoader(false);
-          setOperations(response?.data?.data?.operation[0]);
-          // if(expired===true){
-          //   setOperations(response?.data?.data?.operation);
-          // }
-          // else{
-          //   setOperations(response?.data?.data?.operation[0]);
-          // }
-          // let arr = Array.from(Array(parseInt(response.data.data.pages)).keys());
-          // setPages(arr);
-          // setCurrentPage(valu)
-        })
-        .catch(function (error) {
-          setLoader(false);
-          // localStorage.removeItem("accessToken");
-          // localStorage.removeItem("user");
-          // window.location.assign("/")
-          // window.location.reload();
-        });
-    // }
-  }
+  //   // let valu = null;
+  //   // if (off) {
+  //   //   valu = off;
+  //   // } else {
+  //   //   valu = 1;
+  //   // }
+  //   let tok = localStorage.getItem("accessToken");
+  //   let wall = localStorage.getItem("wallet");
+  //   // if (account) {
+  //     var config = {
+  //       method: "get",
+  //       url: `${API_URL}/tasks/operations?offset=1&&limit=5&&expired=${expired}`,
+  //       headers: {
+  //         authorization: `Bearer ` + tok
+  //       },
+  //     };
+  //     axios(config)
+  //       .then(function (response) {
+  //         setLoader(false);
+  //         setOperations(response?.data?.data?.operation[0]);
+  //         // if(expired===true){
+  //         //   setOperations(response?.data?.data?.operation);
+  //         // }
+  //         // else{
+  //         //   setOperations(response?.data?.data?.operation[0]);
+  //         // }
+  //         // let arr = Array.from(Array(parseInt(response.data.data.pages)).keys());
+  //         // setPages(arr);
+  //         // setCurrentPage(valu)
+  //       })
+  //       .catch(function (error) {
+  //         setLoader(false);
+  //         // localStorage.removeItem("accessToken");
+  //         // localStorage.removeItem("user");
+  //         // window.location.assign("/")
+  //         // window.location.reload();
+  //       });
+  //   // }
+  // }
 
   useEffect(() => {
-    getDataOperation()
+    // getDataOperation()
     GetUserTopSquad()
-    SquadUsers()
   }, []);
 
   const GetTime = (time) => {
@@ -167,9 +136,9 @@ const HomeOperations = () => {
   }
 
   const SubmitProofOfWork =(elem)=>{
-    // setOperationId(tasks)
-    // setShowtask1(true)
-    // settaskdetail1(elem)
+    setOperationId(operations)
+    setShowtask1(true)
+    settaskdetail1(elem)
   }
   return (
     <>
@@ -256,7 +225,7 @@ const HomeOperations = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {/* <tr>
+                   {/* <tr>
                     <td>
                       <p className='paratable'>Like our facebook page</p>
                     </td>
@@ -291,7 +260,7 @@ const HomeOperations = () => {
                         </Dropdown>
                       </div>
                     </td>
-                  </tr> */}
+                  </tr>  */}
                   
                   {operations?.tasksList?.map((elem, index) => {
                     return (
@@ -309,11 +278,11 @@ const HomeOperations = () => {
                           </div>
                         </td>
                         <td>
-                          <div className='completebtn text-end'>
+                          <div className='completebtn'>
                             {
-                              elem?.taskSubmitted ?
+                              elem?._id && !elem?.isApproved ?
                                 <button style={{ background: '#FEC600' }}>In Process</button>
-                                : elem?.taskApproval ?
+                                : elem?.isApproved === true && elem?._id ?
                                   <button style={{ background: '#04C453' }}>Completed</button>
                                   :
                                   <button style={{ background: '#FF8936' }}>Pending</button>
@@ -321,20 +290,18 @@ const HomeOperations = () => {
                           </div>
                         </td>
                         <td>
-                          <div className='dropbtn'>
-                            <Dropdown>
-                              <Dropdown.Toggle variant="success" id="dropdown-basic">
-                                <img src='\Vectordots.svg' alt='img' className='img-fluid' />
-
-                              </Dropdown.Toggle>
-
-                              <Dropdown.Menu>
-                                <Dropdown.Item href="#/action-1">
-                                  <p onClick={() => SubmitProofOfWork(elem)}><img src='\Vector.svg' alt='img' className='img-fluid' />Submit Proof</p>
-                                </Dropdown.Item>
-                              </Dropdown.Menu>
-                            </Dropdown>
-                          </div>
+                        <div className='dropbtn'>
+                        <Dropdown className="text-end">
+                          <Dropdown.Toggle variant="success" id="dropdown-basic">
+                            <img src='\Vectordots.svg' alt='img' className='' />
+                          </Dropdown.Toggle>
+                          <Dropdown.Menu>
+                            <Dropdown.Item href="#/action-1">
+                              <p onClick={()=>SubmitProofOfWork(elem)}><img src='\Vector.svg' alt='img' className='img-fluid' />Submit Proof</p>
+                            </Dropdown.Item>
+                          </Dropdown.Menu>
+                        </Dropdown>
+                      </div>
                         </td>
                       </tr>
                     )

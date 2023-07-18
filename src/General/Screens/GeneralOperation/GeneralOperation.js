@@ -18,9 +18,10 @@ import { useWeb3React } from "@web3-react/core";
 import GeneralActive from './GeneralActive';
 import moment from "moment";
 
-const GeneralOperation = ({ setroute, routes, setsvaebutton, svaebutton }) => {
-
+const GeneralOperation = ({ setroute, routes, setroutehome,routeshome, setsvaebutton, svaebutton }) => {
+    console.log("sdfsdfsdf",routeshome)
     const [expired, setexpired] = useState(false);
+    const [call, setcall] = useState(false);
     const [operationdata, setoperationdata] = useState('');
     const { account } = useWeb3React();
     const [tasks, settasks] = useState([]);
@@ -55,7 +56,7 @@ const GeneralOperation = ({ setroute, routes, setsvaebutton, svaebutton }) => {
         if (account) {
             var config = {
                 method: "get",
-                url: `${API_URL}/tasks/operations?offset=1&&limit=10&&expired=${expired}`,
+                url: `${API_URL}/tasks/operations?offset=1&&limit=100&&expired=${expired}`,
                 headers: {
                     authorization: `Bearer ` + tok
                 },
@@ -80,19 +81,54 @@ const GeneralOperation = ({ setroute, routes, setsvaebutton, svaebutton }) => {
         }
     }
 
-    const Getlength = (task) =>{
+    const Getlength = (task) => {
         const result = task?.length
         return result
     }
 
-    const operationedit = (elem)=>{
+    const operationedit = (elem) => {
         console.log("sdfsdfdsfdsfsdf")
+        setcall(false)
         setoperationdata(elem)
         setroute(!routes)
     }
-    const createoperationpage = () =>{
+    const createoperationpage = () => {
         setoperationdata('')
         setroute(!routes)
+    }
+
+    const deleteoperation = (elem) => {
+   
+        let tok = localStorage.getItem("accessToken");
+        // setOpens(true);
+        axios
+            .delete(
+                API_URL + "/tasks/operations/" +
+                elem?._id,
+                { headers: { authorization: `Bearer ${tok}` } }
+            )
+            .then((response) => {
+              getData();
+                // setOpens(false);
+                // setCall(!call);
+                toast
+                    .success("Successfully Delete Operation", {
+                        position: "top-right",
+                        autoClose: 3000,
+                    })
+                // window.$('#exampleModal2').modal('hide')
+                    .catch((err) => {
+                        // setOpens(false);
+                        toast.warning(
+                            "Error",
+                            {
+                                position: "top-right",
+                                autoClose: 3000,
+                            }
+                        );
+                        return false;
+                    });
+            });
     }
 
     return (
@@ -110,8 +146,7 @@ const GeneralOperation = ({ setroute, routes, setsvaebutton, svaebutton }) => {
                 </div>
             }
             {
-
-                routes ? <><CreateOperation tasks={tasks} setexpired={setexpired} operationdata={operationdata} setoperationdata={setoperationdata} setroute={setroute} routes={routes} /></> :
+                routes ? <><CreateOperation setroutehome={setroutehome} routeshome={routeshome} tasks={tasks} call={call} getData={getData} setexpired={setexpired} operationdata={operationdata} setoperationdata={setoperationdata} setroute={setroute} routes={routes} /></> :
                     <section className='main-task'>
                         <div className='container-fluid padd-sm p-0'>
                             <div className='row'>
@@ -251,7 +286,7 @@ const GeneralOperation = ({ setroute, routes, setsvaebutton, svaebutton }) => {
                                                         </Accordion>
                                                     </div>
                                                 </div> */}
-                                                <GeneralActive tasks={tasks} />
+                                                <GeneralActive setcall={setcall} call={call} setoperationdata={setoperationdata} setroute={setroute} routes={routes} tasks={tasks} />
                                             </Tab>
                                             <Tab eventKey="profile" title="Expired Operations">
                                                 <div className='maincard'>
@@ -285,7 +320,7 @@ const GeneralOperation = ({ setroute, routes, setsvaebutton, svaebutton }) => {
                                                                 </thead>
                                                                 <tbody>
                                                                     {tasks?.map((elem, index) => {
-                                                                             const ExpireDate = moment(elem?.expirationDate).format("DD-MM-YYYY");
+                                                                        const ExpireDate = moment(elem?.expirationDate).format("DD-MM-YYYY");
                                                                         return (
                                                                             <tr key={index}>
                                                                                 <td>
@@ -310,13 +345,13 @@ const GeneralOperation = ({ setroute, routes, setsvaebutton, svaebutton }) => {
                                                                                     <div className='dropbtn global-dropdown-style'>
                                                                                         <Dropdown>
                                                                                             <Dropdown.Toggle variant="success" id="dropdown-basic">
-                                                                                                <img src='\Vectordots.svg' alt='img' className='img-fluid ' />
+                                                                                                <img src='\Vectordots.svg' alt='img' className='img-fluid' />
                                                                                             </Dropdown.Toggle>
                                                                                             <Dropdown.Menu>
-                                                                                                <Dropdown.Item href="#/action-1">
+                                                                                                <Dropdown.Item href="#">
                                                                                                     {/* <p><img src='\generalassets\icons\detail.svg' alt='img' className='img-fluid' />Details</p> */}
-                                                                                                    <p onClick={() =>operationedit(elem)}><img src='\generalassets\icons\edit.svg' alt='img' className='img-fluid' />Edit</p>
-                                                                                                    <p><img src='\generalassets\icons\trash.svg' alt='img' className='img-fluid' />Delete</p>
+                                                                                                    <p onClick={() => operationedit(elem)}><img src='\generalassets\icons\edit.svg' alt='img' className='img-fluid' />Edit</p>
+                                                                                                    <p onClick={() => deleteoperation(elem)}><img src='\generalassets\icons\trash.svg' alt='img' className='img-fluid' />Delete</p>
                                                                                                 </Dropdown.Item>
                                                                                             </Dropdown.Menu>
                                                                                         </Dropdown>
@@ -328,7 +363,7 @@ const GeneralOperation = ({ setroute, routes, setsvaebutton, svaebutton }) => {
                                                                 </tbody>
                                                             </table>
                                                         </div>
-                                                        <div className="pagi">
+                                                        {/* <div className="pagi">
                                                             <div className="left">
                                                                 <p>Showing 1 to 10 of 57 entries</p>
                                                             </div>
@@ -344,7 +379,7 @@ const GeneralOperation = ({ setroute, routes, setsvaebutton, svaebutton }) => {
                                                                 </Pagination>
                                                                 <p>Next</p>
                                                             </div>
-                                                        </div>
+                                                        </div> */}
                                                     </div>
                                                     <div className="mobile-responsive-table d-none display-block-in-mobile">
                                                         <div className="heading-mobile">

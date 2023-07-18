@@ -30,9 +30,9 @@ const Login = () => {
                     id="noanim-tab-example"
                     onSelect={onselecttab}
                 >
-                    <Tab eventKey="alreadymember" title="Already a member">
+                    {/* <Tab eventKey="alreadymember" title="Already a member">
                         <ConnectWallet role={role} />
-                    </Tab>
+                    </Tab> */}
                     <Tab eventKey="squadjoin" title="Join Squad">
                         <Invitecode role={role} />
                     </Tab>

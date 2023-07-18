@@ -1,4 +1,4 @@
-import {React,useState,useEffect} from "react";
+import { React, useState, useEffect } from "react";
 import taskCompleted from "../../assets/icons/task-completed.svg";
 // import earned from "../../assets/icons/earned.svg";
 import points from "../../assets/icons/points.svg";
@@ -8,47 +8,16 @@ import { useWeb3React } from "@web3-react/core";
 import MyRank from "../components/home/MyRank";
 import GeneralTasks from "../components/home/GeneralTasks";
 import HomeOperations from "../components/home/HomeOperations/HomeOperations";
-import {API_URL} from "../../utils/ApiUrl"
+import { API_URL } from "../../utils/ApiUrl"
 import axios from "axios";
 
 
-const Home = ({setShow2,tasks}) => {
-  const datacommander = localStorage.getItem('user')
-  const [squaddetail, setsquaddetail] = useState()
-  const { account } = useWeb3React();
-  const commander = JSON.parse(datacommander)
-  const GetUserProfiledata = () => {
-    // setLoader(true);
-    let tok = localStorage.getItem("accessToken");
-    if (account) {
-      var config = {
-        method: "get",
-        url: `${API_URL}/auth/users/profile`,
-        headers: {
-          authorization: `Bearer ` + tok
-        },
-      };
-      axios(config)
-        .then(async (response) => {
-          // setLoader(false);
-          setsquaddetail(response.data.data)
-          // setcoms(response?.data?.data?.squad?.commander)
-          // setnewss(response?.data?.data?._id)
-          window.scrollTo(0, 0);
-        })
-        .catch(function (error) {
-          console.log(error);
-          // setLoader(false);
-          // localStorage.removeItem("accessToken");
-          // localStorage.removeItem("user");
-          // window.location.assign("/")
-        });
-    }
-  }
-
-  useEffect(() => {
-    GetUserProfiledata()
-  }, [account]);
+const Home = ({ setShow2, tasks, setShowtask, settaskdetail, setShowtask1, settaskdetail1, operations, setOperationId,users,squaddetail }) => {
+  const user = localStorage.getItem('user')
+    const { account } = useWeb3React();
+  // const commander = JSON.parse(datacommander)
+  const [DropDownAll, setDropDownAll] = useState('all time');
+  const [DropDownAll1, setDropDownAll1] = useState('all time');
   return (
     <>
       <div className="formobile-heading d-none display-block-in-mobile">
@@ -66,24 +35,25 @@ const Home = ({setShow2,tasks}) => {
           <div className="col-lg-8 stats-box data-box border-grad1">
             <div className="task-status-box-header">
               <h4>MY STATS</h4>
-              <Dropdown className="stats-dropdown">
-                <Dropdown.Toggle id="dropdown-basic">All Time <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              {/* <Dropdown className="stats-dropdown">
+                <Dropdown.Toggle id="dropdown-basic">{DropDownAll} <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M13.2797 5.9668L8.93306 10.3135C8.41973 10.8268 7.57973 10.8268 7.06639 10.3135L2.71973 5.9668" stroke="#81828A" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
                 </svg></Dropdown.Toggle>
                 <Dropdown.Menu className="stats-dropdown-menu">
                   <div className="stats-dropdown-bg">
-                    <Dropdown.Item href="#/action-1">Today</Dropdown.Item>
-                    <Dropdown.Item href="#/action-2">This Week</Dropdown.Item>
-                    <Dropdown.Item href="#/action-3">This Month</Dropdown.Item>
-                    <Dropdown.Item
-                      href="#/action-3"
-                      className="border-bottom-0 item-active"
-                    >
+                    <Dropdown.Item onClick={() => setDropDownAll('today')} 
+                    className={DropDownAll==='today' ? "border-bottom-0 item-active " : " " }>Today</Dropdown.Item>
+                    <Dropdown.Item onClick={() => setDropDownAll('week')} 
+                    className={DropDownAll==='week' ? "border-bottom-0 item-active " : " " }>This Week</Dropdown.Item>
+                    <Dropdown.Item onClick={() => setDropDownAll('month')}
+                    className={DropDownAll==='month' ? "border-bottom-0 item-active " : " " }>This Month</Dropdown.Item>
+                    <Dropdown.Item onClick={() => setDropDownAll('all time')} 
+                    className={DropDownAll==='all time' ? "border-bottom-0 item-active " : " " }>
                       All Time
                     </Dropdown.Item>
                   </div>
                 </Dropdown.Menu>
-              </Dropdown>
+              </Dropdown> */}
             </div>
             <div className="stats-data-boxes">
               <div className="inner-data-box border-grad">
@@ -109,7 +79,7 @@ const Home = ({setShow2,tasks}) => {
                   <img src="\static-icons\squad-tokens.png" alt="earned" style={{ width: "50px", height: "50px" }} />
                   <div>
                     <p>Total Squad Tokens </p>
-                    <h4>500 TOMI</h4>
+                    <h4>{squaddetail?.squad?.totalTokens ? squaddetail?.squad?.totalTokens :'0'} TOMI</h4>
                   </div>
                 </div>
               </div>
@@ -120,28 +90,29 @@ const Home = ({setShow2,tasks}) => {
               <div className="task-status-box-header">
                 <h4>My Tasks Status</h4>
                 <Dropdown className="tasks-status-dropdown">
-                  <Dropdown.Toggle id="dropdown-basic">All Time <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <Dropdown.Toggle id="dropdown-basic">{DropDownAll1} <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M13.2797 5.9668L8.93306 10.3135C8.41973 10.8268 7.57973 10.8268 7.06639 10.3135L2.71973 5.9668" stroke="#81828A" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
                   </svg></Dropdown.Toggle>
 
                   <Dropdown.Menu className="stats-dropdown-menu">
-                    <div className="stats-dropdown-bg">
-                      <Dropdown.Item href="#/action-1">Today</Dropdown.Item>
-                      <Dropdown.Item href="#/action-2">This Week</Dropdown.Item>
-                      <Dropdown.Item href="#/action-3">This Month</Dropdown.Item>
-                      <Dropdown.Item
-                        href="#/action-3"
-                        className="border-bottom-0 item-active"
-                      >
-                        All Time
-                      </Dropdown.Item>
-                    </div>
+                  <div className="stats-dropdown-bg">
+                    <Dropdown.Item onClick={() => setDropDownAll1('today')} 
+                    className={DropDownAll==='today' ? "border-bottom-0 item-active " : " " }>Today</Dropdown.Item>
+                    <Dropdown.Item onClick={() => setDropDownAll1('week')} 
+                    className={DropDownAll==='week' ? "border-bottom-0 item-active " : " " }>This Week</Dropdown.Item>
+                    <Dropdown.Item onClick={() => setDropDownAll1('month')}
+                    className={DropDownAll==='month' ? "border-bottom-0 item-active " : " " }>This Month</Dropdown.Item>
+                    <Dropdown.Item onClick={() => setDropDownAll1('all time')} 
+                    className={DropDownAll==='all time' ? "border-bottom-0 item-active " : " " }>
+                      All Time
+                    </Dropdown.Item>
+                  </div>
                   </Dropdown.Menu>
                 </Dropdown>
               </div>
               <div className="row m-0 tasks-box-row inner-data-box border-grad padd">
                 <div className="col-6 task-completed-graph">
-                  <img src="\static-icons\taskstatus.png" alt="taskCompleteds" style={{width: "140px", height: "140px"}} />
+                  <img src="\static-icons\taskstatus.png" alt="taskCompleteds" style={{ width: "140px", height: "140px" }} />
                 </div>
                 <div className="col-6">
                   <div className="tasks-list-items">
@@ -165,14 +136,14 @@ const Home = ({setShow2,tasks}) => {
         </div>
         <div className="row ranks-general-task-row">
           <div className="col-lg-5 my-ranks-box">
-            <MyRank  props={squaddetail ? squaddetail : ''}/>
+            <MyRank props={squaddetail ? squaddetail : ''} />
           </div>
           <div className="col-lg-7 general-task-box">
-            <GeneralTasks tasks={tasks} />
+            <GeneralTasks tasks={tasks} setShowtask={setShowtask} settaskdetail={settaskdetail} />
           </div>
         </div>
       </div>
-      <HomeOperations />
+      <HomeOperations setShowtask1={setShowtask1} settaskdetail1={settaskdetail1} operations={operations} setOperationId={setOperationId} users={users} />
     </>
   );
 };

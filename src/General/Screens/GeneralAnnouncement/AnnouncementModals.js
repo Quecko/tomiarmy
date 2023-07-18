@@ -27,7 +27,7 @@ const AnnouncementModals = ({ showannounce, setShowannounce, getDataannou }) => 
       } else {
         data = ({
           message: message,
-          // recipientRankId: "",
+          recipients: "all soldiers",
         });
       }
       var config = {
@@ -61,6 +61,8 @@ const AnnouncementModals = ({ showannounce, setShowannounce, getDataannou }) => 
   const [message, setMessage] = useState("")
   const [selectedItem, setSelectedItem] = useState("All Soldiers");
 
+  console.log("sdfsdfds",selectedItem)
+
   const GetArmy = () => {
     let tok = localStorage.getItem("accessToken");
     var config = {
@@ -86,6 +88,9 @@ const AnnouncementModals = ({ showannounce, setShowannounce, getDataannou }) => 
   useEffect(() => {
     GetArmy();
   }, []);
+
+
+
   return (
     <>
 
@@ -106,7 +111,7 @@ const AnnouncementModals = ({ showannounce, setShowannounce, getDataannou }) => 
                 </button>
                 <ul class="dropdown-menu">
                   <a className="dropdown-item drop uppercase" onClick={() => setSelectedItem("All Soldiers")}>
-                    {"ALL"}
+                    {"All Soldiers"}
                   </a>
                   {army.map((item, index) => {
                     return (
@@ -143,10 +148,8 @@ const AnnouncementModals = ({ showannounce, setShowannounce, getDataannou }) => 
             <img src="\generalassets\other-imgs\announcement.svg" alt="img" className="img-fluid" />
             <h6>ANNOUNCEMENT SENT SUCCESSFULLY</h6>
           </div>
-
         </Modal.Body>
       </Modal>
-
     </>
   )
 }

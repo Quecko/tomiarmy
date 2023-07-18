@@ -57,7 +57,7 @@ const GeneralSidebar = () => {
     if (account) {
       var config = {
         method: "get",
-        url: `${API_URL}/tasks?offset=1&&limit=10&&expired=${expired}`,
+        url: `${API_URL}/tasks?offset=1&&limit=100&&expired=${expired}`,
         headers: {
           authorization: `Bearer ` + tok
         },
@@ -93,7 +93,7 @@ const GeneralSidebar = () => {
     if (account) {
       var config = {
         method: "get",
-        url: `${API_URL}/notifications/announcements?offset=1&&limit=10`,
+        url: `${API_URL}/notifications/announcements?offset=1&&limit=100`,
         headers: {
           authorization: `Bearer ` + tok
         },
@@ -183,13 +183,10 @@ const GeneralSidebar = () => {
   const [routesarmy, setroutearmy] = useState(false);
   const [showtaskdetail, setShowtaskdetail] = useState(false);
   const [showtaskedit, setShowtaskedit] = useState(false);
-
   const [detailtask, setdetailtask] = useState(null);
-
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-
   const sidebar = () => {
     if (show === true) {
       setShow(false);
@@ -628,7 +625,7 @@ const GeneralSidebar = () => {
                 indexwait == 2 ?
                   (
                     <>
-                      <GeneralOperation routes={routes} setroute={setroute} />
+                      <GeneralOperation routeshome={routeshome} setroutehome={setroutehome} routes={routes} setroute={setroute} />
                     </>
                   )
                   :
@@ -642,7 +639,7 @@ const GeneralSidebar = () => {
                     indexwait == 4 ?
                       (
                         <>
-                          <GeneralAnnouncement annou={annou} setShowannounce={setShowannounce} />
+                          <GeneralAnnouncement getDataannou={getDataannou} annou={annou} setShowannounce={setShowannounce} />
                         </>
                       )
                       :
