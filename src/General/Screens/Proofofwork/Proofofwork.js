@@ -608,46 +608,53 @@ const Proofofwork = () => {
                                                             <div className="heading-mobile">
                                                                 <p>User</p>
                                                             </div>
-                                                            <Accordion defaultActiveKey="0">
-                                                                <Accordion.Item eventKey="0">
-                                                                    <Accordion.Header>{taskdetail?.user?.nickName}</Accordion.Header>
-                                                                    <Accordion.Body>
-                                                                        <div className="inner-fields">
-                                                                            <div className="inner-item">
-                                                                                <h6>Tasks</h6>
-                                                                                <p>{elem?.name}</p>
-                                                                            </div>
-                                                                            {/* <div className="inner-item">
-                                                                                <h6>Points</h6>
-                                                                                <p>1,000,000</p>
-                                                                            </div> */}
-                                                                            {/* <div className="inner-item">
-                                                                                <h6>Status</h6>
-                                                                                <button className="btn-green">Completed</button>
-                                                                            </div> */}
-                                                                            <div className="inner-item">
-                                                                                <h6>Actions</h6>
-                                                                                <div className="tbl-dropdown">
-                                                                                    <Dropdown>
-                                                                                        <Dropdown.Toggle id="dropdown-basic">
-                                                                                            <img src={dosts} alt="dosts" />
-                                                                                        </Dropdown.Toggle>
 
-                                                                                        <Dropdown.Menu className="stats-dropdown-menu">
-                                                                                            <div className="stats-dropdown-bg">
-                                                                                                <Dropdown.Item onClick={() => { handleShowwork1(elem) }}>
-                                                                                                    <img src="\generalassets\icons\detail.svg" alt="submitIcon" />
-                                                                                                    Details
-                                                                                                </Dropdown.Item>
-                                                                                            </div>
-                                                                                        </Dropdown.Menu>
-                                                                                    </Dropdown>
+                                                            <Accordion >
+                                                                {taskdetail && taskdetail?.taskProofs?.map((elem, index) => {
+
+                                                                    return (
+
+                                                                        <Accordion.Item eventKey={index}>
+                                                                            <Accordion.Header>{taskdetail?.user?.nickName}</Accordion.Header>
+                                                                            <Accordion.Body>
+                                                                                <div className="inner-fields">
+                                                                                    <div className="inner-item">
+                                                                                        <h6>Tasks</h6>
+                                                                                        <p>{elem?.name}</p>
+                                                                                    </div>
+                                                                                    {/* <div className="inner-item">
+                <h6>Points</h6>
+                <p>1,000,000</p>
+            </div> */}
+                                                                                    {/* <div className="inner-item">
+                <h6>Status</h6>
+                <button className="btn-green">Completed</button>
+            </div> */}
+                                                                                    <div className="inner-item">
+                                                                                        <h6>Actions</h6>
+                                                                                        <div className="tbl-dropdown">
+                                                                                            <Dropdown>
+                                                                                                <Dropdown.Toggle id="dropdown-basic">
+                                                                                                    <img src={dosts} alt="dosts" />
+                                                                                                </Dropdown.Toggle>
+
+                                                                                                <Dropdown.Menu className="stats-dropdown-menu">
+                                                                                                    <div className="stats-dropdown-bg">
+                                                                                                        <Dropdown.Item onClick={() => { handleShowwork1(elem) }}>
+                                                                                                            <img src="\generalassets\icons\detail.svg" alt="submitIcon" />
+                                                                                                            Details
+                                                                                                        </Dropdown.Item>
+                                                                                                    </div>
+                                                                                                </Dropdown.Menu>
+                                                                                            </Dropdown>
+                                                                                        </div>
+                                                                                        {/* <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a> */}
+                                                                                    </div>
                                                                                 </div>
-                                                                                {/* <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a> */}
-                                                                            </div>
-                                                                        </div>
-                                                                    </Accordion.Body>
-                                                                </Accordion.Item>
+                                                                            </Accordion.Body>
+                                                                        </Accordion.Item>
+                                                                    )
+                                                                })}
                                                             </Accordion>
                                                         </div>
                                                     </div>

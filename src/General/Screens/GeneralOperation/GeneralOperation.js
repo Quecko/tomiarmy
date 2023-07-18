@@ -384,11 +384,11 @@ const GeneralOperation = ({ setroute, routes, setroutehome, routeshome, setsvaeb
                                                         <div className="heading-mobile">
                                                             <p>Operation Name</p>
                                                         </div>
-                                                        <Accordion defaultActiveKey={index}>
+                                                        <Accordion>
                                                             {tasks?.map((elem, index) => {
                                                                 const ExpireDate = moment(elem?.expirationDate).format("DD-MM-YYYY");
                                                                 return (
-                                                                    <Accordion.Item eventKey="0">
+                                                                    <Accordion.Item eventKey={index}>
                                                                         <Accordion.Header>{elem?.name}</Accordion.Header>
                                                                         <Accordion.Body>
                                                                             <div className="inner-fields">
