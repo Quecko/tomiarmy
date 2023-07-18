@@ -498,7 +498,7 @@ const GroupChat = ({setPage, page, setChat, chat, getChat, pages,message, setMes
         <Offcanvas.Body>
           <div className='members-section'>
             <div className="tophead">
-              <h6>Members <span>(192)</span></h6>
+              <h6>Members <span>({topuser?.count})</span></h6>
             </div>
             <div className="option-field">
               <img src="\assets\search-icon.svg" alt="img" className="img-fluid search-icon" />
@@ -510,26 +510,14 @@ const GroupChat = ({setPage, page, setChat, chat, getChat, pages,message, setMes
                 <p>Rank</p>
               </div>
               <div className="bottom-fields">
-                <div className="inner-item">
-                  <h6>Sharjeel</h6>
-                  <h6><img src="\static-icons\private-rank.png" alt="img" className="img-fluid me-2" />Private</h6>
-                </div>
-                <div className="inner-item">
-                  <h6>Umar_x2jz</h6>
-                  <h6><img src="\polygon1.svg" alt="img" className="img-fluid me-2" />Sergeant</h6>
-                </div>
-                <div className="inner-item">
-                  <h6>Sharjeel</h6>
-                  <h6><img src="\polygon2.svg" alt="img" className="img-fluid me-2" />Lieutenant</h6>
-                </div>
-                <div className="inner-item">
-                  <h6>Umar_x2jz</h6>
-                  <h6><img src="\polygon3.svg" alt="img" className="img-fluid me-2" />Captain</h6>
-                </div>
-                <div className="inner-item">
-                  <h6>Sharjeel</h6>
-                  <h6><img src="\polygon4.svg" alt="img" className="img-fluid me-2" />Major</h6>
-                </div>
+                {topuser?.users?.map((elem) => {
+                    return (
+                      <div className="inner-item">
+                        <h6>{elem?.nickName}</h6>
+                        <h6><img src={elem?.rank?.icon} alt="img" className="img-fluid me-2" style={{ width: "50px", height: "50px" }} />{elem?.rank?.name}</h6>
+                      </div>
+                    )
+                  })}
               </div>
             </div>
           </div>

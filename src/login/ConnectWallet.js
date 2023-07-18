@@ -23,38 +23,53 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role, setRole, setinvitecode, 
     const [log, setLog] = useState(false)
     const history = useHistory();
     const { login, logout } = useAuth();
-    console.log('sssss',role);
+    const [authStatus, setAuthStatus] = useState('')
+
+    // const trustWallet = async () => {
+    //     localStorage.setItem("flag", "true");
+    //     localStorage.setItem("connectorId", "walletconnect");
+    //     if (account) {
+    //         logout();
+    //         localStorage.clear();
+    //     } else {
+    //         login("walletconnect");
+    //         setLog(true)
+    //         //   loginUser();
+    //         //   if (location.pathname !== "/") {
+    //         //     // setShow(false)
+    //         //   } else {
+    //         //     loginUser();
+    //         //   }
+    //     }
+    // };
+
     const trustWallet = async () => {
-        localStorage.setItem("flag", "true");
-        localStorage.setItem("connectorId", "walletconnect");
+        // handleShow()
         if (account) {
-            logout();
-            localStorage.clear();
+            await logout("walletconnect");
+            setAuthStatus('')
         } else {
-            login("walletconnect");
+            await login("walletconnect");
+            setAuthStatus('signUp')
+            localStorage.setItem('connectorId', 'walletconnect');
+            localStorage.setItem("flag", "true");
             setLog(true)
-            //   loginUser();
-            //   if (location.pathname !== "/") {
-            //     // setShow(false)
-            //   } else {
-            //     loginUser();
-            //   }
         }
     };
-    const connectMetaMask1 = () => {
-        localStorage.setItem("connectorId", "injected");
-        localStorage.setItem("flag", "true");
+
+    const connectMetaMask1 = async () => {
         if (account) {
-            logout();
+            const connectorId = window.localStorage.getItem("connectorId")
+            await logout(connectorId);
+            localStorage.removeItem("connectorId");
+            localStorage.removeItem("flag");
+            setAuthStatus('')
         } else {
             login("injected");
+            localStorage.setItem("connectorId", "injected");
+            localStorage.setItem("flag", "true");
+            setAuthStatus('signUp')
             setLog(true)
-            // loginUser();
-            //   if (location.pathname !== "/") {
-            //     setShow(false)
-            //   } else {
-            //     loginUser();
-            //   }
         }
     };
 
@@ -67,7 +82,7 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role, setRole, setinvitecode, 
             if (account && res0 && role === 'alreadymember') {
                 await axios
                     .post(`${API_URL}/auth/signin`, {
-                        walletAddress: account,
+                        walletAddress: account.toLowerCase(),
                         sign: res0,
                         rememberMe: true
                     })
@@ -79,21 +94,21 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role, setRole, setinvitecode, 
                         localStorage.setItem("accessToken", res?.data?.data?.accessToken);
                         // setShow(false)
                         localStorage.setItem("user", JSON.stringify(res?.data?.data));
-                        if (res?.data?.data?.rank.name === "general" ) {
+                        if (res?.data?.data?.rank.name === "general") {
                             history.push("/general");
-                        }else if(res?.data?.data?.rank.name === "major general"){
+                        } else if (res?.data?.data?.rank.name === "major general") {
                             history.push("/majorgenerL");
                         }
-                        else if(res?.data?.data?.isCommander === true){
+                        else if (res?.data?.data?.isCommander === true) {
                             history.push("/leader");
                         }
-                        else if (res?.data?.data?.isCommander === false && res?.data?.data?.squad?.name !=='') {
+                        else if (res?.data?.data?.isCommander === false && res?.data?.data?.squad?.name !== '') {
                             history.push("/soldier");
-                        }else if (res?.data?.data?.isCommander === false && res?.data?.data?.squad?.name == ''){
-                            history.push("/soldier");    
+                        } else if (res?.data?.data?.isCommander === false && res?.data?.data?.squad?.name == '') {
+                            history.push("/soldier");
                         }
-                        else{
-                            history.push("/");   
+                        else {
+                            history.push("/");
                         }
                         localStorage.setItem("wallet", account);
                     })
@@ -118,7 +133,7 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role, setRole, setinvitecode, 
             else if (account && res0 && role === 'squadjoin') {
                 await axios
                     .post(`${API_URL}/auth/signup`, {
-                        walletAddress: account,
+                        walletAddress: account.toLowerCase(),
                         sign: res0,
                         inviteCode: invitecode,
                     })
@@ -146,7 +161,7 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role, setRole, setinvitecode, 
             else if (account && res0 && role === 'solider') {
                 await axios
                     .post(`${API_URL}/auth/signup`, {
-                        walletAddress: account,
+                        walletAddress: account.toLowerCase(),
                         sign: res0,
                     })
                     .then((res) => {
@@ -172,11 +187,11 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role, setRole, setinvitecode, 
                             // localStorage.removeItem("wallet");
                             // history.push("/")
                         }
-                        else if(err?.response?.data?.statusCode ==409){
+                        else if (err?.response?.data?.statusCode == 409) {
                             toast.error('You hava already memeber', {
                                 position: 'top-center',
                                 autoClose: 5000,
-                            }); 
+                            });
                         }
                         localStorage.removeItem("connectorId");
                         localStorage.removeItem("flag");
@@ -218,7 +233,7 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role, setRole, setinvitecode, 
             loginUser();
         }
     }, [account, log])
-    
+
     const backtoinvitecode = () => {
         setjoinsquad(false)
         setinvitecode('')
@@ -236,12 +251,10 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role, setRole, setinvitecode, 
                 }
                 {
                     role === 'solider' &&
-                        <button className='omomomomom' onClick={() =>setRole('')}>Back To Sign Up</button>
+                    <button className='omomomomom' onClick={() => setRole('')}>Back To Sign Up</button>
 
                 }
                 <div className='army-textImg'>
-                    {/* <img src={armyCap} alt="armyCap" className='capImg' />
-                    <img src={armyText} alt="armyText" className='textImg' /> */}
                     <img src="\login-logo.svg" alt="img" className='img-fluid' />
                 </div>
                 <div className="mainhead">
@@ -253,12 +266,13 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role, setRole, setinvitecode, 
                     MetaMask
                 </button>
 
-                <button onClick={trustWallet} className='walletConnect-btn border-grad'>
+                <button className='walletConnect-btn border-grad'>
                     <img src={walletConnectIcon} alt='walletConnectIcon' />
                     Wallet Connect
                 </button>
             </div>
             {/* <Freesoldier /> */}
+
         </>
     )
 }

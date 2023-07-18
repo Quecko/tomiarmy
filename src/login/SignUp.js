@@ -1,30 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import armyCap from '../assets/icons/mobileLogo.svg';
-import armyText from '../assets/icons/armyText.svg';
+import React, { useState } from 'react';
 import metamaskIcon from '../assets/icons/metamaskIcon.svg';
 import walletConnectIcon from '../assets/icons/walletConnectIcon.svg';
 // import { Link } from 'react-router-dom';
-import Freesoldier from './Freesoldier';
-import Modal from 'react-bootstrap/Modal';
-import { useWeb3React } from "@web3-react/core";
-import { Link } from 'react-router-dom'
-import useAuth from "../hooks/useAuth";
-import { toast } from "react-toastify";
-import useWeb3 from "../hooks/useWeb3";
-import axios from "axios";
-import Signature from "../hooks/dataSenders/userSign";
-import { useHistory } from "react-router-dom";
-import { useLocation } from 'react-router-dom';
-import { API_URL } from '../utils/ApiUrl'
 import ConnectWallet from './ConnectWallet';
 import Invitecode from './Invitecode';
 
-const SignUp = ({ setjoinsquad, joinsquad, setinvitecode, invitecode }) => {
-    const { account } = useWeb3React();
-    const { userSign } = Signature();
-    const [log, setLog] = useState(false)
-    const history = useHistory();
-    const { login, logout } = useAuth();
+const SignUp = () => {
  
     const [role, setRole]= useState('')
     const onselecttab = (rolee) =>{

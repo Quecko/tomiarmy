@@ -82,59 +82,59 @@ const Recruiting = () => {
       squadInvitationRequestId: id,
     });
     var config = {
-        method: "post",
-        url: `${API_URL}/tasks/squad-invitation-requests/recruite-accept`,
-        headers: {
-            authorization: `Bearer ` + tok
-        },
-        data: data,
+      method: "post",
+      url: `${API_URL}/tasks/squad-invitation-requests/recruite-accept`,
+      headers: {
+        authorization: `Bearer ` + tok
+      },
+      data: data,
     };
 
     axios(config)
-        .then(function (response) {
-            setLoader(false);
-            getData();
-            toast.success('User Recruited Successfully', {
-                position: "top-right",
-                autoClose: 2000,
-            });
-            // setrecruitess(recruitess + 1)
-            // window.location.reload()
-        })
-        .catch(function (error) {
-            getData();
-            // setrecruitess(recruitess + 1)
-            setLoader(false);
-            toast.error(error?.response?.data?.message)
+      .then(function (response) {
+        setLoader(false);
+        getData();
+        toast.success('User Recruited Successfully', {
+          position: "top-right",
+          autoClose: 2000,
         });
-}
+        // setrecruitess(recruitess + 1)
+        // window.location.reload()
+      })
+      .catch(function (error) {
+        getData();
+        // setrecruitess(recruitess + 1)
+        setLoader(false);
+        toast.error(error?.response?.data?.message)
+      });
+  }
 
-const hiderecruit = (id) => {
+  const hiderecruit = (id) => {
     let tok = localStorage.getItem("accessToken");
     setLoader(true);
     var data = ({
       squadInvitationRequestId: id,
     });
     var config = {
-        method: "post",
-        url: `${API_URL}/tasks/squad-invitation-requests/squad-hidden-requests`,
-        headers: {
-            authorization: `Bearer ` + tok
-        },
-        data: data,
+      method: "post",
+      url: `${API_URL}/tasks/squad-invitation-requests/squad-hidden-requests`,
+      headers: {
+        authorization: `Bearer ` + tok
+      },
+      data: data,
     };
 
     axios(config)
-        .then(function (response) {
-            setLoader(false);
-            getData();
-        })
-        .catch(function (error) {
-            getData();
-            setLoader(false);
-            toast.error(error?.response?.data?.message)
-        });
-}
+      .then(function (response) {
+        setLoader(false);
+        getData();
+      })
+      .catch(function (error) {
+        getData();
+        setLoader(false);
+        toast.error(error?.response?.data?.message)
+      });
+  }
 
 
   return (
@@ -203,10 +203,10 @@ const hiderecruit = (id) => {
                                           </Dropdown.Toggle>
                                           <Dropdown.Menu>
                                             <Dropdown.Item href="#/action-1">
-                                              <p onClick={()=>UserRecrruit(elem?._id)}><img src='\Vector.svg' alt='img' className='img-fluid' />Recruit</p>
+                                              <p onClick={() => UserRecrruit(elem?._id)}><img src='\Vector.svg' alt='img' className='img-fluid' />Recruit</p>
                                             </Dropdown.Item>
                                             <Dropdown.Item href="#/action-1">
-                                              <p onClick={()=>hiderecruit(elem?._id)}><img src='\Vector.svg' alt='img' className='img-fluid' />Hide</p>
+                                              <p onClick={() => hiderecruit(elem?._id)}><img src='\Vector.svg' alt='img' className='img-fluid' />Hide</p>
                                             </Dropdown.Item>
                                           </Dropdown.Menu>
                                         </Dropdown>
@@ -218,9 +218,6 @@ const hiderecruit = (id) => {
                               })}
                             </tbody>
                           </table>
-
-
-
                         </div>
                         {/* <div className="pagi">
                           <div className="left">
@@ -245,98 +242,46 @@ const hiderecruit = (id) => {
                           <p>Task</p>
                         </div>
                         <Accordion defaultActiveKey="0">
-                          <Accordion.Item eventKey="0">
-                            <Accordion.Header>Like our facebook page</Accordion.Header>
-                            <Accordion.Body>
-                              <div className="inner-fields">
-                                <div className="inner-item">
-                                  <h6>Points</h6>
-                                  <p>+5</p>
-                                </div>
-                                <div className="inner-item">
-                                  <h6>Status</h6>
-                                  <button className="btn-green">Completed</button>
-                                </div>
-                                <div className="inner-item">
-                                  <h6>Expiry</h6>
-                                  <p>12:34 12/12/23</p>
-                                </div>
-                                <div className="inner-item">
-                                  <h6>Actions</h6>
-                                  <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
-                                </div>
-                              </div>
-                            </Accordion.Body>
-                          </Accordion.Item>
-                          <Accordion.Item eventKey="1">
-                            <Accordion.Header>Follow our twitter acc...</Accordion.Header>
-                            <Accordion.Body>
-                              <div className="inner-fields">
-                                <div className="inner-item">
-                                  <h6>Points</h6>
-                                  <p>+5</p>
-                                </div>
-                                <div className="inner-item">
-                                  <h6>Status</h6>
-                                  <button className="btn-green">Completed</button>
-                                </div>
-                                <div className="inner-item">
-                                  <h6>Expiry</h6>
-                                  <p>12:34 12/12/23</p>
-                                </div>
-                                <div className="inner-item">
-                                  <h6>Actions</h6>
-                                  <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
-                                </div>
-                              </div>
-                            </Accordion.Body>
-                          </Accordion.Item>
-                          <Accordion.Item eventKey="2">
-                            <Accordion.Header>Like our facebook page</Accordion.Header>
-                            <Accordion.Body>
-                              <div className="inner-fields">
-                                <div className="inner-item">
-                                  <h6>Points</h6>
-                                  <p>+5</p>
-                                </div>
-                                <div className="inner-item">
-                                  <h6>Status</h6>
-                                  <button className="btn-green">Completed</button>
-                                </div>
-                                <div className="inner-item">
-                                  <h6>Expiry</h6>
-                                  <p>12:34 12/12/23</p>
-                                </div>
-                                <div className="inner-item">
-                                  <h6>Actions</h6>
-                                  <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
-                                </div>
-                              </div>
-                            </Accordion.Body>
-                          </Accordion.Item>
-                          <Accordion.Item eventKey="3">
-                            <Accordion.Header>Like our facebook page</Accordion.Header>
-                            <Accordion.Body>
-                              <div className="inner-fields">
-                                <div className="inner-item">
-                                  <h6>Points</h6>
-                                  <p>+5</p>
-                                </div>
-                                <div className="inner-item">
-                                  <h6>Status</h6>
-                                  <button className="btn-green">Completed</button>
-                                </div>
-                                <div className="inner-item">
-                                  <h6>Expiry</h6>
-                                  <p>12:34 12/12/23</p>
-                                </div>
-                                <div className="inner-item">
-                                  <h6>Actions</h6>
-                                  <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
-                                </div>
-                              </div>
-                            </Accordion.Body>
-                          </Accordion.Item>
+                          {requests?.map((elem, index) => {
+                            const walletAddressLength = elem?.walletAddress?.length;
+                            return (
+                              <Accordion.Item eventKey={index}>
+                                <Accordion.Header>{elem?.nickName}</Accordion.Header>
+                                <Accordion.Body>
+                                  <div className="inner-fields">
+                                    <div className="inner-item">
+                                      <h6>wallet Address</h6>
+                                      <p>{`${elem?.walletAddress.slice(0, 8)}...${elem?.walletAddress.slice(
+                                        walletAddressLength - 8
+                                      )}`}</p>
+                                    </div>
+                                    <div className="inner-item">
+                                      <h6>Tomi Tokens</h6>
+                                      <p className='paratable'>{elem?.tomiTokens}</p>
+                                    </div>
+                                    <div className="inner-item">
+                                      <h6>Actions</h6>
+                                      <div className='dropbtn'>
+                                        <Dropdown>
+                                          <Dropdown.Toggle variant="success" id="dropdown-basic">
+                                            <img src='\Vectordots.svg' alt='img' className='img-fluid ' />
+                                          </Dropdown.Toggle>
+                                          <Dropdown.Menu>
+                                            <Dropdown.Item href="#/action-1">
+                                              <p onClick={() => UserRecrruit(elem?._id)}><img src='\Vector.svg' alt='img' className='img-fluid' />Recruit</p>
+                                            </Dropdown.Item>
+                                            <Dropdown.Item href="#/action-1">
+                                              <p onClick={() => hiderecruit(elem?._id)}><img src='\Vector.svg' alt='img' className='img-fluid' />Hide</p>
+                                            </Dropdown.Item>
+                                          </Dropdown.Menu>
+                                        </Dropdown>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </Accordion.Body>
+                              </Accordion.Item>
+                            )
+                          })}
                         </Accordion>
                       </div>
                     </div>

@@ -114,6 +114,9 @@ const BugReport = () => {
     var result = imageUrl?.split("_")?.pop();
 
 
+    console.log('reportBug',reportBug);
+
+
     return (
         <>
             <div className="formobile-heading d-none display-block-in-mobile">
@@ -226,67 +229,28 @@ const BugReport = () => {
                                     <p>Date Submitted</p>
                                 </div>
                                 <Accordion defaultActiveKey="0">
-                                    <Accordion.Item eventKey="0">
-                                        <Accordion.Header>23/05/2023 01:58</Accordion.Header>
-                                        <Accordion.Body>
-                                            <div className="inner-fields">
-                                                <div className="inner-item">
-                                                    <h6>Issues</h6>
-                                                    <p>Button Is Not Working</p>
-                                                </div>
-                                                <div className="inner-item">
-                                                    <h6>Status</h6>
-                                                    <button className="btn-green">Resolved</button>
-                                                </div>
-                                            </div>
-                                        </Accordion.Body>
-                                    </Accordion.Item>
-                                    <Accordion.Item eventKey="1">
-                                        <Accordion.Header>23/05/2023 01:58</Accordion.Header>
-                                        <Accordion.Body>
-                                            <div className="inner-fields">
-                                                <div className="inner-item">
-                                                    <h6>Issues</h6>
-                                                    <p>Button Is Not Working</p>
-                                                </div>
-                                                <div className="inner-item">
-                                                    <h6>Status</h6>
-                                                    <button className="btn-green">Resolved</button>
-                                                </div>
-                                            </div>
-                                        </Accordion.Body>
-                                    </Accordion.Item>
-                                    <Accordion.Item eventKey="2">
-                                        <Accordion.Header>23/05/2023 01:58</Accordion.Header>
-                                        <Accordion.Body>
-                                            <div className="inner-fields">
-                                                <div className="inner-item">
-                                                    <h6>Issues</h6>
-                                                    <p>Button Is Not Working</p>
-                                                </div>
-                                                <div className="inner-item">
-                                                    <h6>Status</h6>
-                                                    <button className="btn-green">Resolved</button>
-                                                </div>
-                                            </div>
-                                        </Accordion.Body>
-                                    </Accordion.Item>
-                                    <Accordion.Item eventKey="3">
-                                        <Accordion.Header>23/05/2023 01:58</Accordion.Header>
-                                        <Accordion.Body>
-                                            <div className="inner-fields">
-                                                <div className="inner-item">
-                                                    <h6>Issues</h6>
-                                                    <p>Button Is Not Working</p>
-                                                </div>
-                                                <div className="inner-item">
-                                                    <h6>Status</h6>
-                                                    <button className="btn-green">Resolved</button>
-                                                </div>
-                                            </div>
-                                        </Accordion.Body>
-                                    </Accordion.Item>
-
+                                {reportBug?.bugReports?.map((elem, index) => {
+                                                let createdate = new Date(elem?.createdAt);
+                                                const createDate = moment(createdate).format("DD-MM-YYYY");
+                                                return (
+                                                    <Accordion.Item eventKey="0">
+                                                    <Accordion.Header>{createDate}</Accordion.Header>
+                                                    <Accordion.Body>
+                                                        <div className="inner-fields">
+                                                            <div className="inner-item">
+                                                                <h6>Issues</h6>
+                                                                <p>{elem?.issue}</p>
+                                                            </div>
+                                                            <div className="inner-item">
+                                                                <h6>Status</h6>
+                                                                <button className="btn-green">{elem?.status}</button>
+                                                            </div>
+                                                        </div>
+                                                    </Accordion.Body>
+                                                </Accordion.Item>
+                                                )
+                                            })
+                                            }
                                 </Accordion>
                             </div>
                         </div>

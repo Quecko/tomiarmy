@@ -40,13 +40,13 @@ const SquadModals = ({show1,setShow1, setShow2, show2, SquadUsers,GetUserProfile
   const [loader, setLoader] = useState()
   const creatAquad = () => {
     setShow2(true)
+    let tok = localStorage.getItem("accessToken");
     if (inputs?.name) {
       if (profilePicture) {
         const data = new FormData();
         data.append("name", inputs?.name);
         data.append("squadImage", profilePicture);
         setLoader(true);
-        let tok = localStorage.getItem("accessToken");
         if (account) {
           axios.defaults.headers.post[
             "Authorization"
