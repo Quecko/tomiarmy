@@ -18,6 +18,7 @@ import BugReport from "../../screens/BugReport";
 import FAQS from "../../screens/FAQS";
 import Recruiting from "../../screens/Recruiting";
 import SquadModals from "../home/HomeOperations/SquadModals";
+import { reverse } from "lodash";
 import AllTaskModals from "../../screens/AllTaskModals";
 import LeaderModals from "../home/HomeOperations/LeaderModals";
 import { toast } from 'react-toastify';
@@ -50,6 +51,19 @@ const Sidebar = () => {
   const history = useHistory();
   const { userSign } = Signature();
   const [loader, setLoader] = useState(false);
+  const [operations, setOperations] = useState([])
+  const [tasks, settasks] = useState([]);
+  const [users, setUsers] = useState([]);
+  const [squaddetail, setsquaddetail] = useState()
+  const [expired, setexpired] = useState(false);
+  const [expireds, setexpireds] = useState(false);
+
+  const [chat, setChat] = useState([]);
+  const [page, setPage] = useState(1)
+  const [firstTime, setFirstTime] = useState(true);
+  const [pages, allPages] = useState(1)
+  const [message, setMessage] = useState('');
+
 
   const [show4, setShow4] = useState(false);
   const [show5, setShow5] = useState(false);
@@ -116,8 +130,6 @@ const Sidebar = () => {
       setShow(true);
     }
   };
-
-
 
   var user12 = localStorage.getItem("user");
   user12 = JSON.parse(user12)
@@ -200,12 +212,7 @@ const Sidebar = () => {
     }
   };
 
-  const [operations, setOperations] = useState([])
-  const [tasks, settasks] = useState([]);
-  const [users, setUsers] = useState([]);
-  const [squaddetail, setsquaddetail] = useState()
-  const [expired, setexpired] = useState(false);
-  const [expireds, setexpireds] = useState(false);
+
 
 
   const getDataOperation = async (off) => {
@@ -343,6 +350,44 @@ const Sidebar = () => {
         // window.location.reload();
       });
   }
+
+  const getChat = async () => {
+    let tok = localStorage.getItem("accessToken");
+    // page = message!='' ?1 :page; 
+    setPage(message!='' ? 1 : page)
+    var config = {
+      method: "get",
+      url: `${API_URL}/chats/group-messages?offset=${page}&limit=10`,
+      headers: {
+        authorization: `Bearer ` + tok
+      },
+    };
+    axios(config)
+      .then(function (response) {
+        allPages(response?.data?.data?.pages)
+        if (firstTime || message!='') {
+          console.log('if');
+          let rev = reverse([...response?.data?.data?.groupMessages])
+          setChat(rev);
+          setFirstTime(false)
+        }
+        else {
+        console.log('else');
+        let rev = reverse([...response?.data?.data?.groupMessages])
+          setChat([...rev, ...chat])
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
+
+  useEffect(() => {
+    // if(page!=pages){
+    console.log("guss raha", pages)
+    getChat()
+    // }
+  }, [page])
 
   const GetUserProfiledata = () => {
     // setLoader(true);
@@ -807,7 +852,7 @@ const Sidebar = () => {
             </div>
           </div>
           <div className="content-column">
-            <Header handleShow={handleShow} indexwait={indexwait} routes={routes} setroute={setroute} show1={show1} setShow1={setShow1} show2={show2} setShow2={setShow2} setShow4={setShow4} setShow5={setShow5} notifs={notifs} getNotif={getNotif} getData={getData} getDataOperation={getDataOperation}  />
+            <Header handleShow={handleShow} getChat={getChat} indexwait={indexwait} routes={routes} setroute={setroute} show1={show1} setShow1={setShow1} show2={show2} setShow2={setShow2} setShow4={setShow4} setShow5={setShow5} notifs={notifs} getNotif={getNotif} getData={getData} getDataOperation={getDataOperation}  />
             {indexwait === 0 ?
               (
                 <>
@@ -845,15 +890,13 @@ const Sidebar = () => {
                         <>
                           <Announcements />
                         </>
-
                       )
                       :
                       indexwait == 5 ?
                         (
                           <>
-                            <GroupChat />
+                            <GroupChat setPage={setPage} page={page} setChat={setChat} chat={chat} getChat={getChat} pages={pages} setMessage={setMessage} message={message}/>
                           </>
-
                         )
                         :
                         indexwait == 6 ?

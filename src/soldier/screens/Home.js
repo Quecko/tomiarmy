@@ -9,10 +9,30 @@ import MyRank from "../components/home/MyRank";
 import GeneralTasks from "../components/home/GeneralTasks";
 import HomeOperations from "../components/home/HomeOperations/HomeOperations";
 import { API_URL } from "../../utils/ApiUrl"
+import ReactApexChart from 'react-apexcharts';
+
 import axios from "axios";
 
 
-const Home = ({ setShow2, tasks, setShowtask, settaskdetail, setShowtask1, settaskdetail1, operations, setOperationId,users,squaddetail }) => {
+const Home = ({ setShow2, tasks, setShowtask, settaskdetail, setShowtask1, settaskdetail1, operations, setOperationId, users, squaddetail }) => {
+  const state = {
+          
+    series: [70],
+    options: {
+      chart: {
+        height: 300,
+        type: 'radialBar',
+      },
+      plotOptions: {
+        radialBar: {
+          hollow: {
+            size: '60%',
+          }
+        },
+      },
+      labels: ['Completed'],
+  }
+}
   const user = localStorage.getItem('user')
     const { account } = useWeb3React();
   // const commander = JSON.parse(datacommander)
@@ -89,7 +109,7 @@ const Home = ({ setShow2, tasks, setShowtask, settaskdetail, setShowtask1, setta
             <div className="data-box border-grad1">
               <div className="task-status-box-header">
                 <h4>My Tasks Status</h4>
-                <Dropdown className="tasks-status-dropdown">
+                {/* <Dropdown className="tasks-status-dropdown">
                   <Dropdown.Toggle id="dropdown-basic">{DropDownAll1} <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M13.2797 5.9668L8.93306 10.3135C8.41973 10.8268 7.57973 10.8268 7.06639 10.3135L2.71973 5.9668" stroke="#81828A" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
                   </svg></Dropdown.Toggle>
@@ -108,11 +128,13 @@ const Home = ({ setShow2, tasks, setShowtask, settaskdetail, setShowtask1, setta
                     </Dropdown.Item>
                   </div>
                   </Dropdown.Menu>
-                </Dropdown>
+                </Dropdown> */}
               </div>
               <div className="row m-0 tasks-box-row inner-data-box border-grad padd">
                 <div className="col-6 task-completed-graph">
-                  <img src="\static-icons\taskstatus.png" alt="taskCompleteds" style={{ width: "140px", height: "140px" }} />
+                <div id="chart">
+                  <ReactApexChart options={state.options} series={state.series} type="radialBar" height={200} />
+                </div>
                 </div>
                 <div className="col-6">
                   <div className="tasks-list-items">

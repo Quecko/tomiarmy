@@ -15,7 +15,7 @@ import { toast } from "react-toastify";
 import { io } from "socket.io-client";
 
 
-const Header = ({ routes, setroute, indexwait, handleShow, setShow2, setShow1, setShow4, setShow5, notifs, getNotif, getData, getDataOperation }) => {
+const Header = ({ routes, setroute, indexwait, handleShow, setShow2, setShow1, setShow4, setShow5, notifs, getNotif, getData, getDataOperation,getChat }) => {
   const datacommander = localStorage.getItem('user')
   const data = JSON.parse(datacommander)
   const { account } = useWeb3React();
@@ -73,44 +73,25 @@ const Header = ({ routes, setroute, indexwait, handleShow, setShow2, setShow1, s
     });
 
     socket.on('WORK_PROOF_REJECTED', (notification) => {
-      toast.info("Update on your submitted task!");
+      toast.info("Update On Your Submitted Task Please Check Your Notifications");
       getNotif()
       getData()
       getDataOperation()
-      // getNotif()
-      // GetTasks()
-      // GetOpts()
-      // ShowResp(notification);
     });
     socket.on('Squad_Recruite_Invite', (notification) => {
-      toast.info("Squad_Recruite_Invite!");
+      toast.info("Squad Recruite Invite Send To You Please Check Your Notifications");
       getNotif()
     });
+    socket.on('Group_Message', () => {
+          toast.info("group message chat notification");
+          getChat()
+        });
     socket.on('Squad_Recruite_Accepted', (notification) => {
-      toast.info("Squad_Recruite_Accepted");
-  
+      toast.info("Your Squad Recruite Accepted Please Check Your Notifications");
     });
 
-    //   // socket.on('Veteran_recruite_Invite', (notification) => {
-    //   //   getNotif("soc");
-    //   // });
-
-    //   // socket.on('message', (notification) => {
-    //   //   getNotif("soc");
-    //   //   setNotn(true);
-    //   //   // ShowResp(notification);
-    //   // });
-
-    //   // socket.on('Rank_Updated', (notification) => {
-    //   //   updateToken();
-    //   // });
-
-    //   // socket.on('Rank_Updated_By_General', (notification) => {
-    //   //   updateToken();
-    //   // });
-
     socket.on("disconnect", (reason) => {
-      console.log(`Disconnected: ${reason}`);
+      console.log(`Disconnected header: ${reason}`);
     });
   }, [])
 

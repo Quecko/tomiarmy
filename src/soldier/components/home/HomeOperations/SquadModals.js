@@ -11,7 +11,11 @@ const SquadModals = ({show1,setShow1, setShow2, show2, SquadUsers,GetUserProfile
   // const [show1, setShow1] = useState(false);
   const handleClose1 = () => setShow1(false);
 
-  const handleClose2 = () => setShow2(false);
+  const handleClose2 = () => {
+    setInputs({})
+    setProfilePicture(null)
+    setShow2(false)
+  };
   const handleShow2 = () => setShow2(true);
 
   const [show3, setShow3] = useState(false);
@@ -44,13 +48,12 @@ const SquadModals = ({show1,setShow1, setShow2, show2, SquadUsers,GetUserProfile
         setLoader(true);
         let tok = localStorage.getItem("accessToken");
         if (account) {
-          // window.$("#exampleModalLabel11").modal("hide");
+          axios.defaults.headers.post[
+            "Authorization"
+          ] = `Bearer ${tok}`;
           var config = {
             method: "post",
             url: `${API_URL}/tasks/squads`,
-            headers: {
-              authorization: `Bearer ` + tok
-            },
             data: data
           };
 
@@ -70,6 +73,8 @@ const SquadModals = ({show1,setShow1, setShow2, show2, SquadUsers,GetUserProfile
               // window.$("#exampleModalLabel11").modal("hide");
               window.scrollTo(0, 0);
               handleClose2();
+              setInputs({})
+              setProfilePicture(null)
               handleShow3();
               // setCall(!call)
               // GetUserProfiledata();
@@ -80,13 +85,16 @@ const SquadModals = ({show1,setShow1, setShow2, show2, SquadUsers,GetUserProfile
               // CloseModal();
             })
             .catch(function (error) {
-              // console.log(error);
+              setProfilePicture(null)
+              setInputs({})
+
+              console.log(error);
               // window.location.reload()
               // window.$("#exampleModalLabel11").modal("hide");
               // setLoader(false);
               // window.$("#exampleModalLabel11").modal("hide");
               if (error.response.data.statusCode == 409) {
-                window.$("#exampleModalLabel11").modal("hide");
+                handleClose2();
                 toast.error("Squad for User already exists")
               }
               setLoader(false);
@@ -159,7 +167,7 @@ const SquadModals = ({show1,setShow1, setShow2, show2, SquadUsers,GetUserProfile
         <Modal.Body>
           <div className="upload-parent">
             <p className='uehyuj'>Upload Squad Symbol</p>
-            <div className="upload uploadsss">
+            <div className="upload uploadsss sdhfvbdshbfvh">
               {
                 profilePicture ? <label htmlFor="upload">
                   {" "}
