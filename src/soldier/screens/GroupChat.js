@@ -434,7 +434,7 @@ const GroupChat = ({setPage, page, setChat, chat, getChat, pages,message, setMes
                   </div>
                 }
                 <div className="right-btns">
-                  <label htmlFor='upload'>
+                  <label htmlFor='upload' style={{cursor: "pointer"}}>
                     <img src="\assets\file-upload.svg" alt="img" className='img-fluid set-hw-icon' />
                   </label>
 

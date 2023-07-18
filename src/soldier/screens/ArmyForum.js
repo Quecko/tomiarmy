@@ -505,7 +505,7 @@ const ArmyForum = () => {
                           <div className="inner-item">
                             <h6>{elem?._id?.name}</h6>
                             <h6>
-                              <img src={elem?._id?.profileImage} alt="img" className="img-fluid me-2" />
+                              <img src={elem?._id?.profileImage} alt="img" className="img-fluid me-2" style={{width: "34px", height: "34px"}} />
                               {/* Private */}
                             </h6>
                           </div>

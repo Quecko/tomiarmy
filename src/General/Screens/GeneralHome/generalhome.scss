@@ -1,15 +1,17 @@
-.general-home{
-    .tomystats{
+.general-home {
+    .tomystats {
         background: rgba(22, 26, 34, 0.9);
         backdrop-filter: blur(2px);
         border-radius: 20px;
         padding: 20px;
         height: 286px;
-        .upper-heading{
+
+        .upper-heading {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            h6{
+
+            h6 {
                 font-style: normal;
                 font-weight: 700;
                 font-size: 18px;
@@ -17,22 +19,26 @@
                 text-transform: uppercase;
                 color: #FFFFFF;
             }
-           
+
         }
-        .stats-data-boxes{
+
+        .stats-data-boxes {
             display: flex;
             justify-content: space-between;
             align-items: center;
             gap: 10px;
             margin-top: 20px;
-            .inner-data-box{
+
+            .inner-data-box {
                 flex: 0 0 19%;
-                .stats-item-box{
+
+                .stats-item-box {
                     display: flex;
                     justify-content: flex-start;
                     align-items: flex-start;
                     flex-direction: column;
-                    p{
+
+                    p {
                         font-style: normal;
                         font-weight: 500;
                         font-size: 12px;
@@ -43,7 +49,8 @@
                         margin-bottom: 12px;
                         white-space: nowrap;
                     }
-                    h4{
+
+                    h4 {
                         font-style: normal;
                         font-weight: 700;
                         font-size: 20px;
@@ -56,13 +63,16 @@
             }
         }
     }
-    .rank-armygrowth{
+
+    .rank-armygrowth {
         margin: 20px 0;
     }
-    .pending-recruit{
+
+    .pending-recruit {
         margin-bottom: 20px;
     }
-    .data-box{
+
+    .data-box {
         height: 100%;
     }
 
@@ -77,41 +87,52 @@
             border: 1px solid #343742;
             border-radius: 10px;
             transition: 0.3s linear;
-            &::after{
+
+            &::after {
                 display: none;
             }
-            &[aria-expanded="true"]{
-               
-                svg{
+
+            &[aria-expanded="true"] {
+
+                svg {
                     transition: 0.3s linear;
                     transform: rotate(180deg);
                 }
             }
         }
-        .dropdown-menu{
+
+        .dropdown-menu {
             width: 100% !important;
         }
-       
+
     }
-    .btn-check:active+.btn-primary:focus, .btn-check:checked+.btn-primary:focus, .btn-primary.active:focus, .btn-primary:active:focus, .show>.btn-primary.dropdown-toggle:focus{
+
+    .btn-check:active+.btn-primary:focus,
+    .btn-check:checked+.btn-primary:focus,
+    .btn-primary.active:focus,
+    .btn-primary:active:focus,
+    .show>.btn-primary.dropdown-toggle:focus {
         border: 1px solid #FF0083 !important;
-        svg path{
-                stroke: #ff0083;
+
+        svg path {
+            stroke: #ff0083;
         }
 
     }
 
-    .graph-section{
+    .graph-section {
         background: rgba(22, 26, 34, 0.9);
         backdrop-filter: blur(2px);
         border-radius: 20px;
         padding: 20px;
         height: 100%;
-        .upper-heading{
+
+        .upper-heading {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            h6{
+
+            h6 {
                 font-style: normal;
                 font-weight: 700;
                 font-size: 18px;
@@ -119,124 +140,141 @@
                 text-transform: uppercase;
                 color: #FFFFFF;
             }
-           
+
         }
     }
-    .set-custom-padd-table{
-        .set-custom{
-            img{
+
+    .set-custom-padd-table {
+        .set-custom {
+            img {
                 width: 34px;
                 height: 34px;
             }
         }
     }
-    .data-box{
+
+    .data-box {
         min-height: auto !important;
     }
 }
 
-.set-custom-height{
+.set-custom-height {
     height: 100%;
 }
 
-@media (max-width:991px){
-    .set-custom-height{
+@media (max-width:991px) {
+    .set-custom-height {
         height: auto !important;
     }
-    .general-home .tomystats .stats-data-boxes{
+
+    .general-home .tomystats .stats-data-boxes {
         flex-direction: column;
     }
-    .maincard-global .maintable{
+
+    .maincard-global .maintable {
         overflow-x: auto;
     }
-    .general-home .tomystats{
+
+    .general-home .tomystats {
         height: auto !important;
     }
-    .general-home .tomystats .stats-data-boxes .inner-data-box{
+
+    .general-home .tomystats .stats-data-boxes .inner-data-box {
         width: 100%;
     }
-    .general-home .tomystats .stats-data-boxes .inner-data-box .stats-item-box{
+
+    .general-home .tomystats .stats-data-boxes .inner-data-box .stats-item-box {
         flex-direction: row;
         align-items: flex-start;
         gap: 22px;
     }
-    .general-home .tomystats .stats-data-boxes .inner-data-box .stats-item-box p{
+
+    .general-home .tomystats .stats-data-boxes .inner-data-box .stats-item-box p {
         margin-top: 0;
     }
-    .general-home .graph-section{
+
+    .general-home .graph-section {
         margin-top: 20px;
         height: auto;
     }
-    .general-home .stats-dropdown .dropdown-toggle span{
+
+    .general-home .stats-dropdown .dropdown-toggle span {
         display: none;
     }
+
     // .general-home .stats-dropdown .dropdown-toggle svg{
     //     display: none;
     // }
-    .general-home .stats-dropdwon-mobile .dropdown-toggle{
+    .general-home .stats-dropdwon-mobile .dropdown-toggle {
         width: 36px !important;
         height: 36px !important;
         padding: 8px !important;
         display: flex;
     }
-    .general-home .data-box{
+
+    .general-home .data-box {
         height: auto;
     }
-    .set-custom-mbl-top-margin{
+
+    .set-custom-mbl-top-margin {
         margin-top: 20px;
     }
+
     // .maincard-global .maintable .table-striped tbody tr td .paratable{
     //     text-align: center;
     // }
 }
 
-.general-home .tomystats .stats-data-boxes .inner-data-box .stats-item-box p{
-    font-size: 14px!important;
+.general-home .tomystats .stats-data-boxes .inner-data-box .stats-item-box p {
+    font-size: 14px !important;
 }
 
-.general-home .tomystats .stats-data-boxes .inner-data-box .stats-item-box h4{
-    font-size: 22px!important;
+.general-home .tomystats .stats-data-boxes .inner-data-box .stats-item-box h4 {
+    font-size: 22px !important;
 }
+
 // graph scss here........................?..
 
-.apexcharts-tooltip.apexcharts-theme-light{
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.50) 0%, rgba(255, 255, 255, 0.00) 100%), #FF0083!important;
-    filter: drop-shadow(0px 4px 7px rgba(3, 2, 41, 0.07))!important;
+.apexcharts-tooltip.apexcharts-theme-light {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.50) 0%, rgba(255, 255, 255, 0.00) 100%), #FF0083 !important;
+    filter: drop-shadow(0px 4px 7px rgba(3, 2, 41, 0.07)) !important;
     border: none !important;
 }
 
-.apexcharts-tooltip.apexcharts-theme-light .apexcharts-tooltip-title{
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.50) 0%, rgba(255, 255, 255, 0.00) 100%), #FF0083!important;
-    filter: drop-shadow(0px 4px 7px rgba(3, 2, 41, 0.07))!important;
+.apexcharts-tooltip.apexcharts-theme-light .apexcharts-tooltip-title {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.50) 0%, rgba(255, 255, 255, 0.00) 100%), #FF0083 !important;
+    filter: drop-shadow(0px 4px 7px rgba(3, 2, 41, 0.07)) !important;
     border: none !important;
 }
 
-.apexcharts-xaxistooltip.apexcharts-active{
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0.50) 0%, rgba(255, 255, 255, 0.00) 100%), #FF0083!important;
-    filter: drop-shadow(0px 4px 7px rgba(3, 2, 41, 0.07))!important;
+.apexcharts-xaxistooltip.apexcharts-active {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.50) 0%, rgba(255, 255, 255, 0.00) 100%), #FF0083 !important;
+    filter: drop-shadow(0px 4px 7px rgba(3, 2, 41, 0.07)) !important;
     border: none !important;
     color: #ffffff;
 }
 
-.apexcharts-xaxistooltip-bottom:after{
-    border-bottom-color: #FF0083!important;
+.apexcharts-xaxistooltip-bottom:after {
+    border-bottom-color: #FF0083 !important;
 }
 
-.sjddvbbgdsijdfer{
-    width: 40px!important;
+.sjddvbbgdsijdfer {
+    width: 40px !important;
 }
 
-.tab-styling{
+.tab-styling {
     justify-content: space-between;
     border: none;
-    .nav-item{
+
+    .nav-item {
         flex: 1;
-        .nav-link{
+
+        .nav-link {
             color: #FFF;
             font-size: 18px;
             font-style: normal;
             font-weight: 500;
-            line-height: 100%; 
+            line-height: 100%;
             letter-spacing: 0.18px;
             width: 100%;
             background-color: transparent;
@@ -245,17 +283,20 @@
             border-bottom: 2px solid #3B3946;
         }
     }
-     .nav-item.show .nav-link,  .nav-link.active{
+
+    .nav-item.show .nav-link,
+    .nav-link.active {
         border: none;
         border-bottom: 2px solid #FF0083;
-     }
+    }
 }
 
 
-.apexcharts-text tspan{
+.apexcharts-text tspan {
     fill: #909090;
     font-size: 12px;
     font-style: normal;
     font-weight: 500;
     line-height: normal;
 }
+

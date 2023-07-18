@@ -204,7 +204,7 @@ const ArmyGrowthGraph = (datee, minte, rendss) => {
   return (
     <>
       <div id="chart">
-        <ReactApexChart options={state.options} series={state.series} type="bar" height={350} />
+        <ReactApexChart options={state.options} series={state.series} type="bar" height={window.innerWidth > 600 ? 535 : window.innerWidth < 600 ? 300 : ""} />
       </div>
     </>
   )
