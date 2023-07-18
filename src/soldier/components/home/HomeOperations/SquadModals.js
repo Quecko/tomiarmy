@@ -47,7 +47,7 @@ const SquadModals = ({show1,setShow1, setShow2, show2, SquadUsers,GetUserProfile
         data.append("name", inputs?.name);
         data.append("squadImage", profilePicture);
         setLoader(true);
-        if (account) {
+        // if (account) {
           axios.defaults.headers.post[
             "Authorization"
           ] = `Bearer ${tok}`;
@@ -99,7 +99,7 @@ const SquadModals = ({show1,setShow1, setShow2, show2, SquadUsers,GetUserProfile
               }
               setLoader(false);
             });
-        }
+        // }
       } else {
         toast.error("Squad Image required")
       }

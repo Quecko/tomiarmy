@@ -13,7 +13,7 @@ import { useWeb3React } from "@web3-react/core";
 import Countdown from "react-countdown";
 
 
-const HomeOperations = ({ setShowtask1, settaskdetail1, operations, setOperationId, users }) => {
+const HomeOperations = ({ setShowtask1, settaskdetail1, operations, setOperationId, users,setindexwait }) => {
 
   const datacommander = localStorage.getItem('user')
   const data = JSON.parse(datacommander)
@@ -140,6 +140,13 @@ const HomeOperations = ({ setShowtask1, settaskdetail1, operations, setOperation
     setShowtask1(true)
     settaskdetail1(elem)
   }
+
+
+  const hitfunctionss = (asd) => {
+    setindexwait(asd)
+    localStorage.setItem("indexvalue", asd);
+    window.scrollTo(0, 0)
+  }
   return (
     <>
       <div className="warpper-lock-operation">
@@ -158,7 +165,7 @@ const HomeOperations = ({ setShowtask1, settaskdetail1, operations, setOperation
               <h6>operation :  {operations?.name} <span>ENDS IN:<Countdown date={GetTime(operations?.expirationDate)} /></span></h6>
               <p>{operations?.description}</p>
             </div>
-            <a href="#">View <span>All Operation Tasks</span> <img src="\assets\arrow-right.svg" alt="img" className='img-fluid ms-2' /></a>
+            <a onClick={() => { hitfunctionss(2); }}>View <span>All Operation Tasks</span> <img src="\assets\arrow-right.svg" alt="img" className='img-fluid ms-2' /></a>
           </div>
           <div className="bottom-cards">
             <div className="card-item border-grad">
@@ -373,7 +380,7 @@ const HomeOperations = ({ setShowtask1, settaskdetail1, operations, setOperation
             <div className='maincard display-none-in-mobile'>
               <div className="upper-head">
                 <h6>Your Squad</h6>
-                <a href="#">View All <img src="\assets\arrow-right.svg" alt="img" className='img-fluid ms-2' /></a>
+                <a onClick={() => { hitfunctionss(3); }}>View All <img src="\assets\arrow-right.svg" alt="img" className='img-fluid ms-2' /></a>
               </div>
               <div className="maintable table-responsive">
                 <table class="table table-striped ">

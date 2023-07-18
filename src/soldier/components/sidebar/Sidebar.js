@@ -135,84 +135,84 @@ const Sidebar = () => {
 
   var user12 = localStorage.getItem("user");
   user12 = JSON.parse(user12)
-  useEffect(() => {
-    if (account === user12?.walletAddress) {
-    }
-    else if (account) {
-      // window.scrollTo(0, 0);
-      loginUser();
-    }
-  }, [account])
+  // useEffect(() => {
+  //   if (account === user12?.walletAddress) {
+  //   }
+  //   else if (account) {
+  //     // window.scrollTo(0, 0);
+  //     loginUser();
+  //   }
+  // }, [account])
 
 
-  const loginUser = async () => {
-    // let tok = localStorage.getItem("accessToken");
-    // let wall = localStorage.getItem("wallet");
-    // setShow(false);
-    if (account) {
-      const res0 = await userSign(account);
-      if (account && res0) {
-        await axios
-          .post(`${API_URL}/auth/signin`, {
-            walletAddress: account,
-            sign: res0,
-            rememberMe: true
-          })
-          .then((res) => {
-            // toast.success('User Logged in Successfully', {
-            //     position: 'top-center',
-            //     autoClose: 5000,
-            // });
-            localStorage.setItem("accessToken", res?.data?.data?.accessToken);
-            // setShow(false)
-            localStorage.setItem("user", JSON.stringify(res?.data?.data));
-            if (res?.data?.data?.rank.name === "general") {
-              history.push("/general");
-            } else if (res?.data?.data?.rank.name === "major general") {
-              history.push("/majorgenerL");
-            }
-            else if (res?.data?.data?.isCommander === true) {
-              history.push("/leader");
-            }
-            else if (res?.data?.data?.isCommander === false && res?.data?.data?.squad?.name !== '') {
-              history.push("/soldier");
-            } else if (res?.data?.data?.isCommander === false && res?.data?.data?.squad?.name == '') {
-              history.push("/soldier");
-            }
-            else {
-              history.push("/");
-            }
-            localStorage.setItem("wallet", account);
-          })
-          .catch((err) => {
-            if (err?.response?.data?.statusCode === 404) {
-              toast.error('No User Found', {
-                position: 'top-center',
-                autoClose: 5000,
-              });
-              localStorage.removeItem("connectorId");
-              localStorage.removeItem("flag");
-              // setShow(false);
-              localStorage.removeItem("accessToken");
-              localStorage.removeItem("user");
-              localStorage.removeItem("wallet");
-              history.push("/")
-            }
-            localStorage.removeItem("connectorId");
-            localStorage.removeItem("flag");
-          });
-      }
-      else {
-        history.push('/')
-      }
-    }
-    else {
-      toast.error('Wallet Not Connected', {
-        position: 'top-center',
-        autoClose: 5000,
-      });
-    }
-  };
+  // const loginUser = async () => {
+  //   // let tok = localStorage.getItem("accessToken");
+  //   // let wall = localStorage.getItem("wallet");
+  //   // setShow(false);
+  //   if (account) {
+  //     const res0 = await userSign(account);
+  //     if (account && res0) {
+  //       await axios
+  //         .post(`${API_URL}/auth/signin`, {
+  //           walletAddress: account,
+  //           sign: res0,
+  //           rememberMe: true
+  //         })
+  //         .then((res) => {
+  //           // toast.success('User Logged in Successfully', {
+  //           //     position: 'top-center',
+  //           //     autoClose: 5000,
+  //           // });
+  //           localStorage.setItem("accessToken", res?.data?.data?.accessToken);
+  //           // setShow(false)
+  //           localStorage.setItem("user", JSON.stringify(res?.data?.data));
+  //           if (res?.data?.data?.rank.name === "general") {
+  //             history.push("/general");
+  //           } else if (res?.data?.data?.rank.name === "major general") {
+  //             history.push("/majorgenerL");
+  //           }
+  //           else if (res?.data?.data?.isCommander === true) {
+  //             history.push("/leader");
+  //           }
+  //           else if (res?.data?.data?.isCommander === false && res?.data?.data?.squad?.name !== '') {
+  //             history.push("/soldier");
+  //           } else if (res?.data?.data?.isCommander === false && res?.data?.data?.squad?.name == '') {
+  //             history.push("/soldier");
+  //           }
+  //           else {
+  //             history.push("/");
+  //           }
+  //           localStorage.setItem("wallet", account);
+  //         })
+  //         .catch((err) => {
+  //           if (err?.response?.data?.statusCode === 404) {
+  //             toast.error('No User Found', {
+  //               position: 'top-center',
+  //               autoClose: 5000,
+  //             });
+  //             localStorage.removeItem("connectorId");
+  //             localStorage.removeItem("flag");
+  //             // setShow(false);
+  //             localStorage.removeItem("accessToken");
+  //             localStorage.removeItem("user");
+  //             localStorage.removeItem("wallet");
+  //             history.push("/")
+  //           }
+  //           localStorage.removeItem("connectorId");
+  //           localStorage.removeItem("flag");
+  //         });
+  //     }
+  //     else {
+  //       history.push('/')
+  //     }
+  //   }
+  //   else {
+  //     toast.error('Wallet Not Connected', {
+  //       position: 'top-center',
+  //       autoClose: 5000,
+  //     });
+  //   }
+  // };
 
   const getDataOperation = async (off) => {
 
@@ -438,10 +438,10 @@ const Sidebar = () => {
     // }
   }
   useEffect(() => {
-    if(datacommander?.memberOfSquad===true){
+    // if(datacommander?.memberOfSquad===true){
       getChat()
       SquadUsers()
-    }
+    // }
 }, [page])
   useEffect(() => {
     GetTaskStatusData()
@@ -879,7 +879,7 @@ const Sidebar = () => {
             {indexwait === 0 ?
               (
                 <>
-                  <Home show2={show2} setShow2={setShow2} tasks={tasks} setShowtask={setShowtask} settaskdetail={settaskdetail} setShowtask1={setShowtask1} settaskdetail1={settaskdetail1} operations={operations} setOperationId={setOperationId} users={users} squaddetail={squaddetail} statusData={statusData}/>
+                  <Home show2={show2} setShow2={setShow2} tasks={tasks} setShowtask={setShowtask} settaskdetail={settaskdetail} setShowtask1={setShowtask1} settaskdetail1={settaskdetail1} operations={operations} setOperationId={setOperationId} users={users} squaddetail={squaddetail} statusData={statusData} setindexwait={setindexwait}/>
                 </>
               )
               :

@@ -23,7 +23,6 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role, setRole, setinvitecode, 
     const [log, setLog] = useState(false)
     const history = useHistory();
     const { login, logout } = useAuth();
-    const [authStatus, setAuthStatus] = useState('')
 
     // const trustWallet = async () => {
     //     localStorage.setItem("flag", "true");
@@ -47,10 +46,8 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role, setRole, setinvitecode, 
         // handleShow()
         if (account) {
             await logout("walletconnect");
-            setAuthStatus('')
         } else {
             await login("walletconnect");
-            setAuthStatus('signUp')
             localStorage.setItem('connectorId', 'walletconnect');
             localStorage.setItem("flag", "true");
             setLog(true)
@@ -63,15 +60,15 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role, setRole, setinvitecode, 
             await logout(connectorId);
             localStorage.removeItem("connectorId");
             localStorage.removeItem("flag");
-            setAuthStatus('')
         } else {
-            login("injected");
+            await login("injected");
             localStorage.setItem("connectorId", "injected");
             localStorage.setItem("flag", "true");
-            setAuthStatus('signUp')
             setLog(true)
         }
     };
+
+    console.log('log',log);
 
     const loginUser = async () => {
         // let tok = localStorage.getItem("accessToken");
@@ -229,8 +226,8 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role, setRole, setinvitecode, 
 
     useEffect(() => {
         if (account && log) {
-            setLog(false)
             loginUser();
+            setLog(false)
         }
     }, [account, log])
 
