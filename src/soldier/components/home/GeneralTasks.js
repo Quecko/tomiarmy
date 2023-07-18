@@ -207,7 +207,7 @@ const GeneralTasks = ({setShowtask ,settaskdetail,tasks}) => {
         <div className="heading-mobile">
           <p>Task</p>
         </div>
-        <Accordion defaultActiveKey="0">
+        <Accordion defaultActiveKey="">
           <Accordion.Item eventKey="0">
             <Accordion.Header>Like our facebook page</Accordion.Header>
             <Accordion.Body>
