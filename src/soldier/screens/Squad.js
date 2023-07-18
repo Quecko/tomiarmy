@@ -10,7 +10,7 @@ import axios from 'axios';
 import { useWeb3React } from '@web3-react/core';
 import { toast } from 'react-toastify';
 
-const Squad = ({ show1, setShow1, show2, setShow2,show4, setShow4, show5, setShow5,show6,setShow6,setCoLeaderDetail  }) => {
+const Squad = ({ show1, setShow1, show2, setShow2, show4, setShow4, show5, setShow5, show6, setShow6, setCoLeaderDetail }) => {
   const datacommander = localStorage.getItem('user')
   const data = JSON.parse(datacommander)
   let tok = localStorage.getItem("accessToken");
@@ -115,8 +115,8 @@ const Squad = ({ show1, setShow1, show2, setShow2,show4, setShow4, show5, setSho
       headers: {
         authorization: `Bearer ` + tok
       },
-      data:{
-        userId:elem?._id
+      data: {
+        userId: elem?._id
       },
     };
     axios(config)
@@ -137,7 +137,7 @@ const Squad = ({ show1, setShow1, show2, setShow2,show4, setShow4, show5, setSho
       });
   }
 
-  
+
 
 
   return (
@@ -275,7 +275,7 @@ const Squad = ({ show1, setShow1, show2, setShow2,show4, setShow4, show5, setSho
                                         </td>
                                         <td>
                                           <div className="set-custom">
-                                            <img style={{width:'40px',height:'40px'}}  src={elem?.rank?.icon} alt="img" className='img-fluid' />
+                                            <img style={{ width: '40px', height: '40px' }} src={elem?.rank?.icon} alt="img" className='img-fluid' />
                                             <p className='paratable'>{elem?.rank?.name}</p>
                                           </div>
                                         </td>
@@ -296,7 +296,7 @@ const Squad = ({ show1, setShow1, show2, setShow2,show4, setShow4, show5, setSho
                                               </Dropdown.Toggle>
                                               <Dropdown.Menu>
                                                 <Dropdown.Item href="#/action-1">
-                                                  <p onClick={()=>addCoLeader(elem)}><img src='\Vector.svg' alt='img' className='img-fluid' />Promote to Co leader</p>
+                                                  <p onClick={() => addCoLeader(elem)}><img src='\Vector.svg' alt='img' className='img-fluid' />Promote to Co leader</p>
                                                 </Dropdown.Item>
                                                 <Dropdown.Item href="#/action-1">
                                                   <p onClick={handleShow3}><img src='\Vector.svg' alt='img' className='img-fluid' />Dismiss</p>
@@ -334,98 +334,52 @@ const Squad = ({ show1, setShow1, show2, setShow2,show4, setShow4, show5, setSho
                               <p>Task</p>
                             </div>
                             <Accordion defaultActiveKey="0">
-                              <Accordion.Item eventKey="0">
-                                <Accordion.Header>Like our facebook page</Accordion.Header>
-                                <Accordion.Body>
-                                  <div className="inner-fields">
-                                    <div className="inner-item">
-                                      <h6>Points</h6>
-                                      <p>+5</p>
-                                    </div>
-                                    <div className="inner-item">
-                                      <h6>Status</h6>
-                                      <button className="btn-green">Completed</button>
-                                    </div>
-                                    <div className="inner-item">
-                                      <h6>Expiry</h6>
-                                      <p>12:34 12/12/23</p>
-                                    </div>
-                                    <div className="inner-item">
-                                      <h6>Actions</h6>
-                                      <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
-                                    </div>
-                                  </div>
-                                </Accordion.Body>
-                              </Accordion.Item>
-                              <Accordion.Item eventKey="1">
-                                <Accordion.Header>Follow our twitter acc...</Accordion.Header>
-                                <Accordion.Body>
-                                  <div className="inner-fields">
-                                    <div className="inner-item">
-                                      <h6>Points</h6>
-                                      <p>+5</p>
-                                    </div>
-                                    <div className="inner-item">
-                                      <h6>Status</h6>
-                                      <button className="btn-green">Completed</button>
-                                    </div>
-                                    <div className="inner-item">
-                                      <h6>Expiry</h6>
-                                      <p>12:34 12/12/23</p>
-                                    </div>
-                                    <div className="inner-item">
-                                      <h6>Actions</h6>
-                                      <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
-                                    </div>
-                                  </div>
-                                </Accordion.Body>
-                              </Accordion.Item>
-                              <Accordion.Item eventKey="2">
-                                <Accordion.Header>Like our facebook page</Accordion.Header>
-                                <Accordion.Body>
-                                  <div className="inner-fields">
-                                    <div className="inner-item">
-                                      <h6>Points</h6>
-                                      <p>+5</p>
-                                    </div>
-                                    <div className="inner-item">
-                                      <h6>Status</h6>
-                                      <button className="btn-green">Completed</button>
-                                    </div>
-                                    <div className="inner-item">
-                                      <h6>Expiry</h6>
-                                      <p>12:34 12/12/23</p>
-                                    </div>
-                                    <div className="inner-item">
-                                      <h6>Actions</h6>
-                                      <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
-                                    </div>
-                                  </div>
-                                </Accordion.Body>
-                              </Accordion.Item>
-                              <Accordion.Item eventKey="3">
-                                <Accordion.Header>Like our facebook page</Accordion.Header>
-                                <Accordion.Body>
-                                  <div className="inner-fields">
-                                    <div className="inner-item">
-                                      <h6>Points</h6>
-                                      <p>+5</p>
-                                    </div>
-                                    <div className="inner-item">
-                                      <h6>Status</h6>
-                                      <button className="btn-green">Completed</button>
-                                    </div>
-                                    <div className="inner-item">
-                                      <h6>Expiry</h6>
-                                      <p>12:34 12/12/23</p>
-                                    </div>
-                                    <div className="inner-item">
-                                      <h6>Actions</h6>
-                                      <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
-                                    </div>
-                                  </div>
-                                </Accordion.Body>
-                              </Accordion.Item>
+                              {users?.users?.map((elem, index) => {
+                                return (
+                                  <Accordion.Item eventKey={index}>
+                                    <Accordion.Header>{elem?.nickName ? elem?.nickName : "------"}</Accordion.Header>
+                                    <Accordion.Body>
+                                      <div className="inner-fields">
+                                        <div className="inner-item">
+                                          <h6>Rank</h6>
+                                          <img style={{ width: '40px', height: '40px' }} src={elem?.rank?.icon} alt="img" className='img-fluid' />
+                                          <p className='paratable'>{elem?.rank?.name}</p>
+                                        </div>
+                                        <div className="inner-item">
+                                          <h6>Wallet Address</h6>
+                                          <p className='paratable'>{elem?.walletAddress}</p>
+                                        </div>
+                                        <div className="inner-item">
+                                          <h6>TOMI Balance</h6>
+                                          <p>{elem?.tomiTokens}</p>
+                                        </div>
+                                        <div className="inner-item">
+                                          <h6>Total Points</h6>
+                                          <p>{elem?.points}</p>
+                                        </div>
+                                        <div className="inner-item">
+                                          <h6>Actions</h6>
+                                          <div className='dropbtn'>
+                                            <Dropdown>
+                                              <Dropdown.Toggle variant="success" id="dropdown-basic">
+                                                <img src='\Vectordots.svg' alt='img' className='img-fluid ' />
+                                              </Dropdown.Toggle>
+                                              <Dropdown.Menu>
+                                                <Dropdown.Item href="#/action-1">
+                                                  <p onClick={() => addCoLeader(elem)}><img src='\Vector.svg' alt='img' className='img-fluid' />Promote to Co leader</p>
+                                                </Dropdown.Item>
+                                                <Dropdown.Item href="#/action-1">
+                                                  <p onClick={handleShow3}><img src='\Vector.svg' alt='img' className='img-fluid' />Dismiss</p>
+                                                </Dropdown.Item>
+                                              </Dropdown.Menu>
+                                            </Dropdown>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </Accordion.Body>
+                                  </Accordion.Item>
+                                )
+                              })}
                             </Accordion>
                           </div>
                         </div>
@@ -438,10 +392,13 @@ const Squad = ({ show1, setShow1, show2, setShow2,show4, setShow4, show5, setSho
                                 <thead>
                                   <tr>
                                     <th>
-                                      <p className='headtable'>Wallet Address</p>
+                                      <p className='headtable'>Nick Name</p>
                                     </th>
                                     <th>
                                       <p className='headtable'>Rank</p>
+                                    </th>
+                                    <th>
+                                      <p className='headtable'>Wallet Address</p>
                                     </th>
                                     <th>
                                       <p className='headtable'>TOMI Balance</p>
@@ -463,7 +420,7 @@ const Squad = ({ show1, setShow1, show2, setShow2,show4, setShow4, show5, setSho
                                         </td>
                                         <td>
                                           <div className="set-custom">
-                                            <img style={{width:'40px',height:'40px'}}  src={elem?.rank?.icon} alt="img" className='img-fluid' />
+                                            <img style={{ width: '40px', height: '40px' }} src={elem?.rank?.icon} alt="img" className='img-fluid' />
                                             <p className='paratable'>{elem?.rank?.name}</p>
                                           </div>
                                         </td>
@@ -484,7 +441,7 @@ const Squad = ({ show1, setShow1, show2, setShow2,show4, setShow4, show5, setSho
                                               </Dropdown.Toggle>
                                               <Dropdown.Menu>
                                                 <Dropdown.Item href="#/action-1">
-                                                  <p onClick={()=>recruitJoin(elem)}><img src='\Vector.svg' alt='img' className='img-fluid' />recruit</p>
+                                                  <p onClick={() => recruitJoin(elem)}><img src='\Vector.svg' alt='img' className='img-fluid' />recruit</p>
                                                 </Dropdown.Item>
                                               </Dropdown.Menu>
                                             </Dropdown>
@@ -520,98 +477,52 @@ const Squad = ({ show1, setShow1, show2, setShow2,show4, setShow4, show5, setSho
                               <p>Task</p>
                             </div>
                             <Accordion defaultActiveKey="0">
-                              <Accordion.Item eventKey="0">
-                                <Accordion.Header>Like our facebook page</Accordion.Header>
-                                <Accordion.Body>
-                                  <div className="inner-fields">
-                                    <div className="inner-item">
-                                      <h6>Points</h6>
-                                      <p>+5</p>
-                                    </div>
-                                    <div className="inner-item">
-                                      <h6>Status</h6>
-                                      <button className="btn-green">Completed</button>
-                                    </div>
-                                    <div className="inner-item">
-                                      <h6>Expiry</h6>
-                                      <p>12:34 12/12/23</p>
-                                    </div>
-                                    <div className="inner-item">
-                                      <h6>Actions</h6>
-                                      <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
-                                    </div>
-                                  </div>
-                                </Accordion.Body>
-                              </Accordion.Item>
-                              <Accordion.Item eventKey="1">
-                                <Accordion.Header>Follow our twitter acc...</Accordion.Header>
-                                <Accordion.Body>
-                                  <div className="inner-fields">
-                                    <div className="inner-item">
-                                      <h6>Points</h6>
-                                      <p>+5</p>
-                                    </div>
-                                    <div className="inner-item">
-                                      <h6>Status</h6>
-                                      <button className="btn-green">Completed</button>
-                                    </div>
-                                    <div className="inner-item">
-                                      <h6>Expiry</h6>
-                                      <p>12:34 12/12/23</p>
-                                    </div>
-                                    <div className="inner-item">
-                                      <h6>Actions</h6>
-                                      <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
-                                    </div>
-                                  </div>
-                                </Accordion.Body>
-                              </Accordion.Item>
-                              <Accordion.Item eventKey="2">
-                                <Accordion.Header>Like our facebook page</Accordion.Header>
-                                <Accordion.Body>
-                                  <div className="inner-fields">
-                                    <div className="inner-item">
-                                      <h6>Points</h6>
-                                      <p>+5</p>
-                                    </div>
-                                    <div className="inner-item">
-                                      <h6>Status</h6>
-                                      <button className="btn-green">Completed</button>
-                                    </div>
-                                    <div className="inner-item">
-                                      <h6>Expiry</h6>
-                                      <p>12:34 12/12/23</p>
-                                    </div>
-                                    <div className="inner-item">
-                                      <h6>Actions</h6>
-                                      <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
-                                    </div>
-                                  </div>
-                                </Accordion.Body>
-                              </Accordion.Item>
-                              <Accordion.Item eventKey="3">
-                                <Accordion.Header>Like our facebook page</Accordion.Header>
-                                <Accordion.Body>
-                                  <div className="inner-fields">
-                                    <div className="inner-item">
-                                      <h6>Points</h6>
-                                      <p>+5</p>
-                                    </div>
-                                    <div className="inner-item">
-                                      <h6>Status</h6>
-                                      <button className="btn-green">Completed</button>
-                                    </div>
-                                    <div className="inner-item">
-                                      <h6>Expiry</h6>
-                                      <p>12:34 12/12/23</p>
-                                    </div>
-                                    <div className="inner-item">
-                                      <h6>Actions</h6>
-                                      <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
-                                    </div>
-                                  </div>
-                                </Accordion.Body>
-                              </Accordion.Item>
+                              {users?.users?.map((elem, index) => {
+                                return (
+                                  <Accordion.Item eventKey={index}>
+                                    <Accordion.Header>{elem?.nickName ? elem?.nickName : "------"}</Accordion.Header>
+                                    <Accordion.Body>
+                                      <div className="inner-fields">
+                                        <div className="inner-item">
+                                          <h6>Rank</h6>
+                                          <img style={{ width: '40px', height: '40px' }} src={elem?.rank?.icon} alt="img" className='img-fluid' />
+                                          <p className='paratable'>{elem?.rank?.name}</p>
+                                        </div>
+                                        <div className="inner-item">
+                                          <h6>Wallet Address</h6>
+                                          <p className='paratable'>{elem?.walletAddress}</p>
+                                        </div>
+                                        <div className="inner-item">
+                                          <h6>TOMI Balance</h6>
+                                          <p>{elem?.tomiTokens}</p>
+                                        </div>
+                                        <div className="inner-item">
+                                          <h6>Total Points</h6>
+                                          <p>{elem?.points}</p>
+                                        </div>
+                                        <div className="inner-item">
+                                          <h6>Actions</h6>
+                                          <div className='dropbtn'>
+                                            <Dropdown>
+                                              <Dropdown.Toggle variant="success" id="dropdown-basic">
+                                                <img src='\Vectordots.svg' alt='img' className='img-fluid ' />
+                                              </Dropdown.Toggle>
+                                              <Dropdown.Menu>
+                                                <Dropdown.Item href="#/action-1">
+                                                  <p onClick={() => addCoLeader(elem)}><img src='\Vector.svg' alt='img' className='img-fluid' />Promote to Co leader</p>
+                                                </Dropdown.Item>
+                                                <Dropdown.Item href="#/action-1">
+                                                  <p onClick={handleShow3}><img src='\Vector.svg' alt='img' className='img-fluid' />Dismiss</p>
+                                                </Dropdown.Item>
+                                              </Dropdown.Menu>
+                                            </Dropdown>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </Accordion.Body>
+                                  </Accordion.Item>
+                                )
+                              })}
                             </Accordion>
                           </div>
                         </div>
@@ -623,11 +534,14 @@ const Squad = ({ show1, setShow1, show2, setShow2,show4, setShow4, show5, setSho
                               <table class="table table-striped">
                                 <thead>
                                   <tr>
-                                    <th>
-                                      <p className='headtable'>Wallet Address</p>
+                                  <th>
+                                      <p className='headtable'>Nick Name</p>
                                     </th>
                                     <th>
                                       <p className='headtable'>Rank</p>
+                                    </th>
+                                    <th>
+                                      <p className='headtable'>Wallet Address</p>
                                     </th>
                                     <th>
                                       <p className='headtable'>TOMI Balance</p>
@@ -650,7 +564,7 @@ const Squad = ({ show1, setShow1, show2, setShow2,show4, setShow4, show5, setSho
                                         </td>
                                         <td>
                                           <div className="set-custom">
-                                            <img style={{width:'40px',height:'40px'}}  src={elem?.rank?.icon} alt="img" className='img-fluid' />
+                                            <img style={{ width: '40px', height: '40px' }} src={elem?.rank?.icon} alt="img" className='img-fluid' />
                                             <p className='paratable'>{elem?.rank?.name}</p>
                                           </div>
                                         </td>
@@ -708,98 +622,52 @@ const Squad = ({ show1, setShow1, show2, setShow2,show4, setShow4, show5, setSho
                               <p>Task</p>
                             </div>
                             <Accordion defaultActiveKey="0">
-                              <Accordion.Item eventKey="0">
-                                <Accordion.Header>Like our facebook page</Accordion.Header>
-                                <Accordion.Body>
-                                  <div className="inner-fields">
-                                    <div className="inner-item">
-                                      <h6>Points</h6>
-                                      <p>+5</p>
-                                    </div>
-                                    <div className="inner-item">
-                                      <h6>Status</h6>
-                                      <button className="btn-green">Completed</button>
-                                    </div>
-                                    <div className="inner-item">
-                                      <h6>Expiry</h6>
-                                      <p>12:34 12/12/23</p>
-                                    </div>
-                                    <div className="inner-item">
-                                      <h6>Actions</h6>
-                                      <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
-                                    </div>
-                                  </div>
-                                </Accordion.Body>
-                              </Accordion.Item>
-                              <Accordion.Item eventKey="1">
-                                <Accordion.Header>Follow our twitter acc...</Accordion.Header>
-                                <Accordion.Body>
-                                  <div className="inner-fields">
-                                    <div className="inner-item">
-                                      <h6>Points</h6>
-                                      <p>+5</p>
-                                    </div>
-                                    <div className="inner-item">
-                                      <h6>Status</h6>
-                                      <button className="btn-green">Completed</button>
-                                    </div>
-                                    <div className="inner-item">
-                                      <h6>Expiry</h6>
-                                      <p>12:34 12/12/23</p>
-                                    </div>
-                                    <div className="inner-item">
-                                      <h6>Actions</h6>
-                                      <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
-                                    </div>
-                                  </div>
-                                </Accordion.Body>
-                              </Accordion.Item>
-                              <Accordion.Item eventKey="2">
-                                <Accordion.Header>Like our facebook page</Accordion.Header>
-                                <Accordion.Body>
-                                  <div className="inner-fields">
-                                    <div className="inner-item">
-                                      <h6>Points</h6>
-                                      <p>+5</p>
-                                    </div>
-                                    <div className="inner-item">
-                                      <h6>Status</h6>
-                                      <button className="btn-green">Completed</button>
-                                    </div>
-                                    <div className="inner-item">
-                                      <h6>Expiry</h6>
-                                      <p>12:34 12/12/23</p>
-                                    </div>
-                                    <div className="inner-item">
-                                      <h6>Actions</h6>
-                                      <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
-                                    </div>
-                                  </div>
-                                </Accordion.Body>
-                              </Accordion.Item>
-                              <Accordion.Item eventKey="3">
-                                <Accordion.Header>Like our facebook page</Accordion.Header>
-                                <Accordion.Body>
-                                  <div className="inner-fields">
-                                    <div className="inner-item">
-                                      <h6>Points</h6>
-                                      <p>+5</p>
-                                    </div>
-                                    <div className="inner-item">
-                                      <h6>Status</h6>
-                                      <button className="btn-green">Completed</button>
-                                    </div>
-                                    <div className="inner-item">
-                                      <h6>Expiry</h6>
-                                      <p>12:34 12/12/23</p>
-                                    </div>
-                                    <div className="inner-item">
-                                      <h6>Actions</h6>
-                                      <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
-                                    </div>
-                                  </div>
-                                </Accordion.Body>
-                              </Accordion.Item>
+                            {users?.users?.map((elem, index) => {
+                                return (
+                                  <Accordion.Item eventKey={index}>
+                                    <Accordion.Header>{elem?.nickName ? elem?.nickName : "------"}</Accordion.Header>
+                                    <Accordion.Body>
+                                      <div className="inner-fields">
+                                        <div className="inner-item">
+                                          <h6>Rank</h6>
+                                          <img style={{ width: '40px', height: '40px' }} src={elem?.rank?.icon} alt="img" className='img-fluid' />
+                                          <p className='paratable'>{elem?.rank?.name}</p>
+                                        </div>
+                                        <div className="inner-item">
+                                          <h6>Wallet Address</h6>
+                                          <p className='paratable'>{elem?.walletAddress}</p>
+                                        </div>
+                                        <div className="inner-item">
+                                          <h6>TOMI Balance</h6>
+                                          <p>{elem?.tomiTokens}</p>
+                                        </div>
+                                        <div className="inner-item">
+                                          <h6>Total Points</h6>
+                                          <p>{elem?.points}</p>
+                                        </div>
+                                        <div className="inner-item">
+                                          <h6>Actions</h6>
+                                          <div className='dropbtn'>
+                                            <Dropdown>
+                                              <Dropdown.Toggle variant="success" id="dropdown-basic">
+                                                <img src='\Vectordots.svg' alt='img' className='img-fluid ' />
+                                              </Dropdown.Toggle>
+                                              <Dropdown.Menu>
+                                                <Dropdown.Item href="#/action-1">
+                                                  <p onClick={() => addCoLeader(elem)}><img src='\Vector.svg' alt='img' className='img-fluid' />Promote to Co leader</p>
+                                                </Dropdown.Item>
+                                                <Dropdown.Item href="#/action-1">
+                                                  <p onClick={handleShow3}><img src='\Vector.svg' alt='img' className='img-fluid' />Dismiss</p>
+                                                </Dropdown.Item>
+                                              </Dropdown.Menu>
+                                            </Dropdown>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </Accordion.Body>
+                                  </Accordion.Item>
+                                )
+                              })}
                             </Accordion>
                           </div>
                         </div>
@@ -1017,7 +885,7 @@ const Squad = ({ show1, setShow1, show2, setShow2,show4, setShow4, show5, setSho
                                     <p className='paratable'>{elem?.nickName ? elem?.nickName : "------"}</p>
                                   </td>
                                   <td>
-                                    <p className='paratable'><img style={{width:'40px',height:'40px'}}  src={elem?.rank?.icon} alt='img' className='img-fluid' /> {elem?.rank?.name}</p>
+                                    <p className='paratable'><img style={{ width: '40px', height: '40px' }} src={elem?.rank?.icon} alt='img' className='img-fluid' /> {elem?.rank?.name}</p>
                                   </td>
                                   <td>
                                     <p className='paratable'>

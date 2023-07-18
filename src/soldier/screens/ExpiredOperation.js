@@ -27,67 +27,67 @@ const ExpiredOperation = ({ setroute, routes, tasks }) => {
         <>
             {
                 routes ?
-                <section className="active-operations aa">
-                <div className="upper-item">
-                    <div className='left'>
-                        <h6>operation : {data?.name} <span style={{ color: "#FB2F2F" }}>ENDS IN:<Countdown style={{ color: "#FB2F2F" }} date={GetTime(data?.expirationDate)} /></span></h6>
-                        <p>{data?.description}</p>
-                    </div>
-                    {/* <a href="#">View All Operation Tasks <img src="\assets\arrow-right.svg" alt="img" className='img-fluid ms-2' /></a> */}
-                </div>
-                <div className="bottom-cards">
-                    <div className="card-item border-grad">
-                        <img src="\static-icons\points.png" alt="img" className='img-fluid' style={{ width: "50px", height: "50px" }} />
-                        <div className="inner-content">
-                            <p>Points</p>
-                            <h6>{data?.reward}</h6>
+                    <section className="active-operations aa">
+                        <div className="upper-item">
+                            <div className='left'>
+                                <h6>operation : {data?.name} <span style={{ color: "#FB2F2F" }}>ENDS IN:<Countdown style={{ color: "#FB2F2F" }} date={GetTime(data?.expirationDate)} /></span></h6>
+                                <p>{data?.description}</p>
+                            </div>
+                            {/* <a href="#">View All Operation Tasks <img src="\assets\arrow-right.svg" alt="img" className='img-fluid ms-2' /></a> */}
                         </div>
-                    </div>
-                    <div className="card-item border-grad">
-                        <img src="\static-icons\tomi-icon.png" alt="img" className='img-fluid' style={{ width: "50px", height: "50px" }} />
-                        <div className="inner-content">
-                            <p>TOMI Tokens</p>
-                            <h6>{data?.tomiToken}</h6>
-                        </div>
-                    </div>
-                    <div className="card-item border-grad">
-                        <img src="\static-icons\tomitasks.png" alt="img" className='img-fluid' style={{ width: "50px", height: "50px" }} />
-                        <div className="inner-content">
-                            <p>Total Tasks</p>
-                            <h6>{Getlength(data?.tasksList)}</h6>
-                        </div>
-                    </div>
-                    <div className="card-item border-grad unique-item">
-                        <div className='inner-set'>
-                            <img src="\static-icons\rewardnft.png" alt="img" className='img-fluid' style={{ width: "50px", height: "50px" }} />
-                            <div className="inner-content">
-                                <p>Reward NFT</p>
-                                <h6>ELN MSK</h6>
+                        <div className="bottom-cards">
+                            <div className="card-item border-grad">
+                                <img src="\static-icons\points.png" alt="img" className='img-fluid' style={{ width: "50px", height: "50px" }} />
+                                <div className="inner-content">
+                                    <p>Points</p>
+                                    <h6>{data?.reward}</h6>
+                                </div>
+                            </div>
+                            <div className="card-item border-grad">
+                                <img src="\static-icons\tomi-icon.png" alt="img" className='img-fluid' style={{ width: "50px", height: "50px" }} />
+                                <div className="inner-content">
+                                    <p>TOMI Tokens</p>
+                                    <h6>{data?.tomiToken}</h6>
+                                </div>
+                            </div>
+                            <div className="card-item border-grad">
+                                <img src="\static-icons\tomitasks.png" alt="img" className='img-fluid' style={{ width: "50px", height: "50px" }} />
+                                <div className="inner-content">
+                                    <p>Total Tasks</p>
+                                    <h6>{Getlength(data?.tasksList)}</h6>
+                                </div>
+                            </div>
+                            <div className="card-item border-grad unique-item">
+                                <div className='inner-set'>
+                                    <img src="\static-icons\rewardnft.png" alt="img" className='img-fluid' style={{ width: "50px", height: "50px" }} />
+                                    <div className="inner-content">
+                                        <p>Reward NFT</p>
+                                        <h6>ELN MSK</h6>
+                                    </div>
+                                </div>
+                                <div className="nft-img">
+                                    <img src={data?.imageUrl} alt="img" className='img-fluid' />
+                                </div>
                             </div>
                         </div>
-                        <div className="nft-img">
-                            <img src={data?.imageUrl} alt="img" className='img-fluid' />
-                        </div>
-                    </div>
-                </div>
-                <div className='maincard display-none-in-mobile'>
-                    <div className="maintable table-responsive">
-                        <table class="table table-striped " >
-                            <thead>
-                                <tr>
-                                    <th>
-                                        <p className='headtable'>Task</p>
-                                    </th>
-                                    {/* <th>
+                        <div className='maincard display-none-in-mobile'>
+                            <div className="maintable table-responsive">
+                                <table class="table table-striped " >
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                <p className='headtable'>Task</p>
+                                            </th>
+                                            {/* <th>
                                         <p className='headtable'>Points</p>
                                     </th> */}
-                                    {/* <th>
+                                            {/* <th>
                                         <p className='headtable'>TOMI Tokens</p>
                                     </th> */}
-                                    <th>
-                                        <p className='headtable'>Description</p>
-                                    </th>
-                                    {/* <th>
+                                            <th>
+                                                <p className='headtable'>Description</p>
+                                            </th>
+                                            {/* <th>
                                         <p className='headtable'>Progress</p>
                                     </th>
                                     <th>
@@ -96,26 +96,26 @@ const ExpiredOperation = ({ setroute, routes, tasks }) => {
                                     <th>
                                         <p className='headtable'>Action</p>
                                     </th> */}
-                                </tr>
-                            </thead>
-                            <tbody>
-
-                                {data?.tasksList?.map((elem, index) => {
-                                    return (
-                                        <tr key={index}>
-                                            <td>
-                                                <p className='paratable'>{elem?.name}</p>
-                                            </td>
-                                            <td>
-                                                <p className='paratable'>{elem?.description}</p>
-                                            </td>
                                         </tr>
-                                    )
-                                })}
-                            </tbody>
-                        </table>
-                    </div>
-                    {/* <div className="pagi">
+                                    </thead>
+                                    <tbody>
+
+                                        {data?.tasksList?.map((elem, index) => {
+                                            return (
+                                                <tr key={index}>
+                                                    <td>
+                                                        <p className='paratable'>{elem?.name}</p>
+                                                    </td>
+                                                    <td>
+                                                        <p className='paratable'>{elem?.description}</p>
+                                                    </td>
+                                                </tr>
+                                            )
+                                        })}
+                                    </tbody>
+                                </table>
+                            </div>
+                            {/* <div className="pagi">
                         <div className="left">
                             <p>Showing 1 to 10 of 57 entries</p>
                         </div>
@@ -131,107 +131,38 @@ const ExpiredOperation = ({ setroute, routes, tasks }) => {
                             <p>Next</p>
                         </div>
                     </div> */}
-                </div>
-                <div className="mobile-responsive-table d-none display-block-in-mobile">
-                    <div className="heading-mobile">
-                        <p>Task</p>
-                    </div>
-                    <Accordion defaultActiveKey="0">
-                        <Accordion.Item eventKey="0">
-                            <Accordion.Header>Like our facebook page</Accordion.Header>
-                            <Accordion.Body>
-                                <div className="inner-fields">
-                                    <div className="inner-item">
-                                        <h6>Points</h6>
-                                        <p>+5</p>
-                                    </div>
-                                    <div className="inner-item">
-                                        <h6>Status</h6>
-                                        <button className="btn-green">Completed</button>
-                                    </div>
-                                    <div className="inner-item">
-                                        <h6>Expiry</h6>
-                                        <p>12:34 12/12/23</p>
-                                    </div>
-                                    <div className="inner-item">
-                                        <h6>Actions</h6>
-                                        <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
-                                    </div>
-                                </div>
-                            </Accordion.Body>
-                        </Accordion.Item>
-                        <Accordion.Item eventKey="1">
-                            <Accordion.Header>Follow our twitter acc...</Accordion.Header>
-                            <Accordion.Body>
-                                <div className="inner-fields">
-                                    <div className="inner-item">
-                                        <h6>Points</h6>
-                                        <p>+5</p>
-                                    </div>
-                                    <div className="inner-item">
-                                        <h6>Status</h6>
-                                        <button className="btn-green">Completed</button>
-                                    </div>
-                                    <div className="inner-item">
-                                        <h6>Expiry</h6>
-                                        <p>12:34 12/12/23</p>
-                                    </div>
-                                    <div className="inner-item">
-                                        <h6>Actions</h6>
-                                        <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
-                                    </div>
-                                </div>
-                            </Accordion.Body>
-                        </Accordion.Item>
-                        <Accordion.Item eventKey="2">
-                            <Accordion.Header>Like our facebook page</Accordion.Header>
-                            <Accordion.Body>
-                                <div className="inner-fields">
-                                    <div className="inner-item">
-                                        <h6>Points</h6>
-                                        <p>+5</p>
-                                    </div>
-                                    <div className="inner-item">
-                                        <h6>Status</h6>
-                                        <button className="btn-green">Completed</button>
-                                    </div>
-                                    <div className="inner-item">
-                                        <h6>Expiry</h6>
-                                        <p>12:34 12/12/23</p>
-                                    </div>
-                                    <div className="inner-item">
-                                        <h6>Actions</h6>
-                                        <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
-                                    </div>
-                                </div>
-                            </Accordion.Body>
-                        </Accordion.Item>
-                        <Accordion.Item eventKey="3">
-                            <Accordion.Header>Like our facebook page</Accordion.Header>
-                            <Accordion.Body>
-                                <div className="inner-fields">
-                                    <div className="inner-item">
-                                        <h6>Points</h6>
-                                        <p>+5</p>
-                                    </div>
-                                    <div className="inner-item">
-                                        <h6>Status</h6>
-                                        <button className="btn-green">Completed</button>
-                                    </div>
-                                    <div className="inner-item">
-                                        <h6>Expiry</h6>
-                                        <p>12:34 12/12/23</p>
-                                    </div>
-                                    <div className="inner-item">
-                                        <h6>Actions</h6>
-                                        <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
-                                    </div>
-                                </div>
-                            </Accordion.Body>
-                        </Accordion.Item>
-                    </Accordion>
-                </div>
-            </section>
+                        </div>
+                        <div className="mobile-responsive-table d-none display-block-in-mobile">
+                            <div className="heading-mobile">
+                                <p>Task</p>
+                            </div>
+                            <Accordion defaultActiveKey="0">
+                                <Accordion.Item eventKey="0">
+                                    <Accordion.Header>Like our facebook page</Accordion.Header>
+                                    <Accordion.Body>
+                                        <div className="inner-fields">
+                                            <div className="inner-item">
+                                                <h6>Points</h6>
+                                                <p>+5</p>
+                                            </div>
+                                            <div className="inner-item">
+                                                <h6>Status</h6>
+                                                <button className="btn-green">Completed</button>
+                                            </div>
+                                            <div className="inner-item">
+                                                <h6>Expiry</h6>
+                                                <p>12:34 12/12/23</p>
+                                            </div>
+                                            <div className="inner-item">
+                                                <h6>Actions</h6>
+                                                <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
+                                            </div>
+                                        </div>
+                                    </Accordion.Body>
+                                </Accordion.Item>
+                            </Accordion>
+                        </div>
+                    </section>
                     : <section className="active-operations">
                         <div className='maincard'>
                             <div className='display-none-in-mobile'>
@@ -332,7 +263,7 @@ const ExpiredOperation = ({ setroute, routes, tasks }) => {
                                         {/* </tbody> */}
                                     </table>
                                 </div>
-                                <div className="pagi">
+                                {/* <div className="pagi">
                                     <div className="left">
                                         <p>Showing 1 to 10 of 57 entries</p>
                                     </div>
@@ -347,137 +278,56 @@ const ExpiredOperation = ({ setroute, routes, tasks }) => {
                                         </Pagination>
                                         <p>Next</p>
                                     </div>
-                                </div>
+                                </div> */}
                             </div>
                             <div className="mobile-responsive-table d-none display-block-in-mobile">
                                 <div className="heading-mobile">
                                     <p>Operation Name</p>
                                 </div>
                                 <Accordion defaultActiveKey="0">
-                                    <Accordion.Item eventKey="0">
-                                        <Accordion.Header>Ilong MAA</Accordion.Header>
-                                        <Accordion.Body>
-                                            <div className="inner-fields">
-                                                <div className="inner-item">
-                                                    <h6>Date Expired</h6>
-                                                    <p>01/01/22</p>
-                                                </div>
-                                                <div className="inner-item">
-                                                    <h6>Points</h6>
-                                                    <p>+5</p>
-                                                </div>
-                                                <div className="inner-item">
-                                                    <h6>Tomi Tokens</h6>
-                                                    <p>100 TOMI</p>
-                                                </div>
-                                                <div className="inner-item">
-                                                    <h6>Total Tasks</h6>
-                                                    <p>25</p>
-                                                </div>
-                                                <div className="inner-item">
-                                                    <h6>Status</h6>
-                                                    <button className="btn-green">Completed</button>
-                                                </div>
-                                                <div className="inner-item">
-                                                    <h6>Actions</h6>
-                                                    <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
-                                                </div>
-                                            </div>
-                                        </Accordion.Body>
-                                    </Accordion.Item>
-                                    <Accordion.Item eventKey="1">
-                                        <Accordion.Header>Ilong MAA</Accordion.Header>
-                                        <Accordion.Body>
-                                            <div className="inner-fields">
-                                                <div className="inner-item">
-                                                    <h6>Date Expired</h6>
-                                                    <p>01/01/22</p>
-                                                </div>
-                                                <div className="inner-item">
-                                                    <h6>Points</h6>
-                                                    <p>+5</p>
-                                                </div>
-                                                <div className="inner-item">
-                                                    <h6>Tomi Tokens</h6>
-                                                    <p>100 TOMI</p>
-                                                </div>
-                                                <div className="inner-item">
-                                                    <h6>Total Tasks</h6>
-                                                    <p>25</p>
-                                                </div>
-                                                <div className="inner-item">
-                                                    <h6>Status</h6>
-                                                    <button className="btn-green">Completed</button>
-                                                </div>
-                                                <div className="inner-item">
-                                                    <h6>Actions</h6>
-                                                    <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
-                                                </div>
-                                            </div>
-                                        </Accordion.Body>
-                                    </Accordion.Item>
-                                    <Accordion.Item eventKey="2">
-                                        <Accordion.Header>Ilong MAA</Accordion.Header>
-                                        <Accordion.Body>
-                                            <div className="inner-fields">
-                                                <div className="inner-item">
-                                                    <h6>Date Expired</h6>
-                                                    <p>01/01/22</p>
-                                                </div>
-                                                <div className="inner-item">
-                                                    <h6>Points</h6>
-                                                    <p>+5</p>
-                                                </div>
-                                                <div className="inner-item">
-                                                    <h6>Tomi Tokens</h6>
-                                                    <p>100 TOMI</p>
-                                                </div>
-                                                <div className="inner-item">
-                                                    <h6>Total Tasks</h6>
-                                                    <p>25</p>
-                                                </div>
-                                                <div className="inner-item">
-                                                    <h6>Status</h6>
-                                                    <button className="btn-green">Completed</button>
-                                                </div>
-                                                <div className="inner-item">
-                                                    <h6>Actions</h6>
-                                                    <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
-                                                </div>
-                                            </div>
-                                        </Accordion.Body>
-                                    </Accordion.Item>
-                                    <Accordion.Item eventKey="3">
-                                        <Accordion.Header>Ilong MAA</Accordion.Header>
-                                        <Accordion.Body>
-                                            <div className="inner-fields">
-                                                <div className="inner-item">
-                                                    <h6>Date Expired</h6>
-                                                    <p>01/01/22</p>
-                                                </div>
-                                                <div className="inner-item">
-                                                    <h6>Points</h6>
-                                                    <p>+5</p>
-                                                </div>
-                                                <div className="inner-item">
-                                                    <h6>Tomi Tokens</h6>
-                                                    <p>100 TOMI</p>
-                                                </div>
-                                                <div className="inner-item">
-                                                    <h6>Total Tasks</h6>
-                                                    <p>25</p>
-                                                </div>
-                                                <div className="inner-item">
-                                                    <h6>Status</h6>
-                                                    <button className="btn-green">Completed</button>
-                                                </div>
-                                                <div className="inner-item">
-                                                    <h6>Actions</h6>
-                                                    <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
-                                                </div>
-                                            </div>
-                                        </Accordion.Body>
-                                    </Accordion.Item>
+                                    {tasks?.length > 0 && tasks?.map((elem, index) => {
+                                        const ExpireDate = moment(elem?.expirationDate).format("DD-MM-YYYY");
+                                        return (
+                                            <Accordion.Item eventKey={index}>
+                                                <Accordion.Header>{elem?.name}</Accordion.Header>
+                                                <Accordion.Body>
+                                                    <div className="inner-fields">
+                                                        <div className="inner-item">
+                                                            <h6>Date Expired</h6>
+                                                            <p>{ExpireDate}</p>
+                                                        </div>
+                                                        <div className="inner-item">
+                                                            <h6>Points</h6>
+                                                            <p>{elem?.reward}</p>
+                                                        </div>
+                                                        <div className="inner-item">
+                                                            <h6>Tomi Tokens</h6>
+                                                            <p>{elem?.tomiToken}</p>
+                                                        </div>
+                                                        <div className="inner-item">
+                                                            <h6>Total Tasks</h6>
+                                                            <p>{Getlength(elem?.tasksList)}</p>
+                                                        </div>
+                                                        <div className="inner-item">
+                                                            <h6>Status</h6>
+                                                            {
+                                                                elem?.taskSubmitted ?
+                                                                    <button style={{ background: '#FEC600' }}>In Process</button>
+                                                                    : elem?.taskApproval ?
+                                                                        <button style={{ background: '#04C453' }}>Completed</button>
+                                                                        :
+                                                                        <button style={{ background: '#FF8936' }}>Pending</button>
+                                                            }
+                                                        </div>
+                                                        {/* <div className="inner-item">
+                                                            <h6>Actions</h6>
+                                                            <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
+                                                        </div> */}
+                                                    </div>
+                                                </Accordion.Body>
+                                            </Accordion.Item>
+                                        )
+                                    })}
 
                                 </Accordion>
                             </div>

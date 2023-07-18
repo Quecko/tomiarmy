@@ -6,7 +6,7 @@ import Modal from 'react-bootstrap/Modal';
 import Accordion from 'react-bootstrap/Accordion';
 import Countdown from 'react-countdown';
 
-const ActiveOperation = ({ setShowtask1, tasks,settaskdetail1,setOperationId }) => {
+const ActiveOperation = ({ setShowtask1, tasks, settaskdetail1, setOperationId }) => {
 
     // const [show1, setShow1] = useState(false);
     // const handleClose1 = () => setShow1(false);
@@ -27,12 +27,12 @@ const ActiveOperation = ({ setShowtask1, tasks,settaskdetail1,setOperationId }) 
         return endtime;
     }
 
-    const SubmitProofOfWork =(elem)=>{
+    const SubmitProofOfWork = (elem) => {
         setOperationId(tasks)
         setShowtask1(true)
         settaskdetail1(elem)
-      }
-    
+    }
+
 
 
 
@@ -129,7 +129,7 @@ const ActiveOperation = ({ setShowtask1, tasks,settaskdetail1,setOperationId }) 
                                             <td>
                                                 <div className='completebtn text-end'>
                                                     {
-                                                        elem?._id && !elem?.isApproved  ?
+                                                        elem?._id && !elem?.isApproved ?
                                                             <button style={{ background: '#FEC600' }}>In Process</button>
                                                             : elem?.isApproved === true && elem?._id ?
                                                                 <button style={{ background: '#04C453' }}>Completed</button>
@@ -148,7 +148,7 @@ const ActiveOperation = ({ setShowtask1, tasks,settaskdetail1,setOperationId }) 
 
                                                         <Dropdown.Menu>
                                                             <Dropdown.Item href="#/action-1">
-                                                                <p onClick={()=>SubmitProofOfWork(elem)}><img src='\Vector.svg' alt='img' className='img-fluid' />Submit Proof</p>
+                                                                <p onClick={() => SubmitProofOfWork(elem)}><img src='\Vector.svg' alt='img' className='img-fluid' />Submit Proof</p>
                                                             </Dropdown.Item>
                                                         </Dropdown.Menu>
                                                     </Dropdown>
@@ -182,98 +182,52 @@ const ActiveOperation = ({ setShowtask1, tasks,settaskdetail1,setOperationId }) 
                         <p>Task</p>
                     </div>
                     <Accordion defaultActiveKey="0">
-                        <Accordion.Item eventKey="0">
-                            <Accordion.Header>Like our facebook page</Accordion.Header>
-                            <Accordion.Body>
-                                <div className="inner-fields">
-                                    <div className="inner-item">
-                                        <h6>Points</h6>
-                                        <p>+5</p>
-                                    </div>
-                                    <div className="inner-item">
-                                        <h6>Status</h6>
-                                        <button className="btn-green">Completed</button>
-                                    </div>
-                                    <div className="inner-item">
-                                        <h6>Expiry</h6>
-                                        <p>12:34 12/12/23</p>
-                                    </div>
-                                    <div className="inner-item">
-                                        <h6>Actions</h6>
-                                        <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
-                                    </div>
-                                </div>
-                            </Accordion.Body>
-                        </Accordion.Item>
-                        <Accordion.Item eventKey="1">
-                            <Accordion.Header>Follow our twitter acc...</Accordion.Header>
-                            <Accordion.Body>
-                                <div className="inner-fields">
-                                    <div className="inner-item">
-                                        <h6>Points</h6>
-                                        <p>+5</p>
-                                    </div>
-                                    <div className="inner-item">
-                                        <h6>Status</h6>
-                                        <button className="btn-green">Completed</button>
-                                    </div>
-                                    <div className="inner-item">
-                                        <h6>Expiry</h6>
-                                        <p>12:34 12/12/23</p>
-                                    </div>
-                                    <div className="inner-item">
-                                        <h6>Actions</h6>
-                                        <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
-                                    </div>
-                                </div>
-                            </Accordion.Body>
-                        </Accordion.Item>
-                        <Accordion.Item eventKey="2">
-                            <Accordion.Header>Like our facebook page</Accordion.Header>
-                            <Accordion.Body>
-                                <div className="inner-fields">
-                                    <div className="inner-item">
-                                        <h6>Points</h6>
-                                        <p>+5</p>
-                                    </div>
-                                    <div className="inner-item">
-                                        <h6>Status</h6>
-                                        <button className="btn-green">Completed</button>
-                                    </div>
-                                    <div className="inner-item">
-                                        <h6>Expiry</h6>
-                                        <p>12:34 12/12/23</p>
-                                    </div>
-                                    <div className="inner-item">
-                                        <h6>Actions</h6>
-                                        <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
-                                    </div>
-                                </div>
-                            </Accordion.Body>
-                        </Accordion.Item>
-                        <Accordion.Item eventKey="3">
-                            <Accordion.Header>Like our facebook page</Accordion.Header>
-                            <Accordion.Body>
-                                <div className="inner-fields">
-                                    <div className="inner-item">
-                                        <h6>Points</h6>
-                                        <p>+5</p>
-                                    </div>
-                                    <div className="inner-item">
-                                        <h6>Status</h6>
-                                        <button className="btn-green">Completed</button>
-                                    </div>
-                                    <div className="inner-item">
-                                        <h6>Expiry</h6>
-                                        <p>12:34 12/12/23</p>
-                                    </div>
-                                    <div className="inner-item">
-                                        <h6>Actions</h6>
-                                        <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
-                                    </div>
-                                </div>
-                            </Accordion.Body>
-                        </Accordion.Item>
+                        {tasks?.tasksList?.map((elem, index) => {
+                            return (
+                                <Accordion.Item eventKey={index}>
+                                    <Accordion.Header>{elem?.name}</Accordion.Header>
+                                    <Accordion.Body>
+                                        <div className="inner-fields">
+                                            <div className="inner-item">
+                                                <h6>Description</h6>
+                                                <p>{elem?.description}</p>
+                                            </div>
+                                            <div className="inner-item">
+                                                <h6>Progress</h6>
+                                                <p><img src="\assets\greenline.svg" alt="img" className='img-fluid me-2' />100 of 100</p>
+                                            </div>
+                                            <div className="inner-item">
+                                                <h6>Status</h6>
+                                                {
+                                                    elem?._id && !elem?.isApproved ?
+                                                        <button className="btn-green">In Process</button>
+                                                        : elem?.isApproved === true && elem?._id ?
+                                                            <button className="btn-green">Completed</button>
+                                                            :
+                                                            <button className="btn-green">Pending</button>
+                                                }
+                                            </div>
+                                            <div className="inner-item">
+                                                <h6>Actions</h6>
+                                                <div className='dropbtn'>
+                                                    <Dropdown className="text-end">
+                                                        <Dropdown.Toggle variant="success" id="dropdown-basic">
+                                                            <img src='\Vectordots.svg' alt='img' className='' />
+                                                        </Dropdown.Toggle>
+                                                        <Dropdown.Menu>
+                                                            <Dropdown.Item href="#/action-1">
+                                                                <p onClick={() => SubmitProofOfWork(elem)}><img src='\Vector.svg' alt='img' className='img-fluid' />Submit Proof</p>
+                                                            </Dropdown.Item>
+                                                        </Dropdown.Menu>
+                                                    </Dropdown>
+                                                </div>
+                                                {/* <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a> */}
+                                            </div>
+                                        </div>
+                                    </Accordion.Body>
+                                </Accordion.Item>
+                            )
+                        })}
                     </Accordion>
                 </div>
             </section>

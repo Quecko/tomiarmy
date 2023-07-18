@@ -13,7 +13,7 @@ import { useWeb3React } from "@web3-react/core";
 import Countdown from "react-countdown";
 
 
-const HomeOperations = ({setShowtask1, settaskdetail1, operations,setOperationId,users}) => {
+const HomeOperations = ({ setShowtask1, settaskdetail1, operations, setOperationId, users }) => {
 
   const datacommander = localStorage.getItem('user')
   const data = JSON.parse(datacommander)
@@ -80,7 +80,7 @@ const HomeOperations = ({setShowtask1, settaskdetail1, operations,setOperationId
       });
   }
 
- 
+
 
 
   // const getDataOperation = async (off) => {
@@ -135,7 +135,7 @@ const HomeOperations = ({setShowtask1, settaskdetail1, operations,setOperationId
     return endtime;
   }
 
-  const SubmitProofOfWork =(elem)=>{
+  const SubmitProofOfWork = (elem) => {
     setOperationId(operations)
     setShowtask1(true)
     settaskdetail1(elem)
@@ -224,7 +224,7 @@ const HomeOperations = ({setShowtask1, settaskdetail1, operations,setOperationId
                   </tr>
                 </thead>
                 <tbody>
-                   {/* <tr>
+                  {/* <tr>
                     <td>
                       <p className='paratable'>Like our facebook page</p>
                     </td>
@@ -260,7 +260,7 @@ const HomeOperations = ({setShowtask1, settaskdetail1, operations,setOperationId
                       </div>
                     </td>
                   </tr>  */}
-                  
+
                   {operations?.tasksList?.map((elem, index) => {
                     return (
                       <tr key={index}>
@@ -289,18 +289,18 @@ const HomeOperations = ({setShowtask1, settaskdetail1, operations,setOperationId
                           </div>
                         </td>
                         <td>
-                        <div className='dropbtn'>
-                        <Dropdown className="text-end">
-                          <Dropdown.Toggle variant="success" id="dropdown-basic">
-                            <img src='\Vectordots.svg' alt='img' className='' />
-                          </Dropdown.Toggle>
-                          <Dropdown.Menu>
-                            <Dropdown.Item href="#/action-1">
-                              <p onClick={()=>SubmitProofOfWork(elem)}><img src='\Vector.svg' alt='img' className='img-fluid' />Submit Proof</p>
-                            </Dropdown.Item>
-                          </Dropdown.Menu>
-                        </Dropdown>
-                      </div>
+                          <div className='dropbtn'>
+                            <Dropdown className="text-end">
+                              <Dropdown.Toggle variant="success" id="dropdown-basic">
+                                <img src='\Vectordots.svg' alt='img' className='' />
+                              </Dropdown.Toggle>
+                              <Dropdown.Menu>
+                                <Dropdown.Item href="#/action-1">
+                                  <p onClick={() => SubmitProofOfWork(elem)}><img src='\Vector.svg' alt='img' className='img-fluid' />Submit Proof</p>
+                                </Dropdown.Item>
+                              </Dropdown.Menu>
+                            </Dropdown>
+                          </div>
                         </td>
                       </tr>
                     )
@@ -313,115 +313,53 @@ const HomeOperations = ({setShowtask1, settaskdetail1, operations,setOperationId
             <div className="heading-mobile">
               <p>Task</p>
             </div>
-            <Accordion defaultActiveKey="0">
-              <Accordion.Item eventKey="0">
-                <Accordion.Header>Like our facebook page</Accordion.Header>
-                <Accordion.Body>
-                  <div className="inner-fields">
-                    <div className="inner-item">
-                      <h6>Points</h6>
-                      <p>+5</p>
-                    </div>
-                    <div className="inner-item">
-                      <h6>TOMI Tokens</h6>
-                      <p>500 TOMI</p>
-                    </div>
-                    <div className="inner-item">
-                      <h6>Progress</h6>
-                      <p><img src="\assets\greenline.svg" alt="img" className='img-fluid me-2' />100 of 100</p>
-                    </div>
-                    <div className="inner-item">
-                      <h6>Status</h6>
-                      <button className="btn-green">Completed</button>
-                    </div>
-                    <div className="inner-item">
-                      <h6>Actions</h6>
-                      <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
-                    </div>
-                  </div>
-                </Accordion.Body>
-              </Accordion.Item>
-              <Accordion.Item eventKey="1">
-                <Accordion.Header>Follow our twitter acc...</Accordion.Header>
-                <Accordion.Body>
-                  <div className="inner-fields">
-                    <div className="inner-item">
-                      <h6>Points</h6>
-                      <p>+5</p>
-                    </div>
-                    <div className="inner-item">
-                      <h6>TOMI Tokens</h6>
-                      <p>500 TOMI</p>
-                    </div>
-                    <div className="inner-item">
-                      <h6>Progress</h6>
-                      <p><img src="\assets\greenline.svg" alt="img" className='img-fluid me-2' />100 of 100</p>
-                    </div>
-                    <div className="inner-item">
-                      <h6>Status</h6>
-                      <button className="btn-green">Completed</button>
-                    </div>
-                    <div className="inner-item">
-                      <h6>Actions</h6>
-                      <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
-                    </div>
-                  </div>
-                </Accordion.Body>
-              </Accordion.Item>
-              <Accordion.Item eventKey="2">
-                <Accordion.Header>Like our facebook page</Accordion.Header>
-                <Accordion.Body>
-                  <div className="inner-fields">
-                    <div className="inner-item">
-                      <h6>Points</h6>
-                      <p>+5</p>
-                    </div>
-                    <div className="inner-item">
-                      <h6>TOMI Tokens</h6>
-                      <p>500 TOMI</p>
-                    </div>
-                    <div className="inner-item">
-                      <h6>Progress</h6>
-                      <p><img src="\assets\greenline.svg" alt="img" className='img-fluid me-2' />100 of 100</p>
-                    </div>
-                    <div className="inner-item">
-                      <h6>Status</h6>
-                      <button className="btn-green">Completed</button>
-                    </div>
-                    <div className="inner-item">
-                      <h6>Actions</h6>
-                      <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
-                    </div>
-                  </div>
-                </Accordion.Body>
-              </Accordion.Item>
-              <Accordion.Item eventKey="3">
-                <Accordion.Header>Like our facebook page</Accordion.Header>
-                <Accordion.Body>
-                  <div className="inner-fields">
-                    <div className="inner-item">
-                      <h6>Points</h6>
-                      <p>+5</p>
-                    </div>
-                    <div className="inner-item">
-                      <h6>TOMI Tokens</h6>
-                      <p>500 TOMI</p>
-                    </div>
-                    <div className="inner-item">
-                      <h6>Progress</h6>
-                      <p><img src="\assets\greenline.svg" alt="img" className='img-fluid me-2' />100 of 100</p>
-                    </div>
-                    <div className="inner-item">
-                      <h6>Status</h6>
-                      <button className="btn-green">Completed</button>
-                    </div>
-                    <div className="inner-item">
-                      <h6>Actions</h6>
-                      <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
-                    </div>
-                  </div>
-                </Accordion.Body>
-              </Accordion.Item>
+            <Accordion defaultActiveKey="">
+              {operations?.tasksList?.map((elem, index) => {
+                return (
+                  <Accordion.Item eventKey={index}>
+                    <Accordion.Header>{elem?.name}</Accordion.Header>
+                    <Accordion.Body>
+                      <div className="inner-fields">
+                        <div className="inner-item">
+                          <h6>Description</h6>
+                          <p>{elem?.description}</p>
+                        </div>
+                        <div className="inner-item">
+                          <h6>Progress</h6>
+                          <p><img src="\assets\greenline.svg" alt="img" className='img-fluid me-2' />100 of 100</p>
+                        </div>
+                        <div className="inner-item">
+                          <h6>Status</h6>
+                          {
+                            elem?._id && !elem?.isApproved ?
+                              <button className="btn-green">In Process</button>
+                              : elem?.isApproved === true && elem?._id ?
+                                <button className="btn-green">Completed</button>
+                                :
+                                <button className="btn-green">Pending</button>
+                          }
+                        </div>
+                        <div className="inner-item">
+                          <h6>Actions</h6>
+                          <div className='dropbtn'>
+                            <Dropdown className="text-end">
+                              <Dropdown.Toggle variant="success" id="dropdown-basic">
+                                <img src='\Vectordots.svg' alt='img' className='' />
+                              </Dropdown.Toggle>
+                              <Dropdown.Menu>
+                                <Dropdown.Item href="#/action-1">
+                                  <p onClick={() => SubmitProofOfWork(elem)}><img src='\Vector.svg' alt='img' className='img-fluid' />Submit Proof</p>
+                                </Dropdown.Item>
+                              </Dropdown.Menu>
+                            </Dropdown>
+                          </div>
+                          {/* <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a> */}
+                        </div>
+                      </div>
+                    </Accordion.Body>
+                  </Accordion.Item>
+                )
+              })}
             </Accordion>
           </div>
         </section>
@@ -493,87 +431,29 @@ const HomeOperations = ({setShowtask1, settaskdetail1, operations,setOperationId
               <div className="heading-mobile">
                 <p>Nickname</p>
               </div>
-              <Accordion defaultActiveKey="0">
-                <Accordion.Item eventKey="0">
-                  <Accordion.Header>sharjeel</Accordion.Header>
-                  <Accordion.Body>
-                    <div className="inner-fields">
-                      <div className="inner-item">
-                        <h6>Rank</h6>
-                        <p><img src="\assets\private.svg" style={{ width: "22px", height: "22px" }} alt="img" className='img-fluid me-2' /> Private</p>
-                      </div>
-                      <div className="inner-item">
-                        <h6>Wallet Address</h6>
-                        <p>0x2F78....aB0C</p>
-                      </div>
-                      <div className="inner-item">
-                        <h6>TOMI Balance</h6>
-                        <p>500 TOMI</p>
-                      </div>
-
-                    </div>
-                  </Accordion.Body>
-                </Accordion.Item>
-                <Accordion.Item eventKey="1">
-                  <Accordion.Header>sharjeel</Accordion.Header>
-                  <Accordion.Body>
-                    <div className="inner-fields">
-                      <div className="inner-item">
-                        <h6>Rank</h6>
-                        <p><img src="\assets\private.svg" style={{ width: "22px", height: "22px" }} alt="img" className='img-fluid me-2' /> Private</p>
-                      </div>
-                      <div className="inner-item">
-                        <h6>Wallet Address</h6>
-                        <p>0x2F78....aB0C</p>
-                      </div>
-                      <div className="inner-item">
-                        <h6>TOMI Balance</h6>
-                        <p>500 TOMI</p>
-                      </div>
-
-                    </div>
-                  </Accordion.Body>
-                </Accordion.Item>
-                <Accordion.Item eventKey="2">
-                  <Accordion.Header>sharjeel</Accordion.Header>
-                  <Accordion.Body>
-                    <div className="inner-fields">
-                      <div className="inner-item">
-                        <h6>Rank</h6>
-                        <p><img src="\assets\private.svg" style={{ width: "22px", height: "22px" }} alt="img" className='img-fluid me-2' /> Private</p>
-                      </div>
-                      <div className="inner-item">
-                        <h6>Wallet Address</h6>
-                        <p>0x2F78....aB0C</p>
-                      </div>
-                      <div className="inner-item">
-                        <h6>TOMI Balance</h6>
-                        <p>500 TOMI</p>
-                      </div>
-
-                    </div>
-                  </Accordion.Body>
-                </Accordion.Item>
-                <Accordion.Item eventKey="3">
-                  <Accordion.Header>sharjeel</Accordion.Header>
-                  <Accordion.Body>
-                    <div className="inner-fields">
-                      <div className="inner-item">
-                        <h6>Rank</h6>
-                        <p><img src="\assets\private.svg" style={{ width: "22px", height: "22px" }} alt="img" className='img-fluid me-2' /> Private</p>
-                      </div>
-                      <div className="inner-item">
-                        <h6>Wallet Address</h6>
-                        <p>0x2F78....aB0C</p>
-                      </div>
-                      <div className="inner-item">
-                        <h6>TOMI Balance</h6>
-                        <p>500 TOMI</p>
-                      </div>
-
-                    </div>
-                  </Accordion.Body>
-                </Accordion.Item>
+              <Accordion>
+              {users?.map((elem, index) => {
+                      return (
+                        <Accordion.Item eventKey={index}>
+                        <Accordion.Header>{elem?.nickName}</Accordion.Header>
+                        <Accordion.Body>
+                          <div className="inner-fields">
+                            <div className="inner-item">
+                              <h6>Rank</h6>
+                              <p><img src={elem?.rank?.icon} style={{ width: "22px", height: "22px" }} alt="img" className='img-fluid me-2' />{elem?.rank?.name}</p>
+                            </div>
+                            <div className="inner-item">
+                              <h6>Wallet Address</h6>
+                              <p>{elem?.walletAddress}</p>
+                            </div>
+                            <div className="inner-item">
+                              <h6>TOMI Balance</h6>
+                              <p>{elem?.tomiTokens} TOMI</p>
+                            </div>
+                          </div>
+                        </Accordion.Body>
+                      </Accordion.Item>
+                      )})}
               </Accordion>
             </div>
           </section>

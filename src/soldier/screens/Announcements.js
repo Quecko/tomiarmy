@@ -195,7 +195,6 @@ const Announcements = () => {
                                   </tr>
                                 )
                               })}
-
                             </tbody>
                           </table>
                         </div>
@@ -222,74 +221,57 @@ const Announcements = () => {
                           <p>Announcement</p>
                         </div>
                         <Accordion defaultActiveKey="0">
-                          <Accordion.Item eventKey="0">
-                            <Accordion.Header>Follow this Twitter Account....</Accordion.Header>
-                            <Accordion.Body>
-                              <div className="inner-fields">
-                                <div className="inner-item">
-                                  <h6>Date Received</h6>
-                                  <p>01/01/22</p>
-                                </div>
-                                <div className="inner-item">
-                                  <h6>Actions</h6>
-                                  <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
-                                </div>
-                              </div>
-                            </Accordion.Body>
-                          </Accordion.Item>
-                          <Accordion.Item eventKey="1">
-                            <Accordion.Header>Follow this Twitter Account....</Accordion.Header>
-                            <Accordion.Body>
-                              <div className="inner-fields">
-                                <div className="inner-item">
-                                  <h6>Date Received</h6>
-                                  <p>01/01/22</p>
-                                </div>
-                                <div className="inner-item">
-                                  <h6>Actions</h6>
-                                  <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
-                                </div>
-                              </div>
-                            </Accordion.Body>
-                          </Accordion.Item>
-                          <Accordion.Item eventKey="2">
-                            <Accordion.Header>Follow this Twitter Account....</Accordion.Header>
-                            <Accordion.Body>
-                              <div className="inner-fields">
-                                <div className="inner-item">
-                                  <h6>Date Received</h6>
-                                  <p>01/01/22</p>
-                                </div>
-                                <div className="inner-item">
-                                  <h6>Actions</h6>
-                                  <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
-                                </div>
-                              </div>
-                            </Accordion.Body>
-                          </Accordion.Item>
-                          <Accordion.Item eventKey="3">
-                            <Accordion.Header>Follow this Twitter Account....</Accordion.Header>
-                            <Accordion.Body>
-                              <div className="inner-fields">
-                                <div className="inner-item">
-                                  <h6>Date Received</h6>
-                                  <p>01/01/22</p>
-                                </div>
-                                <div className="inner-item">
-                                  <h6>Actions</h6>
-                                  <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
-                                </div>
-                              </div>
-                            </Accordion.Body>
-                          </Accordion.Item>
+                          {announcements?.userAnnouncements?.map((elem) => {
+                            let createdate = new Date(elem?.createdAt);
+                            const createDate = moment(createdate).format("DD-MM-YYYY");
+                            return (
+                              <Accordion.Item eventKey="0">
+                                <Accordion.Header>{elem?.announcement?.message}</Accordion.Header>
+                                <Accordion.Body>
+                                  <div className="inner-fields">
+                                    <div className="inner-item">
+                                      <h6>Date Received</h6>
+                                      <p>{createDate}</p>
+                                    </div>
+                                    <div className="inner-item">
+                                      <h6>Actions</h6>
+                                      <div className='dropbtn'>
+                                        <Dropdown>
+                                          <Dropdown.Toggle variant="success" id="dropdown-basic">
+                                            <img src='\Vectordots.svg' alt='img' className='img-fluid' />
+
+                                          </Dropdown.Toggle>
+
+                                          <Dropdown.Menu>
+                                            <Dropdown.Item href="#/action-1">
+                                              <p><img src='\Vector.svg' alt='img' className='img-fluid' />Submit Proof</p>
+                                            </Dropdown.Item>
+                                            <div className='brdr'></div>
+                                            <Dropdown.Item href="#/action-1">
+                                              <p onClick={() => getDetail(elem)}><img src='\Vectordetail.svg' alt='img' className='img-fluid' />details</p>
+                                            </Dropdown.Item>
+                                            <div className='brdr'></div>
+                                            <Dropdown.Item href="#/action-1">
+                                              <p><img src='\trash.svg' alt='img' className='img-fluid' />delete</p>
+                                            </Dropdown.Item>
+
+                                          </Dropdown.Menu>
+                                        </Dropdown>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </Accordion.Body>
+                              </Accordion.Item>
+                            )
+                          })}
                         </Accordion>
                       </div>
                     </div>
                   </Tab>
                   <Tab eventKey="profile" title={<p>Unread Announcements
-                     {/* <img src='\two.svg' alt='img' className='img-fluid' /> */}
-                  {/* {selecttab === 'profile' && announcements?.userAnnouncements?.length} */}
-                    </p>}>
+                    {/* <img src='\two.svg' alt='img' className='img-fluid' /> */}
+                    {/* {selecttab === 'profile' && announcements?.userAnnouncements?.length} */}
+                  </p>}>
                     {/* <Sonnet /> */}
                     <div className='maincard border-grad1'>
                       <div className="maintable display-none-in-mobile">
@@ -355,66 +337,49 @@ const Announcements = () => {
                           <p>Announcement</p>
                         </div>
                         <Accordion defaultActiveKey="0">
-                          <Accordion.Item eventKey="0">
-                            <Accordion.Header>Follow this Twitter Account....</Accordion.Header>
-                            <Accordion.Body>
-                              <div className="inner-fields">
-                                <div className="inner-item">
-                                  <h6>Date Received</h6>
-                                  <p>01/01/22</p>
-                                </div>
-                                <div className="inner-item">
-                                  <h6>Actions</h6>
-                                  <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
-                                </div>
-                              </div>
-                            </Accordion.Body>
-                          </Accordion.Item>
-                          <Accordion.Item eventKey="1">
-                            <Accordion.Header>Follow this Twitter Account....</Accordion.Header>
-                            <Accordion.Body>
-                              <div className="inner-fields">
-                                <div className="inner-item">
-                                  <h6>Date Received</h6>
-                                  <p>01/01/22</p>
-                                </div>
-                                <div className="inner-item">
-                                  <h6>Actions</h6>
-                                  <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
-                                </div>
-                              </div>
-                            </Accordion.Body>
-                          </Accordion.Item>
-                          <Accordion.Item eventKey="2">
-                            <Accordion.Header>Follow this Twitter Account....</Accordion.Header>
-                            <Accordion.Body>
-                              <div className="inner-fields">
-                                <div className="inner-item">
-                                  <h6>Date Received</h6>
-                                  <p>01/01/22</p>
-                                </div>
-                                <div className="inner-item">
-                                  <h6>Actions</h6>
-                                  <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
-                                </div>
-                              </div>
-                            </Accordion.Body>
-                          </Accordion.Item>
-                          <Accordion.Item eventKey="3">
-                            <Accordion.Header>Follow this Twitter Account....</Accordion.Header>
-                            <Accordion.Body>
-                              <div className="inner-fields">
-                                <div className="inner-item">
-                                  <h6>Date Received</h6>
-                                  <p>01/01/22</p>
-                                </div>
-                                <div className="inner-item">
-                                  <h6>Actions</h6>
-                                  <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
-                                </div>
-                              </div>
-                            </Accordion.Body>
-                          </Accordion.Item>
+                        {announcements?.userAnnouncements?.map((elem) => {
+                            let createdate = new Date(elem?.createdAt);
+                            const createDate = moment(createdate).format("DD-MM-YYYY");
+                            return (
+                              <Accordion.Item eventKey="0">
+                                <Accordion.Header>{elem?.announcement?.message}</Accordion.Header>
+                                <Accordion.Body>
+                                  <div className="inner-fields">
+                                    <div className="inner-item">
+                                      <h6>Date Received</h6>
+                                      <p>{createDate}</p>
+                                    </div>
+                                    <div className="inner-item">
+                                      <h6>Actions</h6>
+                                      <div className='dropbtn'>
+                                        <Dropdown>
+                                          <Dropdown.Toggle variant="success" id="dropdown-basic">
+                                            <img src='\Vectordots.svg' alt='img' className='img-fluid' />
+
+                                          </Dropdown.Toggle>
+
+                                          <Dropdown.Menu>
+                                            <Dropdown.Item href="#/action-1">
+                                              <p><img src='\Vector.svg' alt='img' className='img-fluid' />Submit Proof</p>
+                                            </Dropdown.Item>
+                                            <div className='brdr'></div>
+                                            <Dropdown.Item href="#/action-1">
+                                              <p onClick={() => getDetail(elem)}><img src='\Vectordetail.svg' alt='img' className='img-fluid' />details</p>
+                                            </Dropdown.Item>
+                                            <div className='brdr'></div>
+                                            <Dropdown.Item href="#/action-1">
+                                              <p><img src='\trash.svg' alt='img' className='img-fluid' />delete</p>
+                                            </Dropdown.Item>
+
+                                          </Dropdown.Menu>
+                                        </Dropdown>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </Accordion.Body>
+                              </Accordion.Item>
+                            )
+                          })}
                         </Accordion>
                       </div>
                     </div>
