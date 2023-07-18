@@ -5,7 +5,7 @@ import Modal from 'react-bootstrap/Modal';
 import Accordion from 'react-bootstrap/Accordion';
 import Countdown from 'react-countdown';
 
-const GeneralActive = ({routes, setoperationdata, setcall, call, setroute,  setShowtask, tasks }) => {
+const GeneralActive = ({ routes, setoperationdata, setcall, call, setroute, setShowtask, tasks }) => {
 
     // const [show1, setShow1] = useState(false);
     // const handleClose1 = () => setShow1(false);
@@ -24,7 +24,7 @@ const GeneralActive = ({routes, setoperationdata, setcall, call, setroute,  setS
         return endtime;
     }
 
-    const operationdetailactive = (elem)=>{
+    const operationdetailactive = (elem) => {
         setcall(true)
         setoperationdata(elem[0])
         setroute(!routes)
@@ -38,7 +38,7 @@ const GeneralActive = ({routes, setoperationdata, setcall, call, setroute,  setS
                         <h6>operation : {tasks[0]?.name} <span>ENDS IN: {tasks?.length > 0 && <Countdown date={GetTime(tasks[0]?.expirationDate)} />}</span></h6>
                         <p>{tasks[0]?.description}</p>
                     </div>
-                    <a href="#" onClick={() =>operationdetailactive(tasks)}>View All Tasks <img src="\assets\arrow-right.svg" alt="img" className='img-fluid ms-2' /></a>
+                    <a href="#" onClick={() => operationdetailactive(tasks)}>View All Tasks <img src="\assets\arrow-right.svg" alt="img" className='img-fluid ms-2' /></a>
                 </div>
                 <div className="bottom-cards">
                     <div className="card-item border-grad">
@@ -140,26 +140,30 @@ const GeneralActive = ({routes, setoperationdata, setcall, call, setroute,  setS
                     <div className="heading-mobile">
                         <p>Task</p>
                     </div>
-                    <Accordion defaultActiveKey="0">
-                        <Accordion.Item eventKey="0">
-                            <Accordion.Header>Like our facebook page</Accordion.Header>
-                            <Accordion.Body>
-                                <div className="inner-fields">
-                                    <div className="inner-item">
-                                        <h6>Points</h6>
-                                        <p>+5</p>
-                                    </div>
-                                    <div className="inner-item">
-                                        <h6>TOMI Tokens</h6>
-                                        <p>25</p>
-                                    </div>
-                                    <div className="inner-item">
-                                        <h6>Status</h6>
-                                        <button className="btn-green">Completed</button>
-                                    </div>
-                                </div>
-                            </Accordion.Body>
-                        </Accordion.Item>
+                    <Accordion>
+                        {tasks[0]?.tasksList?.map((elem, index) => {
+                            return (
+                                <Accordion.Item eventKey={index}>
+                                    <Accordion.Header>{elem?.name}</Accordion.Header>
+                                    <Accordion.Body>
+                                        <div className="inner-fields">
+                                            <div className="inner-item">
+                                                <h6>Description</h6>
+                                                <p>{elem?.description}</p>
+                                            </div>
+                                            {/* <div className="inner-item">
+                                                    <h6>TOMI Tokens</h6>
+                                                    <p>25</p>
+                                                </div> */}
+                                            {/* <div className="inner-item">
+                                                    <h6>Status</h6>
+                                                    <button className="btn-green">Completed</button>
+                                                </div> */}
+                                        </div>
+                                    </Accordion.Body>
+                                </Accordion.Item>
+                            )
+                        })}
                     </Accordion>
                 </div>
             </section>

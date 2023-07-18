@@ -195,7 +195,10 @@ const GeneralSidebar = () => {
     }
   };
 
-
+  const Lougout = () => {
+    localStorage.clear();
+    window.location.assign("/")
+  }
   // pass all states in header or components to show modals..............................
 
   const [showtask, setShowtask] = useState(false);
@@ -598,7 +601,7 @@ const GeneralSidebar = () => {
                 </ul>
               </div>
               <div className="twice-btns-sidebar">
-                <button className="log-out-btn">
+                <button className="log-out-btn" onClick={Lougout}>
                   <img src={logoutIcon} alt="logoutIcon" />
                   DISCONNECT WALLET
                 </button>

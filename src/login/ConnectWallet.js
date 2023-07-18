@@ -45,33 +45,33 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role, setRole, setinvitecode, 
 
     const trustWallet = async () => {
         // handleShow()
-        // if (account) {
-        //   await logout("walletconnect");
-        //   setAuthStatus('')
-        // } else {
-          await login("walletconnect");
-          setAuthStatus('signUp')
-          localStorage.setItem('connectorId', 'walletconnect');
-          localStorage.setItem("flag", "true");
-          setLog(true)
-        // }
-      };
-
-      const connectMetaMask1 =async () => {
         if (account) {
-          const connectorId = window.localStorage.getItem("connectorId")
-          await logout(connectorId);
-          localStorage.removeItem("connectorId");
-          localStorage.removeItem("flag");
-          setAuthStatus('')
+            await logout("walletconnect");
+            setAuthStatus('')
         } else {
-          login("injected");
-          localStorage.setItem("connectorId", "injected");
-          localStorage.setItem("flag", "true");
-          setAuthStatus('signUp')
-          setLog(true)
+            await login("walletconnect");
+            setAuthStatus('signUp')
+            localStorage.setItem('connectorId', 'walletconnect');
+            localStorage.setItem("flag", "true");
+            setLog(true)
         }
-      };
+    };
+
+    const connectMetaMask1 = async () => {
+        if (account) {
+            const connectorId = window.localStorage.getItem("connectorId")
+            await logout(connectorId);
+            localStorage.removeItem("connectorId");
+            localStorage.removeItem("flag");
+            setAuthStatus('')
+        } else {
+            login("injected");
+            localStorage.setItem("connectorId", "injected");
+            localStorage.setItem("flag", "true");
+            setAuthStatus('signUp')
+            setLog(true)
+        }
+    };
 
     const loginUser = async () => {
         // let tok = localStorage.getItem("accessToken");
@@ -94,21 +94,21 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role, setRole, setinvitecode, 
                         localStorage.setItem("accessToken", res?.data?.data?.accessToken);
                         // setShow(false)
                         localStorage.setItem("user", JSON.stringify(res?.data?.data));
-                        if (res?.data?.data?.rank.name === "general" ) {
+                        if (res?.data?.data?.rank.name === "general") {
                             history.push("/general");
-                        }else if(res?.data?.data?.rank.name === "major general"){
+                        } else if (res?.data?.data?.rank.name === "major general") {
                             history.push("/majorgenerL");
                         }
-                        else if(res?.data?.data?.isCommander === true){
+                        else if (res?.data?.data?.isCommander === true) {
                             history.push("/leader");
                         }
-                        else if (res?.data?.data?.isCommander === false && res?.data?.data?.squad?.name !=='') {
+                        else if (res?.data?.data?.isCommander === false && res?.data?.data?.squad?.name !== '') {
                             history.push("/soldier");
-                        }else if (res?.data?.data?.isCommander === false && res?.data?.data?.squad?.name == ''){
-                            history.push("/soldier");    
+                        } else if (res?.data?.data?.isCommander === false && res?.data?.data?.squad?.name == '') {
+                            history.push("/soldier");
                         }
-                        else{
-                            history.push("/");   
+                        else {
+                            history.push("/");
                         }
                         localStorage.setItem("wallet", account);
                     })
@@ -187,11 +187,11 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role, setRole, setinvitecode, 
                             // localStorage.removeItem("wallet");
                             // history.push("/")
                         }
-                        else if(err?.response?.data?.statusCode ==409){
+                        else if (err?.response?.data?.statusCode == 409) {
                             toast.error('You hava already memeber', {
                                 position: 'top-center',
                                 autoClose: 5000,
-                            }); 
+                            });
                         }
                         localStorage.removeItem("connectorId");
                         localStorage.removeItem("flag");
@@ -233,7 +233,7 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role, setRole, setinvitecode, 
             loginUser();
         }
     }, [account, log])
-    
+
     const backtoinvitecode = () => {
         setjoinsquad(false)
         setinvitecode('')
@@ -251,7 +251,7 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role, setRole, setinvitecode, 
                 }
                 {
                     role === 'solider' &&
-                        <button className='omomomomom' onClick={() =>setRole('')}>Back To Sign Up</button>
+                    <button className='omomomomom' onClick={() => setRole('')}>Back To Sign Up</button>
 
                 }
                 <div className='army-textImg'>
@@ -266,7 +266,7 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role, setRole, setinvitecode, 
                     MetaMask
                 </button>
 
-                <button onClick={trustWallet} className='walletConnect-btn border-grad'>
+                <button className='walletConnect-btn border-grad'>
                     <img src={walletConnectIcon} alt='walletConnectIcon' />
                     Wallet Connect
                 </button>

@@ -64,7 +64,7 @@ const GeneralHome = ({ setShowtask, setroutehome, routeshome }) => {
         setRend(!rend)
     }
 
-    
+
     const settabss = (event) => {
         if (event === 'totalsol') {
             setDatee([])
@@ -420,12 +420,12 @@ const GeneralHome = ({ setShowtask, setroutehome, routeshome }) => {
             .then((response) => {
                 setDatee([])
                 setMinted([])
-                console.log("asdfsfssd",response)
+                console.log("asdfsfssd", response)
                 let dumArry = [];
-                if(rendss === 'totalsol'){
+                if (rendss === 'totalsol') {
                     var data = response?.data?.data?.totalSoldiers?.data;
                 }
-                else{
+                else {
                     var data = response?.data?.data?.tasksCompleted?.data;
                 }
                 // console.log("sdfdsfsdfdsfs",data)
@@ -457,13 +457,13 @@ const GeneralHome = ({ setShowtask, setroutehome, routeshome }) => {
             })
     }
 
-    console.log("sdfsdfsdfdsfdsf",datee)
+    console.log("sdfsdfsdfdsfdsf", datee)
 
     useEffect(() => {
         if (value != null) {
             getMintedDomains()
         }
-    }, [value,rendss])
+    }, [value, rendss])
 
     return (
         <>
@@ -802,29 +802,34 @@ const GeneralHome = ({ setShowtask, setroutehome, routeshome }) => {
                                                     <p>Nickname</p>
                                                 </div>
                                                 <Accordion defaultActiveKey="0">
-                                                    <Accordion.Item eventKey="0">
-                                                        <Accordion.Header>sharjeel</Accordion.Header>
-                                                        <Accordion.Body>
-                                                            <div className="inner-fields">
-                                                                <div className="inner-item">
-                                                                    <h6>Rank</h6>
-                                                                    <p><img style={{ width: "30px", height: "30px" }} src="\static-icons\private-rank.png" alt="img" className="img-fluid me-2" />Private</p>
-                                                                </div>
-                                                                <div className="inner-item">
-                                                                    <h6>Wallet Address</h6>
-                                                                    <p>0x2F78....aB0C</p>
-                                                                </div>
-                                                                <div className="inner-item">
-                                                                    <h6>Username</h6>
-                                                                    <p>@sharjeel</p>
-                                                                </div>
-                                                                <div className="inner-item">
-                                                                    <h6>TOMI Balance</h6>
-                                                                    <p>500 TOMI</p>
-                                                                </div>
-                                                            </div>
-                                                        </Accordion.Body>
-                                                    </Accordion.Item>
+                                                    {topsoli?.map((elem, index) => {
+                                                        return (
+                                                            <Accordion.Item eventKey={index}>
+                                                                <Accordion.Header>{elem?.nickName}</Accordion.Header>
+                                                                <Accordion.Body>
+                                                                    <div className="inner-fields">
+                                                                        <div className="inner-item">
+                                                                            <h6>Rank</h6>
+                                                                            <p><img style={{ width: "30px", height: "30px" }} src={elem?.rank?.icon} alt="img" className="img-fluid me-2" />{elem?.rank?.name}</p>
+                                                                        </div>
+                                                                        <div className="inner-item">
+                                                                            <h6>Wallet Address</h6>
+                                                                            <p>{elem?.walletAddress?.slice(0, 12) + "..."}</p>
+                                                                        </div>
+                                                                        {/* <div className="inner-item">
+                                                                        <h6>Username</h6>
+                                                                        <p>@sharjeel</p>
+                                                                    </div> */}
+                                                                        <div className="inner-item">
+                                                                            <h6>TOMI Token</h6>
+                                                                            <p>{elem?.points} TOMI</p>
+                                                                        </div>
+                                                                    </div>
+                                                                </Accordion.Body>
+                                                            </Accordion.Item>
+                                                        )
+                                                    })}
+
                                                 </Accordion>
                                             </div>
                                         </div>
@@ -857,7 +862,7 @@ const GeneralHome = ({ setShowtask, setroutehome, routeshome }) => {
                                                             <td>{elem?.user?.nickName}</td>
                                                             <td>{elem?.task?.name?.slice(0, 40) + "..."}</td>
                                                             <td>
-                                                                <div style={{ maxWidth: '83px', width: '100%' }} className="completed">Completed</div>
+                                                                <div style={{ maxWidth: '83px', width: '100%' }} className="completed">Pending</div>
                                                             </td>
                                                             <td>{elem?.task?.reward}</td>
                                                             {/* <td>
@@ -882,26 +887,30 @@ const GeneralHome = ({ setShowtask, setroutehome, routeshome }) => {
                                             <div className="heading-mobile">
                                                 <p>User</p>
                                             </div>
-                                            <Accordion defaultActiveKey="0">
-                                                <Accordion.Item eventKey="0">
-                                                    <Accordion.Header>sharjeel</Accordion.Header>
-                                                    <Accordion.Body>
-                                                        <div className="inner-fields">
-                                                            <div className="inner-item">
-                                                                <h6>Tasks</h6>
-                                                                <p>Like our facebook..</p>
-                                                            </div>
-                                                            <div className="inner-item">
-                                                                <h6>Points</h6>
-                                                                <p>1,000,000</p>
-                                                            </div>
-                                                            <div className="inner-item">
-                                                                <h6>Status</h6>
-                                                                <button className="btn-green">Completed</button>
-                                                            </div>
-                                                        </div>
-                                                    </Accordion.Body>
-                                                </Accordion.Item>
+                                            <Accordion>
+                                                {tasks?.map((elem, index) => {
+                                                    return (
+                                                        <Accordion.Item eventKey={index}>
+                                                            <Accordion.Header>{elem?.user?.nickName}</Accordion.Header>
+                                                            <Accordion.Body>
+                                                                <div className="inner-fields">
+                                                                    <div className="inner-item">
+                                                                        <h6>Tasks</h6>
+                                                                        <p>{elem?.task?.name?.slice(0, 40) + "..."}</p>
+                                                                    </div>
+                                                                    <div className="inner-item">
+                                                                        <h6>Points</h6>
+                                                                        <p>{elem?.task?.reward}</p>
+                                                                    </div>
+                                                                    <div className="inner-item">
+                                                                        <h6>Status</h6>
+                                                                        <button className="btn-green">Pending</button>
+                                                                    </div>
+                                                                </div>
+                                                            </Accordion.Body>
+                                                        </Accordion.Item>
+                                                    )
+                                                })}
                                             </Accordion>
                                         </div>
                                     </div>
@@ -937,28 +946,36 @@ const GeneralHome = ({ setShowtask, setroutehome, routeshome }) => {
                                         </Table>
                                         <div className="mobile-responsive-table d-none display-block-in-mobile">
                                             <div className="heading-mobile">
-                                                <p>User</p>
+                                                <p>Wallet Address</p>
                                             </div>
-                                            <Accordion defaultActiveKey="0">
-                                                <Accordion.Item eventKey="0">
-                                                    <Accordion.Header>sharjeel</Accordion.Header>
-                                                    <Accordion.Body>
-                                                        <div className="inner-fields">
-                                                            <div className="inner-item">
-                                                                <h6>Tasks</h6>
-                                                                <p>Like our facebook..</p>
-                                                            </div>
-                                                            <div className="inner-item">
-                                                                <h6>Points</h6>
-                                                                <p>1,000,000</p>
-                                                            </div>
-                                                            <div className="inner-item">
-                                                                <h6>Status</h6>
-                                                                <button className="btn-green">Completed</button>
-                                                            </div>
-                                                        </div>
-                                                    </Accordion.Body>
-                                                </Accordion.Item>
+                                            <Accordion>
+                                                {data2?.map((elem, index) => {
+                                                    return (
+                                                        <Accordion.Item eventKey={index}>
+                                                            <Accordion.Header>{elem?.walletAddress?.slice(0, 14) + "..."}</Accordion.Header>
+                                                            <Accordion.Body>
+                                                                <div className="inner-fields">
+                                                                    <div className="inner-item">
+                                                                        <h6>NickName</h6>
+                                                                        <p>{elem?.nickName}</p>
+                                                                    </div>
+                                                                    <div className="inner-item">
+                                                                        <h6>From</h6>
+                                                                        <p>{elem?.from}</p>
+                                                                    </div>
+                                                                    <div className="inner-item">
+                                                                        <h6>To</h6>
+                                                                        <p>{elem?.to}</p>
+                                                                    </div>
+                                                                    {/* <div className="inner-item">
+                                                                        <h6>Status</h6>
+                                                                        <button className="btn-green">Completed</button>
+                                                                    </div> */}
+                                                                </div>
+                                                            </Accordion.Body>
+                                                        </Accordion.Item>
+                                                    )
+                                                })}
                                             </Accordion>
                                         </div>
                                     </div>

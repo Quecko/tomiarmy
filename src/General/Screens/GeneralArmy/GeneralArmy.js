@@ -256,29 +256,48 @@ const GeneralArmy = ({ routesarmy, setroutearmy }) => {
                                                                 <p>Wallet</p>
                                                             </div>
                                                             <Accordion defaultActiveKey="0">
-                                                                <Accordion.Item eventKey="0">
-                                                                    <Accordion.Header>0x0F4D...B5D8</Accordion.Header>
-                                                                    <Accordion.Body>
-                                                                        <div className="inner-fields">
-                                                                            <div className="inner-item">
-                                                                                <h6>Nickname</h6>
-                                                                                <p>Umar_x2jz</p>
-                                                                            </div>
-                                                                            <div className="inner-item">
-                                                                                <h6>From</h6>
-                                                                                <p>Soldier</p>
-                                                                            </div>
-                                                                            <div className="inner-item">
-                                                                                <h6>To</h6>
-                                                                                <p>Private</p>
-                                                                            </div>
-                                                                            <div className="inner-item">
-                                                                                <h6>Actions</h6>
-                                                                                <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
-                                                                            </div>
-                                                                        </div>
-                                                                    </Accordion.Body>
-                                                                </Accordion.Item>
+                                                                {data2?.map((elem, ind) => {
+                                                                    return (
+                                                                        <Accordion.Item eventKey={ind}>
+                                                                            <Accordion.Header>{elem?.walletAddress}</Accordion.Header>
+                                                                            <Accordion.Body>
+                                                                                <div className="inner-fields">
+                                                                                    <div className="inner-item">
+                                                                                        <h6>Nickname</h6>
+                                                                                        <p>{elem?.nickName}</p>
+                                                                                    </div>
+                                                                                    <div className="inner-item">
+                                                                                        <h6>From</h6>
+                                                                                        <p>{elem?.from}</p>
+                                                                                    </div>
+                                                                                    <div className="inner-item">
+                                                                                        <h6>To</h6>
+                                                                                        <p>{elem?.to}</p>
+                                                                                    </div>
+                                                                                    <div className="inner-item">
+                                                                                        <h6>Actions</h6>
+                                                                                        <div className='dropbtn global-dropdown-style'>
+                                                                                            <Dropdown>
+                                                                                                <Dropdown.Toggle variant="success" id="dropdown-basic">
+                                                                                                    <img src='\Vectordots.svg' alt='img' className='img-fluid ' />
+
+                                                                                                </Dropdown.Toggle>
+
+                                                                                                <Dropdown.Menu>
+                                                                                                    <Dropdown.Item href="#/action-1">
+                                                                                                        <p onClick={() => handleShow(elem)} ><img src='\generalassets\icons\promote.svg' alt='img' className='img-fluid' />Promote</p>
+                                                                                                        <p onClick={() => { setroutearmy(!routesarmy) }}><img src='\generalassets\icons\detail.svg' alt='img' className='img-fluid' />Details</p>
+                                                                                                    </Dropdown.Item>
+                                                                                                </Dropdown.Menu>
+                                                                                            </Dropdown>
+                                                                                        </div>
+                                                                                        {/* <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a> */}
+                                                                                    </div>
+                                                                                </div>
+                                                                            </Accordion.Body>
+                                                                        </Accordion.Item>
+                                                                    )
+                                                                })}
                                                             </Accordion>
                                                         </div>
                                                     </div>

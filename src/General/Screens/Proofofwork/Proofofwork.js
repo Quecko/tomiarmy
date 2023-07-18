@@ -269,8 +269,6 @@ const Proofofwork = () => {
         settaskdetail(null)
     }
 
-
-
     return (
         <>
             <div className="formobile-heading d-none display-block-in-mobile">
@@ -325,7 +323,7 @@ const Proofofwork = () => {
                                                                             </div>
                                                                         </td> */}
                                                                         <td>
-                                                                            <div style={{ maxWidth: '83px', width: '100%' }} className="completed">Completed</div>
+                                                                            <div style={{ maxWidth: '83px', width: '100%' }} className="pending">Pending</div>
                                                                         </td>
                                                                         <td>
                                                                             <div className="tbl-dropdown">
@@ -350,7 +348,7 @@ const Proofofwork = () => {
                                                                                     </Dropdown.Item> */}
                                                                                         </div>
                                                                                     </Dropdown.Menu>
-                                                                                </Dropdown>+
+                                                                                </Dropdown>
                                                                             </div>
                                                                         </td>
                                                                     </tr>
@@ -379,30 +377,59 @@ const Proofofwork = () => {
                                                         <div className="heading-mobile">
                                                             <p>User</p>
                                                         </div>
-                                                        <Accordion defaultActiveKey="0">
-                                                            <Accordion.Item eventKey="0">
-                                                                <Accordion.Header>sharjeel</Accordion.Header>
-                                                                <Accordion.Body>
-                                                                    <div className="inner-fields">
-                                                                        <div className="inner-item">
-                                                                            <h6>Tasks</h6>
-                                                                            <p>Like our facebook..</p>
-                                                                        </div>
-                                                                        <div className="inner-item">
-                                                                            <h6>Points</h6>
-                                                                            <p>1,000,000</p>
-                                                                        </div>
-                                                                        <div className="inner-item">
-                                                                            <h6>Status</h6>
-                                                                            <button className="btn-green">Completed</button>
-                                                                        </div>
-                                                                        <div className="inner-item">
-                                                                            <h6>Actions</h6>
-                                                                            <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
-                                                                        </div>
-                                                                    </div>
-                                                                </Accordion.Body>
-                                                            </Accordion.Item>
+                                                        <Accordion>
+                                                            {tasks?.map((elem, index) => {
+                                                                return (
+                                                                    <Accordion.Item eventKey={index}>
+                                                                        <Accordion.Header>{elem?.user?.nickName}</Accordion.Header>
+                                                                        <Accordion.Body>
+                                                                            <div className="inner-fields">
+                                                                                <div className="inner-item">
+                                                                                    <h6>Tasks</h6>
+                                                                                    <p>{elem?.task?.name?.slice(0, 40) + "..."}</p>
+                                                                                </div>
+                                                                                <div className="inner-item">
+                                                                                    <h6>Points</h6>
+                                                                                    <p>{elem?.task?.reward}</p>
+                                                                                </div>
+                                                                                {/* <div className="inner-item">
+                                                                                <h6>Status</h6>
+                                                                                <button className="btn-green">Completed</button>
+                                                                            </div> */}
+                                                                                <div className="inner-item">
+                                                                                    <h6>Actions</h6>
+                                                                                    <div className="tbl-dropdown">
+                                                                                        <Dropdown>
+                                                                                            <Dropdown.Toggle id="dropdown-basic">
+                                                                                                <img src={dosts} alt="dosts" />
+                                                                                            </Dropdown.Toggle>
+
+                                                                                            <Dropdown.Menu className="stats-dropdown-menu">
+                                                                                                <div className="stats-dropdown-bg">
+                                                                                                    <Dropdown.Item onClick={() => { handleShowwork(elem) }}>
+                                                                                                        <img src="\generalassets\icons\detail.svg" alt="submitIcon" />
+                                                                                                        Details
+                                                                                                    </Dropdown.Item>
+                                                                                                    {/* <Dropdown.Item onClick={handleShowapprove}>
+                                                                                        <img src="\generalassets\icons\checkmark.svg" alt="submitIcon" />
+                                                                                        Approve
+                                                                                    </Dropdown.Item>
+                                                                                    <Dropdown.Item onClick={handleShowreject}>
+                                                                                        <img src="\generalassets\icons\Subtract.svg" alt="submitIcon" />
+                                                                                        Reject
+                                                                                    </Dropdown.Item> */}
+                                                                                                </div>
+                                                                                            </Dropdown.Menu>
+                                                                                        </Dropdown>
+                                                                                    </div>
+                                                                                    {/* <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a> */}
+                                                                                </div>
+                                                                            </div>
+                                                                        </Accordion.Body>
+                                                                    </Accordion.Item>
+                                                                )
+                                                            })}
+
 
                                                         </Accordion>
                                                     </div>
@@ -423,21 +450,20 @@ const Proofofwork = () => {
                                                                     <th>User</th>
                                                                     <th>Tasks</th>
                                                                     <th>Points</th>
-                                                                    <th>Status</th>
+                                                                    {/* <th>Status</th> */}
                                                                     <th>Action</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
                                                                 {tasks && tasks?.map((elem, index) => {
-
                                                                     return (
                                                                         <tr key={index}>
                                                                             <td>{elem?.user?.nickName}</td>
                                                                             <td>{elem?.operation?.name}</td>
                                                                             <td>{elem?.operation?.reward}</td>
-                                                                            <td>
+                                                                            {/* <td>
                                                                                 <div style={{ maxWidth: '83px', width: '100%' }} className="completed">Completed</div>
-                                                                            </td>
+                                                                            </td> */}
                                                                             <td>
                                                                                 <div className="tbl-dropdown text-end">
                                                                                     <button onClick={() => settaskdetail(elem)} className='btn-detail'>Detail</button>
@@ -469,31 +495,37 @@ const Proofofwork = () => {
                                                             <div className="heading-mobile">
                                                                 <p>User</p>
                                                             </div>
-                                                            <Accordion defaultActiveKey="0">
-                                                                <Accordion.Item eventKey="0">
-                                                                    <Accordion.Header>sharjeel</Accordion.Header>
-                                                                    <Accordion.Body>
-                                                                        <div className="inner-fields">
-                                                                            <div className="inner-item">
-                                                                                <h6>Tasks</h6>
-                                                                                <p>Like our facebook..</p>
-                                                                            </div>
-                                                                            <div className="inner-item">
-                                                                                <h6>Points</h6>
-                                                                                <p>1,000,000</p>
-                                                                            </div>
-                                                                            <div className="inner-item">
-                                                                                <h6>Status</h6>
-                                                                                <button className="btn-green">Completed</button>
-                                                                            </div>
-                                                                            <div className="inner-item">
-                                                                                <h6>Actions</h6>
-                                                                                <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
-                                                                            </div>
-                                                                        </div>
-                                                                    </Accordion.Body>
-                                                                </Accordion.Item>
-
+                                                            <Accordion>
+                                                                {tasks && tasks?.map((elem, index) => {
+                                                                    return (
+                                                                        <Accordion.Item eventKey={index}>
+                                                                            <Accordion.Header>{elem?.user?.nickName}</Accordion.Header>
+                                                                            <Accordion.Body>
+                                                                                <div className="inner-fields">
+                                                                                    <div className="inner-item">
+                                                                                        <h6>Tasks</h6>
+                                                                                        <p>{elem?.operation?.name}</p>
+                                                                                    </div>
+                                                                                    <div className="inner-item">
+                                                                                        <h6>Points</h6>
+                                                                                        <p>{elem?.operation?.reward}</p>
+                                                                                    </div>
+                                                                                    {/* <div className="inner-item">
+                                                                                        <h6>Status</h6>
+                                                                                        <button className="btn-green">Completed</button>
+                                                                                    </div> */}
+                                                                                    <div className="inner-item">
+                                                                                        <h6>Actions</h6>
+                                                                                        <div className="tbl-dropdown text-end">
+                                                                                            <button onClick={() => settaskdetail(elem)} className='btn-detail'>Detail</button>
+                                                                                        </div>
+                                                                                        {/* <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a> */}
+                                                                                    </div>
+                                                                                </div>
+                                                                            </Accordion.Body>
+                                                                        </Accordion.Item>
+                                                                    )
+                                                                })}
                                                             </Accordion>
                                                         </div>
 
@@ -515,7 +547,7 @@ const Proofofwork = () => {
                                                                     <th>User</th>
                                                                     <th>Tasks</th>
                                                                     {/* <th>Points</th> */}
-                                                                    <th>Status</th>
+                                                                    {/* <th>Status</th> */}
                                                                     <th>Action</th>
                                                                 </tr>
                                                             </thead>
@@ -527,9 +559,9 @@ const Proofofwork = () => {
                                                                             <td>{taskdetail?.user?.nickName}</td>
                                                                             <td>{elem?.name}</td>
                                                                             {/* <td>1,000,000</td> */}
-                                                                            <td>
+                                                                            {/* <td>
                                                                                 <div style={{ maxWidth: '83px', width: '100%' }} className="completed">Completed</div>
-                                                                            </td>
+                                                                            </td> */}
                                                                             <td>
                                                                                 <div className="tbl-dropdown">
                                                                                     <Dropdown>
@@ -574,30 +606,53 @@ const Proofofwork = () => {
                                                             <div className="heading-mobile">
                                                                 <p>User</p>
                                                             </div>
-                                                            <Accordion defaultActiveKey="0">
-                                                                <Accordion.Item eventKey="0">
-                                                                    <Accordion.Header>sharjeel</Accordion.Header>
-                                                                    <Accordion.Body>
-                                                                        <div className="inner-fields">
-                                                                            <div className="inner-item">
-                                                                                <h6>Tasks</h6>
-                                                                                <p>Like our facebook..</p>
-                                                                            </div>
-                                                                            <div className="inner-item">
-                                                                                <h6>Points</h6>
-                                                                                <p>1,000,000</p>
-                                                                            </div>
-                                                                            <div className="inner-item">
-                                                                                <h6>Status</h6>
-                                                                                <button className="btn-green">Completed</button>
-                                                                            </div>
-                                                                            <div className="inner-item">
-                                                                                <h6>Actions</h6>
-                                                                                <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
-                                                                            </div>
-                                                                        </div>
-                                                                    </Accordion.Body>
-                                                                </Accordion.Item>
+
+                                                            <Accordion >
+                                                                {taskdetail && taskdetail?.taskProofs?.map((elem, index) => {
+
+                                                                    return (
+
+                                                                        <Accordion.Item eventKey={index}>
+                                                                            <Accordion.Header>{taskdetail?.user?.nickName}</Accordion.Header>
+                                                                            <Accordion.Body>
+                                                                                <div className="inner-fields">
+                                                                                    <div className="inner-item">
+                                                                                        <h6>Tasks</h6>
+                                                                                        <p>{elem?.name}</p>
+                                                                                    </div>
+                                                                                    {/* <div className="inner-item">
+                <h6>Points</h6>
+                <p>1,000,000</p>
+            </div> */}
+                                                                                    {/* <div className="inner-item">
+                <h6>Status</h6>
+                <button className="btn-green">Completed</button>
+            </div> */}
+                                                                                    <div className="inner-item">
+                                                                                        <h6>Actions</h6>
+                                                                                        <div className="tbl-dropdown">
+                                                                                            <Dropdown>
+                                                                                                <Dropdown.Toggle id="dropdown-basic">
+                                                                                                    <img src={dosts} alt="dosts" />
+                                                                                                </Dropdown.Toggle>
+
+                                                                                                <Dropdown.Menu className="stats-dropdown-menu">
+                                                                                                    <div className="stats-dropdown-bg">
+                                                                                                        <Dropdown.Item onClick={() => { handleShowwork1(elem) }}>
+                                                                                                            <img src="\generalassets\icons\detail.svg" alt="submitIcon" />
+                                                                                                            Details
+                                                                                                        </Dropdown.Item>
+                                                                                                    </div>
+                                                                                                </Dropdown.Menu>
+                                                                                            </Dropdown>
+                                                                                        </div>
+                                                                                        {/* <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a> */}
+                                                                                    </div>
+                                                                                </div>
+                                                                            </Accordion.Body>
+                                                                        </Accordion.Item>
+                                                                    )
+                                                                })}
                                                             </Accordion>
                                                         </div>
                                                     </div>

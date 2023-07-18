@@ -10,8 +10,8 @@ import Loader from '../../../hooks/loader';
 import Modal from 'react-bootstrap/Modal';
 import { Accordion, Dropdown, Pagination, Tab, Table, Tabs } from 'react-bootstrap'
 import dosts from "../../../assets/icons/dots.svg";
-const CreateOperation = ({ svaebutton, setroutehome,routeshome, setexpired, tasks, getData, call, operationdata, routes, setoperationdata, setroute }) => {
-    console.log("sdfsdfsdf",routeshome)
+const CreateOperation = ({ svaebutton, setroutehome, routeshome, setexpired, tasks, getData, call, operationdata, routes, setoperationdata, setroute }) => {
+    console.log("sdfsdfsdf", routeshome)
 
     const [show, setShow] = useState(false);
     const handleClose = () => {
@@ -241,68 +241,68 @@ const CreateOperation = ({ svaebutton, setroutehome,routeshome, setexpired, task
                 if (allFormData?.description != '') {
                     if (startDate) {
                         // if (profileP || profilePicture) {
-                            if (allFormData?.tomitoken != '') {
-                                var config = {
-                                    method: "patch",
-                                    url: `${API_URL}/tasks/operations/${operationdata?._id}`,
-                                    headers: {
-                                        authorization: `Bearer ` + tok
-                                    },
-                                    data: data1,
-                                };
-                                axios(config)
-                                    .then(function (response) {
-                                        //   setLoader(false);
-                                        setexpired(false)
-                                        if(call === true){
-                                            getData()
-                                        }
-                                        setoperationdata('')
-                                        setroute(!routes)
-                                        
-                                        ClearAll();
-                                        setProfileP(null);
-                                        setProfilePicture(null)
-                                        toast.success('Operation Created Successfully', {
-                                            position: "top-right",
-                                            autoClose: 2000,
-                                        })
-                                    
+                        if (allFormData?.tomitoken != '') {
+                            var config = {
+                                method: "patch",
+                                url: `${API_URL}/tasks/operations/${operationdata?._id}`,
+                                headers: {
+                                    authorization: `Bearer ` + tok
+                                },
+                                data: data1,
+                            };
+                            axios(config)
+                                .then(function (response) {
+                                    //   setLoader(false);
+                                    setexpired(false)
+                                    if (call === true) {
+                                        getData()
+                                    }
+                                    setoperationdata('')
+                                    setroute(!routes)
+
+                                    ClearAll();
+                                    setProfileP(null);
+                                    setProfilePicture(null)
+                                    toast.success('Operation Created Successfully', {
+                                        position: "top-right",
+                                        autoClose: 2000,
                                     })
-                                    .catch(function (error) {
-                                        //   setLoader(false);
-                                        if (error.response.data.statusCode == 409) {
-                                            toast.error('Tasks with this name already exist', {
-                                                position: 'top-right',
-                                                autoClose: 5000,
-                                            });
-                                        } else if (error.response.data.statusCode == 500) {
-                                            toast.error('Something went wrong', {
-                                                position: 'top-right',
-                                                autoClose: 5000,
-                                            });
-                                        }
-                                        else if (error.response.data.statusCode == 400) {
-                                            toast.error('Validation Failed', {
-                                                position: 'top-right',
-                                                autoClose: 5000,
-                                            });
-                                        }
-                                    });
-                            }
-                            else {
-                                toast.error('Please Write TomiToken', {
-                                    position: "top-right",
-                                    autoClose: 2000,
+
+                                })
+                                .catch(function (error) {
+                                    //   setLoader(false);
+                                    if (error.response.data.statusCode == 409) {
+                                        toast.error('Tasks with this name already exist', {
+                                            position: 'top-right',
+                                            autoClose: 5000,
+                                        });
+                                    } else if (error.response.data.statusCode == 500) {
+                                        toast.error('Something went wrong', {
+                                            position: 'top-right',
+                                            autoClose: 5000,
+                                        });
+                                    }
+                                    else if (error.response.data.statusCode == 400) {
+                                        toast.error('Validation Failed', {
+                                            position: 'top-right',
+                                            autoClose: 5000,
+                                        });
+                                    }
                                 });
-                            }
                         }
-                        // else {
-                        //     toast.error('Please Select Operation Image', {
-                        //         position: "top-right",
-                        //         autoClose: 2000,
-                        //     });
-                        // }
+                        else {
+                            toast.error('Please Write TomiToken', {
+                                position: "top-right",
+                                autoClose: 2000,
+                            });
+                        }
+                    }
+                    // else {
+                    //     toast.error('Please Select Operation Image', {
+                    //         position: "top-right",
+                    //         autoClose: 2000,
+                    //     });
+                    // }
                     // }
                     else {
                         toast.error('Please Select Expiration Date', {
@@ -340,7 +340,7 @@ const CreateOperation = ({ svaebutton, setroutehome,routeshome, setexpired, task
         setroute(!routes)
     }
 
-    console.log('wedfwefsdf',routeshome,routes);
+    console.log('wedfwefsdf', routeshome, routes);
     var tasklentthfind = tasks?.length
 
     return (
@@ -349,42 +349,42 @@ const CreateOperation = ({ svaebutton, setroutehome,routeshome, setexpired, task
                 <button className="btn-goback" onClick={() => backgo()}><img src="\assets\goback.svg" alt="img" className="img-fluid me-2" />Go Back</button>
                 {operationdata == '' && tasklentthfind > 0 ?
                     (
-                        <button  className={subtask?.lenght > 0 ? "savechange-btn disabled display-none-in-mobile" : "savechange-btn disabled display-none-in-mobile"} >
+                        <button className={subtask?.lenght > 0 ? "savechange-btn disabled display-none-in-mobile" : "savechange-btn disabled display-none-in-mobile"} >
                             <img src="\generalassets\icons\save-change.svg" alt="img" className="img-fluid me-1" />
                             <span>Create Operation</span>
                         </button>
                     )
                     :
                     operationdata == '' && tasklentthfind <= 0 ?
-                    (
-                        <button onClick={Createoperation} className={subtask?.lenght > 0 ? "savechange-btn disabled display-none-in-mobile" : "savechange-btn "} >
-                            <img src="\generalassets\icons\save-change.svg" alt="img" className="img-fluid me-1" />
-                            <span>Create Operation</span>
-                        </button>
-                    )
-                    :
-                    operationdata !== '' && tasklentthfind > 0 ?
-                    (
-                        <button onClick={editoperation}  className={subtask?.lenght > 0 ? "savechange-btn" : "savechange-btn "} >
-                            <img src="\generalassets\icons\save-change.svg" alt="img" className="img-fluid me-1" />
-                            <span>Save Changes</span>
-                        </button>
-                    )
-                    :
-                    operationdata !== '' && tasklentthfind <= 0 ?
-                    (
-                        <button onClick={Createoperation} className={subtask?.lenght > 0 ? "savechange-btn disabled display-none-in-mobile" : "savechange-btn "} >
-                            <img src="\generalassets\icons\save-change.svg" alt="img" className="img-fluid me-1" />
-                            <span>Save Changes</span>
-                        </button>
-                    )
-                    :
-                    (
-                        <button onClick={Createoperation} className={subtask?.lenght > 0 ? "savechange-btn disabled display-none-in-mobile" : "savechange-btn "} >
-                            <img src="\generalassets\icons\save-change.svg" alt="img" className="img-fluid me-1" />
-                            <span>Create Operation</span>
-                        </button>
-                    )
+                        (
+                            <button onClick={Createoperation} className={subtask?.lenght > 0 ? "savechange-btn disabled display-none-in-mobile" : "savechange-btn "} >
+                                <img src="\generalassets\icons\save-change.svg" alt="img" className="img-fluid me-1" />
+                                <span>Create Operation</span>
+                            </button>
+                        )
+                        :
+                        operationdata !== '' && tasklentthfind > 0 ?
+                            (
+                                <button onClick={editoperation} className={subtask?.lenght > 0 ? "savechange-btn" : "savechange-btn "} >
+                                    <img src="\generalassets\icons\save-change.svg" alt="img" className="img-fluid me-1" />
+                                    <span>Save Changes</span>
+                                </button>
+                            )
+                            :
+                            operationdata !== '' && tasklentthfind <= 0 ?
+                                (
+                                    <button onClick={Createoperation} className={subtask?.lenght > 0 ? "savechange-btn disabled display-none-in-mobile" : "savechange-btn "} >
+                                        <img src="\generalassets\icons\save-change.svg" alt="img" className="img-fluid me-1" />
+                                        <span>Save Changes</span>
+                                    </button>
+                                )
+                                :
+                                (
+                                    <button onClick={Createoperation} className={subtask?.lenght > 0 ? "savechange-btn disabled display-none-in-mobile" : "savechange-btn "} >
+                                        <img src="\generalassets\icons\save-change.svg" alt="img" className="img-fluid me-1" />
+                                        <span>Create Operation</span>
+                                    </button>
+                                )
                 }
 
             </div>
@@ -561,32 +561,56 @@ const CreateOperation = ({ svaebutton, setroutehome,routeshome, setexpired, task
                             </div> */}
                             <div className="mobile-responsive-table d-none display-block-in-mobile">
                                 <div className="heading-mobile">
-                                    <p>User</p>
+                                    <p>Task</p>
                                 </div>
-                                <Accordion defaultActiveKey="0">
-                                    <Accordion.Item eventKey="0">
-                                        <Accordion.Header>sharjeel</Accordion.Header>
-                                        <Accordion.Body>
-                                            <div className="inner-fields">
-                                                <div className="inner-item">
-                                                    <h6>Tasks</h6>
-                                                    <p>Like our facebook..</p>
-                                                </div>
-                                                <div className="inner-item">
-                                                    <h6>Points</h6>
-                                                    <p>1,000,000</p>
-                                                </div>
-                                                <div className="inner-item">
-                                                    <h6>Status</h6>
-                                                    <button className="btn-green">Completed</button>
-                                                </div>
-                                                <div className="inner-item">
-                                                    <h6>Actions</h6>
-                                                    <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
-                                                </div>
-                                            </div>
-                                        </Accordion.Body>
-                                    </Accordion.Item>
+                                <Accordion>
+                                    {subtask?.map((elem, index) => {
+                                        return (
+                                            <Accordion.Item eventKey={index}>
+                                                <Accordion.Header>{elem?.name}</Accordion.Header>
+                                                <Accordion.Body>
+                                                    <div className="inner-fields">
+                                                        <div className="inner-item">
+                                                            <h6>Description</h6>
+                                                            <p>{elem?.description}</p>
+                                                        </div>
+                                                        {/* <div className="inner-item">
+                                                        <h6>Points</h6>
+                                                        <p>1,000,000</p>
+                                                    </div>
+                                                    <div className="inner-item">
+                                                        <h6>Status</h6>
+                                                        <button className="btn-green">Completed</button>
+                                                    </div> */}
+                                                        <div className="inner-item">
+                                                            <h6>Actions</h6>
+                                                            <div className="tbl-dropdown text-end">
+                                                                <Dropdown>
+                                                                    <Dropdown.Toggle id="dropdown-basic">
+                                                                        <img src={dosts} alt="dosts" />
+                                                                    </Dropdown.Toggle>
+                                                                    <Dropdown.Menu className="stats-dropdown-menu">
+                                                                        <div className="stats-dropdown-bg">
+                                                                            <Dropdown.Item onClick={() => editVideo(index)}>
+                                                                                <img src="\generalassets\icons\detail.svg" alt="submitIcon" />
+                                                                                Edit
+                                                                            </Dropdown.Item>
+                                                                            <Dropdown.Item onClick={() => deletesubtask(index)}>
+                                                                                <img src="\generalassets\icons\checkmark.svg" alt="submitIcon" />
+                                                                                Delete
+                                                                            </Dropdown.Item>
+                                                                        </div>
+                                                                    </Dropdown.Menu>
+                                                                </Dropdown>
+                                                            </div>
+                                                            {/* <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a> */}
+                                                        </div>
+                                                    </div>
+                                                </Accordion.Body>
+                                            </Accordion.Item>
+                                        )
+                                    })}
+
                                 </Accordion>
                             </div>
 

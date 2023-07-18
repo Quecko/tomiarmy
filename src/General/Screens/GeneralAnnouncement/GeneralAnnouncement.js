@@ -131,25 +131,30 @@ const GeneralAnnouncement = ({ setShowannounce, annou, getDataannou }) => {
                                         <p>Announcement</p>
                                     </div>
                                     <Accordion defaultActiveKey="0">
-                                        <Accordion.Item eventKey="0">
-                                            <Accordion.Header>Follow this Twitter Account....</Accordion.Header>
-                                            <Accordion.Body>
-                                                <div className="inner-fields">
-                                                    <div className="inner-item">
-                                                        <h6>To</h6>
-                                                        <p>01/01/22</p>
-                                                    </div>
-                                                    <div className="inner-item">
-                                                        <h6>Date Sent</h6>
-                                                        <p>01/01/22</p>
-                                                    </div>
-                                                    <div className="inner-item">
-                                                        <h6>Actions</h6>
-                                                        <a href="#"><img src="\generalassets\icons\btn-delete.svg" alt="img" className="img-fluid" /></a>
-                                                    </div>
-                                                </div>
-                                            </Accordion.Body>
-                                        </Accordion.Item>
+                                    {annou && annou?.map((elem, index) => {
+                                                       let createdate = new Date(elem?.createdAt);
+                                                       const createDate = moment(createdate).format("DD-MM-YYYY");
+                                                    return (
+                                                        <Accordion.Item eventKey={index}>
+                                                        <Accordion.Header>{elem?.recipients}</Accordion.Header>
+                                                        <Accordion.Body>
+                                                            <div className="inner-fields">
+                                                                <div className="inner-item">
+                                                                    <h6>Message</h6>
+                                                                    <p>{elem?.message}</p>
+                                                                </div>
+                                                                <div className="inner-item">
+                                                                    <h6>Created At</h6>
+                                                                    <p>{createDate}</p>
+                                                                </div>
+                                                                <div className="inner-item">
+                                                                    <h6>Actions</h6>
+                                                                    <a href="#" onClick={() =>deleteannouncement(elem)}><img src="\generalassets\icons\btn-delete.svg" alt="img" className="img-fluid" /></a>
+                                                                </div>
+                                                            </div>
+                                                        </Accordion.Body>
+                                                    </Accordion.Item>
+                                                    )})}
                                     </Accordion>
                                 </div>
                             </div>
