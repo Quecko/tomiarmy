@@ -62,7 +62,7 @@ const ArmyGrowthGraph = (datee, minte, rendss) => {
           style: {
             fontSize: "18px",
             fontWeight: "500",
-            color: "var(--tooltip-text)"
+            color: "#fff"
           }
         },
         labels: {
@@ -91,7 +91,6 @@ const ArmyGrowthGraph = (datee, minte, rendss) => {
         //         border: '1px solid #FF0083',
         //     },
         // }
-
       },
       yaxis: {
         title: {
@@ -99,7 +98,7 @@ const ArmyGrowthGraph = (datee, minte, rendss) => {
           style: {
             fontSize: "18px",
             fontWeight: "500",
-            color: "var(--tooltip-text)"
+            color: "#fff"
           }
         },
         labels: {

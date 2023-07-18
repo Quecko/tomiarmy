@@ -687,7 +687,7 @@ const GeneralHome = ({ setShowtask, setroutehome, routeshome }) => {
                                             <Tabs
                                                 defaultActiveKey="totalsol"
                                                 id="uncontrolled-tab-example"
-                                                className="opeartions-tab border-grad1"
+                                                className="opeartions-tab tab-styling"
                                                 onSelect={settabss}
                                             >
                                                 <Tab eventKey="totalsol" title="Total soldiers">
