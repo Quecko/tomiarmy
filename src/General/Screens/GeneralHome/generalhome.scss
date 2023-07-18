@@ -225,3 +225,29 @@
 .sjddvbbgdsijdfer{
     width: 40px!important;
 }
+
+.tab-styling{
+    justify-content: space-between;
+    border: none;
+    .nav-item{
+        flex: 1;
+        .nav-link{
+            color: #FFF;
+            font-size: 18px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: 100%; 
+            letter-spacing: 0.18px;
+            width: 100%;
+            background-color: transparent;
+            padding-bottom: 15px;
+            border: none;
+            border-bottom: 2px solid #3B3946;
+        }
+    }
+     .nav-item.show .nav-link,  .nav-link.active{
+        border: none;
+        border-bottom: 2px solid #FF0083;
+     }
+}
+
