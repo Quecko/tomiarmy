@@ -18,7 +18,7 @@ import { useWeb3React } from "@web3-react/core";
 import GeneralActive from './GeneralActive';
 import moment from "moment";
 
-const GeneralOperation = ({ setroute, routes, setroutehome,routeshome, setsvaebutton, svaebutton }) => {
+const GeneralOperation = ({ setroute, routes, setroutehome, routeshome, setsvaebutton, svaebutton }) => {
     const [expired, setexpired] = useState(false);
     const [call, setcall] = useState(false);
     const [operationdata, setoperationdata] = useState('');
@@ -97,7 +97,7 @@ const GeneralOperation = ({ setroute, routes, setroutehome,routeshome, setsvaebu
     }
 
     const deleteoperation = (elem) => {
-   
+
         let tok = localStorage.getItem("accessToken");
         // setOpens(true);
         axios
@@ -107,7 +107,7 @@ const GeneralOperation = ({ setroute, routes, setroutehome,routeshome, setsvaebu
                 { headers: { authorization: `Bearer ${tok}` } }
             )
             .then((response) => {
-              getData();
+                getData();
                 // setOpens(false);
                 // setCall(!call);
                 toast
@@ -115,7 +115,7 @@ const GeneralOperation = ({ setroute, routes, setroutehome,routeshome, setsvaebu
                         position: "top-right",
                         autoClose: 3000,
                     })
-                // window.$('#exampleModal2').modal('hide')
+                    // window.$('#exampleModal2').modal('hide')
                     .catch((err) => {
                         // setOpens(false);
                         toast.warning(
@@ -384,38 +384,58 @@ const GeneralOperation = ({ setroute, routes, setroutehome,routeshome, setsvaebu
                                                         <div className="heading-mobile">
                                                             <p>Operation Name</p>
                                                         </div>
-                                                        <Accordion defaultActiveKey="0">
-                                                            <Accordion.Item eventKey="0">
-                                                                <Accordion.Header>Ilong MAA</Accordion.Header>
-                                                                <Accordion.Body>
-                                                                    <div className="inner-fields">
-                                                                        <div className="inner-item">
-                                                                            <h6>Date Created</h6>
-                                                                            <p>01/01/22</p>
-                                                                        </div>
-                                                                        <div className="inner-item">
-                                                                            <h6>Expiration Date</h6>
-                                                                            <p>01/01/22</p>
-                                                                        </div>
-                                                                        <div className="inner-item">
-                                                                            <h6>Points</h6>
-                                                                            <p>+5 Points</p>
-                                                                        </div>
-                                                                        <div className="inner-item">
-                                                                            <h6>Tomi Tokens</h6>
-                                                                            <p>100 TOMI</p>
-                                                                        </div>
-                                                                        <div className="inner-item">
-                                                                            <h6>Total Tasks</h6>
-                                                                            <p>25</p>
-                                                                        </div>
-                                                                        <div className="inner-item">
-                                                                            <h6>Actions</h6>
-                                                                            <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
-                                                                        </div>
-                                                                    </div>
-                                                                </Accordion.Body>
-                                                            </Accordion.Item>
+                                                        <Accordion defaultActiveKey={index}>
+                                                            {tasks?.map((elem, index) => {
+                                                                const ExpireDate = moment(elem?.expirationDate).format("DD-MM-YYYY");
+                                                                return (
+                                                                    <Accordion.Item eventKey="0">
+                                                                        <Accordion.Header>{elem?.name}</Accordion.Header>
+                                                                        <Accordion.Body>
+                                                                            <div className="inner-fields">
+                                                                                <div className="inner-item">
+                                                                                    <h6>Date Created</h6>
+                                                                                    <p>01/01/22</p>
+                                                                                </div>
+                                                                                <div className="inner-item">
+                                                                                    <h6>Expiration Date</h6>
+                                                                                    <p>{ExpireDate}</p>
+                                                                                </div>
+                                                                                <div className="inner-item">
+                                                                                    <h6>Points</h6>
+                                                                                    <p>+{elem?.reward} Points</p>
+                                                                                </div>
+                                                                                <div className="inner-item">
+                                                                                    <h6>Tomi Tokens</h6>
+                                                                                    <p>{elem?.tomiToken} TOMI</p>
+                                                                                </div>
+                                                                                <div className="inner-item">
+                                                                                    <h6>Total Tasks</h6>
+                                                                                    <p>{Getlength(elem?.tasksList)}</p>
+                                                                                </div>
+                                                                                <div className="inner-item">
+                                                                                    <h6>Actions</h6>
+                                                                                    <div className='dropbtn global-dropdown-style'>
+                                                                                        <Dropdown>
+                                                                                            <Dropdown.Toggle variant="success" id="dropdown-basic">
+                                                                                                <img src='\Vectordots.svg' alt='img' className='img-fluid' />
+                                                                                            </Dropdown.Toggle>
+                                                                                            <Dropdown.Menu>
+                                                                                                <Dropdown.Item href="#">
+                                                                                                    {/* <p><img src='\generalassets\icons\detail.svg' alt='img' className='img-fluid' />Details</p> */}
+                                                                                                    <p onClick={() => operationedit(elem)}><img src='\generalassets\icons\edit.svg' alt='img' className='img-fluid' />Edit</p>
+                                                                                                    <p onClick={() => deleteoperation(elem)}><img src='\generalassets\icons\trash.svg' alt='img' className='img-fluid' />Delete</p>
+                                                                                                </Dropdown.Item>
+                                                                                            </Dropdown.Menu>
+                                                                                        </Dropdown>
+                                                                                    </div>
+                                                                                    {/* <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a> */}
+                                                                                </div>
+                                                                            </div>
+                                                                        </Accordion.Body>
+                                                                    </Accordion.Item>
+                                                                )
+                                                            })}
+
                                                         </Accordion>
                                                     </div>
                                                 </div>

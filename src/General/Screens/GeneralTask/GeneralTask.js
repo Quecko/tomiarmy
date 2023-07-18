@@ -30,38 +30,38 @@ const GeneralTask = ({ setShowtask, setShowtaskdetail, setShowtaskedit, setdetai
   }
 
   const deletetask = (elem) => {
-   
+
     let tok = localStorage.getItem("accessToken");
     // setOpens(true);
     axios
-        .delete(
-            API_URL + "/tasks/" +
-            elem?._id,
-            { headers: { authorization: `Bearer ${tok}` } }
-        )
-        .then((response) => {
-          getData();
+      .delete(
+        API_URL + "/tasks/" +
+        elem?._id,
+        { headers: { authorization: `Bearer ${tok}` } }
+      )
+      .then((response) => {
+        getData();
+        // setOpens(false);
+        // setCall(!call);
+        toast
+          .success("Successfully Delete Task", {
+            position: "top-right",
+            autoClose: 3000,
+          })
+        window.$('#exampleModal2').modal('hide')
+          .catch((err) => {
             // setOpens(false);
-            // setCall(!call);
-            toast
-                .success("Successfully Delete Task", {
-                    position: "top-right",
-                    autoClose: 3000,
-                })
-            window.$('#exampleModal2').modal('hide')
-                .catch((err) => {
-                    // setOpens(false);
-                    toast.warning(
-                        "Error",
-                        {
-                            position: "top-right",
-                            autoClose: 3000,
-                        }
-                    );
-                    return false;
-                });
-        });
-}
+            toast.warning(
+              "Error",
+              {
+                position: "top-right",
+                autoClose: 3000,
+              }
+            );
+            return false;
+          });
+      });
+  }
   // const detailfunction = (elem) =>{
   //   setdetailtask(elem)
   // }
@@ -141,9 +141,9 @@ const GeneralTask = ({ setShowtask, setShowtaskdetail, setShowtaskedit, setdetai
                                           </Dropdown.Toggle>
                                           <Dropdown.Menu>
                                             <Dropdown.Item href="#/action-1">
-                                              <p onClick={() => {setShowtaskdetail(true); setdetailtask(elem)}}><img src='\generalassets\icons\detail.svg' alt='img' className='img-fluid' />Details</p>
-                                              <p onClick={() => {setShowtaskedit(true); setdetailtask(elem)}}><img src='\generalassets\icons\edit.svg' alt='img' className='img-fluid' />Edit</p>
-                                              <p onClick={()=> deletetask(elem)}><img src='\generalassets\icons\trash.svg' alt='img' className='img-fluid' />Delete</p>
+                                              <p onClick={() => { setShowtaskdetail(true); setdetailtask(elem) }}><img src='\generalassets\icons\detail.svg' alt='img' className='img-fluid' />Details</p>
+                                              <p onClick={() => { setShowtaskedit(true); setdetailtask(elem) }}><img src='\generalassets\icons\edit.svg' alt='img' className='img-fluid' />Edit</p>
+                                              <p onClick={() => deletetask(elem)}><img src='\generalassets\icons\trash.svg' alt='img' className='img-fluid' />Delete</p>
                                             </Dropdown.Item>
                                           </Dropdown.Menu>
                                         </Dropdown>
@@ -178,29 +178,52 @@ const GeneralTask = ({ setShowtask, setShowtaskdetail, setShowtaskedit, setdetai
                           <p>Task</p>
                         </div>
                         <Accordion defaultActiveKey="0">
-                          <Accordion.Item eventKey="0">
-                            <Accordion.Header>0x0F4D...B5D8</Accordion.Header>
-                            <Accordion.Body>
-                              <div className="inner-fields">
-                                <div className="inner-item">
-                                  <h6>Date Created</h6>
-                                  <p>01/01/22</p>
-                                </div>
-                                <div className="inner-item">
-                                  <h6>Date Expires</h6>
-                                  <p>01/01/22</p>
-                                </div>
-                                <div className="inner-item">
-                                  <h6>Points</h6>
-                                  <p>+5 Points</p>
-                                </div>
-                                <div className="inner-item">
-                                  <h6>Actions</h6>
-                                  <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
-                                </div>
-                              </div>
-                            </Accordion.Body>
-                          </Accordion.Item>
+                          {tasks?.map((elem, index) => {
+                            let expiredate = new Date(elem?.expirationDate);
+                            const ExpireDate = moment(elem?.expirationDate).format("DD-MM-YYYY");
+                            let createdate = new Date(elem?.createdAt);
+                            const createDate = moment(createdate).format("DD-MM-YYYY");
+                            return (
+                              <Accordion.Item eventKey={index}>
+                                <Accordion.Header>{elem?.name}</Accordion.Header>
+                                <Accordion.Body>
+                                  <div className="inner-fields">
+                                    <div className="inner-item">
+                                      <h6>Date Created</h6>
+                                      <p>{createDate}</p>
+                                    </div>
+                                    <div className="inner-item">
+                                      <h6>Date Expires</h6>
+                                      <p>{ExpireDate}</p>
+                                    </div>
+                                    <div className="inner-item">
+                                      <h6>Points</h6>
+                                      <p>+{elem?.reward} Points</p>
+                                    </div>
+                                    <div className="inner-item">
+                                      <h6>Actions</h6>
+                                      <div className='dropbtn global-dropdown-style'>
+                                        <Dropdown>
+                                          <Dropdown.Toggle variant="success" id="dropdown-basic">
+                                            <img src='\Vectordots.svg' alt='img' className='img-fluid ' />
+                                          </Dropdown.Toggle>
+                                          <Dropdown.Menu>
+                                            <Dropdown.Item href="#/action-1">
+                                              <p onClick={() => { setShowtaskdetail(true); setdetailtask(elem) }}><img src='\generalassets\icons\detail.svg' alt='img' className='img-fluid' />Details</p>
+                                              <p onClick={() => { setShowtaskedit(true); setdetailtask(elem) }}><img src='\generalassets\icons\edit.svg' alt='img' className='img-fluid' />Edit</p>
+                                              <p onClick={() => deletetask(elem)}><img src='\generalassets\icons\trash.svg' alt='img' className='img-fluid' />Delete</p>
+                                            </Dropdown.Item>
+                                          </Dropdown.Menu>
+                                        </Dropdown>
+                                      </div>
+                                      {/* <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a> */}
+                                    </div>
+                                  </div>
+                                </Accordion.Body>
+                              </Accordion.Item>
+                            )
+                          })}
+
                         </Accordion>
                       </div>
                     </div>
@@ -257,9 +280,9 @@ const GeneralTask = ({ setShowtask, setShowtaskdetail, setShowtaskedit, setdetai
                                           </Dropdown.Toggle>
                                           <Dropdown.Menu>
                                             <Dropdown.Item href="#/action-1">
-                                              <p onClick={() => {setShowtaskdetail(true); setdetailtask(elem)}}><img src='\generalassets\icons\detail.svg' alt='img' className='img-fluid' />Details</p>
-                                              <p onClick={() => {setShowtaskedit(true); setdetailtask(elem)}}><img src='\generalassets\icons\edit.svg' alt='img' className='img-fluid' />Edit</p>
-                                              <p onClick={()=> deletetask(elem)}><img src='\generalassets\icons\trash.svg' alt='img' className='img-fluid' />Delete</p>
+                                              <p onClick={() => { setShowtaskdetail(true); setdetailtask(elem) }}><img src='\generalassets\icons\detail.svg' alt='img' className='img-fluid' />Details</p>
+                                              <p onClick={() => { setShowtaskedit(true); setdetailtask(elem) }}><img src='\generalassets\icons\edit.svg' alt='img' className='img-fluid' />Edit</p>
+                                              <p onClick={() => deletetask(elem)}><img src='\generalassets\icons\trash.svg' alt='img' className='img-fluid' />Delete</p>
                                             </Dropdown.Item>
                                           </Dropdown.Menu>
                                         </Dropdown>
@@ -294,29 +317,52 @@ const GeneralTask = ({ setShowtask, setShowtaskdetail, setShowtaskedit, setdetai
                           <p>Task</p>
                         </div>
                         <Accordion defaultActiveKey="0">
-                          <Accordion.Item eventKey="0">
-                            <Accordion.Header>0x0F4D...B5D8</Accordion.Header>
-                            <Accordion.Body>
-                              <div className="inner-fields">
-                                <div className="inner-item">
-                                  <h6>Date Created</h6>
-                                  <p>01/01/22</p>
-                                </div>
-                                <div className="inner-item">
-                                  <h6>Date Expires</h6>
-                                  <p>01/01/22</p>
-                                </div>
-                                <div className="inner-item">
-                                  <h6>Points</h6>
-                                  <p>+5 Points</p>
-                                </div>
-                                <div className="inner-item">
-                                  <h6>Actions</h6>
-                                  <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
-                                </div>
-                              </div>
-                            </Accordion.Body>
-                          </Accordion.Item>
+                          {tasks?.map((elem, index) => {
+                            let expiredate = new Date(elem?.expirationDate);
+                            const ExpireDate = moment(expiredate).format("DD-MM-YYYY");
+                            let createdate = new Date(elem?.createdAt);
+                            const createDate = moment(createdate).format("DD-MM-YYYY");
+                            return (
+                              <Accordion.Item eventKey={index}>
+                                <Accordion.Header>{elem?.name}</Accordion.Header>
+                                <Accordion.Body>
+                                  <div className="inner-fields">
+                                    <div className="inner-item">
+                                      <h6>Date Created</h6>
+                                      <p>{createDate}</p>
+                                    </div>
+                                    <div className="inner-item">
+                                      <h6>Date Expires</h6>
+                                      <p>{ExpireDate}</p>
+                                    </div>
+                                    <div className="inner-item">
+                                      <h6>Points</h6>
+                                      <p>+{elem?.reward} Points</p>
+                                    </div>
+                                    <div className="inner-item">
+                                      <h6>Actions</h6>
+                                      <div className='dropbtn global-dropdown-style'>
+                                        <Dropdown>
+                                          <Dropdown.Toggle variant="success" id="dropdown-basic">
+                                            <img src='\Vectordots.svg' alt='img' className='img-fluid ' />
+                                          </Dropdown.Toggle>
+                                          <Dropdown.Menu>
+                                            <Dropdown.Item href="#/action-1">
+                                              <p onClick={() => { setShowtaskdetail(true); setdetailtask(elem) }}><img src='\generalassets\icons\detail.svg' alt='img' className='img-fluid' />Details</p>
+                                              <p onClick={() => { setShowtaskedit(true); setdetailtask(elem) }}><img src='\generalassets\icons\edit.svg' alt='img' className='img-fluid' />Edit</p>
+                                              <p onClick={() => deletetask(elem)}><img src='\generalassets\icons\trash.svg' alt='img' className='img-fluid' />Delete</p>
+                                            </Dropdown.Item>
+                                          </Dropdown.Menu>
+                                        </Dropdown>
+                                      </div>
+                                      {/* <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a> */}
+                                    </div>
+                                  </div>
+                                </Accordion.Body>
+                              </Accordion.Item>
+                            )
+                          })}
+
                         </Accordion>
                       </div>
                     </div>

@@ -24,30 +24,30 @@ const Generalfaqs = ({ setShowfaq }) => {
         let tok = localStorage.getItem("accessToken");
         // let wall = localStorage.getItem("wallet");
 
-            var config = {
-                method: "get",
-                url: `${API_URL}/content/faqs/get-faq-list?offset=1&&limit=100`,
-                headers: {
-                    authorization: `Bearer ` + tok
-                },
-            };
-            axios(config)
-                .then(function (response) {
-                    // setLoader(false);
-                    // setCount(response.data.data.count)
-                    setfaqs(response?.data?.data?.faq);
-                    // let arr = Array.from(Array(parseInt(response.data.data.pages)).keys());
-                    // setPages(arr);
-                    // setCurrentPage(valu)
-                })
-                .catch(function (error) {
-                    // setLoader(false);
-                    // localStorage.removeItem("accessToken");
-                    // localStorage.removeItem("user");
-                    // window.location.assign("/")
-                    // window.location.reload();
-                });
-        
+        var config = {
+            method: "get",
+            url: `${API_URL}/content/faqs/get-faq-list?offset=1&&limit=100`,
+            headers: {
+                authorization: `Bearer ` + tok
+            },
+        };
+        axios(config)
+            .then(function (response) {
+                // setLoader(false);
+                // setCount(response.data.data.count)
+                setfaqs(response?.data?.data?.faq);
+                // let arr = Array.from(Array(parseInt(response.data.data.pages)).keys());
+                // setPages(arr);
+                // setCurrentPage(valu)
+            })
+            .catch(function (error) {
+                // setLoader(false);
+                // localStorage.removeItem("accessToken");
+                // localStorage.removeItem("user");
+                // window.location.assign("/")
+                // window.location.reload();
+            });
+
     }
 
     useEffect(() => {
@@ -115,37 +115,38 @@ const Generalfaqs = ({ setShowfaq }) => {
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                            {faqs && faqs?.map((elem, index) => {
-                                                return (
-                                                    <tr key={index}>
-                                                    <td>
-                                                        <p className='paratable'>{elem?.title}</p>
-                                                    </td>
-                                                    <td>
-                                                        <p className='paratable'>{elem?.description}</p>
-                                                    </td>
-                                                    <td>
-                                                        <div className='dropbtn global-dropdown-style'>
-                                                            <Dropdown>
-                                                                <Dropdown.Toggle variant="success" id="dropdown-basic">
-                                                                    <img src='\Vectordots.svg' alt='img' className='img-fluid ' />
+                                                {faqs && faqs?.map((elem, index) => {
+                                                    return (
+                                                        <tr key={index}>
+                                                            <td>
+                                                                <p className='paratable'>{elem?.title}</p>
+                                                            </td>
+                                                            <td>
+                                                                <p className='paratable'>{elem?.description}</p>
+                                                            </td>
+                                                            <td>
+                                                                <div className='dropbtn global-dropdown-style'>
+                                                                    <Dropdown>
+                                                                        <Dropdown.Toggle variant="success" id="dropdown-basic">
+                                                                            <img src='\Vectordots.svg' alt='img' className='img-fluid ' />
 
-                                                                </Dropdown.Toggle>
-                                                                <Dropdown.Menu>
-                                                                    <Dropdown.Item href="#/action-1">
-                                                                        <p onClick={() =>deletefaq(elem)}><img src='\generalassets\icons\edit.svg' alt='img' className='img-fluid' />Edit</p>
-                                                                        <p onClick={() =>deletefaq(elem)}><img src='\generalassets\icons\trash.svg' alt='img' className='img-fluid' />Delete</p>
-                                                                    </Dropdown.Item>
-                                                                </Dropdown.Menu>
-                                                            </Dropdown>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                )})}
+                                                                        </Dropdown.Toggle>
+                                                                        <Dropdown.Menu>
+                                                                            <Dropdown.Item href="#/action-1">
+                                                                                <p onClick={() => deletefaq(elem)}><img src='\generalassets\icons\edit.svg' alt='img' className='img-fluid' />Edit</p>
+                                                                                <p onClick={() => deletefaq(elem)}><img src='\generalassets\icons\trash.svg' alt='img' className='img-fluid' />Delete</p>
+                                                                            </Dropdown.Item>
+                                                                        </Dropdown.Menu>
+                                                                    </Dropdown>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    )
+                                                })}
                                             </tbody>
                                         </table>
                                     </div>
-                                    <div className="pagi">
+                                    {/* <div className="pagi">
                                         <div className="left">
                                             <p>Showing 1 to 10 of 57 entries</p>
                                         </div>
@@ -161,29 +162,46 @@ const Generalfaqs = ({ setShowfaq }) => {
                                             </Pagination>
                                             <p>Next</p>
                                         </div>
-                                    </div>
+                                    </div> */}
                                 </div>
                                 <div className="mobile-responsive-table d-none display-block-in-mobile">
                                     <div className="heading-mobile">
                                         <p>Title</p>
                                     </div>
-                                    <Accordion defaultActiveKey="0">
-                                        <Accordion.Item eventKey="0">
-                                            <Accordion.Header>Sed ut perspiciatis unde</Accordion.Header>
-                                            <Accordion.Body>
-                                                <div className="inner-fields">
-                                                    <div className="inner-item">
-                                                        <h6>Description</h6>
-                                                        <p style={{ maxWidth: "142px", textAlign: "start" }}>Sed ut perspiciatis unde omnis iste natus error sit voluptatem...</p>
-                                                    </div>
-                                                    <div className="inner-item">
-                                                        <h6>Actions</h6>
-                                                        <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
-                                                    </div>
-                                                </div>
-                                            </Accordion.Body>
-                                        </Accordion.Item>
+                                    <Accordion>
+                                        {faqs && faqs?.map((elem, index) => {
+                                            return (
+                                                <Accordion.Item eventKey={index}>
+                                                    <Accordion.Header>{elem?.title}</Accordion.Header>
+                                                    <Accordion.Body>
+                                                        <div className="inner-fields">
+                                                            <div className="inner-item">
+                                                                <h6>Description</h6>
+                                                                <p style={{ maxWidth: "142px", textAlign: "start" }}>{elem?.description}</p>
+                                                            </div>
+                                                            <div className="inner-item">
+                                                                <h6>Actions</h6>
+                                                                <div className='dropbtn global-dropdown-style'>
+                                                                    <Dropdown>
+                                                                        <Dropdown.Toggle variant="success" id="dropdown-basic">
+                                                                            <img src='\Vectordots.svg' alt='img' className='img-fluid ' />
 
+                                                                        </Dropdown.Toggle>
+                                                                        <Dropdown.Menu>
+                                                                            <Dropdown.Item href="#/action-1">
+                                                                                <p onClick={() => deletefaq(elem)}><img src='\generalassets\icons\edit.svg' alt='img' className='img-fluid' />Edit</p>
+                                                                                <p onClick={() => deletefaq(elem)}><img src='\generalassets\icons\trash.svg' alt='img' className='img-fluid' />Delete</p>
+                                                                            </Dropdown.Item>
+                                                                        </Dropdown.Menu>
+                                                                    </Dropdown>
+                                                                </div>
+                                                                {/* <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a> */}
+                                                            </div>
+                                                        </div>
+                                                    </Accordion.Body>
+                                                </Accordion.Item>
+                                            )
+                                        })}
                                     </Accordion>
                                 </div>
                             </div>

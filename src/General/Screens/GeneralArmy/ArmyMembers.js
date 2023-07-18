@@ -255,7 +255,7 @@ const ArmyMembers = ({ routesarmy, setroutearmy }) => {
                                                                                                 </Dropdown.Toggle>
                                                                                                 <Dropdown.Menu>
                                                                                                     <Dropdown.Item href="#/action-1">
-                                                                                                        <p onClick={() =>handleShowrank(elem)}><img src='\generalassets\icons\promote.svg' alt='img' className='img-fluid' />Rank Update</p>
+                                                                                                        <p onClick={() => handleShowrank(elem)}><img src='\generalassets\icons\promote.svg' alt='img' className='img-fluid' />Rank Update</p>
                                                                                                         <p onClick={() => { setroutearmy(!routesarmy) }}><img src='\generalassets\icons\detail.svg' alt='img' className='img-fluid' />Details</p>
                                                                                                     </Dropdown.Item>
                                                                                                 </Dropdown.Menu>
@@ -291,29 +291,47 @@ const ArmyMembers = ({ routesarmy, setroutearmy }) => {
                                                                 <p>Wallet</p>
                                                             </div>
                                                             <Accordion defaultActiveKey="0">
-                                                                <Accordion.Item eventKey="0">
-                                                                    <Accordion.Header>0x0F4D...B5D8</Accordion.Header>
-                                                                    <Accordion.Body>
-                                                                        <div className="inner-fields">
-                                                                            <div className="inner-item">
-                                                                                <h6>Nickname</h6>
-                                                                                <p>Umar_x2jz</p>
-                                                                            </div>
-                                                                            <div className="inner-item">
-                                                                                <h6>From</h6>
-                                                                                <p>Soldier</p>
-                                                                            </div>
-                                                                            <div className="inner-item">
-                                                                                <h6>To</h6>
-                                                                                <p>Private</p>
-                                                                            </div>
-                                                                            <div className="inner-item">
-                                                                                <h6>Actions</h6>
-                                                                                <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
-                                                                            </div>
-                                                                        </div>
-                                                                    </Accordion.Body>
-                                                                </Accordion.Item>
+                                                                {data && data?.map((elem, index) => {
+                                                                    return (
+                                                                        <Accordion.Item eventKey={index}>
+                                                                            <Accordion.Header>{elem?.walletAddress}</Accordion.Header>
+                                                                            <Accordion.Body>
+                                                                                <div className="inner-fields">
+                                                                                    <div className="inner-item">
+                                                                                        <h6>Nickname</h6>
+                                                                                        <p>{elem.nickName}</p>
+                                                                                    </div>
+                                                                                    <div className="inner-item">
+                                                                                        <h6>Rank</h6>
+                                                                                        <p>{elem?.rank?.name}</p>
+                                                                                    </div>
+                                                                                    <div className="inner-item">
+                                                                                        <h6>Points</h6>
+                                                                                        <p>{elem?.points}</p>
+                                                                                    </div>
+                                                                                    <div className="inner-item">
+                                                                                        <h6>Actions</h6>
+                                                                                        <div className='dropbtn global-dropdown-style'>
+                                                                                            <Dropdown>
+                                                                                                <Dropdown.Toggle variant="success" id="dropdown-basic">
+                                                                                                    <img src='\Vectordots.svg' alt='img' className='img-fluid ' />
+                                                                                                </Dropdown.Toggle>
+                                                                                                <Dropdown.Menu>
+                                                                                                    <Dropdown.Item href="#/action-1">
+                                                                                                        <p onClick={() => handleShowrank(elem)}><img src='\generalassets\icons\promote.svg' alt='img' className='img-fluid' />Rank Update</p>
+                                                                                                        <p onClick={() => { setroutearmy(!routesarmy) }}><img src='\generalassets\icons\detail.svg' alt='img' className='img-fluid' />Details</p>
+                                                                                                    </Dropdown.Item>
+                                                                                                </Dropdown.Menu>
+                                                                                            </Dropdown>
+                                                                                        </div>
+                                                                                        {/* <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a> */}
+                                                                                    </div>
+                                                                                </div>
+                                                                            </Accordion.Body>
+                                                                        </Accordion.Item>
+                                                                    )
+                                                                })}
+
                                                             </Accordion>
                                                         </div>
                                                     </div>
@@ -403,7 +421,7 @@ const ArmyMembers = ({ routesarmy, setroutearmy }) => {
                                             <ul class="dropdown-menu">
                                                 {Armymajor?.map((item, index) => {
                                                     return (
-                                                        <li><a class="dropdown-item"  onClick={() => setselectedrank(item)}>{item?.name}</a></li>
+                                                        <li><a class="dropdown-item" onClick={() => setselectedrank(item)}>{item?.name}</a></li>
                                                     )
                                                 })}
                                             </ul>
