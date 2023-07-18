@@ -99,83 +99,30 @@ const TopSquad = ({topSquad, GetUserTopSquad}) => {
             <div className="heading-mobile">
               <p>Squads</p>
             </div>
-            <Accordion defaultActiveKey="0">
-              <Accordion.Item eventKey="0">
-                <Accordion.Header> <img src="\assets\squad-profile.png" alt="img" className='img-fluid me-2' /> DC Squad</Accordion.Header>
-                <Accordion.Body>
-                  <div className="inner-fields">
-                    <div className="inner-item">
-                      <h6>TOMI Balance</h6>
-                      <p>25</p>
-                    </div>
-                    <div className="inner-item">
-                      <h6>Total Members</h6>
-                      <p>500 TOMI</p>
-                    </div>
-                    <div className="inner-item">
-                      <h6>Actions</h6>
-                      <button className='btn-pink'>Request to join</button>
-                    </div>
-                  </div>
-                </Accordion.Body>
-              </Accordion.Item>
-              <Accordion.Item eventKey="1">
-                <Accordion.Header> <img src="\assets\squad-profile.png" alt="img" className='img-fluid me-2' /> DC Squad</Accordion.Header>
-                <Accordion.Body>
-                  <div className="inner-fields">
-                    <div className="inner-item">
-                      <h6>TOMI Balance</h6>
-                      <p>25</p>
-                    </div>
-                    <div className="inner-item">
-                      <h6>Total Members</h6>
-                      <p>500 TOMI</p>
-                    </div>
-                    <div className="inner-item">
-                      <h6>Actions</h6>
-                      <button className='btn-pink'>Request to join</button>
-                    </div>
-                  </div>
-                </Accordion.Body>
-              </Accordion.Item>
-              <Accordion.Item eventKey="2">
-                <Accordion.Header> <img src="\assets\squad-profile.png" alt="img" className='img-fluid me-2' /> DC Squad</Accordion.Header>
-                <Accordion.Body>
-                  <div className="inner-fields">
-                    <div className="inner-item">
-                      <h6>TOMI Balance</h6>
-                      <p>25</p>
-                    </div>
-                    <div className="inner-item">
-                      <h6>Total Members</h6>
-                      <p>500 TOMI</p>
-                    </div>
-                    <div className="inner-item">
-                      <h6>Actions</h6>
-                      <button className='btn-pink'>Request to join</button>
-                    </div>
-                  </div>
-                </Accordion.Body>
-              </Accordion.Item>
-              <Accordion.Item eventKey="3">
-                <Accordion.Header> <img src="\assets\squad-profile.png" alt="img" className='img-fluid me-2' /> DC Squad</Accordion.Header>
-                <Accordion.Body>
-                  <div className="inner-fields">
-                    <div className="inner-item">
-                      <h6>TOMI Balance</h6>
-                      <p>25</p>
-                    </div>
-                    <div className="inner-item">
-                      <h6>Total Members</h6>
-                      <p>500 TOMI</p>
-                    </div>
-                    <div className="inner-item">
-                      <h6>Actions</h6>
-                      <button className='btn-pink'>Request to join</button>
-                    </div>
-                  </div>
-                </Accordion.Body>
-              </Accordion.Item>
+            
+            <Accordion defaultActiveKey="">
+            {topSquad?.map((elem, index) => {
+                  return (
+                    <Accordion.Item eventKey={index}>
+                    <Accordion.Header> <img src="\assets\squad-profile.png" alt="img" className='img-fluid me-2' /> {elem?.name}</Accordion.Header>
+                    <Accordion.Body>
+                      <div className="inner-fields">
+                        <div className="inner-item">
+                          <h6>TOMI Balance</h6>
+                          <p>{elem?.totalTokens} Tomi</p>
+                        </div>
+                        <div className="inner-item">
+                          <h6>Total Members</h6>
+                          <p>{elem?.membersCount}</p>
+                        </div>
+                        <div className="inner-item">
+                          <h6>Actions</h6>
+                          <button className={elem?.squad_invitation_requests ? 'btn-requested' : 'btn-requestjoin'} onClick={() => SendInvite(elem?._id)}>{elem?.squad_invitation_requests ? 'Requested' : 'Request to join'}</button>
+                        </div>
+                      </div>
+                    </Accordion.Body>
+                  </Accordion.Item>
+                  )})}
             </Accordion>
           </div>
         </div>
