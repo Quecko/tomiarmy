@@ -60,7 +60,7 @@ const ArmyGrowthGraph = (datee, minte, rendss) => {
           text: "Time Period",
           align: "right",
           style: {
-            fontSize: "18px",
+            fontSize: "14px",
             fontWeight: "500",
             color: "#fff"
           }
@@ -96,7 +96,7 @@ const ArmyGrowthGraph = (datee, minte, rendss) => {
         title: {
           text: rendervalue,
           style: {
-            fontSize: "18px",
+            fontSize: "14px",
             fontWeight: "500",
             color: "#fff"
           }
