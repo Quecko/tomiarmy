@@ -23,40 +23,55 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role, setRole, setinvitecode, 
     const [log, setLog] = useState(false)
     const history = useHistory();
     const { login, logout } = useAuth();
-    console.log('sssss',role);
+    const [authStatus, setAuthStatus] = useState('')
+
+    // const trustWallet = async () => {
+    //     localStorage.setItem("flag", "true");
+    //     localStorage.setItem("connectorId", "walletconnect");
+    //     if (account) {
+    //         logout();
+    //         localStorage.clear();
+    //     } else {
+    //         login("walletconnect");
+    //         setLog(true)
+    //         //   loginUser();
+    //         //   if (location.pathname !== "/") {
+    //         //     // setShow(false)
+    //         //   } else {
+    //         //     loginUser();
+    //         //   }
+    //     }
+    // };
+
     const trustWallet = async () => {
-        localStorage.setItem("flag", "true");
-        localStorage.setItem("connectorId", "walletconnect");
+        // handleShow()
+        // if (account) {
+        //   await logout("walletconnect");
+        //   setAuthStatus('')
+        // } else {
+          await login("walletconnect");
+          setAuthStatus('signUp')
+          localStorage.setItem('connectorId', 'walletconnect');
+          localStorage.setItem("flag", "true");
+          setLog(true)
+        // }
+      };
+
+      const connectMetaMask1 =async () => {
         if (account) {
-            logout();
-            localStorage.clear();
+          const connectorId = window.localStorage.getItem("connectorId")
+          await logout(connectorId);
+          localStorage.removeItem("connectorId");
+          localStorage.removeItem("flag");
+          setAuthStatus('')
         } else {
-            login("walletconnect");
-            setLog(true)
-            //   loginUser();
-            //   if (location.pathname !== "/") {
-            //     // setShow(false)
-            //   } else {
-            //     loginUser();
-            //   }
+          login("injected");
+          localStorage.setItem("connectorId", "injected");
+          localStorage.setItem("flag", "true");
+          setAuthStatus('signUp')
+          setLog(true)
         }
-    };
-    const connectMetaMask1 = () => {
-        localStorage.setItem("connectorId", "injected");
-        localStorage.setItem("flag", "true");
-        if (account) {
-            logout();
-        } else {
-            login("injected");
-            setLog(true)
-            // loginUser();
-            //   if (location.pathname !== "/") {
-            //     setShow(false)
-            //   } else {
-            //     loginUser();
-            //   }
-        }
-    };
+      };
 
     const loginUser = async () => {
         // let tok = localStorage.getItem("accessToken");
@@ -67,7 +82,7 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role, setRole, setinvitecode, 
             if (account && res0 && role === 'alreadymember') {
                 await axios
                     .post(`${API_URL}/auth/signin`, {
-                        walletAddress: account,
+                        walletAddress: account.toLowerCase(),
                         sign: res0,
                         rememberMe: true
                     })
@@ -118,7 +133,7 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role, setRole, setinvitecode, 
             else if (account && res0 && role === 'squadjoin') {
                 await axios
                     .post(`${API_URL}/auth/signup`, {
-                        walletAddress: account,
+                        walletAddress: account.toLowerCase(),
                         sign: res0,
                         inviteCode: invitecode,
                     })
@@ -146,7 +161,7 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role, setRole, setinvitecode, 
             else if (account && res0 && role === 'solider') {
                 await axios
                     .post(`${API_URL}/auth/signup`, {
-                        walletAddress: account,
+                        walletAddress: account.toLowerCase(),
                         sign: res0,
                     })
                     .then((res) => {
@@ -240,8 +255,6 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role, setRole, setinvitecode, 
 
                 }
                 <div className='army-textImg'>
-                    {/* <img src={armyCap} alt="armyCap" className='capImg' />
-                    <img src={armyText} alt="armyText" className='textImg' /> */}
                     <img src="\login-logo.svg" alt="img" className='img-fluid' />
                 </div>
                 <div className="mainhead">
@@ -259,6 +272,7 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role, setRole, setinvitecode, 
                 </button>
             </div>
             {/* <Freesoldier /> */}
+
         </>
     )
 }
