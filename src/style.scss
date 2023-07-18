@@ -4546,3 +4546,186 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     box-shadow: 0px 0px 10px 0px #8147FF;
     transition: width .6s ease;
 }
+
+
+// calnder range picker scss here......................
+.rs-picker-menu {
+    // top: 243.05px !important;
+    // right: 66px !important;
+    // left: unset !important;
+    border-radius: 10px;
+    background: #22252F;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.15);
+}
+
+.rs-picker-daterange-header {
+    display: none !important;
+}
+
+.rs-calendar-table-cell-content {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px !important;
+    line-height: 16px !important;
+    // letter-spacing: 0.03em;
+    color: #fff;
+}
+
+.rs-calendar-table-cell-is-today .rs-calendar-table-cell-content {
+    box-shadow: none !important;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;
+    // letter-spacing: 0.03em;
+    color: #fff;
+
+    border-radius: 7px;
+    background: #FF0083;
+    border: none;
+}
+
+.rs-btn-primary:disabled,
+.rs-btn-primary.rs-btn-disabled {
+    background: #FF0083;
+    border-radius: 8px;
+}
+
+.rs-btn-primary {
+    background: #FF0083;
+    border-radius: 8px;
+}
+
+.rs-picker-toggle {
+    border-radius: 10px;
+    border: 1px solid #343742;
+    background: #191D26;
+}
+
+.rs-picker-toggle:hover,
+.rs-picker-toggle:focus {
+    border-radius: 10px;
+    border: 1px solid #343742;
+    background: #191D26;
+}
+
+.rs-picker-toggle .rs-picker-toggle-placeholder {
+    color: #FFF;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 100%;
+}
+
+.rs-picker-toggle-active,
+.rs-picker.rs-picker-focused {
+    box-shadow: none !important;
+}
+
+.rs-calendar-table-cell-selected .rs-calendar-table-cell-content {
+    background: #FF0083 !important;
+    border-radius: 7px !important;
+    border: none !important;
+    box-shadow: none !important;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;
+    // letter-spacing: 0.03em;
+    color: #FFFFFF;
+}
+
+.rs-calendar-table-cell-content:hover {
+    background: #FF0083 !important;
+    border-radius: 7px !important;
+    border: none !important;
+    box-shadow: none !important;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;
+    // letter-spacing: 0.03em;
+    color: #FFFFFF;
+}
+
+.rs-calendar-table-cell-in-range::before {
+    background: #343841;
+}
+
+.rs-picker-menu .rs-calendar .rs-calendar-table-cell:hover .rs-calendar-table-cell-content {
+    color: #fff;
+}
+
+.rs-btn-subtle {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 24px;
+    // letter-spacing: 0.02em;
+    color: #fff;
+}
+
+.rs-picker-has-value .rs-btn .rs-picker-toggle-value,
+.rs-picker-has-value .rs-picker-toggle .rs-picker-toggle-value {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 16px;
+    color: #fff;
+}
+
+.rs-btn-link {
+    color: #ff0083;
+}
+
+.rs-picker-toggle:active,
+.rs-picker-toggle.rs-btn-active {
+    background-color: unset !important;
+}
+
+.rs-picker-toggle-textbox {
+    background-color: transparent !important;
+}
+
+.rs-picker-daterange-menu .rs-calendar:first-child {
+    border-right: 1px solid rgba(223, 230, 233, 0.10);
+}
+
+.rs-picker-toolbar {
+    border-top: 1px solid rgba(223, 230, 233, 0.10);
+}
+
+.rs-picker-toggle-textbox {
+    display: none !important;
+
+}
+
+@media (max-width:600px) {
+    .rs-picker-daterange-calendar-group {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        height: auto;
+    }
+
+    // .rs-picker-daterange-menu .rs-calendar:first-child{
+    //   min-width: 300px;
+    // }
+    // .rs-picker-menu{
+    //   top: 335px !important;
+    //   right: 30px !important;
+    // }
+    .rs-picker-menu .rs-calendar {
+        min-width: 300px !important;
+        margin: 0 auto;
+    }
+
+    .rs-picker-daterange-calendar-group {
+        min-width: 300px;
+    }
+
+    .rs-picker-daterange-menu .rs-calendar:first-child {
+        border: none !important;
+    }
+}
