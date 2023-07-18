@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import metamaskIcon from '../assets/icons/metamaskIcon.svg';
-import walletConnectIcon from '../assets/icons/walletConnectIcon.svg';
+import freesoldier from '../assets/icons/freesoldier.png';
+import joinsquad from '../assets/icons/joinsquad.png';
 // import { Link } from 'react-router-dom';
 import ConnectWallet from './ConnectWallet';
 import Invitecode from './Invitecode';
@@ -12,7 +12,6 @@ const SignUp = () => {
         setRole(rolee)
     }
     
-  
     return (
         <>
         {role === 'squadjoin' ?
@@ -31,12 +30,12 @@ const SignUp = () => {
                     <h5 className="innerhead">Sign Up</h5>
                 </div>
         <button onClick={() =>onselecttab('squadjoin')} className='metamask-btn border-grad'>
-            <img src={metamaskIcon} alt='metamaskIcon' />
+            <img src={joinsquad} alt='metamaskIcon' />
             Join Squad
         </button>
 
         <button onClick={() =>onselecttab('solider')} className='walletConnect-btn border-grad'>
-            <img src={walletConnectIcon} alt='walletConnectIcon' />
+            <img src={freesoldier} alt='walletConnectIcon' />
             Free Solider
         </button>
     </div>

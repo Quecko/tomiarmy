@@ -11,7 +11,7 @@ import HomeOperations from "../components/home/HomeOperations/HomeOperations";
 import { API_URL } from "../../utils/ApiUrl"
 import ReactApexChart from 'react-apexcharts';
 
-const Home = ({ setShow2, tasks, setShowtask, settaskdetail, setShowtask1, settaskdetail1, operations, setOperationId, users, squaddetail, statusData }) => {
+const Home = ({ setShow2, tasks, setShowtask, settaskdetail, setShowtask1, settaskdetail1, operations, setOperationId, users, squaddetail, statusData,setindexwait }) => {
 
   let total = (statusData?.ApprovedTasks / statusData?.totalTasks) * 100
   const state = {
@@ -166,7 +166,7 @@ const Home = ({ setShow2, tasks, setShowtask, settaskdetail, setShowtask1, setta
           </div>
         </div>
       </div>
-      <HomeOperations setShowtask1={setShowtask1} settaskdetail1={settaskdetail1} operations={operations} setOperationId={setOperationId} users={users} />
+      <HomeOperations setShowtask1={setShowtask1} settaskdetail1={settaskdetail1} operations={operations} setOperationId={setOperationId} users={users} setindexwait={setindexwait}/>
     </>
   );
 };
