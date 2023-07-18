@@ -164,7 +164,6 @@ const GeneralActive = ({ routes, setoperationdata, setcall, call, setroute, setS
                                 </Accordion.Item>
                             )
                         })}
-
                     </Accordion>
                 </div>
             </section>

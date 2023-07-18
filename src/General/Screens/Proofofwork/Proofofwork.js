@@ -269,8 +269,6 @@ const Proofofwork = () => {
         settaskdetail(null)
     }
 
-
-
     return (
         <>
             <div className="formobile-heading d-none display-block-in-mobile">
@@ -325,7 +323,7 @@ const Proofofwork = () => {
                                                                             </div>
                                                                         </td> */}
                                                                         <td>
-                                                                            <div style={{ maxWidth: '83px', width: '100%' }} className="completed">Completed</div>
+                                                                            <div style={{ maxWidth: '83px', width: '100%' }} className="pending">Pending</div>
                                                                         </td>
                                                                         <td>
                                                                             <div className="tbl-dropdown">
@@ -350,7 +348,7 @@ const Proofofwork = () => {
                                                                                     </Dropdown.Item> */}
                                                                                         </div>
                                                                                     </Dropdown.Menu>
-                                                                                </Dropdown>+
+                                                                                </Dropdown>
                                                                             </div>
                                                                         </td>
                                                                     </tr>
@@ -422,7 +420,7 @@ const Proofofwork = () => {
                                                                                     </Dropdown.Item> */}
                                                                                                 </div>
                                                                                             </Dropdown.Menu>
-                                                                                        </Dropdown>+
+                                                                                        </Dropdown>
                                                                                     </div>
                                                                                     {/* <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a> */}
                                                                                 </div>
