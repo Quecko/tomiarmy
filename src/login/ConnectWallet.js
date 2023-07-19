@@ -16,6 +16,8 @@ import Signature from "../hooks/dataSenders/userSign";
 import { useHistory } from "react-router-dom";
 import { useLocation } from 'react-router-dom';
 import { API_URL } from '../utils/ApiUrl'
+import { useDispatch } from "react-redux";
+import { addUer } from '../redux/action';
 
 const ConnectWallet = ({ setjoinsquad, joinsquad, role, setRole, setinvitecode, invitecode }) => {
     const { account } = useWeb3React();
@@ -23,6 +25,7 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role, setRole, setinvitecode, 
     const [log, setLog] = useState(false)
     const history = useHistory();
     const { login, logout } = useAuth();
+    const {dispatch}=useDispatch()
 
     // const trustWallet = async () => {
     //     localStorage.setItem("flag", "true");
@@ -168,6 +171,7 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role, setRole, setinvitecode, 
                         });
                         localStorage.setItem("accessToken", res?.data?.data?.accessToken);
                         localStorage.setItem("user", JSON.stringify(res?.data?.data));
+                        // dispatch(addUer(res?.data?.data));
                         history.push("/requestinvitation?id=" + role);
                     })
                     .catch((err) => {

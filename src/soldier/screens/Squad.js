@@ -10,7 +10,7 @@ import axios from 'axios';
 import { useWeb3React } from '@web3-react/core';
 import { toast } from 'react-toastify';
 
-const Squad = ({ show1, setShow1, show2, setShow2, show4, setShow4, show5, setShow5, show6, setShow6, setCoLeaderDetail }) => {
+const Squad = ({ show1, setShow1, show2, setShow2, setShow4, setShow5, setShow6, setCoLeaderDetail }) => {
   const datacommander = localStorage.getItem('user')
   const data = JSON.parse(datacommander)
   let tok = localStorage.getItem("accessToken");
@@ -136,6 +136,75 @@ const Squad = ({ show1, setShow1, show2, setShow2, show4, setShow4, show5, setSh
         // window.location.reload();
       });
   }
+
+  const kickoutFromSquad = (item) => {
+    // setShow2(true)
+    let tok = localStorage.getItem("accessToken");
+    // if (account) {
+        // window.$("#exampleModalLabel11").modal("hide");
+        var config = {
+            method: "patch",
+            url: `${API_URL}/auth/users/${item?._id}/kickout`,
+            headers: {
+                authorization: `Bearer ` + tok
+            },
+        };
+
+        axios(config)
+            .then(async (response) => {
+                toast.success("Remove From squad successfully")
+                handleClose3();
+                SquadUsers()
+            })
+            .catch(function (error) {
+                // console.log(error);
+                // window.location.reload()
+                // window.$("#exampleModalLabel11").modal("hide");
+                // setLoader(false);
+                // window.$("#exampleModalLabel11").modal("hide");
+                // if (error.response.data.statusCode == 409) {
+                //     toast.error("Squad for User already exists")
+                // }
+                // setLoader(false);
+            });
+    // }
+
+}
+
+
+const deleteCoLeader = (item) => {
+  // setShow2(true)
+  let tok = localStorage.getItem("accessToken");
+  // if (account) {
+      // window.$("#exampleModalLabel11").modal("hide");
+      var config = {
+          method: "delete",
+          url: `${API_URL}/tasks/squad-co-leaders/${item?._id}`,
+          headers: {
+              authorization: `Bearer ` + tok
+          },
+      };
+
+      axios(config)
+          .then(async (response) => {
+              toast.success("Remove From co-leader successfully")
+              handleClose3();
+              SquadUsers()
+          })
+          .catch(function (error) {
+              // console.log(error);
+              // window.location.reload()
+              // window.$("#exampleModalLabel11").modal("hide");
+              // setLoader(false);
+              // window.$("#exampleModalLabel11").modal("hide");
+              // if (error.response.data.statusCode == 409) {
+              //     toast.error("Squad for User already exists")
+              // }
+              // setLoader(false);
+          });
+  // }
+
+}
 
 
 
@@ -299,7 +368,7 @@ const Squad = ({ show1, setShow1, show2, setShow2, show4, setShow4, show5, setSh
                                                   <p onClick={() => addCoLeader(elem)}><img src='\Vector.svg' alt='img' className='img-fluid' />Promote to Co leader</p>
                                                 </Dropdown.Item>
                                                 <Dropdown.Item href="#/action-1">
-                                                  <p onClick={handleShow3}><img src='\Vector.svg' alt='img' className='img-fluid' />Dismiss</p>
+                                                  <p onClick={() => kickoutFromSquad(elem)}><img src='\Vector.svg' alt='img' className='img-fluid' />Dismiss</p>
                                                 </Dropdown.Item>
                                               </Dropdown.Menu>
                                             </Dropdown>
@@ -587,7 +656,7 @@ const Squad = ({ show1, setShow1, show2, setShow2, show4, setShow4, show5, setSh
 
                                               <Dropdown.Menu>
                                                 <Dropdown.Item href="#/action-1">
-                                                  <p onClick={handleShow}><img src='\Vector.svg' alt='img' className='img-fluid' />recruit</p>
+                                                  <p onClick={()=>deleteCoLeader(elem)}><img src='\Vector.svg' alt='img' className='img-fluid' />recruit</p>
                                                 </Dropdown.Item>
                                               </Dropdown.Menu>
                                             </Dropdown>

@@ -41,7 +41,7 @@ const AnnouncementModals = ({ showannounce, setShowannounce, getDataannou }) => 
       axios(config)
         .then(function (response) {
           getDataannou();
-          handleCloseannounce1();
+          handleCloseannounce();
           handleShowannounce1();
           // setLoader(false);
           toast.success('Message Sent Successfully', {
@@ -60,8 +60,6 @@ const AnnouncementModals = ({ showannounce, setShowannounce, getDataannou }) => 
   const [army, setArmy] = useState([]);
   const [message, setMessage] = useState("")
   const [selectedItem, setSelectedItem] = useState("All Soldiers");
-
-  console.log("sdfsdfds",selectedItem)
 
   const GetArmy = () => {
     let tok = localStorage.getItem("accessToken");

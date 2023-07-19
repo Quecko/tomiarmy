@@ -17,11 +17,13 @@ const GeneralAnnouncement = ({ setShowannounce, annou, getDataannou }) => {
 
     const deleteannouncement = (elem) => {
       
+
+        console.log('');
         let tok = localStorage.getItem("accessToken");
         // setOpens(true);
         axios
             .delete(
-                API_URL + "/notifications/announcements/user-announcements/" +
+                API_URL + "/notifications/announcements/" +
                 elem?._id,
                 { headers: { authorization: `Bearer ${tok}` } }
             )

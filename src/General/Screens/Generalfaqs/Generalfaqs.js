@@ -56,7 +56,7 @@ const Generalfaqs = ({ setShowfaq }) => {
         // } else {
         getDataannou();
         // }
-    }, [account])
+    }, [])
 
     const deletefaq = (elem) => {
         let tok = localStorage.getItem("accessToken");

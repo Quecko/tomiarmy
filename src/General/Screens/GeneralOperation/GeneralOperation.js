@@ -35,13 +35,7 @@ const GeneralOperation = ({ setroute, routes, setroutehome, routeshome, setsvaeb
             setexpired(true)
         }
     }
-    useEffect(() => {
-        // if (currentPage > 1) {
-        //     getData(currentPage);
-        // } else {
-        getData();
-        // }
-    }, [account, expired])
+ 
     const getData = async (off, dsfdsgds) => {
         // let valu = null;
         // if (off) {
@@ -52,7 +46,7 @@ const GeneralOperation = ({ setroute, routes, setroutehome, routeshome, setsvaeb
         let tok = localStorage.getItem("accessToken");
         settasks([]);
         // let wall = localStorage.getItem("wallet");
-        if (account) {
+        // if (account) {
             var config = {
                 method: "get",
                 url: `${API_URL}/tasks/operations?offset=1&&limit=100&&expired=${expired}`,
@@ -77,8 +71,16 @@ const GeneralOperation = ({ setroute, routes, setroutehome, routeshome, setsvaeb
                     // window.location.assign("/")
                     // window.location.reload();
                 });
-        }
+        // }
     }
+
+    useEffect(() => {
+        // if (currentPage > 1) {
+        //     getData(currentPage);
+        // } else {
+        getData();
+        // }
+    }, [account, expired])
 
     const Getlength = (task) => {
         const result = task?.length

@@ -55,7 +55,7 @@ const LeaderModals = ({ show4, setShow4, show5, setShow5, show6, setShow6,item }
     const addCoLeader = (item) => {
         // setShow2(true)
         let tok = localStorage.getItem("accessToken");
-        if (account) {
+        // if (account) {
             // window.$("#exampleModalLabel11").modal("hide");
             var config = {
                 method: "post",
@@ -73,7 +73,7 @@ const LeaderModals = ({ show4, setShow4, show5, setShow5, show6, setShow6,item }
                     setLoader(false);
                     toast.success("Add coleader successfully")
                     handleClose1();
-                    setLoader(false);
+                    setShow6(false)
                 })
                 .catch(function (error) {
                     // console.log(error);
@@ -82,14 +82,15 @@ const LeaderModals = ({ show4, setShow4, show5, setShow5, show6, setShow6,item }
                     // setLoader(false);
                     // window.$("#exampleModalLabel11").modal("hide");
                     if (error.response.data.statusCode == 409) {
-                        window.$("#exampleModalLabel11").modal("hide");
                         toast.error("Squad for User already exists")
                     }
                     setLoader(false);
                 });
-        }
+        // }
 
     }
+
+
 
     const inviteSquadMember = () => {
         // setShow2(true)

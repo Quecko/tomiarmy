@@ -12,15 +12,20 @@ import { API_URL } from "../../../utils/ApiUrl"
 import axios from "axios";
 import moment from "moment";
 import { toast } from "react-toastify";
+import Signature from "../../../hooks/dataSenders/userSign";
+import { useHistory } from "react-router-dom";
 import { io } from "socket.io-client";
 
 
-const Header = ({ routes, setroute, indexwait, handleShow, setShow2, setShow1, setShow4, setShow5, notifs, getNotif, getData, getDataOperation,getChat }) => {
+const Header = ({ routes, setroute, indexwait, handleShow, setShow2, setShow1, setShow4, setShow5, notifs, getNotif, getData, getDataOperation, getChat }) => {
   const datacommander = localStorage.getItem('user')
   const data = JSON.parse(datacommander)
+  const { userSign } = Signature();
   const { account } = useWeb3React();
   const [squaddetail, setsquaddetail] = useState()
   const [loader, setLoader] = useState(false)
+  const [showModal, setShowModal] = useState(false)
+  const history = useHistory();
   const GetUserProfiledata = () => {
     // setLoader(true);
     let tok = localStorage.getItem("accessToken");
@@ -78,16 +83,34 @@ const Header = ({ routes, setroute, indexwait, handleShow, setShow2, setShow1, s
       getData()
       getDataOperation()
     });
+    socket.on('Recruite_Invite', (notification) => {
+      toast.info("You are Invited to join a Squad by a Commander Please Check Your Notifications");
+      getNotif()
+    });
+    socket.on('Recruite_Invite_Accepted', (notification) => {
+      toast.info("Your Recruite Invitation has been Accepted Please Check Your Notifications");
+    });
     socket.on('Squad_Recruite_Invite', (notification) => {
       toast.info("Squad Recruite Invite Send To You Please Check Your Notifications");
       getNotif()
     });
-    socket.on('Group_Message', () => {
-          toast.info("group message chat notification");
-          getChat()
-        });
     socket.on('Squad_Recruite_Accepted', (notification) => {
       toast.info("Your Squad Recruite Accepted Please Check Your Notifications");
+    });
+    socket.on('Group_Message', () => {
+      toast.info("group message chat notification");
+      getChat()
+    });
+    socket.on('Co_Leader_Added', (notification) => {
+      toast.info("You are Promoted for Co-Leader Please Check Your Notifications");
+      getNotif()
+    });
+    socket.on('Co_Leader_Removed', (notification) => {
+      toast.info("You are Removed for as a Co-Leader Please Check Your Notifications");
+      getNotif()
+    });
+    socket.on('Veteran_kicked_out', (notification) => {
+      toast.info("You are Removed from Squad Please Check Your Notifications");
     });
 
     socket.on("disconnect", (reason) => {
@@ -123,6 +146,7 @@ const Header = ({ routes, setroute, indexwait, handleShow, setShow2, setShow1, s
         userString.memberOfSquad = response?.data?.data?.memberOfSquad;
         localStorage.setItem('user', JSON.stringify(userString));
         localStorage.setItem("accessToken", response?.data?.accessToken);
+        setShowModal(true)
         // window.location.reload();
         // updateToken();
         // window.location.reload();
@@ -131,7 +155,7 @@ const Header = ({ routes, setroute, indexwait, handleShow, setShow2, setShow1, s
         setLoader(false);
         toast.error(error?.response?.data?.message)
       });
-    // setShow1(false);
+    setShow1(false);
   }
 
 
@@ -139,6 +163,82 @@ const Header = ({ routes, setroute, indexwait, handleShow, setShow2, setShow1, s
     // getNotif()
     GetUserProfiledata()
   }, [account]);
+
+  const loginUser = async () => {
+    // let tok = localStorage.getItem("accessToken");
+    // let wall = localStorage.getItem("wallet");
+    // setShow(false);
+    if (account) {
+      const res0 = await userSign(account);
+      if (account && res0) {
+        await axios
+          .post(`${API_URL}/auth/signin`, {
+            walletAddress: account.toLowerCase(),
+            sign: res0,
+            rememberMe: true
+          })
+          .then((res) => {
+            toast.success('User Logged in Successfully', {
+              position: 'top-center',
+              autoClose: 5000,
+            });
+            localStorage.setItem("accessToken", res?.data?.data?.accessToken);
+            localStorage.setItem("user", JSON.stringify(res?.data?.data));
+            setShowModal(false)
+            window.location.reload()
+          })
+          .catch((err) => {
+            if (err?.response?.data?.statusCode === 404) {
+              toast.error('No User Found', {
+                position: 'top-center',
+                autoClose: 5000,
+              });
+              localStorage.removeItem("connectorId");
+              localStorage.removeItem("flag");
+              // setShow(false);
+              localStorage.removeItem("accessToken");
+              localStorage.removeItem("user");
+              localStorage.removeItem("wallet");
+              history.push("/")
+            }
+            localStorage.removeItem("connectorId");
+            localStorage.removeItem("flag");
+          });
+      }
+    }
+    else {
+      toast.error('Wallet Not Connected', {
+        position: 'top-center',
+        autoClose: 5000,
+      });
+    }
+    // else {
+    //     let user1 = localStorage.getItem("user");
+    //     user1 = JSON.parse(user1);
+    //     setUser(user1);
+    //     if (call !== undefined) {
+    //         setCall(true);
+    //     }
+    //     if (user1?.rank === "general" || user1?.rank === "major general") {
+    //         history.push("/general");
+    //         getData();
+    //         GetArmy();
+    //     } else if (user1?.rank === "squad member") {
+    //         history.push("/squad");
+    //         GetTaskss();
+    //         GetUserProfiledata();
+    //         GetOpts();
+    //         GetTasks();
+    //         vateransApi();
+    //     }
+    //     window.scrollTo(0, 0);
+    // }
+  };
+
+  const SignUp = () => {
+    loginUser()
+    // window.location.reload()
+  }
 
 
 
@@ -248,19 +348,46 @@ const Header = ({ routes, setroute, indexwait, handleShow, setShow2, setShow1, s
                     {notifs?.length > 0 ?
                       <>
                         {notifs?.map((item, index) => {
-                          const metadataString = item.notification.metadata;
-                          const squadId = metadataString?.substring(metadataString.indexOf('squadId":"') + 10, metadataString.indexOf('"}'));
+                          // const squadId = metadataString?.substring(metadataString.indexOf('squadId":"') + 10, metadataString.indexOf('"}'));
+                          const extractCoLeaderValue = (metadataString) => {
+                            return metadataString.includes('"coLeaderAdded":true');
+                          }
+                          const extractCoLeaderValueRemoved = (metadataString) => {
+                            return metadataString.includes('"coLeaderRemoved":true');
+                          }
+                          const extractSquadIdValue = (metadataString) => {
+                            const squadIdSubstring = '"squadId":"';
+                            if (metadataString.includes(squadIdSubstring)) {
+                              const startIndex = metadataString.indexOf(squadIdSubstring) + squadIdSubstring.length;
+                              const endIndex = metadataString.indexOf('"', startIndex);
+                              return metadataString.substring(startIndex, endIndex);
+                            }
+                            return undefined;
+                          }
+                          const coLeaderAdded = extractCoLeaderValue(item?.notification?.metadata);
+                          const coLeaderRemoved = extractCoLeaderValueRemoved(item?.notification?.metadata);
+                          const squadId = extractSquadIdValue(item?.notification?.metadata);
                           return (
                             <div className="inner-div border-grad">
                               <div className="upper-text">
-                                <h6>Join DC SQUAD Again</h6>
+                                {/* <h6>Join DC SQUAD Again</h6> */}
                                 <p><span></span>{moment(item?.createdAt).fromNow()}</p>
                               </div>
                               <p className="para">{item?.notification?.message}</p>
-                              {squadId?.length > 20 &&
+                              {squadId &&
                                 <div className="twice-btn">
-                                  <button className="btn-reject"><img src="\assets\reject-icon.svg" alt="img" className="img-fluid me-2" />Reject</button>
+                                  {/* <button className="btn-reject"><img src="\assets\reject-icon.svg" alt="img" className="img-fluid me-2" />Reject</button> */}
                                   <button className="btn-accept" onClick={() => AcceptInvite(item)}><img src="\assets\checkmark.svg" alt="img" className="img-fluid me-2" />Accept</button>
+                                </div>
+                              }
+                              {coLeaderAdded == true &&
+                                <div className="twice-btn">
+                                  <button className="btn-accept" onClick={() => SignUp()}><img src="\assets\checkmark.svg" alt="img" className="img-fluid me-2" />Sign up</button>
+                                </div>
+                              }
+                               {coLeaderRemoved == true &&
+                                <div className="twice-btn">
+                                  <button className="btn-accept" onClick={() => SignUp()}><img src="\assets\checkmark.svg" alt="img" className="img-fluid me-2" />Sign up</button>
                                 </div>
                               }
                             </div>
@@ -435,6 +562,25 @@ const Header = ({ routes, setroute, indexwait, handleShow, setShow2, setShow1, s
           </button>
         </div>
       </div>
+
+      {/* sign moodal */}
+      <Modal className='detailmodal' show={showModal} centered>
+        {/* <Modal.Header closeButton>
+        </Modal.Header> */}
+        <Modal.Body>
+          <div className='imagesmodal'>
+            <img src='\imagesmodals.svg' alt='img' className='img-fluid' />
+            <p>Your Squad Recruite Accepted Please</p>
+            {/* <p>Are you sure you want to leave this squad?</p> */}
+          </div>
+          <div className='endbtn'>
+            {/* <button  className="btn-blackk" ><span><img src='\Subtract.svg' alt='img' className='img-fluid' /></span>Cancel</button> */}
+            <button onClick={SignUp} className="btn-pinkk" ><img src='\up.svg' alt='img' className='img-fluid' />Sign In</button>
+          </div>
+        </Modal.Body>
+      </Modal>
+
+
     </>
   );
 };

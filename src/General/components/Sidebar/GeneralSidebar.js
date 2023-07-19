@@ -54,7 +54,7 @@ const GeneralSidebar = () => {
     // }
     let tok = localStorage.getItem("accessToken");
     // let wall = localStorage.getItem("wallet");
-    if (account) {
+    // if (account) {
       var config = {
         method: "get",
         url: `${API_URL}/tasks?offset=1&&limit=100&&expired=${expired}`,
@@ -78,7 +78,7 @@ const GeneralSidebar = () => {
           // window.location.assign("/")
           // window.location.reload();
         });
-    }
+    // }
   }
 
   const getDataannou = async (off, dsfdsgds) => {
@@ -90,7 +90,7 @@ const GeneralSidebar = () => {
     // }
     let tok = localStorage.getItem("accessToken");
     // let wall = localStorage.getItem("wallet");
-    if (account) {
+    // if (account) {
       var config = {
         method: "get",
         url: `${API_URL}/notifications/announcements?offset=1&&limit=100`,
@@ -114,7 +114,7 @@ const GeneralSidebar = () => {
           // window.location.assign("/")
           // window.location.reload();
         });
-    }
+    // }
   }
 
 
@@ -212,9 +212,9 @@ const GeneralSidebar = () => {
           <div className="sidebar-column web-sidebar p-0">
             <div className="sidebar-wrapper ">
               <div className="logo-box">
-                <Link to={"/soldier"}>
+                {/* <Link to={"/"}> */}
                   <img src={logo} alt="" />
-                </Link>
+                {/* </Link> */}
                 <div className="sidebar-divider"></div>
               </div>
               <div className="sidebar-wrapper-inner">
@@ -614,7 +614,7 @@ const GeneralSidebar = () => {
             {indexwait == 0 ?
               (
                 <>
-                  <GeneralHome setShowtask={setShowtask} routeshome={routeshome} setroutehome={setroutehome} />
+                  <GeneralHome setShowtask={setShowtask} routeshome={routeshome} setroutehome={setroutehome}  />
                 </>
               )
               :

@@ -12,7 +12,6 @@ import { Accordion, Dropdown, Pagination, Tab, Table, Tabs } from 'react-bootstr
 import dosts from "../../../assets/icons/dots.svg";
 const CreateOperation = ({ svaebutton, setroutehome, routeshome, setexpired, tasks, getData, call, operationdata, routes, setoperationdata, setroute }) => {
     console.log("sdfsdfsdf", routeshome)
-
     const [show, setShow] = useState(false);
     const handleClose = () => {
         setEditableTask(null)

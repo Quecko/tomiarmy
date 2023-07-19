@@ -1,20 +1,40 @@
-let initState = {
-  GetUserAll: [],
-};
+// let initState = {};
+
+// export const UserReducer = (state = initState, action) => {
+//   const { type, payload } = action; //object destructring
+//   switch (type) {
+//     case "GETUSER":
+//       return {
+//         ...state,
+//         GetUserAll: payload,
+//       };
+//     case "USER_REWARD":
+      
+//       return {
+//         ...state,
+//         reward: payload,
+//       };
+
+//     default:
+//       return state;
+//   }
+// };
+
+
+let initState = {};
 
 export const UserReducer = (state = initState, action) => {
   const { type, payload } = action; //object destructring
   switch (type) {
-    case "GETUSER":
+    case "ADD_USER":
       return {
         ...state,
-        GetUserAll: payload,
+        user: payload,
       };
-    case "USER_REWARD":
-      
+    case "REMOVE_USER":
       return {
         ...state,
-        reward: payload,
+        user: payload,
       };
 
     default:

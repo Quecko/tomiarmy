@@ -135,10 +135,6 @@ const CreateTaskModals = ({ showtask, setShowtask, getData }) => {
           axios(config)
             .then(function (response) {
               setLoader(false);
-              toast.success('Task Created Successfully', {
-                position: "top-right",
-                autoClose: 2000,
-              });
               getData()
               setStartDate()
               setProfilePicture(null)
@@ -146,6 +142,10 @@ const CreateTaskModals = ({ showtask, setShowtask, getData }) => {
               setProfileP(null)
               setdocfilep(null)
               ClearAll();
+              toast.success('Task Created Successfully', {
+                position: "top-right",
+                autoClose: 2000,
+              });
               if (type === 'basic') {
                 handleClosetask1();
                 handleShowtask3();
@@ -232,7 +232,7 @@ const CreateTaskModals = ({ showtask, setShowtask, getData }) => {
               </div>
               <div className="option-field">
                 <label>Reward Points</label>
-                <input value={allFormData?.reward} name="reward" onChange={handleChange} type="text" placeholder="Enter reward points...." />
+                <input value={allFormData?.reward} name="reward" onChange={handleChange} type="number" placeholder="Enter reward points...." />
               </div>
             </div>
             <div className="twice-field">
