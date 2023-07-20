@@ -496,10 +496,9 @@ const HomeOperations = ({ setShowtask1, settaskdetail1, operations, setOperation
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
                     {topSquad?.map((elem) => {
                       return (
-                        <>
+                        <tr>
                           <td>
                             <div className="parent">
                               <div className="profile">
@@ -517,13 +516,9 @@ const HomeOperations = ({ setShowtask1, settaskdetail1, operations, setOperation
                           <td>
                             <button className={elem?.squad_invitation_requests ? 'btn-requested' : 'btn-requestjoin'} onClick={() => SendInvite(elem?._id)}>{elem?.squad_invitation_requests ? 'Requested' : 'Request to join'}</button>
                           </td>
-                        </>
+                        </tr>
                       )
                     })}
-
-
-                  </tr>
-
                 </tbody>
               </table>
             </div>

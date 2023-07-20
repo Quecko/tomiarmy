@@ -164,6 +164,26 @@ const Header = ({ routes, setroute, indexwait, handleShow, setShow2, setShow1, s
     GetUserProfiledata()
   }, [account]);
 
+
+  const updateNotifications = (item) => {
+    let tok = localStorage.getItem("accessToken");
+    var config = {
+      method: "patch",
+      url: `${API_URL}/notifications/user-notifications/${item?.notification?.id}`,
+      headers: {
+        authorization: `Bearer ` + tok
+      },
+
+    };
+    axios(config)
+      .then(function (response) {
+        loginUser()
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
+
   const loginUser = async () => {
     // let tok = localStorage.getItem("accessToken");
     // let wall = localStorage.getItem("wallet");
@@ -178,10 +198,10 @@ const Header = ({ routes, setroute, indexwait, handleShow, setShow2, setShow1, s
             rememberMe: true
           })
           .then((res) => {
-            toast.success('User Logged in Successfully', {
-              position: 'top-center',
-              autoClose: 5000,
-            });
+            // toast.success('User Logged in Successfully', {
+            //   position: 'top-center',
+            //   autoClose: 5000,
+            // });
             localStorage.setItem("accessToken", res?.data?.data?.accessToken);
             localStorage.setItem("user", JSON.stringify(res?.data?.data));
             setShowModal(false)
@@ -348,18 +368,28 @@ const Header = ({ routes, setroute, indexwait, handleShow, setShow2, setShow1, s
                     {notifs?.length > 0 ?
                       <>
                         {notifs?.map((item, index) => {
+                          console.log('item', item);
                           // const squadId = metadataString?.substring(metadataString.indexOf('squadId":"') + 10, metadataString.indexOf('"}'));
+                         
                           const extractCoLeaderValue = (metadataString) => {
-                            return metadataString.includes('"coLeaderAdded":true');
+                            const coLeaderAddedSubstring = '"coLeaderAdded":"';
+                            if (coLeaderAddedSubstring?.includes) {
+                              return metadataString?.includes('"coLeaderAdded":true');
+                            }
+                            return undefined
                           }
                           const extractCoLeaderValueRemoved = (metadataString) => {
-                            return metadataString.includes('"coLeaderRemoved":true');
+                            const coLeaderAddedSubstring = '"coLeaderRemoved":"';
+                            if (coLeaderAddedSubstring?.includes) {
+                              return metadataString?.includes('"coLeaderAdded":true');
+                            }
+                            return undefined
                           }
                           const extractSquadIdValue = (metadataString) => {
                             const squadIdSubstring = '"squadId":"';
-                            if (metadataString.includes(squadIdSubstring)) {
-                              const startIndex = metadataString.indexOf(squadIdSubstring) + squadIdSubstring.length;
-                              const endIndex = metadataString.indexOf('"', startIndex);
+                            if (metadataString?.includes(squadIdSubstring)) {
+                              const startIndex = metadataString?.indexOf(squadIdSubstring) + squadIdSubstring.length;
+                              const endIndex = metadataString?.indexOf('"', startIndex);
                               return metadataString.substring(startIndex, endIndex);
                             }
                             return undefined;
@@ -380,14 +410,14 @@ const Header = ({ routes, setroute, indexwait, handleShow, setShow2, setShow1, s
                                   <button className="btn-accept" onClick={() => AcceptInvite(item)}><img src="\assets\checkmark.svg" alt="img" className="img-fluid me-2" />Accept</button>
                                 </div>
                               }
-                              {coLeaderAdded == true &&
+                              {coLeaderAdded == true && item?.isRead == false &&
                                 <div className="twice-btn">
-                                  <button className="btn-accept" onClick={() => SignUp()}><img src="\assets\checkmark.svg" alt="img" className="img-fluid me-2" />Sign up</button>
+                                  <button className="btn-accept" onClick={() => updateNotifications(item)}><img src="\assets\checkmark.svg" alt="img" className="img-fluid me-2" />Sign up</button>
                                 </div>
                               }
-                               {coLeaderRemoved == true &&
+                              {coLeaderRemoved == true && item?.isRead == false &&
                                 <div className="twice-btn">
-                                  <button className="btn-accept" onClick={() => SignUp()}><img src="\assets\checkmark.svg" alt="img" className="img-fluid me-2" />Sign up</button>
+                                  <button className="btn-accept" onClick={() => updateNotifications(item)}><img src="\assets\checkmark.svg" alt="img" className="img-fluid me-2" />Sign up</button>
                                 </div>
                               }
                             </div>

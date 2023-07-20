@@ -13,6 +13,7 @@ import { toast } from 'react-toastify';
 const Squad = ({ show1, setShow1, show2, setShow2, setShow4, setShow5, setShow6, setCoLeaderDetail }) => {
   const datacommander = localStorage.getItem('user')
   const data = JSON.parse(datacommander)
+  console.log('data',data?.isCommander);
   let tok = localStorage.getItem("accessToken");
   const [users, setUsers] = useState([]);
   const [show, setShow] = useState(false);
@@ -336,7 +337,6 @@ const deleteCoLeader = (item) => {
                                 </thead>
                                 <tbody>
                                   {users?.users?.map((elem, index) => {
-                                    // console("console", elem)
                                     return (
                                       <tr key={index}>
                                         <td>
@@ -358,6 +358,9 @@ const deleteCoLeader = (item) => {
                                           <p className='paratable'>+{elem?.points} POINTS</p>
                                         </td>
                                         <td>
+                                          {data?.isCommander!==true ? 
+                                          '' : 
+                                          data?.memberOfSquad==true ?
                                           <div className='dropbtn'>
                                             <Dropdown>
                                               <Dropdown.Toggle variant="success" id="dropdown-basic">
@@ -373,6 +376,7 @@ const deleteCoLeader = (item) => {
                                               </Dropdown.Menu>
                                             </Dropdown>
                                           </div>
+                                         :'' } 
                                         </td>
                                       </tr>
                                     )
