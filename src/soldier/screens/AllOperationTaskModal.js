@@ -158,7 +158,6 @@ const AllOperationTaskModal = ({ showtask1, setShowtask1, settaskdetail1, taskde
         const list = [...multiplemages];
         list.splice(index, 1)
         setmultiplemages(list);
-        console.log(list)
     };
     const handleAddClick = () => {
         setmultiplemages([...multiplemages,

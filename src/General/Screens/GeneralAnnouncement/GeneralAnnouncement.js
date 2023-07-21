@@ -16,9 +16,6 @@ import moment from "moment";
 const GeneralAnnouncement = ({ setShowannounce, annou, getDataannou }) => {
 
     const deleteannouncement = (elem) => {
-      
-
-        console.log('');
         let tok = localStorage.getItem("accessToken");
         // setOpens(true);
         axios

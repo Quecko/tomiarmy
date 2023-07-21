@@ -7,6 +7,7 @@ import store from './redux/store/index';
 import { createRoot } from 'react-dom/client'
 import { hooks as walletConnectV2Hooks, walletConnectV2 } from './connectors/walletConnectV2.js'
 import { hooks as metaMaskHooks, metaMask } from './connectors/metaMask'
+import { UserContext } from './contexts/RefreshContext';
 const connectors = [
   [walletConnectV2, walletConnectV2Hooks],
   [metaMask, metaMaskHooks]

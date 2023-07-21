@@ -114,9 +114,6 @@ const BugReport = () => {
     var result = imageUrl?.split("_")?.pop();
 
 
-    console.log('reportBug',reportBug);
-
-
     return (
         <>
             <div className="formobile-heading d-none display-block-in-mobile">

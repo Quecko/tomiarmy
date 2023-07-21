@@ -49,21 +49,12 @@ const GroupChat = ({setPage, page, setChat, chat, getChat, pages,message, setMes
 
 
   const handleScroll = () => {
-    // console.log('scroll');
     const container = chatSectionRef.current;
     let scrollTop = Math.abs(container.scrollTop);
     if (scrollTop + container.clientHeight >= container.scrollHeight - 1 && page != pages) {
       setPage(page + 1);
     }
   }
-
-
-  // get top user or member
-
-
-  // console.log("sdsdfsdfds",chat)
-
-
 
   // get top user or member
   const gettopusers = async () => {
@@ -83,7 +74,6 @@ const GroupChat = ({setPage, page, setChat, chat, getChat, pages,message, setMes
         console.log(error);
       });
   }
-
 
   const ImageHandleChange = (evt) => {
     const file = evt.target.files[0];
@@ -123,7 +113,6 @@ const GroupChat = ({setPage, page, setChat, chat, getChat, pages,message, setMes
           setImage('')
           setUploadImage('')
         }
-        // console.log('res',response);
         // setChat(response?.data?.data?.groupMessages);
       })
       .catch(function (error) {
@@ -204,8 +193,6 @@ const GroupChat = ({setPage, page, setChat, chat, getChat, pages,message, setMes
                     // else if(allowedExtensionsPdf.exec(elem?.media)){
                     //   return false
                     // }
-                    // console.log("true",allowedExtensionsImage)
-                    // console.log("false",allowedExtensionsPdf)
                     return (
                       <>
                         {elem?.user?.walletAddress === user?.walletAddress ?

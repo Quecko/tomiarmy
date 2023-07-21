@@ -76,6 +76,7 @@ const SquadModals = ({show1,setShow1, setShow2, show2, SquadUsers,GetUserProfile
               setInputs({})
               setProfilePicture(null)
               handleShow3();
+              window.location.reload()
               // setCall(!call)
               // GetUserProfiledata();
               // getData();

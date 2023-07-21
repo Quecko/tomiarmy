@@ -42,17 +42,9 @@ const useAuth = () => {
   const { toastError } = useToast();
 
   const login = async (connectorID) => {
-    console.log("---------->", connectorID);
-
-    // console.log("---------->", connectorsByName);
-
-    // console.log("AAAAAA", connectorID)
 
     const connector = connectorsByName[connectorID];
-    console.log("------hhhh---->", connector);
     if (connector) {
-    console.log("connector",connector)
-
       await connector.activate(1)
     } else {
       toastError("Can't find connector", "The connector config is wrong");
@@ -61,9 +53,7 @@ const useAuth = () => {
   };
 
   const logout = async (connectorID) => {
-    console.log("disssss",connectorID)
     const connector = connectorsByName[connectorID];
-    console.log("disssss",connector)
     if (connector) {
     if (connector?.deactivate) {
       await connector.deactivate()

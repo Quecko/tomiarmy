@@ -253,7 +253,6 @@ const GeneralHome = ({ setShowtask, setroutehome, routeshome }) => {
             .then(function (response) {
                 // setLoader(false);
                 // setCommander(response?.data?.data?.commanderWalletAddress)
-                // console.log("data11", response)
                 setUsers(response?.data?.data?.squad);
                 // let arr = Array.from(Array(parseInt(response.data.data.pages)).keys());
                 // setPages(arr);
@@ -287,13 +286,10 @@ const GeneralHome = ({ setShowtask, setroutehome, routeshome }) => {
             };
             axios(config)
                 .then(function (response) {
-                    // console.log("response for awaiting approval", response)
                     // setLoader(false);
                     // setCount2(response.data.data.count)
                     setData2(response?.data?.data?.pendingRanksUpdate);
-                    // console.log("opopopop", response.data.data.pages)
                     // let arr = Array.from(Array(parseInt(response.data.data.pages)).keys());
-                    // // console.log("opopopop", arr)
                     // setPages2(arr);
                     // setCurrentPage2(valu)
                 })
@@ -407,20 +403,16 @@ const GeneralHome = ({ setShowtask, setroutehome, routeshome }) => {
             var dateOffset = (24 * 60 * 60 * 1000) * 7; //7 days
             var myDate = new Date();
             myDate.setTime(myDate.getTime() - dateOffset);
-            // console.log("dsdssdfsdfsdf",myDate,date12)
             //     let a = new Date(datesnd)
             date = moment(myDate).utc().format('Y-MM-DDT00:00:00')
             date1 = moment(date12).utc().format('Y-MM-DDT23:59:59')
-            // console.log("dateeeee",date12,datesnd, a)
 
         }
-        // console.log("dateeeee",date,date1)
 
         axios.get(`${API_URL}/tasks/stats/army-growth?startDate=${date}&endDate=${date1}`, { headers: { "Authorization": `Bearer ${aToken}` } })
             .then((response) => {
                 setDatee([])
                 setMinted([])
-                console.log("asdfsfssd", response)
                 let dumArry = [];
                 if (rendss === 'totalsol') {
                     var data = response?.data?.data?.totalSoldiers?.data;
@@ -428,14 +420,11 @@ const GeneralHome = ({ setShowtask, setroutehome, routeshome }) => {
                 else {
                     var data = response?.data?.data?.tasksCompleted?.data;
                 }
-                // console.log("sdfdsfsdfdsfs",data)
                 let data1 = [];
                 data.map((val, i) => {
                     const sta1 = moment(val.createdAt).format("DD/MM/YYYY")
                     const sta2 = val?._id?.hour
-                    console.log("resss1", val)
                     if (dumArry !== sta1 && val?._id?.day) {
-                        console.log("sta1", sta1)
                         setFormat('day')
                         dumArry.push(sta1)
                     } else if (val?._id?.hour) {
@@ -446,7 +435,6 @@ const GeneralHome = ({ setShowtask, setroutehome, routeshome }) => {
                 })
                 setDatee(dumArry)
                 setMinted(data1)
-                console.log("asdasdas", data1)
             })
             .catch((err) => {
                 // setOpen1(false)
@@ -456,8 +444,6 @@ const GeneralHome = ({ setShowtask, setroutehome, routeshome }) => {
                 // });
             })
     }
-
-    console.log("sdfsdfsdfdsfdsf", datee)
 
     useEffect(() => {
         if (value != null) {

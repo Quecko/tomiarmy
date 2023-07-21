@@ -14,10 +14,7 @@ import useWeb3 from "../hooks/useWeb3";
 import axios from "axios";
 import Signature from "../hooks/dataSenders/userSign";
 import { useHistory } from "react-router-dom";
-import { useLocation } from 'react-router-dom';
 import { API_URL } from '../utils/ApiUrl'
-import { useDispatch } from "react-redux";
-import { addUer } from '../redux/action';
 
 const ConnectWallet = ({ setjoinsquad, joinsquad, role, setRole, setinvitecode, invitecode }) => {
     const { account } = useWeb3React();
@@ -25,7 +22,15 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role, setRole, setinvitecode, 
     const [log, setLog] = useState(false)
     const history = useHistory();
     const { login, logout } = useAuth();
-    const {dispatch}=useDispatch()
+    const [showmodal,setShowModal]=useState(false)
+
+    const forWalletConnect = () => {
+        setShowModal(true)
+        setTimeout(() => {
+            setShowModal(false)
+        }, 10000)
+      }
+    
 
     // const trustWallet = async () => {
     //     localStorage.setItem("flag", "true");
@@ -48,9 +53,12 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role, setRole, setinvitecode, 
     const trustWallet = async () => {
         // handleShow()
         if (account) {
-            await logout("walletconnect");
+            const connectorId = window.localStorage.getItem("connectorId")
+            await logout(connectorId);
+            localStorage.removeItem("connectorId");
+            localStorage.removeItem("flag");
         } else {
-            await login("walletconnect");
+            login("walletconnect");
             localStorage.setItem('connectorId', 'walletconnect');
             localStorage.setItem("flag", "true");
             setLog(true)
@@ -64,20 +72,22 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role, setRole, setinvitecode, 
             localStorage.removeItem("connectorId");
             localStorage.removeItem("flag");
         } else {
-            await login("injected");
+            login("injected");
             localStorage.setItem("connectorId", "injected");
             localStorage.setItem("flag", "true");
             setLog(true)
         }
     };
 
-    console.log('log',log);
 
     const loginUser = async () => {
         // let tok = localStorage.getItem("accessToken");
         // let wall = localStorage.getItem("wallet");
         // setShow(false);
         if (account) {
+            if (localStorage.getItem("connectorId") === "walletconnect") {
+                forWalletConnect()
+              }
             const res0 = await userSign(account);
             if (account && res0 && role === 'alreadymember') {
                 await axios
@@ -87,17 +97,13 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role, setRole, setinvitecode, 
                         rememberMe: true
                     })
                     .then((res) => {
-                        toast.success('User Logged in Successfully', {
-                            position: 'top-center',
-                            autoClose: 5000,
-                        });
                         localStorage.setItem("accessToken", res?.data?.data?.accessToken);
                         // setShow(false)
                         localStorage.setItem("user", JSON.stringify(res?.data?.data));
                         if (res?.data?.data?.rank.name === "general") {
                             history.push("/general");
                         } else if (res?.data?.data?.rank.name === "major general") {
-                            history.push("/majorgenerL");
+                            history.push("/majorgeneral");
                         }
                         else if (res?.data?.data?.isCommander === true) {
                             history.push("/leader");
@@ -108,9 +114,14 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role, setRole, setinvitecode, 
                             history.push("/soldier");
                         }
                         else {
-                            history.push("/");
+                            localStorage.clear()
+                            window.location.assign('/')
                         }
                         localStorage.setItem("wallet", account);
+                        toast.success('User Logged in Successfully', {
+                            position: 'top-center',
+                            autoClose: 5000,
+                        });
                     })
                     .catch((err) => {
                         if (err?.response?.data?.statusCode === 404) {
@@ -118,16 +129,11 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role, setRole, setinvitecode, 
                                 position: 'top-center',
                                 autoClose: 5000,
                             });
-                            localStorage.removeItem("connectorId");
-                            localStorage.removeItem("flag");
-                            // setShow(false);
-                            localStorage.removeItem("accessToken");
-                            localStorage.removeItem("user");
-                            localStorage.removeItem("wallet");
-                            history.push("/")
+                            localStorage.clear()
+                            window.location.assign('/')
                         }
-                        localStorage.removeItem("connectorId");
-                        localStorage.removeItem("flag");
+                        localStorage.clear()
+                        window.location.assign('/')
                     });
             }
             else if (account && res0 && role === 'squadjoin') {
@@ -152,10 +158,8 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role, setRole, setinvitecode, 
                             autoClose: 5000,
                         });
                         //  setShow(false);
-                        localStorage.removeItem("accessToken");
-                        localStorage.removeItem("user");
-                        localStorage.removeItem("wallet");
-                        history.push("/")
+                        localStorage.clear()
+                        window.location.assign('/')
                     });
             }
             else if (account && res0 && role === 'solider') {
@@ -180,8 +184,8 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role, setRole, setinvitecode, 
                                 position: 'top-center',
                                 autoClose: 5000,
                             });
-                            localStorage.removeItem("connectorId");
-                            localStorage.removeItem("flag");
+                            localStorage.clear()
+                            window.location.assign('/')
                             // setShow(false);
                             // localStorage.removeItem("accessToken");
                             // localStorage.removeItem("user");
@@ -194,8 +198,8 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role, setRole, setinvitecode, 
                                 autoClose: 5000,
                             });
                         }
-                        localStorage.removeItem("connectorId");
-                        localStorage.removeItem("flag");
+                        localStorage.clear()
+                        window.location.assign('/')
                     });
             }
         }
@@ -267,12 +271,28 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role, setRole, setinvitecode, 
                     MetaMask
                 </button>
 
-                <button className='walletConnect-btn border-grad'>
+                <button onClick={trustWallet} className='walletConnect-btn border-grad'>
                     <img src={walletConnectIcon} alt='walletConnectIcon' />
                     Wallet Connect
                 </button>
             </div>
             {/* <Freesoldier /> */}
+
+            <Modal className='detailmodal hgvtfhftyftyfytft' show={showmodal} centered>
+                <Modal.Header>
+                    <Modal.Title>Sign in please</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <div className='imagesmodal'>
+                        <img src='https://res.cloudinary.com/drt6vurtt/image/upload/v1689945078/Group_48095361_akaxgi.png' alt='img' className='img-fluid' />
+                        <p>Please check your connected app on your mobile for signature</p>
+                        {/* <p>Are you sure you want to leave this squad?</p> */}
+                    </div>
+                    <div className='endbtn'>
+                        <button onClick={() => setShowModal(false)} className="btn-pinkk" ><img src='\up.svg' alt='img' className='img-fluid' />ok</button>
+                    </div>
+                </Modal.Body>
+            </Modal>
 
         </>
     )

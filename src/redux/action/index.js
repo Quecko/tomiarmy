@@ -50,7 +50,6 @@ export const addUer = (user) => async (dispatch) => {
 };
 
 export const removeUser = (id)  => {
-  console.log('id',id);
   return {
     type: "REMOVE_USER",
     payload: id,

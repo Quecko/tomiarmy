@@ -39,7 +39,7 @@ const Recruiting = () => {
   const getData = async () => {
     let tok = localStorage.getItem("accessToken");
     // let wall = localStorage.getItem("wallet");
-    if (account) {
+    // if (account) {
       var config = {
         method: "get",
         url: `${API_URL}/tasks/squad-invitation-requests?offset=1&&limit=100`,
@@ -64,7 +64,7 @@ const Recruiting = () => {
           // window.location.assign("/")
           // window.location.reload();
         });
-    }
+    // }
   }
 
   useEffect(() => {

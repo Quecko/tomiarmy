@@ -30,10 +30,34 @@ import { API_URL } from '../../../utils/ApiUrl'
 import Accordion from 'react-bootstrap/Accordion';
 import ArmyForumModal from "../../screens/ArmyForumModal";
 import AllOperationTaskModal from "../../screens/AllOperationTaskModal";
+import useAuth from "../../../hooks/useAuth";
+import { useDispatch } from "react-redux";
+import { addUer } from '../../../redux/action';
 
 const Sidebar = () => {
   const datacommander = localStorage.getItem('user')
   const data = JSON.parse(datacommander)
+  // for redirect
+  useEffect(() => {
+    if (data?.isCommander == false && data?.isCoLeader == true){
+        history.push('/leader')
+    }
+    else if((data?.isCommander == true)){
+      history.push('/leader')
+    }
+    else if(data?.isCommander == false && data?.isCoLeader == false && data?.rank?.name !== 'general' && data?.rank?.name !== 'major general'){
+      history.push('/soldier')
+    }
+    else if (data?.rank?.name == 'general' && data?.isCommander == false && data?.isCoLeader == false){
+      history.push('/general')
+    }
+    else if (data?.rank?.name == 'major general' && data?.isCommander == false && data?.isCoLeader == false){
+      history.push('/majorgeneral')
+    }
+    else{
+      window.location.assign('/')
+    }
+  }, [data])
   const indexvv = localStorage.getItem("indexvalue");
   const [indexwait, setindexwait] = useState(0);
   const [routes, setroute] = useState(false);
@@ -58,7 +82,7 @@ const Sidebar = () => {
   const [squaddetail, setsquaddetail] = useState()
   const [expired, setexpired] = useState(false);
   const [expireds, setexpireds] = useState(false);
-
+  const { logout } = useAuth()
   const [chat, setChat] = useState([]);
   const [page, setPage] = useState(1)
   const [firstTime, setFirstTime] = useState(true);
@@ -69,7 +93,7 @@ const Sidebar = () => {
   const [show6, setShow6] = useState(false);
   const [notifs, setNotifs] = useState([]);
   const [rend, setRend] = useState(false);
-  const [statusData,setStatus]=useState('')
+  const [statusData, setStatus] = useState('')
 
   useEffect(() => {
     if (indexvv == "0") {
@@ -120,8 +144,11 @@ const Sidebar = () => {
     localStorage.setItem("indexvalue", asd);
   }
   const Lougout = () => {
-    localStorage.clear();
-    window.location.assign("/")
+    const connectorId = window.localStorage.getItem("connectorId")
+    logout(connectorId);
+    localStorage.setItem("flag", false)
+    localStorage.clear()
+    window.location.assign('/')
   }
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -144,76 +171,76 @@ const Sidebar = () => {
   //     loginUser();
   //   }
   // }, [account])
+  const [toggle, setToggle] = useState(true)
 
-
-  // const loginUser = async () => {
-  //   // let tok = localStorage.getItem("accessToken");
-  //   // let wall = localStorage.getItem("wallet");
-  //   // setShow(false);
-  //   if (account) {
-  //     const res0 = await userSign(account);
-  //     if (account && res0) {
-  //       await axios
-  //         .post(`${API_URL}/auth/signin`, {
-  //           walletAddress: account,
-  //           sign: res0,
-  //           rememberMe: true
-  //         })
-  //         .then((res) => {
-  //           // toast.success('User Logged in Successfully', {
-  //           //     position: 'top-center',
-  //           //     autoClose: 5000,
-  //           // });
-  //           localStorage.setItem("accessToken", res?.data?.data?.accessToken);
-  //           // setShow(false)
-  //           localStorage.setItem("user", JSON.stringify(res?.data?.data));
-  //           if (res?.data?.data?.rank.name === "general") {
-  //             history.push("/general");
-  //           } else if (res?.data?.data?.rank.name === "major general") {
-  //             history.push("/majorgenerL");
-  //           }
-  //           else if (res?.data?.data?.isCommander === true) {
-  //             history.push("/leader");
-  //           }
-  //           else if (res?.data?.data?.isCommander === false && res?.data?.data?.squad?.name !== '') {
-  //             history.push("/soldier");
-  //           } else if (res?.data?.data?.isCommander === false && res?.data?.data?.squad?.name == '') {
-  //             history.push("/soldier");
-  //           }
-  //           else {
-  //             history.push("/");
-  //           }
-  //           localStorage.setItem("wallet", account);
-  //         })
-  //         .catch((err) => {
-  //           if (err?.response?.data?.statusCode === 404) {
-  //             toast.error('No User Found', {
-  //               position: 'top-center',
-  //               autoClose: 5000,
-  //             });
-  //             localStorage.removeItem("connectorId");
-  //             localStorage.removeItem("flag");
-  //             // setShow(false);
-  //             localStorage.removeItem("accessToken");
-  //             localStorage.removeItem("user");
-  //             localStorage.removeItem("wallet");
-  //             history.push("/")
-  //           }
-  //           localStorage.removeItem("connectorId");
-  //           localStorage.removeItem("flag");
-  //         });
-  //     }
-  //     else {
-  //       history.push('/')
-  //     }
-  //   }
-  //   else {
-  //     toast.error('Wallet Not Connected', {
-  //       position: 'top-center',
-  //       autoClose: 5000,
-  //     });
-  //   }
-  // };
+  const loginUser = async () => {
+    // let tok = localStorage.getItem("accessToken");
+    // let wall = localStorage.getItem("wallet");
+    // setShow(false);
+    if (account) {
+      const res0 = await userSign(account);
+      if (res0) {
+        await axios
+          .post(`${API_URL}/auth/signin`, {
+            walletAddress: account,
+            sign: res0,
+            rememberMe: true
+          })
+          .then((res) => {
+            // toast.success('User Logged in Successfully', {
+            //     position: 'top-center',
+            //     autoClose: 5000,
+            // });
+            localStorage.setItem("accessToken", res?.data?.data?.accessToken);
+            // setShow(false)
+            setToggle(true)
+            localStorage.setItem("user", JSON.stringify(res?.data?.data));
+            if (res?.data?.data?.rank.name === "general") {
+              history.push("/general");
+            } else if (res?.data?.data?.rank.name === "major general") {
+              history.push("/majorgeneral");
+            }
+            else if (res?.data?.data?.isCommander === true) {
+              history.push("/leader");
+            }
+            else if (res?.data?.data?.isCommander === false && res?.data?.data?.squad?.name !== '') {
+              history.push("/soldier");
+            } else if (res?.data?.data?.isCommander === false && res?.data?.data?.squad?.name == '') {
+              history.push("/soldier");
+            }
+            else {
+              localStorage.clear()
+              window.location.assign('/')
+            }
+            localStorage.setItem("wallet", account);
+          })
+          .catch((err) => {
+            if (err?.response?.data?.statusCode === 404) {
+              toast.error('No User Found', {
+                position: 'top-center',
+                autoClose: 5000,
+              });
+              localStorage.clear()
+              window.location.assign('/')
+            }
+            localStorage.clear()
+            window.location.assign('/')
+          });
+      }
+      else {
+        localStorage.clear()
+        window.location.assign('/')
+      }
+    }
+    else {
+      toast.error('Wallet Not Connected', {
+        position: 'top-center',
+        autoClose: 5000,
+      });
+      localStorage.clear()
+      window.location.assign('/')
+    }
+  };
 
   const getDataOperation = async (off) => {
 
@@ -353,7 +380,7 @@ const Sidebar = () => {
   const getChat = async () => {
     let tok = localStorage.getItem("accessToken");
     // page = message!='' ?1 :page; 
-    setPage(message!='' ? 1 : page)
+    setPage(message != '' ? 1 : page)
     var config = {
       method: "get",
       url: `${API_URL}/chats/group-messages?offset=${page}&limit=10`,
@@ -364,15 +391,13 @@ const Sidebar = () => {
     axios(config)
       .then(function (response) {
         allPages(response?.data?.data?.pages)
-        if (firstTime || message!='') {
-          console.log('if');
+        if (firstTime || message != '') {
           let rev = reverse([...response?.data?.data?.groupMessages])
           setChat(rev);
           setFirstTime(false)
         }
         else {
-        console.log('else');
-        let rev = reverse([...response?.data?.data?.groupMessages])
+          let rev = reverse([...response?.data?.data?.groupMessages])
           setChat([...rev, ...chat])
         }
       })
@@ -385,28 +410,28 @@ const Sidebar = () => {
     // setLoader(true);
     let tok = localStorage.getItem("accessToken");
     // if (account) {
-      var config = {
-        method: "get",
-        url: `${API_URL}/auth/users/profile`,
-        headers: {
-          authorization: `Bearer ` + tok
-        },
-      };
-      axios(config)
-        .then(async (response) => {
-          // setLoader(false);
-          setsquaddetail(response.data.data)
-          // setcoms(response?.data?.data?.squad?.commander)
-          // setnewss(response?.data?.data?._id)
-          window.scrollTo(0, 0);
-        })
-        .catch(function (error) {
-          console.log(error);
-          // setLoader(false);
-          // localStorage.removeItem("accessToken");
-          // localStorage.removeItem("user");
-          // window.location.assign("/")
-        });
+    var config = {
+      method: "get",
+      url: `${API_URL}/auth/users/profile`,
+      headers: {
+        authorization: `Bearer ` + tok
+      },
+    };
+    axios(config)
+      .then(async (response) => {
+        // setLoader(false);
+        setsquaddetail(response.data.data)
+        // setcoms(response?.data?.data?.squad?.commander)
+        // setnewss(response?.data?.data?._id)
+        window.scrollTo(0, 0);
+      })
+      .catch(function (error) {
+        console.log(error);
+        // setLoader(false);
+        // localStorage.removeItem("accessToken");
+        // localStorage.removeItem("user");
+        // window.location.assign("/")
+      });
     // }
   }
 
@@ -414,36 +439,36 @@ const Sidebar = () => {
     // setLoader(true);
     let tok = localStorage.getItem("accessToken");
     // if (account) {
-      var config = {
-        method: "get",
-        url: `${API_URL}/tasks/task-status`,
-        headers: {
-          authorization: `Bearer ` + tok
-        },
-      };
-      axios(config)
-        .then(async (response) => {
-          // setLoader(false);
-          setStatus(response.data.data[0])
-          // setcoms(response?.data?.data?.squad?.commander)
-          // setnewss(response?.data?.data?._id)
-          window.scrollTo(0, 0);
-        })
-        .catch(function (error) {
-          console.log(error);
-          // setLoader(false);
-          // localStorage.removeItem("accessToken");
-          // localStorage.removeItem("user");
-          // window.location.assign("/")
-        });
+    var config = {
+      method: "get",
+      url: `${API_URL}/tasks/task-status`,
+      headers: {
+        authorization: `Bearer ` + tok
+      },
+    };
+    axios(config)
+      .then(async (response) => {
+        // setLoader(false);
+        setStatus(response.data.data[0])
+        // setcoms(response?.data?.data?.squad?.commander)
+        // setnewss(response?.data?.data?._id)
+        window.scrollTo(0, 0);
+      })
+      .catch(function (error) {
+        console.log(error);
+        // setLoader(false);
+        // localStorage.removeItem("accessToken");
+        // localStorage.removeItem("user");
+        // window.location.assign("/")
+      });
     // }
   }
   useEffect(() => {
     // if(datacommander?.memberOfSquad===true){
-      getChat()
-      SquadUsers()
+    getChat()
+    SquadUsers()
     // }
-}, [page])
+  }, [page])
   useEffect(() => {
     GetTaskStatusData()
     getNotif()
@@ -456,6 +481,20 @@ const Sidebar = () => {
   useEffect(() => {
     getDataOperation()
   }, [account, expired])
+
+  let walletAddress = localStorage.getItem("wallet");
+  useEffect(() => {
+    if (account == walletAddress || toggle) {
+      setToggle(false)
+    }
+    else {
+      loginUser()
+      localStorage.setItem('wallet', account)
+
+    }
+  }, [account, walletAddress])
+
+
   return (
     <>
       <div className="theme-custom-container">
@@ -670,7 +709,7 @@ const Sidebar = () => {
                       </div>
                     </a>
                   </li>
-                  {data?.memberOfSquad === true  &&
+                  {data?.memberOfSquad === true &&
                     <li>
                       <a
                         onClick={() => { hitfunctionss(5); }}
@@ -876,11 +915,11 @@ const Sidebar = () => {
             </div>
           </div>
           <div className="content-column">
-            <Header handleShow={handleShow} getChat={getChat} indexwait={indexwait} routes={routes} setroute={setroute} show1={show1} setShow1={setShow1} show2={show2} setShow2={setShow2} setShow4={setShow4} setShow5={setShow5} notifs={notifs} getNotif={getNotif} getData={getData} getDataOperation={getDataOperation}  />
+            <Header handleShow={handleShow} getChat={getChat} indexwait={indexwait} routes={routes} setroute={setroute} show1={show1} setShow1={setShow1} show2={show2} setShow2={setShow2} setShow4={setShow4} setShow5={setShow5} notifs={notifs} getNotif={getNotif} getData={getData} getDataOperation={getDataOperation} />
             {indexwait === 0 ?
               (
                 <>
-                  <Home show2={show2} setShow2={setShow2} tasks={tasks} setShowtask={setShowtask} settaskdetail={settaskdetail} setShowtask1={setShowtask1} settaskdetail1={settaskdetail1} operations={operations} setOperationId={setOperationId} users={users} squaddetail={squaddetail} statusData={statusData} setindexwait={setindexwait}/>
+                  <Home show2={show2} setShow2={setShow2} tasks={tasks} setShowtask={setShowtask} settaskdetail={settaskdetail} setShowtask1={setShowtask1} settaskdetail1={settaskdetail1} operations={operations} setOperationId={setOperationId} users={users} squaddetail={squaddetail} statusData={statusData} setindexwait={setindexwait} />
                 </>
               )
               :
@@ -919,7 +958,7 @@ const Sidebar = () => {
                       indexwait == 5 ?
                         (
                           <>
-                            <GroupChat setPage={setPage} page={page} setChat={setChat} chat={chat} getChat={getChat} pages={pages} setMessage={setMessage} message={message}/>
+                            <GroupChat setPage={setPage} page={page} setChat={setChat} chat={chat} getChat={getChat} pages={pages} setMessage={setMessage} message={message} />
                           </>
                         )
                         :

@@ -25,7 +25,11 @@ import { toast } from 'react-toastify';
 import axios from 'axios';
 import ArmyMembers from "../../Screens/GeneralArmy/ArmyMembers";
 import Accordion from 'react-bootstrap/Accordion';
-
+import useAuth from "../../../hooks/useAuth";
+import { useHistory } from "react-router-dom";
+import Signature from "../../../hooks/dataSenders/userSign";
+import { useDispatch } from "react-redux";
+import { addUer } from '../../../redux/action';
 
 const GeneralSidebar = () => {
 
@@ -33,7 +37,31 @@ const GeneralSidebar = () => {
   const [tasks, settasks] = useState([]);
   const [annou, setannou] = useState([]);
   let user1 = localStorage.getItem("user");
-  user1 = JSON.parse(user1);
+  let user = JSON.parse(user1);
+   // for redirect
+   useEffect(() => {
+    if (user?.rank?.name == 'general' && user?.isCommander == false && user?.isCoLeader == false) {
+      history.push('/general')
+    }
+    else if (user?.rank?.name == 'major general' && user?.isCommander == false && user?.isCoLeader == false){
+      history.push('/majorgeneral')
+    }
+   else if (user?.isCommander == false && user?.isCoLeader == true){
+      history.push('/leader')
+  }
+  else if(user?.isCommander == true){
+    history.push('/leader')
+  }
+  else if(user?.isCommander == false && user?.isCoLeader == false){
+    history.push('/soldier')
+  }
+    else {
+      window.location.assign('/')
+    }
+  }, [user])
+  const {logout}=useAuth()
+  const {userSign}=Signature()
+  const history = useHistory();
   const [expired, setexpired] = useState(false);
   const { account } = useWeb3React();
   useEffect(() => {
@@ -187,6 +215,9 @@ const GeneralSidebar = () => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const dispatch = useDispatch()
+  const [toggle, setToggle] = useState(true)
+  
   const sidebar = () => {
     if (show === true) {
       setShow(false);
@@ -194,16 +225,98 @@ const GeneralSidebar = () => {
       setShow(true);
     }
   };
-
   const Lougout = () => {
-    localStorage.clear();
-    window.location.assign("/")
+    const connectorId = window.localStorage.getItem("connectorId")
+    logout(connectorId);
+    localStorage.setItem("flag", false)
+    localStorage.clear()
+    window.location.assign('/')
   }
   // pass all states in header or components to show modals..............................
 
   const [showtask, setShowtask] = useState(false);
   const [showannounce, setShowannounce] = useState(false);
   const [showfaq, setShowfaq] = useState(false);
+
+  const loginUser = async () => {
+    // let tok = localStorage.getItem("accessToken");
+    // let wall = localStorage.getItem("wallet");
+    // setShow(false);
+    if (account) {
+      const res0 = await userSign(account);
+      if (res0) {
+        await axios
+          .post(`${API_URL}/auth/signin`, {
+            walletAddress: account,
+            sign: res0,
+            rememberMe: true
+          })
+          .then((res) => {
+            // toast.success('User Logged in Successfully', {
+            //     position: 'top-center',
+            //     autoClose: 5000,
+            // });
+            localStorage.setItem("accessToken", res?.data?.data?.accessToken);
+            dispatch(addUer(res?.data?.data))
+            setToggle(true)
+            localStorage.setItem("user", JSON.stringify(res?.data?.data));
+            if (res?.data?.data?.rank.name === "general") {
+              history.push("/general");
+            } else if (res?.data?.data?.rank.name === "major general") {
+              history.push("/majorgeneral");
+            }
+            else if (res?.data?.data?.isCommander === true) {
+              history.push("/leader");
+            }
+            else if (res?.data?.data?.isCommander === false && res?.data?.data?.squad?.name !== '') {
+              history.push("/soldier");
+            } else if (res?.data?.data?.isCommander === false && res?.data?.data?.squad?.name == '') {
+              history.push("/soldier");
+            }
+            else {
+              localStorage.clear()
+              window.location.assign('/')
+            }
+            localStorage.setItem("wallet", account);
+          })
+          .catch((err) => {
+            if (err?.response?.data?.statusCode === 404) {
+              toast.error('No User Found', {
+                position: 'top-center',
+                autoClose: 5000,
+              });
+              localStorage.clear()
+              window.location.assign('/')
+            }
+            localStorage.clear()
+            window.location.assign('/')
+          });
+      }
+      else {
+        localStorage.clear()
+        window.location.assign('/')
+      }
+    }
+    else {
+      toast.error('Wallet Not Connected', {
+        position: 'top-center',
+        autoClose: 5000,
+      });
+    }
+  };
+  let walletAddress = localStorage.getItem("wallet");
+  //  code metamask switch wallet
+  useEffect(() => {
+    if (account?.toString() == walletAddress?.toString() || toggle) {
+      setToggle(false)
+    }
+    else {
+      loginUser()
+      localStorage.setItem('wallet', account)
+
+    }
+  }, [account, walletAddress])
+
 
   return (
     <>
@@ -316,7 +429,7 @@ const GeneralSidebar = () => {
                       <span>Proof of Work</span>
                     </a>
                   </li>
-                  {user1?.rank?.name === "general" ? (
+                  {user?.rank?.name === "general" ? (
                     <li>
                       <a
                         onClick={() => { hitfunctionss(5); }}

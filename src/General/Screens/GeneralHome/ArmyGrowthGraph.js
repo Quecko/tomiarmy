@@ -4,7 +4,6 @@ import ReactApexChart from 'react-apexcharts';
 
 const ArmyGrowthGraph = (datee, minte, rendss) => {
   const datnew = datee;
-  console.log("mintvaluee", datnew)
   var format = datnew.format
   var dateee = datnew?.date
   var mintee = datnew.minte
@@ -15,11 +14,6 @@ const ArmyGrowthGraph = (datee, minte, rendss) => {
   else{
     var rendervalue = 'Total Soldiers'
   }
-  console.log("datevaluee", dateehour)
-
-
-  // const [mintee] = [minte]
-  // console.log("wwwerwerweweewreew",mintee)
 
   const state = {
 

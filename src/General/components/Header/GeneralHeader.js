@@ -10,7 +10,6 @@ import Modal from 'react-bootstrap/Modal';
 const GeneralHeader = ({ routes, setroute, routeshome, setroutehome, indexwait, handleShow, routesarmy, setroutearmy, setShowtask, showtask, showannounce, setShowannounce, showfaq, setShowfaq }) => {
   let user1 = localStorage.getItem("user");
   user1 = JSON.parse(user1);
-  console.log("sdsadsada",user1)
   return (
     <>
       <div

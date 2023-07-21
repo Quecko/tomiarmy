@@ -11,16 +11,12 @@ import Modal from 'react-bootstrap/Modal';
 import { Accordion, Dropdown, Pagination, Tab, Table, Tabs } from 'react-bootstrap'
 import dosts from "../../../assets/icons/dots.svg";
 const CreateOperation = ({ svaebutton, setroutehome, routeshome, setexpired, tasks, getData, call, operationdata, routes, setoperationdata, setroute }) => {
-    console.log("sdfsdfsdf", routeshome)
     const [show, setShow] = useState(false);
     const handleClose = () => {
         setEditableTask(null)
         setShow(false)
     };
     const handleShow = () => setShow(true);
-
-    console.log(' operationdata', operationdata);
-
     const [showtask, setShowtask] = useState(false);
     const handleClosetask = () => setShowtask(false);
     const handleShowtask = () => setShowtask(true);
@@ -338,8 +334,6 @@ const CreateOperation = ({ svaebutton, setroutehome, routeshome, setexpired, tas
         setroutehome(!routeshome)
         setroute(!routes)
     }
-
-    console.log('wedfwefsdf', routeshome, routes);
     var tasklentthfind = tasks?.length
 
     return (

@@ -15,6 +15,7 @@ import { toast } from "react-toastify";
 import Signature from "../../../hooks/dataSenders/userSign";
 import { useHistory } from "react-router-dom";
 import { io } from "socket.io-client";
+import useAuth from "../../../hooks/useAuth";
 
 
 const Header = ({ routes, setroute, indexwait, handleShow, setShow2, setShow1, setShow4, setShow5, notifs, getNotif, getData, getDataOperation, getChat }) => {
@@ -260,8 +261,6 @@ const Header = ({ routes, setroute, indexwait, handleShow, setShow2, setShow1, s
     // window.location.reload()
   }
 
-
-
   return (
     <>
       <div
@@ -368,9 +367,7 @@ const Header = ({ routes, setroute, indexwait, handleShow, setShow2, setShow1, s
                     {notifs?.length > 0 ?
                       <>
                         {notifs?.map((item, index) => {
-                          console.log('item', item);
                           // const squadId = metadataString?.substring(metadataString.indexOf('squadId":"') + 10, metadataString.indexOf('"}'));
-                         
                           const extractCoLeaderValue = (metadataString) => {
                             const coLeaderAddedSubstring = '"coLeaderAdded":"';
                             if (coLeaderAddedSubstring?.includes) {

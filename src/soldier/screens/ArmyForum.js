@@ -480,7 +480,7 @@ const ArmyForum = () => {
               <div className='col-xl-3 col-12 pe-0 padd-sm'>
                 <div className='members-section border-grad1 display-none-in-mobile'>
                   <div className="tophead">
-                    <h6>Members <span>{topuser?.length}</span></h6>
+                    <h6>Members <span>({topuser?.length})</span></h6>
                   </div>
                   <div className="option-field">
                     <img src="\assets\search-icon.svg" alt="img" className="img-fluid search-icon" />

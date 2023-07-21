@@ -20,7 +20,7 @@
     }
     background-color: #22252F;
     position: relative;
-    z-index: 99;
+    z-index: 50;
     overflow: hidden;
     min-height: 100vh;
     display: flex;
@@ -552,3 +552,41 @@
 .asdasfafas{
     opacity: 0.2;
 }
+
+#wcm-modal{
+    z-index: 111111111111!important;
+}
+.wcm-overlay{
+    z-index: 1111111111111!important;
+}
+
+.hgvtfhftyftyfytft {
+    .modal-dialog .modal-content .modal-header .modal-title{
+        font-weight: 900;
+        font-size: 30px;
+    }
+    .modal-header{
+        justify-content: center!important;
+    }
+     .modal-dialog .modal-content .modal-body .imagesmodal p{
+        font-size: 21px!important;
+        text-align: center!important;
+        line-height: 122%!important;
+    }
+     .modal-dialog{
+        max-width: 550px!important;
+    }
+   .modal-dialog .modal-content .modal-body {
+        padding: 0px 30px 23px 30px!important;
+    }
+    .imagesmodal{
+        img{
+            width: 150px!important;
+        }
+    }
+    .modal-dialog .modal-content{
+        min-height: auto!important;
+    }
+}
+
+

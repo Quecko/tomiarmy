@@ -73,7 +73,7 @@
 
 
 import { useWeb3React } from "@web3-react/core";
-import { useCallback, useEffect } from "react";
+import { useCallback } from "react";
 // import Web3 from "web3";
 import { getLibraryForSign } from "../../utils/web3React";
 import 'react-toastify/dist/ReactToastify.css';
@@ -97,7 +97,6 @@ export const Signature = (data) => {
   const sign = useCallback(async (accountData) => {
     if ((library && account)) {
       try {
-        if (account) {
           const connectorId = window.localStorage.getItem("connectorId")
           if (connectorId === 'injected') {
             library = getLibraryForSign(web3?.givenProvider);
@@ -110,9 +109,8 @@ export const Signature = (data) => {
           );  
           return signature
         }
-      }
       catch (error) {
-        throw error
+        return false
       }
     }
   }, [account, library, data])

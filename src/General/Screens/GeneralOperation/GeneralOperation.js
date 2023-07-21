@@ -88,7 +88,6 @@ const GeneralOperation = ({ setroute, routes, setroutehome, routeshome, setsvaeb
     }
 
     const operationedit = (elem) => {
-        console.log("sdfsdfdsfdsfsdf")
         setcall(false)
         setoperationdata(elem)
         setroute(!routes)
