@@ -266,7 +266,7 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role, setRole, setinvitecode, 
                     <h5 className="innerhead">Connect Wallet</h5>
                 </div>
 
-                <button onClick={connectMetaMask1} className='metamask-btn border-grad'>
+                <button onClick={connectMetaMask1} className='metamask-btn ygdshgdsaygdasuygd border-grad'>
                     <img src={metamaskIcon} alt='metamaskIcon' />
                     MetaMask
                 </button>
