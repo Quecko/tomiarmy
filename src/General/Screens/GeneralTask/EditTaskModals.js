@@ -262,7 +262,7 @@ const EditTaskModals = ({ showtaskdetail, setShowtaskdetail, showtaskedit, setSh
             )}
           </div>
           <div className='endbtn'>
-            <button className='btn-blackk'><span><img src='\generalassets\icons\btn-delete.svg' alt='img' className='img-fluid' /></span>Delete</button>
+            <button className='btn-deletee'><span><img src='\generalassets\icons\btn-delete.svg' alt='img' className='img-fluid' /></span>Delete</button>
             <button className='btn-pinkk' onClick={() => {
               setShowtaskedit(true);
               handleClosetaskdetail();

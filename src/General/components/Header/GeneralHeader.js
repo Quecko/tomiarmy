@@ -50,7 +50,7 @@ const GeneralHeader = ({ routes, setroute, routeshome, setroutehome, indexwait, 
                   "":
                   <div className="soldier-name">
                     <h4>Operations</h4>
-                    <p>VIEW AND complete operations</p>
+                    <p>VIEW AND CREATE operations FOR YOUR ARMY</p>
                   </div>
               }
             </>

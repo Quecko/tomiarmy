@@ -1,4 +1,5 @@
 @import "rsuite/dist/rsuite.css";
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap');
 
 
 
@@ -96,7 +97,7 @@ h6 {
 body {
     background: #22252F !important;
     color: white;
-    font-family: 'Rajdhani' !important;
+    font-family: 'Rajdhani', sans-serif !important;
 }
 
 .App {
@@ -909,6 +910,7 @@ table {
             display: flex;
             margin-bottom: 20px;
             align-items: center;
+            height: 84px;
 
             img {
                 width: 44px;
@@ -1327,10 +1329,25 @@ table {
                                     // }
 
                                     .dropdown-menu {
-                                        background: #22252F;
-                                        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
                                         border-radius: 10px;
+                                        background: #22252F;
+                                        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.15);
                                         padding: 5px;
+                                        min-width: 88px;
+                                        a{
+                                            padding: 0 !important;
+                                            p{
+                                                padding: 7px 5px !important;
+                                            border-bottom: 1px solid #343742 !important;
+                                            margin: 0 !important;
+                                            &:last-child{
+                                                border-bottom: none !important;
+                                            }
+                                            }
+                                            &:focus{
+                                                background-color: transparent !important;
+                                            }
+                                        }
 
                                     }
 
@@ -1791,6 +1808,27 @@ table {
                             box-shadow: 0px 3px 1px #1B1F25;
                             border-radius: 10px;
                         }
+                    }
+
+                    .btn-deletee{
+                        border: none;
+                        border-radius: 10px;
+                        border-bottom: 1px solid #F95D5D;
+                        background: linear-gradient(180deg, rgba(255, 255, 255, 0.35) 0%, rgba(255, 255, 255, 0.00) 100%), #FB2F2F;
+                        box-shadow: 0px 3px 1px 0px #A31818;
+                        padding: 14px 20px;
+                        width: 100%;
+                        font-style: normal;
+                        font-weight: 600;
+                        font-size: 14px;
+                        line-height: 100%;
+                        letter-spacing: 0.01em;
+                        color: #FFFFFF;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        gap: 10px;
+                        white-space: nowrap;
                     }
 
                     .btn-pinkk {
@@ -3812,7 +3850,7 @@ tr td:last-child {
                 padding: 5px 10px;
                 font-family: 'Rajdhani';
                 font-style: normal;
-                font-weight: 800;
+                font-weight: 600;
                 font-size: 14px;
                 line-height: 100%;
                 letter-spacing: 0.01em;
@@ -4487,6 +4525,9 @@ tr td:last-child {
 }
 
 thead th:last-child {
+    text-align: end !important;
+}
+tbody td:last-child{
     text-align: end !important;
 }
 
