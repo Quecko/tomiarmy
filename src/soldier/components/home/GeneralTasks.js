@@ -26,7 +26,8 @@ const GeneralTasks = ({ setShowtask, settaskdetail, tasks }) => {
           </tr>
         </thead>
         <tbody>
-          {tasks?.slice(0, 5).map((elem, index) => {
+          {tasks?.length>0 ?
+          tasks?.slice(0, 5).map((elem, index) => {
             let expiredate = new Date(elem?.expirationDate);
             const ExpireDate = moment(expiredate).format("DD-MM-YYYY");
             let createdate = new Date(elem?.createdAt);
@@ -66,115 +67,10 @@ const GeneralTasks = ({ setShowtask, settaskdetail, tasks }) => {
                 </td>
               </tr>
             )
-          })}
+          })
+        : <h4 className="ascsdvv">No Task Yet.</h4>}
         </tbody>
         <tbody>
-          {/* <tr>
-            <td>Like our facebook page</td>
-            <td>+5</td>
-            <td>
-              <div className="completed">Completed</div>
-            </td>
-            <td>12:34 12/12/23</td>
-            <td>
-              <div className="tbl-dropdown">
-                <Dropdown>
-                  <Dropdown.Toggle id="dropdown-basic">
-                    <img src={dosts} alt="dosts" />
-                  </Dropdown.Toggle>
-
-                  <Dropdown.Menu className="stats-dropdown-menu">
-                    <div className="stats-dropdown-bg">
-                      <Dropdown.Item>
-                        <img src={submitIcon} alt="submitIcon" />
-                        Submit Proof
-                      </Dropdown.Item>
-                    </div>
-                  </Dropdown.Menu>
-                </Dropdown>
-              </div>
-            </td>
-          </tr> */}
-          {/* <tr>
-            <td>Like our facebook page</td>
-            <td>+5</td>
-            <td>
-              <div className="pending">Pending</div>
-            </td>
-            <td>
-              <div className="expired">Expired</div>
-            </td>
-            <td>
-              <div className="tbl-dropdown">
-                <Dropdown>
-                  <Dropdown.Toggle id="dropdown-basic">
-                    <img src={dosts} alt="dosts" />
-                  </Dropdown.Toggle>
-
-                  <Dropdown.Menu className="stats-dropdown-menu">
-                    <div className="stats-dropdown-bg">
-                      <Dropdown.Item>
-                        <img src={submitIcon} alt="submitIcon" />
-                        Submit Proof
-                      </Dropdown.Item>
-                    </div>
-                  </Dropdown.Menu>
-                </Dropdown>
-              </div>
-            </td>
-          </tr> */}
-          {/* <tr>
-            <td>Like our facebook page</td>
-            <td>+5</td>
-            <td>
-              <div className="pending">Pending</div>
-            </td>
-            <td>12:34 12/12/23</td>
-            <td>
-              <div className="tbl-dropdown">
-                <Dropdown>
-                  <Dropdown.Toggle id="dropdown-basic">
-                    <img src={dosts} alt="dosts" />
-                  </Dropdown.Toggle>
-
-                  <Dropdown.Menu className="stats-dropdown-menu">
-                    <div className="stats-dropdown-bg">
-                      <Dropdown.Item>
-                        <img src={submitIcon} alt="submitIcon" />
-                        Submit Proof
-                      </Dropdown.Item>
-                    </div>
-                  </Dropdown.Menu>
-                </Dropdown>
-              </div>
-            </td>
-          </tr> */}
-          {/* <tr>
-            <td>Like our facebook page</td>
-            <td>+5</td>
-            <td>
-              <div className="completed">Completed</div>
-            </td>
-            <td>12:34 12/12/23</td>
-            <td>
-              <div className="tbl-dropdown">
-                <Dropdown>
-                  <Dropdown.Toggle id="dropdown-basic">
-                    <img src={dosts} alt="dosts" />
-                  </Dropdown.Toggle>
-
-                  <Dropdown.Menu className="stats-dropdown-menu">
-                    <div className="stats-dropdown-bg">
-                      <Dropdown.Item>
-                        <img src={submitIcon} alt="submitIcon" />
-                        Submit Proof
-                      </Dropdown.Item>
-                    </div>
-                  </Dropdown.Menu>
-                </Dropdown>
-              </div>
-            </td>
-          </tr> */}
           {/* <tr>
             <td>Like our facebook page</td>
             <td>+5</td>

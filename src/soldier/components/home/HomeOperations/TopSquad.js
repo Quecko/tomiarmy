@@ -6,7 +6,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const TopSquad = ({topSquad, GetUserTopSquad}) => {
+const TopSquad = ({ topSquad, GetUserTopSquad, getPrevData, getNextData, pages, currentPage,count,limit,search,setSearch,getSearchData }) => {
   let tok = localStorage.getItem("accessToken");
   const SendInvite = async (id) => {
     // e.preventDefault();
@@ -43,8 +43,11 @@ const TopSquad = ({topSquad, GetUserTopSquad}) => {
             <h6>top squads</h6>
           </div>
           <div className="option-field">
-            <input type="text" placeholder='Search' />
-            <img src="\assets\search-icon.svg" alt="img" className='img-fluid search-icon' />
+            <input value={search} onChange={(e) => setSearch(e.target.value)} type="text" placeholder='Search' />
+            {/* <img src="\assets\search-icon.svg" alt="img" className='img-fluid search-icon' /> */}
+            <button onClick={() => getSearchData(currentPage)}>Search</button>
+            <button onClick={()=>GetUserTopSquad(currentPage)}>reset</button>
+
           </div>
           <div className="maintable table-responsive display-none-in-mobile">
             <table class="table table-striped ">
@@ -90,20 +93,63 @@ const TopSquad = ({topSquad, GetUserTopSquad}) => {
                     </>
                   )
                 })}
-
-
               </tbody>
             </table>
-          </div>
+            <div className="pagi">
+              <div>
+                <p>Showing {limit} to {currentPage * 5>=count ? currentPage - (currentPage - count)  : currentPage * 5  } of {count} entries</p>
+              </div>
+              <nav className="right">
+                <ul className="pagination">
+                  <li className="page-item">
+                    <button
+                      onClick={() => getPrevData(currentPage)}
+                      className="page-link arrowssss scsdsdfefssdvsdvsd"
+                    >
+                      {/* <i className="fas curPointer fa-angle-left"></i> */}
+                      Previous
+                    </button>
+                  </li>
+                  {pages?.map((item, index) => {
+                    return (
+                      <li key={index} className="page-item cursor-pointer">
+                        <p
+                          className={
+                            "page-link " +
+                            (index + 1 === parseInt(currentPage)
+                              ? "active-pag"
+                              : "")
+                          }
+                          onClick={() => GetUserTopSquad(index + 1)}
+                          style={{ fontSize: "13px !important" }}
+                        >
+                          {index + 1}
+                        </p>
+                      </li>
+                    );
+                  })}
+                  <li className="page-item">
+                    <button
+                      onClick={() => getNextData(currentPage)}
+                      className="page-link arrowssss"
+                    >
+                      {/* <i className="fas curPointer fa-angle-right"></i> */}
+                      Next
+                    </button>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+        </div>
           <div className="mobile-responsive-table d-none display-block-in-mobile">
             <div className="heading-mobile">
               <p>Squads</p>
             </div>
-            
+
             <Accordion defaultActiveKey="">
-            {topSquad?.map((elem, index) => {
-                  return (
-                    <Accordion.Item eventKey={index}>
+              {topSquad?.map((elem, index) => {
+                return (
+                  <Accordion.Item eventKey={index}>
                     <Accordion.Header> <img src="\assets\squad-profile.png" alt="img" className='img-fluid me-2' /> {elem?.name}</Accordion.Header>
                     <Accordion.Body>
                       <div className="inner-fields">
@@ -122,7 +168,8 @@ const TopSquad = ({topSquad, GetUserTopSquad}) => {
                       </div>
                     </Accordion.Body>
                   </Accordion.Item>
-                  )})}
+                )
+              })}
             </Accordion>
           </div>
         </div>

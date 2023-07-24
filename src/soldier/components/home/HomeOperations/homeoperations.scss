@@ -931,3 +931,69 @@
         }
     }
 }
+
+
+
+.pagi {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+
+    .left {
+        p {
+            font-style: normal;
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 100%;
+            color: #81828A;
+        }
+    }
+
+    .right {
+        display: flex;
+        align-items: center;
+        gap: 22px;
+
+        p {
+            font-style: normal;
+            font-weight: 500;
+            font-size: 15px;
+            line-height: 100%;
+            color: #BFC3C7;
+        }
+
+        .pagination {
+            display: flex;
+            gap: 10px;
+
+            .page-item button{
+                cursor: pointer;
+            }
+             .page-link{
+                font-style: normal;
+                font-weight: 500;
+                font-size: 15px;
+                background-color: transparent !important;
+                line-height: 100%;
+                color: #BFC3C7;
+                width: 28px;
+                height: 27px;
+                border-radius: 5px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                border: none !important;
+            }
+
+            .page-item .page-link.active-pag {
+                background: #FF0083 !important;
+                font-style: normal;
+                font-weight: 500;
+                font-size: 15px;
+                line-height: 100%;
+                color: #FFFFFF;
+            }
+        }
+    }
+}
