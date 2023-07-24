@@ -28,14 +28,16 @@ import Accordion from 'react-bootstrap/Accordion';
 import useAuth from "../../../hooks/useAuth";
 import { useHistory } from "react-router-dom";
 import Signature from "../../../hooks/dataSenders/userSign";
-import { useDispatch } from "react-redux";
-import { addUer } from '../../../redux/action';
+
 
 const GeneralSidebar = () => {
 
   const indexvv = localStorage.getItem("indexvalue");
   const [tasks, settasks] = useState([]);
+  const [editFaqs, setEbditFaqs] = useState('');
   const [annou, setannou] = useState([]);
+  const { account } = useWeb3React();
+  const [faqs, setfaqs] = useState([]);
   let user1 = localStorage.getItem("user");
   let user = JSON.parse(user1);
    // for redirect
@@ -58,12 +60,12 @@ const GeneralSidebar = () => {
     else {
       window.location.assign('/')
     }
-  }, [user])
+  }, [account])
   const {logout}=useAuth()
   const {userSign}=Signature()
   const history = useHistory();
   const [expired, setexpired] = useState(false);
-  const { account } = useWeb3React();
+
   useEffect(() => {
     // if (currentPage > 1) {
     //     getData(currentPage);
@@ -146,6 +148,46 @@ const GeneralSidebar = () => {
   }
 
 
+  const getDataannou11 = async (off, dsfdsgds) => {
+      // let valu = null;
+      // if (off) {
+      //     valu = off;
+      // } else {
+      //     valu = 1;
+      // }
+      let tok = localStorage.getItem("accessToken");
+      // let wall = localStorage.getItem("wallet");
+
+      var config = {
+          method: "get",
+          url: `${API_URL}/content/faqs/get-faq-list?offset=1&&limit=100`,
+          headers: {
+              authorization: `Bearer ` + tok
+          },
+      };
+      axios(config)
+          .then(function (response) {
+              // setLoader(false);
+              // setCount(response.data.data.count)
+              setfaqs(response?.data?.data?.faq);
+              // let arr = Array.from(Array(parseInt(response.data.data.pages)).keys());
+              // setPages(arr);
+              // setCurrentPage(valu)
+          })
+          .catch(function (error) {
+              // setLoader(false);
+              // localStorage.removeItem("accessToken");
+              // localStorage.removeItem("user");
+              // window.location.assign("/")
+              // window.location.reload();
+          });
+
+  }
+
+  useEffect(() => {
+        getDataannou11();
+  }, [])
+
 
 
   const [indexwait, setindexwait] = useState(0);
@@ -215,7 +257,6 @@ const GeneralSidebar = () => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  const dispatch = useDispatch()
   const [toggle, setToggle] = useState(true)
   
   const sidebar = () => {
@@ -237,6 +278,8 @@ const GeneralSidebar = () => {
   const [showtask, setShowtask] = useState(false);
   const [showannounce, setShowannounce] = useState(false);
   const [showfaq, setShowfaq] = useState(false);
+  const [showfaq1, setShowfaq1] = useState(false);
+
 
   const loginUser = async () => {
     // let tok = localStorage.getItem("accessToken");
@@ -257,7 +300,6 @@ const GeneralSidebar = () => {
             //     autoClose: 5000,
             // });
             localStorage.setItem("accessToken", res?.data?.data?.accessToken);
-            dispatch(addUer(res?.data?.data))
             setToggle(true)
             localStorage.setItem("user", JSON.stringify(res?.data?.data));
             if (res?.data?.data?.rank.name === "general") {
@@ -783,7 +825,7 @@ const GeneralSidebar = () => {
                             indexwait == 8 ?
                               (
                                 <>
-                                  <Generalfaqs setShowfaq={setShowfaq} />
+                                  <Generalfaqs setShowfaq={setShowfaq}  setShowfaq1={setShowfaq1} getDataannou11={getDataannou11} faqs={faqs} setEbditFaqs={setEbditFaqs} />
                                 </>
                               )
                               :
@@ -1113,7 +1155,7 @@ const GeneralSidebar = () => {
       </Offcanvas>
       <CreateTaskModals showtask={showtask} getData={getData} setShowtask={setShowtask} />
       <AnnouncementModals getDataannou={getDataannou} showannounce={showannounce} setShowannounce={setShowannounce} />
-      <CreateFaqModal showfaq={showfaq} setShowfaq={setShowfaq} />
+      <CreateFaqModal showfaq={showfaq} setShowfaq={setShowfaq} showfaq1={showfaq1} setShowfaq1={setShowfaq1}  getDataannou11={getDataannou11} editFaqs={editFaqs} setEbditFaqs={setEbditFaqs}/>
       <EditTaskModals showtaskdetail={showtaskdetail} setdetailtask={setdetailtask} getData={getData} taskdetail={detailtask} setShowtaskdetail={setShowtaskdetail} showtaskedit={showtaskedit} setShowtaskedit={setShowtaskedit} />
     </>
   );

@@ -13,7 +13,7 @@ import { Modal } from 'react-bootstrap';
 import { io } from "socket.io-client";
 import { useRef } from 'react';
 
-const GroupChat = ({setPage, page, setChat, chat, getChat, pages,message, setMessage}) => {
+const GroupChat = ({ setPage, page, setChat, chat, getChat, pages, message, setMessage }) => {
   const [show, setshow] = useState(false);
   const [show1, setShow1] = useState(false);
   const handleClose1 = () => setShow1(false);
@@ -22,7 +22,7 @@ const GroupChat = ({setPage, page, setChat, chat, getChat, pages,message, setMes
   const [image, setImage] = useState(null);
   const [uploadImage, setUploadImage] = useState(null);
   const [showImageModal, setShowImageModal] = useState(false);
-
+  const [loading, setLoading] = useState(false);
 
   const handleCloseImageModal = () => setShowImageModal(false);
   const [imageDetail, setImagedetail] = useState()
@@ -35,7 +35,7 @@ const GroupChat = ({setPage, page, setChat, chat, getChat, pages,message, setMes
   };
 
   const chatSectionRef = useRef(null);
-   useEffect(() => {
+  useEffect(() => {
     // Scroll to the end of the chat section when the component mounts
     scrollToBottom();
   }, [chat]);
@@ -90,6 +90,9 @@ const GroupChat = ({setPage, page, setChat, chat, getChat, pages,message, setMes
   // get top user or member
   const sendChat = async () => {
     let tok = localStorage.getItem("accessToken");
+    if (message != '') {
+    if (!loading) {
+      setLoading(true);
     var data = new FormData();
     if (message) {
       data.append("message", message)
@@ -117,7 +120,18 @@ const GroupChat = ({setPage, page, setChat, chat, getChat, pages,message, setMes
       })
       .catch(function (error) {
         console.log(error);
+      })
+      .finally(() => {
+        setLoading(false);
       });
+    }
+  }
+  // else{
+  //   toast.error('please write some thing', {
+  //     position: "top-right",
+  //     autoClose: 2000,
+  //   });
+  // }
   }
 
   useEffect(() => {
@@ -421,7 +435,7 @@ const GroupChat = ({setPage, page, setChat, chat, getChat, pages,message, setMes
                   </div>
                 }
                 <div className="right-btns">
-                  <label htmlFor='upload' style={{cursor: "pointer"}}>
+                  <label htmlFor='upload' style={{ cursor: "pointer" }}>
                     <img src="\assets\file-upload.svg" alt="img" className='img-fluid set-hw-icon' />
                   </label>
 
@@ -440,7 +454,7 @@ const GroupChat = ({setPage, page, setChat, chat, getChat, pages,message, setMes
                     }
                     <a style={{ cursor: "pointer" }} onClick={() => setshow(!show)}><img src="\assets\emoji.svg" alt="img" className='img-fluid set-hw-icon' /></a>
                   </div>
-                  <button className='btn-send' onClick={sendChat}>Send</button>
+                  <button className='btn-send' onClick={sendChat} disabled={loading} >{loading ? 'sending...' : 'send'}</button>
                   <button className='chat-mobile-btn d-none'><img src="\assets\chat-msg-mobile.png" alt="img" className='img-fluid' /></button>
                 </div>
               </div>
@@ -498,13 +512,13 @@ const GroupChat = ({setPage, page, setChat, chat, getChat, pages,message, setMes
               </div>
               <div className="bottom-fields">
                 {topuser?.users?.map((elem) => {
-                    return (
-                      <div className="inner-item">
-                        <h6>{elem?.nickName}</h6>
-                        <h6><img src={elem?.rank?.icon} alt="img" className="img-fluid me-2" style={{ width: "50px", height: "50px" }} />{elem?.rank?.name}</h6>
-                      </div>
-                    )
-                  })}
+                  return (
+                    <div className="inner-item">
+                      <h6>{elem?.nickName}</h6>
+                      <h6><img src={elem?.rank?.icon} alt="img" className="img-fluid me-2" style={{ width: "50px", height: "50px" }} />{elem?.rank?.name}</h6>
+                    </div>
+                  )
+                })}
               </div>
             </div>
           </div>

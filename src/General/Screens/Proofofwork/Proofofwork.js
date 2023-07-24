@@ -13,6 +13,8 @@ const Proofofwork = () => {
     const [showwork, setShowwork] = useState(false);
     const [showwork1, setShowwork1] = useState(false);
     const [singledetail, setsingledetail] = useState(null)
+    const [imagedetail, setimagedetail] = useState(null)
+    console.log('singledetail', singledetail);
     const handleClosework = () => setShowwork(false);
     const handleClosework1 = () => setShowwork1(false);
     const handleShowwork = (elem) => {
@@ -267,6 +269,16 @@ const Proofofwork = () => {
 
     const closebuttonback = () => {
         settaskdetail(null)
+    }
+
+
+
+    const [imageModal, setImageModal] = useState(false)
+    const handleImageClose = () => setImageModal(false);
+    const ImageDetails = (elem) => {
+        console.log('elem', elem);
+        setImageModal(true)
+        setimagedetail(elem)
     }
 
     return (
@@ -727,7 +739,7 @@ const Proofofwork = () => {
                                 <div className="others-imgs">
                                     {singledetail?.image && singledetail?.image?.map((elem, index) => {
                                         return (
-                                            <div className="powimg">
+                                            <div className="powimg" onClick={() => ImageDetails(elem)}>
                                                 <img src={elem} alt="powimginner" className="powimginner" />
                                             </div>
                                         )
@@ -798,7 +810,7 @@ const Proofofwork = () => {
                                 <div className="others-imgs">
                                     {singledetail?.image && singledetail?.image?.map((elem, index) => {
                                         return (
-                                            <div className="powimg">
+                                            <div className="powimg" onClick={() => ImageDetails(elem)}>
                                                 <img src={elem} alt="powimginner" className="powimginner" />
                                             </div>
                                         )
@@ -838,6 +850,19 @@ const Proofofwork = () => {
                     <div className="approvemain">
                         <img src="\generalassets\other-imgs\rejectimg.png" alt="approveimg" className="approveimg img-fluid" />
                         <p className="approvetext">operation proof of work rejected</p>
+                    </div>
+                </Modal.Body>
+            </Modal>
+
+            {/* Image detail modal */}
+            <Modal className="createdsuccess-modal global-modal-style powmodal scsdvsdvrverberbrtnsvdrbrt" show={imageModal} onHide={handleImageClose} centered>
+                <Modal.Header closeButton>
+                    {/* <Modal.Title>proof of work</Modal.Title> */}
+                </Modal.Header>
+                <Modal.Body>
+                    <div className="approvemain">
+                        <img src={imagedetail} alt="approveimg" className="approveimg img-fluid" />
+                        {/* <p className="approvetext">operation proof of work approved</p> */}
                     </div>
                 </Modal.Body>
             </Modal>

@@ -25,17 +25,17 @@ const GeneralReport = () => {
         setdate(createDate)
         setdata(elem)
     };
-    const [expired, setexpired] = useState("pending");
+    const [expired, setexpired] = useState("Pending");
     const [bugs, setbugs] = useState([]);
     const { account } = useWeb3React();
 
 
     const settabss = (event) => {
         if (event === 'activeop') {
-            setexpired("pending")
+            setexpired("Pending")
         }
         else if (event === 'expiredop') {
-            setexpired("resolved")
+            setexpired("Resolved")
         }
     }
 
@@ -87,7 +87,7 @@ const GeneralReport = () => {
         let tok = localStorage.getItem("accessToken");
         var data = "null";
         data = ({
-            status: "resolved"
+            status: "Resolved"
         });
         var config = {
             method: "patch",

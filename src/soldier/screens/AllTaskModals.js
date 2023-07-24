@@ -52,12 +52,6 @@ const AllTaskModals = ({ showtask, setShowtask, settaskdetail, taskdetail,getDat
 
   const SubmitWork = () => {
 
-
-      // handleShow2();
-      // handleClose1();
-  
-
-
     if ((multiplemages[0]?.multorimg != '' || inputs?.name)) {
       var expression = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)?/gi;
       var regex = new RegExp(expression);
@@ -199,6 +193,9 @@ const AllTaskModals = ({ showtask, setShowtask, settaskdetail, taskdetail,getDat
     const { name, value } = e.target;
     setInputs(inputs => ({ ...inputs, [name]: value }));
   }
+
+
+  
 
   var result=taskdetail?.attachment?.split("_")?.pop();
 

@@ -15,7 +15,7 @@ const ArmyForum = () => {
   const [limit, setLimit] = useState(1);
   const [limit0, setLimit0] = useState(5);
   const [rend, setRend] = useState(false);
-  const [comment, setcomment] = useState()
+  const [comment, setcomment] = useState('')
   const [rankid, setrankid] = useState();
   const [loader, setLoader] = useState()
   const [showSide, setShowSide] = useState();
@@ -29,6 +29,7 @@ const ArmyForum = () => {
   const handleCloseDeleteForum = () => setShowForumDeleteModal(false);
   const [showForumEditModal, setShowForumEditModal] = useState(false);
   const handleCloseEditForum = () => setShowForumEditModal(false);
+  const [loading, setLoading] = useState(false);
 
   let indexvalue = localStorage.getItem("indexvalue");
 
@@ -37,16 +38,25 @@ const ArmyForum = () => {
     title: '',
     description: '',
   })
+  const ClearAll = () => {
+    setAllFormData({
+      title: '',
+      description: '',
+    })
+  }
   const [selecttab, setselecttab] = useState('Active Squad')
   const handleChange = (event) => {
     allFormData[event.target.name] = event.target.value;
     setAllFormData({ ...allFormData });
   }
+  
   //  create new forum
   const putQuestion = () => {
     setLoader(true);
     let tok = localStorage.getItem("accessToken");
     if (allFormData.title !== "" && allFormData.description !== "") {
+      if (!loading) {
+        setLoading(true)
       axios.post(`${API_URL}/forums/posts/`,
         {
           title: allFormData.title,
@@ -63,6 +73,7 @@ const ArmyForum = () => {
         toast.success("Post Added Successfully");
         GetPosts();
         handleCloseForum()
+        ClearAll()
         // window.$(`#exampleModall`).modal("hide");
         // ClearAlloperation()
         // Code
@@ -70,9 +81,13 @@ const ArmyForum = () => {
         setLoader(false);
         toast.error(error.response.data.message)
       })
-    } else {
-      toast.error("Please fill all fields")
+      .finally(() => {
+        setLoading(false);
+      });
     }
+  } else {
+    toast.error("Please fill all fields")
+  }
   }
 
   // get top user or member
@@ -119,27 +134,35 @@ const ArmyForum = () => {
   }
   const createComment = (id) => {
     // setcountss(0)
-    setLoader(true);
-    let tok = localStorage.getItem("accessToken");
-    axios.post(`${API_URL}/forums/posts/${id}/comments`,
-      {
-        content: comment
-      },
-      {
-        headers: {
-          authorization: `Bearer ` + tok
-        }
+    // setLoader(true);
+    if (comment != '') {
+      if (!loading) {
+        let tok = localStorage.getItem("accessToken");
+        setLoading(true);
+        axios.post(`${API_URL}/forums/posts/${id}/comments`,
+          {
+            content: comment
+          },
+          {
+            headers: {
+              authorization: `Bearer ` + tok
+            }
+          }
+        ).then((response) => {
+          setLoader(false);
+          toast.success("Comment Created Successfully");
+          mainid(commentid, "add");
+          commentnull();
+          setcomment('');
+        }).catch((error) => {
+          setLoader(false);
+          toast.error(error.response.data.message)
+        })
+          .finally(() => {
+            setLoading(false);
+          });
       }
-    ).then((response) => {
-      setLoader(false);
-      toast.success("Comment Created Successfully");
-      mainid(commentid, "add");
-      commentnull();
-      setcomment('');
-    }).catch((error) => {
-      setLoader(false);
-      toast.error(error.response.data.message)
-    })
+    }
   }
 
   const GetPosts = () => {
@@ -468,7 +491,7 @@ const ArmyForum = () => {
                             <h5>Leave a comment</h5>
                             <p>Comment</p>
                             <textarea onChange={handleChange1} value={comment} placeholder="Write comment"></textarea>
-                            <button onClick={() => createComment(elem?._id)}>Post Comment</button>
+                            <button onClick={() => createComment(elem?._id)} disabled={loading}>{loading ? 'Post Comment...' : 'Post Comment'}</button>
                           </div>
                         </section>
                       }
@@ -505,7 +528,7 @@ const ArmyForum = () => {
                           <div className="inner-item">
                             <h6>{elem?._id?.name}</h6>
                             <h6>
-                              <img src={elem?._id?.profileImage} alt="img" className="img-fluid me-2" style={{width: "34px", height: "34px"}} />
+                              <img src={elem?._id?.profileImage} alt="img" className="img-fluid me-2" style={{ width: "34px", height: "34px" }} />
                               {/* Private */}
                             </h6>
                           </div>
@@ -616,7 +639,7 @@ const ArmyForum = () => {
               placeholder="Enter Description Url...."></textarea>
             <div className="twice-btn">
               <button className="btn-cancel" onClick={handleCloseForum} aria-label="Close"> <img src="\assets\cancel.svg" alt="img" className="img-fluid me-2" /> Cancel</button>
-              <button className="btn-topic" onClick={putQuestion}> <img src="\assets\topic-btn.svg" alt="img" className="img-fluid me-2" /> Start a New Topic</button>
+              <button className="btn-topic" onClick={putQuestion} disabled={loading}> <img src="\assets\topic-btn.svg" alt="img" className="img-fluid me-2" />{loading ? 'Start a New Topic...':'Start a New Topic'}</button>
             </div>
           </Modal.Body>
         </Modal>

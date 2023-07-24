@@ -141,70 +141,70 @@ const Squad = ({ show1, setShow1, show2, setShow2, setShow4, setShow5, setShow6,
     // setShow2(true)
     let tok = localStorage.getItem("accessToken");
     // if (account) {
-        // window.$("#exampleModalLabel11").modal("hide");
-        var config = {
-            method: "patch",
-            url: `${API_URL}/auth/users/${item?._id}/kickout`,
-            headers: {
-                authorization: `Bearer ` + tok
-            },
-        };
+    // window.$("#exampleModalLabel11").modal("hide");
+    var config = {
+      method: "patch",
+      url: `${API_URL}/auth/users/${item?._id}/kickout`,
+      headers: {
+        authorization: `Bearer ` + tok
+      },
+    };
 
-        axios(config)
-            .then(async (response) => {
-                toast.success("Remove From squad successfully")
-                handleClose3();
-                SquadUsers()
-            })
-            .catch(function (error) {
-                // console.log(error);
-                // window.location.reload()
-                // window.$("#exampleModalLabel11").modal("hide");
-                // setLoader(false);
-                // window.$("#exampleModalLabel11").modal("hide");
-                // if (error.response.data.statusCode == 409) {
-                //     toast.error("Squad for User already exists")
-                // }
-                // setLoader(false);
-            });
+    axios(config)
+      .then(async (response) => {
+        toast.success("Remove From squad successfully")
+        handleClose3();
+        SquadUsers()
+      })
+      .catch(function (error) {
+        // console.log(error);
+        // window.location.reload()
+        // window.$("#exampleModalLabel11").modal("hide");
+        // setLoader(false);
+        // window.$("#exampleModalLabel11").modal("hide");
+        // if (error.response.data.statusCode == 409) {
+        //     toast.error("Squad for User already exists")
+        // }
+        // setLoader(false);
+      });
     // }
 
-}
+  }
 
 
-const deleteCoLeader = (item) => {
-  // setShow2(true)
-  let tok = localStorage.getItem("accessToken");
-  // if (account) {
-      // window.$("#exampleModalLabel11").modal("hide");
-      var config = {
-          method: "delete",
-          url: `${API_URL}/tasks/squad-co-leaders/${item?._id}`,
-          headers: {
-              authorization: `Bearer ` + tok
-          },
-      };
+  const deleteCoLeader = (item) => {
+    // setShow2(true)
+    let tok = localStorage.getItem("accessToken");
+    // if (account) {
+    // window.$("#exampleModalLabel11").modal("hide");
+    var config = {
+      method: "delete",
+      url: `${API_URL}/tasks/squad-co-leaders/${item?._id}`,
+      headers: {
+        authorization: `Bearer ` + tok
+      },
+    };
 
-      axios(config)
-          .then(async (response) => {
-              toast.success("Remove From co-leader successfully")
-              handleClose3();
-              SquadUsers()
-          })
-          .catch(function (error) {
-              // console.log(error);
-              // window.location.reload()
-              // window.$("#exampleModalLabel11").modal("hide");
-              // setLoader(false);
-              // window.$("#exampleModalLabel11").modal("hide");
-              // if (error.response.data.statusCode == 409) {
-              //     toast.error("Squad for User already exists")
-              // }
-              // setLoader(false);
-          });
-  // }
+    axios(config)
+      .then(async (response) => {
+        toast.success("Remove From co-leader successfully")
+        handleClose3();
+        SquadUsers()
+      })
+      .catch(function (error) {
+        // console.log(error);
+        // window.location.reload()
+        // window.$("#exampleModalLabel11").modal("hide");
+        // setLoader(false);
+        // window.$("#exampleModalLabel11").modal("hide");
+        // if (error.response.data.statusCode == 409) {
+        //     toast.error("Squad for User already exists")
+        // }
+        // setLoader(false);
+      });
+    // }
 
-}
+  }
 
 
 
@@ -263,7 +263,7 @@ const deleteCoLeader = (item) => {
                         <div className='maincardsquad border-grad1'>
                           <div className='squadparent'>
                             <div className='innercard1 border-grad'>
-                              <div className='parent' onClick={handleShow}>
+                              <div className='parent'>
                                 <div className='left'>
                                   <img src={users?.squadData?.data?.symbol} alt='img' className='img-fluid jwebferwjgfnerw' />
                                 </div>
@@ -336,6 +336,7 @@ const deleteCoLeader = (item) => {
                                 </thead>
                                 <tbody>
                                   {users?.users?.map((elem, index) => {
+                                    console.log('elem',elem);
                                     return (
                                       <tr key={index}>
                                         <td>
@@ -357,10 +358,6 @@ const deleteCoLeader = (item) => {
                                           <p className='paratable'>+{elem?.points} POINTS</p>
                                         </td>
                                         <td>
-                                          
-                                          {elem?.isCommander === true || elem?.isCoLeader === true ?
-                                          ""
-                                          :
                                           <div className='dropbtn'>
                                           <Dropdown>
                                             <Dropdown.Toggle variant="success" id="dropdown-basic">
@@ -375,8 +372,7 @@ const deleteCoLeader = (item) => {
                                               </Dropdown.Item>
                                             </Dropdown.Menu>
                                           </Dropdown>
-                                        </div>
-                                          }
+                                        </div>    
                                         </td>
                                       </tr>
                                     )
@@ -607,7 +603,7 @@ const deleteCoLeader = (item) => {
                               <table class="table table-striped">
                                 <thead>
                                   <tr>
-                                  <th>
+                                    <th>
                                       <p className='headtable'>Nick Name</p>
                                     </th>
                                     <th>
@@ -660,7 +656,7 @@ const deleteCoLeader = (item) => {
 
                                               <Dropdown.Menu>
                                                 <Dropdown.Item href="#/action-1">
-                                                  <p onClick={()=>deleteCoLeader(elem)}><img src='\Vector.svg' alt='img' className='img-fluid' />recruit</p>
+                                                  <p onClick={() => deleteCoLeader(elem)}><img src='\Vector.svg' alt='img' className='img-fluid' />recruit</p>
                                                 </Dropdown.Item>
                                               </Dropdown.Menu>
                                             </Dropdown>
@@ -695,7 +691,7 @@ const deleteCoLeader = (item) => {
                               <p>Task</p>
                             </div>
                             <Accordion defaultActiveKey="0">
-                            {users?.users?.map((elem, index) => {
+                              {users?.users?.map((elem, index) => {
                                 return (
                                   <Accordion.Item eventKey={index}>
                                     <Accordion.Header>{elem?.nickName ? elem?.nickName : "------"}</Accordion.Header>

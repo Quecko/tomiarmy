@@ -37,6 +37,7 @@ import { addUer } from '../../../redux/action';
 const Sidebar = () => {
   const datacommander = localStorage.getItem('user')
   const data = JSON.parse(datacommander)
+  const { account } = useWeb3React()
   // for redirect
   useEffect(() => {
     if (data?.isCommander == false && data?.isCoLeader == true){
@@ -57,7 +58,7 @@ const Sidebar = () => {
     else{
       window.location.assign('/')
     }
-  }, [data])
+  }, [account])
   const indexvv = localStorage.getItem("indexvalue");
   const [indexwait, setindexwait] = useState(0);
   const [routes, setroute] = useState(false);
@@ -72,7 +73,7 @@ const Sidebar = () => {
   const [taskdetail1, settaskdetail1] = useState(null);
   const [operationId, setOperationId] = useState(null);
   const [coLeaderDetails, setCoLeaderDetails] = useState(null);
-  const { account } = useWeb3React()
+
   const history = useHistory();
   const { userSign } = Signature();
   const [loader, setLoader] = useState(false);
@@ -397,6 +398,7 @@ const Sidebar = () => {
           setFirstTime(false)
         }
         else {
+
           let rev = reverse([...response?.data?.data?.groupMessages])
           setChat([...rev, ...chat])
         }

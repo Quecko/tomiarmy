@@ -38,6 +38,8 @@ const ActiveOperation = ({ setShowtask1, tasks, settaskdetail1, setOperationId }
 
     return (
         <>
+         {tasks?.length > 0 ?
+            (
             <section className="active-operations">
                 <div className="upper-item">
                     <div className='left'>
@@ -231,6 +233,12 @@ const ActiveOperation = ({ setShowtask1, tasks, settaskdetail1, setOperationId }
                     </Accordion>
                 </div>
             </section>
+                 )
+                 :
+                 (
+                   <div><h1>No Operation</h1></div>
+                 )
+               }
 
             {/* <Modal className='detailmodal' show={show1} onHide={handleClose1} centered>
                 <Modal.Header closeButton>

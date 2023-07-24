@@ -1135,6 +1135,7 @@ table {
             }
         }
     }
+
     .tbl-dropdown {
         .dropdown {
             .dropdown-toggle {
@@ -1700,6 +1701,11 @@ table {
 
                             .underliness {
                                 text-decoration-line: underline;
+                                /* white-space: pre; */
+                                width: 175px;
+                                white-space: nowrap;
+                                overflow: hidden;
+                                text-overflow: ellipsis;
                             }
                         }
 
@@ -3489,6 +3495,7 @@ tr td:last-child {
 
     .display-block-in-mobile {
         display: block !important;
+
         .completebtn {
             button {
                 background: #04C453;
@@ -4671,9 +4678,10 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 }
 
 
-.sdhfvbdshbfvh{
-    width: 100%!important;
+.sdhfvbdshbfvh {
+    width: 100% !important;
 }
+
 // calnder range picker scss here......................
 .rs-picker-menu {
     // top: 243.05px !important;
@@ -4855,9 +4863,11 @@ input[type="date"]::-webkit-calendar-picker-indicator {
         border: none !important;
     }
 }
-#wcm-modal{
-    z-index: 111111111111!important;
+
+#wcm-modal {
+    z-index: 111111111111 !important;
 }
+
 // .wcm-overlay{
 //     z-index: 1111111111111!important;
 // }
@@ -4875,6 +4885,6 @@ input[type="date"]::-webkit-calendar-picker-indicator {
     color: white;
 }
 
-.scsdsdfefssdvsdvsd{
-    width: 75px!important;
+.scsdsdfefssdvsdvsd {
+    width: 75px !important;
 }
