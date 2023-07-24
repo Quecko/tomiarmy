@@ -28,31 +28,205 @@ const HomeOperations = ({ setShowtask1, settaskdetail1, operations, setOperation
   const [expired, setexpired] = useState(false);
   const { account } = useWeb3React()
 
-  const GetUserTopSquad = () => {
-    // setLoader(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [count, setCount] = useState(0);
+  const [pages, setPages] = useState([]);
+  const [rend, setRend] = useState(false);
+  const [limit,setLimit]=useState(1)
+  const [search, setSearch] = useState("");
+
+  // const GetUserTopSquad = () => {
+  //   var config = {
+  //     method: "get",
+  //     url: `${API_URL}/tasks/squads?offset=1&limit=100`,
+  //     headers: {
+  //       authorization: `Bearer ` + tok
+  //     },
+  //   };
+  //   axios(config)
+  //     .then(async (response) => {
+  //       setTopSquad(response.data.data.squad)
+  //       window.scrollTo(0, 0);
+  //     })
+  //     .catch(function (error) {
+  //       console.log(error);
+  //     });
+  // }
+
+  const GetUserTopSquad = async (off) => {
+    let valu = null;
+    if (off) {
+      valu = off;
+    } else {
+      valu = 1;
+    }
+    let tok = localStorage.getItem("accessToken");
+    let wall = localStorage.getItem("wallet");
+    if (account) {
+      var config = {
+        method: "get",
+        url: `${API_URL}/tasks/squads?offset=${valu}&&limit=5`,
+        headers: {
+          authorization: `Bearer ` + tok
+        },
+      };
+
+      axios(config)
+        .then(function (response) {
+          setLoader(false);
+          setCount(response.data.data.count)
+          setTopSquad(response.data.data.squad)
+          let arr = Array.from(Array(parseInt(response.data.data.pages)).keys());
+          setPages(arr);
+          setCurrentPage(valu)
+          setSearch('')
+           if(off<=response.data.data.squad.length){
+            if((off-1)==0){
+              setLimit(1)
+            }
+            else{
+              setLimit((off-1)*5)
+            }
+          }
+          // window.scrollTo(0, 0);
+        })
+        .catch(function (error) {
+          console.log(error);
+          setLoader(false);
+          localStorage.removeItem("accessToken");
+          localStorage.removeItem("user");
+          localStorage.removeItem("isCommander");
+          window.location.assign("/")
+          // window.location.reload();
+        });
+    }
+  }
+
+  const getPrevData = (off) => {
+    let offset = parseInt(off) - 1;
+    if (offset > 0) {
+      setLoader(true);
+      let val = localStorage.getItem("accessToken");
+      var config = null;
+      config = {
+        method: "get",
+        url: `${API_URL}/tasks/squads?offset=${offset}&&limit=5`,
+        headers: {
+          Authorization: "Bearer " + val,
+          "Content-Type": "application/json",
+        },
+      };
+
+      axios(config)
+        .then(function (response) {
+          let arr = Array.from(
+            Array(parseInt(response.data.data.pages)).keys()
+          );
+          setPages(arr);
+          setTopSquad(response.data.data.squad)
+          if (currentPage - 1 >= 0) {
+            setCurrentPage(currentPage - 1);
+            
+          }
+          if(off>=0){
+            if((offset-1)==0){
+              setLimit(1)
+            }
+            else{
+              setLimit((offset-1)*5)
+            }
+          }
+          // else{
+          //   setLimit(off)
+          // }
+          setRend(!rend);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+      setLoader(false);
+    }
+  };
+
+  const getNextData = (off) => {
+    let offset = parseInt(off) + 1;
+    if(pages.length>off){
+    if (off < topSquad.length) {
+      let val = localStorage.getItem("accessToken");
+      var config = null;
+      config = {
+        method: "get",
+        url: `${API_URL}/tasks/squads?offset=${offset}&&limit=5`,
+        headers: {
+          Authorization: "Bearer " + val,
+          "Content-Type": "application/json",
+        },
+      };
+
+      axios(config)
+        .then(function (response) {
+          console.log(response.data.data);
+          let arr = Array.from(
+            Array(parseInt(response.data.data.pages)).keys()
+          );
+          setPages(arr);
+          setTopSquad(response.data.data.squad)
+          if (off <= topSquad.length) {
+            setCurrentPage(offset);
+            setLimit(off*5)
+          }
+          setRend(!rend);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
+  }
+  };
+
+  const getSearchData = async (off) => {
+    let valu = null;
+    if (off) {
+      valu = off;
+    } else {
+      valu = 1;
+    }
+    let tok = localStorage.getItem("accessToken");
+    let wall = localStorage.getItem("wallet");
+    // if (account && jcommander === true) {
     var config = {
       method: "get",
-      url: `${API_URL}/tasks/squads?offset=1&limit=100`,
+      url: `${API_URL}/tasks/squads?offset=${valu}&&limit=10&&name=${search}`,
       headers: {
         authorization: `Bearer ` + tok
       },
     };
+
     axios(config)
-      .then(async (response) => {
-        // setLoader(false);
-        setTopSquad(response.data.data.squad)
-        // setcoms(response?.data?.data?.squad?.commander)
-        // setnewss(response?.data?.data?._id)
-        window.scrollTo(0, 0);
+      .then(function (response) {
+        setLoader(false);
+        setCount(response.data.data.count)
+        setTopSquad(response?.data?.data?.squad);
+        let arr = Array.from(Array(parseInt(response.data.data.pages)).keys());
+        setPages(arr);
+        setCurrentPage(valu)
       })
       .catch(function (error) {
         console.log(error);
-        // setLoader(false);
+        setLoader(false);
         // localStorage.removeItem("accessToken");
         // localStorage.removeItem("user");
         // window.location.assign("/")
+        // window.location.reload();
       });
+    // }
   }
+
+
+  useEffect(() => {
+    // getDataOperation()
+    GetUserTopSquad()
+  }, [account]);
 
   const SendInvite = async (id) => {
     // e.preventDefault();
@@ -79,56 +253,6 @@ const HomeOperations = ({ setShowtask1, settaskdetail1, operations, setOperation
         // setLoader(false);
       });
   }
-
-
-
-
-  // const getDataOperation = async (off) => {
-
-  //   // let valu = null;
-  //   // if (off) {
-  //   //   valu = off;
-  //   // } else {
-  //   //   valu = 1;
-  //   // }
-  //   let tok = localStorage.getItem("accessToken");
-  //   let wall = localStorage.getItem("wallet");
-  //   // if (account) {
-  //     var config = {
-  //       method: "get",
-  //       url: `${API_URL}/tasks/operations?offset=1&&limit=5&&expired=${expired}`,
-  //       headers: {
-  //         authorization: `Bearer ` + tok
-  //       },
-  //     };
-  //     axios(config)
-  //       .then(function (response) {
-  //         setLoader(false);
-  //         setOperations(response?.data?.data?.operation[0]);
-  //         // if(expired===true){
-  //         //   setOperations(response?.data?.data?.operation);
-  //         // }
-  //         // else{
-  //         //   setOperations(response?.data?.data?.operation[0]);
-  //         // }
-  //         // let arr = Array.from(Array(parseInt(response.data.data.pages)).keys());
-  //         // setPages(arr);
-  //         // setCurrentPage(valu)
-  //       })
-  //       .catch(function (error) {
-  //         setLoader(false);
-  //         // localStorage.removeItem("accessToken");
-  //         // localStorage.removeItem("user");
-  //         // window.location.assign("/")
-  //         // window.location.reload();
-  //       });
-  //   // }
-  // }
-
-  useEffect(() => {
-    // getDataOperation()
-    GetUserTopSquad()
-  }, [account]);
 
   const GetTime = (time) => {
     let endtime = new Date(time)
@@ -373,7 +497,7 @@ const HomeOperations = ({ setShowtask1, settaskdetail1, operations, setOperation
       </div>
       {data?.isCommander === false && data?.memberOfSquad === false
         ?
-        <TopSquad topSquad={topSquad} GetUserTopSquad={GetUserTopSquad} />
+              <TopSquad topSquad={topSquad} GetUserTopSquad={GetUserTopSquad} getPrevData={getPrevData} getNextData={getNextData} pages={pages} currentPage={currentPage} count={count} limit={limit} search={search} setSearch={setSearch} getSearchData={getSearchData}/>
         :
         <>
           <section className="home-operations border-grad1">
@@ -521,6 +645,7 @@ const HomeOperations = ({ setShowtask1, settaskdetail1, operations, setOperation
                     })}
                 </tbody>
               </table>
+             
             </div>
             <div className="mobile-responsive-table d-none display-block-in-mobile">
               <div className="heading-mobile">
@@ -603,7 +728,6 @@ const HomeOperations = ({ setShowtask1, settaskdetail1, operations, setOperation
                     </div>
                   </Accordion.Body>
                 </Accordion.Item>
-
               </Accordion>
             </div>
           </div>
