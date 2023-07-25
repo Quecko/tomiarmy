@@ -284,7 +284,7 @@ const HomeOperations = ({ setShowtask1, settaskdetail1, operations, setOperation
           : ''
         }
         <section className="home-operations border-grad1">
-          {operations?.length > 0 ?
+          {operations?.tasksList?.length > 0 ?
             (
               <>
                 <div className="upper-item">

@@ -9,6 +9,7 @@ import { useWeb3React } from "@web3-react/core";
 import axios from "axios";
 
 const MyRank = ({ props }) => {
+  console.log('props',props);
   const {account}=useWeb3React()
   const [army, setArmy] = useState([]);
   const GetNextRank = () => {
@@ -77,7 +78,7 @@ const MyRank = ({ props }) => {
         </div>
         <div className="col-lg-6 ransk-name-right">
           <div className="ransk-name-heading-row inner-data-box border-grad">
-            <img src="\static-icons\dc-squad.png" alt="dcSquad" style={{ width: "50px", height: "50px" }} />
+            <img src={props?.squad?.symbol} alt="dcSquad" style={{ width: "50px", height: "50px",borderRadius:'10px' }} />
             <div className="ransk-name-heading">
               <p>My Squad</p>
               {/* <h4>{props?.props?.memberOfSquad === false ? '-' : ""}</h4> */}

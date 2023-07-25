@@ -85,29 +85,32 @@ const Header = ({ routes, setroute, indexwait, handleShow, setShow2, setShow1, s
       getDataOperation()
     });
     socket.on('Recruite_Invite', (notification) => {
-      toast.info("You are Invited to join a Squad by a Commander Please Check Your Notifications");
+      // toast.info("You are Invited to join a Squad by a Commander Please Check Your Notifications");
       getNotif()
     });
     socket.on('Recruite_Invite_Accepted', (notification) => {
-      toast.info("Your Recruite Invitation has been Accepted Please Check Your Notifications");
+      // toast.info("Your Recruite Invitation has been Accepted Please Check Your Notifications");
+      getNotif()
     });
     socket.on('Squad_Recruite_Invite', (notification) => {
-      toast.info("Squad Recruite Invite Send To You Please Check Your Notifications");
+      // toast.info("Squad Recruite Invite Send To You Please Check Your Notifications");
       getNotif()
     });
     socket.on('Squad_Recruite_Accepted', (notification) => {
-      toast.info("Your Squad Recruite Accepted Please Check Your Notifications");
+      // toast.info("Your Squad Recruite Accepted Please Check Your Notifications");
+      getNotif()
     });
     socket.on('Group_Message', () => {
-      toast.info("group message chat notification");
+      // toast.info("group message chat notification");
       getChat()
+      getNotif()
     });
     socket.on('Co_Leader_Added', (notification) => {
-      toast.info("You are Promoted for Co-Leader Please Check Your Notifications");
+      // toast.info("You are Promoted for Co-Leader Please Check Your Notifications");
       getNotif()
     });
     socket.on('Co_Leader_Removed', (notification) => {
-      toast.info("You are Removed for as a Co-Leader Please Check Your Notifications");
+      // toast.info("You are Removed for as a Co-Leader Please Check Your Notifications");
       getNotif()
     });
     socket.on('Veteran_kicked_out', (notification) => {

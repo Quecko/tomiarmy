@@ -213,6 +213,12 @@ const Sidebar = () => {
               localStorage.clear()
               window.location.assign('/')
             }
+            // getDataOperation()
+            getNotif()
+            SquadUsers()
+            GetTaskStatusData()
+            // getChat()
+            GetUserProfiledata()
             localStorage.setItem("wallet", account);
           })
           .catch((err) => {
@@ -1452,7 +1458,7 @@ const Sidebar = () => {
 
 
       <SquadModals show1={show1} setShow1={setShow1} show2={show2} setShow2={setShow2} SquadUsers={SquadUsers} GetUserProfiledata={GetUserProfiledata} />
-      <LeaderModals show4={show4} setShow4={setShow4} show5={show5} setShow5={setShow5} show6={show6} setShow6={setShow6} item={coLeaderDetails} />
+      <LeaderModals show4={show4} setShow4={setShow4} show5={show5} setShow5={setShow5} show6={show6} setShow6={setShow6} item={coLeaderDetails} SquadUsers={SquadUsers} />
       <AllTaskModals showtask={showtask} setShowtask={setShowtask} settaskdetail={settaskdetail} taskdetail={taskdetail} getData={getData} />
       <AllOperationTaskModal showtask1={showtask1} setShowtask1={setShowtask1} settaskdetail1={settaskdetail1} taskdetail1={taskdetail1} getDataOperation={getDataOperation} operationId={operationId} />
       {/* <ArmyForumModal showForumModal={showForumModal} setShowForumModal={setShowForumModal} setforumkdetail1={setforumkdetail1} forumdetail1={forumdetail1} getDataOperation={getDataOperation} operationId={operationId} /> */}

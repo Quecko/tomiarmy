@@ -29,7 +29,9 @@ const GeneralHeader = ({ routes, setroute, routeshome, setroutehome, indexwait, 
             <>
               {
                 routeshome ?
-                  <button onClick={() => setroutehome(!routeshome)} className="btn-goback"><img src="\assets\goback.svg" alt="img" className="img-fluid me-2" />Go Back</button> :
+                  // <button onClick={() => setroutehome(!routeshome)} className="btn-goback"><img src="\assets\goback.svg" alt="img" className="img-fluid me-2" />Go Back</button> 
+                  ""
+                  :
                   <div className="soldier-name">
                     <h4>Welcome {user1?.rank?.name},</h4>
                     <p>your army awaits your orders</p>

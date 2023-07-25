@@ -331,7 +331,7 @@ const CreateOperation = ({ svaebutton, setroutehome, routeshome, setexpired, tas
     const backgo = () => {
         setexpired(false)
         setoperationdata('')
-        setroutehome(!routeshome)
+        // setroutehome(!routeshome)
         setroute(!routes)
     }
     var tasklentthfind = tasks?.length

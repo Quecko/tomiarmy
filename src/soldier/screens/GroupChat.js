@@ -199,6 +199,7 @@ const GroupChat = ({ setPage, page, setChat, chat, getChat, pages, message, setM
                     const createDate = moment(createdate).format("hh:mm:ss a");
                     var extension = elem?.media?.split('.').pop();
                     var result = elem?.media?.split("_")?.pop();
+                    console.log('elem',elem);
                     // var allowedExtensionsImage = /(\.jpg|\.jpeg|\.png|\.gif)$/i;
                     // var allowedExtensionsPdf = /(\.doc|\.docx|\.odt|\.pdf|\.tex|\.txt|\.rtf|\.wps|\.wks|\.wpd)$/i;
                     // if(allowedExtensionsImage.exec(elem?.media)){

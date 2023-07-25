@@ -32,6 +32,8 @@ const GeneralActive = ({ routes, setoperationdata, setcall, call, setroute, setS
 
     return (
         <>
+         {tasks?.length > 0 ?
+            (
             <section className="active-operations">
                 <div className="upper-item">
                     <div className='left'>
@@ -167,6 +169,12 @@ const GeneralActive = ({ routes, setoperationdata, setcall, call, setroute, setS
                     </Accordion>
                 </div>
             </section>
+              )
+              :
+              (
+                <div><h1>No Operation</h1></div>
+              )
+            }
 
             {/* <Modal className='detailmodal' show={show1} onHide={handleClose1} centered>
                 <Modal.Header closeButton>

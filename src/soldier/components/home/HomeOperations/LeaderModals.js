@@ -8,7 +8,7 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 
-const LeaderModals = ({ show4, setShow4, show5, setShow5, show6, setShow6,item }) => {
+const LeaderModals = ({ show4, setShow4, show5, setShow5, show6, setShow6, item, SquadUsers }) => {
 
 
     const handleClose1 = () => setShow4(false);
@@ -36,7 +36,8 @@ const LeaderModals = ({ show4, setShow4, show5, setShow5, show6, setShow6,item }
             axios(config)
                 .then(function (response) {
                     setLoader(false);
-                    setSquadMembers(response?.data?.data);
+                    const filteredData = response?.data?.data?.users?.filter(item => !item.isCoLeader);
+                    setSquadMembers(filteredData);
                 })
                 .catch(function (error) {
                     setLoader(false);
@@ -56,36 +57,37 @@ const LeaderModals = ({ show4, setShow4, show5, setShow5, show6, setShow6,item }
         // setShow2(true)
         let tok = localStorage.getItem("accessToken");
         // if (account) {
-            // window.$("#exampleModalLabel11").modal("hide");
-            var config = {
-                method: "post",
-                url: `${API_URL}/tasks/squad-co-leaders/add-coLeader`,
-                headers: {
-                    authorization: `Bearer ` + tok
-                },
-                data:{
-                    coLeaderId: `${item?._id}`
-                }
-            };
+        // window.$("#exampleModalLabel11").modal("hide");
+        var config = {
+            method: "post",
+            url: `${API_URL}/tasks/squad-co-leaders/add-coLeader`,
+            headers: {
+                authorization: `Bearer ` + tok
+            },
+            data: {
+                coLeaderId: `${item?._id}`
+            }
+        };
 
-            axios(config)
-                .then(async (response) => {
-                    setLoader(false);
-                    toast.success("Add coleader successfully")
-                    handleClose1();
-                    setShow6(false)
-                })
-                .catch(function (error) {
-                    // console.log(error);
-                    // window.location.reload()
-                    // window.$("#exampleModalLabel11").modal("hide");
-                    // setLoader(false);
-                    // window.$("#exampleModalLabel11").modal("hide");
-                    if (error.response.data.statusCode == 409) {
-                        toast.error("Squad for User already exists")
-                    }
-                    setLoader(false);
-                });
+        axios(config)
+            .then(async (response) => {
+                setLoader(false);
+                toast.success("Add coleader successfully")
+                handleClose1();
+                setShow6(false)
+                SquadUsers()
+            })
+            .catch(function (error) {
+                // console.log(error);
+                // window.location.reload()
+                // window.$("#exampleModalLabel11").modal("hide");
+                // setLoader(false);
+                // window.$("#exampleModalLabel11").modal("hide");
+                if (error.response.data.statusCode == 409) {
+                    toast.error("Squad for User already exists")
+                }
+                setLoader(false);
+            });
         // }
 
     }
@@ -158,10 +160,9 @@ const LeaderModals = ({ show4, setShow4, show5, setShow5, show6, setShow6,item }
 
     const walletAddressLength = leaderDetail?.walletAddress?.length;
 
-
-    useEffect(()=>{
+    useEffect(() => {
         setLeaderDetail(item)
-    },[item])
+    }, [item])
     return (
         <>
             <Modal className='detailmodal' show={show4} onHide={handleClose1} centered>
@@ -369,7 +370,7 @@ const LeaderModals = ({ show4, setShow4, show5, setShow5, show6, setShow6,item }
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {squadMembers?.users?.map((elem, index) => {
+                                        {squadMembers?.map((elem, index) => {
                                             const walletAddressLength = elem?.walletAddress?.length;
                                             return (
                                                 <tr>
@@ -390,22 +391,22 @@ const LeaderModals = ({ show4, setShow4, show5, setShow5, show6, setShow6,item }
                                                         </p>
                                                     </td>
                                                     <td>
+                                                        {elem?.isCommander == false &&
                                                         <div className='dropbtn'>
                                                             <Dropdown>
                                                                 <Dropdown.Toggle variant="success" id="dropdown-basic">
                                                                     <img src='\Vectordots.svg' alt='img' className='img-fluid ' />
-
                                                                 </Dropdown.Toggle>
-
                                                                 <Dropdown.Menu>
-                                                                    <Dropdown.Item href="#/action-1">
-
-                                                                        <p onClick={() => AddCoLeader(elem)}>
-                                                                            <img src='\Vector.svg' alt='img' className='img-fluid' />add</p>
-                                                                    </Dropdown.Item>
+                                                                    
+                                                                        <Dropdown.Item href="#/action-1">
+                                                                            <p onClick={() => AddCoLeader(elem)}>
+                                                                                <img src='\Vector.svg' alt='img' className='img-fluid' />add co-leader</p>
+                                                                        </Dropdown.Item>
                                                                 </Dropdown.Menu>
                                                             </Dropdown>
                                                         </div>
+                                                                    }
                                                     </td>
                                                 </tr>
                                             )

@@ -18,6 +18,9 @@ const Squad = ({ show1, setShow1, show2, setShow2, setShow4, setShow5, setShow6,
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const [leaderData, setLeaderData] = useState('')
+  const [showleaderModal, setShowLeaderModal] = useState(false)
+
 
   const { account } = useWeb3React()
   const [loader, setLoader] = useState()
@@ -104,8 +107,8 @@ const Squad = ({ show1, setShow1, show2, setShow2, setShow4, setShow5, setShow6,
 
 
   const addCoLeader = (elem) => {
-    setCoLeaderDetail(elem)
-    setShow6(true)
+    setLeaderData(elem)
+    setShowLeaderModal(true)
   }
 
   const recruitJoin = async (elem) => {
@@ -206,7 +209,48 @@ const Squad = ({ show1, setShow1, show2, setShow2, setShow4, setShow5, setShow6,
 
   }
 
+  const addCoLeader1 = () => {
+    // setShow2(true)
+    let tok = localStorage.getItem("accessToken");
+    // if (account) {
+    // window.$("#exampleModalLabel11").modal("hide");
+    var config = {
+      method: "post",
+      url: `${API_URL}/tasks/squad-co-leaders/add-coLeader`,
+      headers: {
+        authorization: `Bearer ` + tok
+      },
+      data: {
+        coLeaderId: `${leaderData?._id}`
+      }
+    };
 
+    axios(config)
+      .then(async (response) => {
+        setLoader(false);
+        toast.success("Add coleader successfully")
+        // handleClose1();
+        setShowLeaderModal(false)
+        SquadUsers()
+      })
+      .catch(function (error) {
+        // console.log(error);
+        // window.location.reload()
+        // window.$("#exampleModalLabel11").modal("hide");
+        // setLoader(false);
+        // window.$("#exampleModalLabel11").modal("hide");
+        if (error.response.data.statusCode == 409) {
+          toast.error("Squad for User already exists")
+        }
+        setLoader(false);
+      });
+    // }
+
+  }
+  const walletAddressLength = leaderData?.walletAddress?.length;
+  const HideModal1 = () => {
+    setShowLeaderModal(false)
+}
 
 
   return (
@@ -336,7 +380,7 @@ const Squad = ({ show1, setShow1, show2, setShow2, setShow4, setShow5, setShow6,
                                 </thead>
                                 <tbody>
                                   {users?.users?.map((elem, index) => {
-                                    console.log('elem',elem);
+                                    console.log('elem', elem);
                                     return (
                                       <tr key={index}>
                                         <td>
@@ -357,23 +401,69 @@ const Squad = ({ show1, setShow1, show2, setShow2, setShow4, setShow5, setShow6,
                                         <td>
                                           <p className='paratable'>+{elem?.points} POINTS</p>
                                         </td>
-                                        <td>
-                                          <div className='dropbtn'>
-                                          <Dropdown>
-                                            <Dropdown.Toggle variant="success" id="dropdown-basic">
-                                              <img src='\Vectordots.svg' alt='img' className='img-fluid ' />
-                                            </Dropdown.Toggle>
-                                            <Dropdown.Menu>
-                                              <Dropdown.Item href="#/action-1">
-                                                <p onClick={() => addCoLeader(elem)}><img src='\Vector.svg' alt='img' className='img-fluid' />Promote to Co leader</p>
-                                              </Dropdown.Item>
-                                              <Dropdown.Item href="#/action-1">
-                                                <p onClick={() => kickoutFromSquad(elem)}><img src='\Vector.svg' alt='img' className='img-fluid' />Dismiss</p>
-                                              </Dropdown.Item>
-                                            </Dropdown.Menu>
-                                          </Dropdown>
-                                        </div>    
-                                        </td>
+                                        {data?.isCommander === true ?
+                                          <td>
+                                            {
+                                              elem?.isCommander === true ?
+                                                ""
+                                                :
+                                                <div className='dropbtn'>
+                                                  <Dropdown>
+                                                    <Dropdown.Toggle variant="success" id="dropdown-basic">
+                                                      <img src='\Vectordots.svg' alt='img' className='img-fluid ' />
+                                                    </Dropdown.Toggle>
+                                                    <Dropdown.Menu>
+                                                      {
+                                                        elem?.isCoLeader === true &&
+                                                        <Dropdown.Item href="#/action-1">
+                                                          <p onClick={() => deleteCoLeader(elem)}><img src='\Vector.svg' alt='img' className='img-fluid' />Demote Co leader</p>
+                                                        </Dropdown.Item>
+                                                      }
+                                                      {
+                                                        elem?.isCoLeader === false &&
+                                                        <Dropdown.Item href="#/action-1">
+                                                          <p onClick={() => addCoLeader(elem)}><img src='\Vector.svg' alt='img' className='img-fluid' />Promote to Co leader</p>
+                                                        </Dropdown.Item>
+                                                      }
+
+                                                      <Dropdown.Item href="#/action-1">
+                                                        <p onClick={() => kickoutFromSquad(elem)}><img src='\Vector.svg' alt='img' className='img-fluid' />Dismiss</p>
+                                                      </Dropdown.Item>
+                                                    </Dropdown.Menu>
+                                                  </Dropdown>
+                                                </div>
+                                            }
+
+
+
+                                          </td>
+                                          :
+                                          data?.isCoLeader === true ?
+                                            <td>
+                                              {
+                                                elem?.isCommander === true || elem?.isCoLeader === true ?
+                                                  ""
+                                                  :
+                                                  <div className='dropbtn'>
+                                                    <Dropdown>
+                                                      <Dropdown.Toggle variant="success" id="dropdown-basic">
+                                                        <img src='\Vectordots.svg' alt='img' className='img-fluid ' />
+                                                      </Dropdown.Toggle>
+                                                      <Dropdown.Menu>
+                                                        <Dropdown.Item href="#/action-1">
+                                                          <p onClick={() => addCoLeader(elem)}><img src='\Vector.svg' alt='img' className='img-fluid' />Promote to Co leader</p>
+                                                        </Dropdown.Item>
+                                                        <Dropdown.Item href="#/action-1">
+                                                          <p onClick={() => kickoutFromSquad(elem)}><img src='\Vector.svg' alt='img' className='img-fluid' />Dismiss</p>
+                                                        </Dropdown.Item>
+                                                      </Dropdown.Menu>
+                                                    </Dropdown>
+                                                  </div>
+                                              }
+                                            </td>
+                                            :
+                                            ""
+                                        }
                                       </tr>
                                     )
                                   })}
@@ -625,7 +715,6 @@ const Squad = ({ show1, setShow1, show2, setShow2, setShow4, setShow5, setShow6,
                                 </thead>
                                 <tbody>
                                   {users?.users?.map((elem, index) => {
-                                    // console("console", elem)
                                     return (
                                       <tr>
                                         <td>
@@ -647,20 +736,22 @@ const Squad = ({ show1, setShow1, show2, setShow2, setShow4, setShow5, setShow6,
                                           <p className='paratable'>+{elem?.points} POINTS</p>
                                         </td>
                                         <td>
-                                          <div className='dropbtn'>
-                                            <Dropdown>
-                                              <Dropdown.Toggle variant="success" id="dropdown-basic">
-                                                <img src='\Vectordots.svg' alt='img' className='img-fluid ' />
+                                          {data?.isCommander == true &&
+                                            <div className='dropbtn'>
+                                              <Dropdown>
+                                                <Dropdown.Toggle variant="success" id="dropdown-basic">
+                                                  <img src='\Vectordots.svg' alt='img' className='img-fluid ' />
 
-                                              </Dropdown.Toggle>
+                                                </Dropdown.Toggle>
 
-                                              <Dropdown.Menu>
-                                                <Dropdown.Item href="#/action-1">
-                                                  <p onClick={() => deleteCoLeader(elem)}><img src='\Vector.svg' alt='img' className='img-fluid' />recruit</p>
-                                                </Dropdown.Item>
-                                              </Dropdown.Menu>
-                                            </Dropdown>
-                                          </div>
+                                                <Dropdown.Menu>
+                                                  <Dropdown.Item href="#/action-1">
+                                                    <p onClick={() => deleteCoLeader(elem)}><img src='\Vector.svg' alt='img' className='img-fluid' />Demote</p>
+                                                  </Dropdown.Item>
+                                                </Dropdown.Menu>
+                                              </Dropdown>
+                                            </div>
+                                          }
                                         </td>
                                       </tr>
                                     )
@@ -1275,6 +1366,180 @@ const Squad = ({ show1, setShow1, show2, setShow2, setShow4, setShow5, setShow6,
       {/* <button onClick={handleShow4}>search member</button>
                 <button onClick={handleShow5}>invite member</button> */}
 
+      <Modal className='detailmodal' show={showleaderModal} onHide={HideModal1} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Add Co-leader</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div className='maincard'>
+            <div className='display-none-in-mobile'>
+              <div className="maintable">
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th>
+                        <p className='headtable'>Nickname</p>
+                      </th>
+                      <th>
+                        <p className='headtable'>Rank</p>
+                      </th>
+                      <th>
+                        <p className='headtable'>Wallet Address</p>
+                      </th>
+                      {/* <th>
+                                                <p className='headtable'>Action</p>
+                                            </th> */}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <p className='paratable'>{leaderData?.nickName ? leaderData?.nickName : "------"}</p>
+                      </td>
+                      <td>
+                        <div className="set-custom">
+                          <img style={{ width: '40px', height: '40px' }} src={leaderData?.rank?.icon} alt="img" className='img-fluid' />
+                          <p className='paratable'>{leaderData?.rank?.name}</p>
+                        </div>
+                      </td>
+                      <td>
+                        {leaderData?.walletAddress ?
+                        <p className='paratable'>
+                          {`${leaderData?.walletAddress.slice(0, 8)}...${leaderData?.walletAddress.slice(
+                            walletAddressLength - 8
+                          )}`}
+                        </p>
+                        :''}
+                      </td>
+                      <td>
+                        {/* <div className='dropbtn'>
+                                                            <Dropdown>
+                                                                <Dropdown.Toggle variant="success" id="dropdown-basic">
+                                                                    <img src='\Vectordots.svg' alt='img' className='img-fluid ' />
+
+                                                                </Dropdown.Toggle>
+
+                                                                <Dropdown.Menu>
+                                                                    <Dropdown.Item href="#/action-1">
+                                                                        
+                                                                        <p onClick={()=>AddMember(elem)}>
+                                                                            <img src='\Vector.svg' alt='img' className='img-fluid' />add</p>
+                                                                    </Dropdown.Item>
+                                                                </Dropdown.Menu>
+                                                            </Dropdown>
+                                                        </div> */}
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            <div className="mobile-responsive-table d-none display-block-in-mobile">
+              <div className="heading-mobile">
+                <p>Task</p>
+              </div>
+              <Accordion defaultActiveKey="0">
+                <Accordion.Item eventKey="0">
+                  <Accordion.Header>Like our facebook page</Accordion.Header>
+                  <Accordion.Body>
+                    <div className="inner-fields">
+                      <div className="inner-item">
+                        <h6>Points</h6>
+                        <p>+5</p>
+                      </div>
+                      <div className="inner-item">
+                        <h6>Status</h6>
+                        <button className="btn-green">Completed</button>
+                      </div>
+                      <div className="inner-item">
+                        <h6>Expiry</h6>
+                        <p>12:34 12/12/23</p>
+                      </div>
+                      <div className="inner-item">
+                        <h6>Actions</h6>
+                        <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
+                      </div>
+                    </div>
+                  </Accordion.Body>
+                </Accordion.Item>
+                <Accordion.Item eventKey="1">
+                  <Accordion.Header>Follow our twitter acc...</Accordion.Header>
+                  <Accordion.Body>
+                    <div className="inner-fields">
+                      <div className="inner-item">
+                        <h6>Points</h6>
+                        <p>+5</p>
+                      </div>
+                      <div className="inner-item">
+                        <h6>Status</h6>
+                        <button className="btn-green">Completed</button>
+                      </div>
+                      <div className="inner-item">
+                        <h6>Expiry</h6>
+                        <p>12:34 12/12/23</p>
+                      </div>
+                      <div className="inner-item">
+                        <h6>Actions</h6>
+                        <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
+                      </div>
+                    </div>
+                  </Accordion.Body>
+                </Accordion.Item>
+                <Accordion.Item eventKey="2">
+                  <Accordion.Header>Like our facebook page</Accordion.Header>
+                  <Accordion.Body>
+                    <div className="inner-fields">
+                      <div className="inner-item">
+                        <h6>Points</h6>
+                        <p>+5</p>
+                      </div>
+                      <div className="inner-item">
+                        <h6>Status</h6>
+                        <button className="btn-green">Completed</button>
+                      </div>
+                      <div className="inner-item">
+                        <h6>Expiry</h6>
+                        <p>12:34 12/12/23</p>
+                      </div>
+                      <div className="inner-item">
+                        <h6>Actions</h6>
+                        <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
+                      </div>
+                    </div>
+                  </Accordion.Body>
+                </Accordion.Item>
+                <Accordion.Item eventKey="3">
+                  <Accordion.Header>Like our facebook page</Accordion.Header>
+                  <Accordion.Body>
+                    <div className="inner-fields">
+                      <div className="inner-item">
+                        <h6>Points</h6>
+                        <p>+5</p>
+                      </div>
+                      <div className="inner-item">
+                        <h6>Status</h6>
+                        <button className="btn-green">Completed</button>
+                      </div>
+                      <div className="inner-item">
+                        <h6>Expiry</h6>
+                        <p>12:34 12/12/23</p>
+                      </div>
+                      <div className="inner-item">
+                        <h6>Actions</h6>
+                        <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
+                      </div>
+                    </div>
+                  </Accordion.Body>
+                </Accordion.Item>
+              </Accordion>
+            </div>
+          </div>
+          <div className='endbtn'>
+            <button className='btn-blackk' onClick={HideModal1}><span><img src='\Subtract.svg' alt='img' className='img-fluid' /></span>Cancel</button>
+            <button className='btn-pinkk' onClick={() => addCoLeader1()}><img src='\up.svg' alt='img' className='img-fluid' />Yes’ I am sure</button>
+          </div>
+        </Modal.Body>
+      </Modal>
     </>
   )
 }

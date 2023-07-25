@@ -349,7 +349,7 @@ const GeneralSidebar = () => {
   let walletAddress = localStorage.getItem("wallet");
   //  code metamask switch wallet
   useEffect(() => {
-    if (account?.toString() == walletAddress?.toString() || toggle) {
+    if (account == walletAddress|| toggle) {
       setToggle(false)
     }
     else {
