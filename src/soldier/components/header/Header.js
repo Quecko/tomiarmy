@@ -16,6 +16,7 @@ import Signature from "../../../hooks/dataSenders/userSign";
 import { useHistory } from "react-router-dom";
 import { io } from "socket.io-client";
 import useAuth from "../../../hooks/useAuth";
+import notiSound from "../../../assets/sound/sound.mp3";
 
 
 const Header = ({ routes, setroute, indexwait, handleShow, setShow2, setShow1, setShow4, setShow5, notifs, getNotif, getData, getDataOperation, getChat }) => {
@@ -79,25 +80,31 @@ const Header = ({ routes, setroute, indexwait, handleShow, setShow2, setShow1, s
     });
 
     socket.on('WORK_PROOF_REJECTED', (notification) => {
-      toast.info("Update On Your Submitted Task Please Check Your Notifications");
+      // toast.info("Update On Your Submitted Task Please Check Your Notifications");
+      audio.play()
       getNotif()
       getData()
       getDataOperation()
     });
     socket.on('Recruite_Invite', (notification) => {
       // toast.info("You are Invited to join a Squad by a Commander Please Check Your Notifications");
+      audio.play()
       getNotif()
+      // setShowModal(true)
     });
     socket.on('Recruite_Invite_Accepted', (notification) => {
       // toast.info("Your Recruite Invitation has been Accepted Please Check Your Notifications");
+      audio.play()
       getNotif()
     });
     socket.on('Squad_Recruite_Invite', (notification) => {
       // toast.info("Squad Recruite Invite Send To You Please Check Your Notifications");
+      audio.play()
       getNotif()
     });
     socket.on('Squad_Recruite_Accepted', (notification) => {
       // toast.info("Your Squad Recruite Accepted Please Check Your Notifications");
+      audio.play()
       getNotif()
     });
     socket.on('Group_Message', () => {
@@ -107,15 +114,19 @@ const Header = ({ routes, setroute, indexwait, handleShow, setShow2, setShow1, s
     });
     socket.on('Co_Leader_Added', (notification) => {
       // toast.info("You are Promoted for Co-Leader Please Check Your Notifications");
+      audio.play()
       getNotif()
       setShowModal(true)
     });
     socket.on('Co_Leader_Removed', (notification) => {
       // toast.info("You are Removed for as a Co-Leader Please Check Your Notifications");
+      audio.play()
       getNotif()
     });
     socket.on('Veteran_kicked_out', (notification) => {
-      toast.info("You are Removed from Squad Please Check Your Notifications");
+      // toast.info("You are Removed from Squad Please Check Your Notifications");
+      audio.play()
+      getNotif()
     });
 
     socket.on("disconnect", (reason) => {
@@ -151,6 +162,7 @@ const Header = ({ routes, setroute, indexwait, handleShow, setShow2, setShow1, s
         userString.memberOfSquad = response?.data?.data?.memberOfSquad;
         localStorage.setItem('user', JSON.stringify(userString));
         localStorage.setItem("accessToken", response?.data?.accessToken);
+        setShowModal(true)
         // window.location.reload();
         // updateToken();
         // window.location.reload();
@@ -264,6 +276,14 @@ const Header = ({ routes, setroute, indexwait, handleShow, setShow2, setShow1, s
     // window.location.reload()
   }
 
+  let audio = new Audio(notiSound)
+
+  
+  
+  // const NotiSoundOn =()=>{
+  //   audio.play() 
+  // }
+
   return (
     <>
       <div
@@ -365,7 +385,7 @@ const Header = ({ routes, setroute, indexwait, handleShow, setShow2, setShow1, s
                 <div class="btn-group notification-btn">
                   <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
                     <img src={notificationIcon} alt="notificationIcon" />
-                    <span className="update-dot"></span>
+                    {/* <span className="update-dot"></span> */}
                   </button>
                   <ul class="dropdown-menu border-grad1">
                     {notifs?.length > 0 ?
@@ -405,18 +425,18 @@ const Header = ({ routes, setroute, indexwait, handleShow, setShow2, setShow1, s
                                 <p><span></span>{moment(item?.createdAt).fromNow()}</p>
                               </div>
                               <p className="para">{item?.notification?.message}</p>
-                              {squadId &&
+                              {squadId && data?.memberOfSquad==false &&
                                 <div className="twice-btn">
                                   {/* <button className="btn-reject"><img src="\assets\reject-icon.svg" alt="img" className="img-fluid me-2" />Reject</button> */}
                                   <button className="btn-accept" onClick={() => AcceptInvite(item)}><img src="\assets\checkmark.svg" alt="img" className="img-fluid me-2" />Accept</button>
                                 </div>
                               }
-                              {coLeaderAdded == true && item?.isRead == false &&
+                              {coLeaderAdded == true && item?.isRead == false && data?.isCoLeader==false &&
                                 <div className="twice-btn">
                                   <button className="btn-accept" onClick={() => updateNotifications(item)}><img src="\assets\checkmark.svg" alt="img" className="img-fluid me-2" />Sign up</button>
                                 </div>
                               }
-                              {coLeaderRemoved == true && item?.isRead == false &&
+                              {coLeaderRemoved == true && item?.isRead == false && data?.isCoLeader==true &&
                                 <div className="twice-btn">
                                   <button className="btn-accept" onClick={() => updateNotifications(item)}><img src="\assets\checkmark.svg" alt="img" className="img-fluid me-2" />Sign up</button>
                                 </div>
