@@ -282,6 +282,7 @@ table {
                 border: none;
                 outline: none;
                 margin-right: 10px;
+                position: relative;
 
                 &::after {
                     display: none;
@@ -297,6 +298,19 @@ table {
                     background: linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0) 34.22%), #8147FF;
                     border-bottom: 1px solid #A276FF;
                     box-shadow: 0px 3px 1px #5B25D0;
+                }
+                .update-dot{
+                    width: 10px;
+                    height: 10px;
+                    border-radius: 50%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    background-color: rgb(210, 19, 19);
+                    position: absolute;
+                    top: 7px;
+                    right: 12px;
+                    pointer-events: none;
                 }
             }
 

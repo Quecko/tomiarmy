@@ -365,6 +365,7 @@ const Header = ({ routes, setroute, indexwait, handleShow, setShow2, setShow1, s
                 <div class="btn-group notification-btn">
                   <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
                     <img src={notificationIcon} alt="notificationIcon" />
+                    <span className="update-dot"></span>
                   </button>
                   <ul class="dropdown-menu border-grad1">
                     {notifs?.length > 0 ?
