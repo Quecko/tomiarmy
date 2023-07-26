@@ -320,6 +320,7 @@ const GeneralSidebar = () => {
               window.location.assign('/')
             }
             localStorage.setItem("wallet", account);
+            window.location?.reload()
           })
           .catch((err) => {
             if (err?.response?.data?.statusCode === 404) {

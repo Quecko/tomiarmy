@@ -117,11 +117,11 @@ const GeneralForum = () => {
     setcomment('')
     setRend(!rend)
   }
-  const createComment = (id) => {
+  const createComment = (item) => {
     // setcountss(0)
     setLoader(true);
     let tok = localStorage.getItem("accessToken");
-    axios.post(`${API_URL}/forums/posts/${id}/comments`,
+    axios.post(`${API_URL}/forums/posts/${item?._id}/comments`,
       {
         content: comment
       },
@@ -131,6 +131,13 @@ const GeneralForum = () => {
         }
       }
     ).then((response) => {
+      const newPost = post
+      let dumObj = item;
+      dumObj.noOfComments = dumObj.noOfComments + 1;
+      let findIndex = post.findIndex((ip) => { return ip._id === dumObj._id })
+      const index = post.findIndex((v, index) => index === dumObj?._id)
+      newPost.splice(index, 1, dumObj)
+      setPost(newPost)
       setLoader(false);
       toast.success("Comment Created Successfully");
       mainid(commentid, "add");
@@ -464,7 +471,7 @@ const GeneralForum = () => {
                             <h5>Leave a comment</h5>
                             <p>Comment</p>
                             <textarea onChange={handleChange1} value={comment} placeholder="Write comment"></textarea>
-                            <button onClick={() => createComment(elem?._id)}>Post Comment</button>
+                            <button onClick={() => createComment(elem)}>Post Comment</button>
                           </div>
                         </section>
                       }

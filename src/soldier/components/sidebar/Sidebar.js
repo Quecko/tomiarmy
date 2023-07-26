@@ -213,12 +213,13 @@ const Sidebar = () => {
               localStorage.clear()
               window.location.assign('/')
             }
+            window.location.reload()
             // getDataOperation()
-            getNotif()
-            SquadUsers()
-            GetTaskStatusData()
-            // getChat()
-            GetUserProfiledata()
+            // getNotif()
+            // SquadUsers()
+            // GetTaskStatusData()
+            // // getChat()
+            // GetUserProfiledata()
             localStorage.setItem("wallet", account);
           })
           .catch((err) => {
