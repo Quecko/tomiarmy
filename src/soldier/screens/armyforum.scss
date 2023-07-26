@@ -618,9 +618,9 @@
 
     }
 
-    .topicwrapper .maincmntsection .first .saying {
-        padding-left: 30px;
-    }
+    // .topicwrapper .maincmntsection .first .saying {
+    //     padding-left: 30px;
+    // }
 
     .topicmodal .modal .modal-dialog .modal-content {
         min-width: 100% !important;
@@ -1317,4 +1317,12 @@
         color: #81828A;
         text-align: start;
     }
+}
+
+.twice-elements{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 250px;
+    width: 100%;
 }

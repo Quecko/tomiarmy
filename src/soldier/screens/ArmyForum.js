@@ -392,7 +392,7 @@ const ArmyForum = () => {
           <h6>{indexvalue == 12 ? 'My Post' : 'Army Forum'} </h6>
           <p>Engage with your {indexvalue == 12 ? 'post' : 'army'}</p>
         </div>
-        <button onClick={() => setShowForumModal(true)} className="create-squad-btn" >
+        <button onClick={() => setShowForumModal(true)} className="create-squad-btn w-100" >
           <img src="\assets\topic-btn.svg" alt="img" className="img-fluid me-2" />
           Start a new topic
         </button>
@@ -433,10 +433,7 @@ const ArmyForum = () => {
                                 </div>
                               </div>
                             </div>
-                            <div className="comments"  >
-                              <img src="\assets\comment.svg" alt="img" onClick={() => { mainid(elem?._id); UpdateCurrent(index) }} className="cmnt" data-toggle="collapse" href={`#${index}`} role="button" aria-expanded="false" aria-controls="collapseExample" />
-                              <p>{elem?.noOfComments}+</p>
-                            </div>
+                          <div className="twice-elements">
                             {indexvalue == 12 &&
                               <>
                                 <button className="comments"
@@ -451,6 +448,11 @@ const ArmyForum = () => {
                                 </button>
                               </>
                             }
+                            <div className="comments"  >
+                              <img src="\assets\comment.svg" alt="img" onClick={() => { mainid(elem?._id); UpdateCurrent(index) }} className="cmnt" data-toggle="collapse" href={`#${index}`} role="button" aria-expanded="false" aria-controls="collapseExample" />
+                              <p>{elem?.noOfComments}+</p>
+                            </div>
+                          </div>
                           </div>
                         </div>
                       </section>

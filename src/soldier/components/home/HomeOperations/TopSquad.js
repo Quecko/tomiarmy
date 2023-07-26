@@ -6,7 +6,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const TopSquad = ({ topSquad, GetUserTopSquad, getPrevData, getNextData, pages, currentPage,count,limit,search,setSearch,getSearchData }) => {
+const TopSquad = ({ topSquad, GetUserTopSquad, getPrevData, getNextData, pages, currentPage, count, limit, search, setSearch, getSearchData }) => {
   let tok = localStorage.getItem("accessToken");
   const SendInvite = async (id) => {
     // e.preventDefault();
@@ -45,8 +45,10 @@ const TopSquad = ({ topSquad, GetUserTopSquad, getPrevData, getNextData, pages, 
           <div className="option-field">
             <input value={search} onChange={(e) => setSearch(e.target.value)} type="text" placeholder='Search' />
             {/* <img src="\assets\search-icon.svg" alt="img" className='img-fluid search-icon' /> */}
-            <button onClick={() => getSearchData(currentPage)}>Search</button>
-            <button onClick={()=>GetUserTopSquad(currentPage)}>reset</button>
+            <div className="twice-new-btn-sm">
+              <button className="btn-search" onClick={() => getSearchData(currentPage)}>Search</button>
+              <button className="btn-reset" onClick={() => GetUserTopSquad(currentPage)}>reset</button>
+            </div>
 
           </div>
           <div className="maintable table-responsive display-none-in-mobile">
@@ -97,7 +99,7 @@ const TopSquad = ({ topSquad, GetUserTopSquad, getPrevData, getNextData, pages, 
             </table>
             <div className="pagi">
               <div>
-                <p>Showing {limit} to {currentPage * 5>=count ? currentPage - (currentPage - count)  : currentPage * 5  } of {count} entries</p>
+                <p>Showing {limit} to {currentPage * 5 >= count ? currentPage - (currentPage - count) : currentPage * 5} of {count} entries</p>
               </div>
               <nav className="right">
                 <ul className="pagination">
@@ -140,7 +142,7 @@ const TopSquad = ({ topSquad, GetUserTopSquad, getPrevData, getNextData, pages, 
                 </ul>
               </nav>
             </div>
-        </div>
+          </div>
           <div className="mobile-responsive-table d-none display-block-in-mobile">
             <div className="heading-mobile">
               <p>Squads</p>
