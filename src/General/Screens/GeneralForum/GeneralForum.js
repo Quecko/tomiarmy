@@ -62,7 +62,7 @@ const GeneralForum = () => {
       ).then((response) => {
         setLoader(false);
         toast.success("Post Added Successfully");
-        GetPosts();
+        getMyPosts()
         handleCloseForum()
         // window.$(`#exampleModall`).modal("hide");
         // ClearAlloperation()

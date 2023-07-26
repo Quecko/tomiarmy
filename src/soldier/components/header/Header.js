@@ -108,6 +108,7 @@ const Header = ({ routes, setroute, indexwait, handleShow, setShow2, setShow1, s
     socket.on('Co_Leader_Added', (notification) => {
       // toast.info("You are Promoted for Co-Leader Please Check Your Notifications");
       getNotif()
+      setShowModal(true)
     });
     socket.on('Co_Leader_Removed', (notification) => {
       // toast.info("You are Removed for as a Co-Leader Please Check Your Notifications");
@@ -150,7 +151,6 @@ const Header = ({ routes, setroute, indexwait, handleShow, setShow2, setShow1, s
         userString.memberOfSquad = response?.data?.data?.memberOfSquad;
         localStorage.setItem('user', JSON.stringify(userString));
         localStorage.setItem("accessToken", response?.data?.accessToken);
-        setShowModal(true)
         // window.location.reload();
         // updateToken();
         // window.location.reload();

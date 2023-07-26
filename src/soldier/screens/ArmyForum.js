@@ -71,7 +71,7 @@ const ArmyForum = () => {
         ).then((response) => {
           setLoader(false);
           toast.success("Post Added Successfully");
-          GetPosts();
+          getMyPosts()
           handleCloseForum()
           ClearAll()
           // window.$(`#exampleModall`).modal("hide");
@@ -113,7 +113,7 @@ const ArmyForum = () => {
     let tok = localStorage.getItem("accessToken");
     var config = {
       method: "get",
-      url: `${API_URL}/forums/posts/my-posts?offset=1&&limit=100000&&forumPost=false`,
+      url: `${API_URL}/forums/posts/my-posts?offset=1&&limit=100&&forumPost=false`,
       headers: {
         authorization: `Bearer ` + tok
       },
@@ -406,7 +406,7 @@ const ArmyForum = () => {
           <h6>{indexvalue == 12 ? 'My Post' : 'Army Forum'} </h6>
           <p>Engage with your {indexvalue == 12 ? 'post' : 'army'}</p>
         </div>
-        <button onClick={() => setShowForumModal(true)} className="create-squad-btn w-100" >
+        <button onClick={() => setShowForumModal(true)} className="create-squad-btn gsvvscvtycsvc" >
           <img src="\assets\topic-btn.svg" alt="img" className="img-fluid me-2" />
           Start a new topic
         </button>

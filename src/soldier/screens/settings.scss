@@ -98,6 +98,10 @@
 
         .btn-close {
             background: url("../../assets/icons/close-icon.svg") !important;
+            background-size: contain  !important;
+            background-position: center !important;
+            background-repeat: no-repeat !important;
+            border: none !important;
             opacity: 1;
 
             &:focus {
@@ -176,5 +180,18 @@
                 border-radius: 10px;
             }
         }
+    }
+}
+
+.modal-header .btn-close {
+    background: url("../../assets/icons/close-icon.svg") !important;
+    background-size: contain  !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    border: none !important;
+    opacity: 1;
+
+    &:focus {
+        box-shadow: none;
     }
 }

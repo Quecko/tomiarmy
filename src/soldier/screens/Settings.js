@@ -35,7 +35,7 @@ const Settings = () => {
           localStorage.setItem('user', updatedData);
           setLoader(false);
           handleClose()
-          toast.success('Update NickName Successfully', {
+          toast.success('Update nick name successfully', {
             position: "top-right",
             autoClose: 2000,
           });
