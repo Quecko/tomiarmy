@@ -8,32 +8,33 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const TopSquad = ({ topSquad, GetUserTopSquad, getPrevData, getNextData, pages, currentPage, count, limit, search, setSearch, getSearchData }) => {
   let tok = localStorage.getItem("accessToken");
-  const SendInvite = async (id) => {
-    // e.preventDefault();
-    // setLoader(true);
-    await axios
-      .post(`${API_URL}/tasks/squad-invitation-requests`, {
-        squadId: id.toString(),
-      }, {
-        headers: {
-          authorization: `Bearer ` + tok
-        }
-      })
-      .then((res) => {
-        // window.$("#examplemodalinvite").modal("hide");
+  const SendInvite = (id) => {
+    // if (account) {
+    axios.defaults.headers.post[
+      "Authorization"
+    ] = `Bearer ${tok}`;
+    var config = {
+      method: "post",
+      url: `${API_URL}/tasks/squad-invitation-requests`,
+      data: {
+        squadId: id.toString()
+      }
+    };
+
+    axios(config)
+      .then(async (response) => {
         GetUserTopSquad()
         toast.success("Invite Sent Successfully");
-        // setLoader(false);
       })
-      .catch((err) => {
+      .catch(function (err) {
         toast.error(err?.response?.data.message, {
           position: "top-right",
           autoClose: 2000,
         });
         // setLoader(false);
       });
+    // }
   }
-
 
   return (
     <>

@@ -15,9 +15,10 @@ import moment from "moment";
 import { useWeb3React } from "@web3-react/core";
 
 const Recruiting = () => {
+
+  let tok = localStorage.getItem("accessToken");
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
-  // const handleShow = () => setShow(true);
   const { account } = useWeb3React()
   const [show1, setShow1] = useState(false);
   const handleClose1 = () => setShow1(false);
@@ -31,14 +32,10 @@ const Recruiting = () => {
   const setProfilePic = (evt) => {
     setProfilePicture(evt.target.files[0]);
   }
-
   const [loader, setLoader] = useState(false);
   const [requests, setRequests] = useState([]);
 
-
   const getData = async () => {
-    let tok = localStorage.getItem("accessToken");
-    // let wall = localStorage.getItem("wallet");
     // if (account) {
       var config = {
         method: "get",
@@ -81,12 +78,12 @@ const Recruiting = () => {
     var data = ({
       squadInvitationRequestId: id,
     });
+    axios.defaults.headers.post[
+      "Authorization"
+  ] = `Bearer ${tok}`;
     var config = {
       method: "post",
       url: `${API_URL}/tasks/squad-invitation-requests/recruite-accept`,
-      headers: {
-        authorization: `Bearer ` + tok
-      },
       data: data,
     };
 
@@ -110,17 +107,16 @@ const Recruiting = () => {
   }
 
   const hiderecruit = (id) => {
-    let tok = localStorage.getItem("accessToken");
     setLoader(true);
     var data = ({
       squadInvitationRequestId: id,
     });
+    axios.defaults.headers.post[
+      "Authorization"
+  ] = `Bearer ${tok}`;
     var config = {
       method: "post",
       url: `${API_URL}/tasks/squad-invitation-requests/squad-hidden-requests`,
-      headers: {
-        authorization: `Bearer ` + tok
-      },
       data: data,
     };
 

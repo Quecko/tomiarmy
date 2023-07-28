@@ -8,9 +8,8 @@ import Modal from 'react-bootstrap/Modal';
 import Accordion from 'react-bootstrap/Accordion';
 import { API_URL } from '../../utils/ApiUrl';
 import moment from 'moment';
-import { io } from "socket.io-client";
-import { toast } from 'react-toastify';
 import axios from 'axios';
+
 const Announcements = () => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -19,6 +18,7 @@ const Announcements = () => {
   const [announcements, setAnnouncements] = useState([])
   let tok = localStorage.getItem("accessToken");
   const [selecttab, setselecttab] = useState('home')
+
   const getAnnouncements = async () => {
     var config = {
       method: "get",
@@ -68,51 +68,6 @@ const Announcements = () => {
       });
   }
 
-
-  useEffect(() => {
-
-    // const socket = io("https://stagingapi.tomiarmy.com", {
-    //   transports: ["websocket", "polling"],
-    // });
-    // //  const socket = io("http://10.10.10.115:8094")
-    // let tok = localStorage.getItem("accessToken");
-    // socket.on("connect", () => {
-    //   // console.log('socket connected++++++++++++++++++++++++++', socket.connected);          
-    //   socket.emit("authentication", {
-    //     token: tok,
-    //   });
-    // });
-
-    // socket.on('WORK_PROOF_REJECTED', (notification) => {
-    //   toast.info("Update on your submitted task!");
-    //   GetTasks()
-    //   GetOpts()
-    //   // ShowResp(notification);
-    // });
-
-    // socket.on('Veteran_recruite_Invite', (notification) => {
-    //   getNotif("soc");
-    // });
-
-    // socket.on('message', (notification) => {
-    //   console.log('Received notification:', notification);
-    //   // getNotif("soc");
-    //   // setNotn(true);
-    //   // ShowResp(notification);
-    // });
-
-    // socket.on('Rank_Updated', (notification) => {
-    //   updateToken();
-    // });
-
-    // socket.on('Rank_Updated_By_General', (notification) => {
-    //   updateToken();
-    // });
-
-    // socket.on("disconnect", (reason) => {
-    //   console.log(`Disconnected: ${reason}`);
-    // });
-  }, [])
 
 
 

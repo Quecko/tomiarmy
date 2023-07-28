@@ -11,12 +11,15 @@ import axios from 'axios';
 import moment from 'moment';
 
 const BugReport = () => {
+
+    let tok = localStorage.getItem("accessToken");
     const [reportBug, setReportedBug] = useState([]);
     const [allFormData, setAllFormData] = useState({
         issue: '',
         description: '',
     })
     const [imageUrl, setImageUrl] = useState(null)
+    const [loader, setLoader] = useState()
 
     const handleChange = (event) => {
         allFormData[event.target.name] = event.target.value;
@@ -29,10 +32,9 @@ const BugReport = () => {
             description: '',
         })
     }
-    const [loader, setLoader] = useState()
+  
     const createBug = () => {
         setLoader(true);
-        let tok = localStorage.getItem("accessToken");
         var data = ({
             issue: allFormData.issue,
             description: allFormData.description,
@@ -88,7 +90,7 @@ const BugReport = () => {
     };
 
     const getListing = async () => {
-        let tok = localStorage.getItem("accessToken");
+      
         var config = {
             method: "get",
             url: `${API_URL}/content/bug-reports/get-bugs-report-list?offset=1&limit=100`,

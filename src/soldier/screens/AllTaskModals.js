@@ -11,16 +11,11 @@ const AllTaskModals = ({ showtask, setShowtask, settaskdetail, taskdetail,getDat
   const handleClosetask = () => setShowtask(false);
   const [loader, setLoader] = useState(false);
   const { account } = useWeb3React()
-
   const [show1, setShow1] = useState(false);
   const handleClose1 = () => setShow1(false);
   const handleShow1 = () => setShow1(true);
-
   const [show2, setShow2] = useState(false);
   const handleClose2 = () => setShow2(false);
-  const handleShow2 = () => setShow2(true);
-
-
   const [profilePicture, setProfilePicture] = useState(null);
   const setProfilePic = (evt) => {
     setProfilePicture(evt.target.files[0]);
@@ -119,7 +114,6 @@ const AllTaskModals = ({ showtask, setShowtask, settaskdetail, taskdetail,getDat
             // setOperations(response?.data?.data?.operation);
           })
           .catch(function (error) {
-            window.$("#exampleModalworkproof").modal("hide");
             setProfilePicture(null)
             setInputs({
               name: ''
@@ -193,9 +187,6 @@ const AllTaskModals = ({ showtask, setShowtask, settaskdetail, taskdetail,getDat
     const { name, value } = e.target;
     setInputs(inputs => ({ ...inputs, [name]: value }));
   }
-
-
-  
 
   var result=taskdetail?.attachment?.split("_")?.pop();
 

@@ -8,21 +8,6 @@ import Countdown from 'react-countdown';
 
 const ActiveOperation = ({ setShowtask1, tasks, settaskdetail1, setOperationId }) => {
 
-    // const [show1, setShow1] = useState(false);
-    // const handleClose1 = () => setShow1(false);
-    // const handleShow1 = () => setShow1(true);
-
-    // const [show2, setShow2] = useState(false);
-    // const handleClose2 = () => setShow2(false);
-    // const handleShow2 = () => setShow2(true);
-
-    // const [profilePicture, setProfilePicture] = useState(null);
-    // const setProfilePic = (evt) => {
-    //     setProfilePicture(evt.target.files[0]);
-    // }
-
-    console.log('tasks', tasks?.tasksList?.length);
-
     const GetTime = (time) => {
         let endtime = new Date(time)
         return endtime;
@@ -33,9 +18,6 @@ const ActiveOperation = ({ setShowtask1, tasks, settaskdetail1, setOperationId }
         setShowtask1(true)
         settaskdetail1(elem)
     }
-
-
-
 
     return (
         <>

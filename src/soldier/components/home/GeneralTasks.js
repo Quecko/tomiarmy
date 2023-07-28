@@ -26,49 +26,49 @@ const GeneralTasks = ({ setShowtask, settaskdetail, tasks }) => {
           </tr>
         </thead>
         <tbody>
-          {tasks?.length>0 ?
-          tasks?.slice(0, 5).map((elem, index) => {
-            let expiredate = new Date(elem?.expirationDate);
-            const ExpireDate = moment(expiredate).format("DD-MM-YYYY");
-            let createdate = new Date(elem?.createdAt);
-            const createDate = moment(createdate).format("DD-MM-YYYY");
-            return (
-              <tr>
-                <td>{elem?.name}</td>
-                <td>+{elem?.reward}</td>
-                <td>
-                  {
-                    elem?.taskSubmitted && !elem?.taskApproval ?
-                      <div className="completed" style={{ background: '#FEC600' }}>In Process</div>
-                      : elem?.taskApproval === true ?
-                        <div className="completed" style={{ background: '#04C453' }}>Completed</div>
-                        :
-                        <div className="completed" style={{ background: '#FF8936' }}>Pending</div>
-                  }
-                </td>
-                <td>{createDate}</td>
-                <td>
-                  <div className="tbl-dropdown">
-                    <Dropdown>
-                      <Dropdown.Toggle id="dropdown-basic">
-                        <img src={dosts} alt="dosts" />
-                      </Dropdown.Toggle>
+          {tasks?.length > 0 ?
+            tasks?.slice(0, 5).map((elem, index) => {
+              let expiredate = new Date(elem?.expirationDate);
+              const ExpireDate = moment(expiredate).format("DD-MM-YYYY");
+              let createdate = new Date(elem?.createdAt);
+              const createDate = moment(createdate).format("DD-MM-YYYY");
+              return (
+                <tr>
+                  <td>{elem?.name}</td>
+                  <td>+{elem?.reward}</td>
+                  <td>
+                    {
+                      elem?.taskSubmitted && !elem?.taskApproval ?
+                        <div className="completed" style={{ background: '#FEC600' }}>In Process</div>
+                        : elem?.taskApproval === true ?
+                          <div className="completed" style={{ background: '#04C453' }}>Completed</div>
+                          :
+                          <div className="completed" style={{ background: '#FF8936' }}>Pending</div>
+                    }
+                  </td>
+                  <td>{createDate}</td>
+                  <td>
+                    <div className="tbl-dropdown">
+                      <Dropdown>
+                        <Dropdown.Toggle id="dropdown-basic">
+                          <img src={dosts} alt="dosts" />
+                        </Dropdown.Toggle>
 
-                      <Dropdown.Menu className="stats-dropdown-menu">
-                        <div className="stats-dropdown-bg" onClick={() => SubmitProofOfWork(elem)}>
-                          <Dropdown.Item>
-                            <img src={submitIcon} alt="submitIcon" />
-                            Submit Proof
-                          </Dropdown.Item>
-                        </div>
-                      </Dropdown.Menu>
-                    </Dropdown>
-                  </div>
-                </td>
-              </tr>
-            )
-          })
-        : <h4 className="ascsdvv">No Task Yet.</h4>}
+                        <Dropdown.Menu className="stats-dropdown-menu">
+                          <div className="stats-dropdown-bg" onClick={() => SubmitProofOfWork(elem)}>
+                            <Dropdown.Item>
+                              <img src={submitIcon} alt="submitIcon" />
+                              Submit Proof
+                            </Dropdown.Item>
+                          </div>
+                        </Dropdown.Menu>
+                      </Dropdown>
+                    </div>
+                  </td>
+                </tr>
+              )
+            })
+            : <h4 className="ascsdvv">No Task Yet.</h4>}
         </tbody>
         <tbody>
           {/* <tr>

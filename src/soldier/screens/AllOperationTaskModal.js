@@ -8,27 +8,20 @@ import { useWeb3React } from '@web3-react/core';
 
 const AllOperationTaskModal = ({ showtask1, setShowtask1, settaskdetail1, taskdetail1, getDataOperation, operationId }) => {
 
+    let tok = localStorage.getItem("accessToken");
     const handleClosetask = () => setShowtask1(false);
     const [loader, setLoader] = useState(false);
     const { account } = useWeb3React()
-
     const [show1, setShow1] = useState(false);
     const handleClose1 = () => setShow1(false);
     const handleShow1 = () => setShow1(true);
-
     const [show2, setShow2] = useState(false);
     const handleClose2 = () => setShow2(false);
-    const handleShow2 = () => setShow2(true);
-
-
     const [profilePicture, setProfilePicture] = useState(null);
     const setProfilePic = (evt) => {
         setProfilePicture(evt.target.files[0]);
     }
-
     const [powUrl, setPowUrl] = useState("");
-    const [opTask, SetOpTask] = useState(null);
-
 
     // const [inputList, setInputList] = useState([{ firstName: "", lastName: "" }]);
 
@@ -53,7 +46,6 @@ const AllOperationTaskModal = ({ showtask1, setShowtask1, settaskdetail1, taskde
     const SubmitWork = async () => {
         setLoader(true);
         let dumObj = {};
-        let tok = localStorage.getItem("accessToken");
         let dumArr = []
         if (multiplemages[0]?.multorimg != '' || powUrl !== "") {
             var expression = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)?/gi;
@@ -86,12 +78,12 @@ const AllOperationTaskModal = ({ showtask1, setShowtask1, settaskdetail1, taskde
         var data = ({
             taskProofs: dumArr,
         });
+        axios.defaults.headers.post[
+            "Authorization"
+          ] = `Bearer ${tok}`;
         var config = {
             method: "post",
             url: `${API_URL}/tasks/operations/${operationId?._id}/work-proof`,
-            headers: {
-                "Authorization": `Bearer ` + tok
-            },
             data: data,
         };
 
@@ -166,13 +158,6 @@ const AllOperationTaskModal = ({ showtask1, setShowtask1, settaskdetail1, taskde
         }
         ]);
     };
-
-    const handleChange1 = (e) => {
-        const { name, value } = e.target;
-        setInputs(inputs => ({ ...inputs, [name]: value }));
-    }
-
-    var result = taskdetail1?.attachment?.split("_")?.pop();
 
     return (
         <>

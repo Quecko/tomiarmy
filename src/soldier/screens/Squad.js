@@ -11,6 +11,7 @@ import { useWeb3React } from '@web3-react/core';
 import { toast } from 'react-toastify';
 
 const Squad = ({ show1, setShow1, show2, setShow2, setShow4, setShow5, setShow6, setCoLeaderDetail }) => {
+
   const datacommander = localStorage.getItem('user')
   const data = JSON.parse(datacommander)
   let tok = localStorage.getItem("accessToken");
@@ -59,7 +60,6 @@ const Squad = ({ show1, setShow1, show2, setShow2, setShow4, setShow5, setShow6,
     // } else {
     //     valu = 1;
     // }
-    let wall = localStorage.getItem("wallet");
     var config = {
       method: "get",
       url: `${API_URL}/auth/users/squad-members?offset=1&&limit=100&queryParam=${selecttab}`,
@@ -112,12 +112,12 @@ const Squad = ({ show1, setShow1, show2, setShow2, setShow4, setShow5, setShow6,
   }
 
   const recruitJoin = async (elem) => {
+    axios.defaults.headers.post[
+      "Authorization"
+    ] = `Bearer ${tok}`;
     var config = {
       method: "post",
       url: `${API_URL}/tasks/recruite-invites`,
-      headers: {
-        authorization: `Bearer ` + tok
-      },
       data: {
         userId: elem?._id
       },
@@ -141,10 +141,7 @@ const Squad = ({ show1, setShow1, show2, setShow2, setShow4, setShow5, setShow6,
   }
 
   const kickoutFromSquad = (item) => {
-    // setShow2(true)
-    let tok = localStorage.getItem("accessToken");
-    // if (account) {
-    // window.$("#exampleModalLabel11").modal("hide");
+    // if(account){
     var config = {
       method: "patch",
       url: `${API_URL}/auth/users/${item?._id}/kickout`,
@@ -160,6 +157,7 @@ const Squad = ({ show1, setShow1, show2, setShow2, setShow4, setShow5, setShow6,
         SquadUsers()
       })
       .catch(function (error) {
+        toast.error(error?.response?.data?.message)
         // console.log(error);
         // window.location.reload()
         // window.$("#exampleModalLabel11").modal("hide");
@@ -176,10 +174,7 @@ const Squad = ({ show1, setShow1, show2, setShow2, setShow4, setShow5, setShow6,
 
 
   const deleteCoLeader = (item) => {
-    // setShow2(true)
-    let tok = localStorage.getItem("accessToken");
-    // if (account) {
-    // window.$("#exampleModalLabel11").modal("hide");
+
     var config = {
       method: "delete",
       url: `${API_URL}/tasks/squad-co-leaders/${item?._id}`,
@@ -210,16 +205,14 @@ const Squad = ({ show1, setShow1, show2, setShow2, setShow4, setShow5, setShow6,
   }
 
   const addCoLeader1 = () => {
-    // setShow2(true)
-    let tok = localStorage.getItem("accessToken");
+
     // if (account) {
-    // window.$("#exampleModalLabel11").modal("hide");
+    axios.defaults.headers.post[
+      "Authorization"
+    ] = `Bearer ${tok}`;
     var config = {
       method: "post",
       url: `${API_URL}/tasks/squad-co-leaders/add-coLeader`,
-      headers: {
-        authorization: `Bearer ` + tok
-      },
       data: {
         coLeaderId: `${leaderData?._id}`
       }
@@ -250,7 +243,7 @@ const Squad = ({ show1, setShow1, show2, setShow2, setShow4, setShow5, setShow6,
   const walletAddressLength = leaderData?.walletAddress?.length;
   const HideModal1 = () => {
     setShowLeaderModal(false)
-}
+  }
 
 
   return (
@@ -1404,12 +1397,12 @@ const Squad = ({ show1, setShow1, show2, setShow2, setShow4, setShow5, setShow6,
                       </td>
                       <td>
                         {leaderData?.walletAddress ?
-                        <p className='paratable'>
-                          {`${leaderData?.walletAddress.slice(0, 8)}...${leaderData?.walletAddress.slice(
-                            walletAddressLength - 8
-                          )}`}
-                        </p>
-                        :''}
+                          <p className='paratable'>
+                            {`${leaderData?.walletAddress.slice(0, 8)}...${leaderData?.walletAddress.slice(
+                              walletAddressLength - 8
+                            )}`}
+                          </p>
+                          : ''}
                       </td>
                       <td>
                         {/* <div className='dropbtn'>

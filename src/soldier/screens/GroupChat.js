@@ -14,6 +14,8 @@ import { io } from "socket.io-client";
 import { useRef } from 'react';
 
 const GroupChat = ({ setPage, page, setChat, chat, getChat, pages, message, setMessage }) => {
+  
+  let tok = localStorage.getItem("accessToken");
   const [show, setshow] = useState(false);
   const [show1, setShow1] = useState(false);
   const handleClose1 = () => setShow1(false);
@@ -23,7 +25,6 @@ const GroupChat = ({ setPage, page, setChat, chat, getChat, pages, message, setM
   const [uploadImage, setUploadImage] = useState(null);
   const [showImageModal, setShowImageModal] = useState(false);
   const [loading, setLoading] = useState(false);
-
   const handleCloseImageModal = () => setShowImageModal(false);
   const [imageDetail, setImagedetail] = useState()
   let user = JSON.parse(localStorage.getItem("user"))
@@ -45,9 +46,6 @@ const GroupChat = ({ setPage, page, setChat, chat, getChat, pages, message, setM
     chatSectionRef.current.scrollIntoView({ behavior: 'smooth', block: 'end' });
     // }
   };
-
-
-
   const handleScroll = () => {
     const container = chatSectionRef.current;
     let scrollTop = Math.abs(container.scrollTop);
@@ -58,7 +56,6 @@ const GroupChat = ({ setPage, page, setChat, chat, getChat, pages, message, setM
 
   // get top user or member
   const gettopusers = async () => {
-    let tok = localStorage.getItem("accessToken");
     var config = {
       method: "get",
       url: `${API_URL}/auth/users/squad-members?offset=1&limit=5&queryParam=Active Squad`,
@@ -86,10 +83,8 @@ const GroupChat = ({ setPage, page, setChat, chat, getChat, pages, message, setM
     }
   };
 
-
   // get top user or member
   const sendChat = async () => {
-    let tok = localStorage.getItem("accessToken");
     if (message != '') {
     if (!loading) {
       setLoading(true);
@@ -149,29 +144,6 @@ const GroupChat = ({ setPage, page, setChat, chat, getChat, pages, message, setM
     setUploadImage('')
   }
 
-
-
-  //socket
-
-  // useEffect(() => {
-  //   let tok = localStorage.getItem("accessToken");
-  //   let socket = io('https://stagingapi.tomiarmy.com', {
-  //     transports: ["websocket", "polling"],
-  //     path: "/chats/sockets",
-  //   });
-  //   socket.on("connect", () => {
-  //     console.log('socket connected group chat++++++++++++++++++++++++++', socket.connected);
-  //     socket.emit("authentication", {
-  //       token: tok,
-  //     });
-  //   });
-
-  //   
-
-  //   socket.on("disconnect", (reason) => {
-  //     console.log(`Disconnected groupchat: ${reason}`);
-  //   });
-  // }, [chat])
 
   return (
     <>
@@ -456,7 +428,7 @@ const GroupChat = ({ setPage, page, setChat, chat, getChat, pages, message, setM
                     <a style={{ cursor: "pointer" }} onClick={() => setshow(!show)}><img src="\assets\emoji.svg" alt="img" className='img-fluid set-hw-icon' /></a>
                   </div>
                   <button className='btn-send' onClick={sendChat} disabled={loading} >{loading ? 'sending...' : 'send'}</button>
-                  <button className='chat-mobile-btn d-none'><img src="\assets\chat-msg-mobile.png" alt="img" className='img-fluid' /></button>
+                  <button className='chat-mobile-btn d-none' onClick={sendChat} disabled={loading}><img src="\assets\chat-msg-mobile.png" alt="img" className='img-fluid' /></button>
                 </div>
               </div>
             </div>

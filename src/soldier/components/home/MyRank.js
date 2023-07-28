@@ -13,6 +13,7 @@ import { toast } from 'react-toastify';
 import axios from "axios";
 
 const MyRank = ({ props }) => {
+  let tok = localStorage.getItem("accessToken");
   const { account } = useWeb3React()
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -50,7 +51,6 @@ const MyRank = ({ props }) => {
   }
 
   const GetArmy = () => {
-    let tok = localStorage.getItem("accessToken");
     var config = {
       method: "get",
       url: `${API_URL}/tasks/army-ranks`,
@@ -69,7 +69,6 @@ const MyRank = ({ props }) => {
       });
   }
 
-  console.log('topSquad',topSquad);
   const GetUserTopSquad = async (off) => {
     // let valu = null;
     // if (off) {
@@ -77,8 +76,7 @@ const MyRank = ({ props }) => {
     // } else {
     //   valu = 1;
     // }
-    let tok = localStorage.getItem("accessToken");
-    let wall = localStorage.getItem("wallet");
+
     if (account) {
       var config = {
         method: "get",
@@ -119,32 +117,32 @@ const MyRank = ({ props }) => {
     }
   }
 
-  const SendInvite = async (id) => {
-    // e.preventDefault();
-    // setLoader(true);
-    let tok = localStorage.getItem("accessToken");
-    await axios
-      .post(`${API_URL}/tasks/squad-invitation-requests`, {
-        squadId: id.toString(),
-      }, {
-        headers: {
-          authorization: `Bearer ` + tok
-        }
-      })
-      .then((res) => {
-        // window.$("#examplemodalinvite").modal("hide");
+  const SendInvite = (id) => {
+    // if (account) {
+    axios.defaults.headers.post[
+      "Authorization"
+    ] = `Bearer ${tok}`;
+    var config = {
+      method: "post",
+      url: `${API_URL}/tasks/squad-invitation-requests`,
+      data: {
+        squadId: id.toString()
+      }
+    };
+
+    axios(config)
+      .then(async (response) => {
         GetUserTopSquad()
-        handleClose()
         toast.success("Invite Sent Successfully");
-        // setLoader(false);
       })
-      .catch((err) => {
+      .catch(function (err) {
         toast.error(err?.response?.data.message, {
           position: "top-right",
           autoClose: 2000,
         });
         // setLoader(false);
       });
+    // }
   }
   useEffect(() => {
     GetArmy();

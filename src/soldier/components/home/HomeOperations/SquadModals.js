@@ -6,10 +6,11 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 
-const SquadModals = ({show1,setShow1, setShow2, show2, SquadUsers,GetUserProfiledata }) => {
+const SquadModals = ({ show1, setShow1, setShow2, show2, SquadUsers, GetUserProfiledata }) => {
 
   // const [show1, setShow1] = useState(false);
   const handleClose1 = () => setShow1(false);
+  let tok = localStorage.getItem("accessToken");
 
   const handleClose2 = () => {
     setInputs({})
@@ -40,7 +41,6 @@ const SquadModals = ({show1,setShow1, setShow2, show2, SquadUsers,GetUserProfile
   const [loader, setLoader] = useState()
   const creatAquad = () => {
     setShow2(true)
-    let tok = localStorage.getItem("accessToken");
     if (inputs?.name) {
       if (profilePicture) {
         const data = new FormData();
@@ -48,58 +48,52 @@ const SquadModals = ({show1,setShow1, setShow2, show2, SquadUsers,GetUserProfile
         data.append("squadImage", profilePicture);
         setLoader(true);
         // if (account) {
-          axios.defaults.headers.post[
-            "Authorization"
-          ] = `Bearer ${tok}`;
-          var config = {
-            method: "post",
-            url: `${API_URL}/tasks/squads`,
-            data: data
-          };
+        axios.defaults.headers.post[
+          "Authorization"
+        ] = `Bearer ${tok}`;
+        var config = {
+          method: "post",
+          url: `${API_URL}/tasks/squads`,
+          data: data
+        };
 
-          axios(config)
-            .then(async (response) => {
-              setLoader(false);
-              const userString = JSON.parse(localStorage.getItem('user'));
-              userString.isCommander = true;
-              userString.memberOfSquad=true
-              // Update local storage object with the updated data
-              localStorage.setItem('user', JSON.stringify(userString));
-              // localStorage.setItem('user', JSON.stringify(updateduser));
-              // localStorage.setItem('user', JSON.stringify(response?.data?.data));
-              localStorage.setItem("accessToken", response?.data?.accessToken);
-              GetUserProfiledata()
-              SquadUsers()
-              // window.$("#exampleModalLabel11").modal("hide");
-              window.scrollTo(0, 0);
+        axios(config)
+          .then(async (response) => {
+            setLoader(false);
+            const userString = JSON.parse(localStorage.getItem('user'));
+            userString.isCommander = true;
+            userString.memberOfSquad = true
+            // Update local storage object with the updated data
+            localStorage.setItem('user', JSON.stringify(userString));
+            // localStorage.setItem('user', JSON.stringify(updateduser));
+            // localStorage.setItem('user', JSON.stringify(response?.data?.data));
+            localStorage.setItem("accessToken", response?.data?.accessToken);
+            GetUserProfiledata()
+            SquadUsers()
+            window.scrollTo(0, 0);
+            handleClose2();
+            setInputs({})
+            setProfilePicture(null)
+            handleShow3();
+            window.location.reload()
+            // setCall(!call)
+            // GetUserProfiledata();
+            // getData();
+            // vateransApi();
+            setLoader(false);
+            // textCopiedFun();
+            // CloseModal();
+          })
+          .catch(function (error) {
+            setProfilePicture(null)
+            setInputs({})
+            console.log(error);
+            if (error.response.data.statusCode == 409) {
               handleClose2();
-              setInputs({})
-              setProfilePicture(null)
-              handleShow3();
-              window.location.reload()
-              // setCall(!call)
-              // GetUserProfiledata();
-              // getData();
-              // vateransApi();
-              setLoader(false);
-              // textCopiedFun();
-              // CloseModal();
-            })
-            .catch(function (error) {
-              setProfilePicture(null)
-              setInputs({})
-
-              console.log(error);
-              // window.location.reload()
-              // window.$("#exampleModalLabel11").modal("hide");
-              // setLoader(false);
-              // window.$("#exampleModalLabel11").modal("hide");
-              if (error.response.data.statusCode == 409) {
-                handleClose2();
-                toast.error("Squad for User already exists")
-              }
-              setLoader(false);
-            });
+              toast.error("Squad for User already exists")
+            }
+            setLoader(false);
+          });
         // }
       } else {
         toast.error("Squad Image required")
@@ -110,31 +104,29 @@ const SquadModals = ({show1,setShow1, setShow2, show2, SquadUsers,GetUserProfile
   }
 
   const leaveSquad = () => {
-    let tok = localStorage.getItem("accessToken");
-    axios.patch(`${API_URL}/tasks/squads/leave-squad`, {},
-      {
-        headers: {
-          authorization: `Bearer ` + tok
-        }
-      }
-    ).then((response) => {
-      localStorage.removeItem("isCommander")
-      toast.success("Squad Left Successfully");
-      localStorage.setItem("accessToken", response?.data?.accessToken);
-      localStorage.setItem("user", JSON.stringify(response?.data?.data));
-      handleClose1()
-      // window.location.reload();
-      // SquadUsers();
-      // getDataTask();
-      // window.$(`#exampleModal1`).modal("hide");
-      // Code
-    }).catch((error) => {
-      // Code
-      toast.error(error.response.data.message)
-    })
+    // if (account) {
+    axios.defaults.headers.post[
+      "Authorization"
+    ] = `Bearer ${tok}`;
+    var config = {
+      method: "post",
+      url: `${API_URL}/tasks/squads/leave-squad`,
+      // data: data
+    };
+
+    axios(config)
+      .then(async (response) => {
+        localStorage.removeItem("isCommander")
+        toast.success("Squad left successfully");
+        localStorage.setItem("accessToken", response?.data?.accessToken);
+        localStorage.setItem("user", JSON.stringify(response?.data?.data));
+        handleClose1()
+      })
+      .catch(function (error) {
+        toast.error(error.response.data.message)
+      })
+    // }
   }
-
-
 
 
 
@@ -151,8 +143,8 @@ const SquadModals = ({show1,setShow1, setShow2, show2, SquadUsers,GetUserProfile
             {/* <p>Are you sure you want to leave this squad?</p> */}
           </div>
           <div className='endbtn'>
-            <button  className="btn-blackk" ><span><img src='\Subtract.svg' alt='img' className='img-fluid' /></span>Cancel</button>
-            <button onClick={handleShow2}  className="btn-pinkk" ><img src='\up.svg' alt='img' className='img-fluid' />Yes’ I am sure</button>
+            <button className="btn-blackk" ><span><img src='\Subtract.svg' alt='img' className='img-fluid' /></span>Cancel</button>
+            <button onClick={handleShow2} className="btn-pinkk" ><img src='\up.svg' alt='img' className='img-fluid' />Yes’ I am sure</button>
           </div>
         </Modal.Body>
       </Modal>
@@ -190,19 +182,19 @@ const SquadModals = ({show1,setShow1, setShow2, show2, SquadUsers,GetUserProfile
                 </label>
               }
 
-              <input type="file" accept="image/png, image/jpeg, image/jpg"  className="d-none" id="upload" onChange={(e) => setProfilePic(e)} />
+              <input type="file" accept="image/png, image/jpeg, image/jpg" className="d-none" id="upload" onChange={(e) => setProfilePic(e)} />
 
             </div>
           </div>
           <div className='maininput'>
             <p className="squad">Squad Name</p>
-            <input type='text' value={inputs?.name ? inputs?.name :''} name="name" onChange={(e)=>handleChange1(e)} placeholder='Enter Squad Name....' />
+            <input type='text' value={inputs?.name ? inputs?.name : ''} name="name" onChange={(e) => handleChange1(e)} placeholder='Enter Squad Name....' />
           </div>
           <div className='endbtn'>
             <button className="btn-blackk" onClick={handleClose2}><span><img src='\Subtract.svg' alt='img' className='img-fluid' /></span>Cancel</button>
-            <button className="btn-pinkk" 
-            
-            onClick={creatAquad}
+            <button className="btn-pinkk"
+
+              onClick={creatAquad}
             // onClick={() => {
             //   handleClose2();
             //   handleShow3();
@@ -232,7 +224,7 @@ const SquadModals = ({show1,setShow1, setShow2, show2, SquadUsers,GetUserProfile
 
       </Modal>
 
-      <Modal className='detailmodal' show={show1}  onHide={handleClose1} centered>
+      <Modal className='detailmodal' show={show1} onHide={handleClose1} centered>
         <Modal.Header closeButton>
           <Modal.Title>Leave Squad</Modal.Title>
         </Modal.Header>

@@ -16,7 +16,6 @@ import { useWeb3React } from "@web3-react/core";
 
 
 const Tasks = ({ setShowtask, settaskdetail, tasks, setexpireds }) => {
-  const [loader, setLoader] = useState(false);
   // const [tasks, settasks] = useState([]);
   const { account } = useWeb3React();
   // useEffect(() => {

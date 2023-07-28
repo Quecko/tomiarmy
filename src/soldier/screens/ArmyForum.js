@@ -7,7 +7,8 @@ import moment from "moment";
 import { Modal } from 'react-bootstrap';
 
 const ArmyForum = () => {
-  const [army, setArmy] = useState([]);
+
+  let tok = localStorage.getItem("accessToken");
   const [topuser, settopuser] = useState([]);
   const [ListComment, setListComment] = useState([]);
   const [post, setPost] = useState([]);
@@ -18,7 +19,6 @@ const ArmyForum = () => {
   const [comment, setcomment] = useState('')
   const [rankid, setrankid] = useState();
   const [loader, setLoader] = useState()
-  const [showSide, setShowSide] = useState();
   const [current, setCurrent] = useState(-1);
   const [deleteid, setdeleteid] = useState()
   const [detailsingle, setdetailsingle] = useState()
@@ -30,10 +30,7 @@ const ArmyForum = () => {
   const [showForumEditModal, setShowForumEditModal] = useState(false);
   const handleCloseEditForum = () => setShowForumEditModal(false);
   const [loading, setLoading] = useState(false);
-
   let indexvalue = localStorage.getItem("indexvalue");
-
-
   const [allFormData, setAllFormData] = useState({
     title: '',
     description: '',
@@ -49,38 +46,38 @@ const ArmyForum = () => {
     allFormData[event.target.name] = event.target.value;
     setAllFormData({ ...allFormData });
   }
-
   //  create new forum
   const putQuestion = () => {
     setLoader(true);
-    let tok = localStorage.getItem("accessToken");
     if (allFormData.title !== "" && allFormData.description !== "") {
       if (!loading) {
         setLoading(true)
-        axios.post(`${API_URL}/forums/posts/`,
-          {
+        axios.defaults.headers.post[
+          "Authorization"
+        ] = `Bearer ${tok}`;
+        var config = {
+          method: "post",
+          url: `$${API_URL}/forums/posts/`,
+          data: {
             title: allFormData.title,
             description: allFormData.description,
             isForumPost: rankid,
           },
-          {
-            headers: {
-              authorization: `Bearer ` + tok
-            }
-          }
-        ).then((response) => {
-          setLoader(false);
-          toast.success("Post Added Successfully");
-          getMyPosts()
-          handleCloseForum()
-          ClearAll()
-          // window.$(`#exampleModall`).modal("hide");
-          // ClearAlloperation()
-          // Code
-        }).catch((error) => {
-          setLoader(false);
-          toast.error(error.response.data.message)
-        })
+        };
+        axios(config)
+          .then(async (response) => {
+            setLoader(false);
+            toast.success("Post Added Successfully");
+            getMyPosts()
+            handleCloseForum()
+            ClearAll()
+            // window.$(`#exampleModall`).modal("hide");
+            // ClearAlloperation()
+            // Code
+          }).catch((error) => {
+            setLoader(false);
+            toast.error(error.response.data.message)
+          })
           .finally(() => {
             setLoading(false);
           });
@@ -89,13 +86,12 @@ const ArmyForum = () => {
       toast.error("Please fill all fields")
     }
   }
-
   // get top user or member
   const gettopusers = async () => {
-    let tok = localStorage.getItem("accessToken");
+
     var config = {
       method: "get",
-      url: `${API_URL}/forums/top-user?limit=100000&&isForumPost=${rankid}`,
+      url: `${API_URL}/forums/top-user?limit=100&&isForumPost=${rankid}`,
       headers: {
         authorization: `Bearer ` + tok
       },
@@ -139,16 +135,18 @@ const ArmyForum = () => {
       if (!loading) {
         let tok = localStorage.getItem("accessToken");
         setLoading(true);
-        axios.post(`${API_URL}/forums/posts/${item?._id}/comments`,
-          {
+        axios.defaults.headers.post[
+          "Authorization"
+        ] = `Bearer ${tok}`;
+        var config = {
+          method: "post",
+          url: `${API_URL}/forums/posts/${item?._id}/comments`,
+          data: {
             content: comment
           },
-          {
-            headers: {
-              authorization: `Bearer ` + tok
-            }
-          }
-        ).then((response) => {
+        }
+        axios(config)
+        .then(async (response) => {
           // let dumArr = post;
           const newPost = post
           let dumObj = item;
@@ -157,12 +155,6 @@ const ArmyForum = () => {
           const index = post.findIndex((v, index) => index === dumObj?._id)
           newPost.splice(index, 1, dumObj)
           setPost(newPost)
-
-          // let findIndex = dumArr.findIndex((ip) => {
-          //   return ip._id === dumObj._id;
-          // })
-          // dumArr[findIndex] = dumObj;
-          // setPost(dumArr);
           setLoader(false);
           toast.success("Comment Created Successfully");
           mainid(commentid, "add");
@@ -228,7 +220,6 @@ const ArmyForum = () => {
     } else {
       ido = commentid;
     }
-    let tok = localStorage.getItem("accessToken");
     var config = {
       method: "get",
       url: `${API_URL}/forums/posts/${ido}/comments?offset=1&&limit=100000`,
@@ -327,6 +318,28 @@ const ArmyForum = () => {
       });
   }
 
+  const UpdateTask = (objj) => {
+    axios.patch(`${API_URL}/forums/posts/${objj._id}`,
+      {
+        title: detailsingle.title,
+        description: detailsingle.description
+      },
+      {
+        headers: {
+          authorization: `Bearer ` + tok
+        }
+      }
+    ).then((response) => {
+      getMyPosts()
+      toast.success("Updated successfully");
+      // Code
+    }).catch((error) => {
+      // Code
+      toast.error(error.response.data.message)
+    })
+  }
+
+
   const detailmodalopen = (iddd) => {
     setdetail(iddd)
     getSingleDetail(iddd)
@@ -358,29 +371,6 @@ const ArmyForum = () => {
     dumObj.title = val;
     setdetailsingle(dumObj);
     setRend(!rend);
-  }
-
-  const UpdateTask = (objj) => {
-    let tok = localStorage.getItem("accessToken");
-    axios.patch(`${API_URL}/forums/posts/${objj._id}`,
-      {
-        title: detailsingle.title,
-        description: detailsingle.description
-      },
-      {
-        headers: {
-          authorization: `Bearer ` + tok
-        }
-      }
-    ).then((response) => {
-      getMyPosts()
-      toast.success(" Updated Successfully");
-      window.$(`#exampleModal1`).modal("hide");
-      // Code
-    }).catch((error) => {
-      // Code
-      toast.error(error.response.data.message)
-    })
   }
 
   const handleChange1 = (event) => {
@@ -447,26 +437,26 @@ const ArmyForum = () => {
                                 </div>
                               </div>
                             </div>
-                          <div className="twice-elements">
-                            {indexvalue == 12 &&
-                              <>
-                                <button className="comments"
-                                  onClick={() => detailmodalopen(elem?._id)}
-                                >
-                                  <p>Edit</p>
-                                </button>
-                                <button className="comments"
-                                  onClick={() => deletemodalopen(elem?._id)}
-                                >
-                                  <p>Delete</p>
-                                </button>
-                              </>
-                            }
-                            <div className="comments"  >
-                              <img src="\assets\comment.svg" alt="img" onClick={() => { mainid(elem?._id); UpdateCurrent(index) }} className="cmnt" data-toggle="collapse" href={`#${index}`} role="button" aria-expanded="false" aria-controls="collapseExample" />
-                              <p>{elem?.noOfComments}+</p>
+                            <div className="twice-elements">
+                              {indexvalue == 12 &&
+                                <>
+                                  <button className="comments"
+                                    onClick={() => detailmodalopen(elem?._id)}
+                                  >
+                                    <p>Edit</p>
+                                  </button>
+                                  <button className="comments"
+                                    onClick={() => deletemodalopen(elem?._id)}
+                                  >
+                                    <p>Delete</p>
+                                  </button>
+                                </>
+                              }
+                              <div className="comments"  >
+                                <img src="\assets\comment.svg" alt="img" onClick={() => { mainid(elem?._id); UpdateCurrent(index) }} className="cmnt" data-toggle="collapse" href={`#${index}`} role="button" aria-expanded="false" aria-controls="collapseExample" />
+                                <p>{elem?.noOfComments}+</p>
+                              </div>
                             </div>
-                          </div>
                           </div>
                         </div>
                       </section>

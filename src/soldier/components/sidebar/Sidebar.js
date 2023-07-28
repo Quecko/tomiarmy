@@ -28,7 +28,6 @@ import Signature from "../../../hooks/dataSenders/userSign";
 import { useHistory } from "react-router-dom";
 import { API_URL } from '../../../utils/ApiUrl'
 import Accordion from 'react-bootstrap/Accordion';
-import ArmyForumModal from "../../screens/ArmyForumModal";
 import AllOperationTaskModal from "../../screens/AllOperationTaskModal";
 import useAuth from "../../../hooks/useAuth";
 import { useDispatch } from "react-redux";
@@ -37,6 +36,7 @@ import { addUer } from '../../../redux/action';
 const Sidebar = () => {
   const datacommander = localStorage.getItem('user')
   const data = JSON.parse(datacommander)
+  let tok = localStorage.getItem("accessToken");
   const { account } = useWeb3React()
   // for redirect
   useEffect(() => {
@@ -73,7 +73,6 @@ const Sidebar = () => {
   const [taskdetail1, settaskdetail1] = useState(null);
   const [operationId, setOperationId] = useState(null);
   const [coLeaderDetails, setCoLeaderDetails] = useState(null);
-
   const history = useHistory();
   const { userSign } = Signature();
   const [loader, setLoader] = useState(false);
@@ -175,9 +174,6 @@ const Sidebar = () => {
   const [toggle, setToggle] = useState(true)
 
   const loginUser = async () => {
-    // let tok = localStorage.getItem("accessToken");
-    // let wall = localStorage.getItem("wallet");
-    // setShow(false);
     if (account) {
       const res0 = await userSign(account);
       if (res0) {
@@ -241,10 +237,10 @@ const Sidebar = () => {
       }
     }
     else {
-      toast.error('Wallet Not Connected', {
-        position: 'top-center',
-        autoClose: 5000,
-      });
+      // toast.error('Wallet Not Connected', {
+      //   position: 'top-center',
+      //   autoClose: 5000,
+      // });
       localStorage.clear()
       window.location.assign('/')
     }
@@ -299,8 +295,6 @@ const Sidebar = () => {
     // } else {
     //     valu = 1;
     // }
-    let tok = localStorage.getItem("accessToken");
-    // let wall = localStorage.getItem("wallet");
     // if (account) {
     var config = {
       method: "get",
@@ -329,7 +323,6 @@ const Sidebar = () => {
   }
 
   const getNotif = (soc) => {
-    let tok = localStorage.getItem("accessToken");
     setNotifs([]);
     // if (account || soc) {
     var config = {
@@ -360,7 +353,6 @@ const Sidebar = () => {
     // } else {
     //     valu = 1;
     // }
-    let tok = localStorage.getItem("accessToken");
     var config = {
       method: "get",
       url: `${API_URL}/auth/users/squad-members?offset=1&&limit=100&queryParam=Active Squad`,
@@ -386,7 +378,7 @@ const Sidebar = () => {
   }
 
   const getChat = async () => {
-    let tok = localStorage.getItem("accessToken");
+ 
     // page = message!='' ?1 :page; 
     setPage(message != '' ? 1 : page)
     var config = {
@@ -417,7 +409,6 @@ const Sidebar = () => {
 
   const GetUserProfiledata = () => {
     // setLoader(true);
-    let tok = localStorage.getItem("accessToken");
     // if (account) {
     var config = {
       method: "get",
@@ -446,7 +437,6 @@ const Sidebar = () => {
 
   const GetTaskStatusData = () => {
     // setLoader(true);
-    let tok = localStorage.getItem("accessToken");
     // if (account) {
     var config = {
       method: "get",
@@ -473,10 +463,10 @@ const Sidebar = () => {
     // }
   }
   useEffect(() => {
-    // if(datacommander?.memberOfSquad===true){
+    if(data?.memberOfSquad===true){
     getChat()
     SquadUsers()
-    // }
+    }
   }, [page])
   useEffect(() => {
     GetTaskStatusData()
@@ -1462,7 +1452,6 @@ const Sidebar = () => {
       <LeaderModals show4={show4} setShow4={setShow4} show5={show5} setShow5={setShow5} show6={show6} setShow6={setShow6} item={coLeaderDetails} SquadUsers={SquadUsers} />
       <AllTaskModals showtask={showtask} setShowtask={setShowtask} settaskdetail={settaskdetail} taskdetail={taskdetail} getData={getData} />
       <AllOperationTaskModal showtask1={showtask1} setShowtask1={setShowtask1} settaskdetail1={settaskdetail1} taskdetail1={taskdetail1} getDataOperation={getDataOperation} operationId={operationId} />
-      {/* <ArmyForumModal showForumModal={showForumModal} setShowForumModal={setShowForumModal} setforumkdetail1={setforumkdetail1} forumdetail1={forumdetail1} getDataOperation={getDataOperation} operationId={operationId} /> */}
     </>
   );
 };

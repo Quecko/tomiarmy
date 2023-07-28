@@ -17,41 +17,19 @@ const HomeOperations = ({ setShowtask1, settaskdetail1, operations, setOperation
 
   const datacommander = localStorage.getItem('user')
   const data = JSON.parse(datacommander)
+  let tok = localStorage.getItem("accessToken");
   const [show, setShow] = useState(false);
   const [topSquad, setTopSquad] = useState([]);
-  const [commander, setCommander] = useState();
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  let tok = localStorage.getItem("accessToken");
-  // const [operations, setOperations] = useState([])
   const [loader, setLoader] = useState(false)
-  const [expired, setexpired] = useState(false);
   const { account } = useWeb3React()
-
   const [currentPage, setCurrentPage] = useState(1);
   const [count, setCount] = useState(0);
   const [pages, setPages] = useState([]);
   const [rend, setRend] = useState(false);
   const [limit, setLimit] = useState(1)
   const [search, setSearch] = useState("");
-
-  // const GetUserTopSquad = () => {
-  //   var config = {
-  //     method: "get",
-  //     url: `${API_URL}/tasks/squads?offset=1&limit=100`,
-  //     headers: {
-  //       authorization: `Bearer ` + tok
-  //     },
-  //   };
-  //   axios(config)
-  //     .then(async (response) => {
-  //       setTopSquad(response.data.data.squad)
-  //       window.scrollTo(0, 0);
-  //     })
-  //     .catch(function (error) {
-  //       console.log(error);
-  //     });
-  // }
 
   const GetUserTopSquad = async (off) => {
     let valu = null;
@@ -60,8 +38,6 @@ const HomeOperations = ({ setShowtask1, settaskdetail1, operations, setOperation
     } else {
       valu = 1;
     }
-    let tok = localStorage.getItem("accessToken");
-    let wall = localStorage.getItem("wallet");
     if (account) {
       var config = {
         method: "get",
@@ -106,13 +82,12 @@ const HomeOperations = ({ setShowtask1, settaskdetail1, operations, setOperation
     let offset = parseInt(off) - 1;
     if (offset > 0) {
       setLoader(true);
-      let val = localStorage.getItem("accessToken");
       var config = null;
       config = {
         method: "get",
         url: `${API_URL}/tasks/squads?offset=${offset}&&limit=5`,
         headers: {
-          Authorization: "Bearer " + val,
+          Authorization: "Bearer " + tok,
           "Content-Type": "application/json",
         },
       };
@@ -152,13 +127,12 @@ const HomeOperations = ({ setShowtask1, settaskdetail1, operations, setOperation
     let offset = parseInt(off) + 1;
     if (pages.length > off) {
       if (off < topSquad.length) {
-        let val = localStorage.getItem("accessToken");
         var config = null;
         config = {
           method: "get",
           url: `${API_URL}/tasks/squads?offset=${offset}&&limit=5`,
           headers: {
-            Authorization: "Bearer " + val,
+            Authorization: "Bearer " + tok,
             "Content-Type": "application/json",
           },
         };
@@ -191,8 +165,6 @@ const HomeOperations = ({ setShowtask1, settaskdetail1, operations, setOperation
     } else {
       valu = 1;
     }
-    let tok = localStorage.getItem("accessToken");
-    let wall = localStorage.getItem("wallet");
     // if (account && jcommander === true) {
     var config = {
       method: "get",
@@ -222,37 +194,37 @@ const HomeOperations = ({ setShowtask1, settaskdetail1, operations, setOperation
     // }
   }
 
-
   useEffect(() => {
-    // getDataOperation()
     GetUserTopSquad()
   }, [account]);
+  const SendInvite = (id) => {
+    // if (account) {
+    axios.defaults.headers.post[
+      "Authorization"
+    ] = `Bearer ${tok}`;
+    var config = {
+      method: "post",
+      url: `${API_URL}/tasks/squad-invitation-requests`,
+      data: {
+        squadId: id.toString()
+      }
+    };
 
-  const SendInvite = async (id) => {
-    // e.preventDefault();
-    // setLoader(true);
-    await axios
-      .post(`${API_URL}/tasks/squad-invitation-requests`, {
-        squadId: id.toString(),
-      }, {
-        headers: {
-          authorization: `Bearer ` + tok
-        }
-      })
-      .then((res) => {
-        // window.$("#examplemodalinvite").modal("hide");
+    axios(config)
+      .then(async (response) => {
         GetUserTopSquad()
         toast.success("Invite Sent Successfully");
-        // setLoader(false);
       })
-      .catch((err) => {
+      .catch(function (err) {
         toast.error(err?.response?.data.message, {
           position: "top-right",
           autoClose: 2000,
         });
         // setLoader(false);
       });
+    // }
   }
+
 
   const GetTime = (time) => {
     let endtime = new Date(time)
@@ -271,6 +243,7 @@ const HomeOperations = ({ setShowtask1, settaskdetail1, operations, setOperation
     localStorage.setItem("indexvalue", asd);
     window.scrollTo(0, 0)
   }
+
   return (
     <>
       <div className="warpper-lock-operation">

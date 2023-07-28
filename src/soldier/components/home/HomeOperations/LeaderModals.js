@@ -10,18 +10,12 @@ import axios from 'axios';
 
 const LeaderModals = ({ show4, setShow4, show5, setShow5, show6, setShow6, item, SquadUsers }) => {
 
-
     const handleClose1 = () => setShow4(false);
     const handleClose2 = () => setShow5(false);
-
     const [modalShow, setModalShow] = useState(false)
-
     const { account } = useWeb3React()
-
     const [loader, setLoader] = useState()
-
     const [squadMembers, setSquadMembers] = useState([]);
-
     const getData = async () => {
 
         let tok = localStorage.getItem("accessToken");
@@ -48,22 +42,19 @@ const LeaderModals = ({ show4, setShow4, show5, setShow5, show6, setShow6, item,
                 });
         }
     }
-
     useEffect(() => {
         getData();
     }, [account])
 
     const addCoLeader = (item) => {
-        // setShow2(true)
         let tok = localStorage.getItem("accessToken");
         // if (account) {
-        // window.$("#exampleModalLabel11").modal("hide");
+        axios.defaults.headers.post[
+            "Authorization"
+          ] = `Bearer ${tok}`;
         var config = {
             method: "post",
             url: `${API_URL}/tasks/squad-co-leaders/add-coLeader`,
-            headers: {
-                authorization: `Bearer ` + tok
-            },
             data: {
                 coLeaderId: `${item?._id}`
             }
@@ -92,22 +83,19 @@ const LeaderModals = ({ show4, setShow4, show5, setShow5, show6, setShow6, item,
 
     }
 
-
-
     const inviteSquadMember = () => {
         // setShow2(true)
         let tok = localStorage.getItem("accessToken");
+        axios.defaults.headers.post[
+            "Authorization"
+          ] = `Bearer ${tok}`;
         if (account) {
             // window.$("#exampleModalLabel11").modal("hide");
             var config = {
                 method: "post",
                 url: `${API_URL}/tasks/squad-invitation-requests/recruite-accept`,
-                headers: {
-                    authorization: `Bearer ` + tok
-                },
                 squadInvitationRequestId: "6399ab0e84e0b5f46b53603b"
             };
-
             axios(config)
                 .then(async (response) => {
                     setLoader(false);
