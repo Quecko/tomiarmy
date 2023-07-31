@@ -496,7 +496,7 @@ const Sidebar = () => {
 
   return (
     <>
-    {account ? account:'No account'}
+    {/* {account ? account:'No account'} */}
       <div className="theme-custom-container">
         <div className="App app-wrapper row m-0">
           <div className="sidebar-column web-sidebar p-0">
