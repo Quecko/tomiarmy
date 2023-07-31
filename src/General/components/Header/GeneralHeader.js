@@ -8,6 +8,7 @@ import mobileLogo from "../../../assets/icons/mobileLogo.svg";
 import Modal from 'react-bootstrap/Modal';
 import { useEffect } from "react";
 import { io } from "socket.io-client";
+import { toast } from "react-toastify";
 
 
 const GeneralHeader = ({ routes, setroute, routeshome, setroutehome, indexwait, handleShow, routesarmy, setroutearmy, setShowtask, showtask, showannounce, setShowannounce, showfaq, setShowfaq,getChat }) => {
@@ -26,8 +27,8 @@ const GeneralHeader = ({ routes, setroute, routeshome, setroutehome, indexwait, 
         token: tok,
       });
     });
-    socket.on('Group_Message', () => {
-      // toast.info("group message chat notification");
+    socket.on('General_Message', () => {
+      toast.info("group message general");
       getChat()
     });
 
@@ -176,7 +177,7 @@ const GeneralHeader = ({ routes, setroute, routeshome, setroutehome, indexwait, 
               : ""
           }
           {
-            indexwait === 4 ?
+            indexwait === 4 && user1?.rank?.name === "general" ?
               <button onClick={setShowannounce} className="create-squad-btn display-none-in-mobile" >
                 <img src="\generalassets\icons\announcement.svg" alt="img" className="img-fluid me-1" />
                 <span> Create Announcement</span>

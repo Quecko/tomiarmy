@@ -239,6 +239,7 @@ const GeneralSidebar = () => {
 
   const hitfunctionss = (asd) => {
     setindexwait(asd)
+    localStorage.setItem("indexvalue", asd);
     if (asd === 2) {
       setroute(false)
     }

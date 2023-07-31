@@ -265,7 +265,7 @@ const HomeOperations = ({ setShowtask1, settaskdetail1, operations, setOperation
                     <h6>operation :  {operations?.name} <span>ENDS IN:<Countdown date={GetTime(operations?.expirationDate)} /></span></h6>
                     <p>{operations?.description}</p>
                   </div>
-                  <a onClick={() => { hitfunctionss(2); }}>View <span>All Operation Tasks</span> <img src="\assets\arrow-right.svg" alt="img" className='img-fluid ms-2' /></a>
+                  <a onClick={() => { hitfunctionss(2); }}>View <span style={{marginLeft:'5px'}}> All Operation Tasks</span> <img src="\assets\arrow-right.svg" alt="img" className='img-fluid ms-2' /></a>
                 </div>
                 <div className="bottom-cards">
                   <div className="card-item border-grad">

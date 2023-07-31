@@ -36,7 +36,7 @@ const GeneralHome = ({ setShowtask, setroutehome, routeshome }) => {
     const [Users, setUsers] = useState([]);
     const [data2, setData2] = useState([]);
     const [Armydataa, setArmydataa] = useState(null);
-    const [DropDownAll, setDropDownAll] = useState('All Time');
+    const [DropDownAll, setDropDownAll] = useState('all time');
     let user1 = localStorage.getItem("user");
     user1 = JSON.parse(user1);
     const { account } = useWeb3React();
@@ -79,7 +79,7 @@ const GeneralHome = ({ setShowtask, setroutehome, routeshome }) => {
     }
 
     const GetArmy = () => {
-        let tok = localStorage.getItem("accessToken");
+        
         var config = {
             method: "get",
             url: `${API_URL}/tasks/army-ranks`,
@@ -103,7 +103,6 @@ const GeneralHome = ({ setShowtask, setroutehome, routeshome }) => {
 
     const AddMajorButton = async () => {
         var result = Web3.utils.isAddress(datamajoradd.walletaddres);
-        let tok = localStorage.getItem("accessToken");
         var data = ({
             nickName: datamajoradd.name,
             walletAddress: datamajoradd.walletaddres,
@@ -127,12 +126,12 @@ const GeneralHome = ({ setShowtask, setroutehome, routeshome }) => {
             });
         }
         else {
+            axios.defaults.headers.post[
+                "Authorization"
+              ] = `Bearer ${tok}`;
             var config = {
                 method: "post",
                 url: `${API_URL}/auth/users/major-general`,
-                headers: {
-                    authorization: `Bearer ` + tok
-                },
                 data: data,
             };
             axios(config)
@@ -190,7 +189,6 @@ const GeneralHome = ({ setShowtask, setroutehome, routeshome }) => {
         }
     }
     const GetArmydata = () => {
-        let tok = localStorage.getItem("accessToken");
         var config = {
             method: "get",
             url: `${API_URL}/tasks/stats/squads?queryBy=${DropDownAll}`,
@@ -212,7 +210,6 @@ const GeneralHome = ({ setShowtask, setroutehome, routeshome }) => {
             });
     }
     const topsolider = () => {
-        let tok = localStorage.getItem("accessToken");
         var config = {
             method: "get",
             url: `${API_URL}/auth/users/all-users?offset=1&&limit=5&&topSoldier=true`,
@@ -241,7 +238,6 @@ const GeneralHome = ({ setShowtask, setroutehome, routeshome }) => {
         // } else {
         //     valu = 1;
         // }
-        let wall = localStorage.getItem("wallet");
         var config = {
             method: "get",
             url: `${API_URL}/tasks/squads?offset=1&&limit=5`,
@@ -274,8 +270,6 @@ const GeneralHome = ({ setShowtask, setroutehome, routeshome }) => {
         // } else {
         //     valu = 1;
         // }
-        let tok = localStorage.getItem("accessToken");
-        let wall = localStorage.getItem("wallet");
         if (account) {
             var config = {
                 method: "get",
@@ -310,8 +304,6 @@ const GeneralHome = ({ setShowtask, setroutehome, routeshome }) => {
         // } else {
         //     valu = 1;
         // }
-        let tok = localStorage.getItem("accessToken");
-        let wall = localStorage.getItem("wallet");
         if (account) {
             var config = {
                 method: "get",
@@ -346,8 +338,6 @@ const GeneralHome = ({ setShowtask, setroutehome, routeshome }) => {
         // } else {
         //     valu = 1;
         // }
-        let tok = localStorage.getItem("accessToken");
-        let wall = localStorage.getItem("wallet");
         if (account) {
             var config = {
                 method: "get",

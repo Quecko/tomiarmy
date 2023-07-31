@@ -13,6 +13,8 @@ import axios from 'axios';
 const Announcements = () => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
+  const [show1, setShow1] = useState(false);
+  const handleClose1 = () => setShow1(false);
   const handleShow = () => setShow(true);
   const [loader, setLoader] = useState(false)
   const [announcements, setAnnouncements] = useState([])
@@ -49,6 +51,11 @@ const Announcements = () => {
     setDeatils(elem)
 
   }
+  const getDetail1 = (elem) => {
+    setShow1(true)
+    setDeatils(elem)
+
+  }
   const readAnnuncement = async () => {
     var config = {
       method: "patch",
@@ -61,6 +68,25 @@ const Announcements = () => {
       .then(function (response) {
         getAnnouncements()
         handleClose()
+      })
+      .catch(function (error) {
+        console.log(error);
+        setLoader(false);
+      });
+  }
+
+  const directReadAnnuncement = async (elem) => {
+    var config = {
+      method: "patch",
+      url: `${API_URL}/notifications/announcements/user-announcements/${elem?.announcement?.id}`,
+      headers: {
+        authorization: `Bearer ` + tok
+      },
+    };
+    axios(config)
+      .then(function (response) {
+        getAnnouncements()
+        // handleClose()
       })
       .catch(function (error) {
         console.log(error);
@@ -131,12 +157,12 @@ const Announcements = () => {
                                           </Dropdown.Toggle>
 
                                           <Dropdown.Menu>
-                                            <Dropdown.Item href="#/action-1">
-                                              <p><img src='\Vector.svg' alt='img' className='img-fluid' />Submit Proof</p>
-                                            </Dropdown.Item>
+                                            {/* <Dropdown.Item href="#/action-1">
+                                              <p onClick={()=>directReadAnnuncement(elem)}><img src='\Vector.svg' alt='img' className='img-fluid' />Make as Read</p>
+                                            </Dropdown.Item> */}
                                             <div className='brdr'></div>
                                             <Dropdown.Item href="#/action-1">
-                                              <p onClick={() => getDetail(elem)}><img src='\Vectordetail.svg' alt='img' className='img-fluid' />details</p>
+                                              <p onClick={() => getDetail1(elem)}><img src='\Vectordetail.svg' alt='img' className='img-fluid' />details</p>
                                             </Dropdown.Item>
                                             <div className='brdr'></div>
                                             <Dropdown.Item href="#/action-1">
@@ -266,7 +292,7 @@ const Announcements = () => {
 
                                         <Dropdown.Menu>
                                           <Dropdown.Item href="#/action-1">
-                                            <p><img src='\Vector.svg' alt='img' className='img-fluid' />Submit Proof</p>
+                                            <p onClick={()=>directReadAnnuncement(elem)}><img src='\Vector.svg' alt='img' className='img-fluid' />Make as read</p>
                                           </Dropdown.Item>
                                           <div className='brdr'></div>
                                           <Dropdown.Item href="#/action-1">
@@ -344,7 +370,7 @@ const Announcements = () => {
             </div>
           </div>
         </div>
-
+     {/* for unread */}
         <Modal className='detailmodal' show={show} onHide={handleClose} centered>
           <Modal.Header closeButton>
             <Modal.Title>announcement Details</Modal.Title>
@@ -362,7 +388,25 @@ const Announcements = () => {
               <button onClick={readAnnuncement}><span><img src='\checkmarks.svg' alt='img' className='img-fluid' /></span>Okay</button>
             </div>
           </Modal.Body>
-
+        </Modal>
+    {/* for read */}
+        <Modal className='detailmodal' show={show1} onHide={handleClose1} centered>
+          <Modal.Header closeButton>
+            <Modal.Title>announcement Details</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <div className='modalcard'>
+              <h4>Announcement</h4>
+              <p>{detail?.announcement?.message}</p>
+            </div>
+            <div className='modalcard mt-4'>
+              <h4>Date Received</h4>
+              <p>{moment(detail?.createdate).format("DD-MM-YYYY")}</p>
+            </div>
+            <div className='okbtn'>
+              <button onClick={handleClose1}><span><img src='\checkmarks.svg' alt='img' className='img-fluid' /></span>Okay</button>
+            </div>
+          </Modal.Body>
         </Modal>
       </section>
     </>

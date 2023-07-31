@@ -373,7 +373,6 @@ const Squad = ({ show1, setShow1, show2, setShow2, setShow4, setShow5, setShow6,
                                 </thead>
                                 <tbody>
                                   {users?.users?.map((elem, index) => {
-                                    console.log('elem', elem);
                                     return (
                                       <tr key={index}>
                                         <td>

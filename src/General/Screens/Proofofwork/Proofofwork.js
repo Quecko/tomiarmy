@@ -275,6 +275,8 @@ const Proofofwork = () => {
         setImageModal(true)
         setimagedetail(elem)
     }
+ 
+    var result = singledetail?.url?.split("_")?.pop();
 
     return (
         <>
@@ -675,6 +677,8 @@ const Proofofwork = () => {
             </section>
 
 
+
+
             <Modal className="createdsuccess-modal global-modal-style powmodal" show={showwork} onHide={handleClosework} centered>
                 <Modal.Header closeButton>
                     <Modal.Title>proof of work details</Modal.Title>
@@ -693,7 +697,9 @@ const Proofofwork = () => {
                             <div className="detailmain">
                                 <div className="proofmain">
                                     <p className="detailpara">POW Url</p>
-                                    <h6 className="detailhead" style={{ textDecoration: 'underline' }}>{singledetail?.url}</h6>
+                                    <a href={singledetail?.url} target='_blank'>
+                                        <h6 className="detailhead" style={{ textDecoration: 'underline' }}>{result}</h6>
+                                    </a>
                                 </div>
                                 <div className="proofmain">
                                     <p className="detailpara">User</p>
@@ -712,7 +718,7 @@ const Proofofwork = () => {
                             </div>
                             <div className="detailmain">
                                 <div className="proofmain">
-                                    <p className="detailpara">Start Date</p>
+                                    <p className="detailpara">Submitted Date</p>
                                     <h6 className="detailhead">
                                         {
                                             singledetail?.createdAt
@@ -722,10 +728,15 @@ const Proofofwork = () => {
                                                 .join('-')}
                                     </h6>
                                 </div>
-                                <div className="proofmain">
+                                {/* <div className="proofmain">
                                     <p className="detailpara">End Date</p>
-                                    <h6 className="detailhead">05/05/2023</h6>
-                                </div>
+                                    <h6 className="detailhead">{
+                                            singledetail?.createdAt
+                                                ?.slice(0, 10)
+                                                .split('-')
+                                                .reverse()
+                                                .join('-')}</h6>
+                                </div> */}
                             </div>
                         </div>
                         <div className="proofdetailleft">
