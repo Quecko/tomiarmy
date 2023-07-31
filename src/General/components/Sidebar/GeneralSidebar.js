@@ -28,10 +28,11 @@ import Accordion from 'react-bootstrap/Accordion';
 import useAuth from "../../../hooks/useAuth";
 import { useHistory } from "react-router-dom";
 import Signature from "../../../hooks/dataSenders/userSign";
-
+import Chat from "../../Screens/Chat/Chat";
+import { reverse } from "lodash";
 
 const GeneralSidebar = () => {
-
+  let tok = localStorage.getItem("accessToken");
   const indexvv = localStorage.getItem("indexvalue");
   const [tasks, settasks] = useState([]);
   const [editFaqs, setEbditFaqs] = useState('');
@@ -40,29 +41,29 @@ const GeneralSidebar = () => {
   const [faqs, setfaqs] = useState([]);
   let user1 = localStorage.getItem("user");
   let user = JSON.parse(user1);
-   // for redirect
-   useEffect(() => {
+  // for redirect
+  useEffect(() => {
     if (user?.rank?.name == 'general' && user?.isCommander == false && user?.isCoLeader == false) {
       history.push('/general')
     }
-    else if (user?.rank?.name == 'major general' && user?.isCommander == false && user?.isCoLeader == false){
+    else if (user?.rank?.name == 'major general' && user?.isCommander == false && user?.isCoLeader == false) {
       history.push('/majorgeneral')
     }
-   else if (user?.isCommander == false && user?.isCoLeader == true){
+    else if (user?.isCommander == false && user?.isCoLeader == true) {
       history.push('/leader')
-  }
-  else if(user?.isCommander == true){
-    history.push('/leader')
-  }
-  else if(user?.isCommander == false && user?.isCoLeader == false){
-    history.push('/soldier')
-  }
+    }
+    else if (user?.isCommander == true) {
+      history.push('/leader')
+    }
+    else if (user?.isCommander == false && user?.isCoLeader == false) {
+      history.push('/soldier')
+    }
     else {
       window.location.assign('/')
     }
   }, [account])
-  const {logout}=useAuth()
-  const {userSign}=Signature()
+  const { logout } = useAuth()
+  const { userSign } = Signature()
   const history = useHistory();
   const [expired, setexpired] = useState(false);
 
@@ -85,29 +86,29 @@ const GeneralSidebar = () => {
     let tok = localStorage.getItem("accessToken");
     // let wall = localStorage.getItem("wallet");
     // if (account) {
-      var config = {
-        method: "get",
-        url: `${API_URL}/tasks?offset=1&&limit=100&&expired=${expired}`,
-        headers: {
-          authorization: `Bearer ` + tok
-        },
-      };
-      axios(config)
-        .then(function (response) {
-          // setLoader(false);
-          // setCount(response.data.data.count)
-          settasks(response?.data?.data?.tasks);
-          // let arr = Array.from(Array(parseInt(response.data.data.pages)).keys());
-          // setPages(arr);
-          // setCurrentPage(valu)
-        })
-        .catch(function (error) {
-          // setLoader(false);
-          // localStorage.removeItem("accessToken");
-          // localStorage.removeItem("user");
-          // window.location.assign("/")
-          // window.location.reload();
-        });
+    var config = {
+      method: "get",
+      url: `${API_URL}/tasks?offset=1&&limit=100&&expired=${expired}`,
+      headers: {
+        authorization: `Bearer ` + tok
+      },
+    };
+    axios(config)
+      .then(function (response) {
+        // setLoader(false);
+        // setCount(response.data.data.count)
+        settasks(response?.data?.data?.tasks);
+        // let arr = Array.from(Array(parseInt(response.data.data.pages)).keys());
+        // setPages(arr);
+        // setCurrentPage(valu)
+      })
+      .catch(function (error) {
+        // setLoader(false);
+        // localStorage.removeItem("accessToken");
+        // localStorage.removeItem("user");
+        // window.location.assign("/")
+        // window.location.reload();
+      });
     // }
   }
 
@@ -121,71 +122,71 @@ const GeneralSidebar = () => {
     let tok = localStorage.getItem("accessToken");
     // let wall = localStorage.getItem("wallet");
     // if (account) {
-      var config = {
-        method: "get",
-        url: `${API_URL}/notifications/announcements?offset=1&&limit=100`,
-        headers: {
-          authorization: `Bearer ` + tok
-        },
-      };
-      axios(config)
-        .then(function (response) {
-          // setLoader(false);
-          // setCount(response.data.data.count)
-          setannou(response?.data?.data?.announcements);
-          // let arr = Array.from(Array(parseInt(response.data.data.pages)).keys());
-          // setPages(arr);
-          // setCurrentPage(valu)
-        })
-        .catch(function (error) {
-          // setLoader(false);
-          // localStorage.removeItem("accessToken");
-          // localStorage.removeItem("user");
-          // window.location.assign("/")
-          // window.location.reload();
-        });
+    var config = {
+      method: "get",
+      url: `${API_URL}/notifications/announcements?offset=1&&limit=100`,
+      headers: {
+        authorization: `Bearer ` + tok
+      },
+    };
+    axios(config)
+      .then(function (response) {
+        // setLoader(false);
+        // setCount(response.data.data.count)
+        setannou(response?.data?.data?.announcements);
+        // let arr = Array.from(Array(parseInt(response.data.data.pages)).keys());
+        // setPages(arr);
+        // setCurrentPage(valu)
+      })
+      .catch(function (error) {
+        // setLoader(false);
+        // localStorage.removeItem("accessToken");
+        // localStorage.removeItem("user");
+        // window.location.assign("/")
+        // window.location.reload();
+      });
     // }
   }
 
 
   const getDataannou11 = async (off, dsfdsgds) => {
-      // let valu = null;
-      // if (off) {
-      //     valu = off;
-      // } else {
-      //     valu = 1;
-      // }
-      let tok = localStorage.getItem("accessToken");
-      // let wall = localStorage.getItem("wallet");
+    // let valu = null;
+    // if (off) {
+    //     valu = off;
+    // } else {
+    //     valu = 1;
+    // }
+    let tok = localStorage.getItem("accessToken");
+    // let wall = localStorage.getItem("wallet");
 
-      var config = {
-          method: "get",
-          url: `${API_URL}/content/faqs/get-faq-list?offset=1&&limit=100`,
-          headers: {
-              authorization: `Bearer ` + tok
-          },
-      };
-      axios(config)
-          .then(function (response) {
-              // setLoader(false);
-              // setCount(response.data.data.count)
-              setfaqs(response?.data?.data?.faq);
-              // let arr = Array.from(Array(parseInt(response.data.data.pages)).keys());
-              // setPages(arr);
-              // setCurrentPage(valu)
-          })
-          .catch(function (error) {
-              // setLoader(false);
-              // localStorage.removeItem("accessToken");
-              // localStorage.removeItem("user");
-              // window.location.assign("/")
-              // window.location.reload();
-          });
+    var config = {
+      method: "get",
+      url: `${API_URL}/content/faqs/get-faq-list?offset=1&&limit=100`,
+      headers: {
+        authorization: `Bearer ` + tok
+      },
+    };
+    axios(config)
+      .then(function (response) {
+        // setLoader(false);
+        // setCount(response.data.data.count)
+        setfaqs(response?.data?.data?.faq);
+        // let arr = Array.from(Array(parseInt(response.data.data.pages)).keys());
+        // setPages(arr);
+        // setCurrentPage(valu)
+      })
+      .catch(function (error) {
+        // setLoader(false);
+        // localStorage.removeItem("accessToken");
+        // localStorage.removeItem("user");
+        // window.location.assign("/")
+        // window.location.reload();
+      });
 
   }
 
   useEffect(() => {
-        getDataannou11();
+    getDataannou11();
   }, [])
 
 
@@ -231,22 +232,21 @@ const GeneralSidebar = () => {
     else if (indexvv == "13") {
       setindexwait(13)
     }
+    else if (indexvv == "14") {
+      setindexwait(14)
+    }
   }, [indexvv])
+
   const hitfunctionss = (asd) => {
     setindexwait(asd)
-    localStorage.setItem("indexvalue", asd);
     if (asd === 2) {
       setroute(false)
     }
-
   }
-
 
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [])
-
-
 
   const [routes, setroute] = useState(false);
   const [routeshome, setroutehome] = useState(false);
@@ -258,7 +258,10 @@ const GeneralSidebar = () => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const [toggle, setToggle] = useState(true)
-  
+  const [chat, setChat] = useState([]);
+  const [page, setPage] = useState(1)
+  const [firstTime, setFirstTime] = useState(true);
+
   const sidebar = () => {
     if (show === true) {
       setShow(false);
@@ -279,6 +282,8 @@ const GeneralSidebar = () => {
   const [showannounce, setShowannounce] = useState(false);
   const [showfaq, setShowfaq] = useState(false);
   const [showfaq1, setShowfaq1] = useState(false);
+  const [pages, allPages] = useState(1)
+  const [message, setMessage] = useState('');
 
 
   const loginUser = async () => {
@@ -347,10 +352,45 @@ const GeneralSidebar = () => {
       });
     }
   };
+  const getChat = async () => {
+ 
+    // page = message!='' ?1 :page; 
+    setPage(message != '' ? 1 : page)
+    var config = {
+      method: "get",
+      url: `${API_URL}/chats/group-messages/general-chat?offset=${page}&limit=10`,
+      headers: {
+        authorization: `Bearer ` + tok
+      },
+    };
+    axios(config)
+      .then(function (response) {
+        allPages(response?.data?.data?.pages)
+        if (firstTime || message != '') {
+          let rev = reverse([...response?.data?.data?.groupMessages])
+          setChat(rev);
+          setFirstTime(false)
+        }
+        else {
+
+          let rev = reverse([...response?.data?.data?.groupMessages])
+          setChat([...rev, ...chat])
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
+
+  useEffect(() => {
+    // if(data?.memberOfSquad===true){
+    getChat()
+    // }
+  }, [page])
   let walletAddress = localStorage.getItem("wallet");
   //  code metamask switch wallet
   useEffect(() => {
-    if (account == walletAddress|| toggle) {
+    if (account == walletAddress || toggle) {
       setToggle(false)
     }
     else {
@@ -369,7 +409,7 @@ const GeneralSidebar = () => {
             <div className="sidebar-wrapper ">
               <div className="logo-box">
                 {/* <Link to={"/"}> */}
-                  <img src={logo} alt="" />
+                <img src={logo} alt="" />
                 {/* </Link> */}
                 <div className="sidebar-divider"></div>
               </div>
@@ -524,6 +564,26 @@ const GeneralSidebar = () => {
                     </li>
                   )}
 
+                  {/* {data?.memberOfSquad === true && */}
+                  <li>
+                    <a
+                      onClick={() => { hitfunctionss(14); }}
+                      className={
+                        indexwait === 14 ? "list-item active" : "list-item "
+                      }
+
+                    >
+                      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M6.04102 12.7308C6.02685 12.7375 6.01352 12.7467 6.00102 12.7567L3.73268 14.6467C3.54685 14.8017 3.28685 14.8358 3.06768 14.7325C2.84768 14.63 2.70768 14.4092 2.70768 14.1667V12.6217C2.33518 12.5158 1.99102 12.3158 1.71185 12.0375C1.28268 11.6075 1.04102 11.0242 1.04102 10.4167V4.16667C1.04102 3.55917 1.28268 2.97583 1.71185 2.54583C2.14185 2.11667 2.72518 1.875 3.33268 1.875H10.8327C11.4402 1.875 12.0235 2.11667 12.4535 2.54583C12.8827 2.97583 13.1243 3.55917 13.1243 4.16667V4.375H9.16602C8.33685 4.375 7.54268 4.70417 6.95602 5.29C6.37018 5.87667 6.04102 6.67083 6.04102 7.5V12.7308Z" fill="#81828A" />
+                        <path fill-rule="evenodd" clip-rule="evenodd" d="M6.875 7.49999C6.875 6.89249 7.11667 6.30916 7.54583 5.87916C7.97583 5.44999 8.55917 5.20833 9.16667 5.20833H16.6667C17.2742 5.20833 17.8575 5.44999 18.2875 5.87916C18.7167 6.30916 18.9583 6.89249 18.9583 7.49999V13.75C18.9583 14.3575 18.7167 14.9408 18.2875 15.3708C18.0083 15.6492 17.6642 15.8492 17.2917 15.955V17.5C17.2917 17.7425 17.1517 17.9633 16.9317 18.0658C16.7125 18.1692 16.4525 18.135 16.2667 17.98L13.9983 16.09C13.9608 16.0592 13.9133 16.0417 13.865 16.0417H9.16667C8.55917 16.0417 7.97583 15.8 7.54583 15.3708C7.11667 14.9408 6.875 14.3575 6.875 13.75V7.49999ZM10.8333 9.79166H13.3333C13.6783 9.79166 13.9583 9.51166 13.9583 9.16666C13.9583 8.82166 13.6783 8.54166 13.3333 8.54166H10.8333C10.4883 8.54166 10.2083 8.82166 10.2083 9.16666C10.2083 9.51166 10.4883 9.79166 10.8333 9.79166ZM10.8333 12.2917H15C15.345 12.2917 15.625 12.0117 15.625 11.6667C15.625 11.3217 15.345 11.0417 15 11.0417H10.8333C10.4883 11.0417 10.2083 11.3217 10.2083 11.6667C10.2083 12.0117 10.4883 12.2917 10.8333 12.2917Z" fill="#81828A" />
+                      </svg>
+                      <div className="set-flex-for-value">
+                        <span>Chat </span>
+                        {/* <span className="set-value">2</span> */}
+                      </div>
+                    </a>
+                  </li>
+                  {/* } */}
 
                   <li>
                     <a
@@ -766,11 +826,11 @@ const GeneralSidebar = () => {
             </div>
           </div>
           <div className="content-column">
-            <GeneralHeader handleShow={handleShow} indexwait={indexwait} routes={routes} setroute={setroute} routeshome={routeshome} setroutehome={setroutehome} routesarmy={routesarmy} setroutearmy={setroutearmy} showtask={showtask} setShowtask={setShowtask} showannounce={showannounce} setShowannounce={setShowannounce} showfaq={showfaq} setShowfaq={setShowfaq} />
+            <GeneralHeader handleShow={handleShow} indexwait={indexwait} routes={routes} setroute={setroute} routeshome={routeshome} setroutehome={setroutehome} routesarmy={routesarmy} setroutearmy={setroutearmy} showtask={showtask} setShowtask={setShowtask} showannounce={showannounce} setShowannounce={setShowannounce} showfaq={showfaq} setShowfaq={setShowfaq} getChat={getChat} />
             {indexwait == 0 ?
               (
                 <>
-                  <GeneralHome setShowtask={setShowtask} routeshome={routeshome} setroutehome={setroutehome}  />
+                  <GeneralHome setShowtask={setShowtask} routeshome={routeshome} setroutehome={setroutehome} />
                 </>
               )
               :
@@ -826,7 +886,7 @@ const GeneralSidebar = () => {
                             indexwait == 8 ?
                               (
                                 <>
-                                  <Generalfaqs setShowfaq={setShowfaq}  setShowfaq1={setShowfaq1} getDataannou11={getDataannou11} faqs={faqs} setEbditFaqs={setEbditFaqs} />
+                                  <Generalfaqs setShowfaq={setShowfaq} setShowfaq1={setShowfaq1} getDataannou11={getDataannou11} faqs={faqs} setEbditFaqs={setEbditFaqs} />
                                 </>
                               )
                               :
@@ -847,6 +907,12 @@ const GeneralSidebar = () => {
                                     (
                                       <>
                                         <GeneralForum />
+                                      </>
+                                    ) :
+                                    indexwait == 14 ?
+                                    (
+                                      <>
+                                        <Chat setPage={setPage} page={page} setChat={setChat} chat={chat} getChat={getChat} pages={pages} setMessage={setMessage} message={message} />
                                       </>
                                     ) :
                                     ""
@@ -1156,7 +1222,7 @@ const GeneralSidebar = () => {
       </Offcanvas>
       <CreateTaskModals showtask={showtask} getData={getData} setShowtask={setShowtask} />
       <AnnouncementModals getDataannou={getDataannou} showannounce={showannounce} setShowannounce={setShowannounce} />
-      <CreateFaqModal showfaq={showfaq} setShowfaq={setShowfaq} showfaq1={showfaq1} setShowfaq1={setShowfaq1}  getDataannou11={getDataannou11} editFaqs={editFaqs} setEbditFaqs={setEbditFaqs}/>
+      <CreateFaqModal showfaq={showfaq} setShowfaq={setShowfaq} showfaq1={showfaq1} setShowfaq1={setShowfaq1} getDataannou11={getDataannou11} editFaqs={editFaqs} setEbditFaqs={setEbditFaqs} />
       <EditTaskModals showtaskdetail={showtaskdetail} setdetailtask={setdetailtask} getData={getData} taskdetail={detailtask} setShowtaskdetail={setShowtaskdetail} showtaskedit={showtaskedit} setShowtaskedit={setShowtaskedit} />
     </>
   );

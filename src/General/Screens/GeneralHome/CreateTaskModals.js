@@ -124,12 +124,12 @@ const CreateTaskModals = ({ showtask, setShowtask, getData }) => {
     if (allFormData?.name != '') {
       if (allFormData?.reward != '') {
         if (allFormData?.description != '') {
+          axios.defaults.headers.post[
+            "Authorization"
+          ] = `Bearer ${tok}`;
           var config = {
             method: "post",
             url: `${API_URL}/tasks`,
-            headers: {
-              authorization: `Bearer ` + tok
-            },
             data: data1,
           };
           axios(config)

@@ -12,9 +12,9 @@ import { useWeb3React } from "@web3-react/core";
 
 const Generalfaqs = ({ setShowfaq,setShowfaq1 ,getDataannou11,faqs,setEbditFaqs}) => {
     const { account } = useWeb3React();
+    let tok = localStorage.getItem("accessToken");
  
     const deletefaq = (elem) => {
-        let tok = localStorage.getItem("accessToken");
         var config = {
             method: "delete",
             url: `${API_URL}/content/faqs/${elem?._id}`,

@@ -6,10 +6,35 @@ import menuIcon from "../../../assets/icons/menuIcon.svg";
 import { Button, Offcanvas } from "react-bootstrap";
 import mobileLogo from "../../../assets/icons/mobileLogo.svg";
 import Modal from 'react-bootstrap/Modal';
+import { useEffect } from "react";
+import { io } from "socket.io-client";
 
-const GeneralHeader = ({ routes, setroute, routeshome, setroutehome, indexwait, handleShow, routesarmy, setroutearmy, setShowtask, showtask, showannounce, setShowannounce, showfaq, setShowfaq }) => {
+
+const GeneralHeader = ({ routes, setroute, routeshome, setroutehome, indexwait, handleShow, routesarmy, setroutearmy, setShowtask, showtask, showannounce, setShowannounce, showfaq, setShowfaq,getChat }) => {
   let user1 = localStorage.getItem("user");
   user1 = JSON.parse(user1);
+
+  useEffect(() => {
+    let tok = localStorage.getItem("accessToken");
+    let socket = io('https://stagingapi.tomiarmy.com', {
+      transports: ["websocket", "polling"],
+      path: "/chats/sockets",
+    });
+    socket.on("connect", () => {
+      console.log('socket connected in general header++++++++++++++++++++++++++', socket.connected);
+      socket.emit("authentication", {
+        token: tok,
+      });
+    });
+    socket.on('Group_Message', () => {
+      // toast.info("group message chat notification");
+      getChat()
+    });
+
+    socket.on("disconnect", (reason) => {
+      console.log(`Disconnected header: ${reason}`);
+    });
+  }, [])
   return (
     <>
       <div
@@ -99,6 +124,12 @@ const GeneralHeader = ({ routes, setroute, routeshome, setroutehome, indexwait, 
               <p>Create faqs for your army</p>
             </div>
           ) : null}
+          {indexwait === 14 ? (
+            <div className="soldier-name">
+              <h4>CHAT</h4>
+              <p>Chat with Major general</p>
+            </div>
+          ) : null}
         </div>
         <div className="header-buttons" style={{maxWidth: "360px", width: "100%", justifyContent: "flex-end"}}>
           {
@@ -162,6 +193,8 @@ const GeneralHeader = ({ routes, setroute, routeshome, setroutehome, indexwait, 
 
               : ""
           }
+          
+        
           {/* {
             indexwait === 6 || indexwait === 10 ?
               <button className="create-squad-btn" data-bs-toggle="modal" data-bs-target="#exampleModall">

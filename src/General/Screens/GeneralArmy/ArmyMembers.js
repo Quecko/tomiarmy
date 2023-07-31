@@ -17,6 +17,7 @@ import axios from 'axios';
 
 const ArmyMembers = ({ routesarmy, setroutearmy }) => {
 
+    let tok = localStorage.getItem("accessToken");
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -50,8 +51,6 @@ const ArmyMembers = ({ routesarmy, setroutearmy }) => {
         // } else {
         //     valu = 1;
         // }
-        let tok = localStorage.getItem("accessToken");
-        let wall = localStorage.getItem("wallet");
         if (account) {
             var config = {
                 method: "get",
@@ -89,7 +88,6 @@ const ArmyMembers = ({ routesarmy, setroutearmy }) => {
     }, [account])
 
     const GetArmymajor = () => {
-        let tok = localStorage.getItem("accessToken");
         var config = {
             method: "get",
             url: `${API_URL}/tasks/army-ranks?minimal=true`,
@@ -122,7 +120,6 @@ const ArmyMembers = ({ routesarmy, setroutearmy }) => {
             // setLoader(true);
             // window.$(`#UpdaterankMajorArmyMemebr`).modal("hide");
             handleCloserank();
-            let tok = localStorage.getItem("accessToken");
             var data = ({
                 nickName: dataarmymember?.nickName,
                 walletAddress: dataarmymember?.walletAddress,

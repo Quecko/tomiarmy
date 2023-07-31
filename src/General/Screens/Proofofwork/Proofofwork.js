@@ -14,7 +14,6 @@ const Proofofwork = () => {
     const [showwork1, setShowwork1] = useState(false);
     const [singledetail, setsingledetail] = useState(null)
     const [imagedetail, setimagedetail] = useState(null)
-    console.log('singledetail', singledetail);
     const handleClosework = () => setShowwork(false);
     const handleClosework1 = () => setShowwork1(false);
     const handleShowwork = (elem) => {
@@ -188,7 +187,6 @@ const Proofofwork = () => {
         }
     }
 
-
     const Acceptreject = async (singledetail, approvedcheck) => {
         let tok = localStorage.getItem("accessToken");
         // setOpens(true);
@@ -271,12 +269,9 @@ const Proofofwork = () => {
         settaskdetail(null)
     }
 
-
-
     const [imageModal, setImageModal] = useState(false)
     const handleImageClose = () => setImageModal(false);
     const ImageDetails = (elem) => {
-        console.log('elem', elem);
         setImageModal(true)
         setimagedetail(elem)
     }

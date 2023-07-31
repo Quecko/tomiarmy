@@ -129,12 +129,12 @@ const CreateOperation = ({ svaebutton, setroutehome, routeshome, setexpired, tas
                     if (startDate) {
                         if (profileP) {
                             if (allFormData?.tomitoken != '') {
+                                axios.defaults.headers.post[
+                                    "Authorization"
+                                  ] = `Bearer ${tok}`;
                                 var config = {
                                     method: "post",
                                     url: `${API_URL}/tasks/operations`,
-                                    headers: {
-                                        authorization: `Bearer ` + tok
-                                    },
                                     data: data1,
                                 };
                                 axios(config)

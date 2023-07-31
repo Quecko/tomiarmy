@@ -7,7 +7,6 @@ import moment from "moment";
 import { Modal } from 'react-bootstrap';
 
 const ArmyForum = () => {
-
   let tok = localStorage.getItem("accessToken");
   const [topuser, settopuser] = useState([]);
   const [ListComment, setListComment] = useState([]);
@@ -57,7 +56,7 @@ const ArmyForum = () => {
         ] = `Bearer ${tok}`;
         var config = {
           method: "post",
-          url: `$${API_URL}/forums/posts/`,
+          url: `${API_URL}/forums/posts/`,
           data: {
             title: allFormData.title,
             description: allFormData.description,
@@ -106,7 +105,6 @@ const ArmyForum = () => {
   }
   //  get myPost
   const getMyPosts = () => {
-    let tok = localStorage.getItem("accessToken");
     var config = {
       method: "get",
       url: `${API_URL}/forums/posts/my-posts?offset=1&&limit=100&&forumPost=false`,
@@ -133,7 +131,6 @@ const ArmyForum = () => {
     // setLoader(true);
     if (comment != '') {
       if (!loading) {
-        let tok = localStorage.getItem("accessToken");
         setLoading(true);
         axios.defaults.headers.post[
           "Authorization"
@@ -173,7 +170,6 @@ const ArmyForum = () => {
 
   const GetPosts = () => {
     // setArmy([])
-    let tok = localStorage.getItem("accessToken");
     var config = {
       method: "get",
       url: `${API_URL}/forums/posts?offset=${limit}&&limit=10&&forumPost=false`,
@@ -319,6 +315,8 @@ const ArmyForum = () => {
   }
 
   const UpdateTask = (objj) => {
+    if (!loading) {
+      setLoading(true)
     axios.patch(`${API_URL}/forums/posts/${objj._id}`,
       {
         title: detailsingle.title,
@@ -332,11 +330,17 @@ const ArmyForum = () => {
     ).then((response) => {
       getMyPosts()
       toast.success("Updated successfully");
+      setShowForumEditModal(false)
+      
       // Code
     }).catch((error) => {
       // Code
       toast.error(error.response.data.message)
     })
+    .finally(() => {
+      setLoading(false);
+    });
+  }
   }
 
 
@@ -580,32 +584,6 @@ const ArmyForum = () => {
         </div>
       </div> */}
 
-      {/*  edit post or forum modal */}
-      <div className="topicmodal">
-        <div class="modal fade" id="exampleModall11" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body">
-                <h5>Edit Your Post</h5>
-                <p>Title</p>
-                <input onChange={(e) => UpdateName(e.target.value)} value={detailsingle?.title} name="title" type="text" placeholder="Enter Title...." />
-                <p>Description</p>
-                <textarea
-                  onChange={(e) => UpdateDescription(e.target.value)} value={detailsingle?.description} name="description"
-                  placeholder="Enter Description Url...."></textarea>
-                <div className="twice-btn">
-                  <button className="btn-cancel" data-bs-dismiss="modal" aria-label="Close"> <img src="\assets\cancel.svg" alt="img" className="img-fluid me-2" /> Cancel</button>
-                  <button className="btn-topic" onClick={() => UpdateTask(detailsingle)}> <img src="\assets\topic-btn.svg" alt="img" className="img-fluid me-2" /> Update</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
       {/* delete post */}
       {/* <div className="topicmodal">
         <div class="modal fade" id="deletemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -663,7 +641,7 @@ const ArmyForum = () => {
               placeholder="Enter Description Url...."></textarea>
             <div className="twice-btn">
               <button className="btn-cancel" onClick={handleCloseEditForum} aria-label="Close"> <img src="\assets\cancel.svg" alt="img" className="img-fluid me-2" /> Cancel</button>
-              <button className="btn-topic" onClick={() => UpdateTask(detailsingle)}> <img src="\assets\topic-btn.svg" alt="img" className="img-fluid me-2" /> Update</button>
+              <button className="btn-topic" onClick={() => UpdateTask(detailsingle)} disabled={loading}> <img src="\assets\topic-btn.svg" alt="img" className="img-fluid me-2" /> {loading ? 'Updating':'Update'}</button>
             </div>
           </Modal.Body>
         </Modal>

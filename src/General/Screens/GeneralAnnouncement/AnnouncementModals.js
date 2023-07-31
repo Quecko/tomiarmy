@@ -14,10 +14,12 @@ const AnnouncementModals = ({ showannounce, setShowannounce, getDataannou }) => 
   const [showannounce1, setShowannounce1] = useState(false);
   const handleCloseannounce1 = () => setShowannounce1(false);
   const handleShowannounce1 = () => setShowannounce1(true);
+
+  let tok = localStorage.getItem("accessToken");
+  
   const SendMessage = (e) => {
     e?.preventDefault();
     if (message !== "") {
-      let tok = localStorage.getItem("accessToken");
       var data = "null";
       if (selectedItem?.name) {
         data = ({
@@ -30,12 +32,12 @@ const AnnouncementModals = ({ showannounce, setShowannounce, getDataannou }) => 
           recipients: "all soldiers",
         });
       }
+      axios.defaults.headers.post[
+        "Authorization"
+      ] = `Bearer ${tok}`;
       var config = {
         method: "post",
         url: `${API_URL}/notifications/announcements`,
-        headers: {
-          authorization: `Bearer ` + tok
-        },
         data: data,
       };
       axios(config)

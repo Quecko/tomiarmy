@@ -7,6 +7,8 @@ import axios from 'axios';
 import Loader from '../../../hooks/loader';
 
 const CreateFaqModal = ({ showfaq, setShowfaq, showfaq1, setShowfaq1, getDataannou11, editFaqs, setEbditFaqs }) => {
+  
+  let tok = localStorage.getItem("accessToken");
   const handleClosefaq = () => setShowfaq(false);
   const [rend, setRend] = useState(false);
   const handleShowfaq = () => setShowfaq(true);
@@ -28,7 +30,6 @@ const CreateFaqModal = ({ showfaq, setShowfaq, showfaq1, setShowfaq1, getDataann
   }
 
   const CreateFAQ = async () => {
-    let tok = localStorage.getItem("accessToken");
     var data1 = ({
       title: allFormData?.title,
       description: allFormData?.description
@@ -36,12 +37,12 @@ const CreateFaqModal = ({ showfaq, setShowfaq, showfaq1, setShowfaq1, getDataann
 
     if (allFormData?.title != '') {
       if (allFormData?.description != '') {
+        axios.defaults.headers.post[
+          "Authorization"
+        ] = `Bearer ${tok}`;
         var config = {
           method: "post",
           url: `${API_URL}/content/faqs/add-faq`,
-          headers: {
-            authorization: `Bearer ` + tok
-          },
           data: data1,
         };
         axios(config)

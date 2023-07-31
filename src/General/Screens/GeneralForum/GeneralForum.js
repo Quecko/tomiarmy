@@ -8,6 +8,8 @@ import { Modal } from 'react-bootstrap';
 
 
 const GeneralForum = () => {
+  let tok = localStorage.getItem("accessToken");
+  const [loading, setLoading] = useState(false);
   const [army, setArmy] = useState([]);
   const [topuser, settopuser] = useState([]);
   const [ListComment, setListComment] = useState([]);
@@ -38,6 +40,12 @@ const GeneralForum = () => {
     title: '',
     description: '',
   })
+  const ClearAll = () => {
+    setAllFormData({
+      title: '',
+      description: '',
+    })
+  }
   const [selecttab, setselecttab] = useState('Active Squad')
   const handleChange = (event) => {
     allFormData[event.target.name] = event.target.value;
@@ -46,31 +54,39 @@ const GeneralForum = () => {
   //  create new forum
   const putQuestion = () => {
     setLoader(true);
-    let tok = localStorage.getItem("accessToken");
     if (allFormData.title !== "" && allFormData.description !== "") {
-      axios.post(`${API_URL}/forums/posts/`,
-        {
-          title: allFormData.title,
-          description: allFormData.description,
-          isForumPost: rankid,
-        },
-        {
-          headers: {
-            authorization: `Bearer ` + tok
-          }
-        }
-      ).then((response) => {
-        setLoader(false);
-        toast.success("Post Added Successfully");
-        getMyPosts()
-        handleCloseForum()
-        // window.$(`#exampleModall`).modal("hide");
-        // ClearAlloperation()
-        // Code
-      }).catch((error) => {
-        setLoader(false);
-        toast.error(error.response.data.message)
-      })
+      if (!loading) {
+        setLoading(true)
+        axios.defaults.headers.post[
+          "Authorization"
+        ] = `Bearer ${tok}`;
+        var config = {
+          method: "post",
+          url: `${API_URL}/forums/posts/`,
+          data: {
+            title: allFormData.title,
+            description: allFormData.description,
+            isForumPost: rankid,
+          },
+        };
+        axios(config)
+          .then(async (response) => {
+            setLoader(false);
+            toast.success("Post Added Successfully");
+            getMyPosts()
+            handleCloseForum()
+            ClearAll()
+            // window.$(`#exampleModall`).modal("hide");
+            // ClearAlloperation()
+            // Code
+          }).catch((error) => {
+            setLoader(false);
+            toast.error(error.response.data.message)
+          })
+          .finally(() => {
+            setLoading(false);
+          });
+      }
     } else {
       toast.error("Please fill all fields")
     }
@@ -78,10 +94,10 @@ const GeneralForum = () => {
 
   // get top user or member
   const gettopusers = async () => {
-    let tok = localStorage.getItem("accessToken");
+
     var config = {
       method: "get",
-      url: `${API_URL}/forums/top-user?limit=100000&&isForumPost=${rankid}`,
+      url: `${API_URL}/forums/top-user?limit=20&&isForumPost=${rankid}`,
       headers: {
         authorization: `Bearer ` + tok
       },
@@ -96,10 +112,9 @@ const GeneralForum = () => {
   }
   //  get myPost
   const getMyPosts = () => {
-    let tok = localStorage.getItem("accessToken");
     var config = {
       method: "get",
-      url: `${API_URL}/forums/posts/my-posts?offset=1&&limit=100000&&forumPost=false`,
+      url: `${API_URL}/forums/posts/my-posts?offset=1&&limit=100&&forumPost=false`,
       headers: {
         authorization: `Bearer ` + tok
       },
@@ -119,39 +134,48 @@ const GeneralForum = () => {
   }
   const createComment = (item) => {
     // setcountss(0)
-    setLoader(true);
-    let tok = localStorage.getItem("accessToken");
-    axios.post(`${API_URL}/forums/posts/${item?._id}/comments`,
-      {
-        content: comment
-      },
-      {
-        headers: {
-          authorization: `Bearer ` + tok
+    // setLoader(true);
+    if (comment != '') {
+      if (!loading) {
+        setLoading(true);
+        axios.defaults.headers.post[
+          "Authorization"
+        ] = `Bearer ${tok}`;
+        var config = {
+          method: "post",
+          url: `${API_URL}/forums/posts/${item?._id}/comments`,
+          data: {
+            content: comment
+          },
         }
+        axios(config)
+        .then(async (response) => {
+          // let dumArr = post;
+          const newPost = post
+          let dumObj = item;
+          dumObj.noOfComments = dumObj.noOfComments + 1;
+          // let findIndex = post.findIndex((ip) => { return ip._id === dumObj._id })
+          const index = post.findIndex((v, index) => index === dumObj?._id)
+          newPost.splice(index, 1, dumObj)
+          setPost(newPost)
+          setLoader(false);
+          toast.success("Comment Created Successfully");
+          mainid(commentid, "add");
+          commentnull();
+          setcomment('');
+        }).catch((error) => {
+          setLoader(false);
+          toast.error(error.response.data.message)
+        })
+          .finally(() => {
+            setLoading(false);
+          });
       }
-    ).then((response) => {
-      const newPost = post
-      let dumObj = item;
-      dumObj.noOfComments = dumObj.noOfComments + 1;
-      let findIndex = post.findIndex((ip) => { return ip._id === dumObj._id })
-      const index = post.findIndex((v, index) => index === dumObj?._id)
-      newPost.splice(index, 1, dumObj)
-      setPost(newPost)
-      setLoader(false);
-      toast.success("Comment Created Successfully");
-      mainid(commentid, "add");
-      commentnull();
-      setcomment('');
-    }).catch((error) => {
-      setLoader(false);
-      toast.error(error.response.data.message)
-    })
+    }
   }
 
   const GetPosts = () => {
     // setArmy([])
-    let tok = localStorage.getItem("accessToken");
     var config = {
       method: "get",
       url: `${API_URL}/forums/posts?offset=${limit}&&limit=10&&forumPost=false`,
@@ -304,7 +328,6 @@ const GeneralForum = () => {
   }
 
   const getSingleDetail = async (detailid) => {
-    let tok = localStorage.getItem("accessToken");
     axios
       .get(
         API_URL + "/forums/posts/" +
@@ -331,7 +354,8 @@ const GeneralForum = () => {
   }
 
   const UpdateTask = (objj) => {
-    let tok = localStorage.getItem("accessToken");
+    if (!loading) {
+      setLoading(true)
     axios.patch(`${API_URL}/forums/posts/${objj._id}`,
       {
         title: detailsingle.title,
@@ -345,12 +369,17 @@ const GeneralForum = () => {
     ).then((response) => {
       getMyPosts()
       toast.success(" Updated Successfully");
-      window.$(`#exampleModal1`).modal("hide");
+      setShowForumEditModal(false)
+      // window.$(`#exampleModal1`).modal("hide");
       // Code
     }).catch((error) => {
       // Code
       toast.error(error.response.data.message)
     })
+    .finally(() => {
+      setLoading(false);
+    });
+  }
   }
 
   const handleChange1 = (event) => {
@@ -471,7 +500,7 @@ const GeneralForum = () => {
                             <h5>Leave a comment</h5>
                             <p>Comment</p>
                             <textarea onChange={handleChange1} value={comment} placeholder="Write comment"></textarea>
-                            <button onClick={() => createComment(elem)}>Post Comment</button>
+                            <button onClick={() => createComment(elem)} disabled={loading}>{loading ? 'Post Comment...' : 'Post Comment'}</button>
                           </div>
                         </section>
                       }
@@ -554,32 +583,6 @@ const GeneralForum = () => {
         </div>
       </div> */}
 
-      {/*  edit post or forum modal */}
-      <div className="topicmodal">
-        <div class="modal fade" id="exampleModall11" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-          <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-              </div>
-              <div class="modal-body">
-                <h5>Edit Your Post</h5>
-                <p>Title</p>
-                <input onChange={(e) => UpdateName(e.target.value)} value={detailsingle?.title} name="title" type="text" placeholder="Enter Title...." />
-                <p>Description</p>
-                <textarea
-                 onChange={(e) => UpdateDescription(e.target.value)} value={detailsingle?.description} name="description"
-                  placeholder="Enter Description Url...."></textarea>
-                <div className="twice-btn">
-                  <button className="btn-cancel" data-bs-dismiss="modal" aria-label="Close"> <img src="\assets\cancel.svg" alt="img" className="img-fluid me-2" /> Cancel</button>
-                  <button className="btn-topic"onClick={() => UpdateTask(detailsingle)}> <img src="\assets\topic-btn.svg" alt="img" className="img-fluid me-2" /> Update</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
       {/* delete post */}
       {/* <div className="topicmodal">
         <div class="modal fade" id="deletemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -619,7 +622,7 @@ const GeneralForum = () => {
             placeholder="Enter Description Url...."></textarea>
           <div className="twice-btn">
             <button className="btn-cancel" onClick={handleCloseForum} aria-label="Close"> <img src="\assets\cancel.svg" alt="img" className="img-fluid me-2" /> Cancel</button>
-            <button className="btn-topic" onClick={putQuestion}> <img src="\assets\topic-btn.svg" alt="img" className="img-fluid me-2" /> Start a New Topic</button>
+            <button className="btn-topic" onClick={putQuestion} disabled={loading}> <img src="\assets\topic-btn.svg" alt="img" className="img-fluid me-2" /> {loading ? 'Start a New Topic...' : 'Start a New Topic'}</button>
           </div>
         </Modal.Body>
       </Modal>
@@ -637,7 +640,7 @@ const GeneralForum = () => {
             placeholder="Enter Description Url...."></textarea>
           <div className="twice-btn">
             <button className="btn-cancel" onClick={handleCloseEditForum} aria-label="Close"> <img src="\assets\cancel.svg" alt="img" className="img-fluid me-2" /> Cancel</button>
-            <button className="btn-topic" onClick={() => UpdateTask(detailsingle)}> <img src="\assets\topic-btn.svg" alt="img" className="img-fluid me-2" /> Update</button>
+            <button className="btn-topic" onClick={() => UpdateTask(detailsingle)} disabled={loading}> <img src="\assets\topic-btn.svg" alt="img" className="img-fluid me-2" />{loading ? 'Updating...' :'Update'}</button>
           </div>
         </Modal.Body>
       </Modal>

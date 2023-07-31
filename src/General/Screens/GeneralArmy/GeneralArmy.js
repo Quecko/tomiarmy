@@ -16,6 +16,7 @@ import axios from 'axios';
 
 const GeneralArmy = ({ routesarmy, setroutearmy }) => {
 
+    let tok = localStorage.getItem("accessToken");
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const [data3, setData3] = useState(null);
@@ -40,8 +41,6 @@ const GeneralArmy = ({ routesarmy, setroutearmy }) => {
         // } else {
         //     valu = 1;
         // }
-        let tok = localStorage.getItem("accessToken");
-        let wall = localStorage.getItem("wallet");
         if (account) {
             var config = {
                 method: "get",
@@ -79,7 +78,6 @@ const GeneralArmy = ({ routesarmy, setroutearmy }) => {
 
     const RejectAccept = (item, bool) => {
         // setLoader(true);
-        let tok = localStorage.getItem("accessToken");
         var data = ({
             status: bool
         });
