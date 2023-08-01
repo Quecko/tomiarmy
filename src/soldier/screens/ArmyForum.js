@@ -144,7 +144,6 @@ const ArmyForum = () => {
         }
         axios(config)
         .then(async (response) => {
-          // let dumArr = post;
           const newPost = post
           let dumObj = item;
           dumObj.noOfComments = dumObj.noOfComments + 1;
@@ -152,6 +151,7 @@ const ArmyForum = () => {
           const index = post.findIndex((v, index) => index === dumObj?._id)
           newPost.splice(index, 1, dumObj)
           setPost(newPost)
+          getMyPosts()
           setLoader(false);
           toast.success("Comment Created Successfully");
           mainid(commentid, "add");
@@ -181,9 +181,9 @@ const ArmyForum = () => {
       .then(function (response) {
         // getMyPosts()
         // setArmy(response?.data?.data);
-        if (response?.data?.data?.length === 0) {
-          setLimit(limit - 1);
-        }
+        // if (response?.data?.data?.length === 0) {
+        //   setLimit(limit - 1);
+        // }
         // if (val) {
         // setArmy(response?.data?.data?.post);
         setPost(response?.data?.data?.post);
