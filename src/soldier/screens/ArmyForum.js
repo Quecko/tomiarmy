@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 import axios from 'axios';
 import moment from "moment";
 import { Modal } from 'react-bootstrap';
-
+import { TokenExpiredOrNot } from "../../utils/TokenExpiredOrNot";
 const ArmyForum = () => {
   let tok = localStorage.getItem("accessToken");
   const [topuser, settopuser] = useState([]);
@@ -48,42 +48,50 @@ const ArmyForum = () => {
   //  create new forum
   const putQuestion = () => {
     setLoader(true);
-    if (allFormData.title !== "" && allFormData.description !== "") {
-      if (!loading) {
-        setLoading(true)
-        axios.defaults.headers.post[
-          "Authorization"
-        ] = `Bearer ${tok}`;
-        var config = {
-          method: "post",
-          url: `${API_URL}/forums/posts/`,
-          data: {
-            title: allFormData.title,
-            description: allFormData.description,
-            isForumPost: rankid,
-          },
-        };
-        axios(config)
-          .then(async (response) => {
-            setLoader(false);
-            toast.success("Post Added Successfully");
-            getMyPosts()
-            handleCloseForum()
-            ClearAll()
-            // window.$(`#exampleModall`).modal("hide");
-            // ClearAlloperation()
-            // Code
-          }).catch((error) => {
-            setLoader(false);
-            toast.error(error.response.data.message)
-          })
-          .finally(() => {
-            setLoading(false);
-          });
+    // let t=TokenExpiredOrNot()
+    // console.log('t',t)
+    // if(t){
+      if (allFormData.title !== "" && allFormData.description !== "") {
+        if (!loading) {
+          setLoading(true)
+          axios.defaults.headers.post[
+            "Authorization"
+          ] = `Bearer ${tok}`;
+          var config = {
+            method: "post",
+            url: `${API_URL}/forums/posts/`,
+            data: {
+              title: allFormData.title,
+              description: allFormData.description,
+              isForumPost: rankid,
+            },
+          };
+          axios(config)
+            .then(async (response) => {
+              setLoader(false);
+              toast.success("Post Added Successfully");
+              getMyPosts()
+              handleCloseForum()
+              ClearAll()
+              // window.$(`#exampleModall`).modal("hide");
+              // ClearAlloperation()
+              // Code
+            }).catch((error) => {
+              setLoader(false);
+              toast.error(error.response.data.message)
+            })
+            .finally(() => {
+              setLoading(false);
+            });
+        }
+      } else {
+        toast.error("Please fill all fields")
       }
-    } else {
-      toast.error("Please fill all fields")
-    }
+    // }
+    // else{
+    //   localStorage.clear()
+    //   window.location.assign('/')
+    // }
   }
   // get top user or member
   const gettopusers = async () => {

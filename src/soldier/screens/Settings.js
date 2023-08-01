@@ -4,6 +4,7 @@ import Modal from 'react-bootstrap/Modal';
 import { API_URL } from "../../utils/ApiUrl"
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import { TokenExpiredOrNot } from '../../utils/TokenExpiredOrNot';
 
 const Settings = () => {
     const [show, setShow] = useState(false);
@@ -16,38 +17,45 @@ const Settings = () => {
 
     const addNickName = async () => {
       let tok = localStorage.getItem("accessToken");
-      if(nick!=''){
-      var config = {
-        method: "patch",
-        url: `${API_URL}/auth/users`,
-        headers: {
-          authorization: `Bearer ` + tok
-        },
-        data: {
-          nickName: nick
-        },
-      };
-      axios(config)
-        .then(function (response) {
-          const existingData = JSON.parse(localStorage.getItem('user'));
-          existingData.nickName = response?.data?.data?.nickName
-          const updatedData = JSON.stringify(existingData);
-          localStorage.setItem('user', updatedData);
-          setLoader(false);
-          handleClose()
-          toast.success('Update nick name successfully', {
-            position: "top-right",
-            autoClose: 2000,
+      // let t=TokenExpiredOrNot()
+      // console.log('t',t)
+      // if(t){
+        if(nick!=''){
+        var config = {
+          method: "patch",
+          url: `${API_URL}/auth/users`,
+          headers: {
+            authorization: `Bearer ` + tok
+          },
+          data: {
+            nickName: nick
+          },
+        };
+        axios(config)
+          .then(function (response) {
+            const existingData = JSON.parse(localStorage.getItem('user'));
+            existingData.nickName = response?.data?.data?.nickName
+            const updatedData = JSON.stringify(existingData);
+            localStorage.setItem('user', updatedData);
+            setLoader(false);
+            handleClose()
+            toast.success('Update nick name successfully', {
+              position: "top-right",
+              autoClose: 2000,
+            });
+          })
+          .catch(function (error) {
+            console.log(error);
+            setLoader(false);
+            // localStorage.removeItem("accessToken");
+            // localStorage.removeItem("user");
+            // window.location.reload();
           });
-        })
-        .catch(function (error) {
-          console.log(error);
-          setLoader(false);
-          // localStorage.removeItem("accessToken");
-          // localStorage.removeItem("user");
-          // window.location.reload();
-        });
-      }
+        }
+      // }
+      // else{
+      //   alert('token expired')
+      // }
     }
 
 
