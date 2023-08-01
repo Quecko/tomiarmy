@@ -68,88 +68,88 @@ const Header = ({ routes, setroute, indexwait, handleShow, setShow2, setShow1, s
 
   // }, [msgObj?.notification?.metadata !== undefined])
 
-  // useEffect(() => {
-  //   let tok = localStorage.getItem("accessToken");
-  //   let socket = io('https://stagingapi.tomiarmy.com', {
-  //     transports: ["websocket", "polling"],
-  //     path: "/chats/sockets",
-  //   });
-  //   socket.on("connect", () => {
-  //     console.log('socket connected in header++++++++++++++++++++++++++', socket.connected);
-  //     socket.emit("authentication", {
-  //       token: tok,
-  //     });
-  //   });
+  useEffect(() => {
+    let tok = localStorage.getItem("accessToken");
+    let socket = io('https://devapi.tomiarmy.com', {
+      transports: ["websocket", "polling"],
+      path: "/chats/sockets",
+    });
+    socket.on("connect", () => {
+      console.log('socket connected in header++++++++++++++++++++++++++', socket.connected);
+      socket.emit("authentication", {
+        token: tok,
+      });
+    });
 
-  //   socket.on('WORK_PROOF_REJECTED', (notification) => {
-  //     toast.info("Update On Your Submitted Task Please Check Your Notifications");
-  //     audio.play()
-  //     getNotif()
-  //     getData()
-  //     getDataOperation()
-  //   });
-  //   socket.on('Recruite_Invite', (notification) => {
-  //     // toast.info("You are Invited to join a Squad by a Commander Please Check Your Notifications");
-  //     audio.play()
-  //     getNotif()
-  //     // setShowModal(true)
-  //   });
-  //   socket.on('Recruite_Invite_Accepted', (notification) => {
-  //     // toast.info("Your Recruite Invitation has been Accepted Please Check Your Notifications");
-  //     audio.play()
-  //     getNotif()
-  //   });
-  //   socket.on('Squad_Recruite_Invite', (notification) => {
-  //     // toast.info("Squad Recruite Invite Send To You Please Check Your Notifications");
-  //     audio.play()
-  //     getNotif()
-  //   });
-  //   socket.on('Squad_Recruite_Accepted', (notification) => {
-  //     // toast.info("Your Squad Recruite Accepted Please Check Your Notifications");
-  //     audio.play()
-  //     getNotif()
-  //   });
-  //   socket.on('Group_Message', () => {
-  //     // toast.info("group message chat notification");
-  //     getChat()
-  //     getNotif()
-  //   });
-  //   socket.on('Co_Leader_Added', (notification) => {
-  //     // toast.info("You are Promoted for Co-Leader Please Check Your Notifications");
-  //     audio.play()
-  //     getNotif()
-  //     setShowModal(true)
-  //   });
-  //   socket.on('Co_Leader_Removed', (notification) => {
-  //     // toast.info("You are Removed for as a Co-Leader Please Check Your Notifications");
-  //     audio.play()
-  //     getNotif()
-  //   });
-  //   socket.on('Veteran_kicked_out', (notification) => {
-  //     // toast.info("You are Removed from Squad Please Check Your Notifications");
-  //     audio.play()
-  //     getNotif()
-  //   });
-  //   socket.on('Rank_Updated', (notification) => {
-  //     // toast.info("You are Removed from Squad Please Check Your Notifications");
-  //     audio.play()
-  //     getNotif()
-  //   });
-  //   socket.on('Rank_Updated_By_General', (notification) => {
-  //     // toast.info("You are Removed from Squad Please Check Your Notifications");
-  //     audio.play()
-  //     getNotif()
-  //   });
-  //   socket.on('message', (notification) => {
-  //     // toast.info("You are Removed from Squad Please Check Your Notifications");
-  //     audio.play()
-  //     getNotif()
-  //   });
+    socket.on('WORK_PROOF_REJECTED', (notification) => {
+      toast.info("Update On Your Submitted Task Please Check Your Notifications");
+      audio.play()
+      getNotif()
+      getData()
+      getDataOperation()
+    });
+    socket.on('Recruite_Invite', (notification) => {
+      // toast.info("You are Invited to join a Squad by a Commander Please Check Your Notifications");
+      audio.play()
+      getNotif()
+      // setShowModal(true)
+    });
+    socket.on('Recruite_Invite_Accepted', (notification) => {
+      // toast.info("Your Recruite Invitation has been Accepted Please Check Your Notifications");
+      audio.play()
+      getNotif()
+    });
+    socket.on('Squad_Recruite_Invite', (notification) => {
+      // toast.info("Squad Recruite Invite Send To You Please Check Your Notifications");
+      audio.play()
+      getNotif()
+    });
+    socket.on('Squad_Recruite_Accepted', (notification) => {
+      // toast.info("Your Squad Recruite Accepted Please Check Your Notifications");
+      audio.play()
+      getNotif()
+    });
+    socket.on('Group_Message', () => {
+      // toast.info("group message chat notification");
+      getChat()
+      getNotif()
+    });
+    socket.on('Co_Leader_Added', (notification) => {
+      // toast.info("You are Promoted for Co-Leader Please Check Your Notifications");
+      audio.play()
+      getNotif()
+      setShowModal(true)
+    });
+    socket.on('Co_Leader_Removed', (notification) => {
+      // toast.info("You are Removed for as a Co-Leader Please Check Your Notifications");
+      audio.play()
+      getNotif()
+    });
+    socket.on('Veteran_kicked_out', (notification) => {
+      // toast.info("You are Removed from Squad Please Check Your Notifications");
+      audio.play()
+      getNotif()
+    });
+    socket.on('Rank_Updated', (notification) => {
+      // toast.info("You are Removed from Squad Please Check Your Notifications");
+      audio.play()
+      getNotif()
+    });
+    socket.on('Rank_Updated_By_General', (notification) => {
+      // toast.info("You are Removed from Squad Please Check Your Notifications");
+      audio.play()
+      getNotif()
+    });
+    socket.on('message', (notification) => {
+      // toast.info("You are Removed from Squad Please Check Your Notifications");
+      audio.play()
+      getNotif()
+    });
 
-  //   socket.on("disconnect", (reason) => {
-  //     console.log(`Disconnected header: ${reason}`);
-  //   });
-  // }, [])
+    socket.on("disconnect", (reason) => {
+      console.log(`Disconnected header: ${reason}`);
+    });
+  }, [])
 
   const AcceptInvite = async (item) => {
     const { squadId } = JSON.parse(item?.notification?.metadata);
