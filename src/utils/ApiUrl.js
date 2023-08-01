@@ -1,5 +1,5 @@
 // export const API_URL = 'http://192.168.20.48:8096'
-export const API_URL = 'https://stagingapi.tomiarmy.com'
+export const API_URL = 'https://devapi.tomiarmy.com/tasks/api-docs/'
 // export const API_URL = 'http://tomi-army-2109225670.us-west-2.elb.amazonaws.com' 
 // export const API_URL = 'https://stagingapi.tomiarmy.com'
 // http://ec2-54-201-149-162.us-west-2.compute.amazonaws.com:8090/
