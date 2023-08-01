@@ -25,21 +25,21 @@ const MyRank = ({ props }) => {
   const GetNextRank = () => {
     if (props) {
       let dumObj = null;
-      if (props?.rank?.name == 'colonel') {
-        dumObj = army.findIndex((i) => { return i.name === props?.rank?.name })
-        dumObj = army[dumObj];
+      // if (props?.rank?.name == 'colonel') {
+        // dumObj = army.findIndex((i) => { return i.name === props?.rank?.name })
+        // dumObj = army[dumObj];
 
-      }
-      else {
+      // }
+      // else {
         dumObj = army.findIndex((i) => { return i.name === props?.rank?.name })
         dumObj = army[dumObj + 1];
 
-      }
+      // }
 
       return <>
         {props?.rank?.name == 'colonel' ?
           <>
-          <p>No next rank</p>
+          <p>you have Reached top Rank</p>
           </>
           : <div className="private-rank sergeant">
             <img src={dumObj?.icon} alt="earned" style={{ width: "60px", height: "60px" }} />
