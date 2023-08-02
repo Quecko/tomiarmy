@@ -98,14 +98,14 @@ const GeneralForum = () => {
 
     var config = {
       method: "get",
-      url: `${API_URL}/forums/top-user?limit=20&&isForumPost=${rankid}`,
+      url: `${API_URL}/forums/top-user?offset=1&&limit=25`,
       headers: {
         authorization: `Bearer ` + tok
       },
     };
     axios(config)
       .then(function (response) {
-        settopuser(response?.data?.data?.topUsers);
+        settopuser(response?.data?.data);
       })
       .catch(function (error) {
         console.log(error);
@@ -151,14 +151,14 @@ const GeneralForum = () => {
         }
         axios(config)
         .then(async (response) => {
-          // let dumArr = post;
-          const newPost = post
-          let dumObj = item;
-          dumObj.noOfComments = dumObj.noOfComments + 1;
-          // let findIndex = post.findIndex((ip) => { return ip._id === dumObj._id })
-          const index = post.findIndex((v, index) => index === dumObj?._id)
-          newPost.splice(index, 1, dumObj)
-          setPost(newPost)
+         let dumArr = post;
+            let dumObj = item;
+            dumObj.noOfComments = dumObj.noOfComments + 1;
+            let findIndex = dumArr.findIndex((ip) => {
+              return ip._id === dumObj._id;
+            })
+            dumArr[findIndex] = dumObj;
+            setPost(dumArr);
           setLoader(false);
           toast.success("Comment Created Successfully");
           mainid(commentid, "add");
@@ -536,7 +536,7 @@ const GeneralForum = () => {
               <div className='col-xl-3 col-12 pe-0 padd-sm'>
                 <div className='members-section border-grad1 display-none-in-mobile'>
                   <div className="tophead">
-                    <h6>Members <span>{topuser?.length}</span></h6>
+                    <h6>Members <span>({topuser?.length})</span></h6>
                   </div>
                   <div className="option-field">
                     <img src="\assets\search-icon.svg" alt="img" className="img-fluid search-icon" />
@@ -559,10 +559,10 @@ const GeneralForum = () => {
                       {topuser?.map((elem) => {
                         return (
                           <div className="inner-item">
-                            <h6>{elem?._id?.name}</h6>
+                            <h6>{elem?.nickName}</h6>
                             <h6>
-                              <img src={elem?._id?.profileImage} alt="img" className="img-fluid sjddvbbgdsijdfer me-2" />
-                              {/* Private */}
+                              <img src={elem?.rank?.icon} alt="img" className="img-fluid sjddvbbgdsijdfer me-2" />
+                              {elem?.rank?.name}
                             </h6>
                           </div>
                         )
