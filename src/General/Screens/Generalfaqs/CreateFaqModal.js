@@ -17,6 +17,8 @@ const CreateFaqModal = ({ showfaq, setShowfaq, showfaq1, setShowfaq1, getDataann
     description: ''
   })
 
+  const [loader, setLoader] = useState(false);
+
   const handleChange = (event) => {
     allFormData[event.target.name] = event.target.value;
     setAllFormData({ ...allFormData });
@@ -37,6 +39,7 @@ const CreateFaqModal = ({ showfaq, setShowfaq, showfaq1, setShowfaq1, getDataann
 
     if (allFormData?.title != '') {
       if (allFormData?.description != '') {
+        setLoader(true)
         axios.defaults.headers.post[
           "Authorization"
         ] = `Bearer ${tok}`;
@@ -47,7 +50,7 @@ const CreateFaqModal = ({ showfaq, setShowfaq, showfaq1, setShowfaq1, getDataann
         };
         axios(config)
           .then(function (response) {
-            // setLoader(false);
+            setLoader(false);
             toast.success('Task Created Successfully', {
               position: "top-right",
               autoClose: 2000,
@@ -57,7 +60,7 @@ const CreateFaqModal = ({ showfaq, setShowfaq, showfaq1, setShowfaq1, getDataann
             handleClosefaq();
           })
           .catch(function (error) {
-            // setLoader(false);
+            setLoader(false);
             toast.error(error.response.data.message);
           });
       }
@@ -99,6 +102,7 @@ const CreateFaqModal = ({ showfaq, setShowfaq, showfaq1, setShowfaq1, getDataann
 
     if (objj?.name != '') {
       if (objj?.description != '') {
+        setLoader(true)
         var config = {
           method: "patch",
           url: `${API_URL}/content/faqs/${editFaqs?._id}`,
@@ -109,7 +113,7 @@ const CreateFaqModal = ({ showfaq, setShowfaq, showfaq1, setShowfaq1, getDataann
         };
         axios(config)
           .then(function (response) {
-            // setLoader(false);
+            setLoader(false);
             toast.success('FAQ Updated Successfully', {
               position: "top-right",
               autoClose: 2000,
@@ -119,7 +123,7 @@ const CreateFaqModal = ({ showfaq, setShowfaq, showfaq1, setShowfaq1, getDataann
             setShowfaq1();
           })
           .catch(function (error) {
-            // setLoader(false);
+            setLoader(false);
             toast.error(error.response.data.message);
           });
       }
@@ -144,6 +148,7 @@ const CreateFaqModal = ({ showfaq, setShowfaq, showfaq1, setShowfaq1, getDataann
 
   return (
     <>
+    {loader && <Loader/>}
       {/* create faq modal here.................................... */}
       <Modal className='createbasic-modal global-modal-style createtask-modal' show={showfaq} onHide={ClearAll1} centered>
         <Modal.Header closeButton>

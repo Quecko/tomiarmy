@@ -5,6 +5,7 @@ import { API_URL } from '../../../utils/ApiUrl';
 import { toast } from 'react-toastify';
 import { useWeb3React } from "@web3-react/core";
 import axios from 'axios';
+import Loader from '../../../hooks/loader';
 
 
 const AnnouncementModals = ({ showannounce, setShowannounce, getDataannou }) => {
@@ -14,12 +15,13 @@ const AnnouncementModals = ({ showannounce, setShowannounce, getDataannou }) => 
   const [showannounce1, setShowannounce1] = useState(false);
   const handleCloseannounce1 = () => setShowannounce1(false);
   const handleShowannounce1 = () => setShowannounce1(true);
-
+  const [loader, setLoader] = useState(false);
   let tok = localStorage.getItem("accessToken");
   
   const SendMessage = (e) => {
     e?.preventDefault();
     if (message !== "") {
+      setLoader(true)
       var data = "null";
       if (selectedItem?.name) {
         data = ({
@@ -45,7 +47,7 @@ const AnnouncementModals = ({ showannounce, setShowannounce, getDataannou }) => 
           getDataannou();
           handleCloseannounce();
           handleShowannounce1();
-          // setLoader(false);
+          setLoader(false);
           toast.success('Message Sent Successfully', {
             position: "top-right",
             autoClose: 2000,
@@ -53,7 +55,7 @@ const AnnouncementModals = ({ showannounce, setShowannounce, getDataannou }) => 
           setMessage("")
         })
         .catch(function (error) {
-          // setLoader(false);
+          setLoader(false);
         });
     } else {
       toast.error("Message can't be empty!")
@@ -95,7 +97,7 @@ const AnnouncementModals = ({ showannounce, setShowannounce, getDataannou }) => 
     <>
 
       {/* announcement modal here ........................ */}
-
+       {loader && <Loader/>}
       <Modal className='createbasic-modal global-modal-style createtask-modal' show={showannounce} onHide={handleCloseannounce} centered>
         <Modal.Header closeButton>
           <Modal.Title>Create New Announcement</Modal.Title>

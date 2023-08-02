@@ -14,7 +14,7 @@ import { io } from "socket.io-client";
 import { useRef } from 'react';
 
 const Chat = ({ setPage, page, setChat, chat, getChat, pages, message, setMessage }) => {
-  
+
   let tok = localStorage.getItem("accessToken");
   const [show, setshow] = useState(false);
   const [show1, setShow1] = useState(false);
@@ -85,50 +85,49 @@ const Chat = ({ setPage, page, setChat, chat, getChat, pages, message, setMessag
 
   // get top user or member
   const sendChat = async (e) => {
-    console.log("sendchat")
     e.preventDefault()
     if (message != '') {
-    if (!loading) {
-      setLoading(true);
-    var data = new FormData();
-    if (message) {
-      data.append("message", message)
-    }
-    if (uploadImage) {
-      data.append("chatsImage", uploadImage)
-    }
-    axios.defaults.headers.post[
-      "Authorization"
-    ] = `Bearer ${tok}`;
-    var config = {
-      method: "post",
-      url: `${API_URL}/chats/group-messages/general-chat`,
-      data: data
-    };
-    axios(config)
-      .then(function (response) {
-        if (response?.status === 201) {
-          getChat()
-          setMessage('')
-          setImage('')
-          setUploadImage('')
+      if (!loading) {
+        setLoading(true);
+        var data = new FormData();
+        if (message) {
+          data.append("message", message)
         }
-        // setChat(response?.data?.data?.groupMessages);
-      })
-      .catch(function (error) {
-        console.log(error);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+        if (uploadImage) {
+          data.append("chatsImage", uploadImage)
+        }
+        axios.defaults.headers.post[
+          "Authorization"
+        ] = `Bearer ${tok}`;
+        var config = {
+          method: "post",
+          url: `${API_URL}/chats/group-messages/general-chat`,
+          data: data
+        };
+        axios(config)
+          .then(function (response) {
+            if (response?.status === 201) {
+              getChat()
+              setMessage('')
+              setImage('')
+              setUploadImage('')
+            }
+            // setChat(response?.data?.data?.groupMessages);
+          })
+          .catch(function (error) {
+            console.log(error);
+          })
+          .finally(() => {
+            setLoading(false);
+          });
+      }
     }
-  }
-  // else{
-  //   toast.error('please write some thing', {
-  //     position: "top-right",
-  //     autoClose: 2000,
-  //   });
-  // }
+    // else{
+    //   toast.error('please write some thing', {
+    //     position: "top-right",
+    //     autoClose: 2000,
+    //   });
+    // }
   }
 
   useEffect(() => {
@@ -173,7 +172,6 @@ const Chat = ({ setPage, page, setChat, chat, getChat, pages, message, setMessag
                     const createDate = moment(createdate).format("hh:mm:ss a");
                     var extension = elem?.media?.split('.').pop();
                     var result = elem?.media?.split("_")?.pop();
-                    console.log('elem',elem);
                     // var allowedExtensionsImage = /(\.jpg|\.jpeg|\.png|\.gif)$/i;
                     // var allowedExtensionsPdf = /(\.doc|\.docx|\.odt|\.pdf|\.tex|\.txt|\.rtf|\.wps|\.wks|\.wpd)$/i;
                     // if(allowedExtensionsImage.exec(elem?.media)){
@@ -196,7 +194,7 @@ const Chat = ({ setPage, page, setChat, chat, getChat, pages, message, setMessag
                                 </div>
                                 <div className="title-client">
                                   <h6><span>{createDate}</span>{elem?.user?.rank?.name} </h6>
-                                  <img src={elem?.user?.rank?.icon} height='42px' width='42px'  alt="img" className='img-fluid' />
+                                  <img src={elem?.user?.rank?.icon} height='42px' width='42px' alt="img" className='img-fluid' />
                                 </div>
                               </div>
                               {elem?.message &&
@@ -388,21 +386,19 @@ const Chat = ({ setPage, page, setChat, chat, getChat, pages, message, setMessag
                     video/mp4, video/webm, video/mov, video/wmv, video/flv, video/avi, video/mkv,
                     image/png, image/jpg,image/jpeg, image/gif, image/webp,
                    .xlsx,.xls,.doc,.docx,.txt,.pdf,.ppt, .pptx" />
-                  {/* <input type="file" className='d-none' id='upload' onChange={(e) => ImageHandleChange(e)} /> */}
-                  <div className='emoji-picker'>
-                    {
-                      show && <div>
-                        <Picker onEmojiClick={handleEmojiClick} />
-                      </div>
-                    }
-                    <a style={{ cursor: "pointer" }} onClick={() => setshow(!show)}><img src="\assets\emoji.svg" alt="img" className='img-fluid set-hw-icon' /></a>
+                    {/* <input type="file" className='d-none' id='upload' onChange={(e) => ImageHandleChange(e)} /> */}
+                    <div className='emoji-picker'>
+                      {
+                        show && <div>
+                          <Picker onEmojiClick={handleEmojiClick} />
+                        </div>
+                      }
+                      <a style={{ cursor: "pointer" }} onClick={() => setshow(!show)}><img src="\assets\emoji.svg" alt="img" className='img-fluid set-hw-icon' /></a>
+                    </div>
+                    <button className='btn-send' type='submit' disabled={loading} >{loading ? 'sending...' : 'send'}</button>
+                    <button className='chat-mobile-btn d-none' type='submit' disabled={loading}><img src="\assets\chat-msg-mobile.png" alt="img" className='img-fluid' /></button>
                   </div>
-                  <button className='btn-send' type='submit' disabled={loading} >{loading ? 'sending...' : 'send'}</button>
-                  <button className='chat-mobile-btn d-none' type='submit' disabled={loading}><img src="\assets\chat-msg-mobile.png" alt="img" className='img-fluid' /></button>
-            
-
                 </div>
-              </div>
               {image &&
                   (image?.name?.split('.').pop() === 'png'
                     || image?.name?.split('.').pop() === 'jpg' || image?.name?.split('.').pop() === 'jpeg' ||

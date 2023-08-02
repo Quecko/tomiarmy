@@ -9,22 +9,28 @@ import axios from 'axios';
 import Loader from '../../../hooks/loader';
 import Modal from 'react-bootstrap/Modal';
 import { Accordion, Dropdown, Pagination, Tab, Table, Tabs } from 'react-bootstrap'
+import moment from 'moment';
 import dosts from "../../../assets/icons/dots.svg";
+
 const CreateOperation = ({ svaebutton, setroutehome, routeshome, setexpired, tasks, getData, call, operationdata, routes, setoperationdata, setroute }) => {
     const [show, setShow] = useState(false);
     const handleClose = () => {
         setEditableTask(null)
         setShow(false)
     };
+
+
     const handleShow = () => setShow(true);
     const [showtask, setShowtask] = useState(false);
     const handleClosetask = () => setShowtask(false);
     const handleShowtask = () => setShowtask(true);
     const [rend, setRend] = useState(false);
     const [indexid, setindexid] = useState(null)
-    const [startDate, setStartDate] = useState(null);
+    const [startDate, setStartDate] = useState('');
     const [profilePicture, setProfilePicture] = useState(null);
     const [profileP, setProfileP] = useState();
+    const [loader, setLoader] = useState(false);
+
 
     const [allFormData, setAllFormData] = useState({
         name: operationdata?.name,
@@ -129,9 +135,10 @@ const CreateOperation = ({ svaebutton, setroutehome, routeshome, setexpired, tas
                     if (startDate) {
                         if (profileP) {
                             if (allFormData?.tomitoken != '') {
+                                setLoader(true)
                                 axios.defaults.headers.post[
                                     "Authorization"
-                                  ] = `Bearer ${tok}`;
+                                ] = `Bearer ${tok}`;
                                 var config = {
                                     method: "post",
                                     url: `${API_URL}/tasks/operations`,
@@ -146,6 +153,7 @@ const CreateOperation = ({ svaebutton, setroutehome, routeshome, setexpired, tas
                                         ClearAll();
                                         setProfileP(null);
                                         setProfilePicture(null)
+                                        setLoader(false)
                                         toast.success('Operation Created Successfully', {
                                             position: "top-right",
                                             autoClose: 2000,
@@ -234,64 +242,64 @@ const CreateOperation = ({ svaebutton, setroutehome, routeshome, setexpired, tas
         if (allFormData?.name != '') {
             if (allFormData?.reward != '') {
                 if (allFormData?.description != '') {
-                    if (startDate) {
-                        // if (profileP || profilePicture) {
-                        if (allFormData?.tomitoken != '') {
-                            var config = {
-                                method: "patch",
-                                url: `${API_URL}/tasks/operations/${operationdata?._id}`,
-                                headers: {
-                                    authorization: `Bearer ` + tok
-                                },
-                                data: data1,
-                            };
-                            axios(config)
-                                .then(function (response) {
-                                    //   setLoader(false);
-                                    setexpired(false)
-                                    if (call === true) {
-                                        getData()
-                                    }
-                                    setoperationdata('')
-                                    setroute(!routes)
+                    // if (profileP || profilePicture) {
+                    if (allFormData?.tomitoken != '') {
+                        setLoader(true)
+                        var config = {
+                            method: "patch",
+                            url: `${API_URL}/tasks/operations/${operationdata?._id}`,
+                            headers: {
+                                authorization: `Bearer ` + tok
+                            },
+                            data: data1,
+                        };
+                        axios(config)
+                            .then(function (response) {
+                                //   setLoader(false);
+                                setexpired(false)
+                                if (call === true) {
+                                    getData()
+                                }
+                                setoperationdata('')
+                                setroute(!routes)
 
-                                    ClearAll();
-                                    setProfileP(null);
-                                    setProfilePicture(null)
-                                    toast.success('Operation Created Successfully', {
-                                        position: "top-right",
-                                        autoClose: 2000,
-                                    })
-
+                                ClearAll();
+                                setProfileP(null);
+                                setProfilePicture(null)
+                                toast.success('Operation Created Successfully', {
+                                    position: "top-right",
+                                    autoClose: 2000,
                                 })
-                                .catch(function (error) {
-                                    //   setLoader(false);
-                                    if (error.response.data.statusCode == 409) {
-                                        toast.error('Tasks with this name already exist', {
-                                            position: 'top-right',
-                                            autoClose: 5000,
-                                        });
-                                    } else if (error.response.data.statusCode == 500) {
-                                        toast.error('Something went wrong', {
-                                            position: 'top-right',
-                                            autoClose: 5000,
-                                        });
-                                    }
-                                    else if (error.response.data.statusCode == 400) {
-                                        toast.error('Validation Failed', {
-                                            position: 'top-right',
-                                            autoClose: 5000,
-                                        });
-                                    }
-                                });
-                        }
-                        else {
-                            toast.error('Please Write TomiToken', {
-                                position: "top-right",
-                                autoClose: 2000,
+
+                            })
+                            .catch(function (error) {
+                                //   setLoader(false);
+                                if (error.response.data.statusCode == 409) {
+                                    toast.error('Tasks with this name already exist', {
+                                        position: 'top-right',
+                                        autoClose: 5000,
+                                    });
+                                } else if (error.response.data.statusCode == 500) {
+                                    toast.error('Something went wrong', {
+                                        position: 'top-right',
+                                        autoClose: 5000,
+                                    });
+                                }
+                                else if (error.response.data.statusCode == 400) {
+                                    toast.error('Validation Failed', {
+                                        position: 'top-right',
+                                        autoClose: 5000,
+                                    });
+                                }
                             });
-                        }
                     }
+                    else {
+                        toast.error('Please Write TomiToken', {
+                            position: "top-right",
+                            autoClose: 2000,
+                        });
+                    }
+
                     // else {
                     //     toast.error('Please Select Operation Image', {
                     //         position: "top-right",
@@ -299,12 +307,6 @@ const CreateOperation = ({ svaebutton, setroutehome, routeshome, setexpired, tas
                     //     });
                     // }
                     // }
-                    else {
-                        toast.error('Please Select Expiration Date', {
-                            position: "top-right",
-                            autoClose: 2000,
-                        });
-                    }
                 }
                 else {
                     toast.error('Please Write Description', {
@@ -338,6 +340,7 @@ const CreateOperation = ({ svaebutton, setroutehome, routeshome, setexpired, tas
 
     return (
         <>
+            {loader && <Loader />}
             <div className='alkdaskdasdasd'>
                 <button className="btn-goback" onClick={() => backgo()}><img src="\assets\goback.svg" alt="img" className="img-fluid me-2" />Go Back</button>
                 {operationdata == '' && tasklentthfind > 0 ?
@@ -398,9 +401,14 @@ const CreateOperation = ({ svaebutton, setroutehome, routeshome, setexpired, tas
                             <div className="twice-field">
                                 <div className="option-field">
                                     <label>Expiration Date</label>
-                                    <DatePicker selected={startDate} placeholder="Select expiration date..." onChange={(date) => setStartDate(date)} />
+                                    <DatePicker selected={startDate} placeholder="Select expiration date..." onChange={(date) => setStartDate(date)} minDate={moment().toDate()} />
                                     {/* <input type="date" placeholder="Select expiration date..." />
                                      */}
+                                    {startDate === '' &&
+                                        <div className='sacvae'>
+                                            {moment(operationdata?.expirationDate).format("DD-MM-YYYY")}
+                                        </div>
+                                    }
                                 </div>
                                 <div className="option-field">
                                     <label>TOMI Tokens</label>
