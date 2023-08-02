@@ -222,7 +222,7 @@ const GeneralHeader = ({ routes, setroute, routeshome, setroutehome, indexwait, 
                 <p>Title</p>
                 <input type="text" placeholder="Enter Title...." />
                 <p>Description</p>
-                <textarea placeholder="Enter Description Url...."></textarea>
+                <textarea placeholder="Enter Your Description...."></textarea>
                 <div className="twice-btn">
                   <button className="btn-cancel" data-bs-dismiss="modal" aria-label="Close"> <img src="\assets\cancel.svg" alt="img" className="img-fluid me-2" /> Cancel</button>
                   <button className="btn-topic"> <img src="\assets\topic-btn.svg" alt="img" className="img-fluid me-2" /> Start a New Topic</button>

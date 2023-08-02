@@ -58,7 +58,7 @@ const ActiveOperation = ({ setShowtask1, tasks, settaskdetail1, setOperationId }
                                     <img src="\static-icons\rewardnft.png" alt="img" className='img-fluid' style={{ width: "50px", height: "50px" }} />
                                     <div className="inner-content">
                                         <p>Reward NFT</p>
-                                        <h6>ELN MSK</h6>
+                                        {/* <h6>ELN MSK</h6> */}
                                     </div>
                                 </div>
                                 <div className="nft-img">
@@ -235,8 +235,8 @@ const ActiveOperation = ({ setShowtask1, tasks, settaskdetail1, setOperationId }
                 </Modal.Header>
                 <Modal.Body>
                     <div className='maininput'>
-                        <p>POW Url</p>
-                        <input type='text' placeholder='Enter POW Url....' />
+                        <p>POW URL</p>
+                        <input type='text' placeholder='Enter POW URL....' />
                     </div>
                     <div className="upload-parent">
                         <p className='uehyuj'>Upload Proof of Work Image</p>

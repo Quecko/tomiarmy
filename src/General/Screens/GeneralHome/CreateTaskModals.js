@@ -7,6 +7,7 @@ import { API_URL } from '../../../utils/ApiUrl';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 import Loader from '../../../hooks/loader';
+import moment from 'moment';
 
 
 const CreateTaskModals = ({ showtask, setShowtask, getData }) => {
@@ -124,6 +125,7 @@ const CreateTaskModals = ({ showtask, setShowtask, getData }) => {
     if (allFormData?.name != '') {
       if (allFormData?.reward != '') {
         if (allFormData?.description != '') {
+          setLoader(true)
           axios.defaults.headers.post[
             "Authorization"
           ] = `Bearer ${tok}`;
@@ -201,7 +203,7 @@ const CreateTaskModals = ({ showtask, setShowtask, getData }) => {
 
   return (
     <>
-      {loader && <Loader />}
+      {loader && <Loader  />}
       {/* general task all modals here................................. */}
       <Modal className="createtask-modal global-modal-style" show={showtask} onHide={handleClosetask} centered>
         <Modal.Header closeButton>
@@ -238,7 +240,7 @@ const CreateTaskModals = ({ showtask, setShowtask, getData }) => {
             <div className="twice-field">
               <div className="option-field">
                 <label>Expiration Date</label>
-                <DatePicker selected={startDate} placeholder="Select expiration date..." onChange={(date) => setStartDate(date)} />
+                <DatePicker selected={startDate} placeholder="Select expiration date..." onChange={(date) => setStartDate(date)} minDate={moment()?.toDate()} />
                 {/* <input type="date" placeholder="Select expiration date..." /> */}
               </div>
               <div className="option-field">
@@ -313,7 +315,7 @@ const CreateTaskModals = ({ showtask, setShowtask, getData }) => {
             <div className="twice-field">
               <div className="option-field">
                 <label>Expiration Date</label>
-                <DatePicker selected={startDate} placeholder="Select expiration date..." onChange={(date) => setStartDate(date)} />
+                <DatePicker selected={startDate} placeholder="Select expiration date..." onChange={(date) => setStartDate(date)} minDate={moment().toDate()} />
                 {/* <input type="date" placeholder="Select expiration date..." /> */}
               </div>
               <div className="option-field">

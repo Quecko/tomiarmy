@@ -14,7 +14,7 @@ import { io } from "socket.io-client";
 import { useRef } from 'react';
 
 const Chat = ({ setPage, page, setChat, chat, getChat, pages, message, setMessage }) => {
-  
+
   let tok = localStorage.getItem("accessToken");
   const [show, setshow] = useState(false);
   const [show1, setShow1] = useState(false);
@@ -84,49 +84,50 @@ const Chat = ({ setPage, page, setChat, chat, getChat, pages, message, setMessag
   };
 
   // get top user or member
-  const sendChat = async () => {
+  const sendChat = async (e) => {
+    e.preventDefault()
     if (message != '') {
-    if (!loading) {
-      setLoading(true);
-    var data = new FormData();
-    if (message) {
-      data.append("message", message)
-    }
-    if (uploadImage) {
-      data.append("chatsImage", uploadImage)
-    }
-    axios.defaults.headers.post[
-      "Authorization"
-    ] = `Bearer ${tok}`;
-    var config = {
-      method: "post",
-      url: `${API_URL}/chats/group-messages/general-chat`,
-      data: data
-    };
-    axios(config)
-      .then(function (response) {
-        if (response?.status === 201) {
-          getChat()
-          setMessage('')
-          setImage('')
-          setUploadImage('')
+      if (!loading) {
+        setLoading(true);
+        var data = new FormData();
+        if (message) {
+          data.append("message", message)
         }
-        // setChat(response?.data?.data?.groupMessages);
-      })
-      .catch(function (error) {
-        console.log(error);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+        if (uploadImage) {
+          data.append("chatsImage", uploadImage)
+        }
+        axios.defaults.headers.post[
+          "Authorization"
+        ] = `Bearer ${tok}`;
+        var config = {
+          method: "post",
+          url: `${API_URL}/chats/group-messages/general-chat`,
+          data: data
+        };
+        axios(config)
+          .then(function (response) {
+            if (response?.status === 201) {
+              getChat()
+              setMessage('')
+              setImage('')
+              setUploadImage('')
+            }
+            // setChat(response?.data?.data?.groupMessages);
+          })
+          .catch(function (error) {
+            console.log(error);
+          })
+          .finally(() => {
+            setLoading(false);
+          });
+      }
     }
-  }
-  // else{
-  //   toast.error('please write some thing', {
-  //     position: "top-right",
-  //     autoClose: 2000,
-  //   });
-  // }
+    // else{
+    //   toast.error('please write some thing', {
+    //     position: "top-right",
+    //     autoClose: 2000,
+    //   });
+    // }
   }
 
   useEffect(() => {
@@ -193,7 +194,7 @@ const Chat = ({ setPage, page, setChat, chat, getChat, pages, message, setMessag
                                 </div>
                                 <div className="title-client">
                                   <h6><span>{createDate}</span>{elem?.user?.rank?.name} </h6>
-                                  <img src="\assets\private-rank.svg" alt="img" className='img-fluid' />
+                                  <img src={elem?.user?.rank?.icon} height='42px' width='42px' alt="img" className='img-fluid' />
                                 </div>
                               </div>
                               {elem?.message &&
@@ -203,7 +204,9 @@ const Chat = ({ setPage, page, setChat, chat, getChat, pages, message, setMessag
                               }
                             </div>
                             {extension === 'jpg' || extension === 'png' || extension === 'jpeg' || extension === 'gif' || extension === 'webp' ?
-                              <img className='asdsadasdasdsa' onClick={() => showImage(elem)} src={elem?.media} />
+                              <div className="wrapper-send-img">
+                                <img className='asdsadasdasdsa' onClick={() => showImage(elem)} src={elem?.media} />
+                              </div>
                               :
                               extension === 'doc' || extension === 'docx' || extension == 'pdf' || extension === 'txt' || extension === 'xml' || extension === 'xlsx' || extension === 'ppt' || extension === 'pptx' ?
                                 <div className='scwv'>
@@ -240,7 +243,7 @@ const Chat = ({ setPage, page, setChat, chat, getChat, pages, message, setMessag
                                   <h6>{elem?.user?.nickName}</h6>
                                 </div>
                                 <div className="title-client">
-                                  <img src="\assets\private-rank.svg" alt="img" className='img-fluid' />
+                                  <img src={elem?.user?.rank?.icon} height='42px' width='42px' alt="img" className='img-fluid' />
                                   <h6>{elem?.user?.rank?.name}  <span>{createDate}</span></h6>
                                 </div>
                               </div>
@@ -251,7 +254,9 @@ const Chat = ({ setPage, page, setChat, chat, getChat, pages, message, setMessag
                               }
                             </div>
                             {extension === 'jpg' || extension === 'png' || extension === 'jpeg' || extension === 'gif' || extension === 'webp' ?
-                              <img className='asdsadasdasdsa' onClick={() => showImage(elem)} src={elem?.media} />
+                              <div className="wrapper-send-img">
+                                 <img className='asdsadasdasdsa' onClick={() => showImage(elem)} src={elem?.media} />
+                              </div>
                               :
                               extension === 'doc' || extension === 'docx' || extension == 'pdf' || extension === 'txt' || extension === 'xml' || extension === 'xlsx' || extension === 'ppt' || extension === 'pptx' ?
                                 <div className='scwv'>
@@ -368,22 +373,50 @@ const Chat = ({ setPage, page, setChat, chat, getChat, pages, message, setMessag
 
             </div>
             <div className='chat-section dfdsfsfdsfsdfsdfsdf'>
+            <form onSubmit={(e)=>sendChat(e)}>
               <div className="bottom-side">
                 <div className="option-field">
                   <input type="text" placeholder='Write your message...' value={message} onChange={(e) => handleInputChange(e)} />
                 </div>
-                {image &&
+               
+              
+               <div className="right-btns">
+                  <label htmlFor='upload' style={{ cursor: "pointer" }}>
+                    <img src="\assets\file-upload.svg" alt="img" className='img-fluid set-hw-icon' />
+                  </label>
+                  <input type="file" className='d-none' id='upload'
+                    onChange={(e) => ImageHandleChange(e)}
+                    accept="audio/mp3, audio/wav, audio/mpeg, audio/ogg, audio/webm,
+                    video/mp4, video/webm, video/mov, video/wmv, video/flv, video/avi, video/mkv,
+                    image/png, image/jpg,image/jpeg, image/gif, image/webp,
+                   .xlsx,.xls,.doc,.docx,.txt,.pdf,.ppt, .pptx" />
+                    {/* <input type="file" className='d-none' id='upload' onChange={(e) => ImageHandleChange(e)} /> */}
+                    <div className='emoji-picker'>
+                      {
+                        show && <div>
+                          <Picker onEmojiClick={handleEmojiClick} />
+                        </div>
+                      }
+                      <a style={{ cursor: "pointer" }} onClick={() => setshow(!show)}><img src="\assets\emoji.svg" alt="img" className='img-fluid set-hw-icon' /></a>
+                    </div>
+                    <button className='btn-send' type='submit' disabled={loading} >{loading ? 'sending...' : 'send'}</button>
+                    <button className='chat-mobile-btn d-none' type='submit' disabled={loading}><img src="\assets\chat-msg-mobile.png" alt="img" className='img-fluid' /></button>
+                  </div>
+                </div>
+              {image &&
                   (image?.name?.split('.').pop() === 'png'
                     || image?.name?.split('.').pop() === 'jpg' || image?.name?.split('.').pop() === 'jpeg' ||
                     image?.name?.split('.').pop() === 'gif' || image?.name?.split('.').pop() === 'webp')
                   &&
-                  <div className='xcdscv'>
+                  <div className='set-inner-upload-item'>
+                    <div className="upload-single-item">
                     <img
                       src={image ? URL?.createObjectURL(image) : ""}
                       alt="img"
                       className='fvrbrt'
                     />
-                    <img onClick={clearImage} src="\generalassets\icons\cancel-icon.svg" alt="img" className='dscef' />
+                    <img onClick={clearImage} src="\generalassets\icons\cancel-icon.svg" alt="img" className='close-icon-set' />
+                    </div>
                   </div>
                 }
                 {image &&
@@ -399,37 +432,20 @@ const Chat = ({ setPage, page, setChat, chat, getChat, pages, message, setMessag
                     || image?.name?.split('.').pop() === 'ppt' || image?.name?.split('.').pop() === 'pptx'
                   )
                   &&
-                  <div className='xcdscv'>
-                    <p className='fvrbrt'>
-                      {image?.name}
-                    </p>
-                    <img onClick={clearImage} src="\generalassets\icons\cancel-icon.svg" alt="img" className='dscef' />
+                  <div className='set-inner-upload-item'>
+                    <div className="upload-single-item ifpdffile">
+                    <div className="upload-pdf">
+                      <img src="\assets\pdf-icon-new.svg" alt="img" className='img-fluid' />
+                      <div className="inner-text">
+                        <h6>{image?.name}</h6>
+                        <p>PDF</p>
+                      </div>
+                    </div>
+                    <img onClick={clearImage} src="\generalassets\icons\cancel-icon.svg" alt="img" className='close-icon-set' />
+                    </div>
                   </div>
                 }
-                <div className="right-btns">
-                  <label htmlFor='upload' style={{ cursor: "pointer" }}>
-                    <img src="\assets\file-upload.svg" alt="img" className='img-fluid set-hw-icon' />
-                  </label>
-
-                  <input type="file" className='d-none' id='upload'
-                    onChange={(e) => ImageHandleChange(e)}
-                    accept="audio/mp3, audio/wav, audio/mpeg, audio/ogg, audio/webm,
-                    video/mp4, video/webm, video/mov, video/wmv, video/flv, video/avi, video/mkv,
-                    image/png, image/jpg,image/jpeg, image/gif, image/webp,
-                   .xlsx,.xls,.doc,.docx,.txt,.pdf,.ppt, .pptx" />
-                  {/* <input type="file" className='d-none' id='upload' onChange={(e) => ImageHandleChange(e)} /> */}
-                  <div className='emoji-picker'>
-                    {
-                      show && <div>
-                        <Picker onEmojiClick={handleEmojiClick} />
-                      </div>
-                    }
-                    <a style={{ cursor: "pointer" }} onClick={() => setshow(!show)}><img src="\assets\emoji.svg" alt="img" className='img-fluid set-hw-icon' /></a>
-                  </div>
-                  <button className='btn-send' onClick={sendChat} disabled={loading} >{loading ? 'sending...' : 'send'}</button>
-                  <button className='chat-mobile-btn d-none' onClick={sendChat} disabled={loading}><img src="\assets\chat-msg-mobile.png" alt="img" className='img-fluid' /></button>
-                </div>
-              </div>
+              </form>
             </div>
 
           </div>

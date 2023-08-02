@@ -10,8 +10,10 @@ import GeneralTasks from "../components/home/GeneralTasks";
 import HomeOperations from "../components/home/HomeOperations/HomeOperations";
 import { API_URL } from "../../utils/ApiUrl"
 import ReactApexChart from 'react-apexcharts';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 
-const Home = ({ setShow2, tasks, setShowtask, settaskdetail, setShowtask1, settaskdetail1, operations, setOperationId, users, squaddetail, statusData,setindexwait }) => {
+
+const Home = ({ setShow2, tasks, setShowtask, settaskdetail, setShowtask1, settaskdetail1, operations, setOperationId, users, squaddetail, statusData, setindexwait }) => {
 
   let total = (statusData?.ApprovedTasks / statusData?.totalTasks) * 100
   const state = {
@@ -83,14 +85,21 @@ const Home = ({ setShow2, tasks, setShowtask, settaskdetail, setShowtask1, setta
       labels: ['Completed'],
     },
   }
+  const datacommander = localStorage.getItem('user')
+  const data = JSON.parse(datacommander)
   // const user = localStorage.getItem('user')
   // const { account } = useWeb3React();
   // const commander = JSON.parse(datacommander)
   // const [DropDownAll, setDropDownAll] = useState('all time');
   // const [DropDownAll1, setDropDownAll1] = useState('all time');
 
-
-
+  const [copy, setCopy] = useState(false);
+  const textCopiedFun2 = () => {
+    setCopy(true)
+    setTimeout(() => {
+      setCopy(false)
+    }, 1000)
+  }
   return (
     <>
       <div className="formobile-heading d-none display-block-in-mobile">
@@ -128,7 +137,33 @@ const Home = ({ setShow2, tasks, setShowtask, settaskdetail, setShowtask1, setta
                 </Dropdown.Menu>
               </Dropdown> */}
             </div>
-            <div className="stats-data-boxes">
+            <div className="stats-data-boxes sycvcsvyvcvsycvtcsv">
+               {data?.isCommander === true &&
+                <div className="inner-data-box border-grad">
+                <div className="stats-item-box">
+                  <img src="\assets\refercode.png" alt="earned" style={{ width: "50px", height: "50px" }} />
+                  <div>
+                    <p>Squad Invite Code</p>
+                    {copy ?
+                      <h4 className="adadasdasdasdasdasdsad"> {squaddetail?.squad?.inviteCode} Copied! </h4>
+                      :
+                      <>
+                        {squaddetail?.squad?.inviteCode &&
+                          <CopyToClipboard text={squaddetail?.squad?.inviteCode} onCopy={textCopiedFun2}>
+                            <h4 className="adadasdasdasdasdasdsad">
+                              {squaddetail?.squad?.inviteCode}
+                              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" className="">
+                                <path d="M13 10.5V13.5C13 16 12 17 9.5 17H6.5C4 17 3 16 3 13.5V10.5C3 8 4 7 6.5 7H9.5C12 7 13 8 13 10.5Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                <path d="M17 6.5V9.5C17 12 16 13 13.5 13H12.7143V10.7857C12.7143 8.28571 11.7143 7.28571 9.21429 7.28571H7V6.5C7 4 8 3 10.5 3H13.5C16 3 17 4 17 6.5Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                              </svg>
+                            </h4>
+                          </CopyToClipboard>
+                        }
+                      </>
+}
+                  </div>
+                </div>
+              </div>}
               <div className="inner-data-box border-grad">
                 <div className="stats-item-box">
                   <img src="\static-icons\earned.png" alt="earned" style={{ width: "50px", height: "50px" }} />
@@ -184,9 +219,9 @@ const Home = ({ setShow2, tasks, setShowtask, settaskdetail, setShowtask1, setta
                 </Dropdown> */}
               </div>
               <div className="row m-0 tasks-box-row inner-data-box border-grad padd">
-                <div className="col-6 task-completed-graph padd-sm">
+                <div className="col-6 task-completed-graph padd-sm p-0">
                   <div id="chart">
-                    <ReactApexChart options={state.options} series={state.series} type="radialBar" height={200} />
+                    <ReactApexChart options={state.options} series={state.series} type="radialBar" height={180} />
                   </div>
                 </div>
                 <div className="col-6">
@@ -218,7 +253,7 @@ const Home = ({ setShow2, tasks, setShowtask, settaskdetail, setShowtask1, setta
           </div>
         </div>
       </div>
-      <HomeOperations setShowtask1={setShowtask1} settaskdetail1={settaskdetail1} operations={operations} setOperationId={setOperationId} users={users} setindexwait={setindexwait}/>
+      <HomeOperations setShowtask1={setShowtask1} settaskdetail1={settaskdetail1} operations={operations} setOperationId={setOperationId} users={users} setindexwait={setindexwait} />
     </>
   );
 };

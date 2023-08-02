@@ -414,3 +414,210 @@
         }
     }
 }
+
+.claim-section{
+    .upper-div{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+        .parent{
+            border-radius: 20px;
+            background: rgba(22, 26, 34, 0.90);
+            backdrop-filter: blur(2px);
+            padding: 20px;
+            flex: 0 0 49.5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            .left{
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+                gap: 22px;
+                .imgs{
+                    width: 60px;
+                    height: 60px;
+                }
+                .inner-text{
+                    .claim-text{
+                        color: #81828A;
+                        font-size: 16px;
+                        font-style: normal;
+                        font-weight: 500;
+                        line-height: 100%; /* 16px */
+                        margin-bottom: 7px;
+                        text-align: start;
+                    }
+                    h6{
+                        color: #FFF;
+                        font-size: 22px;
+                        font-style: normal;
+                        font-weight: 700;
+                        line-height: 100%; /* 22px */
+                        letter-spacing: 0.22px;
+                        text-align: start;
+                        margin-bottom: 7px;
+                        span{
+                            color: #FF0083;
+                            font-size: 16px;
+                            font-style: normal;
+                            font-weight: 500;
+                            line-height: 100%; /* 16px */
+                        }
+                    }
+                    .claim-text1{
+                        color: #81828A;
+                        font-size: 16px;
+                        font-style: normal;
+                        font-weight: 500;
+                        line-height: 100%; /* 16px */
+                        text-align: start;
+                    }
+                }
+            }
+            .right{
+                button{
+                    border-radius: 10px;
+                    border: none;
+                    border-bottom: 1px solid #F058A6;
+                    background: linear-gradient(180deg, rgba(255, 255, 255, 0.50) 0%, rgba(255, 255, 255, 0.00) 100%), #FF0083;
+                    box-shadow: 0px 3px 1px 0px #88134F;
+                    padding: 17px 30px;
+                    color: #FFF;
+                    font-size: 14px;
+                    font-style: normal;
+                    font-weight: 600;
+                    line-height: 100%; /* 14px */
+                    letter-spacing: 0.14px;
+                }
+            }
+        }
+    }
+}
+
+
+.claimrewad-modal{
+    .modal-content{
+        min-height: auto !important;
+    }
+    .body-claim{
+        h6{
+            color: #FFF;
+            font-size: 20px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: 110%; /* 22px */
+            text-transform: uppercase;
+            margin-bottom: 30px;
+        }
+        .option-field{
+            .inner-text{
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 10px;
+                .left-text{
+                    color: #81828A;
+                    font-size: 14px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: 100%; /* 14px */
+                }
+                .right-text{
+                    color: #FFF;
+                    font-size: 14px;
+                    font-style: normal;
+                    font-weight: 500;
+                    line-height: 100%; /* 14px */
+                    span{
+                        color: #FF0083;
+                    }
+                }
+            }
+            .input-inner{
+                position: relative;
+                input{
+                    border-radius: 10px;
+                border: 1px solid #343742;
+                background: #191D26;
+                width: 100%;
+                color: #81828A;
+                font-size: 14px;
+                font-style: normal;
+                font-weight: 500;
+                line-height: 100%; /* 14px */
+                letter-spacing: 0.14px;
+                padding: 16px 15px;
+                }
+                a{
+                    position: absolute;
+                    top: 22px;
+                    right: 16px;
+                    color: #FF0083;
+                    font-size: 14px;
+                    font-style: normal;
+                    font-weight: 600;
+                    line-height: 100%; /* 14px */
+                    letter-spacing: 0.14px;
+                }
+            }
+            
+        }
+    }
+    .body-claimed-reward{
+        h4{
+            color: #FF0083;
+            font-size: 40px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: 110%; /* 44px */
+            text-transform: uppercase;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        p{
+            color: #FFF;
+            font-size: 20px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: 110%; /* 22px */
+            text-transform: uppercase;
+            text-align: center;
+        }
+    }
+}
+
+.claimed-reward{
+    .btn-pinkk{
+        max-width: 229px !important;
+        width: 100%;
+        margin: 0 auto;
+    }
+}
+
+
+@media (max-width:600px){
+    .claim-section .upper-div{
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+    }
+    .claim-section .upper-div .parent{
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        gap: 20px;
+        width: 100%;
+        flex: 0 0 100%;
+    }
+    .claim-section .upper-div .parent .right{
+        width: 100%;
+    }
+    .claim-section .upper-div .parent .right button{
+        width: 100%;
+        padding: 12px 30px;
+    }
+
+}

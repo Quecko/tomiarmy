@@ -5,6 +5,7 @@ import { toast } from 'react-toastify';
 import axios from 'axios';
 import moment from "moment";
 import { Modal } from 'react-bootstrap';
+import Loader from "../../../hooks/loader";
 
 
 const GeneralForum = () => {
@@ -53,9 +54,9 @@ const GeneralForum = () => {
   }
   //  create new forum
   const putQuestion = () => {
-    setLoader(true);
     if (allFormData.title !== "" && allFormData.description !== "") {
       if (!loading) {
+        setLoader(true);
         setLoading(true)
         axios.defaults.headers.post[
           "Authorization"
@@ -97,14 +98,14 @@ const GeneralForum = () => {
 
     var config = {
       method: "get",
-      url: `${API_URL}/forums/top-user?limit=20&&isForumPost=${rankid}`,
+      url: `${API_URL}/forums/top-user?offset=1&&limit=25`,
       headers: {
         authorization: `Bearer ` + tok
       },
     };
     axios(config)
       .then(function (response) {
-        settopuser(response?.data?.data?.topUsers);
+        settopuser(response?.data?.data);
       })
       .catch(function (error) {
         console.log(error);
@@ -150,14 +151,14 @@ const GeneralForum = () => {
         }
         axios(config)
         .then(async (response) => {
-          // let dumArr = post;
-          const newPost = post
-          let dumObj = item;
-          dumObj.noOfComments = dumObj.noOfComments + 1;
-          // let findIndex = post.findIndex((ip) => { return ip._id === dumObj._id })
-          const index = post.findIndex((v, index) => index === dumObj?._id)
-          newPost.splice(index, 1, dumObj)
-          setPost(newPost)
+         let dumArr = post;
+            let dumObj = item;
+            dumObj.noOfComments = dumObj.noOfComments + 1;
+            let findIndex = dumArr.findIndex((ip) => {
+              return ip._id === dumObj._id;
+            })
+            dumArr[findIndex] = dumObj;
+            setPost(dumArr);
           setLoader(false);
           toast.success("Comment Created Successfully");
           mainid(commentid, "add");
@@ -356,6 +357,7 @@ const GeneralForum = () => {
   const UpdateTask = (objj) => {
     if (!loading) {
       setLoading(true)
+      setLoader(true);
     axios.patch(`${API_URL}/forums/posts/${objj._id}`,
       {
         title: detailsingle.title,
@@ -370,10 +372,11 @@ const GeneralForum = () => {
       getMyPosts()
       toast.success(" Updated Successfully");
       setShowForumEditModal(false)
+      setLoader(false);
       // window.$(`#exampleModal1`).modal("hide");
       // Code
     }).catch((error) => {
-      // Code
+      setLoader(false)
       toast.error(error.response.data.message)
     })
     .finally(() => {
@@ -400,6 +403,7 @@ const GeneralForum = () => {
 
   return (
     <>
+    {loader && <Loader/>}
       <div className="formobile-heading shsvhsvhsdhsd  display-block-in-mobile">
         <div className="inner-heading soldier-name">
           <h6>{indexvalue == 12 ? 'My Post' : 'Army Forum'} </h6>
@@ -414,8 +418,8 @@ const GeneralForum = () => {
       <div className="topicwrapper">
         <section className="topics">
           <div className="containersss p-0">
-            <div className="row fordirection">
-              <div className="col-xl-9 col-12 p-0">
+            <div className="parent-forum">
+              <div className="left-forum">
                 {/* <div className="arrows">
                     <img src="\assets\arrow-up.png" alt="img" className="arrow" style={{width: "25px" , height: "25px"}} />
                     <p className="serial">56</p>
@@ -446,25 +450,45 @@ const GeneralForum = () => {
                                 </div>
                               </div>
                             </div>
-                            <div className="comments"  >
+                            <div className="twice-elements">
+                              {indexvalue == 12 &&
+                                <>
+                                  <button className="comments"
+                                    onClick={() => detailmodalopen(elem?._id)}
+                                  >
+                                    <p>Edit</p>
+                                  </button>
+                                  <button className="comments"
+                                    onClick={() => deletemodalopen(elem?._id)}
+                                  >
+                                    <p>Delete</p>
+                                  </button>
+                                </>
+                              }
+                              <div className="comments"  >
+                                <img src="\assets\comment.svg" alt="img" onClick={() => { mainid(elem?._id); UpdateCurrent(index) }} className="cmnt" data-toggle="collapse" href={`#${index}`} role="button" aria-expanded="false" aria-controls="collapseExample" />
+                                <p>{elem?.noOfComments}+</p>
+                              </div>
+                            </div>
+                            {/* <div className="comments"  >
                               <img src="\assets\comment.svg" alt="img" onClick={() => { mainid(elem?._id); UpdateCurrent(index) }} className="cmnt" data-toggle="collapse" href={`#${index}`} role="button" aria-expanded="false" aria-controls="collapseExample" />
                               <p>{elem?.noOfComments}+</p>
-                            </div>
-                            <button className="comments"  
+                            </div> */}
+                            {/* <button className="comments"  
                                onClick={() => detailmodalopen(elem?._id)}
                                >
                               <p>Edit</p>
-                            </button>
-                            <button className="comments" 
+                            </button> */}
+                            {/* <button className="comments" 
                               onClick={() => deletemodalopen(elem?._id)}
                             >
                               <p>Delete</p>
-                            </button>
+                            </button> */}
                           </div>
                         </div>
                       </section>
                       {current == index &&
-                        <section className="comments">
+                        <section className="comments" style={{marginTop: "23px"}}>
                           <div className="maincomment">
                             <h1 className="headcmnt">Comments</h1>
                             {ListComment?.slice(0, limit0)?.map((elem, index) => {
@@ -509,10 +533,10 @@ const GeneralForum = () => {
                 })}
                 {/* </section> */}
               </div>
-              <div className='col-xl-3 col-12 pe-0 padd-sm'>
+              <div className='right-forum'>
                 <div className='members-section border-grad1 display-none-in-mobile'>
                   <div className="tophead">
-                    <h6>Members <span>{topuser?.length}</span></h6>
+                    <h6>Members <span>({topuser?.length})</span></h6>
                   </div>
                   <div className="option-field">
                     <img src="\assets\search-icon.svg" alt="img" className="img-fluid search-icon" />
@@ -535,10 +559,10 @@ const GeneralForum = () => {
                       {topuser?.map((elem) => {
                         return (
                           <div className="inner-item">
-                            <h6>{elem?._id?.name}</h6>
-                            <h6>
-                              <img src={elem?._id?.profileImage} alt="img" className="img-fluid sjddvbbgdsijdfer me-2" />
-                              {/* Private */}
+                            <h6 className="set-text-left">{elem?.nickName}</h6>
+                            <h6 className="set-text-right">
+                              <img src={elem?.rank?.icon} alt="img" className="img-fluid sjddvbbgdsijdfer me-2" />
+                              {elem?.rank?.name}
                             </h6>
                           </div>
                         )
@@ -572,7 +596,7 @@ const GeneralForum = () => {
                 <p>Description</p>
                 <textarea
                   onChange={handleChange} value={allFormData?.description} name="description"
-                  placeholder="Enter Description Url...."></textarea>
+                  placeholder="Enter Your Description...."></textarea>
                 <div className="twice-btn">
                   <button className="btn-cancel" data-bs-dismiss="modal" aria-label="Close"> <img src="\assets\cancel.svg" alt="img" className="img-fluid me-2" /> Cancel</button>
                   <button className="btn-topic" onClick={putQuestion}> <img src="\assets\topic-btn.svg" alt="img" className="img-fluid me-2" /> Start a New Topic</button>
@@ -619,7 +643,7 @@ const GeneralForum = () => {
           <p>Description</p>
           <textarea
            onChange={handleChange} value={allFormData?.description} name="description"
-            placeholder="Enter Description Url...."></textarea>
+            placeholder="Enter Your Description...."></textarea>
           <div className="twice-btn">
             <button className="btn-cancel" onClick={handleCloseForum} aria-label="Close"> <img src="\assets\cancel.svg" alt="img" className="img-fluid me-2" /> Cancel</button>
             <button className="btn-topic" onClick={putQuestion} disabled={loading}> <img src="\assets\topic-btn.svg" alt="img" className="img-fluid me-2" /> {loading ? 'Start a New Topic...' : 'Start a New Topic'}</button>
@@ -637,7 +661,7 @@ const GeneralForum = () => {
           <p>Description</p>
           <textarea
           onChange={(e) => UpdateDescription(e.target.value)} value={detailsingle?.description} name="description"
-            placeholder="Enter Description Url...."></textarea>
+            placeholder="Enter Your Description...."></textarea>
           <div className="twice-btn">
             <button className="btn-cancel" onClick={handleCloseEditForum} aria-label="Close"> <img src="\assets\cancel.svg" alt="img" className="img-fluid me-2" /> Cancel</button>
             <button className="btn-topic" onClick={() => UpdateTask(detailsingle)} disabled={loading}> <img src="\assets\topic-btn.svg" alt="img" className="img-fluid me-2" />{loading ? 'Updating...' :'Update'}</button>

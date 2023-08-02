@@ -13,6 +13,7 @@ import { toast } from 'react-toastify';
 import { useWeb3React } from "@web3-react/core";
 import axios from 'axios';
 import moment from "moment";
+
 const GeneralAnnouncement = ({ setShowannounce, annou, getDataannou }) => {
     let user1 = localStorage.getItem("user");
     user1 = JSON.parse(user1);
@@ -49,7 +50,6 @@ const GeneralAnnouncement = ({ setShowannounce, annou, getDataannou }) => {
             });
     }
 
-    console.log('annou',annou);
     return (
         <>
             <div className="formobile-heading d-none display-block-in-mobile">

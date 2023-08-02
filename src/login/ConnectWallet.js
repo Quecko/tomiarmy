@@ -15,6 +15,7 @@ import axios from "axios";
 import Signature from "../hooks/dataSenders/userSign";
 import { useHistory } from "react-router-dom";
 import { API_URL } from '../utils/ApiUrl'
+import GetBalance from "../hooks/dataFetchers/getBalance";
 
 const ConnectWallet = ({ setjoinsquad, joinsquad, role, setRole, setinvitecode, invitecode }) => {
     const { account } = useWeb3React();
@@ -22,15 +23,17 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role, setRole, setinvitecode, 
     const [log, setLog] = useState(false)
     const history = useHistory();
     const { login, logout } = useAuth();
-    const [showmodal,setShowModal]=useState(false)
+    const [showmodal, setShowModal] = useState(false)
+    const [loader, setLoader] = useState(false);
+    const { GetBal } = GetBalance();
 
     const forWalletConnect = () => {
         setShowModal(true)
         setTimeout(() => {
             setShowModal(false)
         }, 10000)
-      }
-    
+    }
+
 
     // const trustWallet = async () => {
     //     localStorage.setItem("flag", "true");
@@ -87,7 +90,7 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role, setRole, setinvitecode, 
         if (account) {
             if (localStorage.getItem("connectorId") === "walletconnect") {
                 forWalletConnect()
-              }
+            }
             const res0 = await userSign(account);
             if (account && res0 && role === 'alreadymember') {
                 await axios
@@ -96,32 +99,41 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role, setRole, setinvitecode, 
                         sign: res0,
                         rememberMe: true
                     })
-                    .then((res) => {
-                        localStorage.setItem("accessToken", res?.data?.data?.accessToken);
-                        // setShow(false)
-                        localStorage.setItem("user", JSON.stringify(res?.data?.data));
-                        if (res?.data?.data?.rank.name === "general") {
-                            history.push("/general");
-                        } else if (res?.data?.data?.rank.name === "major general") {
-                            history.push("/majorgeneral");
+                    .then(async (res) => {
+                        const res1 = await GetBal(account);
+                        console.log(res1)
+                        if (res1 === "1") {
+                            history.push("/tomitoken")
+                            // alert('scesaev')
+                            // history.push("/buytoken")
+                        } else {
+                            localStorage.setItem("accessToken", res?.data?.data?.accessToken);
+                            // setShow(false)
+                            localStorage.setItem("user", JSON.stringify(res?.data?.data));
+                            if (res?.data?.data?.rank.name === "general") {
+                                history.push("/general");
+                            } else if (res?.data?.data?.rank.name === "major general") {
+                                history.push("/majorgeneral");
+                            }
+                            else if (res?.data?.data?.isCommander === true) {
+                                history.push("/leader");
+                            }
+                            else if (res?.data?.data?.isCommander === false && res?.data?.data?.squad?.name !== '') {
+                                history.push("/soldier");
+                            } else if (res?.data?.data?.isCommander === false && res?.data?.data?.squad?.name == '') {
+                                history.push("/soldier");
+                            }
+                            else {
+                                localStorage.clear()
+                                window.location.assign('/')
+                            }
+                            localStorage.setItem("wallet", account);
+                            toast.success('User Logged in Successfully', {
+                                position: 'top-center',
+                                autoClose: 5000,
+                            });
                         }
-                        else if (res?.data?.data?.isCommander === true) {
-                            history.push("/leader");
-                        }
-                        else if (res?.data?.data?.isCommander === false && res?.data?.data?.squad?.name !== '') {
-                            history.push("/soldier");
-                        } else if (res?.data?.data?.isCommander === false && res?.data?.data?.squad?.name == '') {
-                            history.push("/soldier");
-                        }
-                        else {
-                            localStorage.clear()
-                            window.location.assign('/')
-                        }
-                        localStorage.setItem("wallet", account);
-                        toast.success('User Logged in Successfully', {
-                            position: 'top-center',
-                            autoClose: 5000,
-                        });
+
                     })
                     .catch((err) => {
                         if (err?.response?.data?.statusCode === 404) {

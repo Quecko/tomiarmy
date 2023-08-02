@@ -33,6 +33,7 @@ import useAuth from "../../../hooks/useAuth";
 import { useDispatch } from "react-redux";
 import { addUer } from '../../../redux/action';
 
+
 const Sidebar = () => {
   const datacommander = localStorage.getItem('user')
   const data = JSON.parse(datacommander)
@@ -56,7 +57,9 @@ const Sidebar = () => {
       history.push('/majorgeneral')
     }
     else{
+      localStorage.clear()
       window.location.assign('/')
+
     }
   }, [account])
   const indexvv = localStorage.getItem("indexvalue");

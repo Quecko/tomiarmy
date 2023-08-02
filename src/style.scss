@@ -3948,6 +3948,7 @@ tr td:last-child {
     padding: 20px;
     border-radius: 20px;
     width: 100%;
+    min-height: 480px;
 
     .table-heading {
         margin-bottom: 20px;
@@ -4999,4 +5000,19 @@ input[type="search"]::-webkit-search-results-decoration {
         }
 
     }
+}
+
+.sycvcsvyvcvsycvtcsv{
+        grid-template-columns: 24.2% 24.2% 24.2% 24.2% !important;
+    
+}
+
+@media (max-width:600px){
+    .sycvcsvyvcvsycvtcsv{
+        grid-template-columns: 100% !important;
+    }
+}
+
+.adadasdasdasdasdasdsad{
+    text-transform: none!important;
 }

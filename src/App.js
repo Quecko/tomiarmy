@@ -20,17 +20,21 @@ import Settings from "./soldier/screens/Settings";
 import GeneralSidebar from "./General/components/Sidebar/GeneralSidebar";
 import useEagerConnect from './hooks/useEagerConnect';
 import SquadModals from "./soldier/components/home/HomeOperations/SquadModals";
-
+import Loader from "./hooks/loader";
 
 function App() {
   useEagerConnect();
+
   return (
     <>
       <ToastContainer autoClose={5000} style={{ fontSize: 12, fontWeight: 300 }} theme="dark" position="top-center" />
+      {/* <Loader/> */}
       <Router>
         <Switch>
           <Route exact path="/" component={Login2} />
           <Route exact path="/requestinvitation" component={Requestinvitation} />
+          <Route exact path="/tomitoken" component={Requestinvitation} />
+
           <Route exact path="/dcsquad" component={Dcsquad} />
           {/* soldier + leader all routes here........................... */}
           <Route exact path="/soldier" component={Sidebar} />

@@ -17,6 +17,8 @@ import { useHistory } from "react-router-dom";
 import { io } from "socket.io-client";
 import useAuth from "../../../hooks/useAuth";
 import notiSound from "../../../assets/sound/sound.mp3";
+import { TokenExpiredOrNot } from "../../../utils/TokenExpiredOrNot";
+
 
 
 const Header = ({ routes, setroute, indexwait, handleShow, setShow2, setShow1, setShow4, setShow5, notifs, getNotif, getData, getDataOperation, getChat }) => {
@@ -299,8 +301,11 @@ const Header = ({ routes, setroute, indexwait, handleShow, setShow2, setShow1, s
 
   let audio = new Audio(notiSound)
 
-  
-  
+  let token = localStorage.getItem("accessToken");
+  useEffect(() => {
+    TokenExpiredOrNot()
+  }, [])
+
   // const NotiSoundOn =()=>{
   //   audio.play() 
   // }
@@ -446,18 +451,18 @@ const Header = ({ routes, setroute, indexwait, handleShow, setShow2, setShow1, s
                                 <p><span></span>{moment(item?.createdAt).fromNow()}</p>
                               </div>
                               <p className="para">{item?.notification?.message}</p>
-                              {squadId && data?.memberOfSquad==false &&
+                              {squadId && data?.memberOfSquad == false &&
                                 <div className="twice-btn">
                                   {/* <button className="btn-reject"><img src="\assets\reject-icon.svg" alt="img" className="img-fluid me-2" />Reject</button> */}
                                   <button className="btn-accept" onClick={() => AcceptInvite(item)}><img src="\assets\checkmark.svg" alt="img" className="img-fluid me-2" />Accept</button>
                                 </div>
                               }
-                              {coLeaderAdded == true && item?.isRead == false && data?.isCoLeader==false &&
+                              {coLeaderAdded == true && item?.isRead == false && data?.isCoLeader == false &&
                                 <div className="twice-btn">
                                   <button className="btn-accept" onClick={() => updateNotifications(item)}><img src="\assets\checkmark.svg" alt="img" className="img-fluid me-2" />Sign up</button>
                                 </div>
                               }
-                              {coLeaderRemoved == true && item?.isRead == false && data?.isCoLeader==true &&
+                              {coLeaderRemoved == true && item?.isRead == false && data?.isCoLeader == true &&
                                 <div className="twice-btn">
                                   <button className="btn-accept" onClick={() => updateNotifications(item)}><img src="\assets\checkmark.svg" alt="img" className="img-fluid me-2" />Sign up</button>
                                 </div>

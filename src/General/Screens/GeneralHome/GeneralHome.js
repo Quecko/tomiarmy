@@ -36,7 +36,7 @@ const GeneralHome = ({ setShowtask, setroutehome, routeshome }) => {
     const [Users, setUsers] = useState([]);
     const [data2, setData2] = useState([]);
     const [Armydataa, setArmydataa] = useState(null);
-    const [DropDownAll, setDropDownAll] = useState('all time');
+    const [DropDownAll, setDropDownAll] = useState('All Time');
     let user1 = localStorage.getItem("user");
     user1 = JSON.parse(user1);
     const { account } = useWeb3React();
@@ -530,7 +530,7 @@ const GeneralHome = ({ setShowtask, setroutehome, routeshome }) => {
                                                 <img src="\generalassets\icons\tomirewarded.png" alt="earned" style={{ width: "70px", height: "70px" }} />
                                                 <div>
                                                     <p>Tomi Rewarded</p>
-                                                    <h4>112</h4>
+                                                    <h4>0</h4>
                                                 </div>
                                             </div>
                                         </div>
@@ -838,7 +838,7 @@ const GeneralHome = ({ setShowtask, setroutehome, routeshome }) => {
                                                             <td>{elem?.user?.nickName}</td>
                                                             <td>{elem?.task?.name?.slice(0, 40) + "..."}</td>
                                                             <td>
-                                                                <div style={{ maxWidth: '83px', width: '100%' }} className="completed">Pending</div>
+                                                                <div style={{ maxWidth: '83px', width: '100%',background:'#FF8936' }} className="completed">Pending</div>
                                                             </td>
                                                             <td>{elem?.task?.reward}</td>
                                                             {/* <td>

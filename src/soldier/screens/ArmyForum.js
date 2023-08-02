@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 import axios from 'axios';
 import moment from "moment";
 import { Modal } from 'react-bootstrap';
-
+import { TokenExpiredOrNot } from "../../utils/TokenExpiredOrNot";
 const ArmyForum = () => {
   let tok = localStorage.getItem("accessToken");
   const [topuser, settopuser] = useState([]);
@@ -48,6 +48,9 @@ const ArmyForum = () => {
   //  create new forum
   const putQuestion = () => {
     setLoader(true);
+    // let t=TokenExpiredOrNot()
+    // console.log('t',t)
+    // if(t){
     if (allFormData.title !== "" && allFormData.description !== "") {
       if (!loading) {
         setLoading(true)
@@ -84,20 +87,25 @@ const ArmyForum = () => {
     } else {
       toast.error("Please fill all fields")
     }
+    // }
+    // else{
+    //   localStorage.clear()
+    //   window.location.assign('/')
+    // }
   }
   // get top user or member
   const gettopusers = async () => {
 
     var config = {
       method: "get",
-      url: `${API_URL}/forums/top-user?limit=100&&isForumPost=${rankid}`,
+      url: `${API_URL}/forums/top-user?offset=1&&limit=25`,
       headers: {
         authorization: `Bearer ` + tok
       },
     };
     axios(config)
       .then(function (response) {
-        settopuser(response?.data?.data?.topUsers);
+        settopuser(response?.data?.data);
       })
       .catch(function (error) {
         console.log(error);
@@ -143,24 +151,24 @@ const ArmyForum = () => {
           },
         }
         axios(config)
-        .then(async (response) => {
-          // let dumArr = post;
-          const newPost = post
-          let dumObj = item;
-          dumObj.noOfComments = dumObj.noOfComments + 1;
-          // let findIndex = post.findIndex((ip) => { return ip._id === dumObj._id })
-          const index = post.findIndex((v, index) => index === dumObj?._id)
-          newPost.splice(index, 1, dumObj)
-          setPost(newPost)
-          setLoader(false);
-          toast.success("Comment Created Successfully");
-          mainid(commentid, "add");
-          commentnull();
-          setcomment('');
-        }).catch((error) => {
-          setLoader(false);
-          toast.error(error.response.data.message)
-        })
+          .then(async (response) => {
+            let dumArr = post;
+            let dumObj = item;
+            dumObj.noOfComments = dumObj.noOfComments + 1;
+            let findIndex = dumArr.findIndex((ip) => {
+              return ip._id === dumObj._id;
+            })
+            dumArr[findIndex] = dumObj;
+            setPost(dumArr);
+            setLoader(false);
+            toast.success("Comment Created Successfully");
+            mainid(commentid, "add");
+            commentnull();
+            setcomment('');
+          }).catch((error) => {
+            setLoader(false);
+            toast.error(error.response.data.message)
+          })
           .finally(() => {
             setLoading(false);
           });
@@ -181,9 +189,9 @@ const ArmyForum = () => {
       .then(function (response) {
         // getMyPosts()
         // setArmy(response?.data?.data);
-        if (response?.data?.data?.length === 0) {
-          setLimit(limit - 1);
-        }
+        // if (response?.data?.data?.length === 0) {
+        //   setLimit(limit - 1);
+        // }
         // if (val) {
         // setArmy(response?.data?.data?.post);
         setPost(response?.data?.data?.post);
@@ -317,30 +325,30 @@ const ArmyForum = () => {
   const UpdateTask = (objj) => {
     if (!loading) {
       setLoading(true)
-    axios.patch(`${API_URL}/forums/posts/${objj._id}`,
-      {
-        title: detailsingle.title,
-        description: detailsingle.description
-      },
-      {
-        headers: {
-          authorization: `Bearer ` + tok
+      axios.patch(`${API_URL}/forums/posts/${objj._id}`,
+        {
+          title: detailsingle.title,
+          description: detailsingle.description
+        },
+        {
+          headers: {
+            authorization: `Bearer ` + tok
+          }
         }
-      }
-    ).then((response) => {
-      getMyPosts()
-      toast.success("Updated successfully");
-      setShowForumEditModal(false)
-      
-      // Code
-    }).catch((error) => {
-      // Code
-      toast.error(error.response.data.message)
-    })
-    .finally(() => {
-      setLoading(false);
-    });
-  }
+      ).then((response) => {
+        getMyPosts()
+        toast.success("Updated successfully");
+        setShowForumEditModal(false)
+
+        // Code
+      }).catch((error) => {
+        // Code
+        toast.error(error.response.data.message)
+      })
+        .finally(() => {
+          setLoading(false);
+        });
+    }
   }
 
 
@@ -465,7 +473,7 @@ const ArmyForum = () => {
                         </div>
                       </section>
                       {current == index &&
-                        <section className="comments">
+                        <section className="comments" style={{marginTop: "23px"}}>
                           <div className="maincomment">
                             <h1 className="headcmnt">Comments</h1>
                             {ListComment?.slice(0, limit0)?.map((elem, index) => {
@@ -536,16 +544,15 @@ const ArmyForum = () => {
                       {topuser?.map((elem) => {
                         return (
                           <div className="inner-item">
-                            <h6>{elem?._id?.name}</h6>
+                            <h6>{elem?.nickName}</h6>
                             <h6>
-                              <img src={elem?._id?.profileImage} alt="img" className="img-fluid me-2" style={{ width: "34px", height: "34px" }} />
-                              {/* Private */}
+                              <img src={elem?.rank?.icon} alt="img" className="img-fluid me-2" style={{ width: "34px", height: "34px" }} />
+                              {elem?.rank?.name}
                             </h6>
                           </div>
                         )
                       })
                       }
-
                     </div>
                   </div>
                 </div>
@@ -573,7 +580,7 @@ const ArmyForum = () => {
                 <p>Description</p>
                 <textarea
                   onChange={handleChange} value={allFormData?.description} name="description"
-                  placeholder="Enter Description Url...."></textarea>
+                  placeholder="Enter Your Description...."></textarea>
                 <div className="twice-btn">
                   <button className="btn-cancel" data-bs-dismiss="modal" aria-label="Close"> <img src="\assets\cancel.svg" alt="img" className="img-fluid me-2" /> Cancel</button>
                   <button className="btn-topic" onClick={putQuestion}> <img src="\assets\topic-btn.svg" alt="img" className="img-fluid me-2" /> Start a New Topic</button>
@@ -620,7 +627,7 @@ const ArmyForum = () => {
             <p>Description</p>
             <textarea
               onChange={handleChange} value={allFormData?.description} name="description"
-              placeholder="Enter Description Url...."></textarea>
+              placeholder="Enter Your Description...."></textarea>
             <div className="twice-btn">
               <button className="btn-cancel" onClick={handleCloseForum} aria-label="Close"> <img src="\assets\cancel.svg" alt="img" className="img-fluid me-2" /> Cancel</button>
               <button className="btn-topic" onClick={putQuestion} disabled={loading}> <img src="\assets\topic-btn.svg" alt="img" className="img-fluid me-2" />{loading ? 'Start a New Topic...' : 'Start a New Topic'}</button>
@@ -638,10 +645,10 @@ const ArmyForum = () => {
             <p>Description</p>
             <textarea
               onChange={(e) => UpdateDescription(e.target.value)} value={detailsingle?.description} name="description"
-              placeholder="Enter Description Url...."></textarea>
+              placeholder="Enter Your Description...."></textarea>
             <div className="twice-btn">
               <button className="btn-cancel" onClick={handleCloseEditForum} aria-label="Close"> <img src="\assets\cancel.svg" alt="img" className="img-fluid me-2" /> Cancel</button>
-              <button className="btn-topic" onClick={() => UpdateTask(detailsingle)} disabled={loading}> <img src="\assets\topic-btn.svg" alt="img" className="img-fluid me-2" /> {loading ? 'Updating':'Update'}</button>
+              <button className="btn-topic" onClick={() => UpdateTask(detailsingle)} disabled={loading}> <img src="\assets\topic-btn.svg" alt="img" className="img-fluid me-2" /> {loading ? 'Updating' : 'Update'}</button>
             </div>
           </Modal.Body>
         </Modal>

@@ -13,7 +13,7 @@ const GeneralTasks = ({ setShowtask, settaskdetail, tasks }) => {
   }
 
   return (
-    <div className="data-box general-tasks-wrapper border-grad1">
+    <div className="data-box general-tasks-wrapper border-grad1" style={{minHeight: "420px"}}>
       <h4 className="general">recent tasks from general</h4>
       <Table striped bordered hover responsive className="general-tasks-table display-none-in-mobile">
         <thead>

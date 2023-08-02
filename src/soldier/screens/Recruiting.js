@@ -348,8 +348,8 @@ const Recruiting = () => {
           </Modal.Header>
           <Modal.Body>
             <div className='maininput'>
-              <p>POW Url</p>
-              <input type='text' placeholder='Enter POW Url....' />
+              <p>POW URL</p>
+              <input type='text' placeholder='Enter POW URL....' />
             </div>
             <div className="upload-parent">
               <p className='uehyuj'>Upload Proof of Work Image</p>

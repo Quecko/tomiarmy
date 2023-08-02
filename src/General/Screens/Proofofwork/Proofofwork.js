@@ -8,7 +8,7 @@ import { API_URL } from '../../../utils/ApiUrl';
 import { toast } from 'react-toastify';
 import { useWeb3React } from "@web3-react/core";
 import axios from 'axios';
-
+import Loader from '../../../hooks/loader'
 const Proofofwork = () => {
     const [showwork, setShowwork] = useState(false);
     const [showwork1, setShowwork1] = useState(false);
@@ -16,6 +16,7 @@ const Proofofwork = () => {
     const [imagedetail, setimagedetail] = useState(null)
     const handleClosework = () => setShowwork(false);
     const handleClosework1 = () => setShowwork1(false);
+    const [loader, setLoader] = useState(false);
     const handleShowwork = (elem) => {
         setsingledetail(elem)
         setShowwork(true);
@@ -28,10 +29,18 @@ const Proofofwork = () => {
     const [showapprove, setShowapprove] = useState(false);
     const handleCloseapprove = () => setShowapprove(false);
     const handleShowapprove = () => setShowapprove(true);
+    const [showapprove1, setShowapprove1] = useState(false);
+    const handleCloseapprove1 = () => setShowapprove1(false);
+    const handleShowapprove1 = () => setShowapprove1(true);
+
 
     const [showreject, setShowreject] = useState(false);
     const handleClosereject = () => setShowreject(false);
     const handleShowreject = () => setShowreject(true);
+    const [showreject1, setShowreject1] = useState(false);
+    const handleClosereject1 = () => setShowreject1(false);
+    const handleShowreject1 = () => setShowreject1(true);
+
     const [expired, setexpired] = useState(false);
     const [tasks, settasks] = useState([]);
     const [taskdetail, settaskdetail] = useState(null);
@@ -190,6 +199,7 @@ const Proofofwork = () => {
     const Acceptreject = async (singledetail, approvedcheck) => {
         let tok = localStorage.getItem("accessToken");
         // setOpens(true);
+        // setLoader(true)
         axios
             .patch(
                 API_URL + "/tasks/work-proofs/" +
@@ -202,10 +212,11 @@ const Proofofwork = () => {
             .then((response) => {
                 if (response.data.data.isApproved == true) {
                     handleClosework();
-                    handleShowapprove();
+                    handleShowapprove1();
+                    setLoader(false)
                 } else {
                     handleClosework();
-                    handleShowreject();
+                    handleShowreject1();
                 }
                 getData()
                     // setCall(!call)
@@ -213,6 +224,7 @@ const Proofofwork = () => {
                     // window.$('#powork').modal('hide')
                     .catch((err) => {
                         // setOpens(false);
+                        setLoader(false)
                         toast.warning(
                             "Error",
                             {
@@ -227,6 +239,7 @@ const Proofofwork = () => {
     const Acceptrejectoperation = async (taskdetail, singledetail, approvedcheck) => {
         let tok = localStorage.getItem("accessToken");
         // setOpens(true);
+        setLoader(true)
         axios
             .patch(
                 API_URL + "/tasks/operations/" + taskdetail?.operationId + "/work-proof/" +
@@ -242,6 +255,7 @@ const Proofofwork = () => {
                     handleClosework1();
                     handleShowapprove();
                     allworkproofs();
+                    setLoader(false)
                 } else {
                     handleClosework1();
                     handleShowreject();
@@ -253,6 +267,7 @@ const Proofofwork = () => {
                     // window.$('#powork').modal('hide')
                     .catch((err) => {
                         // setOpens(false);
+                        setLoader(false)
                         toast.warning(
                             "Error",
                             {
@@ -280,6 +295,7 @@ const Proofofwork = () => {
 
     return (
         <>
+         {loader && <Loader/>}
             <div className="formobile-heading d-none display-block-in-mobile">
                 <div className="inner-heading">
                     <h6>Proof of Work  </h6>
@@ -696,7 +712,7 @@ const Proofofwork = () => {
                             </div> */}
                             <div className="detailmain">
                                 <div className="proofmain">
-                                    <p className="detailpara">POW Url</p>
+                                    <p className="detailpara">POW URL</p>
                                     <a href={singledetail?.url} target='_blank'>
                                         <h6 className="detailhead" style={{ textDecoration: 'underline' }}>{result}</h6>
                                     </a>
@@ -784,7 +800,7 @@ const Proofofwork = () => {
                             </div>
                             <div className="detailmain">
                                 <div className="proofmain">
-                                    <p className="detailpara">POW Url</p>
+                                    <p className="detailpara">POW URL</p>
                                     <h6 className="detailhead" style={{ textDecoration: 'underline' }}>{singledetail?.url}</h6>
                                 </div>
                                 <div className="proofmain">
@@ -794,7 +810,7 @@ const Proofofwork = () => {
                             </div>
                             <div className="detailmain">
                                 <div className="proofmain">
-                                    <p className="detailpara">Start Date</p>
+                                    <p className="detailpara">Submitted Date</p>
                                     <h6 className="detailhead">
                                         {
                                             taskdetail?.createdAt
@@ -804,10 +820,10 @@ const Proofofwork = () => {
                                                 .join('-')}
                                     </h6>
                                 </div>
-                                <div className="proofmain">
+                                {/* <div className="proofmain">
                                     <p className="detailpara">End Date</p>
                                     <h6 className="detailhead">05/05/2023</h6>
-                                </div>
+                                </div> */}
                             </div>
                         </div>
                         <div className="proofdetailleft">
@@ -856,6 +872,30 @@ const Proofofwork = () => {
                     <div className="approvemain">
                         <img src="\generalassets\other-imgs\rejectimg.png" alt="approveimg" className="approveimg img-fluid" />
                         <p className="approvetext">operation proof of work rejected</p>
+                    </div>
+                </Modal.Body>
+            </Modal>
+
+            <Modal className="createdsuccess-modal global-modal-style powmodal" show={showapprove1} onHide={handleCloseapprove1} centered>
+                <Modal.Header closeButton>
+                    <Modal.Title>proof of work</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <div className="approvemain">
+                        <img src="\generalassets\other-imgs\approveimg.png" alt="approveimg" className="approveimg img-fluid" />
+                        <p className="approvetext">Task proof of work approved</p>
+                    </div>
+                </Modal.Body>
+            </Modal>
+
+            <Modal className="createdsuccess-modal global-modal-style powmodal" show={showreject1} onHide={handleClosereject1} centered>
+                <Modal.Header closeButton>
+                    <Modal.Title>proof of work</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <div className="approvemain">
+                        <img src="\generalassets\other-imgs\rejectimg.png" alt="approveimg" className="approveimg img-fluid" />
+                        <p className="approvetext">Task proof of work rejected</p>
                     </div>
                 </Modal.Body>
             </Modal>

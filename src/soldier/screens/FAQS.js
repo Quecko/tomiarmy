@@ -42,7 +42,7 @@ const FAQS = () => {
                     <Accordion defaultActiveKey="0">
                           {faqs?.map((elem,index)=>{
                             return(
-                                <Accordion.Item eventKey="0">
+                                <Accordion.Item eventKey={index}>
                             <Accordion.Header> <span className='numberingss'>{index+1}.</span> {elem?.title}</Accordion.Header>
                             <Accordion.Body>
                                 <p className="para">{elem?.description}</p>

@@ -890,8 +890,8 @@ const Squad = ({ show1, setShow1, show2, setShow2, setShow4, setShow5, setShow6,
               </Modal.Header>
               <Modal.Body>
                 <div className='maininput'>
-                  <p>POW Url</p>
-                  <input type='text' placeholder='Enter POW Url....' />
+                  <p>POW URL</p>
+                  <input type='text' placeholder='Enter POW URL....' />
                 </div>
                 <div className="upload-parent">
                   <p className='uehyuj'>Upload Proof of Work Image</p>
