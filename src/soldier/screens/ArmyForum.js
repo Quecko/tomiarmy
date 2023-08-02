@@ -580,7 +580,7 @@ const ArmyForum = () => {
                 <p>Description</p>
                 <textarea
                   onChange={handleChange} value={allFormData?.description} name="description"
-                  placeholder="Enter Description Url...."></textarea>
+                  placeholder="Enter Your Description...."></textarea>
                 <div className="twice-btn">
                   <button className="btn-cancel" data-bs-dismiss="modal" aria-label="Close"> <img src="\assets\cancel.svg" alt="img" className="img-fluid me-2" /> Cancel</button>
                   <button className="btn-topic" onClick={putQuestion}> <img src="\assets\topic-btn.svg" alt="img" className="img-fluid me-2" /> Start a New Topic</button>
@@ -627,7 +627,7 @@ const ArmyForum = () => {
             <p>Description</p>
             <textarea
               onChange={handleChange} value={allFormData?.description} name="description"
-              placeholder="Enter Description Url...."></textarea>
+              placeholder="Enter Your Description...."></textarea>
             <div className="twice-btn">
               <button className="btn-cancel" onClick={handleCloseForum} aria-label="Close"> <img src="\assets\cancel.svg" alt="img" className="img-fluid me-2" /> Cancel</button>
               <button className="btn-topic" onClick={putQuestion} disabled={loading}> <img src="\assets\topic-btn.svg" alt="img" className="img-fluid me-2" />{loading ? 'Start a New Topic...' : 'Start a New Topic'}</button>
@@ -645,7 +645,7 @@ const ArmyForum = () => {
             <p>Description</p>
             <textarea
               onChange={(e) => UpdateDescription(e.target.value)} value={detailsingle?.description} name="description"
-              placeholder="Enter Description Url...."></textarea>
+              placeholder="Enter Your Description...."></textarea>
             <div className="twice-btn">
               <button className="btn-cancel" onClick={handleCloseEditForum} aria-label="Close"> <img src="\assets\cancel.svg" alt="img" className="img-fluid me-2" /> Cancel</button>
               <button className="btn-topic" onClick={() => UpdateTask(detailsingle)} disabled={loading}> <img src="\assets\topic-btn.svg" alt="img" className="img-fluid me-2" /> {loading ? 'Updating' : 'Update'}</button>

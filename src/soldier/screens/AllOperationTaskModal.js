@@ -207,8 +207,8 @@ const AllOperationTaskModal = ({ showtask1, setShowtask1, settaskdetail1, taskde
                 </Modal.Header>
                 <Modal.Body>
                     <div className='maininput'>
-                        <p>POW Url</p>
-                        <input type='text' onChange={(e) => setPowUrl(e.target.value)} placeholder='Enter POW Url....' />
+                        <p>POW URL</p>
+                        <input type='text' onChange={(e) => setPowUrl(e.target.value)} placeholder='Enter POW URL....' />
                     </div>
                     {/* <div className="upload-parent">
             <p className='uehyuj'>Upload Proof of Work Image</p>

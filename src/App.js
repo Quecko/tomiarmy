@@ -33,6 +33,8 @@ function App() {
         <Switch>
           <Route exact path="/" component={Login2} />
           <Route exact path="/requestinvitation" component={Requestinvitation} />
+          <Route exact path="/tomitoken" component={Requestinvitation} />
+
           <Route exact path="/dcsquad" component={Dcsquad} />
           {/* soldier + leader all routes here........................... */}
           <Route exact path="/soldier" component={Sidebar} />

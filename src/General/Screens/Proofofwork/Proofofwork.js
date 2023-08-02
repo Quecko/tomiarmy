@@ -704,7 +704,7 @@ const Proofofwork = () => {
                             </div> */}
                             <div className="detailmain">
                                 <div className="proofmain">
-                                    <p className="detailpara">POW Url</p>
+                                    <p className="detailpara">POW URL</p>
                                     <a href={singledetail?.url} target='_blank'>
                                         <h6 className="detailhead" style={{ textDecoration: 'underline' }}>{result}</h6>
                                     </a>
@@ -792,7 +792,7 @@ const Proofofwork = () => {
                             </div>
                             <div className="detailmain">
                                 <div className="proofmain">
-                                    <p className="detailpara">POW Url</p>
+                                    <p className="detailpara">POW URL</p>
                                     <h6 className="detailhead" style={{ textDecoration: 'underline' }}>{singledetail?.url}</h6>
                                 </div>
                                 <div className="proofmain">

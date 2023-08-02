@@ -162,7 +162,7 @@ const CreateFaqModal = ({ showfaq, setShowfaq, showfaq1, setShowfaq1, getDataann
             </div>
             <div className="option-field">
               <label>Description</label>
-              <textarea value={allFormData?.descriptios} name="description" onChange={handleChange} placeholder="Enter Description Url...."></textarea>
+              <textarea value={allFormData?.descriptios} name="description" onChange={handleChange} placeholder="Enter Your Description...."></textarea>
             </div>
           </div>
           <div className="twice-btns">
@@ -184,7 +184,7 @@ const CreateFaqModal = ({ showfaq, setShowfaq, showfaq1, setShowfaq1, getDataann
             </div>
             <div className="option-field">
               <label>Description</label>
-              <textarea value={editFaqs?.description} name="description" onChange={(e) => UpdateDescription(e.target.value)}  placeholder="Enter Description Url...."></textarea>
+              <textarea value={editFaqs?.description} name="description" onChange={(e) => UpdateDescription(e.target.value)}  placeholder="Enter Your Description...."></textarea>
             </div>
           </div>
           <div className="twice-btns">

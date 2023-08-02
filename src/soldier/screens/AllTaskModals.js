@@ -17,6 +17,8 @@ const AllTaskModals = ({ showtask, setShowtask, settaskdetail, taskdetail,getDat
   const [show2, setShow2] = useState(false);
   const handleClose2 = () => setShow2(false);
   const [profilePicture, setProfilePicture] = useState(null);
+  const [imageModal, setImageModal] = useState(false)
+  const handleImageClose = () => setImageModal(false);
   const setProfilePic = (evt) => {
     setProfilePicture(evt.target.files[0]);
   }
@@ -240,10 +242,10 @@ const AllTaskModals = ({ showtask, setShowtask, settaskdetail, taskdetail,getDat
               </>
             }
             {taskdetail?.image &&
-              <>
+              <div onClick={()=>setImageModal(true)}>
                 <p className='link'>Image</p>
                 <img src={taskdetail?.image} alt='img' className='img-fluid' />
-              </>
+              </div>
             }
 
           </div>
@@ -270,8 +272,8 @@ const AllTaskModals = ({ showtask, setShowtask, settaskdetail, taskdetail,getDat
         </Modal.Header>
         <Modal.Body>
           <div className='maininput'>
-            <p>POW Url</p>
-            <input type='text' value={inputs?.name ? inputs?.name :''} name="name" onChange={(e)=>handleChange1(e)}  placeholder='Enter POW Url....' />
+            <p>POW URL</p>
+            <input type='text' value={inputs?.name ? inputs?.name :''} name="name" onChange={(e)=>handleChange1(e)}  placeholder='Enter POW URL....' />
           </div>
           {/* <div className="upload-parent">
             <p className='uehyuj'>Upload Proof of Work Image</p>
@@ -396,6 +398,19 @@ const AllTaskModals = ({ showtask, setShowtask, settaskdetail, taskdetail,getDat
         </Modal.Body>
 
       </Modal>
+
+            {/* Image detail modal */}
+            <Modal className="createdsuccess-modal global-modal-style powmodal scsdvsdvrverberbrtnsvdrbrt" show={imageModal} onHide={handleImageClose} centered>
+                <Modal.Header closeButton>
+                    {/* <Modal.Title>proof of work</Modal.Title> */}
+                </Modal.Header>
+                <Modal.Body>
+                    <div className="approvemain">
+                        <img src={taskdetail?.image} alt="approveimg" className="approveimg img-fluid" />
+                        {/* <p className="approvetext">operation proof of work approved</p> */}
+                    </div>
+                </Modal.Body>
+            </Modal>
     </>
   )
 }

@@ -838,7 +838,7 @@ const GeneralHome = ({ setShowtask, setroutehome, routeshome }) => {
                                                             <td>{elem?.user?.nickName}</td>
                                                             <td>{elem?.task?.name?.slice(0, 40) + "..."}</td>
                                                             <td>
-                                                                <div style={{ maxWidth: '83px', width: '100%' }} className="completed">Pending</div>
+                                                                <div style={{ maxWidth: '83px', width: '100%',background:'#FF8936' }} className="completed">Pending</div>
                                                             </td>
                                                             <td>{elem?.task?.reward}</td>
                                                             {/* <td>

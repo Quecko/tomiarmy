@@ -503,9 +503,9 @@ const HomeOperations = ({ setShowtask1, settaskdetail1, operations, setOperation
                       <th>
                         <p className='headtable'>Wallet Address</p>
                       </th>
-                      <th>
+                      {/* <th>
                         <p className='headtable'>Username</p>
-                      </th>
+                      </th> */}
                       <th>
                         <p className='headtable'>TOMI Balance</p>
                       </th>
@@ -525,9 +525,9 @@ const HomeOperations = ({ setShowtask1, settaskdetail1, operations, setOperation
                             <td>
                               <p className='paratable'>{elem?.walletAddress}</p>
                             </td>
-                            <td>
+                            {/* <td>
                               <p className='paratable'>-</p>
-                            </td>
+                            </td> */}
                             <td>
                               <p className='paratable'>{elem?.tomiTokens} TOMI</p>
                             </td>
