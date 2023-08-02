@@ -372,45 +372,11 @@ const Chat = ({ setPage, page, setChat, chat, getChat, pages, message, setMessag
             </div>
             <div className='chat-section dfdsfsfdsfsdfsdfsdf'>
             <form onSubmit={(e)=>sendChat(e)}>
-
               <div className="bottom-side">
                 <div className="option-field">
                   <input type="text" placeholder='Write your message...' value={message} onChange={(e) => handleInputChange(e)} />
                 </div>
-                {image &&
-                  (image?.name?.split('.').pop() === 'png'
-                    || image?.name?.split('.').pop() === 'jpg' || image?.name?.split('.').pop() === 'jpeg' ||
-                    image?.name?.split('.').pop() === 'gif' || image?.name?.split('.').pop() === 'webp')
-                  &&
-                  <div className='xcdscv'>
-                    <img
-                      src={image ? URL?.createObjectURL(image) : ""}
-                      alt="img"
-                      className='fvrbrt'
-                    />
-                    <img onClick={clearImage} src="\generalassets\icons\cancel-icon.svg" alt="img" className='dscef' />
-                  </div>
-                }
-                {image &&
-                  (image?.name?.split('.').pop() === 'mp3' || image?.name?.split('.').pop() === 'wav'
-                    || image?.name?.split('.').pop() === 'mpeg' || image?.name?.split('.').pop() === 'ogg'
-                    || image?.name?.split('.').pop() === 'webm' ||
-                    image?.name?.split('.').pop() === 'mp4' || image?.name?.split('.').pop() === 'webm'
-                    || image?.name?.split('.').pop() === 'mov' || image?.name?.split('.').pop() === 'wmv'
-                    || image?.name?.split('.').pop() === 'avi' || image?.name?.split('.').pop() === 'mkv' ||
-                    image?.name?.split('.').pop() === 'xlsx' || image?.name?.split('.').pop() === 'xls'
-                    || image?.name?.split('.').pop() === 'doc' || image?.name?.split('.').pop() === 'docx'
-                    || image?.name?.split('.').pop() === 'txt' || image?.name?.split('.').pop() === 'pdf'
-                    || image?.name?.split('.').pop() === 'ppt' || image?.name?.split('.').pop() === 'pptx'
-                  )
-                  &&
-                  <div className='xcdscv'>
-                    <p className='fvrbrt'>
-                      {image?.name}
-                    </p>
-                    <img onClick={clearImage} src="\generalassets\icons\cancel-icon.svg" alt="img" className='dscef' />
-                  </div>
-                }
+               
               
                <div className="right-btns">
                   <label htmlFor='upload' style={{ cursor: "pointer" }}>
@@ -437,6 +403,48 @@ const Chat = ({ setPage, page, setChat, chat, getChat, pages, message, setMessag
 
                 </div>
               </div>
+              {image &&
+                  (image?.name?.split('.').pop() === 'png'
+                    || image?.name?.split('.').pop() === 'jpg' || image?.name?.split('.').pop() === 'jpeg' ||
+                    image?.name?.split('.').pop() === 'gif' || image?.name?.split('.').pop() === 'webp')
+                  &&
+                  <div className='set-inner-upload-item'>
+                    <div className="upload-single-item">
+                    <img
+                      src={image ? URL?.createObjectURL(image) : ""}
+                      alt="img"
+                      className='fvrbrt'
+                    />
+                    <img onClick={clearImage} src="\generalassets\icons\cancel-icon.svg" alt="img" className='close-icon-set' />
+                    </div>
+                  </div>
+                }
+                {image &&
+                  (image?.name?.split('.').pop() === 'mp3' || image?.name?.split('.').pop() === 'wav'
+                    || image?.name?.split('.').pop() === 'mpeg' || image?.name?.split('.').pop() === 'ogg'
+                    || image?.name?.split('.').pop() === 'webm' ||
+                    image?.name?.split('.').pop() === 'mp4' || image?.name?.split('.').pop() === 'webm'
+                    || image?.name?.split('.').pop() === 'mov' || image?.name?.split('.').pop() === 'wmv'
+                    || image?.name?.split('.').pop() === 'avi' || image?.name?.split('.').pop() === 'mkv' ||
+                    image?.name?.split('.').pop() === 'xlsx' || image?.name?.split('.').pop() === 'xls'
+                    || image?.name?.split('.').pop() === 'doc' || image?.name?.split('.').pop() === 'docx'
+                    || image?.name?.split('.').pop() === 'txt' || image?.name?.split('.').pop() === 'pdf'
+                    || image?.name?.split('.').pop() === 'ppt' || image?.name?.split('.').pop() === 'pptx'
+                  )
+                  &&
+                  <div className='set-inner-upload-item'>
+                    <div className="upload-single-item ifpdffile">
+                    <div className="upload-pdf">
+                      <img src="\assets\pdf-icon-new.svg" alt="img" className='img-fluid' />
+                      <div className="inner-text">
+                        <h6>{image?.name}</h6>
+                        <p>PDF</p>
+                      </div>
+                    </div>
+                    <img onClick={clearImage} src="\generalassets\icons\cancel-icon.svg" alt="img" className='close-icon-set' />
+                    </div>
+                  </div>
+                }
               </form>
             </div>
 

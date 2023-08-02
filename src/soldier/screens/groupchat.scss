@@ -38,6 +38,7 @@
                     justify-content: flex-start;
                     align-items: center;
                     margin-bottom: 12px;
+                    gap: 15px;
 
                     .title-client {
                         display: flex;
@@ -170,6 +171,7 @@
                     align-items: center;
                     flex-direction: row-reverse;
                     margin-bottom: 12px;
+                    gap: 15px;
                 }
 
                 .title-client {
@@ -225,21 +227,24 @@
             }
         }
 
+
+        form{
+            background: #191D26;
+            border: 1px solid #343742;
+            border-radius: 10px;
+            transition: 0.3s linear;
+            padding: 7px 10px;
+            margin-top: 25px;
+            &:hover {
+                border: 1px solid #5E1442 !important;
+            }
+        }
+
         .bottom-side {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: #191D26;
-            border: 1px solid #343742;
-            border-radius: 10px;
-            padding: 7px 10px;
-            margin-top: 25px;
-            transition: 0.3s linear;
-
-            &:hover {
-                border: 1px solid #5E1442 !important;
-            }
-
+           
 
             .option-field {
                 input {
@@ -424,24 +429,23 @@
     object-fit: cover;
 }
 
-.xcdscv {
-    position: absolute;
-    left: 20px;
-    /* top: 8px; */
-    bottom: 75px;
+// .xcdscv {
+//     position: absolute;
+//     left: 20px;
+//     bottom: 75px;
 
-    .fvrbrt {
-        border-radius: 10px;
-        width: 50px;
-        height: 50px;
-    }
+//     .fvrbrt {
+//         border-radius: 10px;
+//         width: 50px;
+//         height: 50px;
+//     }
 
-    .dscef {
-        position: absolute;
-        left: 38px;
-        top: -10px;
-    }
-}
+//     .dscef {
+//         position: absolute;
+//         left: 38px;
+//         top: -10px;
+//     }
+// }
 
 .group-chat .chat-section{
     height: 73.5vh;

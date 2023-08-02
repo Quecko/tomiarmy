@@ -59,6 +59,22 @@ const Settings = () => {
     }
 
 
+  const [showprofile, setShowProfile] = useState(false);
+  const handleCloseProfile = () => setShowProfile(false);
+  const handleShowProfile = () => setShowProfile(true);
+
+  const [showForumDeleteModal, setShowForumDeleteModal] = useState(false);
+  const handleCloseDeleteForum = () => setShowForumDeleteModal(false);
+
+  const [profilePicture, setProfilePicture] = useState(null);
+  const setProfilePic = (evt) => {
+    setProfilePicture(evt.target.files[0]);
+  }
+ 
+
+  
+
+
   return (
     <>
      <div className="formobile-heading d-none display-block-in-mobile">
@@ -69,6 +85,19 @@ const Settings = () => {
       </div>
       <section className="settings border-grad1">
            <div className="parent">
+            <div className="inner-card border-grad">
+              <div className="parent-profile">
+                <div className="profile" onClick={handleShowProfile} style={{cursor: "pointer"}}>
+                <img src="\assets\user-profile-icon.svg" alt="img" className='img-fluid' />
+              </div>
+              <h6>Profile Image</h6>
+              </div>
+              <div className="twice-img">
+                <label htmlFor='uploadimg' className='me-2'><img src="\assets\gallery-add.svg" alt="img" className='img-fluid' /></label>
+                <input type="file" className='d-none' id='uploadimg' />
+                <a onClick={() => setShowForumDeleteModal(true)}><img src="\assets\trash.svg" alt="img" className='img-fluid' /></a>
+              </div>
+            </div>
             <div className="inner-card border-grad">
                 <div className="inner-text">
                     <h6>Nick Name</h6>
@@ -106,6 +135,62 @@ const Settings = () => {
           <button onClick={addNickName} className='btn-save'>Save</button>
         </Modal.Body>
       </Modal>
+
+
+      <Modal className='detailmodal' show={showprofile} onHide={handleCloseProfile} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>
+          Upload profile picture
+          </Modal.Title>
+
+        </Modal.Header>
+        <Modal.Body>
+          <div className="upload-parent">
+            <p className='uehyuj'>Profile Pitcure</p>
+            <div className="upload uploadsss sdhfvbdshbfvh" style={{height: "336px"}}>
+              {
+                profilePicture ? <label htmlFor="upload">
+                  {" "}
+                  <img
+                    src={profilePicture ? URL?.createObjectURL(profilePicture) : ""}
+                    alt="img"
+                    className="img-fluid"
+                  />
+                </label> : <label htmlFor="upload">
+                  {" "}
+                  <img
+                    src="\uploadimage.svg"
+                    alt="img"
+                    className="img-fluid"
+                  />
+                  <p className='dropimage'>Drop your image here, or<span>browse</span> </p>
+                  <h6 className='support1'>Supports: JPG, JPEG, PNG</h6>
+                  <p className='optimal'>Optimal Image size: 500x500 px</p>
+                </label>
+              }
+
+              <input type="file" accept="image/png, image/jpeg, image/jpg" className="d-none" id="upload" onChange={(e) => setProfilePic(e)} />
+
+            </div>
+          </div>
+          <div className='endbtn'>
+            <button className="btn-blackk" onClick={handleCloseProfile}><span><img src='\Subtract.svg' alt='img' className='img-fluid' /></span>Cancel</button>
+            <button className="btn-pinkk"
+            >
+              <img src='\assets\upload-icon.svg' alt='img' className='img-fluid' /> Upload profile picture</button>
+          </div>
+        </Modal.Body>
+      </Modal>
+
+      <Modal className='topic-new-modal' show={showForumDeleteModal} onHide={handleCloseDeleteForum} centered>
+          <Modal.Body>
+            <h5>Are you sure you want to <br /> delete?</h5>
+            <div className="twice-btn">
+              <button className="btn-cancel" onClick={handleCloseDeleteForum} aria-label="Close"> <img src="\assets\cancel.svg" alt="img" className="img-fluid me-2" /> Cancel</button>
+              <button className="btn-topic"> <img src="\assets\topic-btn.svg" alt="img" className="img-fluid me-2" /> Delete</button>
+            </div>
+          </Modal.Body>
+        </Modal>
     </>
   )
 }
