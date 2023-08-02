@@ -51,42 +51,42 @@ const ArmyForum = () => {
     // let t=TokenExpiredOrNot()
     // console.log('t',t)
     // if(t){
-      if (allFormData.title !== "" && allFormData.description !== "") {
-        if (!loading) {
-          setLoading(true)
-          axios.defaults.headers.post[
-            "Authorization"
-          ] = `Bearer ${tok}`;
-          var config = {
-            method: "post",
-            url: `${API_URL}/forums/posts/`,
-            data: {
-              title: allFormData.title,
-              description: allFormData.description,
-              isForumPost: rankid,
-            },
-          };
-          axios(config)
-            .then(async (response) => {
-              setLoader(false);
-              toast.success("Post Added Successfully");
-              getMyPosts()
-              handleCloseForum()
-              ClearAll()
-              // window.$(`#exampleModall`).modal("hide");
-              // ClearAlloperation()
-              // Code
-            }).catch((error) => {
-              setLoader(false);
-              toast.error(error.response.data.message)
-            })
-            .finally(() => {
-              setLoading(false);
-            });
-        }
-      } else {
-        toast.error("Please fill all fields")
+    if (allFormData.title !== "" && allFormData.description !== "") {
+      if (!loading) {
+        setLoading(true)
+        axios.defaults.headers.post[
+          "Authorization"
+        ] = `Bearer ${tok}`;
+        var config = {
+          method: "post",
+          url: `${API_URL}/forums/posts/`,
+          data: {
+            title: allFormData.title,
+            description: allFormData.description,
+            isForumPost: rankid,
+          },
+        };
+        axios(config)
+          .then(async (response) => {
+            setLoader(false);
+            toast.success("Post Added Successfully");
+            getMyPosts()
+            handleCloseForum()
+            ClearAll()
+            // window.$(`#exampleModall`).modal("hide");
+            // ClearAlloperation()
+            // Code
+          }).catch((error) => {
+            setLoader(false);
+            toast.error(error.response.data.message)
+          })
+          .finally(() => {
+            setLoading(false);
+          });
       }
+    } else {
+      toast.error("Please fill all fields")
+    }
     // }
     // else{
     //   localStorage.clear()
@@ -98,14 +98,14 @@ const ArmyForum = () => {
 
     var config = {
       method: "get",
-      url: `${API_URL}/forums/top-user?limit=100&&isForumPost=${rankid}`,
+      url: `${API_URL}/forums/top-user?offset=1&&limit=25`,
       headers: {
         authorization: `Bearer ` + tok
       },
     };
     axios(config)
       .then(function (response) {
-        settopuser(response?.data?.data?.topUsers);
+        settopuser(response?.data?.data);
       })
       .catch(function (error) {
         console.log(error);
@@ -151,24 +151,24 @@ const ArmyForum = () => {
           },
         }
         axios(config)
-        .then(async (response) => {
-          const newPost = post
-          let dumObj = item;
-          dumObj.noOfComments = dumObj.noOfComments + 1;
-          // let findIndex = post.findIndex((ip) => { return ip._id === dumObj._id })
-          const index = post.findIndex((v, index) => index === dumObj?._id)
-          newPost.splice(index, 1, dumObj)
-          setPost(newPost)
-          getMyPosts()
-          setLoader(false);
-          toast.success("Comment Created Successfully");
-          mainid(commentid, "add");
-          commentnull();
-          setcomment('');
-        }).catch((error) => {
-          setLoader(false);
-          toast.error(error.response.data.message)
-        })
+          .then(async (response) => {
+            let dumArr = post;
+            let dumObj = item;
+            dumObj.noOfComments = dumObj.noOfComments + 1;
+            let findIndex = dumArr.findIndex((ip) => {
+              return ip._id === dumObj._id;
+            })
+            dumArr[findIndex] = dumObj;
+            setPost(dumArr);
+            setLoader(false);
+            toast.success("Comment Created Successfully");
+            mainid(commentid, "add");
+            commentnull();
+            setcomment('');
+          }).catch((error) => {
+            setLoader(false);
+            toast.error(error.response.data.message)
+          })
           .finally(() => {
             setLoading(false);
           });
@@ -325,30 +325,30 @@ const ArmyForum = () => {
   const UpdateTask = (objj) => {
     if (!loading) {
       setLoading(true)
-    axios.patch(`${API_URL}/forums/posts/${objj._id}`,
-      {
-        title: detailsingle.title,
-        description: detailsingle.description
-      },
-      {
-        headers: {
-          authorization: `Bearer ` + tok
+      axios.patch(`${API_URL}/forums/posts/${objj._id}`,
+        {
+          title: detailsingle.title,
+          description: detailsingle.description
+        },
+        {
+          headers: {
+            authorization: `Bearer ` + tok
+          }
         }
-      }
-    ).then((response) => {
-      getMyPosts()
-      toast.success("Updated successfully");
-      setShowForumEditModal(false)
-      
-      // Code
-    }).catch((error) => {
-      // Code
-      toast.error(error.response.data.message)
-    })
-    .finally(() => {
-      setLoading(false);
-    });
-  }
+      ).then((response) => {
+        getMyPosts()
+        toast.success("Updated successfully");
+        setShowForumEditModal(false)
+
+        // Code
+      }).catch((error) => {
+        // Code
+        toast.error(error.response.data.message)
+      })
+        .finally(() => {
+          setLoading(false);
+        });
+    }
   }
 
 
@@ -544,16 +544,15 @@ const ArmyForum = () => {
                       {topuser?.map((elem) => {
                         return (
                           <div className="inner-item">
-                            <h6>{elem?._id?.name}</h6>
+                            <h6>{elem?.nickName}</h6>
                             <h6>
-                              <img src={elem?._id?.profileImage} alt="img" className="img-fluid me-2" style={{ width: "34px", height: "34px" }} />
-                              {/* Private */}
+                              <img src={elem?.rank?.icon} alt="img" className="img-fluid me-2" style={{ width: "34px", height: "34px" }} />
+                              {elem?.rank?.name}
                             </h6>
                           </div>
                         )
                       })
                       }
-
                     </div>
                   </div>
                 </div>
@@ -649,7 +648,7 @@ const ArmyForum = () => {
               placeholder="Enter Description Url...."></textarea>
             <div className="twice-btn">
               <button className="btn-cancel" onClick={handleCloseEditForum} aria-label="Close"> <img src="\assets\cancel.svg" alt="img" className="img-fluid me-2" /> Cancel</button>
-              <button className="btn-topic" onClick={() => UpdateTask(detailsingle)} disabled={loading}> <img src="\assets\topic-btn.svg" alt="img" className="img-fluid me-2" /> {loading ? 'Updating':'Update'}</button>
+              <button className="btn-topic" onClick={() => UpdateTask(detailsingle)} disabled={loading}> <img src="\assets\topic-btn.svg" alt="img" className="img-fluid me-2" /> {loading ? 'Updating' : 'Update'}</button>
             </div>
           </Modal.Body>
         </Modal>
