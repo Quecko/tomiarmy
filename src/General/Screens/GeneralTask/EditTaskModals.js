@@ -6,6 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { API_URL } from '../../../utils/ApiUrl';
 import { toast } from 'react-toastify';
 import axios from 'axios';
+import Loader from '../../../hooks/loader';
 
 const EditTaskModals = ({ showtaskdetail, setShowtaskdetail, showtaskedit, setShowtaskedit, taskdetail, getData }) => {
   const handleClosetaskdetail = () => setShowtaskdetail(false);
@@ -13,7 +14,8 @@ const EditTaskModals = ({ showtaskdetail, setShowtaskdetail, showtaskedit, setSh
   const [showtasksuccess, setShowtasksuccess] = useState(false);
   const handleClosetasksuccess = () => setShowtasksuccess(false);
   const [detailsingle, setdetailsingle] = useState()
-  const [startDate, setStartDate] = useState(null);
+  const [startDate, setStartDate] = useState('');
+  const [loader, setLoader] = useState(false);
   const [rend, setRend] = useState(false);
   const [profilePicture, setProfilePicture] = useState(null);
   const [profileP, setProfileP] = useState();
@@ -123,6 +125,7 @@ const EditTaskModals = ({ showtaskdetail, setShowtaskdetail, showtaskedit, setSh
     if (detailsingle?.name != '') {
       if (detailsingle?.reward != '') {
         if (detailsingle?.description != '') {
+          setLoader(true)
           var config = {
             method: "patch",
             url: `${API_URL}/tasks/${objj._id}`,
@@ -137,6 +140,7 @@ const EditTaskModals = ({ showtaskdetail, setShowtaskdetail, showtaskedit, setSh
               handleClosetaskedit();
               setShowtasksuccess(true);
               getData()
+              setLoader(false)
               // setdetailsingle()
               // setStartDate()
               setProfilePicture(null)
@@ -145,7 +149,7 @@ const EditTaskModals = ({ showtaskdetail, setShowtaskdetail, showtaskedit, setSh
               setdocfilep(null)
             })
             .catch(function (error) {
-              // setLoader(false);
+              setLoader(false);
               if (error.response.data.statusCode == 409) {
                 toast.error('Tasks with this name already exist', {
                   position: 'top-right',
@@ -191,6 +195,7 @@ const EditTaskModals = ({ showtaskdetail, setShowtaskdetail, showtaskedit, setSh
 
   return (
     <>
+    {loader && <Loader  />}
       <Modal className='detailmodal' show={showtaskdetail} onHide={handleClosetaskdetail} centered>
         <Modal.Header closeButton>
           <Modal.Title>task details</Modal.Title>
@@ -291,6 +296,12 @@ const EditTaskModals = ({ showtaskdetail, setShowtaskdetail, showtaskedit, setSh
               <div className="option-field">
                 <label>Expiration Date</label>
                 <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} minDate={moment().toDate()} />
+                {startDate === '' &&
+                  <div className='sacvae'>
+                    {moment(detailsingle?.expirationDate).format("DD-MM-YYYY")}
+                  </div>
+                }
+
                 {/* <input value={detailsingle?.expirationDate} type="date" placeholder="Select expiration date..." /> */}
               </div>
               <div className="option-field">

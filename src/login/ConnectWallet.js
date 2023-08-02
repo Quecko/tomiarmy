@@ -23,6 +23,7 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role, setRole, setinvitecode, 
     const history = useHistory();
     const { login, logout } = useAuth();
     const [showmodal,setShowModal]=useState(false)
+    const [loader, setLoader] = useState(false);
 
     const forWalletConnect = () => {
         setShowModal(true)

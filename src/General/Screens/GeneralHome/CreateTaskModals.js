@@ -125,6 +125,7 @@ const CreateTaskModals = ({ showtask, setShowtask, getData }) => {
     if (allFormData?.name != '') {
       if (allFormData?.reward != '') {
         if (allFormData?.description != '') {
+          setLoader(true)
           axios.defaults.headers.post[
             "Authorization"
           ] = `Bearer ${tok}`;
@@ -202,7 +203,7 @@ const CreateTaskModals = ({ showtask, setShowtask, getData }) => {
 
   return (
     <>
-      {loader && <Loader />}
+      {loader && <Loader  />}
       {/* general task all modals here................................. */}
       <Modal className="createtask-modal global-modal-style" show={showtask} onHide={handleClosetask} centered>
         <Modal.Header closeButton>

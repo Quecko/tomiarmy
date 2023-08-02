@@ -5,6 +5,7 @@ import { toast } from 'react-toastify';
 import axios from 'axios';
 import moment from "moment";
 import { Modal } from 'react-bootstrap';
+import Loader from "../../../hooks/loader";
 
 
 const GeneralForum = () => {
@@ -53,9 +54,9 @@ const GeneralForum = () => {
   }
   //  create new forum
   const putQuestion = () => {
-    setLoader(true);
     if (allFormData.title !== "" && allFormData.description !== "") {
       if (!loading) {
+        setLoader(true);
         setLoading(true)
         axios.defaults.headers.post[
           "Authorization"
@@ -356,6 +357,7 @@ const GeneralForum = () => {
   const UpdateTask = (objj) => {
     if (!loading) {
       setLoading(true)
+      setLoader(true);
     axios.patch(`${API_URL}/forums/posts/${objj._id}`,
       {
         title: detailsingle.title,
@@ -370,10 +372,11 @@ const GeneralForum = () => {
       getMyPosts()
       toast.success(" Updated Successfully");
       setShowForumEditModal(false)
+      setLoader(false);
       // window.$(`#exampleModal1`).modal("hide");
       // Code
     }).catch((error) => {
-      // Code
+      setLoader(false)
       toast.error(error.response.data.message)
     })
     .finally(() => {
@@ -400,6 +403,7 @@ const GeneralForum = () => {
 
   return (
     <>
+    {loader && <Loader/>}
       <div className="formobile-heading shsvhsvhsdhsd  display-block-in-mobile">
         <div className="inner-heading soldier-name">
           <h6>{indexvalue == 12 ? 'My Post' : 'Army Forum'} </h6>
