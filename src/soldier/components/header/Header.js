@@ -80,9 +80,15 @@ const Header = ({ routes, setroute, indexwait, handleShow, setShow2, setShow1, s
         token: tok,
       });
     });
-
     socket.on('WORK_PROOF_REJECTED', (notification) => {
       toast.info("Update On Your Submitted Task Please Check Your Notifications");
+      audio.play()
+      getNotif()
+      getData()
+      getDataOperation()
+    });
+    socket.on('WORK_PROOF_APPROVED', (notification) => {
+      // toast.info("Update On Your Submitted Task Please Check Your Notifications");
       audio.play()
       getNotif()
       getData()

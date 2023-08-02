@@ -473,7 +473,7 @@ const ArmyForum = () => {
                         </div>
                       </section>
                       {current == index &&
-                        <section className="comments">
+                        <section className="comments" style={{marginTop: "23px"}}>
                           <div className="maincomment">
                             <h1 className="headcmnt">Comments</h1>
                             {ListComment?.slice(0, limit0)?.map((elem, index) => {

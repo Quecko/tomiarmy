@@ -418,8 +418,8 @@ const GeneralForum = () => {
       <div className="topicwrapper">
         <section className="topics">
           <div className="containersss p-0">
-            <div className="row fordirection">
-              <div className="col-xl-9 col-12 p-0">
+            <div className="parent-forum">
+              <div className="left-forum">
                 {/* <div className="arrows">
                     <img src="\assets\arrow-up.png" alt="img" className="arrow" style={{width: "25px" , height: "25px"}} />
                     <p className="serial">56</p>
@@ -488,7 +488,7 @@ const GeneralForum = () => {
                         </div>
                       </section>
                       {current == index &&
-                        <section className="comments">
+                        <section className="comments" style={{marginTop: "23px"}}>
                           <div className="maincomment">
                             <h1 className="headcmnt">Comments</h1>
                             {ListComment?.slice(0, limit0)?.map((elem, index) => {
@@ -533,7 +533,7 @@ const GeneralForum = () => {
                 })}
                 {/* </section> */}
               </div>
-              <div className='col-xl-3 col-12 pe-0 padd-sm'>
+              <div className='right-forum'>
                 <div className='members-section border-grad1 display-none-in-mobile'>
                   <div className="tophead">
                     <h6>Members <span>({topuser?.length})</span></h6>
@@ -559,8 +559,8 @@ const GeneralForum = () => {
                       {topuser?.map((elem) => {
                         return (
                           <div className="inner-item">
-                            <h6>{elem?.nickName}</h6>
-                            <h6>
+                            <h6 className="set-text-left">{elem?.nickName}</h6>
+                            <h6 className="set-text-right">
                               <img src={elem?.rank?.icon} alt="img" className="img-fluid sjddvbbgdsijdfer me-2" />
                               {elem?.rank?.name}
                             </h6>

@@ -135,7 +135,7 @@ const CreateOperation = ({ svaebutton, setroutehome, routeshome, setexpired, tas
                     if (startDate) {
                         if (profileP) {
                             if (allFormData?.tomitoken != '') {
-                                setLoader(true)
+                                // setLoader(true)
                                 axios.defaults.headers.post[
                                     "Authorization"
                                 ] = `Bearer ${tok}`;
@@ -244,7 +244,7 @@ const CreateOperation = ({ svaebutton, setroutehome, routeshome, setexpired, tas
                 if (allFormData?.description != '') {
                     // if (profileP || profilePicture) {
                     if (allFormData?.tomitoken != '') {
-                        setLoader(true)
+                        // setLoader(true)
                         var config = {
                             method: "patch",
                             url: `${API_URL}/tasks/operations/${operationdata?._id}`,
@@ -266,7 +266,7 @@ const CreateOperation = ({ svaebutton, setroutehome, routeshome, setexpired, tas
                                 ClearAll();
                                 setProfileP(null);
                                 setProfilePicture(null)
-                                toast.success('Operation Created Successfully', {
+                                toast.success('Operation updated Successfully', {
                                     position: "top-right",
                                     autoClose: 2000,
                                 })

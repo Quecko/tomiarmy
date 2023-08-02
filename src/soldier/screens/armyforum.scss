@@ -195,19 +195,16 @@
                         color: #FFFFFF;
                         text-align: start;
                         margin-bottom: 15px;
-                        font-weight: 600;
                     }
 
                     p {
-
-                        font-style: normal;
-                        font-weight: 500;
-                        font-size: 15px;
-                        line-height: 140%;
-                        text-transform: capitalize;
-                        color: #FFFFFF;
                         text-align: start;
-                        font-weight: 500;
+                        color: #FFF;
+                        font-size: 15px;
+                        font-style: normal;
+                        font-weight: 400;
+                        line-height: 140%; 
+                        text-transform: capitalize;
                     }
 
                     .upperpara {
@@ -258,7 +255,7 @@
                             font-size: 16px;
                             line-height: 110%;
                             color: #FFFFFF;
-                            font-weight: 600;
+                            font-weight: 500;
                         }
 
                         .inner-parent {
@@ -302,7 +299,7 @@
         }
 
         .comments {
-            margin-top: 23px;
+            // margin-top: 23px;
             border-radius: 10px;
             background: #1D2028;
             padding: 20px;
@@ -316,7 +313,7 @@
                     line-height: 130%;
                     color: #FFFFFF;
                     text-align: start;
-                    font-weight: 700;
+                    font-weight: 600;
                 }
 
                 .innermain {
@@ -335,7 +332,7 @@
                         line-height: 130%;
                         color: #FFFFFF;
                         text-align: start;
-                        font-weight: 500;
+                        font-weight: 400;
                     }
 
                     .innerprofile {
@@ -347,14 +344,15 @@
                         .imageset {
                             width: 60px;
                             height: 60px;
-                            border-radius: 50%;
+                            border-radius: 10px;
                             margin-right: 13px;
+                            overflow: hidden;
 
                             .profileimg {
                                 width: 100%;
                                 height: 100%;
-                                background-position: center;
-                                background-size: cover;
+                                object-fit: cover;
+                                border-radius: 10px;
                             }
                         }
 
@@ -367,7 +365,7 @@
                                 color: #FFFFFF;
                                 text-align: start;
                                 margin-bottom: 2px;
-                                font-weight: 700;
+                                font-weight: 600;
                             }
 
                             p {
@@ -376,7 +374,7 @@
                                 font-size: 16px;
                                 line-height: 130%;
                                 color: #81828A;
-                                font-weight: 500;
+                                font-weight: 400;
                             }
                         }
                     }
@@ -394,7 +392,7 @@
                 padding-top: 13px;
                 margin-bottom: 20px;
                 text-align: start;
-                font-weight: 700;
+                font-weight: 600;
             }
 
             p {
@@ -405,7 +403,7 @@
                 color: #FFFFFF;
                 margin-bottom: 10px;
                 text-align: start;
-                font-weight: 700;
+                font-weight: 600;
             }
 
             textarea {
@@ -439,11 +437,16 @@
                 line-height: 100%;
                 color: #FFFFFF;
                 border-radius: 10px;
-                border-bottom: 1px solid #F058A6;
-                background: linear-gradient(180deg, rgba(255, 255, 255, 0.50) 0%, rgba(255, 255, 255, 0.00) 100%), #FF0083;
-                box-shadow: 0px 3px 1px 0px #88134F;
+      
+    
+                
                 max-width: 186px;
                 width: 100%;
+
+                background: linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0) 34.22%), #FF0083;
+                border: none;
+                border-bottom: 1px solid #F058A6;
+                box-shadow: 0px 3px 1px #88134F;
 
                 &:hover {
                     background: linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0) 34.22%), #D10570;
@@ -816,7 +819,7 @@
 
         h6 {
             font-style: normal;
-            font-weight: 700;
+            font-weight: 600;
             font-size: 18px;
             line-height: 110%;
             text-transform: uppercase;
@@ -890,6 +893,26 @@
                 &:nth-child(odd) {
                     background: linear-gradient(180deg, #232631 0%, rgba(29, 32, 43, 0.4) 100%);
                     border-radius: 10px;
+                }
+                .set-text-left{
+                    color: #FFF;
+                    font-size: 14px;
+                    font-style: normal;
+                    font-weight: 400;
+                    line-height: 100%; /* 14px */
+                    letter-spacing: 0.14px;
+                }
+                .set-text-right{
+                    color: #FFF;
+                    font-size: 14px;
+                    font-style: normal;
+                    font-weight: 500;
+                    line-height: 100%; /* 14px */
+                    letter-spacing: 0.14px;
+                    flex: 0 0 44%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: flex-start;
                 }
             }
         }
@@ -1126,9 +1149,10 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        max-width: 672px;
 
         .modal-content {
-            min-width: 672px;
+            max-width: 672px;
             margin: 0 auto;
             background: #161A22;
             backdrop-filter: blur(2px);
@@ -1330,3 +1354,42 @@
     width: 100%;
 }
 
+
+.parent-forum{
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 10px;
+    .left-forum{
+        width: 100%;
+    }
+    .right-forum{
+        max-width: 329px;
+        width: 100%;
+    }
+}
+
+
+@media (max-width:600px){
+    .parent-forum .right-forum{
+        display: none;
+    }
+    .topic-new-modal .modal-dialog .modal-content .modal-body .twice-btn{
+        flex-direction: column-reverse;
+        justify-content: center;
+        align-items: center;
+        gap: 15px;
+    }
+    .topic-new-modal .modal-dialog .modal-content .modal-body .twice-btn .btn-cancel{
+        width: 100%;
+    }
+    .topic-new-modal .modal-dialog .modal-content .modal-body .twice-btn .btn-topic{
+        width: 100%;
+    }
+    .shsvhsvhsdhsd .create-squad-btn{
+        width: 100%;
+    }
+    .topicwrapper .maincmntsection{
+        padding: 20px;
+    }
+}

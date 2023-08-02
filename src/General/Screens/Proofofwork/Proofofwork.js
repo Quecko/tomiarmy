@@ -8,7 +8,7 @@ import { API_URL } from '../../../utils/ApiUrl';
 import { toast } from 'react-toastify';
 import { useWeb3React } from "@web3-react/core";
 import axios from 'axios';
-
+import Loader from '../../../hooks/loader'
 const Proofofwork = () => {
     const [showwork, setShowwork] = useState(false);
     const [showwork1, setShowwork1] = useState(false);
@@ -16,6 +16,7 @@ const Proofofwork = () => {
     const [imagedetail, setimagedetail] = useState(null)
     const handleClosework = () => setShowwork(false);
     const handleClosework1 = () => setShowwork1(false);
+    const [loader, setLoader] = useState(false);
     const handleShowwork = (elem) => {
         setsingledetail(elem)
         setShowwork(true);
@@ -198,6 +199,7 @@ const Proofofwork = () => {
     const Acceptreject = async (singledetail, approvedcheck) => {
         let tok = localStorage.getItem("accessToken");
         // setOpens(true);
+        // setLoader(true)
         axios
             .patch(
                 API_URL + "/tasks/work-proofs/" +
@@ -211,6 +213,7 @@ const Proofofwork = () => {
                 if (response.data.data.isApproved == true) {
                     handleClosework();
                     handleShowapprove1();
+                    setLoader(false)
                 } else {
                     handleClosework();
                     handleShowreject1();
@@ -221,6 +224,7 @@ const Proofofwork = () => {
                     // window.$('#powork').modal('hide')
                     .catch((err) => {
                         // setOpens(false);
+                        setLoader(false)
                         toast.warning(
                             "Error",
                             {
@@ -235,6 +239,7 @@ const Proofofwork = () => {
     const Acceptrejectoperation = async (taskdetail, singledetail, approvedcheck) => {
         let tok = localStorage.getItem("accessToken");
         // setOpens(true);
+        setLoader(true)
         axios
             .patch(
                 API_URL + "/tasks/operations/" + taskdetail?.operationId + "/work-proof/" +
@@ -250,6 +255,7 @@ const Proofofwork = () => {
                     handleClosework1();
                     handleShowapprove();
                     allworkproofs();
+                    setLoader(false)
                 } else {
                     handleClosework1();
                     handleShowreject();
@@ -261,6 +267,7 @@ const Proofofwork = () => {
                     // window.$('#powork').modal('hide')
                     .catch((err) => {
                         // setOpens(false);
+                        setLoader(false)
                         toast.warning(
                             "Error",
                             {
@@ -288,6 +295,7 @@ const Proofofwork = () => {
 
     return (
         <>
+         {loader && <Loader/>}
             <div className="formobile-heading d-none display-block-in-mobile">
                 <div className="inner-heading">
                     <h6>Proof of Work  </h6>

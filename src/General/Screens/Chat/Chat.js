@@ -204,7 +204,9 @@ const Chat = ({ setPage, page, setChat, chat, getChat, pages, message, setMessag
                               }
                             </div>
                             {extension === 'jpg' || extension === 'png' || extension === 'jpeg' || extension === 'gif' || extension === 'webp' ?
-                              <img className='asdsadasdasdsa' onClick={() => showImage(elem)} src={elem?.media} />
+                              <div className="wrapper-send-img">
+                                <img className='asdsadasdasdsa' onClick={() => showImage(elem)} src={elem?.media} />
+                              </div>
                               :
                               extension === 'doc' || extension === 'docx' || extension == 'pdf' || extension === 'txt' || extension === 'xml' || extension === 'xlsx' || extension === 'ppt' || extension === 'pptx' ?
                                 <div className='scwv'>
@@ -252,7 +254,9 @@ const Chat = ({ setPage, page, setChat, chat, getChat, pages, message, setMessag
                               }
                             </div>
                             {extension === 'jpg' || extension === 'png' || extension === 'jpeg' || extension === 'gif' || extension === 'webp' ?
-                              <img className='asdsadasdasdsa' onClick={() => showImage(elem)} src={elem?.media} />
+                              <div className="wrapper-send-img">
+                                 <img className='asdsadasdasdsa' onClick={() => showImage(elem)} src={elem?.media} />
+                              </div>
                               :
                               extension === 'doc' || extension === 'docx' || extension == 'pdf' || extension === 'txt' || extension === 'xml' || extension === 'xlsx' || extension === 'ppt' || extension === 'pptx' ?
                                 <div className='scwv'>
