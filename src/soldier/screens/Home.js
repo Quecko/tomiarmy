@@ -11,7 +11,7 @@ import HomeOperations from "../components/home/HomeOperations/HomeOperations";
 import { API_URL } from "../../utils/ApiUrl"
 import ReactApexChart from 'react-apexcharts';
 
-const Home = ({ setShow2, tasks, setShowtask, settaskdetail, setShowtask1, settaskdetail1, operations, setOperationId, users, squaddetail, statusData,setindexwait }) => {
+const Home = ({ setShow2, tasks, setShowtask, settaskdetail, setShowtask1, settaskdetail1, operations, setOperationId, users, squaddetail, statusData, setindexwait }) => {
 
   let total = (statusData?.ApprovedTasks / statusData?.totalTasks) * 100
   const state = {
@@ -128,7 +128,19 @@ const Home = ({ setShow2, tasks, setShowtask, settaskdetail, setShowtask1, setta
                 </Dropdown.Menu>
               </Dropdown> */}
             </div>
-            <div className="stats-data-boxes">
+            <div className="stats-data-boxes sycvcsvyvcvsycvtcsv">
+              <div className="inner-data-box border-grad">
+                <div className="stats-item-box">
+                  <img src="\assets\refercode.png" alt="earned" style={{ width: "50px", height: "50px" }} />
+                  <div>
+                    <p>My Reference Code</p>
+                    <h4>84375476 <a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" className="ms-2">
+                      <path d="M13 10.5V13.5C13 16 12 17 9.5 17H6.5C4 17 3 16 3 13.5V10.5C3 8 4 7 6.5 7H9.5C12 7 13 8 13 10.5Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                      <path d="M17 6.5V9.5C17 12 16 13 13.5 13H12.7143V10.7857C12.7143 8.28571 11.7143 7.28571 9.21429 7.28571H7V6.5C7 4 8 3 10.5 3H13.5C16 3 17 4 17 6.5Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg></a></h4>
+                  </div>
+                </div>
+              </div>
               <div className="inner-data-box border-grad">
                 <div className="stats-item-box">
                   <img src="\static-icons\earned.png" alt="earned" style={{ width: "50px", height: "50px" }} />
@@ -218,7 +230,7 @@ const Home = ({ setShow2, tasks, setShowtask, settaskdetail, setShowtask1, setta
           </div>
         </div>
       </div>
-      <HomeOperations setShowtask1={setShowtask1} settaskdetail1={settaskdetail1} operations={operations} setOperationId={setOperationId} users={users} setindexwait={setindexwait}/>
+      <HomeOperations setShowtask1={setShowtask1} settaskdetail1={settaskdetail1} operations={operations} setOperationId={setOperationId} users={users} setindexwait={setindexwait} />
     </>
   );
 };

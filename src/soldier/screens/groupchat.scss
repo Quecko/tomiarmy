@@ -77,10 +77,8 @@
                 }
 
                 .message-text {
-                    background: linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0) 34.22%), #FF0083;
-                    border: 1px solid #F058A6;
-                    box-shadow: 0px 3px 1px #88134F;
                     border-radius: 0px 10px 10px 10px;
+                    background: #FF0083;
                     padding: 10px;
                     font-style: normal;
                     font-weight: 500;
@@ -97,14 +95,13 @@
                         line-height: 120%;
                         color: #FFFFFF;
                         text-align: start;
+                        word-break: break-all;
                     }
                 }
 
                 .message-text-pdf {
-                    background: linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0) 34.22%), #FF0083;
-                    border: 1px solid #F058A6;
-                    box-shadow: 0px 3px 1px #88134F;
                     border-radius: 0px 10px 10px 10px;
+                    background: #FF0083;
                     padding: 10px;
                     font-style: normal;
                     font-weight: 500;
@@ -210,10 +207,8 @@
                 }
 
                 .message-text {
-                    background: linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0) 34.22%), #8147FF;
-                    border: 1px solid #8C5BF5;
-                    box-shadow: 0px 3px 1px #3A148C;
                     border-radius: 10px 0px 10px 10px;
+                    background: #8147FF;
                     padding: 10px;
                     font-style: normal;
                     font-weight: 500;
@@ -247,6 +242,8 @@
            
 
             .option-field {
+                max-width: 700px;
+                width: 100%;
                 input {
                     background-color: transparent;
                     border: none;
@@ -256,6 +253,7 @@
                     line-height: 100%;
                     letter-spacing: 0.01em;
                     color: #fff;
+                    width: 100%;
 
 
                     &::placeholder {
@@ -397,21 +395,21 @@
 
 }
 
-.asdsadasdasdsa {
-    width: 160px;
-    height: 150px;
-    border-radius: 10px;
-    object-fit: cover;
-    margin-top: 10px;
-}
+// .asdsadasdasdsa {
+//     width: 160px;
+//     height: 150px;
+//     border-radius: 10px;
+//     object-fit: cover;
+//     margin-top: 10px;
+// }
 
-.asdsadasdasdsas {
-    width: 290px;
-    height: 170px;
-    border-radius: 10px;
-    object-fit: cover;
-    margin-top: 10px;
-}
+// .asdsadasdasdsas {
+//     width: 290px;
+//     height: 170px;
+//     border-radius: 10px;
+//     object-fit: cover;
+//     margin-top: 10px;
+// }
 
 .scwv {
     margin-top: 5px !important;
