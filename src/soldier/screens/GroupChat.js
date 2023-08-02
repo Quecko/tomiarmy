@@ -193,7 +193,7 @@ const GroupChat = ({ setPage, page, setChat, chat, getChat, pages, message, setM
                                 </div>
                                 <div className="title-client">
                                   <h6><span>{createDate}</span>{elem?.user?.rank?.name} </h6>
-                                  <img src="\assets\private-rank.svg" alt="img" className='img-fluid' />
+                                  <img  src={elem?.user?.rank?.icon} height='42px' width='42px'  alt="img" className='img-fluid' />
                                 </div>
                               </div>
                               {elem?.message &&
@@ -240,7 +240,7 @@ const GroupChat = ({ setPage, page, setChat, chat, getChat, pages, message, setM
                                   <h6>{elem?.user?.nickName}</h6>
                                 </div>
                                 <div className="title-client">
-                                  <img src="\assets\private-rank.svg" alt="img" className='img-fluid' />
+                                  <img src={elem?.user?.rank?.icon} height='42px' width='42px' alt="img" className='img-fluid' />
                                   <h6>{elem?.user?.rank?.name}  <span>{createDate}</span></h6>
                                 </div>
                               </div>

@@ -28,10 +28,18 @@ const Proofofwork = () => {
     const [showapprove, setShowapprove] = useState(false);
     const handleCloseapprove = () => setShowapprove(false);
     const handleShowapprove = () => setShowapprove(true);
+    const [showapprove1, setShowapprove1] = useState(false);
+    const handleCloseapprove1 = () => setShowapprove1(false);
+    const handleShowapprove1 = () => setShowapprove1(true);
+
 
     const [showreject, setShowreject] = useState(false);
     const handleClosereject = () => setShowreject(false);
     const handleShowreject = () => setShowreject(true);
+    const [showreject1, setShowreject1] = useState(false);
+    const handleClosereject1 = () => setShowreject1(false);
+    const handleShowreject1 = () => setShowreject1(true);
+
     const [expired, setexpired] = useState(false);
     const [tasks, settasks] = useState([]);
     const [taskdetail, settaskdetail] = useState(null);
@@ -202,10 +210,10 @@ const Proofofwork = () => {
             .then((response) => {
                 if (response.data.data.isApproved == true) {
                     handleClosework();
-                    handleShowapprove();
+                    handleShowapprove1();
                 } else {
                     handleClosework();
-                    handleShowreject();
+                    handleShowreject1();
                 }
                 getData()
                     // setCall(!call)
@@ -794,7 +802,7 @@ const Proofofwork = () => {
                             </div>
                             <div className="detailmain">
                                 <div className="proofmain">
-                                    <p className="detailpara">Start Date</p>
+                                    <p className="detailpara">Submitted Date</p>
                                     <h6 className="detailhead">
                                         {
                                             taskdetail?.createdAt
@@ -804,10 +812,10 @@ const Proofofwork = () => {
                                                 .join('-')}
                                     </h6>
                                 </div>
-                                <div className="proofmain">
+                                {/* <div className="proofmain">
                                     <p className="detailpara">End Date</p>
                                     <h6 className="detailhead">05/05/2023</h6>
-                                </div>
+                                </div> */}
                             </div>
                         </div>
                         <div className="proofdetailleft">
@@ -856,6 +864,30 @@ const Proofofwork = () => {
                     <div className="approvemain">
                         <img src="\generalassets\other-imgs\rejectimg.png" alt="approveimg" className="approveimg img-fluid" />
                         <p className="approvetext">operation proof of work rejected</p>
+                    </div>
+                </Modal.Body>
+            </Modal>
+
+            <Modal className="createdsuccess-modal global-modal-style powmodal" show={showapprove1} onHide={handleCloseapprove1} centered>
+                <Modal.Header closeButton>
+                    <Modal.Title>proof of work</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <div className="approvemain">
+                        <img src="\generalassets\other-imgs\approveimg.png" alt="approveimg" className="approveimg img-fluid" />
+                        <p className="approvetext">Task proof of work approved</p>
+                    </div>
+                </Modal.Body>
+            </Modal>
+
+            <Modal className="createdsuccess-modal global-modal-style powmodal" show={showreject1} onHide={handleClosereject1} centered>
+                <Modal.Header closeButton>
+                    <Modal.Title>proof of work</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <div className="approvemain">
+                        <img src="\generalassets\other-imgs\rejectimg.png" alt="approveimg" className="approveimg img-fluid" />
+                        <p className="approvetext">Task proof of work rejected</p>
                     </div>
                 </Modal.Body>
             </Modal>

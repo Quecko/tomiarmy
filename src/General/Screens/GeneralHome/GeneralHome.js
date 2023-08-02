@@ -530,7 +530,7 @@ const GeneralHome = ({ setShowtask, setroutehome, routeshome }) => {
                                                 <img src="\generalassets\icons\tomirewarded.png" alt="earned" style={{ width: "70px", height: "70px" }} />
                                                 <div>
                                                     <p>Tomi Rewarded</p>
-                                                    <h4>112</h4>
+                                                    <h4>0</h4>
                                                 </div>
                                             </div>
                                         </div>

@@ -31,7 +31,10 @@ const ArmyMembers = ({ routesarmy, setroutearmy }) => {
     const handleShowreject = () => setShowreject(true);
 
     const [showrank, setShowrank] = useState(false);
-    const handleCloserank = () => setShowrank(false);
+    const handleCloserank = () =>{
+        setArmymajor()
+        setShowrank(false);
+    }
     const [dataarmymember, setdataarmymember] = useState();
 
     const handleShowrank = (elem) => {
@@ -39,6 +42,8 @@ const ArmyMembers = ({ routesarmy, setroutearmy }) => {
         setShowrank(true);
     }
 
+
+    
     const [data, setData] = useState([]);
     const [Armymajor, setArmymajor] = useState([]);
     const [selectedrank, setselectedrank] = useState('Select Rank');
@@ -82,7 +87,7 @@ const ArmyMembers = ({ routesarmy, setroutearmy }) => {
         // if (currentPage > 1) {
         //     getData(currentPage);
         // } else {
-        GetArmymajor();
+        // GetArmymajor();
         armyembers();
         // }
     }, [account])
@@ -98,7 +103,11 @@ const ArmyMembers = ({ routesarmy, setroutearmy }) => {
         axios(config)
             .then(function (response) {
                 // setLoader(false);
-                setArmymajor(response?.data?.data);
+                const index = response?.data?.data.findIndex(rank => rank.name == dataarmymember?.rank?.name);
+                // Split the array from the "lieutenant" index to the end
+                const newArray = response?.data?.data?.slice(index+1);
+              
+                setArmymajor(newArray);
             })
             .catch(function (error) {
                 // setLoader(false);
@@ -411,7 +420,7 @@ const ArmyMembers = ({ routesarmy, setroutearmy }) => {
                                     <div className="option-field">
                                         <label>Rank Update</label>
                                         <div class="dropdown">
-                                            <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" onClick={GetArmymajor}>
                                                 {selectedrank?.name ? selectedrank.name : selectedrank}
                                                 <img src="\generalassets\icons\arrow-down.svg" alt="img" className='img-fluid' />
                                             </button>

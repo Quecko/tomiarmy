@@ -7,6 +7,7 @@ import { API_URL } from '../../../utils/ApiUrl';
 import { toast } from 'react-toastify';
 import axios from 'axios';
 import Loader from '../../../hooks/loader';
+import moment from 'moment';
 
 
 const CreateTaskModals = ({ showtask, setShowtask, getData }) => {
@@ -238,7 +239,7 @@ const CreateTaskModals = ({ showtask, setShowtask, getData }) => {
             <div className="twice-field">
               <div className="option-field">
                 <label>Expiration Date</label>
-                <DatePicker selected={startDate} placeholder="Select expiration date..." onChange={(date) => setStartDate(date)} />
+                <DatePicker selected={startDate} placeholder="Select expiration date..." onChange={(date) => setStartDate(date)} minDate={moment()?.toDate()} />
                 {/* <input type="date" placeholder="Select expiration date..." /> */}
               </div>
               <div className="option-field">
@@ -313,7 +314,7 @@ const CreateTaskModals = ({ showtask, setShowtask, getData }) => {
             <div className="twice-field">
               <div className="option-field">
                 <label>Expiration Date</label>
-                <DatePicker selected={startDate} placeholder="Select expiration date..." onChange={(date) => setStartDate(date)} />
+                <DatePicker selected={startDate} placeholder="Select expiration date..." onChange={(date) => setStartDate(date)} minDate={moment().toDate()} />
                 {/* <input type="date" placeholder="Select expiration date..." /> */}
               </div>
               <div className="option-field">

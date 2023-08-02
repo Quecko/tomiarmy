@@ -290,7 +290,7 @@ const EditTaskModals = ({ showtaskdetail, setShowtaskdetail, showtaskedit, setSh
             <div className="twice-field">
               <div className="option-field">
                 <label>Expiration Date</label>
-                <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} />
+                <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} minDate={moment().toDate()} />
                 {/* <input value={detailsingle?.expirationDate} type="date" placeholder="Select expiration date..." /> */}
               </div>
               <div className="option-field">

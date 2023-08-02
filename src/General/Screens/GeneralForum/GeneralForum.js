@@ -446,20 +446,40 @@ const GeneralForum = () => {
                                 </div>
                               </div>
                             </div>
-                            <div className="comments"  >
+                            <div className="twice-elements">
+                              {indexvalue == 12 &&
+                                <>
+                                  <button className="comments"
+                                    onClick={() => detailmodalopen(elem?._id)}
+                                  >
+                                    <p>Edit</p>
+                                  </button>
+                                  <button className="comments"
+                                    onClick={() => deletemodalopen(elem?._id)}
+                                  >
+                                    <p>Delete</p>
+                                  </button>
+                                </>
+                              }
+                              <div className="comments"  >
+                                <img src="\assets\comment.svg" alt="img" onClick={() => { mainid(elem?._id); UpdateCurrent(index) }} className="cmnt" data-toggle="collapse" href={`#${index}`} role="button" aria-expanded="false" aria-controls="collapseExample" />
+                                <p>{elem?.noOfComments}+</p>
+                              </div>
+                            </div>
+                            {/* <div className="comments"  >
                               <img src="\assets\comment.svg" alt="img" onClick={() => { mainid(elem?._id); UpdateCurrent(index) }} className="cmnt" data-toggle="collapse" href={`#${index}`} role="button" aria-expanded="false" aria-controls="collapseExample" />
                               <p>{elem?.noOfComments}+</p>
-                            </div>
-                            <button className="comments"  
+                            </div> */}
+                            {/* <button className="comments"  
                                onClick={() => detailmodalopen(elem?._id)}
                                >
                               <p>Edit</p>
-                            </button>
-                            <button className="comments" 
+                            </button> */}
+                            {/* <button className="comments" 
                               onClick={() => deletemodalopen(elem?._id)}
                             >
                               <p>Delete</p>
-                            </button>
+                            </button> */}
                           </div>
                         </div>
                       </section>

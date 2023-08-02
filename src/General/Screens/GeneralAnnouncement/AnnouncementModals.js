@@ -67,7 +67,7 @@ const AnnouncementModals = ({ showannounce, setShowannounce, getDataannou }) => 
     let tok = localStorage.getItem("accessToken");
     var config = {
       method: "get",
-      url: `${API_URL}/tasks/army-ranks`,
+      url: `${API_URL}/tasks/army-ranks?minimal=true`,
       headers: {
         authorization: `Bearer ` + tok
       },

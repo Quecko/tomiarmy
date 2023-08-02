@@ -84,7 +84,9 @@ const Chat = ({ setPage, page, setChat, chat, getChat, pages, message, setMessag
   };
 
   // get top user or member
-  const sendChat = async () => {
+  const sendChat = async (e) => {
+    console.log("sendchat")
+    e.preventDefault()
     if (message != '') {
     if (!loading) {
       setLoading(true);
@@ -171,6 +173,7 @@ const Chat = ({ setPage, page, setChat, chat, getChat, pages, message, setMessag
                     const createDate = moment(createdate).format("hh:mm:ss a");
                     var extension = elem?.media?.split('.').pop();
                     var result = elem?.media?.split("_")?.pop();
+                    console.log('elem',elem);
                     // var allowedExtensionsImage = /(\.jpg|\.jpeg|\.png|\.gif)$/i;
                     // var allowedExtensionsPdf = /(\.doc|\.docx|\.odt|\.pdf|\.tex|\.txt|\.rtf|\.wps|\.wks|\.wpd)$/i;
                     // if(allowedExtensionsImage.exec(elem?.media)){
@@ -193,7 +196,7 @@ const Chat = ({ setPage, page, setChat, chat, getChat, pages, message, setMessag
                                 </div>
                                 <div className="title-client">
                                   <h6><span>{createDate}</span>{elem?.user?.rank?.name} </h6>
-                                  <img src="\assets\private-rank.svg" alt="img" className='img-fluid' />
+                                  <img src={elem?.user?.rank?.icon} height='42px' width='42px'  alt="img" className='img-fluid' />
                                 </div>
                               </div>
                               {elem?.message &&
@@ -240,7 +243,7 @@ const Chat = ({ setPage, page, setChat, chat, getChat, pages, message, setMessag
                                   <h6>{elem?.user?.nickName}</h6>
                                 </div>
                                 <div className="title-client">
-                                  <img src="\assets\private-rank.svg" alt="img" className='img-fluid' />
+                                  <img src={elem?.user?.rank?.icon} height='42px' width='42px' alt="img" className='img-fluid' />
                                   <h6>{elem?.user?.rank?.name}  <span>{createDate}</span></h6>
                                 </div>
                               </div>
@@ -368,6 +371,8 @@ const Chat = ({ setPage, page, setChat, chat, getChat, pages, message, setMessag
 
             </div>
             <div className='chat-section dfdsfsfdsfsdfsdfsdf'>
+            <form onSubmit={(e)=>sendChat(e)}>
+
               <div className="bottom-side">
                 <div className="option-field">
                   <input type="text" placeholder='Write your message...' value={message} onChange={(e) => handleInputChange(e)} />
@@ -406,11 +411,11 @@ const Chat = ({ setPage, page, setChat, chat, getChat, pages, message, setMessag
                     <img onClick={clearImage} src="\generalassets\icons\cancel-icon.svg" alt="img" className='dscef' />
                   </div>
                 }
-                <div className="right-btns">
+              
+               <div className="right-btns">
                   <label htmlFor='upload' style={{ cursor: "pointer" }}>
                     <img src="\assets\file-upload.svg" alt="img" className='img-fluid set-hw-icon' />
                   </label>
-
                   <input type="file" className='d-none' id='upload'
                     onChange={(e) => ImageHandleChange(e)}
                     accept="audio/mp3, audio/wav, audio/mpeg, audio/ogg, audio/webm,
@@ -426,10 +431,13 @@ const Chat = ({ setPage, page, setChat, chat, getChat, pages, message, setMessag
                     }
                     <a style={{ cursor: "pointer" }} onClick={() => setshow(!show)}><img src="\assets\emoji.svg" alt="img" className='img-fluid set-hw-icon' /></a>
                   </div>
-                  <button className='btn-send' onClick={sendChat} disabled={loading} >{loading ? 'sending...' : 'send'}</button>
-                  <button className='chat-mobile-btn d-none' onClick={sendChat} disabled={loading}><img src="\assets\chat-msg-mobile.png" alt="img" className='img-fluid' /></button>
+                  <button className='btn-send' type='submit' disabled={loading} >{loading ? 'sending...' : 'send'}</button>
+                  <button className='chat-mobile-btn d-none' type='submit' disabled={loading}><img src="\assets\chat-msg-mobile.png" alt="img" className='img-fluid' /></button>
+            
+
                 </div>
               </div>
+              </form>
             </div>
 
           </div>
