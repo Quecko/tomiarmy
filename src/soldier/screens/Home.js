@@ -184,9 +184,9 @@ const Home = ({ setShow2, tasks, setShowtask, settaskdetail, setShowtask1, setta
                 </Dropdown> */}
               </div>
               <div className="row m-0 tasks-box-row inner-data-box border-grad padd">
-                <div className="col-6 task-completed-graph padd-sm">
+                <div className="col-6 task-completed-graph padd-sm p-0">
                   <div id="chart">
-                    <ReactApexChart options={state.options} series={state.series} type="radialBar" height={200} />
+                    <ReactApexChart options={state.options} series={state.series} type="radialBar" height={180} />
                   </div>
                 </div>
                 <div className="col-6">

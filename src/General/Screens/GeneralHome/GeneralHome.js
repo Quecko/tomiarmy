@@ -36,7 +36,7 @@ const GeneralHome = ({ setShowtask, setroutehome, routeshome }) => {
     const [Users, setUsers] = useState([]);
     const [data2, setData2] = useState([]);
     const [Armydataa, setArmydataa] = useState(null);
-    const [DropDownAll, setDropDownAll] = useState('all time');
+    const [DropDownAll, setDropDownAll] = useState('All Time');
     let user1 = localStorage.getItem("user");
     user1 = JSON.parse(user1);
     const { account } = useWeb3React();
