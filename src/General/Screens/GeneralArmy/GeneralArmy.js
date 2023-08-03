@@ -13,11 +13,12 @@ import { API_URL } from '../../../utils/ApiUrl';
 import { toast } from 'react-toastify';
 import { useWeb3React } from "@web3-react/core";
 import axios from 'axios';
-
+import Loader from '../../../hooks/loader'
 const GeneralArmy = ({ routesarmy, setroutearmy }) => {
 
     let tok = localStorage.getItem("accessToken");
     const [show, setShow] = useState(false);
+    const [loader, setLoader] = useState(false);
     const handleClose = () => setShow(false);
     const [data3, setData3] = useState(null);
     const handleShow = (elem) => {
@@ -77,7 +78,7 @@ const GeneralArmy = ({ routesarmy, setroutearmy }) => {
     }, [account])
 
     const RejectAccept = (item, bool) => {
-        // setLoader(true);
+        setLoader(true);
         var data = ({
             status: bool
         });
@@ -91,11 +92,12 @@ const GeneralArmy = ({ routesarmy, setroutearmy }) => {
         };
         axios(config)
             .then(function (response) {
-                // setLoader(false);
+                setLoader(false);
                 GeneralApproval();
                 handleClose();
                 if (bool === "approve") {
                     handleShowapprove();
+                    setLoader(false)
                     toast
                         .success("Request Approved Successfully!", {
                             position: "top-right",
@@ -103,6 +105,7 @@ const GeneralArmy = ({ routesarmy, setroutearmy }) => {
                         })
                     // history.push("/general")
                 } else {
+                    setLoader(false)
                     handleShowreject();
                     toast
                         .error("Request Reject Successfully!", {
@@ -112,13 +115,14 @@ const GeneralArmy = ({ routesarmy, setroutearmy }) => {
                 }
             })
             .catch(function (error) {
-                // setLoader(false);
+                setLoader(false);
                 toast.error(error.response.data.message);
             });
     }
 
     return (
         <>
+        {loader && <Loader/>}
             {
                 routesarmy ?
                     <>
@@ -219,7 +223,7 @@ const GeneralArmy = ({ routesarmy, setroutearmy }) => {
                                                                                                     <Dropdown.Menu>
                                                                                                         <Dropdown.Item href="#/action-1">
                                                                                                             <p onClick={() => handleShow(elem)} ><img src='\generalassets\icons\promote.svg' alt='img' className='img-fluid' />Promote</p>
-                                                                                                            <p onClick={() => { setroutearmy(!routesarmy) }}><img src='\generalassets\icons\detail.svg' alt='img' className='img-fluid' />Details</p>
+                                                                                                            {/* <p onClick={() => { setroutearmy(!routesarmy) }}><img src='\generalassets\icons\detail.svg' alt='img' className='img-fluid' />Details</p> */}
                                                                                                         </Dropdown.Item>
                                                                                                     </Dropdown.Menu>
                                                                                                 </Dropdown>

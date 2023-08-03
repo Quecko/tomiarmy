@@ -5,13 +5,14 @@ import { API_URL } from "../../../../utils/ApiUrl"
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
+import Loader from '../../../../hooks/loader'
 
 const SquadModals = ({ show1, setShow1, setShow2, show2, SquadUsers, GetUserProfiledata }) => {
 
   // const [show1, setShow1] = useState(false);
   const handleClose1 = () => setShow1(false);
   let tok = localStorage.getItem("accessToken");
-
+  const [loader, setLoader] = useState(false);
   const handleClose2 = () => {
     setInputs({})
     setProfilePicture(null)
@@ -43,7 +44,6 @@ const SquadModals = ({ show1, setShow1, setShow2, show2, SquadUsers, GetUserProf
     setInputs(inputs => ({ ...inputs, [name]: value }));
   }
 
-  const [loader, setLoader] = useState()
   const creatAquad = () => {
     setShow2(true)
     if (inputs?.name) {
@@ -85,7 +85,6 @@ const SquadModals = ({ show1, setShow1, setShow2, show2, SquadUsers, GetUserProf
             // GetUserProfiledata();
             // getData();
             // vateransApi();
-            setLoader(false);
             // textCopiedFun();
             // CloseModal();
           })
@@ -137,6 +136,7 @@ const SquadModals = ({ show1, setShow1, setShow2, show2, SquadUsers, GetUserProf
 
   return (
     <>
+    {loader && <Loader/>}
       <Modal className='detailmodal' show={show1} onHide={handleClose1} centered>
         <Modal.Header closeButton>
           <Modal.Title>Dismiss User</Modal.Title>

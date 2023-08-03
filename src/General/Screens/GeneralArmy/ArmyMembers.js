@@ -13,10 +13,11 @@ import { API_URL } from '../../../utils/ApiUrl';
 import { toast } from 'react-toastify';
 import { useWeb3React } from "@web3-react/core";
 import axios from 'axios';
+import Loader from "../../../hooks/loader";
 
 
 const ArmyMembers = ({ routesarmy, setroutearmy }) => {
-
+    const [loader, setLoader] = useState(false);
     let tok = localStorage.getItem("accessToken");
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
@@ -126,8 +127,7 @@ const ArmyMembers = ({ routesarmy, setroutearmy }) => {
             });
         }
         else {
-            // setLoader(true);
-            // window.$(`#UpdaterankMajorArmyMemebr`).modal("hide");
+            setLoader(true);
             handleCloserank();
             var data = ({
                 nickName: dataarmymember?.nickName,
@@ -146,8 +146,7 @@ const ArmyMembers = ({ routesarmy, setroutearmy }) => {
             };
             axios(config)
                 .then(function (response) {
-                    // setLoader(false);
-                    // window.$(`#UpdaterankMajorArmyMemebr`).modal("hide");
+                    setLoader(false);
                     GetArmymajor();
                     setselectedrank();
                     toast.success('Request Send To General Successfully!', {
@@ -156,7 +155,7 @@ const ArmyMembers = ({ routesarmy, setroutearmy }) => {
                     });
                 })
                 .catch(function (error) {
-                    // setLoader(false);
+                    setLoader(false);
                     toast.error(error.response.data.message);
                 });
         }
@@ -165,6 +164,7 @@ const ArmyMembers = ({ routesarmy, setroutearmy }) => {
 
     return (
         <>
+        {loader && <Loader/>}
             {
                 routesarmy ?
                     <>
@@ -262,7 +262,7 @@ const ArmyMembers = ({ routesarmy, setroutearmy }) => {
                                                                                                 <Dropdown.Menu>
                                                                                                     <Dropdown.Item href="#/action-1">
                                                                                                         <p onClick={() => handleShowrank(elem)}><img src='\generalassets\icons\promote.svg' alt='img' className='img-fluid' />Rank Update</p>
-                                                                                                        <p onClick={() => { setroutearmy(!routesarmy) }}><img src='\generalassets\icons\detail.svg' alt='img' className='img-fluid' />Details</p>
+                                                                                                        {/* <p onClick={() => { setroutearmy(!routesarmy) }}><img src='\generalassets\icons\detail.svg' alt='img' className='img-fluid' />Details</p> */}
                                                                                                     </Dropdown.Item>
                                                                                                 </Dropdown.Menu>
                                                                                             </Dropdown>

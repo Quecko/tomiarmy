@@ -18,6 +18,7 @@ import axios from 'axios';
 import Web3 from 'web3';
 import ArmyGrowthGraph from "./ArmyGrowthGraph";
 import moment from "moment";
+import Loader from "../../../hooks/loader";
 
 
 const GeneralHome = ({ setShowtask, setroutehome, routeshome }) => {
@@ -27,6 +28,7 @@ const GeneralHome = ({ setShowtask, setroutehome, routeshome }) => {
     const handleShowmajor = () => setShowmajor(true);
     let tok = localStorage.getItem("accessToken");
     const [rend, setRend] = useState(false);
+    const [loader, setLoader] = useState(false);
     const [rendss, setRendss] = useState('totalsol');
     const [army, setArmy] = useState([]);
     const [tasks, settasks] = useState([]);
@@ -126,6 +128,7 @@ const GeneralHome = ({ setShowtask, setroutehome, routeshome }) => {
             });
         }
         else {
+            setLoader(true)
             axios.defaults.headers.post[
                 "Authorization"
               ] = `Bearer ${tok}`;
@@ -137,7 +140,7 @@ const GeneralHome = ({ setShowtask, setroutehome, routeshome }) => {
             axios(config)
                 .then(function (response) {
                     handleClosemajor();
-                    // setLoader(false);
+                    setLoader(false);
                     toast.success('Major Added Successfully', {
                         position: "top-right",
                         autoClose: 2000,
@@ -150,7 +153,7 @@ const GeneralHome = ({ setShowtask, setroutehome, routeshome }) => {
                     // ClearAll();
                 })
                 .catch(function (error) {
-                    // setLoader(false);
+                    setLoader(false);
                     if (error.response.data.statusCode == 403) {
                         toast.error('Forbidden. Only general can add major general', {
                             position: 'top-right',
@@ -443,6 +446,7 @@ const GeneralHome = ({ setShowtask, setroutehome, routeshome }) => {
 
     return (
         <>
+        {loader && <Loader/>}
             {!routeshome ? <div className="formobile-heading d-none display-block-in-mobile">
                 <div className="inner-heading">
                     <h6>Welcome general, </h6>

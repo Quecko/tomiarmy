@@ -5,6 +5,7 @@ import axios from 'axios';
 import { API_URL } from '../../utils/ApiUrl';
 import { toast } from 'react-toastify';
 import { useWeb3React } from '@web3-react/core';
+import Loader from '../../hooks/loader';
 
 const AllOperationTaskModal = ({ showtask1, setShowtask1, settaskdetail1, taskdetail1, getDataOperation, operationId }) => {
 
@@ -161,6 +162,7 @@ const AllOperationTaskModal = ({ showtask1, setShowtask1, settaskdetail1, taskde
 
     return (
         <>
+        {loader && <Loader/>}
             <Modal className='detailmodal' show={showtask1} onHide={handleClosetask} centered>
                 <Modal.Header closeButton>
                     <Modal.Title>task details opeartions</Modal.Title>
