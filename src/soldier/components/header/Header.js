@@ -70,7 +70,7 @@ const Header = ({ routes, setroute, indexwait, handleShow, setShow2, setShow1, s
 
   useEffect(() => {
     let tok = localStorage.getItem("accessToken");
-    let socket = io('https://devapi.tomiarmy.com', {
+    let socket = io('https://stagingapi.tomiarmy.com', {
       transports: ["websocket", "polling"],
       path: "/chats/sockets",
     });
