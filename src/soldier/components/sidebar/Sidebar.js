@@ -35,31 +35,30 @@ import { addUer } from '../../../redux/action';
 
 
 const Sidebar = () => {
-  let walletAddress = localStorage.getItem("wallet");
   const datacommander = localStorage.getItem('user')
   const data = JSON.parse(datacommander)
   let tok = localStorage.getItem("accessToken");
   const { account } = useWeb3React()
 
   useEffect(() => {
-    if (data?.isCommander == false && data?.isCoLeader == true){
-        history.push('/leader')
-    }
-    else if((data?.isCommander == true)){
+    if (data?.isCommander == false && data?.isCoLeader == true) {
       history.push('/leader')
     }
-    else if(data?.isCommander == false && data?.isCoLeader == false && data?.rank?.name !== 'general' && data?.rank?.name !== 'major general'){
+    else if ((data?.isCommander == true)) {
+      history.push('/leader')
+    }
+    else if (data?.isCommander == false && data?.isCoLeader == false && data?.rank?.name !== 'general' && data?.rank?.name !== 'major general') {
       history.push('/soldier')
     }
-    else if (data?.rank?.name == 'general' && data?.isCommander == false && data?.isCoLeader == false){
+    else if (data?.rank?.name == 'general' && data?.isCommander == false && data?.isCoLeader == false) {
       history.push('/general')
     }
-    else if (data?.rank?.name == 'major general' && data?.isCommander == false && data?.isCoLeader == false){
+    else if (data?.rank?.name == 'major general' && data?.isCommander == false && data?.isCoLeader == false) {
       history.push('/majorgeneral')
     }
-    else{
-      localStorage.clear()
-      window.location.assign('/')
+    else {
+      // localStorage.clear()
+      // window.location.assign('/')
 
     }
   }, [account])
@@ -165,8 +164,7 @@ const Sidebar = () => {
     }
   };
 
-  var user12 = localStorage.getItem("user");
-  user12 = JSON.parse(user12)
+
   // useEffect(() => {
   //   if (account === user12?.walletAddress) {
   //   }
@@ -175,7 +173,6 @@ const Sidebar = () => {
   //     loginUser();
   //   }
   // }, [account])
-  const [toggle, setToggle] = useState(true)
 
   const loginUser = async () => {
     if (account) {
@@ -194,7 +191,6 @@ const Sidebar = () => {
             // });
             localStorage.setItem("accessToken", res?.data?.data?.accessToken);
             // setShow(false)
-            setToggle(true)
             localStorage.setItem("user", JSON.stringify(res?.data?.data));
             if (res?.data?.data?.rank.name === "general") {
               history.push("/general");
@@ -382,7 +378,7 @@ const Sidebar = () => {
   }
 
   const getChat = async () => {
- 
+
     // page = message!='' ?1 :page; 
     setPage(message != '' ? 1 : page)
     var config = {
@@ -467,9 +463,9 @@ const Sidebar = () => {
     // }
   }
   useEffect(() => {
-    if(data?.memberOfSquad===true){
-    getChat()
-    SquadUsers()
+    if (data?.memberOfSquad === true) {
+      getChat()
+      SquadUsers()
     }
   }, [page])
   useEffect(() => {
@@ -485,42 +481,19 @@ const Sidebar = () => {
     getDataOperation()
   }, [account, expired])
 
-
-  // useEffect(() => {
-  //   if (account == walletAddress || toggle) {
-  //     setToggle(false)
-  //   }
-  //   else {
-  //     loginUser()
-  //     localStorage.setItem('wallet', account)
-
-  //   }
-  // }, [account, walletAddress])
-
   useEffect(() => {
-    // console.log("sdsdfsdsdfsd",walletAddress)
-    // console.log("sdfsdfsdfsdsdf", typeof account, typeof data?.walletAddress)
-    if(account!= undefined || account!=null ){
-      if (account?.toString() === walletAddress?.toString()) {
-        console.log("in")
-      }
-      else {
-        console.log("out")
-          // window.scrollTo(0, 0);
-          // console.log("asassaasdasda", account)
-          loginUser();
-      }
+    if (account?.toUpperCase() === data?.walletAddress?.toUpperCase()) {
+      // console.log("in")
     }
-    else{
-      console.log('sufyan out')
+    else if (account) {
+      loginUser();
     }
-   
-}, [account])
+  }, [account])
 
 
   return (
     <>
-    {account ? account:'No account'}
+      {account ? account : 'No account'}
       <div className="theme-custom-container">
         <div className="App app-wrapper row m-0">
           <div className="sidebar-column web-sidebar p-0">

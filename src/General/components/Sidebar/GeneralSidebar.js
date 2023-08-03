@@ -306,7 +306,6 @@ const GeneralSidebar = () => {
             //     autoClose: 5000,
             // });
             localStorage.setItem("accessToken", res?.data?.data?.accessToken);
-            setToggle(true)
             localStorage.setItem("user", JSON.stringify(res?.data?.data));
             if (res?.data?.data?.rank.name === "general") {
               history.push("/general");
@@ -388,18 +387,17 @@ const GeneralSidebar = () => {
     getChat()
     // }
   }, [page])
-  let walletAddress = localStorage.getItem("wallet");
-  //  code metamask switch wallet
-  useEffect(() => {
-    if (account == walletAddress || toggle) {
-      setToggle(false)
-    }
-    else {
-      loginUser()
-      localStorage.setItem('wallet', account)
 
+
+  useEffect(() => {
+    if (account?.toUpperCase() === user?.walletAddress?.toUpperCase()) {
+      // console.log("in")
     }
-  }, [account, walletAddress])
+    else if (account) {
+      loginUser();
+    }
+  }, [account])
+
 
 
   return (
