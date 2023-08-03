@@ -17,7 +17,7 @@ const GeneralHeader = ({ routes, setroute, routeshome, setroutehome, indexwait, 
 
   useEffect(() => {
     let tok = localStorage.getItem("accessToken");
-    let socket = io('https://stagingapi.tomiarmy.com', {
+    let socket = io('https://devapi.tomiarmy.com', {
       transports: ["websocket", "polling"],
       path: "/chats/sockets",
     });
