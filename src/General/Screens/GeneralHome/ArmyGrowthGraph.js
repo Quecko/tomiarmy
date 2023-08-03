@@ -45,7 +45,7 @@ const ArmyGrowthGraph = (datee, minte, rendss) => {
         offsetX: 0,
         style: {
           fontSize: '10px',
-          colors: ['#fff']
+          colors: ['#000']
         }
       },
 
