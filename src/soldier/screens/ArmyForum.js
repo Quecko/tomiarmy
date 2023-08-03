@@ -417,8 +417,8 @@ const ArmyForum = () => {
       <div className="topicwrapper">
         <section className="topics">
           <div className="containersss p-0">
-            <div className="row fordirection">
-              <div className="col-xl-9 col-12 p-0">
+            <div className="parent-forum">
+              <div className="left-forum">
                 {/* <div className="arrows">
                     <img src="\assets\arrow-up.png" alt="img" className="arrow" style={{width: "25px" , height: "25px"}} />
                     <p className="serial">56</p>
@@ -518,7 +518,7 @@ const ArmyForum = () => {
                 })}
                 {/* </section> */}
               </div>
-              <div className='col-xl-3 col-12 pe-0 padd-sm'>
+              <div className='right-forum'>
                 <div className='members-section border-grad1 display-none-in-mobile'>
                   <div className="tophead">
                     <h6>Members <span>({topuser?.length})</span></h6>
@@ -544,8 +544,8 @@ const ArmyForum = () => {
                       {topuser?.map((elem) => {
                         return (
                           <div className="inner-item">
-                            <h6>{elem?.nickName}</h6>
-                            <h6>
+                            <h6 className="set-text-left">{elem?.nickName}</h6>
+                            <h6 className="set-text-right">
                               <img src={elem?.rank?.icon} alt="img" className="img-fluid me-2" style={{ width: "34px", height: "34px" }} />
                               {elem?.rank?.name}
                             </h6>

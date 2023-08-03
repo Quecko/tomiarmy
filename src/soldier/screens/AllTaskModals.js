@@ -72,14 +72,14 @@ const AllTaskModals = ({ showtask, setShowtask, settaskdetail, taskdetail,getDat
           }
         }
       // setShowpow(false);
-      // window.$("#exampleModalworkproof").modal("hide");
-      setLoader(true);
+      // window.$("#exampleModalworkproof").modal("hide")
       let tok = localStorage.getItem("accessToken");
       var data = ({
         ...(inputs?.name && { url: m }),
         ...(dumarr.length > 0 && { image: dumarr }),
       });
       if (account) {
+        setLoader(true);
         axios.defaults.headers.post[
           "Authorization"
         ] = `Bearer ${tok}`;

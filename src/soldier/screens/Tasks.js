@@ -152,7 +152,7 @@ const Tasks = ({ setShowtask, settaskdetail, tasks, setexpireds }) => {
                                       </div>
                                     </td>
                                     <td>
-                                      <p className='paratable'>{ExpireDate}</p>
+                                      <p className='paratable'>{elem?.expirationDate ? ExpireDate:'No Expiry'}</p>
                                     </td>
                                     <td>
                                       <div className='dropbtn'>

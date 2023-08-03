@@ -127,7 +127,7 @@ const GeneralTask = ({ setShowtask, setShowtaskdetail, setShowtaskedit, setdetai
                                       <p className='paratable'>{createDate}</p>
                                     </td>
                                     <td>
-                                      <p className='paratable'>{elem?.expirationDate ? ExpireDate:'---'}</p>
+                                      <p className='paratable'>{elem?.expirationDate ? ExpireDate:'No Expiry'}</p>
                                     </td>
                                     <td>
                                       <p className='paratable'>{elem?.reward} Points</p>

@@ -11,6 +11,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 import { useWeb3React } from "@web3-react/core";
 import Countdown from "react-countdown";
+import Loader from "../../../../hooks/loader";
 
 
 const HomeOperations = ({ setShowtask1, settaskdetail1, operations, setOperationId, users, setindexwait }) => {
@@ -198,6 +199,8 @@ const HomeOperations = ({ setShowtask1, settaskdetail1, operations, setOperation
     GetUserTopSquad()
   }, [account]);
   const SendInvite = (id) => {
+    console.log('sssss');
+    setLoader(true)
     // if (account) {
     axios.defaults.headers.post[
       "Authorization"
@@ -213,14 +216,15 @@ const HomeOperations = ({ setShowtask1, settaskdetail1, operations, setOperation
     axios(config)
       .then(async (response) => {
         GetUserTopSquad()
+        setLoader(false)
         toast.success("Invite Sent Successfully");
       })
       .catch(function (err) {
+        setLoader(false);
         toast.error(err?.response?.data.message, {
           position: "top-right",
           autoClose: 2000,
         });
-        // setLoader(false);
       });
     // }
   }
@@ -246,6 +250,7 @@ const HomeOperations = ({ setShowtask1, settaskdetail1, operations, setOperation
 
   return (
     <>
+    {loader&& <Loader/>}
       <div className="warpper-lock-operation">
         {data?.isCommander === false && data?.memberOfSquad === false
           ?
@@ -319,9 +324,9 @@ const HomeOperations = ({ setShowtask1, settaskdetail1, operations, setOperation
                           {/* <th>
                       <p className='headtable'>TOMI Tokens</p>
                     </th> */}
-                          <th>
+                          {/* <th>
                             <p className='headtable'>Progress</p>
-                          </th>
+                          </th> */}
                           <th>
                             <p className='headtable'>Status</p>
                           </th>
@@ -377,12 +382,12 @@ const HomeOperations = ({ setShowtask1, settaskdetail1, operations, setOperation
                               <td>
                                 <p className='paratable'>{elem?.description}</p>
                               </td>
-                              <td>
+                              {/* <td>
                                 <div className="twice">
                                   <img src="\assets\greenline.svg" alt="img" className='img-fluid' />
                                   <p className='paratable'>100 of 100</p>
                                 </div>
-                              </td>
+                              </td> */}
                               <td>
                                 <div className='completebtn'>
                                   {
@@ -431,10 +436,10 @@ const HomeOperations = ({ setShowtask1, settaskdetail1, operations, setOperation
                                 <h6>Description</h6>
                                 <p>{elem?.description}</p>
                               </div>
-                              <div className="inner-item">
+                              {/* <div className="inner-item">
                                 <h6>Progress</h6>
                                 <p><img src="\assets\greenline.svg" alt="img" className='img-fluid me-2' />100 of 100</p>
-                              </div>
+                              </div> */}
                               <div className="inner-item">
                                 <h6>Status</h6>
                                 {

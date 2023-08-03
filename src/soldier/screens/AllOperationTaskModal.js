@@ -42,10 +42,12 @@ const AllOperationTaskModal = ({ showtask1, setShowtask1, settaskdetail1, taskde
     // };
 
 
+    
+
     const [inputs, setInputs] = useState({})
 
     const SubmitWork = async () => {
-        setLoader(true);
+       
         let dumObj = {};
         let dumArr = []
         if (multiplemages[0]?.multorimg != '' || powUrl !== "") {
@@ -79,6 +81,7 @@ const AllOperationTaskModal = ({ showtask1, setShowtask1, settaskdetail1, taskde
         var data = ({
             taskProofs: dumArr,
         });
+        setLoader(true);
         axios.defaults.headers.post[
             "Authorization"
           ] = `Bearer ${tok}`;
@@ -90,7 +93,7 @@ const AllOperationTaskModal = ({ showtask1, setShowtask1, settaskdetail1, taskde
 
         axios(config)
             .then(function (response) {
-                // setLoader(false);
+                setLoader(false);
                 // handleClosepow();
                 // setOperations([]);
                 // GetOpts();
@@ -111,8 +114,7 @@ const AllOperationTaskModal = ({ showtask1, setShowtask1, settaskdetail1, taskde
                 setLoader(false);
                 toast.error(error.response.data.message);
             });
-        setLoader(false);
-        // setRend(!rend);
+
     }
 
     const [multiplemages, setmultiplemages] = useState

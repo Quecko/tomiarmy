@@ -11,6 +11,7 @@ import Modal from 'react-bootstrap/Modal';
 import Accordion from 'react-bootstrap/Accordion';
 import { toast } from 'react-toastify';
 import axios from "axios";
+import Loader from "../../../hooks/loader";
 
 const MyRank = ({ props }) => {
   let tok = localStorage.getItem("accessToken");
@@ -129,6 +130,8 @@ const MyRank = ({ props }) => {
   }
 
   const SendInvite = (id) => {
+    // console.log('sdvv',);
+    setLoader(true)
     // if (account) {
     axios.defaults.headers.post[
       "Authorization"
@@ -144,6 +147,7 @@ const MyRank = ({ props }) => {
     axios(config)
       .then(async (response) => {
         GetUserTopSquad()
+        setLoader(false)
         toast.success("Invite Sent Successfully");
       })
       .catch(function (err) {
@@ -151,7 +155,7 @@ const MyRank = ({ props }) => {
           position: "top-right",
           autoClose: 2000,
         });
-        // setLoader(false);
+        setLoader(false);
       });
     // }
   }
@@ -161,6 +165,7 @@ const MyRank = ({ props }) => {
   }, [account])
   return (
     <>
+    {loader && <Loader/>}
       <div className="data-box border-grad1">
         <h4>my rank</h4>
         <div className="rank-squad-row row">

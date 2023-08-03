@@ -12,6 +12,8 @@
         margin-bottom: 20px;
 
         .left {
+            max-width: 800px;
+            width: 100%;
             h6 {
                 font-style: normal;
                 font-weight: 700;
@@ -19,6 +21,7 @@
                 line-height: 110%;
                 text-transform: uppercase;
                 color: #FFFFFF;
+                text-align: start;
 
                 span {
                     font-style: normal;
@@ -39,6 +42,7 @@
                 line-height: 110%;
                 text-transform: uppercase;
                 color: #81828A;
+                text-align: start;
                 text-align: start;
             }
         }

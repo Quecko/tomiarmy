@@ -17,7 +17,9 @@ html {
     padding: 0;
 }
 
-
+a:active{
+    color: #ff0083 !important;
+}
 .row {
     margin: 0;
     padding: 0;
@@ -953,12 +955,13 @@ table {
                     font-family: 'Rajdhani';
                     font-style: normal;
                     font-weight: 700;
-                    font-size: 20px;
+                    font-size: 18px;
                     line-height: 100%;
                     margin-bottom: 0px;
                     text-align: center;
                     letter-spacing: 0.01em;
                     color: #FFFFFF;
+                    text-align: left;
                 }
             }
         }
@@ -5019,4 +5022,8 @@ input[type="search"]::-webkit-search-results-decoration {
 
 .apexcharts-toolbar{
     display: none!important;
+}
+
+.ucdvycdvtyvcvdc td{
+    padding: 16px 14px !important;
 }

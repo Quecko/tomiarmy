@@ -83,9 +83,9 @@ const ActiveOperation = ({ setShowtask1, tasks, settaskdetail1, setOperationId }
                                             <th>
                                                 <p className='headtable'>Description</p>
                                             </th>
-                                            <th>
+                                            {/* <th>
                                                 <p className='headtable'>Progress</p>
-                                            </th>
+                                            </th> */}
                                             <th>
                                                 <p className='headtable'>Status</p>
                                             </th>
@@ -105,12 +105,12 @@ const ActiveOperation = ({ setShowtask1, tasks, settaskdetail1, setOperationId }
                                                     <td>
                                                         <p className='paratable'>{elem?.description}</p>
                                                     </td>
-                                                    <td>
+                                                    {/* <td>
                                                         <div className="twice">
                                                             <img src="\assets\greenline.svg" alt="img" className='img-fluid' />
                                                             <p className='paratable'>100 of 100</p>
                                                         </div>
-                                                    </td>
+                                                    </td> */}
                                                     <td>
                                                         <div className='completebtn text-end'>
                                                             {
@@ -177,10 +177,10 @@ const ActiveOperation = ({ setShowtask1, tasks, settaskdetail1, setOperationId }
                                                         <h6>Description</h6>
                                                         <p>{elem?.description}</p>
                                                     </div>
-                                                    <div className="inner-item">
+                                                    {/* <div className="inner-item">
                                                         <h6>Progress</h6>
                                                         <p><img src="\assets\greenline.svg" alt="img" className='img-fluid me-2' />100 of 100</p>
-                                                    </div>
+                                                    </div> */}
                                                     <div className="inner-item">
                                                         <h6>Status</h6>
                                                         {

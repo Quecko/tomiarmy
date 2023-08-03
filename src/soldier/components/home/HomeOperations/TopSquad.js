@@ -5,11 +5,14 @@ import { API_URL } from "../../../../utils/ApiUrl"
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Loader from "../../../../hooks/loader";
 
 const TopSquad = ({ topSquad, GetUserTopSquad, getPrevData, getNextData, pages, currentPage, count, limit, search, setSearch, getSearchData }) => {
+  const [loader, setLoader] = useState(false);
   let tok = localStorage.getItem("accessToken");
   const SendInvite = (id) => {
     // if (account) {
+      setLoader(true)
     axios.defaults.headers.post[
       "Authorization"
     ] = `Bearer ${tok}`;
@@ -25,19 +28,21 @@ const TopSquad = ({ topSquad, GetUserTopSquad, getPrevData, getNextData, pages, 
       .then(async (response) => {
         GetUserTopSquad()
         toast.success("Invite Sent Successfully");
+        setLoader(false);
       })
       .catch(function (err) {
         toast.error(err?.response?.data.message, {
           position: "top-right",
           autoClose: 2000,
         });
-        // setLoader(false);
+        setLoader(false);
       });
     // }
   }
 
   return (
     <>
+    {loader && <Loader/>}
       <section className="home-operations topsquad-table border-grad1">
         <div className='maincard '>
           <div className="upper-head">

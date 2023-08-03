@@ -9,7 +9,9 @@ import { toast } from 'react-toastify';
 import { useWeb3React } from "@web3-react/core";
 import axios from 'axios';
 import Loader from '../../../hooks/loader'
+
 const Proofofwork = () => {
+    let tok = localStorage.getItem("accessToken");
     const [showwork, setShowwork] = useState(false);
     const [showwork1, setShowwork1] = useState(false);
     const [singledetail, setsingledetail] = useState(null)
@@ -21,6 +23,8 @@ const Proofofwork = () => {
         setsingledetail(elem)
         setShowwork(true);
     }
+    const [operationList, setOperationList] = useState([])
+
     const handleShowwork1 = (elem) => {
         setsingledetail(elem)
         setShowwork1(true);
@@ -56,18 +60,7 @@ const Proofofwork = () => {
         }
     }
 
-    useEffect(() => {
-        // if (currentPage > 1) {
-        //     getData(currentPage);
-        // } else {
-        if (expired === false) {
-            getData();
-        }
-        else {
-            getDataoperation();
-        }
-        // }
-    }, [account, expired])
+
 
     useEffect(() => {
         // if (currentPage > 1) {
@@ -86,33 +79,29 @@ const Proofofwork = () => {
         // } else {
         //     valu = 1;
         // }
-        let tok = localStorage.getItem("accessToken");
-        let wall = localStorage.getItem("wallet");
-        if (account) {
-            var config = {
-                method: "get",
-                url: `${API_URL}/tasks/work-proofs?offset=1&&limit=100`,
-                headers: {
-                    authorization: `Bearer ` + tok
-                },
-            };
-            axios(config)
-                .then(function (response) {
-                    // setLoader(false);
-                    // setCount(response.data.data.count)
-                    settasks(response?.data?.data?.workProof);
-                    // let arr = Array.from(Array(parseInt(response.data.data.pages)).keys());
-                    // setPages(arr);
-                    // setCurrentPage(valu)
-                })
-                .catch(function (error) {
-                    // setLoader(false);
-                    // localStorage.removeItem("accessToken");
-                    // localStorage.removeItem("user");
-                    // window.location.assign("/")
-                    // window.location.reload();
-                });
-        }
+        var config = {
+            method: "get",
+            url: `${API_URL}/tasks/work-proofs?offset=1&&limit=100`,
+            headers: {
+                authorization: `Bearer ` + tok
+            },
+        };
+        axios(config)
+            .then(function (response) {
+                // setLoader(false);
+                // setCount(response.data.data.count)
+                settasks(response?.data?.data?.workProof);
+                // let arr = Array.from(Array(parseInt(response.data.data.pages)).keys());
+                // setPages(arr);
+                // setCurrentPage(valu)
+            })
+            .catch(function (error) {
+                // setLoader(false);
+                // localStorage.removeItem("accessToken");
+                // localStorage.removeItem("user");
+                // window.location.assign("/")
+                // window.location.reload();
+            });
     }
 
     const getDataoperation = async (off) => {
@@ -122,82 +111,86 @@ const Proofofwork = () => {
         // } else {
         //     valu = 1;
         // }
-        let tok = localStorage.getItem("accessToken");
-        let wall = localStorage.getItem("wallet");
-        if (account) {
-            var config = {
-                method: "get",
-                url: `${API_URL}/tasks/operations?offset=1&&limit=100&&expired=false`,
-                headers: {
-                    authorization: `Bearer ` + tok
-                },
-            };
-            axios(config)
-                .then(function (response) {
-                    // setLoader(false);
-                    // setCount(response.data.data.count)
-                    settaskss(response?.data?.data?.operation[0]?._id);
-                    // let arr = Array.from(Array(parseInt(response.data.data.pages)).keys());
-                    // setPages(arr);
-                    // setCurrentPage(valu)
-                })
-                .catch(function (error) {
-                    // setLoader(false);
-                    // localStorage.removeItem("accessToken");
-                    // localStorage.removeItem("user");
-                    // window.location.assign("/")
-                    // window.location.reload();
-                });
-        }
+        var config = {
+            method: "get",
+            url: `${API_URL}/tasks/operations?offset=1&&limit=100&&expired=false`,
+            headers: {
+                authorization: `Bearer ` + tok
+            },
+        };
+        axios(config)
+            .then(function (response) {
+                // setLoader(false);
+                // setCount(response.data.data.count)
+                allworkproofs(response?.data?.data?.operation[0]?._id)
+                // settaskss(response?.data?.data?.operation[0]?._id);
+                // let arr = Array.from(Array(parseInt(response.data.data.pages)).keys());
+                // setPages(arr);
+                // setCurrentPage(valu)
+            })
+            .catch(function (error) {
+                // setLoader(false);
+                // localStorage.removeItem("accessToken");
+                // localStorage.removeItem("user");
+                // window.location.assign("/")
+                // window.location.reload();
+            });
     }
 
-    const allworkproofs = async (off) => {
+    const allworkproofs = async (id) => {
         // let valu = null;
         // if (off) {
         //     valu = off;
         // } else {
         //     valu = 1;
         // }
-        let tok = localStorage.getItem("accessToken");
-        let wall = localStorage.getItem("wallet");
-        if (account) {
-            var config = {
-                method: "get",
-                url: `${API_URL}/tasks/operations/work-proof?offset=1&limit=100&operationId=${taskss}`,
-                headers: {
-                    authorization: `Bearer ` + tok
-                },
-            };
-            axios(config)
-                .then(function (response) {
-                    settasks(response?.data?.data?.workProof);
-                    // setLoader(false);
-                    // setCount(response.data.data.count)
-                    // settaskss(response?.data?.data?.operation[0]?._id);
-                    // let arr = Array.from(Array(parseInt(response.data.data.pages)).keys());
-                    // setPages(arr);
-                    // setCurrentPage(valu)
-                })
-                .catch(function (error) {
-                    toast.warning(
-                        "Error",
-                        {
-                            position: "top-right",
-                            autoClose: 3000,
-                        }
-                    );
-                    settaskss(null)
-                    // setLoader(false);
-                    // localStorage.removeItem("accessToken");
-                    // localStorage.removeItem("user");
-                    // window.location.assign("/")
-                    // window.location.reload();
-                });
-        }
+
+        var config = {
+            method: "get",
+            url: `${API_URL}/tasks/operations/work-proof?offset=1&limit=100&operationId=${id}`,
+            headers: {
+                authorization: `Bearer ` + tok
+            },
+        };
+        axios(config)
+            .then(function (response) {
+                settasks(response?.data?.data?.workProof);
+                // setLoader(false);
+                // setCount(response.data.data.count)
+                // settaskss(response?.data?.data?.operation[0]?._id);
+                // let arr = Array.from(Array(parseInt(response.data.data.pages)).keys());
+                // setPages(arr);
+                // setCurrentPage(valu)
+            })
+            .catch(function (error) {
+                toast.warning(
+                    "Error",
+                    {
+                        position: "top-right",
+                        autoClose: 3000,
+                    }
+                );
+                settaskss(null)
+                // setLoader(false);
+                // localStorage.removeItem("accessToken");
+                // localStorage.removeItem("user");
+                // window.location.assign("/")
+                // window.location.reload();
+            });
+
+    }
+
+    const toastsend = () =>{
+        toast.warning(
+            "This WorkProof is Already Approved",
+            {
+                position: "top-right",
+                autoClose: 3000,
+            }
+        );
     }
 
     const Acceptreject = async (singledetail, approvedcheck) => {
-        let tok = localStorage.getItem("accessToken");
         // setOpens(true);
         setLoader(true)
         axios
@@ -237,14 +230,13 @@ const Proofofwork = () => {
                     });
             });
     }
-    const Acceptrejectoperation = async (taskdetail, singledetail, approvedcheck) => {
-        let tok = localStorage.getItem("accessToken");
+    const Acceptrejectoperation = async (operationList, singledetail, approvedcheck) => {
         // setOpens(true);
         setLoader(true)
         axios
             .patch(
-                API_URL + "/tasks/operations/" + taskdetail?.operationId + "/work-proof/" +
-                taskdetail?._id,
+                API_URL + "/tasks/operations/" + operationList?.operationId?._id + "/work-proof/" +
+                operationList?._id,
                 {
                     isApproved: approvedcheck,
                     taskId: singledetail?._id,
@@ -252,17 +244,26 @@ const Proofofwork = () => {
                 { headers: { authorization: `Bearer ${tok}` } }
             )
             .then((response) => {
-                if (response.data.data.isApproved == true) {
+
+                console.log("data ", approvedcheck)
+                if (approvedcheck == 'true') {
+                    console.log("in")
                     handleClosework1();
                     handleShowapprove();
-                    allworkproofs();
+                    // allworkproofs();
+                    GetDataOfOperation(operationList);
                     setLoader(false)
                 } else {
+                    console.log("out")
                     handleClosework1();
                     handleShowreject();
-                    allworkproofs();
+                    // allworkproofs();
+                    GetDataOfOperation(operationList);
+                    setLoader(false)
                 }
                 getData()
+                setLoader(false)
+                settaskdetail()
                     // setCall(!call)
                     // window.location.reload()
                     // window.$('#powork').modal('hide')
@@ -282,7 +283,7 @@ const Proofofwork = () => {
     }
 
     const closebuttonback = () => {
-        settaskdetail(null)
+        setOperationList()
     }
 
     const [imageModal, setImageModal] = useState(false)
@@ -291,12 +292,51 @@ const Proofofwork = () => {
         setImageModal(true)
         setimagedetail(elem)
     }
- 
+
     var result = singledetail?.url?.split("_")?.pop();
 
+
+
+
+
+    // console.log('operationList', operationList);
+
+    const GetDataOfOperation = (elem) => {
+        // console.log('elem ascsvare dbs svdb',elem);
+        // setLoader(true);
+        var config = {
+            method: "get",
+            url: `${API_URL}/tasks/operations/${elem?.operation?._id ? elem?.operation?._id : elem?.operationId?._id}/work-proof/${elem?._id}`,
+            headers: {
+                authorization: `Bearer ` + tok
+            },
+        };
+
+        axios(config)
+            .then(function (response) {
+                setOperationList(response?.data?.data)
+
+                // setLoader(false);
+            })
+            .catch(function (error) {
+                // setLoader(false);
+            });
+    }
+    useEffect(() => {
+        // if (currentPage > 1) {
+        //     getData(currentPage);
+        // } else {
+        if (expired === false) {
+            getData();
+        }
+        else {
+            getDataoperation();
+        }
+        // }
+    }, [account, expired])
     return (
         <>
-         {loader && <Loader/>}
+            {loader && <Loader />}
             <div className="formobile-heading d-none display-block-in-mobile">
                 <div className="inner-heading">
                     <h6>Proof of Work  </h6>
@@ -465,225 +505,251 @@ const Proofofwork = () => {
                                         </div>
                                     </Tab>
                                     <Tab eventKey="profile" title="Operations Proof of Work">
-                                        {!taskdetail &&
+                                        {operationList?.taskProofs?.length > 0 ?
 
-                                            <div className="col-xl-12 col-12 pe-0 padd-sm">
-                                                <div className="data-box general-tasks-wrappergeneral border-grad1 p-0">
-                                                    <div className="maincard-global">
-                                                        <Table striped bordered hover responsive className="general-tasks-table display-none-in-mobile">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th>User</th>
-                                                                    <th>Tasks</th>
-                                                                    <th>Points</th>
-                                                                    {/* <th>Status</th> */}
-                                                                    <th>Action</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                {tasks && tasks?.map((elem, index) => {
-                                                                    return (
-                                                                        <tr key={index}>
-                                                                            <td>{elem?.user?.nickName}</td>
-                                                                            <td>{elem?.operation?.name}</td>
-                                                                            <td>{elem?.operation?.reward}</td>
-                                                                            {/* <td>
-                                                                                <div style={{ maxWidth: '83px', width: '100%' }} className="completed">Completed</div>
-                                                                            </td> */}
-                                                                            <td>
-                                                                                <div className="tbl-dropdown text-end">
-                                                                                    <button onClick={() => settaskdetail(elem)} className='btn-detail'>Detail</button>
-                                                                                </div>
-                                                                            </td>
-                                                                        </tr>
-                                                                    )
-                                                                })}
-                                                            </tbody>
-                                                        </Table>
-                                                        {/* <div className="pagi display-none-in-mobile">
-                                                            <div className="left">
-                                                                <p>Showing 1 to 10 of 57 entries</p>
-                                                            </div>
-                                                            <div className="right">
-                                                                <p>Previous</p>
-                                                                <Pagination>
-                                                                    <Pagination.Item active>{1}</Pagination.Item>
-                                                                    <Pagination.Item>{2}</Pagination.Item>
-                                                                    <Pagination.Item >{3}</Pagination.Item>
-                                                                    <Pagination.Item>{4}</Pagination.Item>
-                                                                    <Pagination.Item >{5}</Pagination.Item>
-                                                                    <Pagination.Item>{6}</Pagination.Item>
-                                                                </Pagination>
-                                                                <p>Next</p>
-                                                            </div>
-                                                        </div> */}
-                                                        <div className="mobile-responsive-table d-none display-block-in-mobile">
-                                                            <div className="heading-mobile">
-                                                                <p>User</p>
-                                                            </div>
-                                                            <Accordion>
-                                                                {tasks && tasks?.map((elem, index) => {
-                                                                    return (
-                                                                        <Accordion.Item eventKey={index}>
-                                                                            <Accordion.Header>{elem?.user?.nickName}</Accordion.Header>
-                                                                            <Accordion.Body>
-                                                                                <div className="inner-fields">
-                                                                                    <div className="inner-item">
-                                                                                        <h6>Tasks</h6>
-                                                                                        <p>{elem?.operation?.name}</p>
-                                                                                    </div>
-                                                                                    <div className="inner-item">
-                                                                                        <h6>Points</h6>
-                                                                                        <p>{elem?.operation?.reward}</p>
-                                                                                    </div>
-                                                                                    {/* <div className="inner-item">
-                                                                                        <h6>Status</h6>
-                                                                                        <button className="btn-green">Completed</button>
-                                                                                    </div> */}
-                                                                                    <div className="inner-item">
-                                                                                        <h6>Actions</h6>
-                                                                                        <div className="tbl-dropdown text-end">
-                                                                                            <button onClick={() => settaskdetail(elem)} className='btn-detail'>Detail</button>
-                                                                                        </div>
-                                                                                        {/* <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a> */}
-                                                                                    </div>
-                                                                                </div>
-                                                                            </Accordion.Body>
-                                                                        </Accordion.Item>
-                                                                    )
-                                                                })}
-                                                            </Accordion>
-                                                        </div>
+                                            (
+                                                <div className="col-xl-12 col-12 pe-0 padd-sm">
+                                                    <div className="data-box general-tasks-wrappergeneral border-grad1 p-0">
+                                                        <div className="maincard-global">
+                                                            <button onClick={closebuttonback} className='asdasdasdasd'>Back</button>
 
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        }
-                                        {/* 2nd table ........................... */}
-                                        {taskdetail &&
-
-                                            <div className="col-xl-12 col-12 pe-0 padd-sm">
-                                                <div className="data-box general-tasks-wrappergeneral border-grad1 p-0">
-                                                    <div className="maincard-global">
-                                                        <button onClick={closebuttonback} className='asdasdasdasd'>Back</button>
-
-                                                        <Table striped bordered hover responsive className="general-tasks-table display-none-in-mobile">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th>User</th>
-                                                                    <th>Tasks</th>
-                                                                    {/* <th>Points</th> */}
-                                                                    {/* <th>Status</th> */}
-                                                                    <th>Action</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                {taskdetail && taskdetail?.taskProofs?.map((elem, index) => {
-
-                                                                    return (
-                                                                        <tr key={index}>
-                                                                            <td>{taskdetail?.user?.nickName}</td>
-                                                                            <td>{elem?.name}</td>
-                                                                            {/* <td>1,000,000</td> */}
-                                                                            {/* <td>
-                                                                                <div style={{ maxWidth: '83px', width: '100%' }} className="completed">Completed</div>
-                                                                            </td> */}
-                                                                            <td>
-                                                                                <div className="tbl-dropdown">
-                                                                                    <Dropdown>
-                                                                                        <Dropdown.Toggle id="dropdown-basic">
-                                                                                            <img src={dosts} alt="dosts" />
-                                                                                        </Dropdown.Toggle>
-
-                                                                                        <Dropdown.Menu className="stats-dropdown-menu">
-                                                                                            <div className="stats-dropdown-bg">
-                                                                                                <Dropdown.Item onClick={() => { handleShowwork1(elem) }}>
+                                                            <Table striped bordered hover responsive className="general-tasks-table display-none-in-mobile">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>User</th>
+                                                                        <th>Tasks</th>
+                                                                        {/* <th>Points</th> */}
+                                                                        <th>Status</th>
+                                                                        <th>Action</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    {operationList && operationList?.taskProofs?.map((elem, index) => {
+                                                                        return (
+                                                                            <tr key={index}>
+                                                                                <td>{operationList?.userId?.nickName}</td>
+                                                                                <td>{elem?.name}</td>
+                                                                                {/* <td>1,000,000</td> */}
+                                                                                {elem?.isApproved === true ? <td>
+                                                                                    <div style={{ maxWidth: '83px', width: '100%' }} className="completed">Completed</div>
+                                                                                </td> : <td>
+                                                                                    <div style={{ maxWidth: '83px', width: '100%', background: 'rgb(255, 137, 54)' }} className="completed">Pending</div>
+                                                                                </td>}
+                                                                                <td>
+                                                                                    <div className="tbl-dropdown">
+                                                                                        <Dropdown>
+                                                                                            <Dropdown.Toggle id="dropdown-basic">
+                                                                                                <img src={dosts} alt="dosts" />
+                                                                                            </Dropdown.Toggle>
+                                                                                            <Dropdown.Menu className="stats-dropdown-menu">
+                                                                                                <div className="stats-dropdown-bg">
+                                                                                                {elem?.isApproved === true ?
+                                                                                                (
+                                                                                                    <Dropdown.Item onClick={() => { toastsend() }}>
                                                                                                     <img src="\generalassets\icons\detail.svg" alt="submitIcon" />
                                                                                                     Details
                                                                                                 </Dropdown.Item>
-                                                                                            </div>
-                                                                                        </Dropdown.Menu>
-                                                                                    </Dropdown>
-                                                                                </div>
-                                                                            </td>
-                                                                        </tr>
-                                                                    )
-                                                                })}
-                                                            </tbody>
-                                                        </Table>
-                                                        {/* <div className="pagi display-none-in-mobile">
-                                                            <div className="left">
-                                                                <p>Showing 1 to 10 of 57 entries</p>
-                                                            </div>
-                                                            <div className="right">
-                                                                <p>Previous</p>
-                                                                <Pagination>
-                                                                    <Pagination.Item active>{1}</Pagination.Item>
-                                                                    <Pagination.Item>{2}</Pagination.Item>
-                                                                    <Pagination.Item >{3}</Pagination.Item>
-                                                                    <Pagination.Item>{4}</Pagination.Item>
-                                                                    <Pagination.Item >{5}</Pagination.Item>
-                                                                    <Pagination.Item>{6}</Pagination.Item>
-                                                                </Pagination>
-                                                                <p>Next</p>
-                                                            </div>
-                                                        </div> */}
-                                                        <div className="mobile-responsive-table d-none display-block-in-mobile">
-                                                            <div className="heading-mobile">
-                                                                <p>User</p>
-                                                            </div>
-
-                                                            <Accordion >
-                                                                {taskdetail && taskdetail?.taskProofs?.map((elem, index) => {
-
-                                                                    return (
-
-                                                                        <Accordion.Item eventKey={index}>
-                                                                            <Accordion.Header>{taskdetail?.user?.nickName}</Accordion.Header>
-                                                                            <Accordion.Body>
-                                                                                <div className="inner-fields">
-                                                                                    <div className="inner-item">
-                                                                                        <h6>Tasks</h6>
-                                                                                        <p>{elem?.name}</p>
+                                                                                                )
+                                                                                                :
+                                                                                                (
+                                                                                                    <Dropdown.Item onClick={() => { handleShowwork1(elem) }}>
+                                                                                                    <img src="\generalassets\icons\detail.svg" alt="submitIcon" />
+                                                                                                    Details
+                                                                                                </Dropdown.Item>
+                                                                                                )
+                                                                    }
+                                                                                                   
+                                                                                                </div>
+                                                                                            </Dropdown.Menu>
+                                                                                        </Dropdown>
                                                                                     </div>
-                                                                                    {/* <div className="inner-item">
-                <h6>Points</h6>
-                <p>1,000,000</p>
-            </div> */}
-                                                                                    {/* <div className="inner-item">
-                <h6>Status</h6>
-                <button className="btn-green">Completed</button>
-            </div> */}
-                                                                                    <div className="inner-item">
-                                                                                        <h6>Actions</h6>
-                                                                                        <div className="tbl-dropdown">
-                                                                                            <Dropdown>
-                                                                                                <Dropdown.Toggle id="dropdown-basic">
-                                                                                                    <img src={dosts} alt="dosts" />
-                                                                                                </Dropdown.Toggle>
+                                                                                </td>
+                                                                            </tr>
+                                                                        )
+                                                                    })}
+                                                                </tbody>
+                                                            </Table>
+                                                            {/* <div className="pagi display-none-in-mobile">
+                                                        <div className="left">
+                                                            <p>Showing 1 to 10 of 57 entries</p>
+                                                        </div>
+                                                        <div className="right">
+                                                            <p>Previous</p>
+                                                            <Pagination>
+                                                                <Pagination.Item active>{1}</Pagination.Item>
+                                                                <Pagination.Item>{2}</Pagination.Item>
+                                                                <Pagination.Item >{3}</Pagination.Item>
+                                                                <Pagination.Item>{4}</Pagination.Item>
+                                                                <Pagination.Item >{5}</Pagination.Item>
+                                                                <Pagination.Item>{6}</Pagination.Item>
+                                                            </Pagination>
+                                                            <p>Next</p>
+                                                        </div>
+                                                    </div> */}
+                                                            <div className="mobile-responsive-table d-none display-block-in-mobile">
+                                                                <div className="heading-mobile">
+                                                                    <p>User</p>
+                                                                </div>
 
-                                                                                                <Dropdown.Menu className="stats-dropdown-menu">
-                                                                                                    <div className="stats-dropdown-bg">
-                                                                                                        <Dropdown.Item onClick={() => { handleShowwork1(elem) }}>
-                                                                                                            <img src="\generalassets\icons\detail.svg" alt="submitIcon" />
-                                                                                                            Details
-                                                                                                        </Dropdown.Item>
-                                                                                                    </div>
-                                                                                                </Dropdown.Menu>
-                                                                                            </Dropdown>
+                                                                <Accordion >
+                                                                    {operationList && operationList?.taskProofs?.map((elem, index) => {
+                                                                        return (
+                                                                            <Accordion.Item eventKey={index}>
+                                                                                <Accordion.Header>{operationList?.userId?.nickName}</Accordion.Header>
+                                                                                <Accordion.Body>
+                                                                                    <div className="inner-fields">
+                                                                                        <div className="inner-item">
+                                                                                            <h6>Tasks</h6>
+                                                                                            <p>{elem?.name}</p>
                                                                                         </div>
-                                                                                        {/* <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a> */}
+                                                                                        {/* <div className="inner-item">
+            <h6>Points</h6>
+            <p>1,000,000</p>
+        </div> */}
+                                                                                        <div className="inner-item">
+                                                                                            <h6>Status</h6>
+                                                                                            {elem?.isApproved === true ?
+                                                                                                <button className="btn-green">Completed</button>
+                                                                                                :
+                                                                                                <button style={{ background: 'rgb(255, 137, 54)' }} className="btn-green">Completed</button>
+                                                                                            }
+                                                                                        </div>
+                                                                                        <div className="inner-item">
+                                                                                            <h6>Actions</h6>
+                                                                                            <div className="tbl-dropdown">
+                                                                                                <Dropdown>
+                                                                                                    <Dropdown.Toggle id="dropdown-basic">
+                                                                                                        <img src={dosts} alt="dosts" />
+                                                                                                    </Dropdown.Toggle>
+
+                                                                                                    <Dropdown.Menu className="stats-dropdown-menu">
+                                                                                                        <div className="stats-dropdown-bg">
+                                                                                                        {elem?.isApproved === true ?
+                                                                                                (
+                                                                                                    <Dropdown.Item onClick={() => { toastsend() }}>
+                                                                                                    <img src="\generalassets\icons\detail.svg" alt="submitIcon" />
+                                                                                                    Details
+                                                                                                </Dropdown.Item>
+                                                                                                )
+                                                                                                :
+                                                                                                (
+                                                                                                    <Dropdown.Item onClick={() => { handleShowwork1(elem) }}>
+                                                                                                    <img src="\generalassets\icons\detail.svg" alt="submitIcon" />
+                                                                                                    Details
+                                                                                                </Dropdown.Item>
+                                                                                                )
+                                                                    }
+                                                                                                        </div>
+                                                                                                    </Dropdown.Menu>
+                                                                                                </Dropdown>
+                                                                                            </div>
+                                                                                            {/* <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a> */}
+                                                                                        </div>
                                                                                     </div>
-                                                                                </div>
-                                                                            </Accordion.Body>
-                                                                        </Accordion.Item>
-                                                                    )
-                                                                })}
-                                                            </Accordion>
+                                                                                </Accordion.Body>
+                                                                            </Accordion.Item>
+                                                                        )
+                                                                    })}
+                                                                </Accordion>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            )
+                                            :
+                                            (
+                                                <div className="col-xl-12 col-12 pe-0 padd-sm">
+                                                    <div className="data-box general-tasks-wrappergeneral border-grad1 p-0">
+                                                        <div className="maincard-global">
+                                                            <Table striped bordered hover responsive className="general-tasks-table display-none-in-mobile">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>User</th>
+                                                                        <th>Tasks</th>
+                                                                        <th>Points</th>
+                                                                        {/* <th>Status</th> */}
+                                                                        <th>Action</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    {tasks && tasks?.map((elem, index) => {
+                                                                        return (
+                                                                            <tr key={index}>
+                                                                                <td>{elem?.user?.nickName}</td>
+                                                                                <td>{elem?.operation?.name}</td>
+                                                                                <td>{elem?.operation?.reward}</td>
+                                                                                {/* <td>
+                                                                            <div style={{ maxWidth: '83px', width: '100%' }} className="completed">Pending</div>
+                                                                        </td> */}
+                                                                                <td>
+                                                                                    <div className="tbl-dropdown text-end">
+                                                                                        <button onClick={() => GetDataOfOperation(elem)} className='btn-detail'>Detail</button>
+                                                                                    </div>
+                                                                                </td>
+                                                                            </tr>
+                                                                        )
+                                                                    })}
+                                                                </tbody>
+                                                            </Table>
+                                                            {/* <div className="pagi display-none-in-mobile">
+                                                        <div className="left">
+                                                            <p>Showing 1 to 10 of 57 entries</p>
+                                                        </div>
+                                                        <div className="right">
+                                                            <p>Previous</p>
+                                                            <Pagination>
+                                                                <Pagination.Item active>{1}</Pagination.Item>
+                                                                <Pagination.Item>{2}</Pagination.Item>
+                                                                <Pagination.Item >{3}</Pagination.Item>
+                                                                <Pagination.Item>{4}</Pagination.Item>
+                                                                <Pagination.Item >{5}</Pagination.Item>
+                                                                <Pagination.Item>{6}</Pagination.Item>
+                                                            </Pagination>
+                                                            <p>Next</p>
+                                                        </div>
+                                                    </div> */}
+                                                            <div className="mobile-responsive-table d-none display-block-in-mobile">
+                                                                <div className="heading-mobile">
+                                                                    <p>User</p>
+                                                                </div>
+                                                                <Accordion>
+                                                                    {tasks && tasks?.map((elem, index) => {
+                                                                        return (
+                                                                            <Accordion.Item eventKey={index}>
+                                                                                <Accordion.Header>{elem?.user?.nickName}</Accordion.Header>
+                                                                                <Accordion.Body>
+                                                                                    <div className="inner-fields">
+                                                                                        <div className="inner-item">
+                                                                                            <h6>Tasks</h6>
+                                                                                            <p>{elem?.operation?.name}</p>
+                                                                                        </div>
+                                                                                        <div className="inner-item">
+                                                                                            <h6>Points</h6>
+                                                                                            <p>{elem?.operation?.reward}</p>
+                                                                                        </div>
+                                                                                        {/* <div className="inner-item">
+                                                                                    <h6>Status</h6>
+                                                                                    <button className="btn-green">Completed</button>
+                                                                                </div> */}
+                                                                                        <div className="inner-item">
+                                                                                            <h6>Actions</h6>
+                                                                                            <div className="tbl-dropdown text-end">
+                                                                                                <button onClick={() => GetDataOfOperation(elem)} className='btn-detail'>Detail</button>
+                                                                                            </div>
+                                                                                            {/* <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a> */}
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </Accordion.Body>
+                                                                            </Accordion.Item>
+                                                                        )
+                                                                    })}
+                                                                </Accordion>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            )
                                         }
                                     </Tab>
                                 </Tabs>
@@ -842,10 +908,10 @@ const Proofofwork = () => {
                     </div>
                     <div className="btnss">
                         <button onClick={() => {
-                            Acceptrejectoperation(taskdetail, singledetail, 'false')
+                            Acceptrejectoperation(operationList, singledetail, 'false')
                         }} className="redbtn"><img src="\generalassets\other-imgs\Subtract.svg" alt="crossimg" className="crossimg" /> Reject</button>
                         <button onClick={() => {
-                            Acceptrejectoperation(taskdetail, singledetail, 'true')
+                            Acceptrejectoperation(operationList, singledetail, 'true')
                         }} className="greenbtn"><img src="\generalassets\other-imgs\checkmark.svg" alt="crossimg" className="crossimg" /> Approve</button>
                     </div>
                 </Modal.Body>
