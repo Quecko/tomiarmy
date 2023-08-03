@@ -588,6 +588,13 @@
     }
 }
 
+.home-operations .upper-item .left p{
+    width: 700px!important;
+}
+.home-operations .upper-item .left{
+    text-align: left!important;
+}
+
 @media (max-width:991px) {
     .warpper-lock-operation .lock-operation h6 {
         font-size: 25px;
@@ -1045,6 +1052,9 @@
 
 
 @media (max-width:600px){
+    .home-operations .upper-item .left p{
+        width: auto!important;
+    }
     .option-field{
         .btn-search, .btn-reset{
             position: static;

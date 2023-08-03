@@ -41,28 +41,28 @@ const Sidebar = () => {
   let tok = localStorage.getItem("accessToken");
   const { account } = useWeb3React()
 
-  // useEffect(() => {
-  //   if (data?.isCommander == false && data?.isCoLeader == true){
-  //       history.push('/leader')
-  //   }
-  //   else if((data?.isCommander == true)){
-  //     history.push('/leader')
-  //   }
-  //   else if(data?.isCommander == false && data?.isCoLeader == false && data?.rank?.name !== 'general' && data?.rank?.name !== 'major general'){
-  //     history.push('/soldier')
-  //   }
-  //   else if (data?.rank?.name == 'general' && data?.isCommander == false && data?.isCoLeader == false){
-  //     history.push('/general')
-  //   }
-  //   else if (data?.rank?.name == 'major general' && data?.isCommander == false && data?.isCoLeader == false){
-  //     history.push('/majorgeneral')
-  //   }
-  //   else{
-  //     // localStorage.clear()
-  //     // window.location.assign('/')
+  useEffect(() => {
+    if (data?.isCommander == false && data?.isCoLeader == true){
+        history.push('/leader')
+    }
+    else if((data?.isCommander == true)){
+      history.push('/leader')
+    }
+    else if(data?.isCommander == false && data?.isCoLeader == false && data?.rank?.name !== 'general' && data?.rank?.name !== 'major general'){
+      history.push('/soldier')
+    }
+    else if (data?.rank?.name == 'general' && data?.isCommander == false && data?.isCoLeader == false){
+      history.push('/general')
+    }
+    else if (data?.rank?.name == 'major general' && data?.isCommander == false && data?.isCoLeader == false){
+      history.push('/majorgeneral')
+    }
+    else{
+      localStorage.clear()
+      window.location.assign('/')
 
-  //   }
-  // }, [account])
+    }
+  }, [account])
   const indexvv = localStorage.getItem("indexvalue");
   const [indexwait, setindexwait] = useState(0);
   const [routes, setroute] = useState(false);
