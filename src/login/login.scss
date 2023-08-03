@@ -338,7 +338,9 @@
     }
 }
 
-
+.login-tabs-wrapper{
+    max-width: 600px;
+}
 .padding-remove .Header-wrapper {
     display: none;
 }
@@ -360,6 +362,7 @@
         min-height: 100%;
         height: 100%;
         padding: 100px 0px;
+        padding-top: 40px!important;
     }
 
     .login-tabs-wrapper .tab-content .invitetext {
@@ -593,3 +596,6 @@
 }
 
 
+.login-tabs-wrapper .tab-content .ConnectWallet-wrapper .army-textImg{
+    margin-bottom: 50px!important;
+}

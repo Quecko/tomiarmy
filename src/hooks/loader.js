@@ -12,7 +12,7 @@ function Loader({text }) {
             style={{
               zIndex: 999999999999,
               marginTop: -100,
-              Left: 0,
+              left: 0,
               position: 'fixed',
               top: 0,
               height: "122%",

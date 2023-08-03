@@ -135,7 +135,7 @@ const CreateOperation = ({ svaebutton, setroutehome, routeshome, setexpired, tas
                     if (startDate) {
                         if (profileP) {
                             if (allFormData?.tomitoken != '') {
-                                // setLoader(true)
+                                setLoader(true)
                                 axios.defaults.headers.post[
                                     "Authorization"
                                 ] = `Bearer ${tok}`;
@@ -146,7 +146,7 @@ const CreateOperation = ({ svaebutton, setroutehome, routeshome, setexpired, tas
                                 };
                                 axios(config)
                                     .then(function (response) {
-                                        //   setLoader(false);
+                                        setLoader(false);
                                         getData()
                                         setoperationdata('')
                                         setroute(!routes)
@@ -160,7 +160,7 @@ const CreateOperation = ({ svaebutton, setroutehome, routeshome, setexpired, tas
                                         })
                                     })
                                     .catch(function (error) {
-                                        //   setLoader(false);
+                                          setLoader(false);
                                         if (error.response.data.statusCode == 409) {
                                             toast.error('Tasks with this name already exist', {
                                                 position: 'top-right',
@@ -244,7 +244,7 @@ const CreateOperation = ({ svaebutton, setroutehome, routeshome, setexpired, tas
                 if (allFormData?.description != '') {
                     // if (profileP || profilePicture) {
                     if (allFormData?.tomitoken != '') {
-                        // setLoader(true)
+                        setLoader(true)
                         var config = {
                             method: "patch",
                             url: `${API_URL}/tasks/operations/${operationdata?._id}`,
@@ -255,7 +255,7 @@ const CreateOperation = ({ svaebutton, setroutehome, routeshome, setexpired, tas
                         };
                         axios(config)
                             .then(function (response) {
-                                //   setLoader(false);
+                                  setLoader(false);
                                 setexpired(false)
                                 if (call === true) {
                                     getData()
@@ -273,7 +273,7 @@ const CreateOperation = ({ svaebutton, setroutehome, routeshome, setexpired, tas
 
                             })
                             .catch(function (error) {
-                                //   setLoader(false);
+                                  setLoader(false);
                                 if (error.response.data.statusCode == 409) {
                                     toast.error('Tasks with this name already exist', {
                                         position: 'top-right',

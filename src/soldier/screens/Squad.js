@@ -1109,7 +1109,7 @@ const Squad = ({ show1, setShow1, show2, setShow2, setShow4, setShow5, setShow6,
                           </tbody>
                         </table>
                       </div>
-                      <div className="pagi">
+                      {/* <div className="pagi">
                         <div className="left">
                           <p>Showing 1 to 10 of 57 entries</p>
                         </div>
@@ -1125,7 +1125,7 @@ const Squad = ({ show1, setShow1, show2, setShow2, setShow4, setShow5, setShow6,
                           </Pagination>
                           <p>Next</p>
                         </div>
-                      </div>
+                      </div> */}
                     </div>
                     <div className="mobile-responsive-table d-none display-block-in-mobile">
                       <div className="heading-mobile">

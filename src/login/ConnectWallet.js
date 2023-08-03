@@ -108,6 +108,7 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role, setRole, setinvitecode, 
                             // history.push("/buytoken")
                         } else {
                             localStorage.setItem("accessToken", res?.data?.data?.accessToken);
+                            localStorage.setItem("wallet", res?.data?.data?.walletAddress);
                             // setShow(false)
                             localStorage.setItem("user", JSON.stringify(res?.data?.data));
                             if (res?.data?.data?.rank.name === "general") {
@@ -127,7 +128,7 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role, setRole, setinvitecode, 
                                 localStorage.clear()
                                 window.location.assign('/')
                             }
-                            localStorage.setItem("wallet", account);
+                          
                             toast.success('User Logged in Successfully', {
                                 position: 'top-center',
                                 autoClose: 5000,
@@ -161,6 +162,7 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role, setRole, setinvitecode, 
                             autoClose: 5000,
                         });
                         localStorage.setItem("accessToken", res?.data?.data?.accessToken);
+                        localStorage.setItem("wallet", res?.data?.data?.walletAddress);
                         localStorage.setItem("user", JSON.stringify(res?.data?.data));
                         history.push("/requestinvitation?id=" + role);
                     })
@@ -186,6 +188,7 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role, setRole, setinvitecode, 
                             autoClose: 5000,
                         });
                         localStorage.setItem("accessToken", res?.data?.data?.accessToken);
+                        localStorage.setItem("wallet", res?.data?.data?.walletAddress);
                         localStorage.setItem("user", JSON.stringify(res?.data?.data));
                         // dispatch(addUer(res?.data?.data));
                         history.push("/requestinvitation?id=" + role);

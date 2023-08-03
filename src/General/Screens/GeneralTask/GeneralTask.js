@@ -115,11 +115,9 @@ const GeneralTask = ({ setShowtask, setShowtaskdetail, setShowtaskedit, setdetai
                             </thead>
                             <tbody>
                               {tasks?.map((elem, index) => {
-                                let expiredate = new Date(elem?.expirationDate);
                                 const ExpireDate = moment(elem?.expirationDate).format("DD-MM-YYYY");
                                 let createdate = new Date(elem?.createdAt);
                                 const createDate = moment(createdate).format("DD-MM-YYYY");
-                                console.log('sssssss',ExpireDate,elem?.expirationDate);
                                 return (
                                   <tr key={index}>
                                     <td>
@@ -129,7 +127,7 @@ const GeneralTask = ({ setShowtask, setShowtaskdetail, setShowtaskedit, setdetai
                                       <p className='paratable'>{createDate}</p>
                                     </td>
                                     <td>
-                                      <p className='paratable'>{ExpireDate}</p>
+                                      <p className='paratable'>{elem?.expirationDate ? ExpireDate:'---'}</p>
                                     </td>
                                     <td>
                                       <p className='paratable'>{elem?.reward} Points</p>

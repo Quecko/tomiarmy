@@ -16,6 +16,7 @@ const SquadModals = ({ show1, setShow1, setShow2, show2, SquadUsers, GetUserProf
     setInputs({})
     setProfilePicture(null)
     setShow2(false)
+    window.location.reload()
   };
   const handleShow2 = () => setShow2(true);
 
@@ -60,6 +61,7 @@ const SquadModals = ({ show1, setShow1, setShow2, show2, SquadUsers, GetUserProf
         axios(config)
           .then(async (response) => {
             setLoader(false);
+            localStorage.setItem("accessToken", response?.data?.accessToken);
             const userString = JSON.parse(localStorage.getItem('user'));
             userString.isCommander = true;
             userString.memberOfSquad = true
@@ -67,7 +69,6 @@ const SquadModals = ({ show1, setShow1, setShow2, show2, SquadUsers, GetUserProf
             localStorage.setItem('user', JSON.stringify(userString));
             // localStorage.setItem('user', JSON.stringify(updateduser));
             // localStorage.setItem('user', JSON.stringify(response?.data?.data));
-            localStorage.setItem("accessToken", response?.data?.accessToken);
             GetUserProfiledata()
             SquadUsers()
             window.scrollTo(0, 0);
@@ -75,7 +76,7 @@ const SquadModals = ({ show1, setShow1, setShow2, show2, SquadUsers, GetUserProf
             setInputs({})
             setProfilePicture(null)
             handleShow3();
-            window.location.reload()
+            // window.location.reload()
             // setCall(!call)
             // GetUserProfiledata();
             // getData();

@@ -13,11 +13,16 @@ import axios from 'axios';
 import { useWeb3React } from "@web3-react/core";
 import "./generalreport.scss"
 import moment from 'moment';
+import Loader from '../../../hooks/loader'
+
 const GeneralReport = () => {
     const [show, setShow] = useState(false);
     const [data, setdata] = useState(null);
     const [date, setdate] = useState(null);
     const handleClose = () => setShow(false);
+    const [loader, setLoader] = useState(false)
+
+    console.log('data',data);
     const handleShow = (elem) => {
         setShow(true)
         let createdate = new Date(elem?.createdAt);
@@ -85,6 +90,7 @@ const GeneralReport = () => {
 
     const resolvebug = (elem) => {
         let tok = localStorage.getItem("accessToken");
+        setLoader(true)
         var data = "null";
         data = ({
             status: "Resolved"
@@ -100,20 +106,21 @@ const GeneralReport = () => {
         axios(config)
             .then(function (response) {
                 getDataannou();
-                // setLoader(false);
+                setLoader(false);
                 toast.success('Bug Report resolved Successfully', {
                     position: "top-right",
                     autoClose: 2000,
                 });
             })
             .catch(function (error) {
-                // setLoader(false);
+                setLoader(false);
             });
     }
 
 
     return (
         <>
+            {loader && <Loader />}
             <div className="formobile-heading d-none display-block-in-mobile">
                 <div className="inner-heading">
                     <h6>Report a Bug</h6>

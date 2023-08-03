@@ -199,7 +199,7 @@ const Proofofwork = () => {
     const Acceptreject = async (singledetail, approvedcheck) => {
         let tok = localStorage.getItem("accessToken");
         // setOpens(true);
-        // setLoader(true)
+        setLoader(true)
         axios
             .patch(
                 API_URL + "/tasks/work-proofs/" +
@@ -217,6 +217,7 @@ const Proofofwork = () => {
                 } else {
                     handleClosework();
                     handleShowreject1();
+                    setLoader(false)
                 }
                 getData()
                     // setCall(!call)
@@ -691,8 +692,6 @@ const Proofofwork = () => {
                     </div>
                 </div>
             </section>
-
-
 
 
             <Modal className="createdsuccess-modal global-modal-style powmodal" show={showwork} onHide={handleClosework} centered>

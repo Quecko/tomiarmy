@@ -35,33 +35,34 @@ import { addUer } from '../../../redux/action';
 
 
 const Sidebar = () => {
+  let walletAddress = localStorage.getItem("wallet");
   const datacommander = localStorage.getItem('user')
   const data = JSON.parse(datacommander)
   let tok = localStorage.getItem("accessToken");
   const { account } = useWeb3React()
   // for redirect
-  useEffect(() => {
-    if (data?.isCommander == false && data?.isCoLeader == true){
-        history.push('/leader')
-    }
-    else if((data?.isCommander == true)){
-      history.push('/leader')
-    }
-    else if(data?.isCommander == false && data?.isCoLeader == false && data?.rank?.name !== 'general' && data?.rank?.name !== 'major general'){
-      history.push('/soldier')
-    }
-    else if (data?.rank?.name == 'general' && data?.isCommander == false && data?.isCoLeader == false){
-      history.push('/general')
-    }
-    else if (data?.rank?.name == 'major general' && data?.isCommander == false && data?.isCoLeader == false){
-      history.push('/majorgeneral')
-    }
-    else{
-      localStorage.clear()
-      window.location.assign('/')
+  // useEffect(() => {
+  //   if (data?.isCommander == false && data?.isCoLeader == true){
+  //       history.push('/leader')
+  //   }
+  //   else if((data?.isCommander == true)){
+  //     history.push('/leader')
+  //   }
+  //   else if(data?.isCommander == false && data?.isCoLeader == false && data?.rank?.name !== 'general' && data?.rank?.name !== 'major general'){
+  //     history.push('/soldier')
+  //   }
+  //   else if (data?.rank?.name == 'general' && data?.isCommander == false && data?.isCoLeader == false){
+  //     history.push('/general')
+  //   }
+  //   else if (data?.rank?.name == 'major general' && data?.isCommander == false && data?.isCoLeader == false){
+  //     history.push('/majorgeneral')
+  //   }
+  //   else{
+  //     localStorage.clear()
+  //     window.location.assign('/')
 
-    }
-  }, [account])
+  //   }
+  // }, [account])
   const indexvv = localStorage.getItem("indexvalue");
   const [indexwait, setindexwait] = useState(0);
   const [routes, setroute] = useState(false);
@@ -484,22 +485,42 @@ const Sidebar = () => {
     getDataOperation()
   }, [account, expired])
 
-  let walletAddress = localStorage.getItem("wallet");
-  useEffect(() => {
-    if (account == walletAddress || toggle) {
-      setToggle(false)
-    }
-    else {
-      loginUser()
-      localStorage.setItem('wallet', account)
 
+  // useEffect(() => {
+  //   if (account == walletAddress || toggle) {
+  //     setToggle(false)
+  //   }
+  //   else {
+  //     loginUser()
+  //     localStorage.setItem('wallet', account)
+
+  //   }
+  // }, [account, walletAddress])
+
+  useEffect(() => {
+    // console.log("sdsdfsdsdfsd",walletAddress)
+    // console.log("sdfsdfsdfsdsdf", typeof account, typeof data?.walletAddress)
+    if(account!= undefined || account!=null ){
+      if (account?.toString() === walletAddress?.toString()) {
+        console.log("in")
+      }
+      else {
+        console.log("out")
+          // window.scrollTo(0, 0);
+          // console.log("asassaasdasda", account)
+          loginUser();
+      }
     }
-  }, [account, walletAddress])
+    else{
+      console.log('sufyan out')
+    }
+   
+}, [account])
 
 
   return (
     <>
-    {/* {account ? account:'No account'} */}
+    {account ? account:'No account'}
       <div className="theme-custom-container">
         <div className="App app-wrapper row m-0">
           <div className="sidebar-column web-sidebar p-0">
