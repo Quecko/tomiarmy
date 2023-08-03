@@ -1348,10 +1348,11 @@
 
 .twice-elements{
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
     align-items: center;
     max-width: 250px;
     width: 100%;
+    gap: 15px;
 }
 
 
