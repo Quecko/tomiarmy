@@ -16,13 +16,17 @@ const SquadModals = ({ show1, setShow1, setShow2, show2, SquadUsers, GetUserProf
     setInputs({})
     setProfilePicture(null)
     setShow2(false)
-    window.location.reload()
   };
   const handleShow2 = () => setShow2(true);
 
   const [show3, setShow3] = useState(false);
-  const handleClose3 = () => setShow3(false);
-  const handleShow3 = () => setShow3(true);
+  const handleClose3 = () => {
+    setShow3(false)
+    window.location.reload()
+  };
+  const handleShow3 = () => {
+    setShow3(true)
+  };
 
   const [show4, setShow4] = useState(false);
   const handleClose4 = () => setShow4(false);

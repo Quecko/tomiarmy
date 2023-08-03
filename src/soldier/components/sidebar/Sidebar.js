@@ -41,24 +41,24 @@ const Sidebar = () => {
   const { account } = useWeb3React()
 
   useEffect(() => {
-    if (data?.isCommander == false && data?.isCoLeader == true) {
+    if (data?.isCommander == false && data?.isCoLeader == true){
+        history.push('/leader')
+    }
+    else if((data?.isCommander == true)){
       history.push('/leader')
     }
-    else if ((data?.isCommander == true)) {
-      history.push('/leader')
-    }
-    else if (data?.isCommander == false && data?.isCoLeader == false && data?.rank?.name !== 'general' && data?.rank?.name !== 'major general') {
+    else if(data?.isCommander == false && data?.isCoLeader == false && data?.rank?.name !== 'general' && data?.rank?.name !== 'major general'){
       history.push('/soldier')
     }
-    else if (data?.rank?.name == 'general' && data?.isCommander == false && data?.isCoLeader == false) {
+    else if (data?.rank?.name == 'general' && data?.isCommander == false && data?.isCoLeader == false){
       history.push('/general')
     }
-    else if (data?.rank?.name == 'major general' && data?.isCommander == false && data?.isCoLeader == false) {
+    else if (data?.rank?.name == 'major general' && data?.isCommander == false && data?.isCoLeader == false){
       history.push('/majorgeneral')
     }
-    else {
-      // localStorage.clear()
-      // window.location.assign('/')
+    else{
+      localStorage.clear()
+      window.location.assign('/')
 
     }
   }, [account])
@@ -493,7 +493,7 @@ const Sidebar = () => {
 
   return (
     <>
-      {account ? account : 'No account'}
+      {/* {account ? account : 'No account'} */}
       <div className="theme-custom-container">
         <div className="App app-wrapper row m-0">
           <div className="sidebar-column web-sidebar p-0">
