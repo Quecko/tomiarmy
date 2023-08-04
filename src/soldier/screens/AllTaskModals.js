@@ -78,7 +78,7 @@ const AllTaskModals = ({ showtask, setShowtask, settaskdetail, taskdetail,getDat
         ...(inputs?.name && { url: m }),
         ...(dumarr.length > 0 && { image: dumarr }),
       });
-      if (account) {
+      // if (account) {
         setLoader(true);
         axios.defaults.headers.post[
           "Authorization"
@@ -133,7 +133,7 @@ const AllTaskModals = ({ showtask, setShowtask, settaskdetail, taskdetail,getDat
             // GetUserProfiledata();
             setLoader(false);
           });
-      }
+      // }
     } else {
       toast.error("Atleast send URL or Image of work")
     }

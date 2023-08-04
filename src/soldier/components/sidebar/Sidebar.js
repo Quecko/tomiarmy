@@ -380,7 +380,7 @@ const Sidebar = () => {
   const getChat = async () => {
 
     // page = message!='' ?1 :page; 
-    setPage(message != '' ? 1 : page)
+    setPage(message != '' ? 0 : page)
     var config = {
       method: "get",
       url: `${API_URL}/chats/group-messages?offset=${page}&limit=10`,

@@ -21,7 +21,7 @@ import { TokenExpiredOrNot } from "../../../utils/TokenExpiredOrNot";
 
 
 
-const Header = ({ routes, setroute, indexwait, handleShow, setShow2, setShow1, setShow4, setShow5, notifs, getNotif, getData, getDataOperation, getChat,setindexwait }) => {
+const Header = ({ routes, setroute, indexwait, handleShow, setShow2, setShow1, setShow4, setShow5, notifs, getNotif, getData, getDataOperation, getChat, setindexwait }) => {
   const datacommander = localStorage.getItem('user')
   const data = JSON.parse(datacommander)
   const { userSign } = Signature();
@@ -29,6 +29,9 @@ const Header = ({ routes, setroute, indexwait, handleShow, setShow2, setShow1, s
   const [squaddetail, setsquaddetail] = useState()
   const [loader, setLoader] = useState(false)
   const [showModal, setShowModal] = useState(false)
+  const [showModal1, setShowModal1] = useState(false)
+  const [showModal11, setShowModal11] = useState(false)
+
   const history = useHistory();
   const GetUserProfiledata = () => {
     // setLoader(true);
@@ -104,6 +107,7 @@ const Header = ({ routes, setroute, indexwait, handleShow, setShow2, setShow1, s
       // toast.info("Your Recruite Invitation has been Accepted Please Check Your Notifications");
       audio.play()
       getNotif()
+      setShowModal(true)
     });
     socket.on('Squad_Recruite_Invite', (notification) => {
       // toast.info("Squad Recruite Invite Send To You Please Check Your Notifications");
@@ -114,6 +118,7 @@ const Header = ({ routes, setroute, indexwait, handleShow, setShow2, setShow1, s
       // toast.info("Your Squad Recruite Accepted Please Check Your Notifications");
       audio.play()
       getNotif()
+      setShowModal(true)
     });
     socket.on('Group_Message', () => {
       // toast.info("group message chat notification");
@@ -130,11 +135,13 @@ const Header = ({ routes, setroute, indexwait, handleShow, setShow2, setShow1, s
       // toast.info("You are Removed for as a Co-Leader Please Check Your Notifications");
       audio.play()
       getNotif()
+      setShowModal(true)
     });
     socket.on('Veteran_kicked_out', (notification) => {
       // toast.info("You are Removed from Squad Please Check Your Notifications");
       audio.play()
       getNotif()
+      setShowModal(true)
     });
     socket.on('Rank_Updated', (notification) => {
       // toast.info("You are Removed from Squad Please Check Your Notifications");
@@ -157,10 +164,10 @@ const Header = ({ routes, setroute, indexwait, handleShow, setShow2, setShow1, s
     });
   }, [])
 
-  const AcceptInvite = async (item) => {
-    const { squadId } = JSON.parse(item?.notification?.metadata);
+  const AcceptInvite = async (squadId) => {
+    // const { squadId } = JSON.parse(item?.notification?.metadata);
     let tok = localStorage.getItem("accessToken");
-    setLoader(true);
+    // setLoader(true);
     var data = ({
       squad: squadId,
     });
@@ -175,7 +182,7 @@ const Header = ({ routes, setroute, indexwait, handleShow, setShow2, setShow1, s
 
     axios(config)
       .then(function (response) {
-        setLoader(false);
+        // setLoader(false);
         // getData();
         toast.success('Squad joined Successfully', {
           position: "top-right",
@@ -185,7 +192,9 @@ const Header = ({ routes, setroute, indexwait, handleShow, setShow2, setShow1, s
         userString.memberOfSquad = response?.data?.data?.memberOfSquad;
         localStorage.setItem('user', JSON.stringify(userString));
         localStorage.setItem("accessToken", response?.data?.accessToken);
-        setShowModal(true)
+        setShowModal11(false)
+        setShowModal1(true)
+        setsquadid()
         // window.location.reload();
         // updateToken();
         // window.location.reload();
@@ -237,6 +246,7 @@ const Header = ({ routes, setroute, indexwait, handleShow, setShow2, setShow1, s
             rememberMe: true
           })
           .then((res) => {
+            setText('')
             // toast.success('User Logged in Successfully', {
             //   position: 'top-center',
             //   autoClose: 5000,
@@ -310,10 +320,31 @@ const Header = ({ routes, setroute, indexwait, handleShow, setShow2, setShow1, s
   //   audio.play() 
   // }
 
+   const [text,setText]=useState('')
+   const [squadid,setsquadid]=useState()
+
   const addNickName = (asd) => {
     setindexwait(asd)
     localStorage.setItem("indexvalue", asd);
   }
+
+
+  const AgainSignUP = (item) => {
+    const { squadId } = JSON.parse(item?.notification?.metadata);
+    if(squadId)
+    {
+      setsquadid(squadId)
+      setShowModal11(true)
+      setText(item)
+    }
+    else{
+      setText(item)
+      setShowModal1(true)
+    }
+    //  loginUser()
+  }
+
+  console.log('text',text);
 
   return (
     <>
@@ -332,7 +363,7 @@ const Header = ({ routes, setroute, indexwait, handleShow, setShow2, setShow1, s
           </div>
           {indexwait === 0 ? (
             <div className="soldier-name">
-              <h4 className="shgysgasgcashbhsac"><div>Welcome </div>{data?.nickName ? <div style={{marginLeft:'6px'}}>{data?.nickName}</div>:
+              <h4 className="shgysgasgcashbhsac"><div>Welcome </div>{data?.nickName ? <div style={{ marginLeft: '6px' }}>{data?.nickName}</div> :
                 <div className="no_user">
                   NO NICKNAME,
                   <button className="add_nick_name" onClick={() => { addNickName(8); }}><img src="\assets\add-circle.svg" alt="img" className="img-fluid me-2" /><div>ADD NICKNAME</div></button>
@@ -428,56 +459,42 @@ const Header = ({ routes, setroute, indexwait, handleShow, setShow2, setShow1, s
                     {notifs?.length > 0 ?
                       <>
                         {notifs?.map((item, index) => {
-                          // const squadId = metadataString?.substring(metadataString.indexOf('squadId":"') + 10, metadataString.indexOf('"}'));
-                          const extractCoLeaderValue = (metadataString) => {
-                            const coLeaderAddedSubstring = '"coLeaderAdded":"';
-                            if (coLeaderAddedSubstring?.includes) {
-                              return metadataString?.includes('"coLeaderAdded":true');
+                          console.log('item', item);
+                          const extractValue = (metadataString) => {
+                            const dd = '"newSignRequired":"';
+                            if (dd?.includes) {
+                              return metadataString?.includes('"newSignRequired":true');
                             }
                             return undefined
                           }
-                          const extractCoLeaderValueRemoved = (metadataString) => {
-                            const coLeaderAddedSubstring = '"coLeaderRemoved":"';
-                            if (coLeaderAddedSubstring?.includes) {
-                              return metadataString?.includes('"coLeaderAdded":true');
-                            }
-                            return undefined
-                          }
-                          const extractSquadIdValue = (metadataString) => {
-                            const squadIdSubstring = '"squadId":"';
-                            if (metadataString?.includes(squadIdSubstring)) {
-                              const startIndex = metadataString?.indexOf(squadIdSubstring) + squadIdSubstring.length;
-                              const endIndex = metadataString?.indexOf('"', startIndex);
-                              return metadataString.substring(startIndex, endIndex);
-                            }
-                            return undefined;
-                          }
-                          const coLeaderAdded = extractCoLeaderValue(item?.notification?.metadata);
-                          const coLeaderRemoved = extractCoLeaderValueRemoved(item?.notification?.metadata);
-                          const squadId = extractSquadIdValue(item?.notification?.metadata);
+
+                          const v = extractValue(item?.notification?.metadata);
                           return (
                             <div className="inner-div border-grad">
                               <div className="upper-text">
                                 {/* <h6>Join DC SQUAD Again</h6> */}
                                 <p><span></span>{moment(item?.createdAt).fromNow()}</p>
                               </div>
-                              <p className="para">{item?.notification?.message}</p>
-                              {squadId && data?.memberOfSquad == false &&
+                              {v ?
+                                <p className="para" onClick={() => AgainSignUP(item)}>{item?.notification?.message}</p>
+                                :
+                                <p className="para">{item?.notification?.message}</p>
+                              }
+                              {/* {squadId && data?.memberOfSquad == false &&
                                 <div className="twice-btn">
-                                  {/* <button className="btn-reject"><img src="\assets\reject-icon.svg" alt="img" className="img-fluid me-2" />Reject</button> */}
                                   <button className="btn-accept" onClick={() => AcceptInvite(item)}><img src="\assets\checkmark.svg" alt="img" className="img-fluid me-2" />Accept</button>
                                 </div>
-                              }
-                              {coLeaderAdded == true && item?.isRead == false && data?.isCoLeader == false &&
+                              } */}
+                              {/* {coLeaderAdded == true && item?.isRead == false && data?.isCoLeader == false &&
                                 <div className="twice-btn">
                                   <button className="btn-accept" onClick={() => updateNotifications(item)}><img src="\assets\checkmark.svg" alt="img" className="img-fluid me-2" />Sign up</button>
                                 </div>
-                              }
-                              {coLeaderRemoved == true && item?.isRead == false && data?.isCoLeader == true &&
+                              } */}
+                              {/* {coLeaderRemoved == true && item?.isRead == false && data?.isCoLeader == true &&
                                 <div className="twice-btn">
                                   <button className="btn-accept" onClick={() => updateNotifications(item)}><img src="\assets\checkmark.svg" alt="img" className="img-fluid me-2" />Sign up</button>
                                 </div>
-                              }
+                              } */}
                             </div>
                           )
                         })}
@@ -652,18 +669,50 @@ const Header = ({ routes, setroute, indexwait, handleShow, setShow2, setShow1, s
       </div>
 
       {/* sign moodal */}
-      <Modal className='detailmodal' show={showModal} centered>
+      <Modal className='detailmodal gtgtgtgtgt' show={showModal} centered>
         {/* <Modal.Header closeButton>
         </Modal.Header> */}
         <Modal.Body>
           <div className='imagesmodal'>
             <img src='\imagesmodals.svg' alt='img' className='img-fluid' />
-            <p>Your Squad Recruite Accepted Please</p>
+            <p>Please Take Sign to move further</p>
             {/* <p>Are you sure you want to leave this squad?</p> */}
           </div>
           <div className='endbtn'>
             {/* <button  className="btn-blackk" ><span><img src='\Subtract.svg' alt='img' className='img-fluid' /></span>Cancel</button> */}
             <button onClick={SignUp} className="btn-pinkk" ><img src='\up.svg' alt='img' className='img-fluid' />Sign In</button>
+          </div>
+        </Modal.Body>
+      </Modal>
+
+      <Modal className='detailmodal gtgtgtgtgt' show={showModal1} centered>
+        {/* <Modal.Header closeButton>
+        </Modal.Header> */}
+        <Modal.Body>
+          <div className='imagesmodal'>
+            <img src='\imagesmodals.svg' alt='img' className='img-fluid' />
+            <p>{text?.notification?.message}</p>
+            {/* <p>Are you sure you want to leave this squad?</p> */}
+          </div>
+          <div className='endbtn'>
+            {/* <button  className="btn-blackk" ><span><img src='\Subtract.svg' alt='img' className='img-fluid' /></span>Cancel</button> */}
+            <button onClick={SignUp} className="btn-pinkk" ><img src='\up.svg' alt='img' className='img-fluid' />Sign In</button>
+          </div>
+        </Modal.Body>
+      </Modal>
+
+      <Modal className='detailmodal gtgtgtgtgt' show={showModal11} centered>
+        {/* <Modal.Header closeButton>
+        </Modal.Header> */}
+        <Modal.Body>
+          <div className='imagesmodal'>
+            <img src='\imagesmodals.svg' alt='img' className='img-fluid' />
+            <p>Please Accept Invite First</p>
+            {/* <p>Are you sure you want to leave this squad?</p> */}
+          </div>
+          <div className='endbtn'>
+            {/* <button  className="btn-blackk" ><span><img src='\Subtract.svg' alt='img' className='img-fluid' /></span>Cancel</button> */}
+            <button onClick={() => AcceptInvite(squadid)} className="btn-pinkk" ><img src='\up.svg' alt='img' className='img-fluid' />Accept Invite</button>
           </div>
         </Modal.Body>
       </Modal>
