@@ -5,6 +5,7 @@ import { API_URL } from "../../utils/ApiUrl"
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { TokenExpiredOrNot } from '../../utils/TokenExpiredOrNot';
+import Loader from '../../hooks/loader'
 
 const Settings = () => {
   const [show, setShow] = useState(false);
@@ -50,6 +51,7 @@ const Settings = () => {
     // console.log('t',t)
     // if(t){
     if (nick != '') {
+      setLoader(true)
       var config = {
         method: "patch",
         url: `${API_URL}/auth/users`,
@@ -94,6 +96,7 @@ const Settings = () => {
 
     let tok = localStorage.getItem("accessToken");
     if (profilePicture != '') {
+      setLoader(true)
       var data1 = new FormData();
       data1.append("userProfileImage", profilePicture)
       var config = {
@@ -142,6 +145,7 @@ const Settings = () => {
 
   return (
     <>
+    {loader && <Loader/>}
       <div className="formobile-heading d-none display-block-in-mobile">
         <div className="inner-heading">
           <h6>settings</h6>

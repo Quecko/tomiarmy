@@ -46,7 +46,7 @@ const Recruiting = () => {
       };
       axios(config)
         .then(function (response) {
-          setLoader(false);
+          // setLoader(false);
           // setCount(response.data.data.count)
           const filteredData = response?.data?.data?.squadInvitationRequests.filter(item => !item.hidden_request);
           setRequests(filteredData);
@@ -55,7 +55,7 @@ const Recruiting = () => {
           // setCurrentPage(valu)
         })
         .catch(function (error) {
-          setLoader(false);
+          // setLoader(false);
           // localStorage.removeItem("accessToken");
           // localStorage.removeItem("user");
           // window.location.assign("/")
@@ -135,6 +135,7 @@ const Recruiting = () => {
 
   return (
     <>
+    {loader && <Loader/>}
       <div className="formobile-heading d-none display-block-in-mobile">
         <div className="inner-heading">
           <h6>Recruiting Requests </h6>
@@ -186,7 +187,7 @@ const Recruiting = () => {
                                       </p>
                                     </td>
                                     <td>
-                                      <p className='paratable'>@{elem?.nickName}</p>
+                                      <p className='paratable'>{elem?.nickName}</p>
                                     </td>
                                     <td>
                                       <p className='paratable'>{elem?.tomiTokens}</p>

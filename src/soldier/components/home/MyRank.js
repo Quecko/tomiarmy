@@ -89,7 +89,7 @@ const MyRank = ({ props }) => {
     //   valu = 1;
     // }
 
-    if (account) {
+    // if (account) {
       var config = {
         method: "get",
         url: `${API_URL}/tasks/squads?offset=1&&limit=5`,
@@ -126,7 +126,7 @@ const MyRank = ({ props }) => {
           // window.location.assign("/")
           // window.location.reload();
         });
-    }
+    // }
   }
 
   const SendInvite = (id) => {

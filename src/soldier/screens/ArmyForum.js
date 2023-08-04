@@ -6,6 +6,8 @@ import axios from 'axios';
 import moment from "moment";
 import { Modal } from 'react-bootstrap';
 import { TokenExpiredOrNot } from "../../utils/TokenExpiredOrNot";
+import Loader from '../../hooks/loader'
+
 const ArmyForum = () => {
   let tok = localStorage.getItem("accessToken");
   const [topuser, settopuser] = useState([]);
@@ -47,11 +49,12 @@ const ArmyForum = () => {
   }
   //  create new forum
   const putQuestion = () => {
-    setLoader(true);
+   
     // let t=TokenExpiredOrNot()
     // console.log('t',t)
     // if(t){
     if (allFormData.title !== "" && allFormData.description !== "") {
+      setLoader(true);
       if (!loading) {
         setLoading(true)
         axios.defaults.headers.post[
@@ -70,7 +73,12 @@ const ArmyForum = () => {
           .then(async (response) => {
             setLoader(false);
             toast.success("Post Added Successfully");
-            getMyPosts()
+            if (indexvalue === '13') {
+              GetPosts()
+            }
+            else {
+              getMyPosts()
+            }
             handleCloseForum()
             ClearAll()
             // window.$(`#exampleModall`).modal("hide");
@@ -293,7 +301,7 @@ const ArmyForum = () => {
 
   const deletetask = () => {
     let tok = localStorage.getItem("accessToken");
-    // setOpens(true);
+    setLoader(true);
     axios
       .delete(
         API_URL + "/forums/posts/" +
@@ -301,6 +309,7 @@ const ArmyForum = () => {
         { headers: { authorization: `Bearer ${tok}` } }
       )
       .then((response) => {
+        setLoader(false)
         getMyPosts()
         toast
           .success("Successfully Delete Post", {
@@ -309,7 +318,7 @@ const ArmyForum = () => {
           })
         handleCloseDeleteForum()
           .catch((err) => {
-            // setOpens(false);
+            setLoader(false);
             toast.warning(
               "Error",
               {
@@ -324,6 +333,7 @@ const ArmyForum = () => {
 
   const UpdateTask = (objj) => {
     if (!loading) {
+      setLoader(true);
       setLoading(true)
       axios.patch(`${API_URL}/forums/posts/${objj._id}`,
         {
@@ -336,13 +346,14 @@ const ArmyForum = () => {
           }
         }
       ).then((response) => {
+        setLoader(false);
         getMyPosts()
         toast.success("Updated successfully");
         setShowForumEditModal(false)
 
         // Code
       }).catch((error) => {
-        // Code
+        setLoader(false);
         toast.error(error.response.data.message)
       })
         .finally(() => {
@@ -403,6 +414,7 @@ const ArmyForum = () => {
 
   return (
     <>
+    {loader && <Loader/>}
       <div className="formobile-heading shsvhsvhsdhsd  display-block-in-mobile">
         <div className="inner-heading soldier-name">
           <h6>{indexvalue == 12 ? 'My Post' : 'Army Forum'} </h6>

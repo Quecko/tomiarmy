@@ -21,7 +21,7 @@ const Chat = ({ setPage, page, setChat, chat, getChat, pages, message, setMessag
   const handleClose1 = () => setShow1(false);
   const handleShow1 = () => setShow1(true);
   const [topuser, settopuser] = useState([]);
-  const [image, setImage] = useState(null);
+  const [image, setImage] = useState('');
   const [uploadImage, setUploadImage] = useState(null);
   const [showImageModal, setShowImageModal] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -86,7 +86,7 @@ const Chat = ({ setPage, page, setChat, chat, getChat, pages, message, setMessag
   // get top user or member
   const sendChat = async (e) => {
     e.preventDefault()
-    if (message != '') {
+    if (message != '' || image!='' ) {
       if (!loading) {
         setLoading(true);
         var data = new FormData();

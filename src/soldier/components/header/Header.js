@@ -21,7 +21,7 @@ import { TokenExpiredOrNot } from "../../../utils/TokenExpiredOrNot";
 
 
 
-const Header = ({ routes, setroute, indexwait, handleShow, setShow2, setShow1, setShow4, setShow5, notifs, getNotif, getData, getDataOperation, getChat }) => {
+const Header = ({ routes, setroute, indexwait, handleShow, setShow2, setShow1, setShow4, setShow5, notifs, getNotif, getData, getDataOperation, getChat,setindexwait }) => {
   const datacommander = localStorage.getItem('user')
   const data = JSON.parse(datacommander)
   const { userSign } = Signature();
@@ -310,6 +310,11 @@ const Header = ({ routes, setroute, indexwait, handleShow, setShow2, setShow1, s
   //   audio.play() 
   // }
 
+  const addNickName = (asd) => {
+    setindexwait(asd)
+    localStorage.setItem("indexvalue", asd);
+  }
+
   return (
     <>
       <div
@@ -327,7 +332,13 @@ const Header = ({ routes, setroute, indexwait, handleShow, setShow2, setShow1, s
           </div>
           {indexwait === 0 ? (
             <div className="soldier-name">
-              <h4>Welcome {data?.nickName},</h4>
+              <h4 className="shgysgasgcashbhsac"><div>Welcome </div>{data?.nickName ? <div style={{marginLeft:'6px'}}>{data?.nickName}</div>:
+                <div className="no_user">
+                  NO NICKNAME,
+                  <button className="add_nick_name" onClick={() => { addNickName(8); }}><img src="\assets\add-circle.svg" alt="img" className="img-fluid me-2" /><div>ADD NICKNAME</div></button>
+                </div>
+              }
+              </h4>
               <p>LET’S FIGHT FOR THE ARMY</p>
             </div>
           ) : null}

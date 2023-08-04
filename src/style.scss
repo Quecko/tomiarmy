@@ -17,9 +17,10 @@ html {
     padding: 0;
 }
 
-a:active{
+a:active {
     color: #ff0083 !important;
 }
+
 .row {
     margin: 0;
     padding: 0;
@@ -5005,25 +5006,72 @@ input[type="search"]::-webkit-search-results-decoration {
     }
 }
 
-.sycvcsvyvcvsycvtcsv{
-        grid-template-columns: 24.2% 24.2% 24.2% 24.2% !important;
-    
+.sycvcsvyvcvsycvtcsv {
+    grid-template-columns: 24.2% 24.2% 24.2% 24.2% !important;
+
 }
 
-@media (max-width:600px){
-    .sycvcsvyvcvsycvtcsv{
+@media (max-width:600px) {
+    .sycvcsvyvcvsycvtcsv {
         grid-template-columns: 100% !important;
     }
 }
 
-.adadasdasdasdasdasdsad{
-    text-transform: none!important;
+.adadasdasdasdasdasdsad {
+    text-transform: none !important;
 }
 
-.apexcharts-toolbar{
-    display: none!important;
+.apexcharts-toolbar {
+    display: none !important;
 }
 
-.ucdvycdvtyvcvdc td{
+.ucdvycdvtyvcvdc td {
     padding: 16px 14px !important;
+}
+
+
+
+
+
+.add_nick_name {
+    background: transparent;
+    border: none;
+    // border-bottom: 1px solid #F058A6;
+    box-shadow: none;
+    border-radius: 10px;
+    padding: 8px 20px;
+    padding-left: 3px;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 100%;
+    letter-spacing: 0.01em;
+    color: #FF0083;
+}
+
+
+.no_user {
+    color: rgba(255, 255, 255, 0.50);
+    font-family: Rajdhani;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 110%;
+    text-transform: uppercase;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 6px!important;
+}
+
+.shgysgasgcashbhsac{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+
+.add_nick_name{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

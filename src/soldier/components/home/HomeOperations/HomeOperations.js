@@ -39,7 +39,7 @@ const HomeOperations = ({ setShowtask1, settaskdetail1, operations, setOperation
     } else {
       valu = 1;
     }
-    if (account) {
+    // if (account) {
       var config = {
         method: "get",
         url: `${API_URL}/tasks/squads?offset=${valu}&&limit=5`,
@@ -76,7 +76,7 @@ const HomeOperations = ({ setShowtask1, settaskdetail1, operations, setOperation
           window.location.assign("/")
           // window.location.reload();
         });
-    }
+    // }
   }
 
   const getPrevData = (off) => {
@@ -197,9 +197,8 @@ const HomeOperations = ({ setShowtask1, settaskdetail1, operations, setOperation
 
   useEffect(() => {
     GetUserTopSquad()
-  }, [account]);
+  }, []);
   const SendInvite = (id) => {
-    console.log('sssss');
     setLoader(true)
     // if (account) {
     axios.defaults.headers.post[

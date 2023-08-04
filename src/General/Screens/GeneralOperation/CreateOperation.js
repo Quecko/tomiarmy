@@ -345,10 +345,14 @@ const CreateOperation = ({ svaebutton, setroutehome, routeshome, setexpired, tas
                 <button className="btn-goback" onClick={() => backgo()}><img src="\assets\goback.svg" alt="img" className="img-fluid me-2" />Go Back</button>
                 {operationdata == '' && tasklentthfind > 0 ?
                     (
-                        <button className={subtask?.lenght > 0 ? "savechange-btn disabled display-none-in-mobile" : "savechange-btn disabled display-none-in-mobile"} >
+                        <div className='ysajgdashgdjsagjd'>
+                              {/* <button className={subtask?.lenght > 0 ? "savechange-btn disabled display-none-in-mobile" : "savechange-btn disabled display-none-in-mobile"} >
                             <img src="\generalassets\icons\save-change.svg" alt="img" className="img-fluid me-1" />
                             <span>Create Operation</span>
-                        </button>
+                        </button> */}
+                        <h6>You cannot create new operation until one operation already running</h6>
+                        </div>
+                      
                     )
                     :
                     operationdata == '' && tasklentthfind <= 0 ?
@@ -404,7 +408,7 @@ const CreateOperation = ({ svaebutton, setroutehome, routeshome, setexpired, tas
                                     <DatePicker selected={startDate} placeholder="Select expiration date..." onChange={(date) => setStartDate(date)} minDate={moment().toDate()} />
                                     {/* <input type="date" placeholder="Select expiration date..." />
                                      */}
-                                    {startDate === '' &&
+                                    {startDate === ''  &&
                                         <div className='sacvae'>
                                             {moment(operationdata?.expirationDate).format("DD-MM-YYYY")}
                                         </div>

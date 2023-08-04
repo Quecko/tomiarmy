@@ -86,7 +86,7 @@ const GroupChat = ({ setPage, page, setChat, chat, getChat, pages, message, setM
   // get top user or member
   const sendChat = async (e) => {
     e.preventDefault()
-    if (message != '') {
+    if (message != '' || image!='') {
       if (!loading) {
         setLoading(true);
         var data = new FormData();
