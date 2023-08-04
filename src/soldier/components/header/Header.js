@@ -71,6 +71,9 @@ const Header = ({ routes, setroute, indexwait, handleShow, setShow2, setShow1, s
 
   // }, [msgObj?.notification?.metadata !== undefined])
 
+
+  const [msg, setMsg] = useState()
+
   useEffect(() => {
     let tok = localStorage.getItem("accessToken");
     let socket = io('https://devapi.tomiarmy.com', {
@@ -107,7 +110,7 @@ const Header = ({ routes, setroute, indexwait, handleShow, setShow2, setShow1, s
       // toast.info("Your Recruite Invitation has been Accepted Please Check Your Notifications");
       audio.play()
       getNotif()
-      setShowModal(true)
+      // setShowModal(true)
     });
     socket.on('Squad_Recruite_Invite', (notification) => {
       // toast.info("Squad Recruite Invite Send To You Please Check Your Notifications");
@@ -118,6 +121,7 @@ const Header = ({ routes, setroute, indexwait, handleShow, setShow2, setShow1, s
       // toast.info("Your Squad Recruite Accepted Please Check Your Notifications");
       audio.play()
       getNotif()
+      setMsg('Your Squad Recruite Accepted Take Sign to continue')
       setShowModal(true)
     });
     socket.on('Group_Message', () => {
@@ -127,20 +131,25 @@ const Header = ({ routes, setroute, indexwait, handleShow, setShow2, setShow1, s
     });
     socket.on('Co_Leader_Added', (notification) => {
       // toast.info("You are Promoted for Co-Leader Please Check Your Notifications");
+
+      console.log('notification', notification);
       audio.play()
       getNotif()
+      setMsg('You are Promoted for Co-Leader Please Take Sign to continue')
       setShowModal(true)
     });
     socket.on('Co_Leader_Removed', (notification) => {
       // toast.info("You are Removed for as a Co-Leader Please Check Your Notifications");
       audio.play()
       getNotif()
+      setMsg('You are Removed for as a Co-Leader Please Take Sign to continue')
       setShowModal(true)
     });
     socket.on('Veteran_kicked_out', (notification) => {
       // toast.info("You are Removed from Squad Please Check Your Notifications");
       audio.play()
       getNotif()
+      setMsg('You are Removed from Squad Please Take Sign to continue')
       setShowModal(true)
     });
     socket.on('Rank_Updated', (notification) => {
@@ -320,8 +329,8 @@ const Header = ({ routes, setroute, indexwait, handleShow, setShow2, setShow1, s
   //   audio.play() 
   // }
 
-   const [text,setText]=useState('')
-   const [squadid,setsquadid]=useState()
+  const [text, setText] = useState('')
+  const [squadid, setsquadid] = useState()
 
   const addNickName = (asd) => {
     setindexwait(asd)
@@ -331,20 +340,24 @@ const Header = ({ routes, setroute, indexwait, handleShow, setShow2, setShow1, s
 
   const AgainSignUP = (item) => {
     const { squadId } = JSON.parse(item?.notification?.metadata);
-    if(squadId)
-    {
+    if (squadId) {
       setsquadid(squadId)
       setShowModal11(true)
       setText(item)
     }
-    else{
+    else {
       setText(item)
       setShowModal1(true)
     }
     //  loginUser()
   }
 
-  console.log('text',text);
+  console.log('text', text);
+
+
+  useEffect(() => {
+
+  }, [])
 
   return (
     <>
@@ -669,21 +682,7 @@ const Header = ({ routes, setroute, indexwait, handleShow, setShow2, setShow1, s
       </div>
 
       {/* sign moodal */}
-      <Modal className='detailmodal gtgtgtgtgt' show={showModal} centered>
-        {/* <Modal.Header closeButton>
-        </Modal.Header> */}
-        <Modal.Body>
-          <div className='imagesmodal'>
-            <img src='\imagesmodals.svg' alt='img' className='img-fluid' />
-            <p>Please Take Sign to move further</p>
-            {/* <p>Are you sure you want to leave this squad?</p> */}
-          </div>
-          <div className='endbtn'>
-            {/* <button  className="btn-blackk" ><span><img src='\Subtract.svg' alt='img' className='img-fluid' /></span>Cancel</button> */}
-            <button onClick={SignUp} className="btn-pinkk" ><img src='\up.svg' alt='img' className='img-fluid' />Sign In</button>
-          </div>
-        </Modal.Body>
-      </Modal>
+
 
       <Modal className='detailmodal gtgtgtgtgt' show={showModal1} centered>
         {/* <Modal.Header closeButton>
@@ -717,6 +716,26 @@ const Header = ({ routes, setroute, indexwait, handleShow, setShow2, setShow1, s
         </Modal.Body>
       </Modal>
 
+
+
+
+      {/* all modal for outer side  */}
+
+      <Modal className='detailmodal gtgtgtgtgt' show={showModal} centered>
+        {/* <Modal.Header closeButton>
+        </Modal.Header> */}
+        <Modal.Body>
+          <div className='imagesmodal'>
+            <img src='\imagesmodals.svg' alt='img' className='img-fluid' />
+            <p>{msg}</p>
+            {/* <p>Are you sure you want to leave this squad?</p> */}
+          </div>
+          <div className='endbtn'>
+            {/* <button  className="btn-blackk" ><span><img src='\Subtract.svg' alt='img' className='img-fluid' /></span>Cancel</button> */}
+            <button onClick={SignUp} className="btn-pinkk" ><img src='\up.svg' alt='img' className='img-fluid' />Sign In</button>
+          </div>
+        </Modal.Body>
+      </Modal>
 
     </>
   );
