@@ -139,7 +139,7 @@ const Home = ({ setShow2, tasks, setShowtask, settaskdetail, setShowtask1, setta
                 </Dropdown.Menu>
               </Dropdown> */}
             </div>
-            <div className="stats-data-boxes sycvcsvyvcvsycvtcsv">
+            <div className={data?.isCommander ? "stats-data-boxes sycvcsvyvcvsycvtcsv " : "stats-data-boxes sycvcsvyvcvsycvtcsv ifnotcommander"}>
                {data?.isCommander === true &&
                 <div className="inner-data-box border-grad">
                 <div className="stats-item-box">
