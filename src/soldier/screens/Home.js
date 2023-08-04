@@ -29,21 +29,23 @@ const Home = ({ setShow2, tasks, setShowtask, settaskdetail, setShowtask1, setta
       plotOptions: {
         radialBar: {
           startAngle: -135,
-          endAngle: 225,
+          endAngle: 230,
           hollow: {
             margin: 0,
-            size: '60%',
+            size: '70%',
             background: '#1A1C29',
             image: undefined,
             imageOffsetX: 0,
             imageOffsetY: 0,
             position: 'front',
             dropShadow: {
+              background: '#1A1C29',
+              color: '#1A1C29',
               enabled: true,
               top: 3,
               left: 0,
               blur: 4,
-              opacity: 0.1
+              opacity: 0.5
             }
           },
           track: {
@@ -76,7 +78,7 @@ const Home = ({ setShow2, tasks, setShowtask, settaskdetail, setShowtask1, setta
               show: true,
             }
           }
-        }
+        },
       },
       colors: ['#04C453'],
       stroke: {
@@ -220,7 +222,7 @@ const Home = ({ setShow2, tasks, setShowtask, settaskdetail, setShowtask1, setta
               </div>
               <div className="row m-0 tasks-box-row inner-data-box border-grad padd">
                 <div className="col-6 task-completed-graph padd-sm p-0">
-                  <div id="chart">
+                  <div id="chart" className="set-custom-chart-style border-grad">
                     <ReactApexChart options={state.options} series={state.series} type="radialBar" height={180} />
                   </div>
                 </div>

@@ -116,10 +116,6 @@ body {
 // General css ---------------------------------------------
 table {
     tr {
-        td {
-            white-space: nowrap;
-        }
-
         th {
             white-space: nowrap;
         }
@@ -1295,6 +1291,8 @@ table {
                                 line-height: 100%;
                                 letter-spacing: 0.01em;
                                 color: #FFFFFF;
+                                max-width: 500px;
+                                width: 100%;
                             }
 
                             .completebtn {
@@ -1553,6 +1551,10 @@ table {
                             letter-spacing: 0.01em;
                             color: #FFFFFF;
                             text-align: start;
+                            max-width: 100px;
+                            width: 100%;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
                         }
                     }
                 }
@@ -3358,6 +3360,18 @@ table {
     border: 1px solid #2D313E !important;
 }
 
+.set-custom-chart-style {
+    fill: #1A1C29;
+    box-shadow: 0px 4px 40px 6px rgba(0, 0, 0, 0.30) inset;
+    border-radius: 50%;
+}
+.set-custom-chart-style.border-grad{
+    &::after{
+        border-radius: 50% !important;
+    }
+
+}
+
 
 tr td:first-child {
     border-top-left-radius: 10px;
@@ -5061,16 +5075,16 @@ input[type="search"]::-webkit-search-results-decoration {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-left: 6px!important;
+    margin-left: 6px !important;
 }
 
-.shgysgasgcashbhsac{
+.shgysgasgcashbhsac {
     display: flex;
     justify-content: start;
     align-items: center;
 }
 
-.add_nick_name{
+.add_nick_name {
     display: flex;
     justify-content: center;
     align-items: center;
