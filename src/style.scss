@@ -3364,6 +3364,8 @@ table {
     fill: #1A1C29;
     box-shadow: 0px 4px 40px 6px rgba(0, 0, 0, 0.30) inset;
     border-radius: 50%;
+    width: 155px;
+    height: 155px;
 }
 .set-custom-chart-style.border-grad{
     &::after{
@@ -4681,6 +4683,13 @@ tbody td:last-child {
         height: 100%;
         border-radius: 10px;
         object-fit: cover;
+    }
+}
+
+@media (max-width:1300px){
+    .sgucvytvdtyvcd{
+        padding: 20px 10px !important;
+        min-height: 275px !important;
     }
 }
 

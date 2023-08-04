@@ -196,7 +196,7 @@ const Home = ({ setShow2, tasks, setShowtask, settaskdetail, setShowtask1, setta
             </div>
           </div>
           <div className="col-lg-4 task-status pe-0">
-            <div className="data-box border-grad1">
+            <div className="data-box border-grad1 sgucvytvdtyvcd">
               <div className="task-status-box-header">
                 <h4>My Tasks Status</h4>
                 {/* <Dropdown className="tasks-status-dropdown">
