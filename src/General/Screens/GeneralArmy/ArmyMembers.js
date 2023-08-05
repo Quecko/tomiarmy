@@ -60,7 +60,7 @@ const ArmyMembers = ({ routesarmy, setroutearmy }) => {
         if (account) {
             var config = {
                 method: "get",
-                url: `${API_URL}/auth/users/army-members?offset=1&&limit=5`,
+                url: `${API_URL}/auth/users/army-members?offset=1&&limit=10000`,
                 headers: {
                     authorization: `Bearer ` + tok
                 },

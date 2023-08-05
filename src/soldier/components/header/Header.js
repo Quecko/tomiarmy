@@ -127,7 +127,7 @@ const Header = ({ routes, setroute, indexwait, handleShow, setShow2, setShow1, s
     socket.on('Group_Message', () => {
       // toast.info("group message chat notification");
       getChat()
-      getNotif()
+      // getNotif()
     });
     socket.on('Co_Leader_Added', (notification) => {
       // toast.info("You are Promoted for Co-Leader Please Check Your Notifications");
@@ -320,10 +320,9 @@ const Header = ({ routes, setroute, indexwait, handleShow, setShow2, setShow1, s
 
   let audio = new Audio(notiSound)
 
-  let token = localStorage.getItem("accessToken");
-  useEffect(() => {
-    TokenExpiredOrNot()
-  }, [])
+  // useEffect(() => {
+  //   TokenExpiredOrNot()
+  // }, [])
 
   // const NotiSoundOn =()=>{
   //   audio.play() 
@@ -349,15 +348,7 @@ const Header = ({ routes, setroute, indexwait, handleShow, setShow2, setShow1, s
       setText(item)
       setShowModal1(true)
     }
-    //  loginUser()
   }
-
-  console.log('text', text);
-
-
-  useEffect(() => {
-
-  }, [])
 
   return (
     <>
