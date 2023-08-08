@@ -41,22 +41,22 @@ const Sidebar = () => {
   const { account } = useWeb3React()
 
   useEffect(() => {
-    if (data?.isCommander == false && data?.isCoLeader == true){
-        history.push('/leader')
-    }
-    else if((data?.isCommander == true)){
+    if (data?.isCommander == false && data?.isCoLeader == true) {
       history.push('/leader')
     }
-    else if(data?.isCommander == false && data?.isCoLeader == false && data?.rank?.name !== 'general' && data?.rank?.name !== 'major general'){
+    else if ((data?.isCommander == true)) {
+      history.push('/leader')
+    }
+    else if (data?.isCommander == false && data?.isCoLeader == false && data?.rank?.name !== 'general' && data?.rank?.name !== 'major general') {
       history.push('/soldier')
     }
-    else if (data?.rank?.name == 'general' && data?.isCommander == false && data?.isCoLeader == false){
+    else if (data?.rank?.name == 'general' && data?.isCommander == false && data?.isCoLeader == false) {
       history.push('/general')
     }
-    else if (data?.rank?.name == 'major general' && data?.isCommander == false && data?.isCoLeader == false){
+    else if (data?.rank?.name == 'major general' && data?.isCommander == false && data?.isCoLeader == false) {
       history.push('/majorgeneral')
     }
-    else{
+    else {
       localStorage.clear()
       window.location.assign('/')
 
@@ -379,8 +379,16 @@ const Sidebar = () => {
 
   const getChat = async () => {
 
+    if (message != '') {
+      setFirstTime(true)
+      setPage(1)
+    }
+    else {
+      setPage(page)
+    }
+
     // page = message!='' ?1 :page; 
-    setPage(message != '' ? 0 : page)
+    // setPage(message != '' ? 1 : page)
     var config = {
       method: "get",
       url: `${API_URL}/chats/group-messages?offset=${page}&limit=10`,
@@ -391,15 +399,18 @@ const Sidebar = () => {
     axios(config)
       .then(function (response) {
         allPages(response?.data?.data?.pages)
-        if (firstTime || message != '') {
+        console.log('sccev',firstTime);
+        if (firstTime==true) {
           let rev = reverse([...response?.data?.data?.groupMessages])
           setChat(rev);
           setFirstTime(false)
+          console.log('after',firstTime)
+          console.log('innnnnnnnn');
         }
         else {
-
           let rev = reverse([...response?.data?.data?.groupMessages])
           setChat([...rev, ...chat])
+          console.log('outttttttttt');
         }
       })
       .catch(function (error) {
@@ -462,12 +473,17 @@ const Sidebar = () => {
       });
     // }
   }
+
+  useEffect(() => {
+    if (data?.memberOfSquad === true && firstTime) {
+      getChat()
+    }
+  }, [firstTime])
   useEffect(() => {
     if (data?.memberOfSquad === true) {
-      getChat()
       SquadUsers()
     }
-  }, [page])
+  }, [])
   useEffect(() => {
     GetTaskStatusData()
     getNotif()
@@ -912,7 +928,7 @@ const Sidebar = () => {
             </div>
           </div>
           <div className="content-column">
-            <Header handleShow={handleShow} getChat={getChat} indexwait={indexwait} routes={routes} setroute={setroute} show1={show1} setShow1={setShow1} show2={show2} setShow2={setShow2} setShow4={setShow4} setShow5={setShow5} notifs={notifs} getNotif={getNotif} getData={getData} getDataOperation={getDataOperation} setindexwait={setindexwait}/>
+            <Header handleShow={handleShow} getChat={getChat} indexwait={indexwait} routes={routes} setroute={setroute} show1={show1} setShow1={setShow1} show2={show2} setShow2={setShow2} setShow4={setShow4} setShow5={setShow5} notifs={notifs} getNotif={getNotif} getData={getData} getDataOperation={getDataOperation} setindexwait={setindexwait} />
             {indexwait === 0 ?
               (
                 <>

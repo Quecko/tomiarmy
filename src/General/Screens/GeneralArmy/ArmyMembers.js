@@ -57,7 +57,7 @@ const ArmyMembers = ({ routesarmy, setroutearmy }) => {
         // } else {
         //     valu = 1;
         // }
-        if (account) {
+        // if (account) {
             var config = {
                 method: "get",
                 url: `${API_URL}/auth/users/army-members?offset=1&&limit=10000`,
@@ -81,7 +81,7 @@ const ArmyMembers = ({ routesarmy, setroutearmy }) => {
                     // window.location.assign("/")
                     // window.location.reload();
                 });
-        }
+        // }
     }
 
     useEffect(() => {
@@ -162,13 +162,49 @@ const ArmyMembers = ({ routesarmy, setroutearmy }) => {
     }
 
 
+    const [armyDetail,setArmyDetail]=useState([])
+
+
+    const armyMembeerDetails = async (elem) => {
+        // let valu = null;
+        // if (off) {
+        //     valu = off;
+        // } else {
+        //     valu = 1;
+        // }
+        // if (account) {
+            setroutearmy(!routesarmy)
+            var config = {
+                method: "get",
+                url: `${API_URL}/auth/users/army-member-details?userId=${elem?._id}`,
+                headers: {
+                    authorization: `Bearer ` + tok
+                },
+            };
+            axios(config)
+                .then(function (response) {
+                    setArmyDetail(response?.data?.data[0]);
+                })
+                .catch(function (error) {
+                    // setLoader(false);
+                    // localStorage.removeItem("accessToken");
+                    // localStorage.removeItem("user");
+                    // window.location.assign("/")
+                    // window.location.reload();
+                });
+        // }
+    }
+
+
+
+
     return (
         <>
         {loader && <Loader/>}
             {
                 routesarmy ?
                     <>
-                        <ArmyDetail setroutearmy={setroutearmy} routesarmy={routesarmy} />
+                        <ArmyDetail setroutearmy={setroutearmy} routesarmy={routesarmy} armyDetail={armyDetail} setArmyDetail={setArmyDetail}  />
                     </>
                     :
                     <>
@@ -262,7 +298,7 @@ const ArmyMembers = ({ routesarmy, setroutearmy }) => {
                                                                                                 <Dropdown.Menu>
                                                                                                     <Dropdown.Item href="#/action-1">
                                                                                                         <p onClick={() => handleShowrank(elem)}><img src='\generalassets\icons\promote.svg' alt='img' className='img-fluid' />Rank Update</p>
-                                                                                                        {/* <p onClick={() => { setroutearmy(!routesarmy) }}><img src='\generalassets\icons\detail.svg' alt='img' className='img-fluid' />Details</p> */}
+                                                                                                        <p onClick={()=>armyMembeerDetails(elem)}><img src='\generalassets\icons\detail.svg' alt='img' className='img-fluid' />Details</p>
                                                                                                     </Dropdown.Item>
                                                                                                 </Dropdown.Menu>
                                                                                             </Dropdown>
@@ -325,7 +361,7 @@ const ArmyMembers = ({ routesarmy, setroutearmy }) => {
                                                                                                 <Dropdown.Menu>
                                                                                                     <Dropdown.Item href="#/action-1">
                                                                                                         <p onClick={() => handleShowrank(elem)}><img src='\generalassets\icons\promote.svg' alt='img' className='img-fluid' />Rank Update</p>
-                                                                                                        <p onClick={() => { setroutearmy(!routesarmy) }}><img src='\generalassets\icons\detail.svg' alt='img' className='img-fluid' />Details</p>
+                                                                                                        <p onClick={()=>armyMembeerDetails(elem)}><img src='\generalassets\icons\detail.svg' alt='img' className='img-fluid' />Details</p>
                                                                                                     </Dropdown.Item>
                                                                                                 </Dropdown.Menu>
                                                                                             </Dropdown>

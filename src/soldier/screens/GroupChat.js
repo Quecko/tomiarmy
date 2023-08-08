@@ -12,9 +12,10 @@ import { reverse } from "lodash";
 import { Modal } from 'react-bootstrap';
 import { io } from "socket.io-client";
 import { useRef } from 'react';
+import ScrollToBottom, {useScrollToBottom} from 'react-scroll-to-bottom';
 
 const GroupChat = ({ setPage, page, setChat, chat, getChat, pages, message, setMessage }) => {
-
+  const scrollToBottom = useScrollToBottom();
   let tok = localStorage.getItem("accessToken");
   const [show, setshow] = useState(false);
   const [show1, setShow1] = useState(false);
@@ -38,13 +39,11 @@ const GroupChat = ({ setPage, page, setChat, chat, getChat, pages, message, setM
   const chatSectionRef = useRef(null);
   useEffect(() => {
     // Scroll to the end of the chat section when the component mounts
-    scrollToBottom();
+    scrollToBottomss();
   }, [chat]);
 
-  const scrollToBottom = () => {
-    // if (chatSectionRef.current) {
+  const scrollToBottomss = () => {
     chatSectionRef.current.scrollIntoView({ behavior: 'smooth', block: 'end' });
-    // }
   };
   const handleScroll = () => {
     const container = chatSectionRef.current;
@@ -107,7 +106,8 @@ const GroupChat = ({ setPage, page, setChat, chat, getChat, pages, message, setM
         axios(config)
           .then(function (response) {
             if (response?.status === 201) {
-              getChat()
+              // getChat()
+              scrollToBottom()
               setMessage('')
               setImage('')
               setUploadImage('')
@@ -163,8 +163,10 @@ const GroupChat = ({ setPage, page, setChat, chat, getChat, pages, message, setM
                 <h6>Chat</h6>
               </div>
             </div>
-            <div className="chat-section border-grad1" ref={chatSectionRef} onScroll={handleScroll} >
+            <ScrollToBottom>
 
+            
+            <div className="chat-section border-grad1" ref={chatSectionRef} onScroll={handleScroll} >
               <div className="chat-box">
                 <div className="chat-inside">
                   {chat?.map?.((elem, index) => {
@@ -372,6 +374,7 @@ const GroupChat = ({ setPage, page, setChat, chat, getChat, pages, message, setM
               </div>
 
             </div>
+            </ScrollToBottom>
             <div className='chat-section dfdsfsfdsfsdfsdfsdf'>
               <form onSubmit={(e) => sendChat(e)}>
                 <div className="bottom-side">
