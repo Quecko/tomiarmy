@@ -1354,6 +1354,8 @@ table {
                                         box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.15);
                                         padding: 5px;
                                         min-width: 88px;
+                                        left: unset !important;
+                                        right: 0 !important;
 
                                         a {
                                             padding: 0 !important;
@@ -3364,6 +3366,8 @@ table {
     fill: #1A1C29;
     box-shadow: 0px 4px 40px 6px rgba(0, 0, 0, 0.30) inset;
     border-radius: 50%;
+    width: 155px;
+    height: 155px;
 }
 .set-custom-chart-style.border-grad{
     &::after{
@@ -4684,6 +4688,13 @@ tbody td:last-child {
     }
 }
 
+@media (max-width:1300px){
+    .sgucvytvdtyvcd{
+        padding: 20px 10px !important;
+        min-height: 275px !important;
+    }
+}
+
 @media (max-width:991px) {
     .maincard-global .maintable .table-striped tbody tr td .dropbtn .dropdown .dropdown-toggle {
         margin-left: auto !important;
@@ -5023,6 +5034,9 @@ input[type="search"]::-webkit-search-results-decoration {
 .sycvcsvyvcvsycvtcsv {
     grid-template-columns: 24.2% 24.2% 24.2% 24.2% !important;
 
+}
+.ifnotcommander{
+    grid-template-columns: 32.2% 32.2% 32.2% !important;
 }
 
 @media (max-width:600px) {
