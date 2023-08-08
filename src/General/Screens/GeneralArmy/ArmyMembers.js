@@ -22,6 +22,11 @@ const ArmyMembers = ({ routesarmy, setroutearmy }) => {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+    const [data, setData] = useState([]);
+    const [Armymajor, setArmymajor] = useState([]);
+    const [selectedrank, setselectedrank] = useState('Select Rank');
+    const { account } = useWeb3React();
+
 
     const [showapprove, setShowapprove] = useState(false);
     const handleCloseapprove = () => setShowapprove(false);
@@ -33,6 +38,7 @@ const ArmyMembers = ({ routesarmy, setroutearmy }) => {
 
     const [showrank, setShowrank] = useState(false);
     const handleCloserank = () =>{
+        setselectedrank('Select Rank')
         setArmymajor()
         setShowrank(false);
     }
@@ -45,11 +51,7 @@ const ArmyMembers = ({ routesarmy, setroutearmy }) => {
 
 
     
-    const [data, setData] = useState([]);
-    const [Armymajor, setArmymajor] = useState([]);
-    const [selectedrank, setselectedrank] = useState('Select Rank');
-    const { account } = useWeb3React();
-
+ 
     const armyembers = async (off) => {
         // let valu = null;
         // if (off) {
@@ -85,12 +87,17 @@ const ArmyMembers = ({ routesarmy, setroutearmy }) => {
     }
 
     useEffect(() => {
-        // if (currentPage > 1) {
-        //     getData(currentPage);
-        // } else {
-        // GetArmymajor();
-        armyembers();
-        // }
+        let user1 = localStorage.getItem("user");
+     
+        user1 = JSON.parse(user1);
+        console.log("sdfdfdfsdfsdf",user1)
+        // console.log('aasdasdasdasdasdasdasd', user1)
+
+        if (user1?.rank?.name === "major general") {
+            // console.log('aasdasdasdasdasdasdasd')
+            armyembers();
+
+        }
     }, [account])
 
     const GetArmymajor = () => {
