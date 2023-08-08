@@ -1354,6 +1354,8 @@ table {
                                         box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.15);
                                         padding: 5px;
                                         min-width: 88px;
+                                        left: unset !important;
+                                        right: 0 !important;
 
                                         a {
                                             padding: 0 !important;
@@ -5032,6 +5034,9 @@ input[type="search"]::-webkit-search-results-decoration {
 .sycvcsvyvcvsycvtcsv {
     grid-template-columns: 24.2% 24.2% 24.2% 24.2% !important;
 
+}
+.ifnotcommander{
+    grid-template-columns: 32.2% 32.2% 32.2% !important;
 }
 
 @media (max-width:600px) {
