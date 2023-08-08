@@ -107,7 +107,7 @@ const Header = ({ routes, setroute, indexwait, handleShow, setShow2, setShow1, s
       // toast.info("Your Recruite Invitation has been Accepted Please Check Your Notifications");
       audio.play()
       getNotif()
-      setShowModal(true)
+      // setShowModal(true)
     });
     socket.on('Squad_Recruite_Invite', (notification) => {
       // toast.info("Squad Recruite Invite Send To You Please Check Your Notifications");
