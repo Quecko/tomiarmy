@@ -35,6 +35,9 @@ const GeneralArmy = ({ routesarmy, setroutearmy }) => {
     const [data2, setData2] = useState([]);
     const { account } = useWeb3React();
 
+
+    console.log('data2',data2);
+
     const GeneralApproval = async (off) => {
         // let valu = null;
         // if (off) {

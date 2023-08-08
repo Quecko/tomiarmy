@@ -11,9 +11,13 @@ import HomeOperations from "../components/home/HomeOperations/HomeOperations";
 import { API_URL } from "../../utils/ApiUrl"
 import ReactApexChart from 'react-apexcharts';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
+import Loader from "../../hooks/loader";
+import axios from "axios";
+import { toast } from 'react-toastify';
+import { Modal } from 'react-bootstrap';
 
 
-const Home = ({ setShow2, tasks, setShowtask, settaskdetail, setShowtask1, settaskdetail1, operations, setOperationId, users, squaddetail, statusData, setindexwait }) => {
+const Home = ({ setShow2, tasks, setShowtask, settaskdetail, setShowtask1, settaskdetail1, operations, setOperationId, users, squaddetail, statusData, setindexwait, GetUserProfiledata }) => {
 
   let total = (statusData?.ApprovedTasks / statusData?.totalTasks) * 100
   const state = {
@@ -87,8 +91,13 @@ const Home = ({ setShow2, tasks, setShowtask, settaskdetail, setShowtask1, setta
       labels: ['Completed'],
     },
   }
+  const [showprofile, setShowProfile] = useState(false);
+  const handleCloseProfile = () => setShowProfile(false);
+  const handleShowProfile = () => setShowProfile(true);
+  let tok = localStorage.getItem("accessToken");
   const datacommander = localStorage.getItem('user')
   const data = JSON.parse(datacommander)
+  const [loader, setLoader] = useState(false)
   // const user = localStorage.getItem('user')
   // const { account } = useWeb3React();
   // const commander = JSON.parse(datacommander)
@@ -102,11 +111,53 @@ const Home = ({ setShow2, tasks, setShowtask, settaskdetail, setShowtask1, setta
       setCopy(false)
     }, 1000)
   }
+  const addNickName = (asd) => {
+    setindexwait(asd)
+    localStorage.setItem("indexvalue", asd);
+  }
+
+
+  const Redeem = (id) => {
+    setLoader(true)
+    // if (account) {
+    axios.defaults.headers.post[
+      "Authorization"
+    ] = `Bearer ${tok}`;
+    var config = {
+      method: "post",
+      url: `${API_URL}/tasks/squad-invitation-requests`,
+      data: {
+        squadId: id.toString()
+      }
+    };
+
+    axios(config)
+      .then(async (response) => {
+        GetUserProfiledata()
+        setLoader(false)
+        toast.success("Your redem token Successfully");
+      })
+      .catch(function (err) {
+        setLoader(false);
+        toast.error(err?.response?.data.message, {
+          position: "top-right",
+          autoClose: 2000,
+        });
+      });
+    // }
+  }
+
+
   return (
     <>
       <div className="formobile-heading d-none display-block-in-mobile">
         <div className="inner-heading">
-          <h6>Welcome BATMAN, </h6>
+          <h6 className="shgysgasgcashbhsac"><div>Welcome </div>{data?.nickName ? <div style={{ marginLeft: '6px' }}>{data?.nickName}</div> :
+            <div className="no_user">
+              NO NICKNAME,
+              <button className="add_nick_name" onClick={() => { addNickName(8); }}><img src="\assets\add-circle.svg" alt="img" className="img-fluid me-2" /><div>ADD NICKNAME</div></button>
+            </div>
+          } </h6>
           <p>LET’S FIGHT FOR THE ARMY</p>
         </div>
         <button onClick={() => setShow2(true)} className="create-btn" >
@@ -140,48 +191,57 @@ const Home = ({ setShow2, tasks, setShowtask, settaskdetail, setShowtask1, setta
               </Dropdown> */}
             </div>
             <div className={data?.isCommander ? "stats-data-boxes sycvcsvyvcvsycvtcsv " : "stats-data-boxes sycvcsvyvcvsycvtcsv ifnotcommander"}>
-               {data?.isCommander === true &&
+              {data?.isCommander === true &&
                 <div className="inner-data-box border-grad">
-                <div className="stats-item-box">
-                  <img src="\assets\refercode.png" alt="earned" style={{ width: "50px", height: "50px" }} />
-                  <div>
-                    <p>Squad Invite Code</p>
-                    {copy ?
-                      <h4 className="adadasdasdasdasdasdsad"> {squaddetail?.squad?.inviteCode} Copied! </h4>
-                      :
-                      <>
-                        {squaddetail?.squad?.inviteCode &&
-                          <CopyToClipboard text={squaddetail?.squad?.inviteCode} onCopy={textCopiedFun2}>
-                            <h4 className="adadasdasdasdasdasdsad">
-                              {squaddetail?.squad?.inviteCode}
-                              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" className="">
-                                <path d="M13 10.5V13.5C13 16 12 17 9.5 17H6.5C4 17 3 16 3 13.5V10.5C3 8 4 7 6.5 7H9.5C12 7 13 8 13 10.5Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                <path d="M17 6.5V9.5C17 12 16 13 13.5 13H12.7143V10.7857C12.7143 8.28571 11.7143 7.28571 9.21429 7.28571H7V6.5C7 4 8 3 10.5 3H13.5C16 3 17 4 17 6.5Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                              </svg>
-                            </h4>
-                          </CopyToClipboard>
-                        }
-                      </>
-}
+                  <div className="stats-item-box">
+                    <img src="\assets\refercode.png" alt="earned" style={{ width: "50px", height: "50px" }} />
+                    <div>
+                      <p>Squad Invite Code</p>
+                      {copy ?
+                        <h4 className="adadasdasdasdasdasdsad"> {squaddetail?.squad?.inviteCode} Copied! </h4>
+                        :
+                        <>
+                          {squaddetail?.squad?.inviteCode &&
+                            <CopyToClipboard text={squaddetail?.squad?.inviteCode} onCopy={textCopiedFun2}>
+                              <h4 className="adadasdasdasdasdasdsad">
+                                {squaddetail?.squad?.inviteCode}
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none" className="">
+                                  <path d="M13 10.5V13.5C13 16 12 17 9.5 17H6.5C4 17 3 16 3 13.5V10.5C3 8 4 7 6.5 7H9.5C12 7 13 8 13 10.5Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                  <path d="M17 6.5V9.5C17 12 16 13 13.5 13H12.7143V10.7857C12.7143 8.28571 11.7143 7.28571 9.21429 7.28571H7V6.5C7 4 8 3 10.5 3H13.5C16 3 17 4 17 6.5Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                                </svg>
+                              </h4>
+                            </CopyToClipboard>
+                          }
+                        </>
+                      }
+                    </div>
                   </div>
-                </div>
-              </div>}
+                </div>}
               <div className="inner-data-box border-grad">
                 <div className="stats-item-box">
                   <img src="\static-icons\earned.png" alt="earned" style={{ width: "50px", height: "50px" }} />
                   <div>
                     <p>TOMI Tokens Earned </p>
                     <h4>{squaddetail?.tomiTokens}</h4>
+                    <button className="claim_btn_scwaevea">Claim</button>
                   </div>
                 </div>
               </div>
               <div className="inner-data-box border-grad">
                 <div className="stats-item-box">
                   <img src="\static-icons\points.png" alt="earned" style={{ width: "50px", height: "50px" }} />
-                  <div>
-                    <p>Points</p>
-                    <h4>{squaddetail?.points}</h4>
+                  <div className="asdaadsadasdwerfvwevd">
+                    <div>
+                      <p>Points</p>
+                      <h4>{squaddetail?.points}</h4>
+                    </div>
+                    <div>
+                      <p>Redem Points</p>
+                      <h4>{squaddetail?.toClaim}</h4>
+                    </div>
                   </div>
+                  <button onClick={handleShowProfile} className="redem_btn_zcsdvebe">Redem</button>
+
                 </div>
               </div>
               <div className="inner-data-box border-grad">
@@ -256,6 +316,51 @@ const Home = ({ setShow2, tasks, setShowtask, settaskdetail, setShowtask1, setta
         </div>
       </div>
       <HomeOperations setShowtask1={setShowtask1} settaskdetail1={settaskdetail1} operations={operations} setOperationId={setOperationId} users={users} setindexwait={setindexwait} />
+
+
+
+      {/* modal for redem */}
+
+
+
+      <Modal className='detailmodal claimrewad-modal' show={showprofile} onHide={handleCloseProfile} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>
+            Claim Reward
+          </Modal.Title>
+
+        </Modal.Header>
+        <Modal.Body>
+          <div className="body-claim">
+            <h6>How much points you want to claim right now?</h6>
+            <div className="option-field">
+              <div className="inner-text">
+                <p className="left-text">
+                  Points
+                </p>
+                <p className="right-text">
+                  Balance: <span>50,000 Points</span>
+                </p>
+              </div>
+              <div className="input-inner">
+                <input type="text" placeholder='Enter Number of Points....' />
+                <a href="#">MAX</a>
+              </div>
+            </div>
+          </div>
+          <div className='endbtn'>
+            <button className="btn-blackk" onClick={handleCloseProfile}><span><img src='\Subtract.svg' alt='img' className='img-fluid' /></span>Cancel</button>
+            <button className="btn-pinkk" onClick={() => {
+              handleCloseProfile();
+            }}
+            >
+              <img src='\assets\upload-icon.svg' alt='img' className='img-fluid' /> Claim</button>
+          </div>
+        </Modal.Body>
+      </Modal>
+
+
+
     </>
   );
 };

@@ -6,9 +6,8 @@ import AvailableReward from './AvailableReward';
 import RewardProcess from './RewardProcess';
 import ClaimedReward from './ClaimedReward';
 import { Modal } from 'react-bootstrap';
-
-
-
+import { API_URL } from '../../utils/ApiUrl'
+import axios from 'axios';
 
 const ClaimRewards = () => {
 
@@ -19,9 +18,47 @@ const ClaimRewards = () => {
   const [showprofile1, setShowProfile1] = useState(false);
   const handleCloseProfile1 = () => setShowProfile1(false);
   const handleShowProfile1 = () => setShowProfile1(true);
+
+  let tok = localStorage.getItem("accessToken");
+
+  const [loader, setLoader] = useState(false);
+  const [rewardHistory,setRewardHostory]=useState([])
+  const getRewardHistory = async (off) => {
+
+    // let valu = null;
+    // if (off) {
+    //   valu = off;
+    // } else {
+    //   valu = 1;
+    // }
+    // if (account) {
+    var config = {
+      method: "get",
+      url: `${API_URL}/tasks/operations?offset=1&&limit=100`,
+      headers: {
+        authorization: `Bearer ` + tok
+      },
+    };
+    axios(config)
+      .then(function (response) {
+        setLoader(false);
+        // setCount(response.data.data.count)
+          setRewardHostory(response?.data?.data?.operation)
+        // let arr = Array.from(Array(parseInt(response.data.data.pages)).keys());
+        // setPages(arr);
+        // setCurrentPage(valu)
+      })
+      .catch(function (error) {
+        setLoader(false);
+        // localStorage.removeItem("accessToken");
+        // localStorage.removeItem("user");
+        // window.location.assign("/")
+        // window.location.reload();
+      });
+    // }
+  }
+
   
-
-
   return (
     <>
      <div className="formobile-heading d-none display-block-in-mobile">
@@ -32,7 +69,7 @@ const ClaimRewards = () => {
       </div>
       <section className="claim-section">
         <div className="upper-div">
-          <div className="parent">
+          {/* <div className="parent">
             <div className="left">
               <div className="imgs">
                 <img src="\assets\claim-img1.png" alt="img" className='img-fluid' />
@@ -46,7 +83,7 @@ const ClaimRewards = () => {
             <div className="right">
               <button onClick={handleShowProfile}>Claim</button>
             </div>
-          </div>
+          </div> */}
           <div className="parent">
             <div className="left">
               <div className="imgs">
@@ -59,11 +96,11 @@ const ClaimRewards = () => {
               </div>
             </div>
             <div className="right">
-              <button>Claim</button>
+              <button  onClick={handleShowProfile}>Claim</button>
             </div>
           </div>
         </div>
-        <Tabs
+        {/* <Tabs
           defaultActiveKey="availablereward"
           id="uncontrolled-tab-example"
           className="opeartions-tab border-grad1"
@@ -71,13 +108,11 @@ const ClaimRewards = () => {
           <Tab eventKey="availablereward" title="My Tasks Rewards">
             <AvailableReward />
           </Tab>
-          {/* <Tab eventKey="rewardprocess" title="Squad tasks Rewards">
-            <RewardProcess />
-          </Tab> */}
           <Tab eventKey="claimed" title="Squad tasks Rewards">
             <ClaimedReward />
           </Tab>
-        </Tabs>
+        </Tabs> */}
+        <AvailableReward/>
       </section>
 
       <Modal className='detailmodal claimrewad-modal' show={showprofile} onHide={handleCloseProfile} centered>
