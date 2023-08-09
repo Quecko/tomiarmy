@@ -15,6 +15,7 @@ import Loader from "../../hooks/loader";
 import axios from "axios";
 import { toast } from 'react-toastify';
 import { Modal } from 'react-bootstrap';
+import { esES } from "rsuite/esm/locales";
 
 
 const Home = ({ setShow2, tasks, setShowtask, settaskdetail, setShowtask1, settaskdetail1, operations, setOperationId, users, squaddetail, statusData, setindexwait, GetUserProfiledata }) => {
@@ -91,8 +92,13 @@ const Home = ({ setShow2, tasks, setShowtask, settaskdetail, setShowtask1, setta
       labels: ['Completed'],
     },
   }
+  const [claimToken,setClaimToken]=useState('')
   const [showprofile, setShowProfile] = useState(false);
-  const handleCloseProfile = () => setShowProfile(false);
+  const handleCloseProfile = () => {
+    setClaimToken('')
+    setShowProfile(false);
+  }
+  
   const handleShowProfile = () => setShowProfile(true);
   let tok = localStorage.getItem("accessToken");
   const datacommander = localStorage.getItem('user')
@@ -116,40 +122,49 @@ const Home = ({ setShow2, tasks, setShowtask, settaskdetail, setShowtask1, setta
     localStorage.setItem("indexvalue", asd);
   }
 
-
-  const Redeem = (id) => {
-    setLoader(true)
-    // if (account) {
-    axios.defaults.headers.post[
-      "Authorization"
-    ] = `Bearer ${tok}`;
-    var config = {
-      method: "post",
-      url: `${API_URL}/tasks/squad-invitation-requests`,
-      data: {
-        squadId: id.toString()
-      }
-    };
-
-    axios(config)
-      .then(async (response) => {
-        GetUserProfiledata()
-        setLoader(false)
-        toast.success("Your redem token Successfully");
-      })
-      .catch(function (err) {
-        setLoader(false);
-        toast.error(err?.response?.data.message, {
-          position: "top-right",
-          autoClose: 2000,
+  const Redeem = () => {
+    if(claimToken!=''){
+      setLoader(true)
+      // if (account) {
+      axios.defaults.headers.post[
+        "Authorization"
+      ] = `Bearer ${tok}`;
+      var config = {
+        method: "post",
+        url: `${API_URL}/auth/claims/redeem-points`,
+        data: {
+          withdrawalPoints: claimToken
+        }
+      };
+  
+      axios(config)
+        .then(async (response) => {
+          GetUserProfiledata()
+          setLoader(false)
+          handleCloseProfile();
+          toast.success("Your redem token Successfully");
+          setClaimToken('')
+        })
+        .catch(function (err) {
+          setLoader(false);
+          toast.error(err?.response?.data.message, {
+            position: "top-right",
+            autoClose: 2000,
+          });
         });
-      });
+
+    }
+    else{
+      toast.error("Please enter claim amount.");
+    }
+ 
     // }
   }
 
 
   return (
     <>
+    {loader && <Loader/>}
       <div className="formobile-heading d-none display-block-in-mobile">
         <div className="inner-heading">
           <h6 className="shgysgasgcashbhsac"><div>Welcome </div>{data?.nickName ? <div style={{ marginLeft: '6px' }}>{data?.nickName}</div> :
@@ -321,37 +336,35 @@ const Home = ({ setShow2, tasks, setShowtask, settaskdetail, setShowtask1, setta
 
       {/* modal for redem */}
 
-
-
       <Modal className='detailmodal claimrewad-modal' show={showprofile} onHide={handleCloseProfile} centered>
         <Modal.Header closeButton>
           <Modal.Title>
-            Claim Reward
+            Redeem Tomi Token
           </Modal.Title>
 
         </Modal.Header>
         <Modal.Body>
           <div className="body-claim">
-            <h6>How much points you want to claim right now?</h6>
-            <div className="option-field">
+            <h6>How much Tomi Token you want to Redeem right now?</h6>
+            <div className="option-field">  
               <div className="inner-text">
                 <p className="left-text">
                   Points
                 </p>
                 <p className="right-text">
-                  Balance: <span>50,000 Points</span>
+                  Balance: <span>{squaddetail?.toClaim} Points</span>
                 </p>
               </div>
               <div className="input-inner">
-                <input type="text" placeholder='Enter Number of Points....' />
-                <a href="#">MAX</a>
+                <input type="number" value={claimToken} onChange={(e)=>setClaimToken(e.target.value)} placeholder='Enter Number of Points....' />
+                <a onClick={()=>setClaimToken(squaddetail?.toClaim)}>MAX</a>
               </div>
             </div>
           </div>
           <div className='endbtn'>
             <button className="btn-blackk" onClick={handleCloseProfile}><span><img src='\Subtract.svg' alt='img' className='img-fluid' /></span>Cancel</button>
             <button className="btn-pinkk" onClick={() => {
-              handleCloseProfile();
+              Redeem()
             }}
             >
               <img src='\assets\upload-icon.svg' alt='img' className='img-fluid' /> Claim</button>

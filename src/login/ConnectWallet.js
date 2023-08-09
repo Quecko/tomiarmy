@@ -100,13 +100,15 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role, setRole, setinvitecode, 
                         rememberMe: true
                     })
                     .then(async (res) => {
-                        const res1 = await GetBal(account);
-                        console.log(res1)
-                        if (res1 === "1") {
-                            history.push("/tomitoken")
-                            // alert('scesaev')
-                            // history.push("/buytoken")
-                        } else {
+                        console.log('reessssssss',res);
+                        // const res1 = await GetBal(account);
+                     
+                        // console.log(res1)
+                        // if (res1 === "1") {
+                        //     history.push("/tomitoken")
+                        //     // alert('scesaev')
+                        //     // history.push("/buytoken")
+                        // } else {
                             localStorage.setItem("accessToken", res?.data?.data?.accessToken);
                             localStorage.setItem("wallet", res?.data?.data?.walletAddress);
                             // setShow(false)
@@ -125,15 +127,15 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role, setRole, setinvitecode, 
                                 history.push("/soldier");
                             }
                             else {
-                                localStorage.clear()
-                                window.location.assign('/')
+                                // localStorage.clear()
+                                // window.location.assign('/')
                             }
                           
                             toast.success('User Logged in Successfully', {
                                 position: 'top-center',
                                 autoClose: 5000,
                             });
-                        }
+                        // }
 
                     })
                     .catch((err) => {
@@ -145,8 +147,8 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role, setRole, setinvitecode, 
                             localStorage.clear()
                             window.location.assign('/')
                         }
-                        localStorage.clear()
-                        window.location.assign('/')
+                        // localStorage.clear()
+                        // window.location.assign('/')
                     });
             }
             else if (account && res0 && role === 'squadjoin') {

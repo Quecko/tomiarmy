@@ -985,7 +985,7 @@ const Sidebar = () => {
                           indexwait == 7 ?
                             (
                               <>
-                                <ClaimRewards />
+                                <ClaimRewards squaddetail={squaddetail} GetUserProfiledata={GetUserProfiledata} />
                               </>
                             )
                             : indexwait == 8 ?

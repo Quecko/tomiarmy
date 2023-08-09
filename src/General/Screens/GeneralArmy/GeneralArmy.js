@@ -73,11 +73,14 @@ const GeneralArmy = ({ routesarmy, setroutearmy }) => {
     }
 
     useEffect(() => {
-        // if (currentPage > 1) {
-        //     getData(currentPage);
-        // } else {
-        GeneralApproval();
-        // }
+        let user1 = localStorage.getItem("user");
+        user1 = JSON.parse(user1);
+        // console.log('aasdasdasdasdasdasdasd', user1)
+
+        if (user1?.rank?.name === "general") {
+            // console.log('aasdasdasdasdasdasdasd')
+            GeneralApproval();
+        }
     }, [account])
 
     const RejectAccept = (item, bool) => {
@@ -140,7 +143,7 @@ const GeneralArmy = ({ routesarmy, setroutearmy }) => {
             setroutearmy(!routesarmy)
             var config = {
                 method: "get",
-                url: `${API_URL}/auth/users/army-member-details?userId=${elem?._id}`,
+                url: `${API_URL}/auth/users/army-member-details?userId=${elem?.userId}`,
                 headers: {
                     authorization: `Bearer ` + tok
                 },
