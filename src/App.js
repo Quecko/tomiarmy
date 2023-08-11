@@ -22,6 +22,7 @@ import useEagerConnect from './hooks/useEagerConnect';
 import SquadModals from "./soldier/components/home/HomeOperations/SquadModals";
 import Loader from "./hooks/loader";
 
+
 function App() {
   useEagerConnect();
 

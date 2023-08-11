@@ -55,31 +55,32 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role, setRole, setinvitecode, 
 
     const trustWallet = async () => {
         // handleShow()
-        if (account) {
-            const connectorId = window.localStorage.getItem("connectorId")
-            await logout(connectorId);
-            localStorage.removeItem("connectorId");
-            localStorage.removeItem("flag");
-        } else {
+        // if (account) {
+        //     const connectorId = window.localStorage.getItem("connectorId")
+        //     await logout(connectorId);
+        //     localStorage.removeItem("connectorId");
+        //     localStorage.removeItem("flag");
+        // } else {
             login("walletconnect");
             localStorage.setItem('connectorId', 'walletconnect');
             localStorage.setItem("flag", "true");
             setLog(true)
-        }
+        // }
     };
 
     const connectMetaMask1 = async () => {
-        if (account) {
-            const connectorId = window.localStorage.getItem("connectorId")
-            await logout(connectorId);
-            localStorage.removeItem("connectorId");
-            localStorage.removeItem("flag");
-        } else {
+        // if (account) {
+        //     const connectorId = window.localStorage.getItem("connectorId")
+        //     await logout(connectorId);
+        //     localStorage.removeItem("connectorId");
+        //     localStorage.removeItem("flag");
+        // } else 
+        // {
             login("injected");
             localStorage.setItem("connectorId", "injected");
             localStorage.setItem("flag", "true");
             setLog(true)
-        }
+        // }
     };
 
 

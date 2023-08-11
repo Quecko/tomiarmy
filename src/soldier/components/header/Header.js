@@ -124,14 +124,8 @@ const Header = ({ routes, setroute, indexwait, handleShow, setShow2, setShow1, s
       setMsg('Your Squad Recruite Accepted Take Sign to continue')
       setShowModal(true)
     });
-    socket.on('Group_Message', () => {
-      // toast.info("group message chat notification");
-      getChat()
-      // getNotif()
-    });
     socket.on('Co_Leader_Added', (notification) => {
       // toast.info("You are Promoted for Co-Leader Please Check Your Notifications");
-
       console.log('notification', notification);
       audio.play()
       getNotif()
@@ -163,9 +157,12 @@ const Header = ({ routes, setroute, indexwait, handleShow, setShow2, setShow1, s
       getNotif()
     });
     socket.on('message', (notification) => {
-      // toast.info("You are Removed from Squad Please Check Your Notifications");
       audio.play()
       getNotif()
+    });
+    socket.on('Group_Message', () => {
+      // toast.info("group message received");
+      getChat()
     });
 
     socket.on("disconnect", (reason) => {
@@ -277,7 +274,7 @@ const Header = ({ routes, setroute, indexwait, handleShow, setShow2, setShow1, s
               localStorage.removeItem("accessToken");
               localStorage.removeItem("user");
               localStorage.removeItem("wallet");
-              history.push("/")
+              window.location.assign('/')
             }
             localStorage.removeItem("connectorId");
             localStorage.removeItem("flag");

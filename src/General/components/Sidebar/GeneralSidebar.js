@@ -353,9 +353,14 @@ const GeneralSidebar = () => {
     }
   };
   const getChat = async () => {
- 
-    // page = message!='' ?1 :page; 
-    setPage(message != '' ? 1 : page)
+    if (message != '') {
+      setFirstTime(true)
+      setPage(1)
+    }
+    else {
+      setPage(page)
+    }
+    
     var config = {
       method: "get",
       url: `${API_URL}/chats/group-messages/general-chat?offset=${page}&limit=10`,
@@ -366,13 +371,16 @@ const GeneralSidebar = () => {
     axios(config)
       .then(function (response) {
         allPages(response?.data?.data?.pages)
-        if (firstTime || message != '') {
+        if (firstTime==true) {
           let rev = reverse([...response?.data?.data?.groupMessages])
           setChat(rev);
           setFirstTime(false)
         }
-        else {
-
+        else if(page==1){
+          let rev = reverse([...response?.data?.data?.groupMessages])
+          setChat(rev)
+        }
+        else{
           let rev = reverse([...response?.data?.data?.groupMessages])
           setChat([...rev, ...chat])
         }
@@ -386,7 +394,7 @@ const GeneralSidebar = () => {
     // if(data?.memberOfSquad===true){
     getChat()
     // }
-  }, [page])
+  }, [page,pages])
 
 
   useEffect(() => {

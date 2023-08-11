@@ -7,6 +7,7 @@
         margin-bottom: 10px;
         display: flex;
         gap: 30px;
+
         .nav-item {
             .nav-link {
                 font-style: normal;
@@ -52,7 +53,8 @@
         line-height: 100%;
         letter-spacing: 0.01em;
         color: #FFFFFF;
-        &:hover{
+
+        &:hover {
             background: linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0) 34.22%), #D10570;
             border: none;
             border-bottom: 1px solid #F058A6;
@@ -403,12 +405,15 @@
     .claim-section .opeartions-tab .nav-item .nav-link {
         white-space: nowrap;
     }
-    .claim-section .opeartions-tab{
+
+    .claim-section .opeartions-tab {
         flex-wrap: nowrap;
         justify-content: space-between;
-        .nav-item{
+
+        .nav-item {
             flex: 1;
-            .nav-link{
+
+            .nav-link {
                 width: 100%;
                 font-size: 14px;
             }
@@ -416,13 +421,14 @@
     }
 }
 
-.claim-section{
-    .upper-div{
+.claim-section {
+    .upper-div {
         // display: flex;
         justify-content: space-between;
         align-items: center;
         margin-bottom: 10px;
-        .parent{
+
+        .parent {
             border-radius: 20px;
             background: rgba(22, 26, 34, 0.90);
             backdrop-filter: blur(2px);
@@ -431,54 +437,65 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            .left{
+
+            .left {
                 display: flex;
                 justify-content: flex-start;
                 align-items: center;
                 gap: 22px;
-                .imgs{
+
+                .imgs {
                     width: 60px;
                     height: 60px;
                 }
-                .inner-text{
-                    .claim-text{
+
+                .inner-text {
+                    .claim-text {
                         color: #81828A;
                         font-size: 16px;
                         font-style: normal;
                         font-weight: 500;
-                        line-height: 100%; /* 16px */
+                        line-height: 100%;
+                        /* 16px */
                         margin-bottom: 7px;
                         text-align: start;
                     }
-                    h6{
+
+                    h6 {
                         color: #FFF;
                         font-size: 22px;
                         font-style: normal;
                         font-weight: 700;
-                        line-height: 100%; /* 22px */
+                        line-height: 100%;
+                        /* 22px */
                         letter-spacing: 0.22px;
                         text-align: start;
                         margin-bottom: 7px;
-                        span{
+
+                        span {
                             color: #FF0083;
                             font-size: 16px;
                             font-style: normal;
                             font-weight: 500;
-                            line-height: 100%; /* 16px */
+                            line-height: 100%;
+                            /* 16px */
                         }
                     }
-                    .claim-text1{
+
+                    .claim-text1 {
                         color: #81828A;
                         font-size: 16px;
                         font-style: normal;
                         font-weight: 500;
-                        line-height: 100%; /* 16px */
+                        line-height: 100%;
+                        /* 16px */
                         text-align: start;
                     }
                 }
             }
-            .right{
-                button{
+
+            .right {
+                button {
                     border-radius: 10px;
                     border: none;
                     border-bottom: 1px solid #F058A6;
@@ -489,7 +506,8 @@
                     font-size: 14px;
                     font-style: normal;
                     font-weight: 600;
-                    line-height: 100%; /* 14px */
+                    line-height: 100%;
+                    /* 14px */
                     letter-spacing: 0.14px;
                 }
             }
@@ -498,60 +516,72 @@
 }
 
 
-.claimrewad-modal{
-    .modal-content{
+.claimrewad-modal {
+    .modal-content {
         min-height: auto !important;
     }
-    .body-claim{
-        h6{
+
+    .body-claim {
+        h6 {
             color: #FFF;
             font-size: 20px;
             font-style: normal;
             font-weight: 600;
-            line-height: 110%; /* 22px */
+            line-height: 110%;
+            /* 22px */
             text-transform: uppercase;
             margin-bottom: 30px;
         }
-        .option-field{
-            .inner-text{
+
+        .option-field {
+            .inner-text {
                 display: flex;
                 justify-content: space-between;
                 align-items: center;
                 margin-bottom: 10px;
-                .left-text{
+
+                .left-text {
                     color: #81828A;
                     font-size: 14px;
                     font-style: normal;
                     font-weight: 400;
-                    line-height: 100%; /* 14px */
+                    line-height: 100%;
+                    /* 14px */
                 }
-                .right-text{
+
+                .right-text {
                     color: #FFF;
                     font-size: 14px;
                     font-style: normal;
                     font-weight: 500;
-                    line-height: 100%; /* 14px */
-                    span{
+                    line-height: 100%;
+
+                    /* 14px */
+                    span {
                         color: #FF0083;
                     }
                 }
             }
-            .input-inner{
+
+            .input-inner {
                 position: relative;
-                input{
+
+                input {
                     border-radius: 10px;
-                border: 1px solid #343742;
-                background: #191D26;
-                width: 100%;
-                color: #81828A;
-                font-size: 14px;
-                font-style: normal;
-                font-weight: 500;
-                line-height: 100%; /* 14px */
-                letter-spacing: 0.14px;
-                padding: 16px 15px;
+                    border: 1px solid #343742;
+                    background: #191D26;
+                    width: 100%;
+                    color: #81828A;
+                    font-size: 14px;
+                    font-style: normal;
+                    font-weight: 500;
+                    line-height: 100%;
+                    /* 14px */
+                    letter-spacing: 0.14px;
+                    padding: 16px 15px;
                 }
-                a{
+
+                a {
                     position: absolute;
                     top: 22px;
                     right: 16px;
@@ -559,38 +589,43 @@
                     font-size: 14px;
                     font-style: normal;
                     font-weight: 600;
-                    line-height: 100%; /* 14px */
+                    line-height: 100%;
+                    /* 14px */
                     letter-spacing: 0.14px;
                 }
             }
-            
+
         }
     }
-    .body-claimed-reward{
-        h4{
+
+    .body-claimed-reward {
+        h4 {
             color: #FF0083;
             font-size: 40px;
             font-style: normal;
             font-weight: 600;
-            line-height: 110%; /* 44px */
+            line-height: 110%;
+            /* 44px */
             text-transform: uppercase;
             text-align: center;
             margin-bottom: 20px;
         }
-        p{
+
+        p {
             color: #FFF;
             font-size: 20px;
             font-style: normal;
             font-weight: 500;
-            line-height: 110%; /* 22px */
+            line-height: 110%;
+            /* 22px */
             text-transform: uppercase;
             text-align: center;
         }
     }
 }
 
-.claimed-reward{
-    .btn-pinkk{
+.claimed-reward {
+    .btn-pinkk {
         max-width: 229px !important;
         width: 100%;
         margin: 0 auto;
@@ -598,14 +633,15 @@
 }
 
 
-@media (max-width:600px){
-    .claim-section .upper-div{
+@media (max-width:600px) {
+    .claim-section .upper-div {
         flex-direction: column;
         justify-content: center;
         align-items: center;
         gap: 10px;
     }
-    .claim-section .upper-div .parent{
+
+    .claim-section .upper-div .parent {
         flex-direction: column;
         justify-content: flex-start;
         align-items: flex-start;
@@ -613,12 +649,85 @@
         width: 100%;
         flex: 0 0 100%;
     }
-    .claim-section .upper-div .parent .right{
+
+    .claim-section .upper-div .parent .right {
         width: 100%;
     }
-    .claim-section .upper-div .parent .right button{
+
+    .claim-section .upper-div .parent .right button {
         width: 100%;
         padding: 12px 30px;
     }
 
+}
+
+.detailmodal.claimrewad-modal.vergdsgew .modal-dialog .modal-content .modal-body {
+    padding: 20px 20px 20px 20px;
+}
+
+.claimrewad-modal.vergdsgew .body-claim {
+    .ascs {
+        text-align: center;
+    }
+
+    .devervs {
+        margin-left: 70px;
+
+        span {
+            margin-left: 5px;
+        }
+
+        .axasaas {
+            margin-top: 5px;
+        }
+
+        .axasaas {
+            margin-top: 5px;
+            color: rgba(255, 255, 255, 0.10);
+        }
+    }
+
+    h6 {
+        color: #FFF;
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 600;
+        text-transform: uppercase;
+        margin-bottom: 0px !important;
+    }
+
+    .sacwscew {
+        display: flex;
+        border-radius: 10px;
+        background: #2D1D24;
+        align-items: center;
+        padding: 20px;
+        margin-top: 30px;
+
+        h6 {
+            margin-left: 15px;
+        }
+    }
+
+    .ascw_btn_btn {
+
+        text-align: center; 
+        margin-top: 30px;
+    
+    button {
+        border-radius: 10px;
+        border-bottom: 1px solid #F058A6;
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.50) 0%, rgba(255, 255, 255, 0.00) 100%), #FF0083;
+        box-shadow: 0px 3px 1px 0px #88134F;
+        color: #FFF;
+        font-family: Rajdhani;
+        font-size: 18px;
+        font-style: normal;
+        font-weight: 700;
+        line-height: 100%;
+        padding: 17px 100px;
+        /* 18px */
+        letter-spacing: 0.18px;
+    }
+}
 }

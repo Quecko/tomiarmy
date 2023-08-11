@@ -6,11 +6,14 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 import Loader from '../../../../hooks/loader'
+import Signature from '../../../../hooks/dataSenders/userSign';
 
-const SquadModals = ({ show1, setShow1, setShow2, show2, SquadUsers, GetUserProfiledata }) => {
+const SquadModals = ({ show1, setShow1, setShow2, show2, SquadUsers, GetUserProfiledata,setindexwait }) => {
 
   // const [show1, setShow1] = useState(false);
+  const [showModal1, setShowModal1] = useState(false)
   const handleClose1 = () => setShow1(false);
+  const {userSign}=Signature()
   let tok = localStorage.getItem("accessToken");
   const [loader, setLoader] = useState(false);
   const handleClose2 = () => {
@@ -48,6 +51,7 @@ const SquadModals = ({ show1, setShow1, setShow2, show2, SquadUsers, GetUserProf
     setShow2(true)
     if (inputs?.name) {
       if (profilePicture) {
+        if(inputs?.name.length<15){
         const data = new FormData();
         data.append("name", inputs?.name);
         data.append("squadImage", profilePicture);
@@ -71,8 +75,6 @@ const SquadModals = ({ show1, setShow1, setShow2, show2, SquadUsers, GetUserProf
             userString.memberOfSquad = true
             // Update local storage object with the updated data
             localStorage.setItem('user', JSON.stringify(userString));
-            // localStorage.setItem('user', JSON.stringify(updateduser));
-            // localStorage.setItem('user', JSON.stringify(response?.data?.data));
             GetUserProfiledata()
             SquadUsers()
             window.scrollTo(0, 0);
@@ -100,37 +102,126 @@ const SquadModals = ({ show1, setShow1, setShow2, show2, SquadUsers, GetUserProf
           });
         // }
       } else {
-        toast.error("Squad Image required")
+        toast.error("Squad Name must be less or equal to 15 words.")
       }
     } else {
-      toast.error("Squad Name required")
+      toast.error("Squad Image is required")
     }
+  } else {
+    toast.error("Squad Name required")
+  }
   }
 
   const leaveSquad = () => {
     // if (account) {
-    axios.defaults.headers.post[
-      "Authorization"
-    ] = `Bearer ${tok}`;
     var config = {
-      method: "post",
+      method: "patch",
       url: `${API_URL}/tasks/squads/leave-squad`,
-      // data: data
+      headers: {
+        authorization: `Bearer ` + tok
+      },
     };
 
     axios(config)
       .then(async (response) => {
-        localStorage.removeItem("isCommander")
-        toast.success("Squad left successfully");
+        toast.success("Squad left successfully")
         localStorage.setItem("accessToken", response?.data?.accessToken);
         localStorage.setItem("user", JSON.stringify(response?.data?.data));
+        const userString = JSON.parse(localStorage.getItem('user'));
+        userString.memberOfSquad = false
+        localStorage.setItem('user', JSON.stringify(userString));
         handleClose1()
+        setShowModal1(true)
+        setindexwait(0)
+        localStorage.setItem("indexvalue", 0);
+        
+        // SquadUsers()
       })
       .catch(function (error) {
         toast.error(error.response.data.message)
       })
     // }
   }
+
+  const SignUp = () => {
+    loginUser()
+    // window.location.reload()
+  }
+
+
+  const loginUser = async () => {
+    // let tok = localStorage.getItem("accessToken");
+    // let wall = localStorage.getItem("wallet");
+    // setShow(false);
+    if (account) {
+      const res0 = await userSign(account);
+      if (account && res0) {
+        await axios
+          .post(`${API_URL}/auth/signin`, {
+            walletAddress: account.toLowerCase(),
+            sign: res0,
+            rememberMe: true
+          })
+          .then((res) => {
+            // toast.success('User Logged in Successfully', {
+            //   position: 'top-center',
+            //   autoClose: 5000,
+            // });
+            localStorage.setItem("accessToken", res?.data?.data?.accessToken);
+            localStorage.setItem("user", JSON.stringify(res?.data?.data));
+            setShowModal1(false)
+            window.location.reload()
+            setindexwait(0)
+            localStorage.setItem("indexvalue", 0);
+          
+          })
+          .catch((err) => {
+            if (err?.response?.data?.statusCode === 404) {
+              toast.error('No User Found', {
+                position: 'top-center',
+                autoClose: 5000,
+              });
+              localStorage.removeItem("connectorId");
+              localStorage.removeItem("flag");
+              // setShow(false);
+              localStorage.removeItem("accessToken");
+              localStorage.removeItem("user");
+              localStorage.removeItem("wallet");
+              window.location.assign('/')
+            }
+            localStorage.removeItem("connectorId");
+            localStorage.removeItem("flag");
+          });
+      }
+    }
+    else {
+      toast.error('Wallet Not Connected', {
+        position: 'top-center',
+        autoClose: 5000,
+      });
+    }
+    // else {
+    //     let user1 = localStorage.getItem("user");
+    //     user1 = JSON.parse(user1);
+    //     setUser(user1);
+    //     if (call !== undefined) {
+    //         setCall(true);
+    //     }
+    //     if (user1?.rank === "general" || user1?.rank === "major general") {
+    //         history.push("/general");
+    //         getData();
+    //         GetArmy();
+    //     } else if (user1?.rank === "squad member") {
+    //         history.push("/squad");
+    //         GetTaskss();
+    //         GetUserProfiledata();
+    //         GetOpts();
+    //         GetTasks();
+    //         vateransApi();
+    //     }
+    //     window.scrollTo(0, 0);
+    // }
+  };
 
 
 
@@ -242,6 +333,22 @@ const SquadModals = ({ show1, setShow1, setShow2, show2, SquadUsers, GetUserProf
           <div className='endbtn'>
             <button className="btn-blackk" onClick={handleClose1}><span><img src='\Subtract.svg' alt='img' className='img-fluid' /></span>Cancel</button>
             <button className="btn-pinkk" onClick={leaveSquad}><img src='\up.svg' alt='img' className='img-fluid' />Yes’ I am sure</button>
+          </div>
+        </Modal.Body>
+      </Modal>
+
+      <Modal className='detailmodal gtgtgtgtgt' show={showModal1} centered>
+        {/* <Modal.Header closeButton>
+        </Modal.Header> */}
+        <Modal.Body>
+          <div className='imagesmodal'>
+            <img src='\imagesmodals.svg' alt='img' className='img-fluid' />
+            <p>you leave the Squad Plaese signUp .</p>
+            {/* <p>Are you sure you want to leave this squad?</p> */}
+          </div>
+          <div className='endbtn'>
+            {/* <button  className="btn-blackk" ><span><img src='\Subtract.svg' alt='img' className='img-fluid' /></span>Cancel</button> */}
+            <button onClick={SignUp} className="btn-pinkk" ><img src='\up.svg' alt='img' className='img-fluid' />Sign In</button>
           </div>
         </Modal.Body>
       </Modal>

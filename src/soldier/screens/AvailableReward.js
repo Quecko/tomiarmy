@@ -3,8 +3,9 @@ import "./claim.scss"
 import Dropdown from 'react-bootstrap/Dropdown';
 import Pagination from 'react-bootstrap/Pagination';
 import Accordion from 'react-bootstrap/Accordion';
+import moment from 'moment';
 
-const AvailableReward = () => {
+const AvailableReward = ({ transactionHistory }) => {
     return (
         <>
             <section className="availble-reward border-grad1">
@@ -26,44 +27,33 @@ const AvailableReward = () => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>
-                                            <p className='paratable'>24/03/2023</p>
-                                        </td>
-                                        <td>
-                                        </td>
-                                        <td>
-                                        <div className='parent'>
-                                                <p><img src='\checkmark1.svg' alt='img' className='img-fluid' />Claimed</p>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <p className='paratable'>24/03/2023</p>
-                                        </td>
-                                        <td>
-                                            <p className='paratable'>50,000 TOMI</p>
-                                        </td>
-                                        <td>
-                                        <div className='parent'>
-                                                <p><img src='\checkmark1.svg' alt='img' className='img-fluid' />Claimed</p>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <p className='paratable'>24/03/2023</p>
-                                        </td>
-                                        <td>
-                                            <p className='paratable'>50,000 TOMI</p>
-                                        </td>
-                                        <td>
-                                            <div className='parent'>
-                                                <p><img src='\checkmark1.svg' alt='img' className='img-fluid' />Claimed</p>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                    {transactionHistory?.transactions?.map((elem, index) => {
+                                        let createdate = new Date(elem?.createdAt);
+                                        const createDate = moment(createdate).format("DD-MM-YYYY");
+                                        return (
+                                            <tr key={index}>
+                                                <td>
+                                                    <p className='paratable'>{createDate}</p>
+                                                </td>
+                                                <td>
+                                                    <p className='paratable'>{elem?.amount} TOMI</p>
+                                                </td>
+                                                <td>
+                                                    <div className='parent'>
+                                                        {elem?.txStatus == "completed" ?
+                                                            <p><img src='\checkmark1.svg' alt='img' className='img-fluid' />Claimed</p>
+                                                            : elem?.txStatus == "pending" ?
+                                                                <p style={{color:'rgb(255, 137, 54)'}}><img src='\clock1111.svg' alt='img' className='img-fluid' />Pending</p>
+                                                                : elem?.txStatus == "refund" ?
+                                                                    <p style={{color:'#8147FF'}}><img src='\refund1111.svg' alt='img' className='img-fluid' />Refund</p>
+                                                                    :
+                                                                    ''
+                                                        }
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        )
+                                    })}
                                 </tbody>
                             </table>
                         </div>

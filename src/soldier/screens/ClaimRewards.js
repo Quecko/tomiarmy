@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import "./claim.scss"
@@ -12,29 +12,43 @@ import Signature from "../../hooks/dataSenders/userSign";
 import { toast } from 'react-toastify';
 import RedeemToken from "../../hooks/dataSenders/redeemTokens";
 import { useWeb3React } from '@web3-react/core';
+import Loader from '../../hooks/loader';
 
-const ClaimRewards = ({squaddetail,GetUserProfiledata }) => {
+
+const ClaimRewards = ({ squaddetail, GetUserProfiledata }) => {
 
   const [showprofile, setShowProfile] = useState(false);
-  const [claimToken,setClaimToken]=useState('')
+  const [claimToken, setClaimToken] = useState('')
   const handleCloseProfile = () => {
     setClaimToken('')
     setShowProfile(false);
   }
-  const {userSign}=Signature()
+  const { userSign } = Signature()
   const { redeemTokenHook } = RedeemToken();
 
   const handleShowProfile = () => setShowProfile(true);
-  const {account}=useWeb3React()
+  const { account } = useWeb3React()
 
-  const [showprofile1, setShowProfile1] = useState(false);
-  const handleCloseProfile1 = () => setShowProfile1(false);
-  const handleShowProfile1 = () => setShowProfile1(true);
+  const [signModalOpen,setSignModalOpen]=useState(false)
+  const handleCloseSignModal = () => setSignModalOpen(false)
+
+  const [showProgressModal, setShowProgressModal] = useState(false);
+  const handleCloseProgressModal = () => setShowProgressModal(false)
+
+  // const [showProgressModal1, setShowProgressModal1] = useState(false);
+  // const handleCloseProgressModal1 = () => setShowProgressModal1(false)
+
+  const [showSuccessModal, setShowSuccessdModl] = useState(false);
+  const handleClosSuccessModal = () => setShowSuccessdModl(false)
+
+  const [showRejectedModal, setShowRejectedModl] = useState(false);
+  const handleCloseRejectedModal = () => setShowRejectedModl(false)
 
   let tok = localStorage.getItem("accessToken");
 
   const [loader, setLoader] = useState(false);
-  const [transactionHistory,setTransactionHostory]=useState([])
+  const [transactionHistory, setTransactionHostory] = useState([])
+
   const getTransactionHistory = async (off) => {
 
     // let valu = null;
@@ -55,33 +69,38 @@ const ClaimRewards = ({squaddetail,GetUserProfiledata }) => {
       .then(function (response) {
         setLoader(false);
         // setCount(response.data.data.count)
-          setTransactionHostory(response?.data?.data)
+        setTransactionHostory(response?.data?.data)
         // let arr = Array.from(Array(parseInt(response.data.data.pages)).keys());
         // setPages(arr);
         // setCurrentPage(valu)
       })
       .catch(function (error) {
         setLoader(false);
-        // localStorage.removeItem("accessToken");
-        // localStorage.removeItem("user");
-        // window.location.assign("/")
-        // window.location.reload();
+
       });
     // }
   }
+
+  useEffect(() => {
+    getTransactionHistory()
+  }, [])
+
 
 
   const claimTokens = async () => {
     // let tok = localStorage.getItem("accessToken");
     // let wall = localStorage.getItem("wallet");
     // setShow(false);
-    if(claimToken!=''){
-    if (account) {
-      const res0 = await userSign(account);
-      if (account && res0) {
-        axios.defaults.headers.post[
-          "Authorization"
-        ] = `Bearer ${tok}`;
+    if (claimToken != '') {
+      if (account) {
+        // setLoader(true)
+        handleCloseProfile()
+        setSignModalOpen(true)
+        const res0 = await userSign(account);
+        if (account && res0) {
+          axios.defaults.headers.post[
+            "Authorization"
+          ] = `Bearer ${tok}`;
           var config = {
             method: "post",
             url: `${API_URL}/auth/claims/claim-tomi`,
@@ -91,56 +110,66 @@ const ClaimRewards = ({squaddetail,GetUserProfiledata }) => {
             }
           };
           axios(config)
-          .then((res) => {
-            //  if(res?.statusCode==201){
-               redeemTransaction(res?.data?.data)
-            //  }
-          })
-          .catch((err) => {
-           
-            
-          });
+            .then(async(res) => {
+              //  if(res?.statusCode==201){
+              setLoader(true)
+              setSignModalOpen(false)
+              setShowProgressModal(true)
+              redeemTransaction(res?.data?.data)
+              //  }
+            })
+            .catch((err) => {
+              setLoader(false)
+              setShowProgressModal(false)
+              setShowRejectedModl(true)
+
+            });
+        }
+        else{
+        setSignModalOpen(false)
+        setShowProgressModal(false)
+        }
+      }
+      else {
+        toast.error('Wallet Not Connected', {
+          position: 'top-center',
+          autoClose: 5000,
+        });
       }
     }
     else {
-      toast.error('Wallet Not Connected', {
-        position: 'top-center',
-        autoClose: 5000,
-      });
+      toast.error("Please enter claim amount.");
     }
-  }
-  else{
-    toast.error("Please enter claim amount.");
-  }
   };
 
 
   const redeemTransaction = async (data) => {
-    console.log('data',data);
     if (account && claimToken) {
-      try {
-        // setLoader(true);
-        console.log('data inn  sve',data?.duration, data?.amount, data?.v, data?.r, data?.s);
-        let res = await redeemTokenHook(data?.duration, data?.amount, data?.v, data?.r, data?.s);
+       try {
+        let res = await redeemTokenHook(data?.duration, data?.amount, data?.v, data?.r, data?.s)
+        // setShowProgressModal(false)
+          // setShowProgressModal1(true)
         if (res) {
-          console.log("redeem conttract res: ", res);
-          // trxAPI(data?.transactionId);
+          trxAPI(data?.transactionId, res?.transactionHash);
         }
       } catch (e) {
         console.log("error: ", e);
-        // setLoader(false);
+        setLoader(false);
+        setShowProgressModal(false) 
+        setShowRejectedModl(true)
+        handleCloseProfile()
+        getTransactionHistory()
       }
     }
   };
 
-  const trxAPI = async (id) => {
+  const trxAPI = async (transactionId, srcTxId) => {
     let val = localStorage.getItem("accessToken");
-
     var config = {
       method: "patch",
-      url: `${API_URL}/auth/transactions/${id}`,
+      url: `${API_URL}/auth/transactions/${transactionId}`,
       data: {
-        srcTxId: id,
+        srcTxId: srcTxId,
       },
       headers: {
         Authorization: "Bearer " + val,
@@ -153,21 +182,27 @@ const ClaimRewards = ({squaddetail,GetUserProfiledata }) => {
         setLoader(false);
         getTransactionHistory()
         GetUserProfiledata()
-        setLoader(false)
         handleCloseProfile();
-        toast.success("Your claim token Successfully");
+        handleCloseProgressModal()
+        handleCloseRejectedModal()
+        // setShowProgressModal1(false)
+        setShowSuccessdModl(true)
+        // toast.success("Your claim token Successfully");
         //   setPurchase(true);
       })
       .catch(function (error) {
         setLoader(false);
+        handleCloseProfile();
+        toast.error("Your token not claimed");
       });
   };
 
 
-  
+
   return (
     <>
-     <div className="formobile-heading d-none display-block-in-mobile">
+      {/* {loader && <Loader />} */}
+      <div className="formobile-heading d-none display-block-in-mobile">
         <div className="inner-heading">
           <h6>Claim Rewards</h6>
           <p>claim you rewards</p>
@@ -196,13 +231,13 @@ const ClaimRewards = ({squaddetail,GetUserProfiledata }) => {
                 <img src="\assets\claim-img1.png" alt="img" className='img-fluid' />
               </div>
               <div className="inner-text">
-              <p className='claim-text'>Unclaimed TOMI</p>
+                <p className='claim-text'>Unclaimed TOMI</p>
                 <h6>{squaddetail?.tomiTokens}</h6>
-                
+
               </div>
             </div>
             <div className="right">
-              <button  onClick={handleShowProfile}>Claim</button>
+              <button onClick={handleShowProfile}>Claim</button>
             </div>
           </div>
         </div>
@@ -218,31 +253,30 @@ const ClaimRewards = ({squaddetail,GetUserProfiledata }) => {
             <ClaimedReward />
           </Tab>
         </Tabs> */}
-        <AvailableReward/>
+        <AvailableReward transactionHistory={transactionHistory} />
       </section>
 
       <Modal className='detailmodal claimrewad-modal' show={showprofile} onHide={handleCloseProfile} centered>
         <Modal.Header closeButton>
           <Modal.Title>
-          Claim Reward
+            Claim Reward
           </Modal.Title>
-
         </Modal.Header>
         <Modal.Body>
           <div className="body-claim">
             <h6>How much points you want to claim right now?</h6>
             <div className="option-field">
-            <div className="inner-text">
-            <p className="left-text">
-              Points
-              </p>
-              <p className="right-text">
-              Balance: <span>{squaddetail?.tomiTokens} Points</span>
-              </p>
-            </div>
+              <div className="inner-text">
+                <p className="left-text">
+                  Points
+                </p>
+                <p className="right-text">
+                  Balance: <span>{squaddetail?.tomiTokens} Points</span>
+                </p>
+              </div>
               <div className="input-inner">
-                <input type="number" value={claimToken} onChange={(e)=>setClaimToken(e.target.value)} placeholder='Enter Number of Points....' />
-                <a onClick={()=>setClaimToken(squaddetail?.tomiTokens)}>MAX</a>
+                <input type="number" value={claimToken} onChange={(e) => setClaimToken(e.target.value)} placeholder='Enter Number of Points....' />
+                <a onClick={() => setClaimToken(squaddetail?.tomiTokens)}>MAX</a>
               </div>
             </div>
           </div>
@@ -256,10 +290,145 @@ const ClaimRewards = ({squaddetail,GetUserProfiledata }) => {
           </div>
         </Modal.Body>
       </Modal>
-      {/* <Modal className='detailmodal claimrewad-modal claimed-reward' show={showprofile1} onHide={handleCloseProfile1} centered>
+
+      {/* modal for transaction in progress for sign step 1 */}
+
+       <Modal className='detailmodal claimrewad-modal vergdsgew' show={signModalOpen} onHide={handleCloseSignModal} centered>
         <Modal.Header closeButton>
           <Modal.Title>
-          Claim Reward
+            Transaction in progress
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div className="body-claim">
+            <div className='ascs'>
+              <img src='/clockinprogress.png' />
+            </div>
+            <div className='devervs'>
+              <h6 className=''><img src='/dimArrow.svg' /> <span>STEP 1: SIGN THE TRANSACTION FROM YOUR WALLET</span></h6>
+              <h6 className='axasaas'><img src='/dimArrow.svg' /> <span>STEP 2: COMFIRM THE TRANSACTION FROM YOUR WALLE</span></h6>
+              <h6 className='axasaas'><img src='/dimArrow.svg' /> <span>SUCCESS! YOUR FUNDS HAVE BEEN SENT TO YOUR WALLET</span></h6>
+            </div>
+            <div className='sacwscew'>
+              <div >
+                <img src='/warning123.png' />
+              </div>
+              <h6>please don't reject the transaction and do not refresh the page.  otherwise you will lose TOMI TOKENS</h6>
+              <div>
+              </div>
+            </div>
+          </div>
+        </Modal.Body>
+      </Modal> 
+
+         {/* modal for transaction in progress for transaction step 2 */}
+
+         <Modal className='detailmodal claimrewad-modal vergdsgew' show={showProgressModal} onHide={handleCloseProgressModal} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>
+            Transaction in progress
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div className="body-claim">
+            <div className='ascs'>
+              <img src='/clockinprogress.png' />
+            </div>
+            <div className='devervs'>
+              <h6 className=''><img src='/uparrow.png' /> <span>STEP 1: SIGN THE TRANSACTION FROM YOUR WALLET</span></h6>
+              <h6 className='' style={{marginTop:'5px'}}><img src='/dimArrow.svg' /> <span>STEP 2: COMFIRM THE TRANSACTION FROM YOUR WALLE</span></h6>
+              <h6 className='axasaas'><img src='/dimArrow.svg' /> <span>SUCCESS! YOUR FUNDS HAVE BEEN SENT TO YOUR WALLET</span></h6>
+            </div>
+            <div className='sacwscew'>
+              <div >
+                <img src='/warning123.png' />
+              </div>
+              <h6>please don't reject the transaction and do not refresh the page.  otherwise you will lose TOMI TOKENS</h6>
+              <div>
+              </div>
+            </div>
+          </div>
+        </Modal.Body>
+      </Modal>
+
+        {/* modal for transaction in progress for transaction in proceess  step 3 */}
+{/* 
+        <Modal className='detailmodal claimrewad-modal vergdsgew' show={showProgressModal1} onHide={handleCloseProgressModal1} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>
+            Transaction in progress
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div className="body-claim">
+            <div className='ascs'>
+              <img src='/clockinprogress.png' />
+            </div>
+            <div className='devervs'>
+              <h6 className=''><img src='/uparrow.png' /> <span>STEP 1: SIGN THE TRANSACTION FROM YOUR WALLET</span></h6>
+              <h6 className='' style={{marginTop:'5px'}}><img src='/uparrow.png' /> <span>STEP 2: COMFIRM THE TRANSACTION FROM YOUR WALLE</span></h6>
+              <h6 className='axasaas'><img src='/dimArrow.svg' /> <span>SUCCESS! YOUR FUNDS HAVE BEEN SENT TO YOUR WALLET</span></h6>
+            </div>
+            <div className='sacwscew'>
+              <div >
+                <img src='/warning123.png' />
+              </div>
+              <h6>please don't reject the transaction and do not refresh the page.  otherwise you will lose TOMI TOKENS</h6>
+              <div>
+              </div>
+            </div>
+          </div>
+        </Modal.Body>
+      </Modal> */}
+
+         {/* modal for transaction in progress for success step 4 */}
+
+         <Modal className='detailmodal claimrewad-modal vergdsgew' show={showSuccessModal} onHide={handleClosSuccessModal} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>
+            Transaction in progress
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div className="body-claim">
+            <div className='ascs'>
+              <img src='/Groupsquad.svg' />
+            </div>
+            <div className='devervs'>
+              <h6 className=''><img src='/uparrow.png' /> <span>STEP 1: SIGN THE TRANSACTION FROM YOUR WALLET</span></h6>
+              <h6 className='' style={{marginTop:'5px'}}><img src='/uparrow.png' /> <span>STEP 2: COMFIRM THE TRANSACTION FROM YOUR WALLE</span></h6>
+              <h6 className='' style={{marginTop:'5px'}}><img src='/uparrow.png' /> <span>SUCCESS! YOUR FUNDS HAVE BEEN SENT TO YOUR WALLET</span></h6>
+            </div>
+            <div className='ascw_btn_btn'>
+              <button onClick={()=>handleClosSuccessModal()}>Close</button>
+            </div>
+          </div>
+        </Modal.Body>
+      </Modal>
+
+      {/* modal for reject transaction */}
+
+      <Modal className='detailmodal claimrewad-modal vergdsgew' show={showRejectedModal} onHide={handleCloseRejectedModal} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>
+            Transaction rejected
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div className="body-claim">
+            <div className='ascs'>
+            <img src='/weeping.png' />
+            </div>
+            <h6 style={{textAlign:'center'}}>You have rejected your transaction and you have lost your tomi funds now this issue only admin can handle</h6>
+          </div>
+        </Modal.Body>
+      </Modal>
+
+
+      {/* <Modal className='detailmodal claimrewad-modal claimed-reward' show={showSuccessModal} onHide={setShowSuccessdModl} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>
+            Claim Reward
           </Modal.Title>
 
         </Modal.Header>
@@ -269,10 +438,10 @@ const ClaimRewards = ({squaddetail,GetUserProfiledata }) => {
             <p>Claimed successfully. check your wallet to see balance.</p>
           </div>
           <div className='endbtn'>
-            
+
             <button className="btn-pinkk"
             >
-               Okay</button>
+              Okay</button>
           </div>
         </Modal.Body>
       </Modal> */}

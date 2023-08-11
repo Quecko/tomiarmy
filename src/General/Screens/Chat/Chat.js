@@ -3,12 +3,10 @@ import "./chat.scss"
 import EmojiPicker from 'emoji-picker-react';
 import Picker from 'emoji-picker-react';
 import Button from 'react-bootstrap/Button';
-import Offcanvas from 'react-bootstrap/Offcanvas';
 import { API_URL } from "../../../utils/ApiUrl"
 import { toast } from 'react-toastify';
 import axios from 'axios';
 import moment from "moment";
-import { reverse } from "lodash";
 import { Modal } from 'react-bootstrap';
 import { io } from "socket.io-client";
 import { useRef } from 'react';
@@ -53,6 +51,12 @@ const Chat = ({ setPage, page, setChat, chat, getChat, pages, message, setMessag
       setPage(page + 1);
     }
   }
+    // Function to reset scrollTop to zero
+const resetScrollTop = () => {
+  const container = chatSectionRef.current;
+  container.scrollTop = 0;
+}
+
 
   // get top user or member
   const gettopusers = async () => {
@@ -107,7 +111,9 @@ const Chat = ({ setPage, page, setChat, chat, getChat, pages, message, setMessag
         axios(config)
           .then(function (response) {
             if (response?.status === 201) {
-              getChat()
+              // getChat()
+              scrollToBottom()
+              resetScrollTop()
               setMessage('')
               setImage('')
               setUploadImage('')

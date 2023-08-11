@@ -378,7 +378,6 @@ const Sidebar = () => {
   }
 
   const getChat = async () => {
-
     if (message != '') {
       setFirstTime(true)
       setPage(1)
@@ -386,12 +385,9 @@ const Sidebar = () => {
     else {
       setPage(page)
     }
-
-    // page = message!='' ?1 :page; 
-    // setPage(message != '' ? 1 : page)
     var config = {
       method: "get",
-      url: `${API_URL}/chats/group-messages?offset=${page}&limit=10`,
+      url: `${API_URL}/chats/group-messages?offset=${page}&limit=10000`,
       headers: {
         authorization: `Bearer ` + tok
       },
@@ -399,18 +395,18 @@ const Sidebar = () => {
     axios(config)
       .then(function (response) {
         allPages(response?.data?.data?.pages)
-        console.log('sccev',firstTime);
         if (firstTime==true) {
           let rev = reverse([...response?.data?.data?.groupMessages])
           setChat(rev);
           setFirstTime(false)
-          console.log('after',firstTime)
-          console.log('innnnnnnnn');
         }
-        else {
+        else if(page==1){
+          let rev = reverse([...response?.data?.data?.groupMessages])
+          setChat(rev)
+        }
+        else{
           let rev = reverse([...response?.data?.data?.groupMessages])
           setChat([...rev, ...chat])
-          console.log('outttttttttt');
         }
       })
       .catch(function (error) {
@@ -475,10 +471,11 @@ const Sidebar = () => {
   }
 
   useEffect(() => {
-    if (data?.memberOfSquad === true && firstTime) {
+    if (data?.memberOfSquad === true) {
       getChat()
     }
-  }, [firstTime])
+  }, [page,pages])
+
   useEffect(() => {
     if (data?.memberOfSquad === true) {
       SquadUsers()
@@ -1462,7 +1459,7 @@ const Sidebar = () => {
       </Offcanvas>
 
 
-      <SquadModals show1={show1} setShow1={setShow1} show2={show2} setShow2={setShow2} SquadUsers={SquadUsers} GetUserProfiledata={GetUserProfiledata} />
+      <SquadModals show1={show1} setShow1={setShow1} show2={show2} setShow2={setShow2} SquadUsers={SquadUsers} GetUserProfiledata={GetUserProfiledata}  setindexwait={setindexwait}/>
       <LeaderModals show4={show4} setShow4={setShow4} show5={show5} setShow5={setShow5} show6={show6} setShow6={setShow6} item={coLeaderDetails} SquadUsers={SquadUsers} />
       <AllTaskModals showtask={showtask} setShowtask={setShowtask} settaskdetail={settaskdetail} taskdetail={taskdetail} getData={getData} />
       <AllOperationTaskModal showtask1={showtask1} setShowtask1={setShowtask1} settaskdetail1={settaskdetail1} taskdetail1={taskdetail1} getDataOperation={getDataOperation} operationId={operationId} />

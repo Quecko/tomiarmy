@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import "./settings.scss"
 import Modal from 'react-bootstrap/Modal';
 import { API_URL } from "../../utils/ApiUrl"
@@ -6,6 +6,9 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import { TokenExpiredOrNot } from '../../utils/TokenExpiredOrNot';
 import Loader from '../../hooks/loader'
+import Cropper from "react-easy-crop";
+import Resizer from "react-image-file-resizer";
+// import getCroppedImg from '../../utils/cropImage';
 
 const Settings = () => {
   const [show, setShow] = useState(false);
@@ -18,15 +21,19 @@ const Settings = () => {
   let tok = localStorage.getItem("accessToken");
   const [showprofile, setShowProfile] = useState(false);
   const handleCloseProfile = () => setShowProfile(false);
-  const handleShowProfile = () => setShowProfile(true);
-
+  const handleShowProfile = () => setShowProfile(true)
   const [showForumDeleteModal, setShowForumDeleteModal] = useState(false);
   const handleCloseDeleteForum = () => setShowForumDeleteModal(false);
-
   const [profilePicture, setProfilePicture] = useState('');
+
+  // const handleClick = () => {
+  //   setIsShown(false);
+  // };
   const setProfilePic = (evt) => {
+    // setIsShown(true)
     setProfilePicture(evt.target.files[0]);
   }
+
 
   const [p, setP] = useState('')
   const getProfile = async () => {
@@ -51,37 +58,52 @@ const Settings = () => {
     // console.log('t',t)
     // if(t){
     if (nick != '') {
-      setLoader(true)
-      var config = {
-        method: "patch",
-        url: `${API_URL}/auth/users`,
-        headers: {
-          authorization: `Bearer ` + tok
-        },
-        data: {
-          nickName: nick
-        },
-      };
-      axios(config)
-        .then(function (response) {
-          const existingData = JSON.parse(localStorage.getItem('user'));
-          existingData.nickName = response?.data?.data?.nickName
-          const updatedData = JSON.stringify(existingData);
-          localStorage.setItem('user', updatedData);
-          setLoader(false);
-          handleClose()
-          toast.success('Update nick name successfully', {
-            position: "top-right",
-            autoClose: 2000,
+      if (nick?.length > 2) {
+        if (nick?.length < 8) {
+          setLoader(true)
+          var config = {
+            method: "patch",
+            url: `${API_URL}/auth/users`,
+            headers: {
+              authorization: `Bearer ` + tok
+            },
+            data: {
+              nickName: nick
+            },
+          };
+          axios(config)
+            .then(function (response) {
+              const existingData = JSON.parse(localStorage.getItem('user'));
+              existingData.nickName = response?.data?.data?.nickName
+              const updatedData = JSON.stringify(existingData);
+              localStorage.setItem('user', updatedData);
+              setLoader(false);
+              handleClose()
+              toast.success('Update nick name successfully', {
+                position: "top-right",
+                autoClose: 2000,
+              });
+            })
+            .catch(function (error) {
+              console.log(error);
+              setLoader(false);
+              // localStorage.removeItem("accessToken");
+              // localStorage.removeItem("user");
+              // window.location.reload();
+            });
+        }
+        else {
+          toast.error("Nickname must be at less then 8 characters.", {
+            position: 'top-center',
+            autoClose: 5000,
           });
-        })
-        .catch(function (error) {
-          console.log(error);
-          setLoader(false);
-          // localStorage.removeItem("accessToken");
-          // localStorage.removeItem("user");
-          // window.location.reload();
+        }
+      } else {
+        toast.error("Nickname must be at least three characters long!", {
+          position: 'top-center',
+          autoClose: 5000,
         });
+      }
     }
     // }
     // else{
@@ -89,11 +111,7 @@ const Settings = () => {
     // }
   }
 
-
-
-
   const addProfile = async () => {
-
     let tok = localStorage.getItem("accessToken");
     if (profilePicture != '') {
       setLoader(true)
@@ -140,12 +158,44 @@ const Settings = () => {
     getProfile()
   }, [])
 
+  // imaage crop
+  // const [crop, setCrop] = useState({ x: 0, y: 0 });
+  // const [zoom, setZoom] = useState(1);
+  // const [croppedImage, setCroppedImage] = useState(null);
+  // const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
+  // const [widthh, setWidthh] = useState(0)
+  // const [heightt, setHeightt] = useState(0)
+
+  // const onCropComplete = useCallback((croppedArea, croppedAreaPixels) => {
+  //   // console.log("hello", croppedArea, croppedAreaPixels);
+  //   // makeClientCrop(croppedAreaPixels)
+  //   setCroppedAreaPixels(croppedAreaPixels);
+  // }, []);
+
+  const [isShown, setIsShown] = useState(false);
+
+
+  // const showCroppedImage = useCallback(async () => {
+  //   try {
+  //     const croppedImage = await getCroppedImg(
+  //       profilePicture,
+  //       croppedAreaPixels,
+  //     );
+  //     console.log("donee", { croppedImage });
+  //     setCroppedImage(croppedImage);
+  //     setShow(false)
+  //   } catch (e) {
+  //     console.error(e);
+  //   }
+  // }, [croppedAreaPixels, profilePicture]);
+
+
 
 
 
   return (
     <>
-    {loader && <Loader/>}
+      {loader && <Loader />}
       <div className="formobile-heading d-none display-block-in-mobile">
         <div className="inner-heading">
           <h6>settings</h6>
@@ -192,6 +242,49 @@ const Settings = () => {
       </section>
 
 
+
+      {/* {isShown && (
+        <>
+          <section className="cropimage">
+            <div className="container-fluid">
+              <div>
+                <div className="parent-img-div">
+                  <img
+                    src="\add-circle.svg"
+                    alt="img"
+                    className="img-fluid close-icon"
+                    onClick={handleClick}
+                  />
+                  {profilePicture && (
+                    <>
+                      <div>
+                        <Cropper
+                          image={profilePicture ? URL?.createObjectURL(profilePicture) : ""}
+                          crop={crop}
+                          zoom={zoom}
+                          aspect={1.6 / 1}
+                          onCropChange={setCrop}
+                          onCropComplete={onCropComplete}
+                          onZoomChange={setZoom}
+                        />
+                      </div>
+
+                    </>
+                  )}
+
+                  <div className="bottom-btn">
+                    <button onClick={showCroppedImage} className="btncommon">
+                      Crop
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </>
+      )} */}
+
+
       <Modal className='editname-modal' show={show} onHide={handleClose} centered>
         <Modal.Header closeButton>
           <Modal.Title>Edit nickname</Modal.Title>
@@ -204,7 +297,6 @@ const Settings = () => {
           <button onClick={addNickName} className='btn-save'>Save</button>
         </Modal.Body>
       </Modal>
-
 
       <Modal className='detailmodal' show={showprofile} onHide={handleCloseProfile} centered>
         <Modal.Header closeButton>
@@ -272,23 +364,20 @@ const Settings = () => {
                     </>
                   )
               }
-
-
               <input type="file" accept="image/png, image/jpeg, image/jpg" className="d-none" id="upload" onChange={(e) => setProfilePic(e)} />
-
             </div>
           </div>
           <div className='endbtn'>
             <button className="btn-blackk" onClick={handleCloseProfile}><span><img src='\Subtract.svg' alt='img' className='img-fluid' /></span>Cancel</button>
-            {profilePicture === ''  ?
-            <button className="btn-pinkk hsgdvshgdghdsdf" disabled
-            >
-              <img src='\assets\upload-icon.svg' alt='img' className='img-fluid' /> Upload profile picture
+            {profilePicture === '' ?
+              <button className="btn-pinkk hsgdvshgdghdsdf" disabled
+              >
+                <img src='\assets\upload-icon.svg' alt='img' className='img-fluid' /> Upload profile picture
               </button>
-               : <button className="btn-pinkk"  onClick={addProfile}
-               >
-                 <img src='\assets\upload-icon.svg' alt='img' className='img-fluid'  /> Upload profile picture
-                 </button>}
+              : <button className="btn-pinkk" onClick={addProfile}
+              >
+                <img src='\assets\upload-icon.svg' alt='img' className='img-fluid' /> Upload profile picture
+              </button>}
           </div>
         </Modal.Body>
       </Modal>
