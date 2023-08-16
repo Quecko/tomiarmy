@@ -26,6 +26,8 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role, setRole, setinvitecode, 
     const [showmodal, setShowModal] = useState(false)
     const [loader, setLoader] = useState(false);
     const { GetBal } = GetBalance();
+    let wall = localStorage.getItem("wallet");
+
 
     const forWalletConnect = () => {
         setShowModal(true)
@@ -34,6 +36,8 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role, setRole, setinvitecode, 
         }, 10000)
     }
 
+
+    
 
     // const trustWallet = async () => {
     //     localStorage.setItem("flag", "true");
@@ -55,8 +59,9 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role, setRole, setinvitecode, 
 
     const [loading, setLoading] = useState(false);
     const trustWallet = async () => {
+        console.log('walleet connect');
         if (!loading) {
-            if (account) {
+            if (account && wall) {
                 setLoading(true);
                 const connectorId = window.localStorage.getItem("connectorId");
                 logout(connectorId)
@@ -72,6 +77,7 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role, setRole, setinvitecode, 
                     })
             } else {
                 setLoading(true);
+                console.log('walleet connect1111');
                 login("walletconnect")
                     .then(() => {
                         localStorage.setItem('connectorId', 'walletconnect');
@@ -87,6 +93,21 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role, setRole, setinvitecode, 
             }
         }
     };
+
+    // const trustWallet = async () => {
+    //     // handleShow()
+    //     if (account) {
+    //         const connectorId = window.localStorage.getItem("connectorId")
+    //         await logout(connectorId);
+    //         localStorage.removeItem("connectorId");
+    //         localStorage.removeItem("flag");
+    //     } else {
+    //         login("walletconnect");
+    //         localStorage.setItem('connectorId', 'walletconnect');
+    //         localStorage.setItem("flag", "true");
+    //         setLog(true)
+    //     }
+    // };
 
     // const connectMetaMask1 = async () => {
     //     if (account) {
@@ -106,7 +127,7 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role, setRole, setinvitecode, 
 
     const connectMetaMask1 = () => {
         if (!loading) {
-            if (account) {
+            if (account && wall) {
                 setLoading(true);
                 const connectorId = window.localStorage.getItem("connectorId");
                 logout(connectorId)
