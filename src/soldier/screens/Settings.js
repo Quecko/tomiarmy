@@ -7,8 +7,7 @@ import { toast } from 'react-toastify';
 import { TokenExpiredOrNot } from '../../utils/TokenExpiredOrNot';
 import Loader from '../../hooks/loader'
 import Cropper from "react-easy-crop";
-import Resizer from "react-image-file-resizer";
-// import getCroppedImg from '../../utils/cropImage';
+import { showCroppedImage } from '../../utils/cropImage';
 
 const Settings = () => {
   const [show, setShow] = useState(false);
@@ -26,14 +25,45 @@ const Settings = () => {
   const handleCloseDeleteForum = () => setShowForumDeleteModal(false);
   const [profilePicture, setProfilePicture] = useState('');
 
-  // const handleClick = () => {
-  //   setIsShown(false);
-  // };
-  const setProfilePic = (evt) => {
-    // setIsShown(true)
-    setProfilePicture(evt.target.files[0]);
-  }
+  // const setProfilePic = (evt) => {
+  //   setIsShown(true)
+  //   setProfilePicture(evt.target.files[0]);
+  // }
 
+  // imaage crop
+  const [imageSrc, setImageSrc] = useState(null);
+  const [crop, setCrop] = useState({ x: 0, y: 0 });
+  const [zoom, setZoom] = useState(1);
+  const [croppedImage, setCroppedImage] = useState(null);
+  const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
+  const [widthh, setWidthh] = useState(0)
+  const [heightt, setHeightt] = useState(0)
+
+  const onCropComplete = useCallback((croppedArea, croppedAreaPixels) => {
+    setCroppedAreaPixels(croppedAreaPixels);
+  }, []);
+
+  const [isShown, setIsShown] = useState(false);
+
+  const handleClick = () => {
+    setIsShown(false);
+  };
+  function readFile(file) {
+    return new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.addEventListener("load", () => resolve(reader.result), false);
+      reader.readAsDataURL(file);
+    });
+  }
+  const onFileChange = async (e) => {
+    if (e.target.files && e.target.files.length > 0) {
+      const file = e.target.files[0];
+      setIsShown(true)
+      setProfilePicture(file);
+      let imageDataUrl = await readFile(file);
+      setImageSrc(imageDataUrl);
+    }
+  };
 
   const [p, setP] = useState('')
   const getProfile = async () => {
@@ -58,52 +88,37 @@ const Settings = () => {
     // console.log('t',t)
     // if(t){
     if (nick != '') {
-      if (nick?.length > 2) {
-        if (nick?.length < 8) {
-          setLoader(true)
-          var config = {
-            method: "patch",
-            url: `${API_URL}/auth/users`,
-            headers: {
-              authorization: `Bearer ` + tok
-            },
-            data: {
-              nickName: nick
-            },
-          };
-          axios(config)
-            .then(function (response) {
-              const existingData = JSON.parse(localStorage.getItem('user'));
-              existingData.nickName = response?.data?.data?.nickName
-              const updatedData = JSON.stringify(existingData);
-              localStorage.setItem('user', updatedData);
-              setLoader(false);
-              handleClose()
-              toast.success('Update nick name successfully', {
-                position: "top-right",
-                autoClose: 2000,
-              });
-            })
-            .catch(function (error) {
-              console.log(error);
-              setLoader(false);
-              // localStorage.removeItem("accessToken");
-              // localStorage.removeItem("user");
-              // window.location.reload();
-            });
-        }
-        else {
-          toast.error("Nickname must be at less then 8 characters.", {
-            position: 'top-center',
-            autoClose: 5000,
+      setLoader(true)
+      var config = {
+        method: "patch",
+        url: `${API_URL}/auth/users`,
+        headers: {
+          authorization: `Bearer ` + tok
+        },
+        data: {
+          nickName: nick
+        },
+      };
+      axios(config)
+        .then(function (response) {
+          const existingData = JSON.parse(localStorage.getItem('user'));
+          existingData.nickName = response?.data?.data?.nickName
+          const updatedData = JSON.stringify(existingData);
+          localStorage.setItem('user', updatedData);
+          setLoader(false);
+          handleClose()
+          toast.success('Update nick name successfully', {
+            position: "top-right",
+            autoClose: 2000,
           });
-        }
-      } else {
-        toast.error("Nickname must be at least three characters long!", {
-          position: 'top-center',
-          autoClose: 5000,
+        })
+        .catch(function (error) {
+          console.log(error);
+          setLoader(false);
+          // localStorage.removeItem("accessToken");
+          // localStorage.removeItem("user");
+          // window.location.reload();
         });
-      }
     }
     // }
     // else{
@@ -136,6 +151,7 @@ const Settings = () => {
           getProfile()
           setLoader(false);
           handleClose()
+          setCroppedImage('')
           toast.success('Update profile successfully', {
             position: "top-right",
             autoClose: 2000,
@@ -158,36 +174,13 @@ const Settings = () => {
     getProfile()
   }, [])
 
-  // imaage crop
-  // const [crop, setCrop] = useState({ x: 0, y: 0 });
-  // const [zoom, setZoom] = useState(1);
-  // const [croppedImage, setCroppedImage] = useState(null);
-  // const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
-  // const [widthh, setWidthh] = useState(0)
-  // const [heightt, setHeightt] = useState(0)
-
-  // const onCropComplete = useCallback((croppedArea, croppedAreaPixels) => {
-  //   // console.log("hello", croppedArea, croppedAreaPixels);
-  //   // makeClientCrop(croppedAreaPixels)
-  //   setCroppedAreaPixels(croppedAreaPixels);
-  // }, []);
-
-  const [isShown, setIsShown] = useState(false);
+  const editHandler = () => {
+    window.scrollTo(0, 0)
+    setIsShown(true)
+    // handleClick();
+  }
 
 
-  // const showCroppedImage = useCallback(async () => {
-  //   try {
-  //     const croppedImage = await getCroppedImg(
-  //       profilePicture,
-  //       croppedAreaPixels,
-  //     );
-  //     console.log("donee", { croppedImage });
-  //     setCroppedImage(croppedImage);
-  //     setShow(false)
-  //   } catch (e) {
-  //     console.error(e);
-  //   }
-  // }, [croppedAreaPixels, profilePicture]);
 
 
 
@@ -243,46 +236,60 @@ const Settings = () => {
 
 
 
-      {/* {isShown && (
+      {isShown && (
         <>
           <section className="cropimage">
             <div className="container-fluid">
               <div>
                 <div className="parent-img-div">
-                  <img
-                    src="\add-circle.svg"
-                    alt="img"
-                    className="img-fluid close-icon"
-                    onClick={handleClick}
-                  />
+                  {/* <img
+                src="\add-circle.svg"
+                alt="img"
+                className="img-fluid close-icon"
+                onClick={handleClick}
+              /> */}
                   {profilePicture && (
                     <>
                       <div>
                         <Cropper
-                          image={profilePicture ? URL?.createObjectURL(profilePicture) : ""}
+                          image={imageSrc}
                           crop={crop}
                           zoom={zoom}
-                          aspect={1.6 / 1}
+                          aspect={1 / 1}
                           onCropChange={setCrop}
                           onCropComplete={onCropComplete}
                           onZoomChange={setZoom}
                         />
                       </div>
 
+                      {/* <label className="watermark-pic" htmlFor="upload">
+        <img
+          src="\assest\watermark.png"
+          alt="img"
+          className="img-fluid"
+        />
+      </label> */}
                     </>
                   )}
 
                   <div className="bottom-btn">
-                    <button onClick={showCroppedImage} className="btncommon">
+                    <button onClick={() => showCroppedImage(imageSrc, croppedAreaPixels, setWidthh, setHeightt, croppedImage, setCroppedImage, setProfilePicture, handleClick)} className="btncommon">
+                      {/* <img
+                    src="\upload.svg"
+                    alt="img"
+                    className="img-fluid"
+                  /> */}
                       Crop
                     </button>
                   </div>
                 </div>
+
+                {/* <input type="file" id="upload" className="d-none" onChange={(evt) => logoPicHandle(evt)} /> */}
               </div>
             </div>
           </section>
         </>
-      )} */}
+      )}
 
 
       <Modal className='editname-modal' show={show} onHide={handleClose} centered>
@@ -318,11 +325,13 @@ const Settings = () => {
                           <label htmlFor="upload">
                             {" "}
                             <img
-                              src={profilePicture ? URL?.createObjectURL(profilePicture) : ""}
+                              src={croppedImage}
                               alt="img"
                               className="img-fluid"
                             />
-                          </label> : <label htmlFor="upload">
+                          </label> :
+
+                          <label htmlFor="upload">
                             {" "}
                             <img
                               src="\uploadimage.svg"
@@ -364,8 +373,37 @@ const Settings = () => {
                     </>
                   )
               }
-              <input type="file" accept="image/png, image/jpeg, image/jpg" className="d-none" id="upload" onChange={(e) => setProfilePic(e)} />
+              {/* 
+              {croppedImage && (
+                <div className="main-img sdbfvsdhgfvdsh h-100 w-100">
+                  <img
+                    src={croppedImage}
+                    className=" upload___immg"
+                  />
+                </div>
+              )
+              } */}
+              <input type="file" accept="image/png, image/jpeg, image/jpg" className="d-none" id="upload" onChange={(e) => onFileChange(e)} />
+
             </div>
+            {/* <div className="bottom-btnss">
+              <input
+                id="upload11"
+                type="file"
+                className="d-none"
+                onChange={onFileChange}
+              />{" "}
+              <label
+                for="upload11"
+                className="cursor___pointer  btncommon"
+              >
+                {" "}
+                Upload
+              </label>
+              <button disabled={croppedImage ? false : true} className="btncommon ml-2 helloo" onClick={editHandler}>
+                Edit
+              </button>
+            </div> */}
           </div>
           <div className='endbtn'>
             <button className="btn-blackk" onClick={handleCloseProfile}><span><img src='\Subtract.svg' alt='img' className='img-fluid' /></span>Cancel</button>
@@ -396,3 +434,4 @@ const Settings = () => {
 }
 
 export default Settings
+

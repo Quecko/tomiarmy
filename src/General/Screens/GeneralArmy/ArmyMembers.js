@@ -25,6 +25,8 @@ const ArmyMembers = ({ routesarmy, setroutearmy }) => {
     const [data, setData] = useState([]);
     const [Armymajor, setArmymajor] = useState([]);
     const [selectedrank, setselectedrank] = useState('Select Rank');
+    const [filterRank, setFilterRank] = useState('Filter Rank');
+
     const { account } = useWeb3React();
 
 
@@ -37,7 +39,7 @@ const ArmyMembers = ({ routesarmy, setroutearmy }) => {
     const handleShowreject = () => setShowreject(true);
 
     const [showrank, setShowrank] = useState(false);
-    const handleCloserank = () =>{
+    const handleCloserank = () => {
         setselectedrank('Select Rank')
         setArmymajor()
         setShowrank(false);
@@ -50,8 +52,8 @@ const ArmyMembers = ({ routesarmy, setroutearmy }) => {
     }
 
 
-    
- 
+
+
     const armyembers = async (off) => {
         // let valu = null;
         // if (off) {
@@ -60,37 +62,37 @@ const ArmyMembers = ({ routesarmy, setroutearmy }) => {
         //     valu = 1;
         // }
         // if (account) {
-            var config = {
-                method: "get",
-                url: `${API_URL}/auth/users/army-members?offset=1&&limit=10000`,
-                headers: {
-                    authorization: `Bearer ` + tok
-                },
-            };
-            axios(config)
-                .then(function (response) {
-                    // setLoader(false);
-                    // setCount(response.data.data.count)
-                    setData(response?.data?.data?.users);
-                    // let arr = Array.from(Array(parseInt(response.data.data.pages)).keys());
-                    // setPages(arr);
-                    // setCurrentPage(valu)
-                })
-                .catch(function (error) {
-                    // setLoader(false);
-                    // localStorage.removeItem("accessToken");
-                    // localStorage.removeItem("user");
-                    // window.location.assign("/")
-                    // window.location.reload();
-                });
+        var config = {
+            method: "get",
+            url: `${API_URL}/auth/users/army-members?offset=1&&limit=10000`,
+            headers: {
+                authorization: `Bearer ` + tok
+            },
+        };
+        axios(config)
+            .then(function (response) {
+                // setLoader(false);
+                // setCount(response.data.data.count)
+                setData(response?.data?.data?.users);
+                // let arr = Array.from(Array(parseInt(response.data.data.pages)).keys());
+                // setPages(arr);
+                // setCurrentPage(valu)
+            })
+            .catch(function (error) {
+                // setLoader(false);
+                // localStorage.removeItem("accessToken");
+                // localStorage.removeItem("user");
+                // window.location.assign("/")
+                // window.location.reload();
+            });
         // }
     }
 
     useEffect(() => {
         let user1 = localStorage.getItem("user");
-     
+
         user1 = JSON.parse(user1);
-        console.log("sdfdfdfsdfsdf",user1)
+        console.log("sdfdfdfsdfsdf", user1)
         // console.log('aasdasdasdasdasdasdasd', user1)
 
         if (user1?.rank?.name === "major general") {
@@ -113,8 +115,8 @@ const ArmyMembers = ({ routesarmy, setroutearmy }) => {
                 // setLoader(false);
                 const index = response?.data?.data.findIndex(rank => rank.name == dataarmymember?.rank?.name);
                 // Split the array from the "lieutenant" index to the end
-                const newArray = response?.data?.data?.slice(index+1);
-              
+                const newArray = response?.data?.data?.slice(index + 1);
+
                 setArmymajor(newArray);
             })
             .catch(function (error) {
@@ -169,7 +171,7 @@ const ArmyMembers = ({ routesarmy, setroutearmy }) => {
     }
 
 
-    const [armyDetail,setArmyDetail]=useState([])
+    const [armyDetail, setArmyDetail] = useState([])
 
 
     const armyMembeerDetails = async (elem) => {
@@ -180,38 +182,47 @@ const ArmyMembers = ({ routesarmy, setroutearmy }) => {
         //     valu = 1;
         // }
         // if (account) {
-            setroutearmy(!routesarmy)
-            var config = {
-                method: "get",
-                url: `${API_URL}/auth/users/army-member-details?userId=${elem?._id}`,
-                headers: {
-                    authorization: `Bearer ` + tok
-                },
-            };
-            axios(config)
-                .then(function (response) {
-                    setArmyDetail(response?.data?.data[0]);
-                })
-                .catch(function (error) {
-                    // setLoader(false);
-                    // localStorage.removeItem("accessToken");
-                    // localStorage.removeItem("user");
-                    // window.location.assign("/")
-                    // window.location.reload();
-                });
+        setroutearmy(!routesarmy)
+        var config = {
+            method: "get",
+            url: `${API_URL}/auth/users/army-member-details?userId=${elem?._id}`,
+            headers: {
+                authorization: `Bearer ` + tok
+            },
+        };
+        axios(config)
+            .then(function (response) {
+                setArmyDetail(response?.data?.data[0]);
+            })
+            .catch(function (error) {
+                // setLoader(false);
+                // localStorage.removeItem("accessToken");
+                // localStorage.removeItem("user");
+                // window.location.assign("/")
+                // window.location.reload();
+            });
         // }
     }
 
+
+    const armyMembers = [
+        { id: 1, rank: 'Private' },
+        { id: 2, rank: 'Sergeant' },
+        { id: 3, rank: 'Lieutenant' },
+        { id: 4, rank: 'Captain' },
+        { id: 5, rank: 'Major' },
+        { id: 6, rank: 'Major General' },
+    ];
 
 
 
     return (
         <>
-        {loader && <Loader/>}
+            {loader && <Loader />}
             {
                 routesarmy ?
                     <>
-                        <ArmyDetail setroutearmy={setroutearmy} routesarmy={routesarmy} armyDetail={armyDetail} setArmyDetail={setArmyDetail}  />
+                        <ArmyDetail setroutearmy={setroutearmy} routesarmy={routesarmy} armyDetail={armyDetail} setArmyDetail={setArmyDetail} />
                     </>
                     :
                     <>
@@ -233,30 +244,31 @@ const ArmyMembers = ({ routesarmy, setroutearmy }) => {
                                                 className="mb-3"
                                             >
                                                 <Tab eventKey="home" title="Army Members">
-                                                    {/* <div className="parent-field">
-                                                        <div className="option-field option-field1">
+                                                    <div className="parent-field">
+                                                        <div className="option-field option-field1 option-field2">
                                                             <input type="text" placeholder='Search' />
                                                             <img src="\assets\search-icon.svg" alt="img" className='img-fluid search-icon' />
                                                         </div>
-                                                        <div className="option-field option-field2">
+                                                        {/* <div className="option-field option-field2">
                                                             <input type="text" placeholder='Wallet Address' />
-                                                        </div>
+                                                        </div> */}
                                                         <div className="option-field option-field3">
                                                             <div class="dropdown">
                                                                 <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                                    Filter Ranks
+                                                                    {filterRank}
                                                                 </button>
                                                                 <ul class="dropdown-menu">
-                                                                    <li><a class="dropdown-item" href="#">Private</a></li>
-                                                                    <li><a class="dropdown-item" href="#">Sergeant</a></li>
-                                                                    <li><a class="dropdown-item" href="#">Lieutenant</a></li>
-                                                                    <li><a class="dropdown-item" href="#">Captain</a></li>
-                                                                    <li><a class="dropdown-item" href="#">Major</a></li>
-                                                                    <li><a class="dropdown-item" href="#">Major General</a></li>
+                                                                    {armyMembers.map((item, index) => (
+                                                                        <li key={item.id}>
+                                                                            <a
+                                                                                className={"dropdown-item" + (item?.rank === filterRank ? ' ev3v3v3__item-active' : '')}
+                                                                                onClick={() => setFilterRank(item?.rank)}>{item?.rank}</a>
+                                                                        </li>
+                                                                    ))}
                                                                 </ul>
                                                             </div>
                                                         </div>
-                                                    </div> */}
+                                                    </div>
                                                     <div className='maincard'>
                                                         <div className='display-none-in-mobile'>
                                                             <div className="maintable">
@@ -305,7 +317,7 @@ const ArmyMembers = ({ routesarmy, setroutearmy }) => {
                                                                                                 <Dropdown.Menu>
                                                                                                     <Dropdown.Item href="#/action-1">
                                                                                                         <p onClick={() => handleShowrank(elem)}><img src='\generalassets\icons\promote.svg' alt='img' className='img-fluid' />Rank Update</p>
-                                                                                                        <p onClick={()=>armyMembeerDetails(elem)}><img src='\generalassets\icons\detail.svg' alt='img' className='img-fluid' />Details</p>
+                                                                                                        <p onClick={() => armyMembeerDetails(elem)}><img src='\generalassets\icons\detail.svg' alt='img' className='img-fluid' />Details</p>
                                                                                                     </Dropdown.Item>
                                                                                                 </Dropdown.Menu>
                                                                                             </Dropdown>
@@ -368,7 +380,7 @@ const ArmyMembers = ({ routesarmy, setroutearmy }) => {
                                                                                                 <Dropdown.Menu>
                                                                                                     <Dropdown.Item href="#/action-1">
                                                                                                         <p onClick={() => handleShowrank(elem)}><img src='\generalassets\icons\promote.svg' alt='img' className='img-fluid' />Rank Update</p>
-                                                                                                        <p onClick={()=>armyMembeerDetails(elem)}><img src='\generalassets\icons\detail.svg' alt='img' className='img-fluid' />Details</p>
+                                                                                                        <p onClick={() => armyMembeerDetails(elem)}><img src='\generalassets\icons\detail.svg' alt='img' className='img-fluid' />Details</p>
                                                                                                     </Dropdown.Item>
                                                                                                 </Dropdown.Menu>
                                                                                             </Dropdown>

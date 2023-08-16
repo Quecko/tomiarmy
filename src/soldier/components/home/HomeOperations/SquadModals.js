@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useCallback } from 'react'
 import { Modal } from 'react-bootstrap';
 import { useWeb3React } from '@web3-react/core';
 import { API_URL } from "../../../../utils/ApiUrl"
@@ -7,13 +7,15 @@ import 'react-toastify/dist/ReactToastify.css';
 import axios from 'axios';
 import Loader from '../../../../hooks/loader'
 import Signature from '../../../../hooks/dataSenders/userSign';
+import { showCroppedImage } from '../../../../utils/cropImage';
+import Cropper from "react-easy-crop";
 
-const SquadModals = ({ show1, setShow1, setShow2, show2, SquadUsers, GetUserProfiledata,setindexwait }) => {
+const SquadModals = ({ show1, setShow1, setShow2, show2, SquadUsers, GetUserProfiledata, setindexwait }) => {
 
   // const [show1, setShow1] = useState(false);
   const [showModal1, setShowModal1] = useState(false)
   const handleClose1 = () => setShow1(false);
-  const {userSign}=Signature()
+  const { userSign } = Signature()
   let tok = localStorage.getItem("accessToken");
   const [loader, setLoader] = useState(false);
   const handleClose2 = () => {
@@ -36,9 +38,9 @@ const SquadModals = ({ show1, setShow1, setShow2, show2, SquadUsers, GetUserProf
   const handleClose4 = () => setShow4(false);
 
   const [profilePicture, setProfilePicture] = useState(null);
-  const setProfilePic = (evt) => {
-    setProfilePicture(evt.target.files[0]);
-  }
+  // const setProfilePic = (evt) => {
+  //   setProfilePicture(evt.target.files[0]);
+  // }
 
   const [inputs, setInputs] = useState({})
   const { account } = useWeb3React()
@@ -49,67 +51,67 @@ const SquadModals = ({ show1, setShow1, setShow2, show2, SquadUsers, GetUserProf
 
   const creatAquad = () => {
     setShow2(true)
+    if (profilePicture) {
     if (inputs?.name) {
-      if (profilePicture) {
-        if(inputs?.name.length<15){
-        const data = new FormData();
-        data.append("name", inputs?.name);
-        data.append("squadImage", profilePicture);
-        setLoader(true);
-        // if (account) {
-        axios.defaults.headers.post[
-          "Authorization"
-        ] = `Bearer ${tok}`;
-        var config = {
-          method: "post",
-          url: `${API_URL}/tasks/squads`,
-          data: data
-        };
+        if (inputs?.name.length < 15) {
+          const data = new FormData();
+          data.append("name", inputs?.name);
+          data.append("squadImage", profilePicture);
+          setLoader(true);
+          // if (account) {
+          axios.defaults.headers.post[
+            "Authorization"
+          ] = `Bearer ${tok}`;
+          var config = {
+            method: "post",
+            url: `${API_URL}/tasks/squads`,
+            data: data
+          };
 
-        axios(config)
-          .then(async (response) => {
-            setLoader(false);
-            localStorage.setItem("accessToken", response?.data?.accessToken);
-            const userString = JSON.parse(localStorage.getItem('user'));
-            userString.isCommander = true;
-            userString.memberOfSquad = true
-            // Update local storage object with the updated data
-            localStorage.setItem('user', JSON.stringify(userString));
-            GetUserProfiledata()
-            SquadUsers()
-            window.scrollTo(0, 0);
-            handleClose2();
-            setInputs({})
-            setProfilePicture(null)
-            handleShow3();
-            // window.location.reload()
-            // setCall(!call)
-            // GetUserProfiledata();
-            // getData();
-            // vateransApi();
-            // textCopiedFun();
-            // CloseModal();
-          })
-          .catch(function (error) {
-            setProfilePicture(null)
-            setInputs({})
-            console.log(error);
-            if (error.response.data.statusCode == 409) {
+          axios(config)
+            .then(async (response) => {
+              setLoader(false);
+              localStorage.setItem("accessToken", response?.data?.accessToken);
+              const userString = JSON.parse(localStorage.getItem('user'));
+              userString.isCommander = true;
+              userString.memberOfSquad = true
+              // Update local storage object with the updated data
+              localStorage.setItem('user', JSON.stringify(userString));
+              GetUserProfiledata()
+              SquadUsers()
+              window.scrollTo(0, 0);
               handleClose2();
-              toast.error("Squad for User already exists")
-            }
-            setLoader(false);
-          });
-        // }
+              setInputs({})
+              setProfilePicture(null)
+              handleShow3();
+              // window.location.reload()
+              // setCall(!call)
+              // GetUserProfiledata();
+              // getData();
+              // vateransApi();
+              // textCopiedFun();
+              // CloseModal();
+            })
+            .catch(function (error) {
+              setProfilePicture(null)
+              setInputs({})
+              console.log(error);
+              if (error.response.data.statusCode == 409) {
+                handleClose2();
+                toast.error("Squad for User already exists")
+              }
+              setLoader(false);
+            });
+          // }
+        } else {
+          toast.error("Squad Name must be less or equal to 15 words.")
+        }
       } else {
-        toast.error("Squad Name must be less or equal to 15 words.")
+        toast.error("Squad Name required")
       }
     } else {
       toast.error("Squad Image is required")
     }
-  } else {
-    toast.error("Squad Name required")
-  }
   }
 
   const leaveSquad = () => {
@@ -134,7 +136,7 @@ const SquadModals = ({ show1, setShow1, setShow2, show2, SquadUsers, GetUserProf
         setShowModal1(true)
         setindexwait(0)
         localStorage.setItem("indexvalue", 0);
-        
+
         // SquadUsers()
       })
       .catch(function (error) {
@@ -173,7 +175,7 @@ const SquadModals = ({ show1, setShow1, setShow2, show2, SquadUsers, GetUserProf
             window.location.reload()
             setindexwait(0)
             localStorage.setItem("indexvalue", 0);
-          
+
           })
           .catch((err) => {
             if (err?.response?.data?.statusCode === 404) {
@@ -223,11 +225,99 @@ const SquadModals = ({ show1, setShow1, setShow2, show2, SquadUsers, GetUserProf
     // }
   };
 
+  const [imageSrc, setImageSrc] = useState(null);
+  const [crop, setCrop] = useState({ x: 0, y: 0 });
+  const [zoom, setZoom] = useState(1);
+  const [croppedImage, setCroppedImage] = useState(null);
+  const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
+  const [widthh, setWidthh] = useState(0)
+  const [heightt, setHeightt] = useState(0)
+
+  const onCropComplete = useCallback((croppedArea, croppedAreaPixels) => {
+    setCroppedAreaPixels(croppedAreaPixels);
+  }, []);
+
+  const [isShown, setIsShown] = useState(false);
+
+  const handleClick = () => {
+    setIsShown(false);
+  };
+  function readFile(file) {
+    return new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.addEventListener("load", () => resolve(reader.result), false);
+      reader.readAsDataURL(file);
+    });
+  }
+  const onFileChange = async (e) => {
+    if (e.target.files && e.target.files.length > 0) {
+      const file = e.target.files[0];
+      setIsShown(true)
+      setProfilePicture(file);
+      let imageDataUrl = await readFile(file);
+      setImageSrc(imageDataUrl);
+    }
+  };
+
 
 
   return (
     <>
-    {loader && <Loader/>}
+      {isShown && (
+        <>
+          <section className="cropimage">
+            <div className="container-fluid">
+              <div>
+                <div className="parent-img-div">
+                  {/* <img
+                src="\add-circle.svg"
+                alt="img"
+                className="img-fluid close-icon"
+                onClick={handleClick}
+              /> */}
+                  {profilePicture && (
+                    <>
+                      <div>
+                        <Cropper
+                          image={imageSrc}
+                          crop={crop}
+                          zoom={zoom}
+                          aspect={1 / 1}
+                          onCropChange={setCrop}
+                          onCropComplete={onCropComplete}
+                          onZoomChange={setZoom}
+                        />
+                      </div>
+
+                      {/* <label className="watermark-pic" htmlFor="upload">
+        <img
+          src="\assest\watermark.png"
+          alt="img"
+          className="img-fluid"
+        />
+      </label> */}
+                    </>
+                  )}
+
+                  <div className="bottom-btn">
+                    <button onClick={() => showCroppedImage(imageSrc, croppedAreaPixels, setWidthh, setHeightt, croppedImage, setCroppedImage, setProfilePicture, handleClick)} className="btncommon">
+                      {/* <img
+                    src="\upload.svg"
+                    alt="img"
+                    className="img-fluid"
+                  /> */}
+                      Crop
+                    </button>
+                  </div>
+                </div>
+
+                {/* <input type="file" id="upload" className="d-none" onChange={(evt) => logoPicHandle(evt)} /> */}
+              </div>
+            </div>
+          </section>
+        </>
+      )}
+      {loader && <Loader />}
       <Modal className='detailmodal' show={show1} onHide={handleClose1} centered>
         <Modal.Header closeButton>
           <Modal.Title>Dismiss User</Modal.Title>
@@ -278,7 +368,7 @@ const SquadModals = ({ show1, setShow1, setShow2, show2, SquadUsers, GetUserProf
                 </label>
               }
 
-              <input type="file" accept="image/png, image/jpeg, image/jpg" className="d-none" id="upload" onChange={(e) => setProfilePic(e)} />
+              <input type="file" accept="image/png, image/jpeg, image/jpg" className="d-none" id="upload" onChange={(e) => onFileChange(e)} />
 
             </div>
           </div>

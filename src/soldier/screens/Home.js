@@ -92,13 +92,13 @@ const Home = ({ setShow2, tasks, setShowtask, settaskdetail, setShowtask1, setta
       labels: ['Completed'],
     },
   }
-  const [claimToken,setClaimToken]=useState('')
+  const [claimToken, setClaimToken] = useState('')
   const [showprofile, setShowProfile] = useState(false);
   const handleCloseProfile = () => {
     setClaimToken('')
     setShowProfile(false);
   }
-  
+
   const handleShowProfile = () => setShowProfile(true);
   let tok = localStorage.getItem("accessToken");
   const datacommander = localStorage.getItem('user')
@@ -123,7 +123,7 @@ const Home = ({ setShow2, tasks, setShowtask, settaskdetail, setShowtask1, setta
   }
 
   const Redeem = () => {
-    if(claimToken!=''){
+    if (claimToken != '') {
       setLoader(true)
       // if (account) {
       axios.defaults.headers.post[
@@ -136,7 +136,7 @@ const Home = ({ setShow2, tasks, setShowtask, settaskdetail, setShowtask1, setta
           withdrawalPoints: claimToken
         }
       };
-  
+
       axios(config)
         .then(async (response) => {
           GetUserProfiledata()
@@ -151,20 +151,27 @@ const Home = ({ setShow2, tasks, setShowtask, settaskdetail, setShowtask1, setta
             position: "top-right",
             autoClose: 2000,
           });
-        });
+        })
 
     }
-    else{
+    else {
       toast.error("Please enter claim amount.");
     }
- 
+
     // }
+  }
+
+
+  const ClaimNow=()=>{
+    console.log('claim');
+    setindexwait(7)
+    localStorage.setItem("indexvalue", 7);
   }
 
 
   return (
     <>
-    {loader && <Loader/>}
+      {loader && <Loader />}
       <div className="formobile-heading d-none display-block-in-mobile">
         <div className="inner-heading">
           <h6 className="shgysgasgcashbhsac"><div>Welcome </div>{data?.nickName ? <div style={{ marginLeft: '6px' }}>{data?.nickName}</div> :
@@ -238,16 +245,23 @@ const Home = ({ setShow2, tasks, setShowtask, settaskdetail, setShowtask1, setta
                   <div>
                     <p>TOMI Tokens Earned </p>
                     <h4>{squaddetail?.tomiTokens}</h4>
-                    <button className="claim_btn_scwaevea">Claim</button>
+                    {squaddetail?.tomiTokens ?
+                      (
+                        <button className="claim_btn_scwaevea" onClick={ClaimNow}>Claim Now</button>
+                      ) : (
+                        ''
+                      )
+                    }
+
                   </div>
                 </div>
               </div>
-              <div className="inner-data-box border-grad">
+              {/* <div className="inner-data-box border-grad">
                 <div className="stats-item-box">
                   <img src="\static-icons\points.png" alt="earned" style={{ width: "50px", height: "50px" }} />
                   <div className="asdaadsadasdwerfvwevd">
                     <div>
-                      <p>Points</p>
+                      <p>Total Points Earned</p>
                       <h4>{squaddetail?.points}</h4>
                     </div>
                     <div>
@@ -255,11 +269,29 @@ const Home = ({ setShow2, tasks, setShowtask, settaskdetail, setShowtask1, setta
                       <h4>{squaddetail?.toClaim}</h4>
                     </div>
                   </div>
-                  <button onClick={handleShowProfile} className="redem_btn_zcsdvebe">Redem</button>
-
+                  <button onClick={handleShowProfile} className="claim_btn_scwaevea">Redeem Now</button>
+                </div>
+              </div> */}
+              <div className="inner-data-box border-grad">
+                <div className="stats-item-box">
+                  <img src="\static-icons\points.png" alt="earned" style={{ width: "50px", height: "50px" }} />
+                  <p>Total Points Earned</p>
+                  <h4>{squaddetail?.points}</h4>
                 </div>
               </div>
               <div className="inner-data-box border-grad">
+                <div className="stats-item-box">
+                  <img src="\static-icons\redem.png" alt="earned" style={{ width: "50px", height: "50px" }} />
+                  <div>
+                    <p>Points Available to Redeem</p>
+                    <h4>{squaddetail?.toClaim}</h4>
+                  </div>
+                  {squaddetail?.toClaim > 0 ?
+                    <button onClick={handleShowProfile} className="claim_btn_scwaevea">Redeem Now</button>
+                    : ''}
+                </div>
+              </div>
+              {/* <div className="inner-data-box border-grad">
                 <div className="stats-item-box">
                   <img src="\static-icons\squad-tokens.png" alt="earned" style={{ width: "50px", height: "50px" }} />
                   <div>
@@ -267,7 +299,7 @@ const Home = ({ setShow2, tasks, setShowtask, settaskdetail, setShowtask1, setta
                     <h4>{squaddetail?.squad?.totalTokens ? squaddetail?.squad?.totalTokens : '0'} TOMI</h4>
                   </div>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
           <div className="col-lg-4 task-status pe-0">
@@ -346,7 +378,7 @@ const Home = ({ setShow2, tasks, setShowtask, settaskdetail, setShowtask1, setta
         <Modal.Body>
           <div className="body-claim">
             <h6>How much Tomi Token you want to Redeem right now?</h6>
-            <div className="option-field">  
+            <div className="option-field">
               <div className="inner-text">
                 <p className="left-text">
                   Points
@@ -356,8 +388,8 @@ const Home = ({ setShow2, tasks, setShowtask, settaskdetail, setShowtask1, setta
                 </p>
               </div>
               <div className="input-inner">
-                <input type="number" value={claimToken} onChange={(e)=>setClaimToken(e.target.value)} placeholder='Enter Number of Points....' />
-                <a onClick={()=>setClaimToken(squaddetail?.toClaim)}>MAX</a>
+                <input type="number" value={claimToken} onChange={(e) => setClaimToken(e.target.value)} placeholder='Enter Number of Points....' />
+                <a onClick={() => setClaimToken(squaddetail?.toClaim)}>MAX</a>
               </div>
             </div>
           </div>
