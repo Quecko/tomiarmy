@@ -477,7 +477,11 @@ const HomeOperations = ({ setShowtask1, settaskdetail1, operations, setOperation
             )
             :
             (
-              <div><h1>No Operation</h1></div>
+              <div className="ifoperationnotexist">
+                <img src="\assets\jahaz.svg" alt="img" className="img-fluid" />
+                <h2>Operation is currently not live</h2>
+                <p>Check back later to perform tasks In Operation</p>
+              </div>
             )
           }
 
