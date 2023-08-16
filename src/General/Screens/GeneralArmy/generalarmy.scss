@@ -37,7 +37,7 @@
             width: 100%;
         }
         .option-field2{
-            max-width: 622px;
+            max-width: 72%;
             width: 100%;
         }
         .option-field3{
@@ -86,6 +86,39 @@
                     background-color: transparent;
                 }
             }
+        }
+    }
+    .twice-btnss{
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        .btn-search{
+            border-radius: 10px;
+            border: none;
+            border-bottom: 1px solid #F058A6;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.50) 0%, rgba(255, 255, 255, 0.00) 100%), #FF0083;
+            box-shadow: 0px 3px 1px 0px #88134F;
+            color: #FFF;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: 100%; /* 14px */
+            letter-spacing: 0.14px;
+            padding: 8px;
+        }
+        .btn-reset{
+            border-radius: 10px;
+            border: none;
+            border-bottom: 1px solid #F058A6;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.50) 0%, rgba(255, 255, 255, 0.00) 100%), #FF0083;
+            box-shadow: 0px 3px 1px 0px #88134F;
+            color: #FFF;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: 100%; /* 14px */
+            letter-spacing: 0.14px;
+            padding: 8px;
         }
     }
 }
@@ -266,5 +299,13 @@
     }
     .general-army .parent-field .option-field input{
         padding-right: 50px;
+    }
+}
+
+@media (max-width:600px){
+    .general-army .twice-btnss{
+        width: 100%;
+        flex-wrap: wrap;
+        justify-content: center;
     }
 }

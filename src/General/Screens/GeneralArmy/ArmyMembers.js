@@ -247,27 +247,32 @@ const ArmyMembers = ({ routesarmy, setroutearmy }) => {
                                                     <div className="parent-field">
                                                         <div className="option-field option-field1 option-field2">
                                                             <input type="text" placeholder='Search' />
-                                                            <img src="\assets\search-icon.svg" alt="img" className='img-fluid search-icon' />
+                                                            {/* <img src="\assets\search-icon.svg" alt="img" className='img-fluid search-icon' /> */}
                                                         </div>
                                                         {/* <div className="option-field option-field2">
                                                             <input type="text" placeholder='Wallet Address' />
                                                         </div> */}
-                                                        <div className="option-field option-field3">
-                                                            <div class="dropdown">
-                                                                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                                    {filterRank}
-                                                                </button>
-                                                                <ul class="dropdown-menu">
-                                                                    {armyMembers.map((item, index) => (
-                                                                        <li key={item.id}>
-                                                                            <a
-                                                                                className={"dropdown-item" + (item?.rank === filterRank ? ' ev3v3v3__item-active' : '')}
-                                                                                onClick={() => setFilterRank(item?.rank)}>{item?.rank}</a>
-                                                                        </li>
-                                                                    ))}
-                                                                </ul>
+                                                        <div className="twice-btnss">
+                                                            <div className="option-field option-field3">
+                                                                <div class="dropdown">
+                                                                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                                        {filterRank}
+                                                                    </button>
+                                                                    <ul class="dropdown-menu">
+                                                                        {armyMembers.map((item, index) => (
+                                                                            <li key={item.id}>
+                                                                                <a
+                                                                                    className={"dropdown-item" + (item?.rank === filterRank ? ' ev3v3v3__item-active' : '')}
+                                                                                    onClick={() => setFilterRank(item?.rank)}>{item?.rank}</a>
+                                                                            </li>
+                                                                        ))}
+                                                                    </ul>
+                                                                </div>
                                                             </div>
+                                                            <button className='btn-search'>Search</button>
+                                                            <button className='btn-reset'>Reset</button>
                                                         </div>
+
                                                     </div>
                                                     <div className='maincard'>
                                                         <div className='display-none-in-mobile'>
