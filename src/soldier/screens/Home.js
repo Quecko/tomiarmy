@@ -3,7 +3,7 @@ import taskCompleted from "../../assets/icons/task-completed.svg";
 // import earned from "../../assets/icons/earned.svg";
 import points from "../../assets/icons/points.svg";
 import squadToken from "../../assets/icons/squadToken.svg";
-import { Dropdown } from "react-bootstrap";
+import { Dropdown, Toast, ToastContainer } from "react-bootstrap";
 import { useWeb3React } from "@web3-react/core";
 import MyRank from "../components/home/MyRank";
 import GeneralTasks from "../components/home/GeneralTasks";
@@ -171,6 +171,72 @@ const Home = ({ setShow2, tasks, setShowtask, settaskdetail, setShowtask1, setta
 
   return (
     <>
+    <ToastContainer className="position-absolute">
+        <Toast className="green">
+          <Toast.Body>
+            <img src="\assets\cross.png" alt="maincrossimg" className="maincrossimg" />
+            <div className="maintoast">
+              <img src="\assets\success.png" alt="maintoastimg" className="maintoastimg" />
+              <div className="maintoasttexts">
+                <h6 className="maintoasthead">Success</h6>
+                <p className="maintoastpara">Vote Submited Successfully</p>
+              </div>
+            </div>
+          </Toast.Body>
+        </Toast>
+        {/* <Toast className="red">
+          <Toast.Body>
+            <img src="\assets\cross.png" alt="maincrossimg" className="maincrossimg" />
+          <div className="maintoast">
+              <img src="\assets\error.png" alt="maintoastimg" className="maintoastimg" />
+              <div className="maintoasttexts">
+                <h6 className="maintoasthead">Error</h6>
+                <p className="maintoastpara">Vote Submited Failed</p>
+              </div>
+            </div>
+          </Toast.Body>
+        </Toast>
+        <Toast className="orange">
+          <Toast.Body>
+            <img src="\assets\cross.png" alt="maincrossimg" className="maincrossimg" />
+          <div className="maintoast">
+              <img src="\assets\warning.png" alt="maintoastimg" className="maintoastimg" />
+              <div className="maintoasttexts">
+                <h6 className="maintoasthead">Warning</h6>
+                <p className="maintoastpara">Vote Submited Warning</p>
+              </div>
+            </div>
+          </Toast.Body>
+        </Toast> */}
+      </ToastContainer>
+      <ToastContainer className="position-absolute">
+        <Toast className="red">
+          <Toast.Body>
+            <img src="\assets\cross.png" alt="maincrossimg" className="maincrossimg" />
+          <div className="maintoast">
+              <img src="\assets\error.png" alt="maintoastimg" className="maintoastimg" />
+              <div className="maintoasttexts">
+                <h6 className="maintoasthead">Error</h6>
+                <p className="maintoastpara">Vote Submited Failed</p>
+              </div>
+            </div>
+          </Toast.Body>
+        </Toast>
+      </ToastContainer>
+      <ToastContainer className="position-absolute">
+        <Toast className="orange">
+          <Toast.Body>
+            <img src="\assets\cross.png" alt="maincrossimg" className="maincrossimg" />
+          <div className="maintoast">
+              <img src="\assets\warning.png" alt="maintoastimg" className="maintoastimg" />
+              <div className="maintoasttexts">
+                <h6 className="maintoasthead">Warning</h6>
+                <p className="maintoastpara">Vote Submited Warning</p>
+              </div>
+            </div>
+          </Toast.Body>
+        </Toast>
+      </ToastContainer>
       {loader && <Loader />}
       <div className="formobile-heading d-none display-block-in-mobile">
         <div className="inner-heading">

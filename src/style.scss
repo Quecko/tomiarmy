@@ -5203,3 +5203,81 @@ tr {
         letter-spacing: 0.18px;
     }
 }
+
+
+
+.toast-container {
+    right: 15px;
+    max-width: 419px;
+    width: 100%;
+
+    .green{
+        background: #04C453;  
+    }
+
+    .red{
+        background: #FB2F2F;
+    }
+
+    .orange{
+        background: #FFA800;
+    }
+
+    .toast {
+        border-radius: 9px;
+        width: 100%;
+
+        .toast-body {
+            padding: 15px;
+            position: relative;
+
+            .maincrossimg {
+                position: absolute;
+                width: 24px;
+                height: 24px;
+                right: 15px;
+                top: 15px;
+            }
+
+            .maintoast {
+                display: flex;
+                justify-content: flex-start;
+                align-items: center;
+                gap: 10px;
+                .maintoastimg {
+                    width: 30px;
+                    height: 30px;
+                }
+                .maintoasttexts{
+                    display: flex;
+                    justify-content: flex-start;
+                    align-items: flex-start;
+                    flex-direction: column;
+                    gap: 4px;
+                    .maintoasthead{
+                        color: #FFF;
+                        font-size: 20px;
+                        font-style: normal;
+                        font-weight: 700;
+                        line-height: 100%;
+                    }
+                    .maintoastpara{
+                        color: #FFF;
+                        font-size: 16px;
+                        font-style: normal;
+                        font-weight: 600;
+                        line-height: 100%;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (max-width:600px){
+    .toast-container{
+        right: 0px;
+        left: 0px;
+        max-width: 100%;
+    }
+}
