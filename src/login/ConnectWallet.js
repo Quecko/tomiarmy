@@ -61,7 +61,6 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role, setRole, setinvitecode, 
 
     const [loading, setLoading] = useState(false);
     const trustWallet = async () => {
-        console.log('walleet connect');
         if (!loading) {
             if (account && wall) {
                 setLoading(true);
@@ -369,7 +368,6 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role, setRole, setinvitecode, 
                 <div className="mainhead">
                     <h5 className="innerhead">Connect Wallet</h5>
                 </div>
-              {account}
                 <button onClick={connectMetaMask1} disabled={loading} className='metamask-btn ygdshgdsaygdasuygd border-grad'>
                     <img src={metamaskIcon} alt='metamaskIcon' />
                     {/* {loading ? 'MetaMask...' : 'MetaMask'} */}

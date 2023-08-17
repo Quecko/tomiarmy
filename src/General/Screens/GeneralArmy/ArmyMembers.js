@@ -220,10 +220,6 @@ const ArmyMembers = ({ routesarmy, setroutearmy }) => {
 
     ];
 
-    const Reset = () => {
-        setSearch('')
-        setFilterRank('Filter Rank')
-    }
 
     const getPrevData = (off) => {
         let offset = parseInt(off) - 1;
@@ -417,7 +413,9 @@ const ArmyMembers = ({ routesarmy, setroutearmy }) => {
                                                                 </div>
                                                             </div>
                                                             <button className='btn-search' onClick={() => getSearchData(currentPage)}>Search</button>
-                                                            <button className='btn-reset' onClick={() => armyembers(currentPage)}>Reset</button>
+                                                            {search !== '' &&
+                                                                <button className="btn-reset" onClick={() => armyembers(currentPage)}><img src='/reset.png' alt='' /></button>
+                                                            }
                                                         </div>
 
                                                     </div>

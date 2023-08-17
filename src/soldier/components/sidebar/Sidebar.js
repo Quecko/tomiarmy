@@ -32,6 +32,8 @@ import AllOperationTaskModal from "../../screens/AllOperationTaskModal";
 import useAuth from "../../../hooks/useAuth";
 import { useDispatch } from "react-redux";
 import { addUer } from '../../../redux/action';
+import TopSquad from "../home/HomeOperations/TopSquad";
+import TopSquadModal from "../../screens/TopSquadModal";
 
 
 const Sidebar = () => {
@@ -97,6 +99,7 @@ const Sidebar = () => {
   const [notifs, setNotifs] = useState([]);
   const [rend, setRend] = useState(false);
   const [statusData, setStatus] = useState('')
+  const [showTopSquadModal, setShowTopSquadModal] = useState(false)
 
   useEffect(() => {
     if (indexvv == "0") {
@@ -929,7 +932,7 @@ const Sidebar = () => {
             {indexwait === 0 ?
               (
                 <>
-                  <Home show2={show2} setShow2={setShow2} tasks={tasks} setShowtask={setShowtask} settaskdetail={settaskdetail} setShowtask1={setShowtask1} settaskdetail1={settaskdetail1} operations={operations} setOperationId={setOperationId} users={users} squaddetail={squaddetail} statusData={statusData} setindexwait={setindexwait} GetUserProfiledata={GetUserProfiledata}   />
+                  <Home show2={show2} setShow2={setShow2} tasks={tasks} setShowtask={setShowtask} settaskdetail={settaskdetail} setShowtask1={setShowtask1} settaskdetail1={settaskdetail1} operations={operations} setOperationId={setOperationId} users={users} squaddetail={squaddetail} statusData={statusData} setindexwait={setindexwait} GetUserProfiledata={GetUserProfiledata}  setShowTopSquadModal={setShowTopSquadModal} />
                 </>
               )
               :
@@ -1463,6 +1466,7 @@ const Sidebar = () => {
       <LeaderModals show4={show4} setShow4={setShow4} show5={show5} setShow5={setShow5} show6={show6} setShow6={setShow6} item={coLeaderDetails} SquadUsers={SquadUsers} />
       <AllTaskModals showtask={showtask} setShowtask={setShowtask} settaskdetail={settaskdetail} taskdetail={taskdetail} getData={getData} />
       <AllOperationTaskModal showtask1={showtask1} setShowtask1={setShowtask1} settaskdetail1={settaskdetail1} taskdetail1={taskdetail1} getDataOperation={getDataOperation} operationId={operationId} />
+      <TopSquadModal showTopSquadModal={showTopSquadModal} setShowTopSquadModal={setShowTopSquadModal} />
     </>
   );
 };

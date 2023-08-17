@@ -19,7 +19,7 @@ import { esES } from "rsuite/esm/locales";
 // import CustomToaster from "../../toaster/CustomToaster";
 
 
-const Home = ({ setShow2, tasks, setShowtask, settaskdetail, setShowtask1, settaskdetail1, operations, setOperationId, users, squaddetail, statusData, setindexwait, GetUserProfiledata }) => {
+const Home = ({ setShow2, tasks, setShowtask, settaskdetail, setShowtask1, settaskdetail1, operations, setOperationId, users, squaddetail, statusData, setindexwait, GetUserProfiledata,setShowTopSquadModal }) => {
 
   let total = (statusData?.ApprovedTasks / statusData?.totalTasks) * 100
   const state = {
@@ -357,14 +357,14 @@ const Home = ({ setShow2, tasks, setShowtask, settaskdetail, setShowtask1, setta
         </div>
         <div className="row ranks-general-task-row">
           <div className="col-lg-5 my-ranks-box">
-            <MyRank props={squaddetail ? squaddetail : ''} />
+          <MyRank props={squaddetail ? squaddetail : ''} setShowTopSquadModal={setShowTopSquadModal} />
           </div>
           <div className="col-lg-7 general-task-box">
             <GeneralTasks tasks={tasks} setShowtask={setShowtask} settaskdetail={settaskdetail} />
           </div>
         </div>
       </div>
-      <HomeOperations setShowtask1={setShowtask1} settaskdetail1={settaskdetail1} operations={operations} setOperationId={setOperationId} users={users} setindexwait={setindexwait} />
+      <HomeOperations setShowtask1={setShowtask1} settaskdetail1={settaskdetail1} operations={operations} setOperationId={setOperationId} users={users} setindexwait={setindexwait} setShowTopSquadModal={setShowTopSquadModal} />
 
 
 

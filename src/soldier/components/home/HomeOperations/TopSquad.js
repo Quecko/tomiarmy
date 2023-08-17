@@ -12,7 +12,7 @@ const TopSquad = ({ topSquad, GetUserTopSquad, getPrevData, getNextData, pages, 
   let tok = localStorage.getItem("accessToken");
   const SendInvite = (id) => {
     // if (account) {
-      setLoader(true)
+    setLoader(true)
     axios.defaults.headers.post[
       "Authorization"
     ] = `Bearer ${tok}`;
@@ -42,7 +42,7 @@ const TopSquad = ({ topSquad, GetUserTopSquad, getPrevData, getNextData, pages, 
 
   return (
     <>
-    {loader && <Loader/>}
+      {loader && <Loader />}
       <section className="home-operations topsquad-table border-grad1">
         <div className='maincard '>
           <div className="upper-head">
@@ -53,14 +53,16 @@ const TopSquad = ({ topSquad, GetUserTopSquad, getPrevData, getNextData, pages, 
             {/* <img src="\assets\search-icon.svg" alt="img" className='img-fluid search-icon' /> */}
             <div className="twice-new-btn-sm">
               <button className="btn-search" onClick={() => getSearchData(currentPage)}>Search</button>
-              <button className="btn-reset" onClick={() => GetUserTopSquad(currentPage)}>reset</button>
+              {search !== '' &&
+                <button className="btn-reset" onClick={() => GetUserTopSquad(currentPage)}><img src='/reset.png' alt='' /></button>
+              }
             </div>
 
           </div>
           <div className="maintable table-responsive display-none-in-mobile">
             <table class="table table-striped ">
               <thead>
-                <tr>
+                <tr> 
                   <th>
                     <p className='headtable'>Squads</p>
                   </th>
@@ -158,7 +160,7 @@ const TopSquad = ({ topSquad, GetUserTopSquad, getPrevData, getNextData, pages, 
               {topSquad?.map((elem, index) => {
                 return (
                   <Accordion.Item eventKey={index}>
-                    <Accordion.Header> <img src="\assets\squad-profile.png" alt="img" className='img-fluid me-2' /> {elem?.name}</Accordion.Header>
+                    <Accordion.Header> <img style={{ width: '34px', height: '34px' }} src={elem?.symbol} alt="img" className='img-fluid me-2' /> {elem?.name}</Accordion.Header>
                     <Accordion.Body>
                       <div className="inner-fields">
                         <div className="inner-item">
@@ -179,6 +181,51 @@ const TopSquad = ({ topSquad, GetUserTopSquad, getPrevData, getNextData, pages, 
                 )
               })}
             </Accordion>
+            <div className="pagi">
+              <div>
+                {/* <p>Showing {limit} to {currentPage * 5 >= count ? currentPage - (currentPage - count) : currentPage * 5} of {count} entries</p> */}
+              </div>
+              <nav className="right">
+                <ul className="pagination">
+                  <li className="page-item">
+                    <button
+                      onClick={() => getPrevData(currentPage)}
+                      className="page-link arrowssss scsdsdfefssdvsdvsd"
+                    >
+                      {/* <i className="fas curPointer fa-angle-left"></i> */}
+                      Previous
+                    </button>
+                  </li>
+                  {pages?.map((item, index) => {
+                    return (
+                      <li key={index} className="page-item cursor-pointer">
+                        <p
+                          className={
+                            "page-link " +
+                            (index + 1 === parseInt(currentPage)
+                              ? "active-pag"
+                              : "")
+                          }
+                          onClick={() => GetUserTopSquad(index + 1)}
+                          style={{ fontSize: "13px !important" }}
+                        >
+                          {index + 1}
+                        </p>
+                      </li>
+                    );
+                  })}
+                  <li className="page-item">
+                    <button
+                      onClick={() => getNextData(currentPage)}
+                      className="page-link arrowssss"
+                    >
+                      {/* <i className="fas curPointer fa-angle-right"></i> */}
+                      Next
+                    </button>
+                  </li>
+                </ul>
+              </nav>
+            </div>
           </div>
         </div>
       </section>
