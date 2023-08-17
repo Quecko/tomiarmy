@@ -16,6 +16,7 @@ import Signature from "../hooks/dataSenders/userSign";
 import { useHistory } from "react-router-dom";
 import { API_URL } from '../utils/ApiUrl'
 import GetBalance from "../hooks/dataFetchers/getBalance";
+// import CustomToaster from '../toaster/CustomToaster';
 
 const ConnectWallet = ({ setjoinsquad, joinsquad, role, setRole, setinvitecode, invitecode }) => {
     const { account } = useWeb3React();
@@ -24,6 +25,7 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role, setRole, setinvitecode, 
     const history = useHistory();
     const { login, logout } = useAuth();
     const [showmodal, setShowModal] = useState(false)
+    const [showToaster, setShowToaster] = useState(false)
     const [loader, setLoader] = useState(false);
     const { GetBal } = GetBalance();
     let wall = localStorage.getItem("wallet");
@@ -183,6 +185,8 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role, setRole, setinvitecode, 
                     })
                     .then(async (res) => {
                         console.log('reessssssss', res);
+
+                        setShowToaster(true)
                         // const res1 = await GetBal(account);
 
                         // console.log(res1)
@@ -217,7 +221,7 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role, setRole, setinvitecode, 
                             position: 'top-center',
                             autoClose: 5000,
                         });
-                        // }
+                        
 
                     })
                     .catch((err) => {
@@ -344,6 +348,7 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role, setRole, setinvitecode, 
     }
     return (
         <>
+        {/* <CustomToaster message={'User Logged in Successfully'} toggle={showToaster}/> */}
             <div className='ConnectWallet-wrapper border-grad1'>
                 {joinsquad === true ? (
                     <button className='omomomomom' onClick={backtoinvitecode}>Back To InviteCode</button>

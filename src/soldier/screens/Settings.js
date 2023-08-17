@@ -174,16 +174,6 @@ const Settings = () => {
     getProfile()
   }, [])
 
-  const editHandler = () => {
-    window.scrollTo(0, 0)
-    setIsShown(true)
-    // handleClick();
-  }
-
-
-
-
-
 
 
   return (
@@ -236,61 +226,7 @@ const Settings = () => {
 
 
 
-      {isShown && (
-        <>
-          <section className="cropimage">
-            <div className="container-fluid">
-              <div>
-                <div className="parent-img-div">
-                  {/* <img
-                src="\add-circle.svg"
-                alt="img"
-                className="img-fluid close-icon"
-                onClick={handleClick}
-              /> */}
-                  {profilePicture && (
-                    <>
-                      <div>
-                        <Cropper
-                          image={imageSrc}
-                          crop={crop}
-                          zoom={zoom}
-                          aspect={1 / 1}
-                          onCropChange={setCrop}
-                          onCropComplete={onCropComplete}
-                          onZoomChange={setZoom}
-                        />
-                      </div>
-
-                      {/* <label className="watermark-pic" htmlFor="upload">
-        <img
-          src="\assest\watermark.png"
-          alt="img"
-          className="img-fluid"
-        />
-      </label> */}
-                    </>
-                  )}
-
-                  <div className="bottom-btn">
-                    <button onClick={() => showCroppedImage(imageSrc, croppedAreaPixels, setWidthh, setHeightt, croppedImage, setCroppedImage, setProfilePicture, handleClick)} className="btncommon">
-                      {/* <img
-                    src="\upload.svg"
-                    alt="img"
-                    className="img-fluid"
-                  /> */}
-                      Crop
-                    </button>
-                  </div>
-                </div>
-
-                {/* <input type="file" id="upload" className="d-none" onChange={(evt) => logoPicHandle(evt)} /> */}
-              </div>
-            </div>
-          </section>
-        </>
-      )}
-
+  
 
       <Modal className='editname-modal' show={show} onHide={handleClose} centered>
         <Modal.Header closeButton>
@@ -325,7 +261,7 @@ const Settings = () => {
                           <label htmlFor="upload">
                             {" "}
                             <img
-                              src={croppedImage}
+                              src={profilePicture ? URL?.createObjectURL(profilePicture):''}
                               alt="img"
                               className="img-fluid"
                             />

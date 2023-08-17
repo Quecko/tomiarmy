@@ -26,19 +26,21 @@ const ArmyMembers = ({ routesarmy, setroutearmy }) => {
     const [Armymajor, setArmymajor] = useState([]);
     const [selectedrank, setselectedrank] = useState('Select Rank');
     const [filterRank, setFilterRank] = useState('Filter Rank');
-
+    const [search, setSearch] = useState('')
     const { account } = useWeb3React();
-
-
     const [showapprove, setShowapprove] = useState(false);
     const handleCloseapprove = () => setShowapprove(false);
     const handleShowapprove = () => setShowapprove(true);
-
     const [showreject, setShowreject] = useState(false);
     const handleClosereject = () => setShowreject(false);
     const handleShowreject = () => setShowreject(true);
-
     const [showrank, setShowrank] = useState(false);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [count, setCount] = useState(0);
+    const [pages, setPages] = useState([]);
+    const [rend, setRend] = useState(false);
+    const [limit, setLimit] = useState(1)
+
     const handleCloserank = () => {
         setselectedrank('Select Rank')
         setArmymajor()
@@ -52,19 +54,17 @@ const ArmyMembers = ({ routesarmy, setroutearmy }) => {
     }
 
 
-
-
     const armyembers = async (off) => {
-        // let valu = null;
-        // if (off) {
-        //     valu = off;
-        // } else {
-        //     valu = 1;
-        // }
+        let valu = null;
+        if (off) {
+            valu = off;
+        } else {
+            valu = 1;
+        }
         // if (account) {
         var config = {
             method: "get",
-            url: `${API_URL}/auth/users/army-members?offset=1&&limit=10000`,
+            url: `${API_URL}/auth/users/army-members?offset=${valu}&&limit=5`,
             headers: {
                 authorization: `Bearer ` + tok
             },
@@ -76,7 +76,23 @@ const ArmyMembers = ({ routesarmy, setroutearmy }) => {
                 setData(response?.data?.data?.users);
                 // let arr = Array.from(Array(parseInt(response.data.data.pages)).keys());
                 // setPages(arr);
-                // setCurrentPage(valu)
+                setCurrentPage(valu)
+                // setLoader(false);
+                setCount(response.data.data.count)
+                setData(response?.data?.data?.users);
+                let arr = Array.from(Array(parseInt(response.data.data.pages)).keys());
+                setPages(arr);
+                setCurrentPage(valu)
+                setSearch('')
+                setFilterRank('Filter Rank')
+                if (off <= response.data.data.users.length) {
+                    if ((off - 1) == 0) {
+                        setLimit(1)
+                    }
+                    else {
+                        setLimit((off - 1) * 5)
+                    }
+                }
             })
             .catch(function (error) {
                 // setLoader(false);
@@ -90,15 +106,9 @@ const ArmyMembers = ({ routesarmy, setroutearmy }) => {
 
     useEffect(() => {
         let user1 = localStorage.getItem("user");
-
         user1 = JSON.parse(user1);
-        console.log("sdfdfdfsdfsdf", user1)
-        // console.log('aasdasdasdasdasdasdasd', user1)
-
         if (user1?.rank?.name === "major general") {
-            // console.log('aasdasdasdasdasdasdasd')
             armyembers();
-
         }
     }, [account])
 
@@ -116,7 +126,6 @@ const ArmyMembers = ({ routesarmy, setroutearmy }) => {
                 const index = response?.data?.data.findIndex(rank => rank.name == dataarmymember?.rank?.name);
                 // Split the array from the "lieutenant" index to the end
                 const newArray = response?.data?.data?.slice(index + 1);
-
                 setArmymajor(newArray);
             })
             .catch(function (error) {
@@ -169,11 +178,7 @@ const ArmyMembers = ({ routesarmy, setroutearmy }) => {
                 });
         }
     }
-
-
     const [armyDetail, setArmyDetail] = useState([])
-
-
     const armyMembeerDetails = async (elem) => {
         // let valu = null;
         // if (off) {
@@ -204,15 +209,157 @@ const ArmyMembers = ({ routesarmy, setroutearmy }) => {
         // }
     }
 
-
     const armyMembers = [
-        { id: 1, rank: 'Private' },
-        { id: 2, rank: 'Sergeant' },
-        { id: 3, rank: 'Lieutenant' },
-        { id: 4, rank: 'Captain' },
-        { id: 5, rank: 'Major' },
-        { id: 6, rank: 'Major General' },
+        { id: 1, rank: 'private' },
+        { id: 2, rank: 'sergeant' },
+        { id: 3, rank: 'lieutenant' },
+        { id: 4, rank: 'captain' },
+        { id: 5, rank: 'major' },
+        { id: 6, rank: 'major general' },
+        { id: 7, rank: 'general' },
+
     ];
+
+    const Reset = () => {
+        setSearch('')
+        setFilterRank('Filter Rank')
+    }
+
+    const getPrevData = (off) => {
+        let offset = parseInt(off) - 1;
+        if (offset > 0) {
+            setLoader(true);
+            var config = null;
+            config = {
+                method: "get",
+                url: `${API_URL}/auth/users/army-members?offset=${offset}&&limit=5`,
+                headers: {
+                    Authorization: "Bearer " + tok,
+                    "Content-Type": "application/json",
+                },
+            };
+
+            axios(config)
+                .then(function (response) {
+                    let arr = Array.from(
+                        Array(parseInt(response.data.data.pages)).keys()
+                    );
+                    setPages(arr);
+                    setData(response?.data?.data?.users);
+                    if (currentPage - 1 >= 0) {
+                        setCurrentPage(currentPage - 1);
+
+                    }
+                    if (off >= 0) {
+                        if ((offset - 1) == 0) {
+                            setLimit(1)
+                        }
+                        else {
+                            setLimit((offset - 1) * 5)
+                        }
+                    }
+                    // else{
+                    //   setLimit(off)
+                    // }
+                    setRend(!rend);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+            setLoader(false);
+        }
+    };
+
+    const getNextData = (off) => {
+        let offset = parseInt(off) + 1;
+        if (pages.length > off) {
+            if (off < data.length) {
+                var config = null;
+                config = {
+                    method: "get",
+                    url: `${API_URL}/auth/users/army-members?offset=${offset}&&limit=5`,
+                    headers: {
+                        Authorization: "Bearer " + tok,
+                        "Content-Type": "application/json",
+                    },
+                };
+
+                axios(config)
+                    .then(function (response) {
+                        console.log(response.data.data);
+                        let arr = Array.from(
+                            Array(parseInt(response.data.data.pages)).keys()
+                        );
+                        setPages(arr);
+                        setData(response?.data?.data?.users);
+                        if (off < data.length) {
+                            setCurrentPage(offset);
+                            setLimit(off * 5)
+                        }
+                        setRend(!rend);
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+            }
+        }
+    };
+
+
+    const getSearchData = async (off) => {
+        let valu = null;
+        if (off) {
+            valu = off;
+        } else {
+            valu = 1;
+        }
+        if (search != '') {
+            if (filterRank != 'Filter Rank') {
+                // if (account && jcommander === true) {
+                var config = {
+                    method: "get",
+                    url: `${API_URL}/auth/users/army-members?offset=${valu}&&limit=10&&rank=${filterRank}&&nickName=${search}`,
+                    headers: {
+                        authorization: `Bearer ` + tok
+                    },
+                };
+
+                axios(config)
+                    .then(function (response) {
+                        setLoader(false);
+                        setCount(response.data.data.count)
+                        setData(response?.data?.data?.users);
+                        let arr = Array.from(Array(parseInt(response.data.data.pages)).keys());
+                        setPages(arr);
+                        setCurrentPage(valu)
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                        setLoader(false);
+                        // localStorage.removeItem("accessToken");
+                        // localStorage.removeItem("user");
+                        // window.location.assign("/")
+                        // window.location.reload();
+                    });
+                // }
+            }
+            else {
+                toast.error('Please select the Raank', {
+                    position: "top-right",
+                    autoClose: 2000,
+                });
+            }
+
+        }
+        else {
+            toast.error('Please Enter the value of search', {
+                position: "top-right",
+                autoClose: 2000,
+            });
+        }
+    }
+
+    console.log('limit', limit);
 
 
 
@@ -246,28 +393,33 @@ const ArmyMembers = ({ routesarmy, setroutearmy }) => {
                                                 <Tab eventKey="home" title="Army Members">
                                                     <div className="parent-field">
                                                         <div className="option-field option-field1 option-field2">
-                                                            <input type="text" placeholder='Search' />
-                                                            <img src="\assets\search-icon.svg" alt="img" className='img-fluid search-icon' />
+                                                            <input type="text" value={search} onChange={(e) => setSearch(e.target.value)} placeholder='Search' />
+                                                            {/* <img src="\assets\search-icon.svg" alt="img" className='img-fluid search-icon' /> */}
                                                         </div>
                                                         {/* <div className="option-field option-field2">
                                                             <input type="text" placeholder='Wallet Address' />
                                                         </div> */}
-                                                        <div className="option-field option-field3">
-                                                            <div class="dropdown">
-                                                                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                                                    {filterRank}
-                                                                </button>
-                                                                <ul class="dropdown-menu">
-                                                                    {armyMembers.map((item, index) => (
-                                                                        <li key={item.id}>
-                                                                            <a
-                                                                                className={"dropdown-item" + (item?.rank === filterRank ? ' ev3v3v3__item-active' : '')}
-                                                                                onClick={() => setFilterRank(item?.rank)}>{item?.rank}</a>
-                                                                        </li>
-                                                                    ))}
-                                                                </ul>
+                                                        <div className="twice-btnss">
+                                                            <div className="option-field option-field3">
+                                                                <div class="dropdown">
+                                                                    <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                                        {filterRank}
+                                                                    </button>
+                                                                    <ul class="dropdown-menu">
+                                                                        {armyMembers.map((item, index) => (
+                                                                            <li key={item.id}>
+                                                                                <a
+                                                                                    className={"dropdown-item" + (item?.rank === filterRank ? ' ev3v3v3__item-active' : '')}
+                                                                                    onClick={() => setFilterRank(item?.rank)}>{item?.rank}</a>
+                                                                            </li>
+                                                                        ))}
+                                                                    </ul>
+                                                                </div>
                                                             </div>
+                                                            <button className='btn-search' onClick={() => getSearchData(currentPage)}>Search</button>
+                                                            <button className='btn-reset' onClick={() => armyembers(currentPage)}>Reset</button>
                                                         </div>
+
                                                     </div>
                                                     <div className='maincard'>
                                                         <div className='display-none-in-mobile'>
@@ -300,7 +452,7 @@ const ArmyMembers = ({ routesarmy, setroutearmy }) => {
                                                                                         <p className='paratable'>{elem?.walletAddress}</p>
                                                                                     </td>
                                                                                     <td>
-                                                                                        <p className='paratable'>{elem.nickName}</p>
+                                                                                        <p className='paratable'>{elem.nickName ? elem?.nickName : '----'}</p>
                                                                                     </td>
                                                                                     <td>
                                                                                         <p className='paratable'>{elem?.rank?.name}</p>
@@ -328,6 +480,51 @@ const ArmyMembers = ({ routesarmy, setroutearmy }) => {
                                                                         })}
                                                                     </tbody>
                                                                 </table>
+                                                            </div>
+                                                            <div className="pagi">
+                                                                <div>
+                                                                    <p>Showing {limit} to {currentPage * 5 >= count ? currentPage - (currentPage - count) : currentPage * 5} of {count} entries</p>
+                                                                </div>
+                                                                <nav className="right">
+                                                                    <ul className="pagination">
+                                                                        <li className="page-item">
+                                                                            <button
+                                                                                onClick={() => getPrevData(currentPage)}
+                                                                                className="page-link arrowssss scsdsdfefssdvsdvsd"
+                                                                            >
+                                                                                {/* <i className="fas curPointer fa-angle-left"></i> */}
+                                                                                Previous
+                                                                            </button>
+                                                                        </li>
+                                                                        {pages?.map((item, index) => {
+                                                                            return (
+                                                                                <li key={index} className="page-item cursor-pointer">
+                                                                                    <p
+                                                                                        className={
+                                                                                            "page-link " +
+                                                                                            (index + 1 === parseInt(currentPage)
+                                                                                                ? "active-pag"
+                                                                                                : "")
+                                                                                        }
+                                                                                        onClick={() => armyembers(index + 1)}
+                                                                                        style={{ fontSize: "13px !important" }}
+                                                                                    >
+                                                                                        {index + 1}
+                                                                                    </p>
+                                                                                </li>
+                                                                            );
+                                                                        })}
+                                                                        <li className="page-item">
+                                                                            <button
+                                                                                onClick={() => getNextData(currentPage)}
+                                                                                className="page-link arrowssss"
+                                                                            >
+                                                                                {/* <i className="fas curPointer fa-angle-right"></i> */}
+                                                                                Next
+                                                                            </button>
+                                                                        </li>
+                                                                    </ul>
+                                                                </nav>
                                                             </div>
                                                             {/* <div className="pagi">
                                                                 <div className="left">

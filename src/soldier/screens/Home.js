@@ -3,7 +3,7 @@ import taskCompleted from "../../assets/icons/task-completed.svg";
 // import earned from "../../assets/icons/earned.svg";
 import points from "../../assets/icons/points.svg";
 import squadToken from "../../assets/icons/squadToken.svg";
-import { Dropdown } from "react-bootstrap";
+import { Dropdown, Toast, ToastContainer } from "react-bootstrap";
 import { useWeb3React } from "@web3-react/core";
 import MyRank from "../components/home/MyRank";
 import GeneralTasks from "../components/home/GeneralTasks";
@@ -16,6 +16,7 @@ import axios from "axios";
 import { toast } from 'react-toastify';
 import { Modal } from 'react-bootstrap';
 import { esES } from "rsuite/esm/locales";
+// import CustomToaster from "../../toaster/CustomToaster";
 
 
 const Home = ({ setShow2, tasks, setShowtask, settaskdetail, setShowtask1, settaskdetail1, operations, setOperationId, users, squaddetail, statusData, setindexwait, GetUserProfiledata }) => {
@@ -171,6 +172,7 @@ const Home = ({ setShow2, tasks, setShowtask, settaskdetail, setShowtask1, setta
 
   return (
     <>
+      {/* {<CustomToaster message={'User Logged in Successfully'}/>} */}
       {loader && <Loader />}
       <div className="formobile-heading d-none display-block-in-mobile">
         <div className="inner-heading">

@@ -32,78 +32,78 @@ const GeneralActive = ({ routes, setoperationdata, setcall, call, setroute, setS
     const totaltask = tasks[0]?.tasksList?.length
     return (
         <>
-         {tasks?.length > 0 ?
-            (
-            <section className="active-operations">
-                <div className="upper-item">
-                    <div className='left'>
-                        <h6>operation : {tasks[0]?.name} <span>ENDS IN: {tasks?.length > 0 && <Countdown date={GetTime(tasks[0]?.expirationDate)} />}</span></h6>
-                        <p>{tasks[0]?.description}</p>
-                    </div>
-                    <a href="#" onClick={() => operationdetailactive(tasks)}>View All Tasks <img src="\assets\arrow-right.svg" alt="img" className='img-fluid ms-2' /></a>
-                </div>
-                <div className="bottom-cards">
-                    <div className="card-item border-grad">
-                        <img src="\static-icons\points.png" alt="img" className='img-fluid' style={{ width: "50px", height: "50px" }} />
-                        <div className="inner-content">
-                            <p>Points</p>
-                            <h6>{tasks[0]?.reward}</h6>
+            {tasks?.length > 0 ?
+                (
+                    <section className="active-operations">
+                        <div className="upper-item">
+                            <div className='left'>
+                                <h6>operation : {tasks[0]?.name} <span>ENDS IN: {tasks?.length > 0 && <Countdown date={GetTime(tasks[0]?.expirationDate)} />}</span></h6>
+                                <p>{tasks[0]?.description}</p>
+                            </div>
+                            <a href="#" onClick={() => operationdetailactive(tasks)}>View All Tasks <img src="\assets\arrow-right.svg" alt="img" className='img-fluid ms-2' /></a>
                         </div>
-                    </div>
-                    <div className="card-item border-grad">
-                        <img src="\static-icons\tomi-icon.png" alt="img" className='img-fluid' style={{ width: "50px", height: "50px" }} />
-                        <div className="inner-content">
-                            <p>TOMI Tokens</p>
-                            <h6>{tasks[0]?.tomiToken}</h6>
-                        </div>
-                    </div>
-                    <div className="card-item border-grad">
-                        <img src="\static-icons\tomitasks.png" alt="img" className='img-fluid' style={{ width: "50px", height: "50px" }} />
-                        <div className="inner-content">
-                            <p>Total Tasks</p>
-                            <h6>{totaltask ? totaltask : 0}</h6>
-                        </div>
-                    </div>
-                    <div className="card-item border-grad unique-item">
-                        <div className='inner-set'>
-                            <img src="\static-icons\rewardnft.png" alt="img" className='img-fluid' style={{ width: "50px", height: "50px" }} />
-                            <div className="inner-content">
-                                <p>Reward NFT</p>
-                                <h6>Elon Mask</h6>
+                        <div className="bottom-cards">
+                            <div className="card-item border-grad">
+                                <img src="\static-icons\points.png" alt="img" className='img-fluid' style={{ width: "50px", height: "50px" }} />
+                                <div className="inner-content">
+                                    <p>Points</p>
+                                    <h6>{tasks[0]?.reward}</h6>
+                                </div>
+                            </div>
+                            <div className="card-item border-grad">
+                                <img src="\static-icons\tomi-icon.png" alt="img" className='img-fluid' style={{ width: "50px", height: "50px" }} />
+                                <div className="inner-content">
+                                    <p>TOMI Tokens</p>
+                                    <h6>{tasks[0]?.tomiToken}</h6>
+                                </div>
+                            </div>
+                            <div className="card-item border-grad">
+                                <img src="\static-icons\tomitasks.png" alt="img" className='img-fluid' style={{ width: "50px", height: "50px" }} />
+                                <div className="inner-content">
+                                    <p>Total Tasks</p>
+                                    <h6>{totaltask ? totaltask : 0}</h6>
+                                </div>
+                            </div>
+                            <div className="card-item border-grad unique-item">
+                                <div className='inner-set'>
+                                    <img src="\static-icons\rewardnft.png" alt="img" className='img-fluid' style={{ width: "50px", height: "50px" }} />
+                                    <div className="inner-content">
+                                        <p>Reward NFT</p>
+                                        <h6>Elon Mask</h6>
+                                    </div>
+                                </div>
+                                <div className="nft-img">
+                                    <img src={tasks[0]?.imageUrl} alt="img" className='img-fluid' />
+                                </div>
                             </div>
                         </div>
-                        <div className="nft-img">
-                            <img src={tasks[0]?.imageUrl} alt="img" className='img-fluid' />
-                        </div>
-                    </div>
-                </div>
-                <div className='maincard display-none-in-mobile'>
-                    <div className="maintable table-responsive">
-                        <table class="table table-striped " >
-                            <thead>
-                                <tr>
-                                    <th>
-                                        <p className='headtable'>Task</p>
-                                    </th>
-                                    <th>
-                                        <p className='headtable'>Description</p>
-                                    </th>
-                                    {/* <th>
+                        <div className='maincard display-none-in-mobile'>
+                            <div className="maintable table-responsive">
+                                <table class="table table-striped " >
+                                    <thead>
+                                        <tr>
+                                            <th>
+                                                <p className='headtable'>Task</p>
+                                            </th>
+                                            <th>
+                                                <p className='headtable'>Description</p>
+                                            </th>
+                                            {/* <th>
                                         <p className='headtable'>Status</p>
                                     </th> */}
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {tasks[0]?.tasksList?.map((elem, index) => {
-                                    return (
-                                        <tr key={index}>
-                                            <td>
-                                                <p className='paratable'>{elem?.name}</p>
-                                            </td>
-                                            <td>
-                                                <p className='paratable'>{elem?.description}</p>
-                                            </td>
-                                            {/* <td>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {tasks[0]?.tasksList?.map((elem, index) => {
+                                            return (
+                                                <tr key={index}>
+                                                    <td>
+                                                        <p className='paratable'>{elem?.name}</p>
+                                                    </td>
+                                                    <td>
+                                                        <p className='paratable'>{elem?.description}</p>
+                                                    </td>
+                                                    {/* <td>
                                                 <div className='completebtn text-end'>
                                                     {
                                                         elem?.taskSubmitted ?
@@ -115,13 +115,13 @@ const GeneralActive = ({ routes, setoperationdata, setcall, call, setroute, setS
                                                     }
                                                 </div>
                                             </td> */}
-                                        </tr>
-                                    )
-                                })}
-                            </tbody>
-                        </table>
-                    </div>
-                    {/* <div className="pagi">
+                                                </tr>
+                                            )
+                                        })}
+                                    </tbody>
+                                </table>
+                            </div>
+                            {/* <div className="pagi">
                         <div className="left">
                             <p>Showing 1 to 10 of 57 entries</p>
                         </div>
@@ -137,43 +137,47 @@ const GeneralActive = ({ routes, setoperationdata, setcall, call, setroute, setS
                             <p>Next</p>
                         </div>
                     </div> */}
-                </div>
-                <div className="mobile-responsive-table d-none display-block-in-mobile">
-                    <div className="heading-mobile">
-                        <p>Task</p>
-                    </div>
-                    <Accordion>
-                        {tasks[0]?.tasksList?.map((elem, index) => {
-                            return (
-                                <Accordion.Item eventKey={index}>
-                                    <Accordion.Header>{elem?.name}</Accordion.Header>
-                                    <Accordion.Body>
-                                        <div className="inner-fields">
-                                            <div className="inner-item">
-                                                <h6>Description</h6>
-                                                <p>{elem?.description}</p>
-                                            </div>
-                                            {/* <div className="inner-item">
+                        </div>
+                        <div className="mobile-responsive-table d-none display-block-in-mobile">
+                            <div className="heading-mobile">
+                                <p>Task</p>
+                            </div>
+                            <Accordion>
+                                {tasks[0]?.tasksList?.map((elem, index) => {
+                                    return (
+                                        <Accordion.Item eventKey={index}>
+                                            <Accordion.Header>{elem?.name}</Accordion.Header>
+                                            <Accordion.Body>
+                                                <div className="inner-fields">
+                                                    <div className="inner-item">
+                                                        <h6>Description</h6>
+                                                        <p>{elem?.description}</p>
+                                                    </div>
+                                                    {/* <div className="inner-item">
                                                     <h6>TOMI Tokens</h6>
                                                     <p>25</p>
                                                 </div> */}
-                                            {/* <div className="inner-item">
+                                                    {/* <div className="inner-item">
                                                     <h6>Status</h6>
                                                     <button className="btn-green">Completed</button>
                                                 </div> */}
-                                        </div>
-                                    </Accordion.Body>
-                                </Accordion.Item>
-                            )
-                        })}
-                    </Accordion>
-                </div>
-            </section>
-              )
-              :
-              (
-                <div><h1>No Operation</h1></div>
-              )
+                                                </div>
+                                            </Accordion.Body>
+                                        </Accordion.Item>
+                                    )
+                                })}
+                            </Accordion>
+                        </div>
+                    </section>
+                )
+                :
+                (
+                    <div className="ifoperationnotexist">
+                        <img src="\assets\jahaz.svg" alt="img" className="img-fluid" />
+                        <h2>Operation is currently not live</h2>
+                        <p>Check back later to perform tasks In Operation</p>
+                    </div>
+                )
             }
 
             {/* <Modal className='detailmodal' show={show1} onHide={handleClose1} centered>
