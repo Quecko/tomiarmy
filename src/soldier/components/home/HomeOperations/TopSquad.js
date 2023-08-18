@@ -7,7 +7,8 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Loader from "../../../../hooks/loader";
 
-const TopSquad = ({ topSquad, GetUserTopSquad, getPrevData, getNextData, pages, currentPage, count, limit, search, setSearch, getSearchData }) => {
+const TopSquad = ({ topSquad, GetUserTopSquad, getPrevData, getNextData, pages, currentPage, count, limit, search, setSearch }) => {
+
   const [loader, setLoader] = useState(false);
   let tok = localStorage.getItem("accessToken");
   const SendInvite = (id) => {
@@ -39,6 +40,14 @@ const TopSquad = ({ topSquad, GetUserTopSquad, getPrevData, getNextData, pages, 
       });
     // }
   }
+  const clear = () => {
+    setSearch('')
+}
+useEffect(() => {
+    if (search == '') {
+        GetUserTopSquad(currentPage)
+    }
+}, [search])
 
   return (
     <>
@@ -52,9 +61,9 @@ const TopSquad = ({ topSquad, GetUserTopSquad, getPrevData, getNextData, pages, 
             <input value={search} onChange={(e) => setSearch(e.target.value)} type="text" placeholder='Search' />
             {/* <img src="\assets\search-icon.svg" alt="img" className='img-fluid search-icon' /> */}
             <div className="twice-new-btn-sm">
-              <button className="btn-search" onClick={() => getSearchData(currentPage)}>Search</button>
+              <button className="btn-search" onClick={() => GetUserTopSquad(1)}>Search</button>
               {search !== '' &&
-                <button className="btn-reset" onClick={() => GetUserTopSquad(currentPage)}><img src='/reset.png' alt='' /></button>
+                <button className="btn-reset" onClick={clear}><img src='/reset.png' alt='' /></button>
               }
             </div>
 
@@ -62,7 +71,7 @@ const TopSquad = ({ topSquad, GetUserTopSquad, getPrevData, getNextData, pages, 
           <div className="maintable table-responsive display-none-in-mobile">
             <table class="table table-striped ">
               <thead>
-                <tr> 
+                <tr>
                   <th>
                     <p className='headtable'>Squads</p>
                   </th>
@@ -78,36 +87,41 @@ const TopSquad = ({ topSquad, GetUserTopSquad, getPrevData, getNextData, pages, 
                 </tr>
               </thead>
               <tbody>
-                {topSquad?.map((elem) => {
-                  return (
-                    <>
-                      <tr>
-                        <td>
-                          <div className="parent">
-                            <div className="profile">
-                              <img src={elem?.symbol} alt="img" className='img-fluid' />
+                {topSquad?.length > 0 ?
+                  topSquad?.map((elem) => {
+                    return (
+                      <>
+                        <tr>
+                          <td>
+                            <div className="parent">
+                              <div className="profile">
+                                <img src={elem?.symbol} alt="img" className='img-fluid' />
+                              </div>
+                              <p className='paratable'>{elem?.name}</p>
                             </div>
-                            <p className='paratable'>{elem?.name}</p>
-                          </div>
-                        </td>
-                        <td>
-                          <p className='paratable'>{elem?.membersCount}</p>
-                        </td>
-                        <td>
-                          <p className='paratable'>{elem?.totalTokens} TOMI</p>
-                        </td>
-                        <td>
-                          <button className={elem?.squad_invitation_requests ? 'btn-requested' : 'btn-requestjoin'} onClick={() => SendInvite(elem?._id)}>{elem?.squad_invitation_requests ? 'Requested' : 'Request to join'}</button>
-                        </td>
-                      </tr>
-                    </>
-                  )
-                })}
+                          </td>
+                          <td>
+                            <p className='paratable'>{elem?.membersCount}</p>
+                          </td>
+                          <td>
+                            <p className='paratable'>{elem?.totalTokens} TOMI</p>
+                          </td>
+                          <td>
+                            <button className={elem?.squad_invitation_requests ? 'btn-requested' : 'btn-requestjoin'} onClick={() => SendInvite(elem?._id)}>{elem?.squad_invitation_requests ? 'Requested' : 'Request to join'}</button>
+                          </td>
+                        </tr>
+                      </>
+                    )
+                  })
+                  : <h4>
+                    NO Squad
+                  </h4>
+                }
               </tbody>
             </table>
             <div className="pagi">
               <div>
-                <p>Showing {limit} to {currentPage * 5 >= count ? currentPage - (currentPage - count) : currentPage * 5} of {count} entries</p>
+                {/* <p>Showing {limit} to {currentPage * 5 >= count ? currentPage - (currentPage - count) : currentPage * 5} of {count} entries</p> */}
               </div>
               <nav className="right">
                 <ul className="pagination">

@@ -25,7 +25,6 @@ const TopSquadModal = ({ showTopSquadModal, setShowTopSquadModal }) => {
         setShowTopSquadModal(false)
     }
 
-
     const GetUserTopSquad = async (off) => {
         let valu = null;
         if (off) {
@@ -34,13 +33,27 @@ const TopSquadModal = ({ showTopSquadModal, setShowTopSquadModal }) => {
             valu = 1;
         }
         // if (account) {
-        var config = {
-            method: "get",
-            url: `${API_URL}/tasks/squads?offset=${valu}&&limit=5`,
-            headers: {
-                authorization: `Bearer ` + tok
-            },
-        };
+        var config = ''
+        if (search !== '') {
+            config = {
+                method: "get",
+                url: `${API_URL}/tasks/squads?offset=${valu}&&limit=5&&name=${search}`,
+                headers: {
+                    authorization: `Bearer ` + tok
+                },
+            };
+        }
+
+        else {
+            config = {
+                method: "get",
+                url: `${API_URL}/tasks/squads?offset=${valu}&&limit=5`,
+                headers: {
+                    authorization: `Bearer ` + tok
+                },
+            };
+        }
+
 
         axios(config)
             .then(function (response) {
@@ -50,7 +63,7 @@ const TopSquadModal = ({ showTopSquadModal, setShowTopSquadModal }) => {
                 let arr = Array.from(Array(parseInt(response.data.data.pages)).keys());
                 setPages(arr);
                 setCurrentPage(valu)
-                setSearch('')
+                // setSearch('')
                 if (off <= response.data.data.squad.length) {
                     if ((off - 1) == 0) {
                         setLimit(1)
@@ -64,10 +77,10 @@ const TopSquadModal = ({ showTopSquadModal, setShowTopSquadModal }) => {
             .catch(function (error) {
                 console.log(error);
                 setLoader(false);
-                localStorage.removeItem("accessToken");
-                localStorage.removeItem("user");
-                localStorage.removeItem("isCommander");
-                window.location.assign("/")
+                // localStorage.removeItem("accessToken");
+                // localStorage.removeItem("user");
+                // localStorage.removeItem("isCommander");
+                // window.location.assign("/")
                 // window.location.reload();
             });
         // }
@@ -153,41 +166,6 @@ const TopSquadModal = ({ showTopSquadModal, setShowTopSquadModal }) => {
         }
     };
 
-    const getSearchData = async (off) => {
-        let valu = null;
-        if (off) {
-            valu = off;
-        } else {
-            valu = 1;
-        }
-        // if (account && jcommander === true) {
-        var config = {
-            method: "get",
-            url: `${API_URL}/tasks/squads?offset=${valu}&&limit=10&&name=${search}`,
-            headers: {
-                authorization: `Bearer ` + tok
-            },
-        };
-
-        axios(config)
-            .then(function (response) {
-                setLoader(false);
-                setCount(response.data.data.count)
-                setTopSquad(response?.data?.data?.squad);
-                let arr = Array.from(Array(parseInt(response.data.data.pages)).keys());
-                setPages(arr);
-                setCurrentPage(valu)
-            })
-            .catch(function (error) {
-                console.log(error);
-                setLoader(false);
-                // localStorage.removeItem("accessToken");
-                // localStorage.removeItem("user");
-                // window.location.assign("/")
-                // window.location.reload();
-            });
-        // }
-    }
     const SendInvite = (id) => {
         // console.log('sdvv',);
         setLoader(true)
@@ -222,6 +200,14 @@ const TopSquadModal = ({ showTopSquadModal, setShowTopSquadModal }) => {
         GetUserTopSquad()
     }, [])
 
+    const clear = () => {
+        setSearch('')
+    }
+    useEffect(() => {
+        if (search == '') {
+            GetUserTopSquad(currentPage)
+        }
+    }, [search])
 
 
     return (
@@ -239,11 +225,11 @@ const TopSquadModal = ({ showTopSquadModal, setShowTopSquadModal }) => {
                             <input type="text" value={search} onChange={(e) => setSearch(e.target.value)} placeholder='Search' className='border-grad1' />
                             {/* <img src="\assets\search-icon.svg" alt="img" className='img-fluid search-icon' /> */}
                             <div className="twice-new-btn-sm">
-                                <button className="btn-search" onClick={() => getSearchData(currentPage)}>Search</button>
-                                {search!=='' &&
-                                <button className="btn-reset" onClick={() => GetUserTopSquad(currentPage)}>
-                                <img src='/reset.png' alt='' />
-                                </button>
+                                <button className="btn-search" onClick={() => GetUserTopSquad(1)}>Search</button>
+                                {search !== '' &&
+                                    <button className="btn-reset" >
+                                        <img src='/reset.png' alt='' onClick={clear} />
+                                    </button>
                                 }
                             </div>
                         </div>
@@ -266,88 +252,93 @@ const TopSquadModal = ({ showTopSquadModal, setShowTopSquadModal }) => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {topSquad?.map((elem) => {
-                                        return (
-                                            <tr>
-                                                <td>
-                                                    <div className="parent">
-                                                        <div className="profile">
-                                                            <img src={elem?.symbol} alt="img" className='img-fluid' />
+                                    {topSquad?.length > 0 ?
+                                        topSquad?.map((elem) => {
+                                            return (
+                                                <tr>
+                                                    <td>
+                                                        <div className="parent">
+                                                            <div className="profile">
+                                                                <img src={elem?.symbol} alt="img" className='img-fluid' />
+                                                            </div>
+                                                            <p className='paratable'>{elem?.name}</p>
                                                         </div>
-                                                        <p className='paratable'>{elem?.name}</p>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <p className='paratable'>{elem?.membersCount}</p>
-                                                </td>
-                                                <td>
-                                                    <p className='paratable'>{elem?.totalTokens} TOMI</p>
-                                                </td>
-                                                <td>
-                                                    <button className={elem?.squad_invitation_requests ? 'btn-requested' : 'btn-requestjoin'} onClick={() => SendInvite(elem?._id)}>{elem?.squad_invitation_requests ? 'Requested' : 'Request to join'}</button>
-                                                </td>
-                                            </tr>
-                                        )
-                                    })}
+                                                    </td>
+                                                    <td>
+                                                        <p className='paratable'>{elem?.membersCount}</p>
+                                                    </td>
+                                                    <td>
+                                                        <p className='paratable'>{elem?.totalTokens} TOMI</p>
+                                                    </td>
+                                                    <td>
+                                                        <button className={elem?.squad_invitation_requests ? 'btn-requested' : 'btn-requestjoin'} onClick={() => SendInvite(elem?._id)}>{elem?.squad_invitation_requests ? 'Requested' : 'Request to join'}</button>
+                                                    </td>
+                                                </tr>
+                                            )
+                                        })
+                                        : <h4>
+                                            NO Squad
+                                        </h4>
+                                    }
                                 </tbody>
                             </table>
-
-                            <div className="pagi">
-                                <div>
-                                    <p>Showing {limit} to {currentPage * 5 >= count ? currentPage - (currentPage - count) : currentPage * 5} of {count} entries</p>
+                            {topSquad?.length > 0 &&
+                                <div className="pagi">
+                                    <div>
+                                        {/* <p>Showing {limit} to {currentPage * 5 >= count ? currentPage - (currentPage - count) : currentPage * 5} of {count} entries</p> */}
+                                    </div>
+                                    <nav className="right">
+                                        <ul className="pagination">
+                                            <li className="page-item">
+                                                <button
+                                                    onClick={() => getPrevData(currentPage)}
+                                                    className="page-link arrowssss scsdsdfefssdvsdvsd"
+                                                >
+                                                    {/* <i className="fas curPointer fa-angle-left"></i> */}
+                                                    Previous
+                                                </button>
+                                            </li>
+                                            {pages?.map((item, index) => {
+                                                return (
+                                                    <li key={index} className="page-item cursor-pointer">
+                                                        <p
+                                                            className={
+                                                                "page-link " +
+                                                                (index + 1 === parseInt(currentPage)
+                                                                    ? "active-pag"
+                                                                    : "")
+                                                            }
+                                                            onClick={() => GetUserTopSquad(index + 1)}
+                                                            style={{ fontSize: "13px !important" }}
+                                                        >
+                                                            {index + 1}
+                                                        </p>
+                                                    </li>
+                                                );
+                                            })}
+                                            <li className="page-item">
+                                                <button
+                                                    onClick={() => getNextData(currentPage)}
+                                                    className="page-link arrowssss"
+                                                >
+                                                    {/* <i className="fas curPointer fa-angle-right"></i> */}
+                                                    Next
+                                                </button>
+                                            </li>
+                                        </ul>
+                                    </nav>
                                 </div>
-                                <nav className="right">
-                                    <ul className="pagination">
-                                        <li className="page-item">
-                                            <button
-                                                onClick={() => getPrevData(currentPage)}
-                                                className="page-link arrowssss scsdsdfefssdvsdvsd"
-                                            >
-                                                {/* <i className="fas curPointer fa-angle-left"></i> */}
-                                                Previous
-                                            </button>
-                                        </li>
-                                        {pages?.map((item, index) => {
-                                            return (
-                                                <li key={index} className="page-item cursor-pointer">
-                                                    <p
-                                                        className={
-                                                            "page-link " +
-                                                            (index + 1 === parseInt(currentPage)
-                                                                ? "active-pag"
-                                                                : "")
-                                                        }
-                                                        onClick={() => GetUserTopSquad(index + 1)}
-                                                        style={{ fontSize: "13px !important" }}
-                                                    >
-                                                        {index + 1}
-                                                    </p>
-                                                </li>
-                                            );
-                                        })}
-                                        <li className="page-item">
-                                            <button
-                                                onClick={() => getNextData(currentPage)}
-                                                className="page-link arrowssss"
-                                            >
-                                                {/* <i className="fas curPointer fa-angle-right"></i> */}
-                                                Next
-                                            </button>
-                                        </li>
-                                    </ul>
-                                </nav>
-                            </div>
-
+                            }
                         </div>
                         <div className="mobile-responsive-table d-none display-block-in-mobile">
                             <div className="heading-mobile">
                                 <p>Squads</p>
                             </div>
                             <Accordion defaultActiveKey="0">
-                            {topSquad?.map((elem,index) => {
-                                        return (
-                                            <Accordion.Item eventKey={index}>
-                                            <Accordion.Header> <img style={{width:'34px',height:'34px'}} src={elem?.symbol}  alt="img" className='img-fluid me-2' /> {elem?.name}</Accordion.Header>
+                                {topSquad?.map((elem, index) => {
+                                    return (
+                                        <Accordion.Item eventKey={index}>
+                                            <Accordion.Header> <img style={{ width: '34px', height: '34px' }} src={elem?.symbol} alt="img" className='img-fluid me-2' /> {elem?.name}</Accordion.Header>
                                             <Accordion.Body>
                                                 <div className="inner-fields">
                                                     <div className="inner-item">
@@ -365,27 +356,27 @@ const TopSquadModal = ({ showTopSquadModal, setShowTopSquadModal }) => {
                                                 </div>
                                             </Accordion.Body>
                                         </Accordion.Item>
-                                            // <tr>
-                                            //     <td>
-                                            //         <div className="parent">
-                                            //             <div className="profile">
-                                            //                 <img src={elem?.symbol} alt="img" className='img-fluid' />
-                                            //             </div>
-                                            //             <p className='paratable'>{elem?.name}</p>
-                                            //         </div>
-                                            //     </td>
-                                            //     <td>
-                                            //         <p className='paratable'>{elem?.membersCount}</p>
-                                            //     </td>
-                                            //     <td>
-                                            //         <p className='paratable'>{elem?.totalTokens} TOMI</p>
-                                            //     </td>
-                                            //     <td>
-                                            //         <button className={elem?.squad_invitation_requests ? 'btn-requested' : 'btn-requestjoin'} onClick={() => SendInvite(elem?._id)}>{elem?.squad_invitation_requests ? 'Requested' : 'Request to join'}</button>
-                                            //     </td>
-                                            // </tr>
-                                        )
-                                    })}
+                                        // <tr>
+                                        //     <td>
+                                        //         <div className="parent">
+                                        //             <div className="profile">
+                                        //                 <img src={elem?.symbol} alt="img" className='img-fluid' />
+                                        //             </div>
+                                        //             <p className='paratable'>{elem?.name}</p>
+                                        //         </div>
+                                        //     </td>
+                                        //     <td>
+                                        //         <p className='paratable'>{elem?.membersCount}</p>
+                                        //     </td>
+                                        //     <td>
+                                        //         <p className='paratable'>{elem?.totalTokens} TOMI</p>
+                                        //     </td>
+                                        //     <td>
+                                        //         <button className={elem?.squad_invitation_requests ? 'btn-requested' : 'btn-requestjoin'} onClick={() => SendInvite(elem?._id)}>{elem?.squad_invitation_requests ? 'Requested' : 'Request to join'}</button>
+                                        //     </td>
+                                        // </tr>
+                                    )
+                                })}
                             </Accordion>
                             <div className="pagi">
                                 <div>

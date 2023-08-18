@@ -40,6 +40,7 @@ const ArmyMembers = ({ routesarmy, setroutearmy }) => {
     const [pages, setPages] = useState([]);
     const [rend, setRend] = useState(false);
     const [limit, setLimit] = useState(1)
+    var inputTouched = false;
 
     const handleCloserank = () => {
         setselectedrank('Select Rank')
@@ -62,46 +63,64 @@ const ArmyMembers = ({ routesarmy, setroutearmy }) => {
             valu = 1;
         }
         // if (account) {
-        var config = {
-            method: "get",
-            url: `${API_URL}/auth/users/army-members?offset=${valu}&&limit=5`,
-            headers: {
-                authorization: `Bearer ` + tok
-            },
-        };
-        axios(config)
-            .then(function (response) {
-                // setLoader(false);
-                // setCount(response.data.data.count)
-                setData(response?.data?.data?.users);
-                // let arr = Array.from(Array(parseInt(response.data.data.pages)).keys());
-                // setPages(arr);
-                setCurrentPage(valu)
-                // setLoader(false);
-                setCount(response.data.data.count)
-                setData(response?.data?.data?.users);
-                let arr = Array.from(Array(parseInt(response.data.data.pages)).keys());
-                setPages(arr);
-                setCurrentPage(valu)
-                setSearch('')
-                setFilterRank('Filter Rank')
-                if (off <= response.data.data.users.length) {
-                    if ((off - 1) == 0) {
-                        setLimit(1)
-                    }
-                    else {
-                        setLimit((off - 1) * 5)
-                    }
-                }
-            })
-            .catch(function (error) {
-                // setLoader(false);
-                // localStorage.removeItem("accessToken");
-                // localStorage.removeItem("user");
-                // window.location.assign("/")
-                // window.location.reload();
+        var config=''
+        if (search=== '' && filterRank == 'Filter Rank' ) {
+            // if (filterRank != 'Filter Rank') {
+                
+                config = {
+                    method: "get",
+                    url: `${API_URL}/auth/users/army-members?offset=${valu}&&limit=5`,
+                    headers: {
+                        authorization: `Bearer ` + tok
+                    },
+                };
+
+        }
+        else {
+            toast.error('Please Enter the value of search and select rank', {
+                position: "top-right",
+                autoClose: 2000,
             });
-        // }
+             config = {
+                method: "get",
+                url: `${API_URL}/auth/users/army-members?offset=${valu}&&limit=5&&rank=${filterRank}&&nickName=${search}`,
+                headers: {
+                    authorization: `Bearer ` + tok
+                },
+            }
+           
+
+        }
+       
+
+                axios(config)
+                    .then(function (response) {
+                        setData(response?.data?.data?.users);
+                        setCurrentPage(valu)
+                        setCount(response.data.data.count)
+                        let arr = Array.from(Array(parseInt(response.data.data.pages)).keys());
+                        setPages(arr);
+                        setCurrentPage(valu)
+                        // setSearch('')
+                        // setFilterRank('Filter Rank')
+                        if (off <= response.data.data.users.length) {
+                            if ((off - 1) == 0) {
+                                setLimit(1)
+                            }
+                            else {
+                                setLimit((off - 1) * 5)
+                            }
+                        }
+                    })
+                    .catch(function (error) {
+                        // setLoader(false);
+                        // localStorage.removeItem("accessToken");
+                        // localStorage.removeItem("user");
+                        // window.location.assign("/")
+                        // window.location.reload();
+                    });
+                // }
+
     }
 
     useEffect(() => {
@@ -314,7 +333,7 @@ const ArmyMembers = ({ routesarmy, setroutearmy }) => {
                 // if (account && jcommander === true) {
                 var config = {
                     method: "get",
-                    url: `${API_URL}/auth/users/army-members?offset=${valu}&&limit=10&&rank=${filterRank}&&nickName=${search}`,
+                    url: `${API_URL}/auth/users/army-members?offset=${valu}&&limit=5&&rank=${filterRank}&&nickName=${search}`,
                     headers: {
                         authorization: `Bearer ` + tok
                     },
@@ -322,12 +341,28 @@ const ArmyMembers = ({ routesarmy, setroutearmy }) => {
 
                 axios(config)
                     .then(function (response) {
-                        setLoader(false);
+                        // setLoader(false);
+                        // setCount(response.data.data.count)
+                        setData(response?.data?.data?.users);
+                        // let arr = Array.from(Array(parseInt(response.data.data.pages)).keys());
+                        // setPages(arr);
+                        setCurrentPage(valu)
+                        // setLoader(false);
                         setCount(response.data.data.count)
                         setData(response?.data?.data?.users);
                         let arr = Array.from(Array(parseInt(response.data.data.pages)).keys());
                         setPages(arr);
                         setCurrentPage(valu)
+                        // setSearch('')
+                        // setFilterRank('Filter Rank')
+                        if (off <= response.data.data.users.length) {
+                            if ((off - 1) == 0) {
+                                setLimit(1)
+                            }
+                            else {
+                                setLimit((off - 1) * 5)
+                            }
+                        }
                     })
                     .catch(function (error) {
                         console.log(error);
@@ -355,7 +390,15 @@ const ArmyMembers = ({ routesarmy, setroutearmy }) => {
         }
     }
 
-    console.log('limit', limit);
+    const clear = () => {
+        setSearch('')
+        setFilterRank('Filter Rank')
+    }
+    useEffect(() => {
+        if (search == '') {
+            armyembers(currentPage)
+        }
+    }, [search])
 
 
 
@@ -412,9 +455,9 @@ const ArmyMembers = ({ routesarmy, setroutearmy }) => {
                                                                     </ul>
                                                                 </div>
                                                             </div>
-                                                            <button className='btn-search' onClick={() => getSearchData(currentPage)}>Search</button>
+                                                            <button className='btn-search' onClick={() => armyembers(1)}>Search</button>
                                                             {search !== '' &&
-                                                                <button className="btn-reset" onClick={() => armyembers(currentPage)}><img src='/reset.png' alt='' /></button>
+                                                                <button className="btn-reset" onClick={clear}><img src='/reset.png' alt='' /></button>
                                                             }
                                                         </div>
 
@@ -481,7 +524,7 @@ const ArmyMembers = ({ routesarmy, setroutearmy }) => {
                                                             </div>
                                                             <div className="pagi">
                                                                 <div>
-                                                                    <p>Showing {limit} to {currentPage * 5 >= count ? currentPage - (currentPage - count) : currentPage * 5} of {count} entries</p>
+                                                                    {/* <p>Showing {limit} to {currentPage * 5 >= count ? currentPage - (currentPage - count) : currentPage * 5} of {count} entries</p> */}
                                                                 </div>
                                                                 <nav className="right">
                                                                     <ul className="pagination">

@@ -350,7 +350,7 @@ const CreateOperation = ({ svaebutton, setroutehome, routeshome, setexpired, tas
                             <img src="\generalassets\icons\save-change.svg" alt="img" className="img-fluid me-1" />
                             <span>Create Operation</span>
                         </button> */}
-                        <h6>You cannot create new operation until one operation already running</h6>
+                        <h6>An operation is already in progress. You can create another operation once this operation ends</h6>
                         </div>
                       
                     )

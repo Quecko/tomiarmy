@@ -14,9 +14,7 @@ const ArmyForum = () => {
   const [ListComment, setListComment] = useState([]);
   const [post, setPost] = useState([]);
   const [commentid, setcommentid] = useState();
-  const [limit, setLimit] = useState(1);
   const [limit0, setLimit0] = useState(5);
-  const [rend, setRend] = useState(false);
   const [comment, setcomment] = useState('')
   const [rankid, setrankid] = useState();
   const [loader, setLoader] = useState()
@@ -32,6 +30,12 @@ const ArmyForum = () => {
   const handleCloseEditForum = () => setShowForumEditModal(false);
   const [loading, setLoading] = useState(false);
   let indexvalue = localStorage.getItem("indexvalue");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [count, setCount] = useState(0);
+  const [pages, setPages] = useState([]);
+  const [rend, setRend] = useState(false);
+  const [limit, setLimit] = useState(1)
+  const [search, setSearch] = useState('')
   const [allFormData, setAllFormData] = useState({
     title: '',
     description: '',
@@ -42,6 +46,7 @@ const ArmyForum = () => {
       description: '',
     })
   }
+
   const [selecttab, setselecttab] = useState('Active Squad')
   const handleChange = (event) => {
     allFormData[event.target.name] = event.target.value;
@@ -49,7 +54,7 @@ const ArmyForum = () => {
   }
   //  create new forum
   const putQuestion = () => {
-   
+
     // let t=TokenExpiredOrNot()
     // console.log('t',t)
     // if(t){
@@ -102,23 +107,148 @@ const ArmyForum = () => {
     // }
   }
   // get top user or member
-  const gettopusers = async () => {
+  const gettopusers = async (off) => {
+    let valu = null;
+    if (off) {
+      valu = off;
+    } else {
+      valu = 1;
+    }
+    // if (account) {
 
-    var config = {
-      method: "get",
-      url: `${API_URL}/forums/top-user?offset=1&&limit=25`,
-      headers: {
-        authorization: `Bearer ` + tok
-      },
-    };
+
+    var config = ''
+    if (search !== '') {
+      config = {
+        method: "get",
+        url: `${API_URL}/forums/top-user?offset=${valu}&&limit=5&&nickName=${search}`,
+        headers: {
+          authorization: `Bearer ` + tok
+        },
+      };
+    }
+
+    else {
+      config = {
+        method: "get",
+        url: `${API_URL}/forums/top-user?offset=${valu}&&limit=5`,
+        headers: {
+          authorization: `Bearer ` + tok
+        },
+      };
+    }
     axios(config)
       .then(function (response) {
+        setLoader(false);
+        setCount(response.data.data.count)
         settopuser(response?.data?.data);
+        let arr = Array.from(Array(parseInt(response.data.data.pages)).keys());
+        setPages(arr);
+        setCurrentPage(valu)
+        // setSearch('')
+        if (off <= response?.data?.data?.users?.length) {
+          if ((off - 1) == 0) {
+            setLimit(1)
+          }
+          else {
+            setLimit((off - 1) * 5)
+          }
+        }
+        // window.scrollTo(0, 0);
       })
       .catch(function (error) {
         console.log(error);
+        setLoader(false);
+        // localStorage.removeItem("accessToken");
+        // localStorage.removeItem("user");
+        // localStorage.removeItem("isCommander");
+        // window.location.assign("/")
+        // window.location.reload();
       });
+    // }
   }
+
+  const getPrevData = (off) => {
+    let offset = parseInt(off) - 1;
+    if (offset > 0) {
+      setLoader(true);
+      var config = null;
+      config = {
+        method: "get",
+        url: `${API_URL}/forums/top-user?offset=${offset}&&limit=5`,
+        headers: {
+          Authorization: "Bearer " + tok,
+          "Content-Type": "application/json",
+        },
+      };
+
+      axios(config)
+        .then(function (response) {
+          let arr = Array.from(
+            Array(parseInt(response.data.data.pages)).keys()
+          );
+          setPages(arr);
+          settopuser(response?.data?.data);
+          if (currentPage - 1 >= 0) {
+            setCurrentPage(currentPage - 1);
+
+          }
+          if (off >= 0) {
+            if ((offset - 1) == 0) {
+              setLimit(1)
+            }
+            else {
+              setLimit((offset - 1) * 5)
+            }
+          }
+          // else{
+          //   setLimit(off)
+          // }
+          setRend(!rend);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+      setLoader(false);
+    }
+  };
+
+  const getNextData = (off) => {
+    let offset = parseInt(off) + 1;
+    if (pages.length > off) {
+      if (off < topuser?.users?.length) {
+        var config = null;
+        config = {
+          method: "get",
+          url: `${API_URL}/forums/top-user?offset=${offset}&&limit=5`,
+          headers: {
+            Authorization: "Bearer " + tok,
+            "Content-Type": "application/json",
+          },
+        };
+
+        axios(config)
+          .then(function (response) {
+            console.log(response.data.data);
+            let arr = Array.from(
+              Array(parseInt(response.data.data.pages)).keys()
+            );
+            setPages(arr);
+            settopuser(response?.data?.data);
+            if (off <= topuser.length) {
+              setCurrentPage(offset);
+              setLimit(off * 5)
+            }
+            setRend(!rend);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+      }
+    }
+  };
+
+
   //  get myPost
   const getMyPosts = () => {
     var config = {
@@ -362,7 +492,6 @@ const ArmyForum = () => {
     }
   }
 
-
   const detailmodalopen = (iddd) => {
     setdetail(iddd)
     getSingleDetail(iddd)
@@ -400,7 +529,6 @@ const ArmyForum = () => {
     setcomment(event.target.value);
   }
 
-
   useEffect(() => {
     if (indexvalue === '13') {
       GetPosts()
@@ -412,9 +540,18 @@ const ArmyForum = () => {
     }
   }, [indexvalue])
 
+  const clear = () => {
+    setSearch('')
+  }
+  useEffect(() => {
+    if (search == '') {
+      gettopusers(currentPage)
+    }
+  }, [search])
+
   return (
     <>
-    {loader && <Loader/>}
+      {loader && <Loader />}
       <div className="formobile-heading shsvhsvhsdhsd  display-block-in-mobile">
         <div className="inner-heading soldier-name">
           <h6>{indexvalue == 12 ? 'My Post' : 'Army Forum'} </h6>
@@ -485,7 +622,7 @@ const ArmyForum = () => {
                         </div>
                       </section>
                       {current == index &&
-                        <section className="comments" style={{marginTop: "23px"}}>
+                        <section className="comments" style={{ marginTop: "23px" }}>
                           <div className="maincomment">
                             <h1 className="headcmnt">Comments</h1>
                             {ListComment?.slice(0, limit0)?.map((elem, index) => {
@@ -530,22 +667,31 @@ const ArmyForum = () => {
                 })}
                 {/* </section> */}
               </div>
-              <div className='right-forum'>
-                <div className='members-section border-grad1 display-none-in-mobile'>
-                  <div className="tophead">
-                    <h6>Members <span>({topuser?.length})</span></h6>
-                  </div>
-                  <div className="option-field">
-                    <img src="\assets\search-icon.svg" alt="img" className="img-fluid search-icon" />
-                    <input type="search" placeholder="Search members" />
-                  </div>
-                  <div className="bottom-table">
-                    <div className="upper-heading">
-                      <p>Nickname</p>
-                      <p>Rank</p>
+              {indexvalue == 13 &&
+                <div className='right-forum'>
+                  <div className='members-section border-grad1 display-none-in-mobile'>
+                    <div className="tophead">
+                      <h6>Members <span>({topuser?.count})</span></h6>
                     </div>
-                    <div className="bottom-fields">
-                      {/* {topuser?.map((elem, index) => {
+                    <div className="option-field">
+                      <div className="twice-new-btn-sm">
+                        <input type="search" value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search members" />
+                        <button className="btn-search" onClick={() => gettopusers(1)}>Search</button>
+                        {search !== '' &&
+                          <button className="btn-reset" onClick={clear}>
+                            <img src='/reset.png' alt='' />
+                          </button>
+                        }
+                      </div>
+                      {/* <img src="\assets\search-icon.svg" alt="img" className="img-fluid search-icon" /> */}
+                    </div>
+                    <div className="bottom-table">
+                      <div className="upper-heading">
+                        <p>Nickname</p>
+                        <p>Rank</p>
+                      </div>
+                      <div className="bottom-fields">
+                        {/* {topuser?.map((elem, index) => {
                         return (
                           <div className="inner-item">
                             <h6>Sharjeel</h6>
@@ -553,22 +699,69 @@ const ArmyForum = () => {
                           </div>
                         )
                       })} */}
-                      {topuser?.map((elem) => {
-                        return (
-                          <div className="inner-item">
-                            <h6 className="set-text-left">{elem?.nickName}</h6>
-                            <h6 className="set-text-right">
-                              <img src={elem?.rank?.icon} alt="img" className="img-fluid me-2" style={{ width: "34px", height: "34px" }} />
-                              {elem?.rank?.name}
-                            </h6>
+                        {topuser?.users?.map((elem) => {
+                          return (
+                            <div className="inner-item">
+                              <h6 className="set-text-left">{elem?.nickName ? elem?.nickName : '----'}</h6>
+                              <h6 className="set-text-right">
+                                <img src={elem?.rank?.icon} alt="img" className="img-fluid me-2" style={{ width: "34px", height: "34px" }} />
+                                {elem?.rank?.name}
+                              </h6>
+                            </div>
+                          )
+                        })
+                        }
+                      </div>
+
+                        <div className="pagi">
+                          <div>
+                            {/* <p>Showing {limit} to {currentPage * 5 >= count ? currentPage - (currentPage - count) : currentPage * 5} of {count} entries</p> */}
                           </div>
-                        )
-                      })
-                      }
+                          <nav className="right">
+                            <ul className="pagination">
+                              <li className="page-item">
+                                <button
+                                  onClick={() => getPrevData(currentPage)}
+                                  className="page-link arrowssss scsdsdfefssdvsdvsd"
+                                >
+                                  {/* <i className="fas curPointer fa-angle-left"></i> */}
+                                  Previous
+                                </button>
+                              </li>
+                              {pages?.map((item, index) => {
+                                return (
+                                  <li key={index} className="page-item cursor-pointer">
+                                    <p
+                                      className={
+                                        "page-link " +
+                                        (index + 1 === parseInt(currentPage)
+                                          ? "active-pag"
+                                          : "")
+                                      }
+                                      onClick={() => gettopusers(index + 1)}
+                                      style={{ fontSize: "13px !important" }}
+                                    >
+                                      {index + 1}
+                                    </p>
+                                  </li>
+                                );
+                              })}
+                              <li className="page-item">
+                                <button
+                                  onClick={() => getNextData(currentPage)}
+                                  className="page-link arrowssss"
+                                >
+                                  {/* <i className="fas curPointer fa-angle-right"></i> */}
+                                  Next
+                                </button>
+                              </li>
+                            </ul>
+                          </nav>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </div>
+              }
             </div>
           </div>
         </section>

@@ -26,7 +26,7 @@ const HomeOperations = ({ setShowtask1, settaskdetail1, operations, setOperation
   const [pages, setPages] = useState([]);
   const [rend, setRend] = useState(false);
   const [limit, setLimit] = useState(1)
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState('');
 
   const GetUserTopSquad = async (off) => {
     let valu = null;
@@ -36,13 +36,26 @@ const HomeOperations = ({ setShowtask1, settaskdetail1, operations, setOperation
       valu = 1;
     }
     // if (account) {
-      var config = {
-        method: "get",
-        url: `${API_URL}/tasks/squads?offset=${valu}&&limit=5`,
-        headers: {
-          authorization: `Bearer ` + tok
-        },
-      };
+      var config = ''
+      if (search !== '') {
+          config = {
+              method: "get",
+              url: `${API_URL}/tasks/squads?offset=${valu}&&limit=5&&name=${search}`,
+              headers: {
+                  authorization: `Bearer ` + tok
+              },
+          };
+      }
+
+      else {
+          config = {
+              method: "get",
+              url: `${API_URL}/tasks/squads?offset=${valu}&&limit=5`,
+              headers: {
+                  authorization: `Bearer ` + tok
+              },
+          };
+      }
 
       axios(config)
         .then(function (response) {
@@ -52,7 +65,7 @@ const HomeOperations = ({ setShowtask1, settaskdetail1, operations, setOperation
           let arr = Array.from(Array(parseInt(response.data.data.pages)).keys());
           setPages(arr);
           setCurrentPage(valu)
-          setSearch('')
+          // setSearch('')
           if (off <= response.data.data.squad.length) {
             if ((off - 1) == 0) {
               setLimit(1)
@@ -66,10 +79,10 @@ const HomeOperations = ({ setShowtask1, settaskdetail1, operations, setOperation
         .catch(function (error) {
           console.log(error);
           setLoader(false);
-          localStorage.removeItem("accessToken");
-          localStorage.removeItem("user");
-          localStorage.removeItem("isCommander");
-          window.location.assign("/")
+          // localStorage.removeItem("accessToken");
+          // localStorage.removeItem("user");
+          // localStorage.removeItem("isCommander");
+          // window.location.assign("/")
           // window.location.reload();
         });
     // }
@@ -194,36 +207,6 @@ const HomeOperations = ({ setShowtask1, settaskdetail1, operations, setOperation
   useEffect(() => {
     GetUserTopSquad()
   }, []);
-  const SendInvite = (id) => {
-    setLoader(true)
-    // if (account) {
-    axios.defaults.headers.post[
-      "Authorization"
-    ] = `Bearer ${tok}`;
-    var config = {
-      method: "post",
-      url: `${API_URL}/tasks/squad-invitation-requests`,
-      data: {
-        squadId: id.toString()
-      }
-    };
-
-    axios(config)
-      .then(async (response) => {
-        GetUserTopSquad()
-        setLoader(false)
-        toast.success("Invite Sent Successfully");
-      })
-      .catch(function (err) {
-        setLoader(false);
-        toast.error(err?.response?.data.message, {
-          position: "top-right",
-          autoClose: 2000,
-        });
-      });
-    // }
-  }
-
 
   const GetTime = (time) => {
     let endtime = new Date(time)
