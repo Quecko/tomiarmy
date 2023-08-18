@@ -66,8 +66,6 @@ const FailedClaim = () => {
         // }
     }
 
-    console.log('modalData', modalData);
-
     const Refunds = async () => {
         if (!loading) {
             setLoading(true);

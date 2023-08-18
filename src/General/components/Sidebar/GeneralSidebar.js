@@ -403,7 +403,6 @@ const GeneralSidebar = () => {
 
   useEffect(() => {
     if (account?.toUpperCase() === user?.walletAddress?.toUpperCase()) {
-      // console.log("in")
     }
     else if (account) {
       loginUser();

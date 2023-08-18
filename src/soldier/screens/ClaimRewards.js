@@ -177,7 +177,6 @@ const ClaimRewards = ({ squaddetail, GetUserProfiledata }) => {
     };
     axios(config)
       .then(function (res) {
-        console.log("trx api res: ", res?.data);
         const resData = res?.data?.data;
         setLoader(false);
         getTransactionHistory()

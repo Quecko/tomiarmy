@@ -56,7 +56,6 @@ const ArmyForum = () => {
   const putQuestion = () => {
 
     // let t=TokenExpiredOrNot()
-    // console.log('t',t)
     // if(t){
     if (allFormData.title !== "" && allFormData.description !== "") {
       setLoader(true);
@@ -229,7 +228,6 @@ const ArmyForum = () => {
 
         axios(config)
           .then(function (response) {
-            console.log(response.data.data);
             let arr = Array.from(
               Array(parseInt(response.data.data.pages)).keys()
             );

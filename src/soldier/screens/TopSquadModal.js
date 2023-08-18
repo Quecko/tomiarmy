@@ -147,7 +147,6 @@ const TopSquadModal = ({ showTopSquadModal, setShowTopSquadModal }) => {
 
                 axios(config)
                     .then(function (response) {
-                        console.log(response.data.data);
                         let arr = Array.from(
                             Array(parseInt(response.data.data.pages)).keys()
                         );
@@ -167,7 +166,6 @@ const TopSquadModal = ({ showTopSquadModal, setShowTopSquadModal }) => {
     };
 
     const SendInvite = (id) => {
-        // console.log('sdvv',);
         setLoader(true)
         // if (account) {
         axios.defaults.headers.post[

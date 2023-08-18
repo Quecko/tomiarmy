@@ -460,7 +460,6 @@ const Header = ({ routes, setroute, indexwait, handleShow, setShow2, setShow1, s
                     {notifs?.length > 0 ?
                       <>
                         {notifs?.map((item, index) => {
-                          console.log('item', item);
                           const extractValue = (metadataString) => {
                             const dd = '"newSignRequired":"';
                             if (dd?.includes) {

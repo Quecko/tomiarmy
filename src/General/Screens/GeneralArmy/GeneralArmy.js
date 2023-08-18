@@ -35,9 +35,6 @@ const GeneralArmy = ({ routesarmy, setroutearmy }) => {
     const [data2, setData2] = useState([]);
     const { account } = useWeb3React();
 
-
-    console.log('data2',data2);
-
     const GeneralApproval = async (off) => {
         // let valu = null;
         // if (off) {
@@ -75,10 +72,8 @@ const GeneralArmy = ({ routesarmy, setroutearmy }) => {
     useEffect(() => {
         let user1 = localStorage.getItem("user");
         user1 = JSON.parse(user1);
-        // console.log('aasdasdasdasdasdasdasd', user1)
 
         if (user1?.rank?.name === "general") {
-            // console.log('aasdasdasdasdasdasdasd')
             GeneralApproval();
         }
     }, [account])

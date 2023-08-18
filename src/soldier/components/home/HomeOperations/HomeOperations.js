@@ -149,7 +149,6 @@ const HomeOperations = ({ setShowtask1, settaskdetail1, operations, setOperation
 
         axios(config)
           .then(function (response) {
-            console.log(response.data.data);
             let arr = Array.from(
               Array(parseInt(response.data.data.pages)).keys()
             );

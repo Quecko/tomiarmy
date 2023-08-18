@@ -416,25 +416,16 @@ const GeneralHome = ({ setShowtask, setroutehome, routeshome }) => {
     useEffect(() => {
         let user1 = localStorage.getItem("user");
         user1 = JSON.parse(user1);
-        // console.log('aasdasdasdasdasdasdasd', user1)
-
         if (user1?.rank?.name === "general") {
-            // console.log('aasdasdasdasdasdasdasd')
             GeneralApproval();
         }
     }, [])
 
     useEffect(() => {
         let user1 = localStorage.getItem("user");
-
         user1 = JSON.parse(user1);
-        console.log("sdfdfdfsdfsdf", user1)
-        // console.log('aasdasdasdasdasdasdasd', user1)
-
         if (user1?.rank?.name === "major general") {
-            // console.log('aasdasdasdasdasdasdasd')
             armymembermajor();
-
         }
     }, [])
 

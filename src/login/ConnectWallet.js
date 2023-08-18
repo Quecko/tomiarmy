@@ -16,6 +16,7 @@ import Signature from "../hooks/dataSenders/userSign";
 import { useHistory } from "react-router-dom";
 import { API_URL } from '../utils/ApiUrl'
 import GetBalance from "../hooks/dataFetchers/getBalance";
+import RequestInvitationmodal from '../RequestInvitationModal/RequestInvitationmodal';
 // import CustomToaster from '../toaster/CustomToaster';
 
 const ConnectWallet = ({ setjoinsquad, joinsquad, role, setRole, setinvitecode, invitecode }) => {
@@ -28,6 +29,7 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role, setRole, setinvitecode, 
     const [showToaster, setShowToaster] = useState(false)
     const [loader, setLoader] = useState(false);
     const { GetBal } = GetBalance();
+    const [reqModal, setReqModal] = useState(false)
     let wall = localStorage.getItem("wallet");
 
 
@@ -39,7 +41,7 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role, setRole, setinvitecode, 
     }
 
 
-    
+
 
     // const trustWallet = async () => {
     //     localStorage.setItem("flag", "true");
@@ -78,7 +80,6 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role, setRole, setinvitecode, 
                     })
             } else {
                 setLoading(true);
-                console.log('walleet connect1111');
                 login("walletconnect")
                     .then(() => {
                         localStorage.setItem('connectorId', 'walletconnect');
@@ -147,7 +148,6 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role, setRole, setinvitecode, 
                         setLoading(false);
                     })
             } else {
-                console.log('else');
                 setLoading(true);
                 login("injected")
                     .then(() => {
@@ -183,12 +183,8 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role, setRole, setinvitecode, 
                         rememberMe: true
                     })
                     .then(async (res) => {
-                        console.log('reessssssss', res);
-
-                        setShowToaster(true)
                         // const res1 = await GetBal(account);
 
-                        // console.log(res1)
                         // if (res1 === "1") {
                         //     history.push("/tomitoken")
                         //     // alert('scesaev')
@@ -220,17 +216,18 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role, setRole, setinvitecode, 
                             position: 'top-center',
                             autoClose: 5000,
                         });
-                        
+
 
                     })
                     .catch((err) => {
                         if (err?.response?.data?.statusCode === 404) {
-                            toast.error('No User Found', {
-                                position: 'top-center',
-                                autoClose: 5000,
-                            });
-                            localStorage.clear()
-                            window.location.assign('/')
+                            setReqModal(true)
+                            // toast.error('No User Found', {
+                            //     position: 'top-center',
+                            //     autoClose: 5000,
+                            // });
+                            // localStorage.clear()
+                            // window.location.assign('/')
                         }
                         // localStorage.clear()
                         // window.location.assign('/')
@@ -341,13 +338,14 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role, setRole, setinvitecode, 
         }
     }, [account, log])
 
+
     const backtoinvitecode = () => {
         setjoinsquad(false)
         setinvitecode('')
     }
     return (
         <>
-        {/* <CustomToaster message={'User Logged in Successfully'} toggle={showToaster}/> */}
+            {/* <CustomToaster message={'User Logged in Successfully'} toggle={showToaster}/> */}
             <div className='ConnectWallet-wrapper border-grad1'>
                 {joinsquad === true ? (
                     <button className='omomomomom' onClick={backtoinvitecode}>Back To InviteCode</button>
@@ -397,6 +395,9 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role, setRole, setinvitecode, 
                 </Modal.Body>
             </Modal>
 
+
+
+            <RequestInvitationmodal reqModal={reqModal} setReqModal={setReqModal} />
         </>
     )
 }

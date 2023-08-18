@@ -11,8 +11,6 @@ const ArmyDetail = ({ setroutearmy, routesarmy, armyDetail,setArmyDetail }) => {
     let joindate = new Date(armyDetail?.createdAt);
     const joinDate = moment(joindate).format("DD-MM-YYYY");
 
-    console.log('armyDetail',armyDetail);
-
     const back= ()=>{
         setroutearmy(!routesarmy)
         setArmyDetail([])

@@ -164,7 +164,6 @@ const Home = ({ setShow2, tasks, setShowtask, settaskdetail, setShowtask1, setta
 
 
   const ClaimNow=()=>{
-    console.log('claim');
     setindexwait(7)
     localStorage.setItem("indexvalue", 7);
   }

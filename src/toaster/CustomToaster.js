@@ -15,9 +15,6 @@ const CustomToaster = ({ message, duration = 3000,toggle }) => {
     }
   }, [message, duration]);
 
-
-  console.log('toggle',toggle);
-
   return (
     <>
     <ToastContainer className="position-absolute">

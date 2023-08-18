@@ -46,7 +46,6 @@ const GroupChat = ({ setPage, page, setChat, chat, getChat, pages, message, setM
   const handleScroll = () => {
     const container = chatSectionRef.current;
     let scrollTop = Math.abs(container.scrollTop);
-    console.log('scssdvsdva',scrollTop)
       if (scrollTop + container.clientHeight >= container.scrollHeight - 1 && page != pages) {
         setPage(page + 1);
       }
