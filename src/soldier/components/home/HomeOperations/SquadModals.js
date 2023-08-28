@@ -348,7 +348,8 @@ const SquadModals = ({ show1, setShow1, setShow2, show2, SquadUsers, GetUserProf
             <p className='uehyuj'>Upload Squad Symbol</p>
             <div className="upload uploadsss sdhfvbdshbfvh">
               {
-                profilePicture ? <label htmlFor="upload">
+                profilePicture ? 
+                <label htmlFor="upload">
                   {" "}
                   <img
                     src={profilePicture ? URL?.createObjectURL(profilePicture) : ""}

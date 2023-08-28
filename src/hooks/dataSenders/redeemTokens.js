@@ -9,8 +9,7 @@ export const RedeemToken = () => {
   const web3 = useWeb3();
   const contractAddress = Environment.redeemTokens;
   const contract = getRedeemTokenContract(contractAddress, web3);
-  const redeemTokenHook = useCallback(
-    async (time, amount, v, r, s) => {
+  const redeemTokenHook = useCallback(async (time, amount, v, r, s) => {
       var gasFunPrice;
       web3.eth.getGasPrice().then((result) => {
         var result2 = parseInt(result) + 3000000000;
@@ -26,7 +25,6 @@ export const RedeemToken = () => {
     },
     [contract, account]
   );
-
   return { redeemTokenHook: redeemTokenHook };
 };
 
