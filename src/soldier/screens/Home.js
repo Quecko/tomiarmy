@@ -34,8 +34,8 @@ const Home = ({ setShow2, tasks, setShowtask, settaskdetail, setShowtask1, setta
       },
       plotOptions: {
         radialBar: {
-          startAngle: -135,
-          endAngle: 230,
+          startAngle: 0,
+          endAngle: 360,
           hollow: {
             margin: 0,
             size: '70%',
