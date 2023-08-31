@@ -3,12 +3,10 @@ import "./chat.scss"
 import EmojiPicker from 'emoji-picker-react';
 import Picker from 'emoji-picker-react';
 import Button from 'react-bootstrap/Button';
-import Offcanvas from 'react-bootstrap/Offcanvas';
 import { API_URL } from "../../../utils/ApiUrl"
 import { toast } from 'react-toastify';
 import axios from 'axios';
 import moment from "moment";
-import { reverse } from "lodash";
 import { Modal } from 'react-bootstrap';
 import { io } from "socket.io-client";
 import { useRef } from 'react';
@@ -21,7 +19,7 @@ const Chat = ({ setPage, page, setChat, chat, getChat, pages, message, setMessag
   const handleClose1 = () => setShow1(false);
   const handleShow1 = () => setShow1(true);
   const [topuser, settopuser] = useState([]);
-  const [image, setImage] = useState(null);
+  const [image, setImage] = useState('');
   const [uploadImage, setUploadImage] = useState(null);
   const [showImageModal, setShowImageModal] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -53,6 +51,12 @@ const Chat = ({ setPage, page, setChat, chat, getChat, pages, message, setMessag
       setPage(page + 1);
     }
   }
+    // Function to reset scrollTop to zero
+const resetScrollTop = () => {
+  const container = chatSectionRef.current;
+  container.scrollTop = 0;
+}
+
 
   // get top user or member
   const gettopusers = async () => {
@@ -86,7 +90,7 @@ const Chat = ({ setPage, page, setChat, chat, getChat, pages, message, setMessag
   // get top user or member
   const sendChat = async (e) => {
     e.preventDefault()
-    if (message != '') {
+    if (message != '' || image!='' ) {
       if (!loading) {
         setLoading(true);
         var data = new FormData();
@@ -107,7 +111,9 @@ const Chat = ({ setPage, page, setChat, chat, getChat, pages, message, setMessag
         axios(config)
           .then(function (response) {
             if (response?.status === 201) {
-              getChat()
+              // getChat()
+              scrollToBottom()
+              resetScrollTop()
               setMessage('')
               setImage('')
               setUploadImage('')
@@ -169,7 +175,7 @@ const Chat = ({ setPage, page, setChat, chat, getChat, pages, message, setMessag
                 <div className="chat-inside">
                   {chat?.map?.((elem, index) => {
                     let createdate = new Date(elem?.createdAt);
-                    const createDate = moment(createdate).format("hh:mm:ss a");
+                    const createDate = moment(createdate).format("DD-MM-YYYYY hh:mm:ss a");
                     var extension = elem?.media?.split('.').pop();
                     var result = elem?.media?.split("_")?.pop();
                     // var allowedExtensionsImage = /(\.jpg|\.jpeg|\.png|\.gif)$/i;

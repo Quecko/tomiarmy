@@ -24,7 +24,10 @@ import Loader from "../../../hooks/loader";
 const GeneralHome = ({ setShowtask, setroutehome, routeshome }) => {
 
     const [showmajor, setShowmajor] = useState(false);
-    const handleClosemajor = () => setShowmajor(false);
+    const handleClosemajor = () => {
+        setdatamajoradd()
+        setShowmajor(false)
+    };
     const handleShowmajor = () => setShowmajor(true);
     let tok = localStorage.getItem("accessToken");
     const [rend, setRend] = useState(false);
@@ -38,11 +41,10 @@ const GeneralHome = ({ setShowtask, setroutehome, routeshome }) => {
     const [Users, setUsers] = useState([]);
     const [data2, setData2] = useState([]);
     const [Armydataa, setArmydataa] = useState(null);
-    const [DropDownAll, setDropDownAll] = useState('All Time');
+    const [DropDownAll, setDropDownAll] = useState('all time');
     let user1 = localStorage.getItem("user");
     user1 = JSON.parse(user1);
     const { account } = useWeb3React();
-
     const [value, setValue] = useState([])
     const [minted, setMinted] = useState([])
     const [datee, setDatee] = useState([])
@@ -81,7 +83,7 @@ const GeneralHome = ({ setShowtask, setroutehome, routeshome }) => {
     }
 
     const GetArmy = () => {
-        
+
         var config = {
             method: "get",
             url: `${API_URL}/tasks/army-ranks`,
@@ -131,7 +133,7 @@ const GeneralHome = ({ setShowtask, setroutehome, routeshome }) => {
             setLoader(true)
             axios.defaults.headers.post[
                 "Authorization"
-              ] = `Bearer ${tok}`;
+            ] = `Bearer ${tok}`;
             var config = {
                 method: "post",
                 url: `${API_URL}/auth/users/major-general`,
@@ -273,7 +275,7 @@ const GeneralHome = ({ setShowtask, setroutehome, routeshome }) => {
         // } else {
         //     valu = 1;
         // }
-        if (account) {
+        // if (account) {
             var config = {
                 method: "get",
                 url: `${API_URL}/tasks/pending-ranks-update?offset=1&&limit=5`,
@@ -297,7 +299,41 @@ const GeneralHome = ({ setShowtask, setroutehome, routeshome }) => {
                     // window.location.assign("/")
                     // window.location.reload();
                 });
-        }
+        // }
+    }
+
+    const armymembermajor = async (off) => {
+        // let valu = null;
+        // if (off) {
+        //     valu = off;
+        // } else {
+        //     valu = 1;
+        // }
+        // if (account) {
+        var config = {
+            method: "get",
+            url: `${API_URL}/auth/users/army-members?offset=1&&limit=5`,
+            headers: {
+                authorization: `Bearer ` + tok
+            },
+        };
+        axios(config)
+            .then(function (response) {
+                // setLoader(false);
+                // setCount2(response.data.data.count)
+                setData2(response?.data?.data?.users);
+                // let arr = Array.from(Array(parseInt(response.data.data.pages)).keys());
+                // setPages2(arr);
+                // setCurrentPage2(valu)
+            })
+            .catch(function (error) {
+                // setLoader(false);
+                // localStorage.removeItem("accessToken");
+                // localStorage.removeItem("user");
+                // window.location.assign("/")
+                // window.location.reload();
+            });
+        // }
     }
 
     const getData = async (off) => {
@@ -307,31 +343,31 @@ const GeneralHome = ({ setShowtask, setroutehome, routeshome }) => {
         // } else {
         //     valu = 1;
         // }
-        if (account) {
-            var config = {
-                method: "get",
-                url: `${API_URL}/tasks/work-proofs?offset=1&&limit=10`,
-                headers: {
-                    authorization: `Bearer ` + tok
-                },
-            };
-            axios(config)
-                .then(function (response) {
-                    // setLoader(false);
-                    // setCount(response.data.data.count)
-                    settasks(response?.data?.data?.workProof);
-                    // let arr = Array.from(Array(parseInt(response.data.data.pages)).keys());
-                    // setPages(arr);
-                    // setCurrentPage(valu)
-                })
-                .catch(function (error) {
-                    // setLoader(false);
-                    // localStorage.removeItem("accessToken");
-                    // localStorage.removeItem("user");
-                    // window.location.assign("/")
-                    // window.location.reload();
-                });
-        }
+        // if (account) {
+        var config = {
+            method: "get",
+            url: `${API_URL}/tasks/work-proofs?offset=1&&limit=5`,
+            headers: {
+                authorization: `Bearer ` + tok
+            },
+        };
+        axios(config)
+            .then(function (response) {
+                // setLoader(false);
+                // setCount(response.data.data.count)
+                settasks(response?.data?.data?.workProof);
+                // let arr = Array.from(Array(parseInt(response.data.data.pages)).keys());
+                // setPages(arr);
+                // setCurrentPage(valu)
+            })
+            .catch(function (error) {
+                // setLoader(false);
+                // localStorage.removeItem("accessToken");
+                // localStorage.removeItem("user");
+                // window.location.assign("/")
+                // window.location.reload();
+            });
+        // }r
     }
 
     const graphchat = async (off) => {
@@ -373,9 +409,26 @@ const GeneralHome = ({ setShowtask, setroutehome, routeshome }) => {
         topsolider();
         SquadUsers();
         getData();
-        GeneralApproval();
+
         // graphchat();
     }, []);
+
+    useEffect(() => {
+        let user1 = localStorage.getItem("user");
+        user1 = JSON.parse(user1);
+        if (user1?.rank?.name === "general") {
+            GeneralApproval();
+        }
+    }, [])
+
+    useEffect(() => {
+        let user1 = localStorage.getItem("user");
+        user1 = JSON.parse(user1);
+        if (user1?.rank?.name === "major general") {
+            armymembermajor();
+        }
+    }, [])
+
 
     useEffect(() => {
         GetArmydata();
@@ -446,7 +499,7 @@ const GeneralHome = ({ setShowtask, setroutehome, routeshome }) => {
 
     return (
         <>
-        {loader && <Loader/>}
+            {loader && <Loader />}
             {!routeshome ? <div className="formobile-heading d-none display-block-in-mobile">
                 <div className="inner-heading">
                     <h6>Welcome general, </h6>
@@ -823,7 +876,7 @@ const GeneralHome = ({ setShowtask, setroutehome, routeshome }) => {
                                     <div className="data-box general-tasks-wrappergeneral border-grad1 set-custom-mbl-top-margin">
                                         <div className="d-flex justify-content-between align-item-center">
                                             <h4 className="heading-gen">tasks pending proof of work approvals</h4>
-                                            <a href="#" className="btn-view">View All <img src="\generalassets\icons\arrow-right.svg" alt="img" className="img-fluid" /></a>
+                                            <a href="#" onClick={() => localStorage.setItem('indexvalue', 3)} className="btn-view">View All <img src="\generalassets\icons\arrow-right.svg" alt="img" className="img-fluid" /></a>
                                         </div>
 
                                         <Table striped bordered hover responsive className="general-tasks-table display-none-in-mobile">
@@ -842,7 +895,7 @@ const GeneralHome = ({ setShowtask, setroutehome, routeshome }) => {
                                                             <td>{elem?.user?.nickName}</td>
                                                             <td>{elem?.task?.name?.slice(0, 40) + "..."}</td>
                                                             <td>
-                                                                <div style={{ maxWidth: '83px', width: '100%',background:'#FF8936' }} className="completed">Pending</div>
+                                                                <div style={{ maxWidth: '83px', width: '100%', background: '#FF8936' }} className="completed">Pending</div>
                                                             </td>
                                                             <td>{elem?.task?.reward}</td>
                                                             {/* <td>
@@ -898,31 +951,79 @@ const GeneralHome = ({ setShowtask, setroutehome, routeshome }) => {
                                 <div className="col-xl-6 col-12 pe-0 padd-sm">
                                     <div className="data-box general-tasks-wrappergeneral border-grad1 set-custom-mbl-top-margin">
                                         <div className="d-flex justify-content-between align-item-center">
-                                            <h4 className="heading-gen">Pending rank approvals</h4>
-                                            <a href="#" className="btn-view">View All <img src="\generalassets\icons\arrow-right.svg" alt="img" className="img-fluid" /></a>
+                                            {user1?.rank?.name === "major general" ?
+                                                (
+                                                    <>
+                                                        <h4 className="heading-gen">Army Members</h4>
+                                                        <a href="#" onClick={() => localStorage.setItem('indexvalue', 9)} className="btn-view">View All <img src="\generalassets\icons\arrow-right.svg" alt="img" className="img-fluid" /></a>
+                                                    </>
+                                                )
+                                                :
+                                                (
+                                                    <>
+                                                        <h4 className="heading-gen">Pending rank approvals</h4>
+                                                        <a href="#" onClick={() => localStorage.setItem('indexvalue', 5)} className="btn-view">View All <img src="\generalassets\icons\arrow-right.svg" alt="img" className="img-fluid" /></a>
+                                                    </>
+                                                )
+                                            }
                                         </div>
-
                                         <Table striped bordered hover responsive className="general-tasks-table display-none-in-mobile">
-                                            <thead>
-                                                <tr>
-                                                    <th>Wallet</th>
-                                                    <th>Nickname</th>
-                                                    <th>From</th>
-                                                    <th>To</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                {data2?.map((elem, index) => {
-                                                    return (
-                                                        <tr key={index}>
-                                                            <td>{elem?.walletAddress?.slice(0, 14) + "..."}</td>
-                                                            <td>{elem?.nickName}</td>
-                                                            <td>{elem?.from}</td>
-                                                            <td>{elem?.to}</td>
+                                            {user1?.rank?.name === "major general" ?
+                                                (
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Wallet</th>
+                                                            <th>Nickname</th>
+                                                            <th>Rank</th>
+                                                            <th>Points</th>
                                                         </tr>
-                                                    )
-                                                })}
-                                            </tbody>
+                                                    </thead>
+                                                )
+                                                :
+                                                (
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Wallet</th>
+                                                            <th>Nickname</th>
+                                                            <th>From</th>
+                                                            <th>To</th>
+                                                        </tr>
+                                                    </thead>
+                                                )
+                                            }
+
+                                            {user1?.rank?.name === "major general" ?
+                                                (
+                                                    <tbody>
+                                                        {data2?.map((elem, index) => {
+                                                            return (
+                                                                <tr key={index}>
+                                                                    <td>{elem?.walletAddress?.slice(0, 14) + "..."}</td>
+                                                                    <td>{elem?.nickName}</td>
+                                                                    <td>{elem?.rank?.name}</td>
+                                                                    <td>{elem?.points}</td>
+                                                                </tr>
+                                                            )
+                                                        })}
+                                                    </tbody>
+                                                )
+                                                :
+                                                (
+                                                    <tbody>
+                                                        {data2?.map((elem, index) => {
+                                                            return (
+                                                                <tr key={index}>
+                                                                    <td>{elem?.walletAddress?.slice(0, 14) + "..."}</td>
+                                                                    <td>{elem?.nickName}</td>
+                                                                    <td>{elem?.from}</td>
+                                                                    <td>{elem?.to}</td>
+                                                                </tr>
+                                                            )
+                                                        })}
+                                                    </tbody>
+                                                )
+                                            }
+
                                         </Table>
                                         <div className="mobile-responsive-table d-none display-block-in-mobile">
                                             <div className="heading-mobile">

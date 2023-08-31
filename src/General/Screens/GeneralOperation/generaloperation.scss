@@ -257,7 +257,11 @@
         }
     }
 }
-
+.ysajgdashgdjsagjd{
+    display: flex;
+    justify-content: end;
+    flex-direction: column;
+}
 @media (max-width:991px){
     .main-task .my-tabs .nav-tabs .nav-link{
         font-size: 14px;
@@ -308,4 +312,5 @@
     justify-content: center;
     margin-top: -16px;
     margin-bottom: 20px;
+    align-items: center;
 }

@@ -7,12 +7,13 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Loader from "../../../../hooks/loader";
 
-const TopSquad = ({ topSquad, GetUserTopSquad, getPrevData, getNextData, pages, currentPage, count, limit, search, setSearch, getSearchData }) => {
+const TopSquad = ({ topSquad, GetUserTopSquad, getPrevData, getNextData, pages, currentPage, count, limit, search, setSearch }) => {
+
   const [loader, setLoader] = useState(false);
   let tok = localStorage.getItem("accessToken");
   const SendInvite = (id) => {
     // if (account) {
-      setLoader(true)
+    setLoader(true)
     axios.defaults.headers.post[
       "Authorization"
     ] = `Bearer ${tok}`;
@@ -39,10 +40,18 @@ const TopSquad = ({ topSquad, GetUserTopSquad, getPrevData, getNextData, pages, 
       });
     // }
   }
+  const clear = () => {
+    setSearch('')
+}
+useEffect(() => {
+    if (search == '') {
+        GetUserTopSquad(currentPage)
+    }
+}, [search])
 
   return (
     <>
-    {loader && <Loader/>}
+      {loader && <Loader />}
       <section className="home-operations topsquad-table border-grad1">
         <div className='maincard '>
           <div className="upper-head">
@@ -52,8 +61,10 @@ const TopSquad = ({ topSquad, GetUserTopSquad, getPrevData, getNextData, pages, 
             <input value={search} onChange={(e) => setSearch(e.target.value)} type="text" placeholder='Search' />
             {/* <img src="\assets\search-icon.svg" alt="img" className='img-fluid search-icon' /> */}
             <div className="twice-new-btn-sm">
-              <button className="btn-search" onClick={() => getSearchData(currentPage)}>Search</button>
-              <button className="btn-reset" onClick={() => GetUserTopSquad(currentPage)}>reset</button>
+              <button className="btn-search" onClick={() => GetUserTopSquad(1)}>Search</button>
+              {search !== '' &&
+                <button className="btn-reset" onClick={clear}><img src='/reset.png' alt='' /></button>
+              }
             </div>
 
           </div>
@@ -76,36 +87,41 @@ const TopSquad = ({ topSquad, GetUserTopSquad, getPrevData, getNextData, pages, 
                 </tr>
               </thead>
               <tbody>
-                {topSquad?.map((elem) => {
-                  return (
-                    <>
-                      <tr>
-                        <td>
-                          <div className="parent">
-                            <div className="profile">
-                              <img src={elem?.symbol} alt="img" className='img-fluid' />
+                {topSquad?.length > 0 ?
+                  topSquad?.map((elem) => {
+                    return (
+                      <>
+                        <tr>
+                          <td>
+                            <div className="parent">
+                              <div className="profile">
+                                <img src={elem?.symbol} alt="img" className='img-fluid' />
+                              </div>
+                              <p className='paratable'>{elem?.name}</p>
                             </div>
-                            <p className='paratable'>{elem?.name}</p>
-                          </div>
-                        </td>
-                        <td>
-                          <p className='paratable'>{elem?.membersCount}</p>
-                        </td>
-                        <td>
-                          <p className='paratable'>{elem?.totalTokens} TOMI</p>
-                        </td>
-                        <td>
-                          <button className={elem?.squad_invitation_requests ? 'btn-requested' : 'btn-requestjoin'} onClick={() => SendInvite(elem?._id)}>{elem?.squad_invitation_requests ? 'Requested' : 'Request to join'}</button>
-                        </td>
-                      </tr>
-                    </>
-                  )
-                })}
+                          </td>
+                          <td>
+                            <p className='paratable'>{elem?.membersCount}</p>
+                          </td>
+                          <td>
+                            <p className='paratable'>{elem?.totalTokens} TOMI</p>
+                          </td>
+                          <td>
+                            <button className={elem?.squad_invitation_requests ? 'btn-requested' : 'btn-requestjoin'} onClick={() => SendInvite(elem?._id)}>{elem?.squad_invitation_requests ? 'Requested' : 'Request to join'}</button>
+                          </td>
+                        </tr>
+                      </>
+                    )
+                  })
+                  : <h4>
+                    NO Squad
+                  </h4>
+                }
               </tbody>
             </table>
             <div className="pagi">
               <div>
-                <p>Showing {limit} to {currentPage * 5 >= count ? currentPage - (currentPage - count) : currentPage * 5} of {count} entries</p>
+                {/* <p>Showing {limit} to {currentPage * 5 >= count ? currentPage - (currentPage - count) : currentPage * 5} of {count} entries</p> */}
               </div>
               <nav className="right">
                 <ul className="pagination">
@@ -158,7 +174,7 @@ const TopSquad = ({ topSquad, GetUserTopSquad, getPrevData, getNextData, pages, 
               {topSquad?.map((elem, index) => {
                 return (
                   <Accordion.Item eventKey={index}>
-                    <Accordion.Header> <img src="\assets\squad-profile.png" alt="img" className='img-fluid me-2' /> {elem?.name}</Accordion.Header>
+                    <Accordion.Header> <img style={{ width: '34px', height: '34px' }} src={elem?.symbol} alt="img" className='img-fluid me-2' /> {elem?.name}</Accordion.Header>
                     <Accordion.Body>
                       <div className="inner-fields">
                         <div className="inner-item">
@@ -179,6 +195,51 @@ const TopSquad = ({ topSquad, GetUserTopSquad, getPrevData, getNextData, pages, 
                 )
               })}
             </Accordion>
+            <div className="pagi">
+              <div>
+                {/* <p>Showing {limit} to {currentPage * 5 >= count ? currentPage - (currentPage - count) : currentPage * 5} of {count} entries</p> */}
+              </div>
+              <nav className="right">
+                <ul className="pagination">
+                  <li className="page-item">
+                    <button
+                      onClick={() => getPrevData(currentPage)}
+                      className="page-link arrowssss scsdsdfefssdvsdvsd"
+                    >
+                      {/* <i className="fas curPointer fa-angle-left"></i> */}
+                      Previous
+                    </button>
+                  </li>
+                  {pages?.map((item, index) => {
+                    return (
+                      <li key={index} className="page-item cursor-pointer">
+                        <p
+                          className={
+                            "page-link " +
+                            (index + 1 === parseInt(currentPage)
+                              ? "active-pag"
+                              : "")
+                          }
+                          onClick={() => GetUserTopSquad(index + 1)}
+                          style={{ fontSize: "13px !important" }}
+                        >
+                          {index + 1}
+                        </p>
+                      </li>
+                    );
+                  })}
+                  <li className="page-item">
+                    <button
+                      onClick={() => getNextData(currentPage)}
+                      className="page-link arrowssss"
+                    >
+                      {/* <i className="fas curPointer fa-angle-right"></i> */}
+                      Next
+                    </button>
+                  </li>
+                </ul>
+              </nav>
+            </div>
           </div>
         </div>
       </section>

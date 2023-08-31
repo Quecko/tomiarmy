@@ -9,6 +9,7 @@ import { API_URL } from "../../utils/ApiUrl"
 import { toast } from 'react-toastify';
 import axios from 'axios';
 import moment from 'moment';
+import Loader from '../../hooks/loader'
 
 const BugReport = () => {
 
@@ -34,13 +35,14 @@ const BugReport = () => {
     }
   
     const createBug = () => {
-        setLoader(true);
+       
         var data = ({
             issue: allFormData.issue,
             description: allFormData.description,
             imageUrl: imageUrl
         });
         if (allFormData.issue !== "" && allFormData.description !== "" && imageUrl !== "") {
+            setLoader(true);
             axios.defaults.headers.post[
                 "Authorization"
             ] = `Bearer ${tok}`;
@@ -118,6 +120,7 @@ const BugReport = () => {
 
     return (
         <>
+        {loader &&<Loader/>}
             <div className="formobile-heading d-none display-block-in-mobile">
                 <div className="inner-heading">
                     <h6>Report a Bug</h6>

@@ -32,6 +32,8 @@ import AllOperationTaskModal from "../../screens/AllOperationTaskModal";
 import useAuth from "../../../hooks/useAuth";
 import { useDispatch } from "react-redux";
 import { addUer } from '../../../redux/action';
+import TopSquad from "../home/HomeOperations/TopSquad";
+import TopSquadModal from "../../screens/TopSquadModal";
 
 
 const Sidebar = () => {
@@ -41,22 +43,22 @@ const Sidebar = () => {
   const { account } = useWeb3React()
 
   useEffect(() => {
-    if (data?.isCommander == false && data?.isCoLeader == true){
-        history.push('/leader')
-    }
-    else if((data?.isCommander == true)){
+    if (data?.isCommander == false && data?.isCoLeader == true) {
       history.push('/leader')
     }
-    else if(data?.isCommander == false && data?.isCoLeader == false && data?.rank?.name !== 'general' && data?.rank?.name !== 'major general'){
+    else if ((data?.isCommander == true)) {
+      history.push('/leader')
+    }
+    else if (data?.isCommander == false && data?.isCoLeader == false && data?.rank?.name !== 'general' && data?.rank?.name !== 'major general') {
       history.push('/soldier')
     }
-    else if (data?.rank?.name == 'general' && data?.isCommander == false && data?.isCoLeader == false){
+    else if (data?.rank?.name == 'general' && data?.isCommander == false && data?.isCoLeader == false) {
       history.push('/general')
     }
-    else if (data?.rank?.name == 'major general' && data?.isCommander == false && data?.isCoLeader == false){
+    else if (data?.rank?.name == 'major general' && data?.isCommander == false && data?.isCoLeader == false) {
       history.push('/majorgeneral')
     }
-    else{
+    else {
       localStorage.clear()
       window.location.assign('/')
 
@@ -97,6 +99,7 @@ const Sidebar = () => {
   const [notifs, setNotifs] = useState([]);
   const [rend, setRend] = useState(false);
   const [statusData, setStatus] = useState('')
+  const [showTopSquadModal, setShowTopSquadModal] = useState(false)
 
   useEffect(() => {
     if (indexvv == "0") {
@@ -378,12 +381,16 @@ const Sidebar = () => {
   }
 
   const getChat = async () => {
-
-    // page = message!='' ?1 :page; 
-    setPage(message != '' ? 1 : page)
+    if (message != '') {
+      setFirstTime(true)
+      setPage(1)
+    }
+    else {
+      setPage(page)
+    }
     var config = {
       method: "get",
-      url: `${API_URL}/chats/group-messages?offset=${page}&limit=10`,
+      url: `${API_URL}/chats/group-messages?offset=${page}&limit=10000`,
       headers: {
         authorization: `Bearer ` + tok
       },
@@ -391,13 +398,16 @@ const Sidebar = () => {
     axios(config)
       .then(function (response) {
         allPages(response?.data?.data?.pages)
-        if (firstTime || message != '') {
+        if (firstTime==true) {
           let rev = reverse([...response?.data?.data?.groupMessages])
           setChat(rev);
           setFirstTime(false)
         }
-        else {
-
+        else if(page==1){
+          let rev = reverse([...response?.data?.data?.groupMessages])
+          setChat(rev)
+        }
+        else{
           let rev = reverse([...response?.data?.data?.groupMessages])
           setChat([...rev, ...chat])
         }
@@ -462,12 +472,18 @@ const Sidebar = () => {
       });
     // }
   }
+
   useEffect(() => {
     if (data?.memberOfSquad === true) {
       getChat()
+    }
+  }, [page,pages])
+
+  useEffect(() => {
+    if (data?.memberOfSquad === true) {
       SquadUsers()
     }
-  }, [page])
+  }, [])
   useEffect(() => {
     GetTaskStatusData()
     getNotif()
@@ -912,11 +928,11 @@ const Sidebar = () => {
             </div>
           </div>
           <div className="content-column">
-            <Header handleShow={handleShow} getChat={getChat} indexwait={indexwait} routes={routes} setroute={setroute} show1={show1} setShow1={setShow1} show2={show2} setShow2={setShow2} setShow4={setShow4} setShow5={setShow5} notifs={notifs} getNotif={getNotif} getData={getData} getDataOperation={getDataOperation} />
+            <Header handleShow={handleShow} getChat={getChat} indexwait={indexwait} routes={routes} setroute={setroute} show1={show1} setShow1={setShow1} show2={show2} setShow2={setShow2} setShow4={setShow4} setShow5={setShow5} notifs={notifs} getNotif={getNotif} getData={getData} getDataOperation={getDataOperation} setindexwait={setindexwait} />
             {indexwait === 0 ?
               (
                 <>
-                  <Home show2={show2} setShow2={setShow2} tasks={tasks} setShowtask={setShowtask} settaskdetail={settaskdetail} setShowtask1={setShowtask1} settaskdetail1={settaskdetail1} operations={operations} setOperationId={setOperationId} users={users} squaddetail={squaddetail} statusData={statusData} setindexwait={setindexwait} />
+                  <Home show2={show2} setShow2={setShow2} tasks={tasks} setShowtask={setShowtask} settaskdetail={settaskdetail} setShowtask1={setShowtask1} settaskdetail1={settaskdetail1} operations={operations} setOperationId={setOperationId} users={users} squaddetail={squaddetail} statusData={statusData} setindexwait={setindexwait} GetUserProfiledata={GetUserProfiledata}  setShowTopSquadModal={setShowTopSquadModal} />
                 </>
               )
               :
@@ -969,7 +985,7 @@ const Sidebar = () => {
                           indexwait == 7 ?
                             (
                               <>
-                                <ClaimRewards />
+                                <ClaimRewards squaddetail={squaddetail} GetUserProfiledata={GetUserProfiledata} />
                               </>
                             )
                             : indexwait == 8 ?
@@ -1012,7 +1028,6 @@ const Sidebar = () => {
             }
 
           </div>
-
         </div>
       </div>
 
@@ -1446,10 +1461,11 @@ const Sidebar = () => {
       </Offcanvas>
 
 
-      <SquadModals show1={show1} setShow1={setShow1} show2={show2} setShow2={setShow2} SquadUsers={SquadUsers} GetUserProfiledata={GetUserProfiledata} />
+      <SquadModals show1={show1} setShow1={setShow1} show2={show2} setShow2={setShow2} SquadUsers={SquadUsers} GetUserProfiledata={GetUserProfiledata}  setindexwait={setindexwait}/>
       <LeaderModals show4={show4} setShow4={setShow4} show5={show5} setShow5={setShow5} show6={show6} setShow6={setShow6} item={coLeaderDetails} SquadUsers={SquadUsers} />
       <AllTaskModals showtask={showtask} setShowtask={setShowtask} settaskdetail={settaskdetail} taskdetail={taskdetail} getData={getData} />
       <AllOperationTaskModal showtask1={showtask1} setShowtask1={setShowtask1} settaskdetail1={settaskdetail1} taskdetail1={taskdetail1} getDataOperation={getDataOperation} operationId={operationId} />
+      <TopSquadModal showTopSquadModal={showTopSquadModal} setShowTopSquadModal={setShowTopSquadModal} />
     </>
   );
 };

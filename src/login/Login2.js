@@ -26,7 +26,7 @@ const Login2 = () => {
             <img src='\loginRightBottomImg.png' alt='img' className='img-fluid border-right-shadow' />
             <div className='login-tabs-wrapper '>
                 <Tabs
-                    defaultActiveKey="alreadymember"
+                    defaultActiveKey={"alreadymember"}
                  transition={false}
                     id="noanim-tab-example"
                     onSelect={onselecttab}

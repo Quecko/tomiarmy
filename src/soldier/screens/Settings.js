@@ -1,10 +1,13 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import "./settings.scss"
 import Modal from 'react-bootstrap/Modal';
 import { API_URL } from "../../utils/ApiUrl"
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import { TokenExpiredOrNot } from '../../utils/TokenExpiredOrNot';
+import Loader from '../../hooks/loader'
+import Cropper from "react-easy-crop";
+import { showCroppedImage } from '../../utils/cropImage';
 
 const Settings = () => {
   const [show, setShow] = useState(false);
@@ -17,15 +20,50 @@ const Settings = () => {
   let tok = localStorage.getItem("accessToken");
   const [showprofile, setShowProfile] = useState(false);
   const handleCloseProfile = () => setShowProfile(false);
-  const handleShowProfile = () => setShowProfile(true);
-
+  const handleShowProfile = () => setShowProfile(true)
   const [showForumDeleteModal, setShowForumDeleteModal] = useState(false);
   const handleCloseDeleteForum = () => setShowForumDeleteModal(false);
-
   const [profilePicture, setProfilePicture] = useState('');
-  const setProfilePic = (evt) => {
-    setProfilePicture(evt.target.files[0]);
+
+  // const setProfilePic = (evt) => {
+  //   setIsShown(true)
+  //   setProfilePicture(evt.target.files[0]);
+  // }
+
+  // imaage crop
+  const [imageSrc, setImageSrc] = useState(null);
+  const [crop, setCrop] = useState({ x: 0, y: 0 });
+  const [zoom, setZoom] = useState(1);
+  const [croppedImage, setCroppedImage] = useState(null);
+  const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
+  const [widthh, setWidthh] = useState(0)
+  const [heightt, setHeightt] = useState(0)
+
+  const onCropComplete = useCallback((croppedArea, croppedAreaPixels) => {
+    setCroppedAreaPixels(croppedAreaPixels);
+  }, []);
+
+  const [isShown, setIsShown] = useState(false);
+
+  const handleClick = () => {
+    setIsShown(false);
+  };
+  function readFile(file) {
+    return new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.addEventListener("load", () => resolve(reader.result), false);
+      reader.readAsDataURL(file);
+    });
   }
+  const onFileChange = async (e) => {
+    if (e.target.files && e.target.files.length > 0) {
+      const file = e.target.files[0];
+      setIsShown(true)
+      setProfilePicture(file);
+      let imageDataUrl = await readFile(file);
+      setImageSrc(imageDataUrl);
+    }
+  };
 
   const [p, setP] = useState('')
   const getProfile = async () => {
@@ -50,6 +88,7 @@ const Settings = () => {
     // console.log('t',t)
     // if(t){
     if (nick != '') {
+      setLoader(true)
       var config = {
         method: "patch",
         url: `${API_URL}/auth/users`,
@@ -87,13 +126,10 @@ const Settings = () => {
     // }
   }
 
-
-
-
   const addProfile = async () => {
-
     let tok = localStorage.getItem("accessToken");
     if (profilePicture != '') {
+      setLoader(true)
       var data1 = new FormData();
       data1.append("userProfileImage", profilePicture)
       var config = {
@@ -115,6 +151,7 @@ const Settings = () => {
           getProfile()
           setLoader(false);
           handleClose()
+          setCroppedImage('')
           toast.success('Update profile successfully', {
             position: "top-right",
             autoClose: 2000,
@@ -139,9 +176,9 @@ const Settings = () => {
 
 
 
-
   return (
     <>
+      {loader && <Loader />}
       <div className="formobile-heading d-none display-block-in-mobile">
         <div className="inner-heading">
           <h6>settings</h6>
@@ -188,6 +225,9 @@ const Settings = () => {
       </section>
 
 
+
+  
+
       <Modal className='editname-modal' show={show} onHide={handleClose} centered>
         <Modal.Header closeButton>
           <Modal.Title>Edit nickname</Modal.Title>
@@ -200,7 +240,6 @@ const Settings = () => {
           <button onClick={addNickName} className='btn-save'>Save</button>
         </Modal.Body>
       </Modal>
-
 
       <Modal className='detailmodal' show={showprofile} onHide={handleCloseProfile} centered>
         <Modal.Header closeButton>
@@ -222,11 +261,13 @@ const Settings = () => {
                           <label htmlFor="upload">
                             {" "}
                             <img
-                              src={profilePicture ? URL?.createObjectURL(profilePicture) : ""}
+                              src={profilePicture ? URL?.createObjectURL(profilePicture):''}
                               alt="img"
                               className="img-fluid"
                             />
-                          </label> : <label htmlFor="upload">
+                          </label> :
+
+                          <label htmlFor="upload">
                             {" "}
                             <img
                               src="\uploadimage.svg"
@@ -268,23 +309,49 @@ const Settings = () => {
                     </>
                   )
               }
-
-
-              <input type="file" accept="image/png, image/jpeg, image/jpg" className="d-none" id="upload" onChange={(e) => setProfilePic(e)} />
+              {/* 
+              {croppedImage && (
+                <div className="main-img sdbfvsdhgfvdsh h-100 w-100">
+                  <img
+                    src={croppedImage}
+                    className=" upload___immg"
+                  />
+                </div>
+              )
+              } */}
+              <input type="file" accept="image/png, image/jpeg, image/jpg" className="d-none" id="upload" onChange={(e) => onFileChange(e)} />
 
             </div>
+            {/* <div className="bottom-btnss">
+              <input
+                id="upload11"
+                type="file"
+                className="d-none"
+                onChange={onFileChange}
+              />{" "}
+              <label
+                for="upload11"
+                className="cursor___pointer  btncommon"
+              >
+                {" "}
+                Upload
+              </label>
+              <button disabled={croppedImage ? false : true} className="btncommon ml-2 helloo" onClick={editHandler}>
+                Edit
+              </button>
+            </div> */}
           </div>
           <div className='endbtn'>
             <button className="btn-blackk" onClick={handleCloseProfile}><span><img src='\Subtract.svg' alt='img' className='img-fluid' /></span>Cancel</button>
-            {profilePicture === ''  ?
-            <button className="btn-pinkk hsgdvshgdghdsdf" disabled
-            >
-              <img src='\assets\upload-icon.svg' alt='img' className='img-fluid' /> Upload profile picture
+            {profilePicture === '' ?
+              <button className="btn-pinkk hsgdvshgdghdsdf" disabled
+              >
+                <img src='\assets\upload-icon.svg' alt='img' className='img-fluid' /> Upload profile picture
               </button>
-               : <button className="btn-pinkk"  onClick={addProfile}
-               >
-                 <img src='\assets\upload-icon.svg' alt='img' className='img-fluid'  /> Upload profile picture
-                 </button>}
+              : <button className="btn-pinkk" onClick={addProfile}
+              >
+                <img src='\assets\upload-icon.svg' alt='img' className='img-fluid' /> Upload profile picture
+              </button>}
           </div>
         </Modal.Body>
       </Modal>
@@ -303,3 +370,4 @@ const Settings = () => {
 }
 
 export default Settings
+

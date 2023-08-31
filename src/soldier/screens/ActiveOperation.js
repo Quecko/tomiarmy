@@ -112,7 +112,7 @@ const ActiveOperation = ({ setShowtask1, tasks, settaskdetail1, setOperationId }
                                                         </div>
                                                     </td> */}
                                                     <td>
-                                                        <div className='completebtn text-end'>
+                                                        <div className='completebtn'>
                                                             {
                                                                 elem?._id && !elem?.isApproved ?
                                                                     <button style={{ background: '#FEC600' }}>In Process</button>

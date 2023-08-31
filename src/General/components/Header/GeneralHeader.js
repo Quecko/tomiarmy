@@ -28,7 +28,7 @@ const GeneralHeader = ({ routes, setroute, routeshome, setroutehome, indexwait, 
       });
     });
     socket.on('General_Message', () => {
-      toast.info("group message general");
+      // toast.info("group message general");
       getChat()
     });
 

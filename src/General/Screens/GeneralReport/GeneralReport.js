@@ -22,7 +22,6 @@ const GeneralReport = () => {
     const handleClose = () => setShow(false);
     const [loader, setLoader] = useState(false)
 
-    console.log('data',data);
     const handleShow = (elem) => {
         setShow(true)
         let createdate = new Date(elem?.createdAt);

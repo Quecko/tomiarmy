@@ -14,7 +14,6 @@ import { io } from "socket.io-client";
 import { useRef } from 'react';
 
 const GroupChat = ({ setPage, page, setChat, chat, getChat, pages, message, setMessage }) => {
-
   let tok = localStorage.getItem("accessToken");
   const [show, setshow] = useState(false);
   const [show1, setShow1] = useState(false);
@@ -42,17 +41,21 @@ const GroupChat = ({ setPage, page, setChat, chat, getChat, pages, message, setM
   }, [chat]);
 
   const scrollToBottom = () => {
-    // if (chatSectionRef.current) {
     chatSectionRef.current.scrollIntoView({ behavior: 'smooth', block: 'end' });
-    // }
   };
   const handleScroll = () => {
     const container = chatSectionRef.current;
     let scrollTop = Math.abs(container.scrollTop);
-    if (scrollTop + container.clientHeight >= container.scrollHeight - 1 && page != pages) {
-      setPage(page + 1);
-    }
+      if (scrollTop + container.clientHeight >= container.scrollHeight - 1 && page != pages) {
+        setPage(page + 1);
+      }
   }
+
+  // Function to reset scrollTop to zero
+const resetScrollTop = () => {
+  const container = chatSectionRef.current;
+  container.scrollTop = 0;
+}
 
   // get top user or member
   const gettopusers = async () => {
@@ -86,7 +89,7 @@ const GroupChat = ({ setPage, page, setChat, chat, getChat, pages, message, setM
   // get top user or member
   const sendChat = async (e) => {
     e.preventDefault()
-    if (message != '') {
+    if (message != '' || image!='') {
       if (!loading) {
         setLoading(true);
         var data = new FormData();
@@ -108,6 +111,8 @@ const GroupChat = ({ setPage, page, setChat, chat, getChat, pages, message, setM
           .then(function (response) {
             if (response?.status === 201) {
               getChat()
+              scrollToBottom()
+              resetScrollTop()
               setMessage('')
               setImage('')
               setUploadImage('')
@@ -163,13 +168,13 @@ const GroupChat = ({ setPage, page, setChat, chat, getChat, pages, message, setM
                 <h6>Chat</h6>
               </div>
             </div>
-            <div className="chat-section border-grad1" ref={chatSectionRef} onScroll={handleScroll} >
 
+            <div className="chat-section border-grad1" ref={chatSectionRef} onScroll={handleScroll} >
               <div className="chat-box">
                 <div className="chat-inside">
                   {chat?.map?.((elem, index) => {
                     let createdate = new Date(elem?.createdAt);
-                    const createDate = moment(createdate).format("hh:mm:ss a");
+                    const createDate = moment(createdate).format("DD-MM-YYYY hh:mm:ss a");
                     var extension = elem?.media?.split('.').pop();
                     var result = elem?.media?.split("_")?.pop();
                     // var allowedExtensionsImage = /(\.jpg|\.jpeg|\.png|\.gif)$/i;

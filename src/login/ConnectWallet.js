@@ -16,6 +16,8 @@ import Signature from "../hooks/dataSenders/userSign";
 import { useHistory } from "react-router-dom";
 import { API_URL } from '../utils/ApiUrl'
 import GetBalance from "../hooks/dataFetchers/getBalance";
+import RequestInvitationmodal from '../RequestInvitationModal/RequestInvitationmodal';
+// import CustomToaster from '../toaster/CustomToaster';
 
 const ConnectWallet = ({ setjoinsquad, joinsquad, role, setRole, setinvitecode, invitecode }) => {
     const { account } = useWeb3React();
@@ -24,8 +26,12 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role, setRole, setinvitecode, 
     const history = useHistory();
     const { login, logout } = useAuth();
     const [showmodal, setShowModal] = useState(false)
+    const [showToaster, setShowToaster] = useState(false)
     const [loader, setLoader] = useState(false);
     const { GetBal } = GetBalance();
+    const [reqModal, setReqModal] = useState(false)
+    let wall = localStorage.getItem("wallet");
+
 
     const forWalletConnect = () => {
         setShowModal(true)
@@ -33,6 +39,8 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role, setRole, setinvitecode, 
             setShowModal(false)
         }, 10000)
     }
+
+
 
 
     // const trustWallet = async () => {
@@ -53,32 +61,107 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role, setRole, setinvitecode, 
     //     }
     // };
 
+    const [loading, setLoading] = useState(false);
     const trustWallet = async () => {
-        // handleShow()
-        if (account) {
-            const connectorId = window.localStorage.getItem("connectorId")
-            await logout(connectorId);
-            localStorage.removeItem("connectorId");
-            localStorage.removeItem("flag");
-        } else {
-            login("walletconnect");
-            localStorage.setItem('connectorId', 'walletconnect');
-            localStorage.setItem("flag", "true");
-            setLog(true)
+        if (!loading) {
+            if (account && wall) {
+                setLoading(true);
+                const connectorId = window.localStorage.getItem("connectorId");
+                logout(connectorId)
+                    .then(() => {
+                        localStorage.removeItem("connectorId");
+                        localStorage.removeItem("flag");
+                    })
+                    .catch(error => {
+                        console.error("An error occurred during logout:", error);
+                    })
+                    .finally(() => {
+                        setLoading(false);
+                    })
+            } else {
+                setLoading(true);
+                login("walletconnect")
+                    .then(() => {
+                        localStorage.setItem('connectorId', 'walletconnect');
+                        localStorage.setItem("flag", "true");
+                        setLog(true);
+                    })
+                    .catch(error => {
+                        console.error("An error occurred during login:", error);
+                    })
+                    .finally(() => {
+                        setLoading(false);
+                    });
+            }
         }
     };
 
-    const connectMetaMask1 = async () => {
-        if (account) {
-            const connectorId = window.localStorage.getItem("connectorId")
-            await logout(connectorId);
-            localStorage.removeItem("connectorId");
-            localStorage.removeItem("flag");
-        } else {
-            login("injected");
-            localStorage.setItem("connectorId", "injected");
-            localStorage.setItem("flag", "true");
-            setLog(true)
+    // const trustWallet = async () => {
+    //     // handleShow()
+    //     if (account) {
+    //         const connectorId = window.localStorage.getItem("connectorId")
+    //         await logout(connectorId);
+    //         localStorage.removeItem("connectorId");
+    //         localStorage.removeItem("flag");
+    //     } else {
+    //         login("walletconnect");
+    //         localStorage.setItem('connectorId', 'walletconnect');
+    //         localStorage.setItem("flag", "true");
+    //         setLog(true)
+    //     }
+    // };
+
+    // const connectMetaMask1 = async () => {
+    //     if (account) {
+    //         setLoading(true);
+    //         const connectorId = window.localStorage.getItem("connectorId")
+    //         await logout(connectorId);
+    //         localStorage.removeItem("connectorId");
+    //         localStorage.removeItem("flag");
+    //     } else 
+    //     {
+    //         login("injected");
+    //         localStorage.setItem("connectorId", "injected");
+    //         localStorage.setItem("flag", "true");
+    //         setLog(true)
+    //     }
+    // };
+
+    const connectMetaMask1 = () => {
+        if (!loading) {
+            if (account && wall) {
+                setLoading(true);
+                const connectorId = window.localStorage.getItem("connectorId");
+                logout(connectorId)
+                    .then(() => {
+                        localStorage.removeItem("connectorId");
+                        localStorage.removeItem("flag");
+                        // toast.success('Your wallet disconnect please try again', {
+                        //     position: 'top-center',
+                        //     autoClose: 5000,
+                        // });
+                    })
+                    .catch(error => {
+                        console.error("An error occurred during logout:", error);
+                    })
+                    .finally(() => {
+                        setLoading(false);
+                    })
+            } else {
+                setLoading(true);
+                login("injected")
+                    .then(() => {
+                        localStorage.setItem("connectorId", "injected");
+                        localStorage.setItem("flag", "true");
+                        setLog(true);
+                    })
+                    .catch(error => {
+                        console.error("An error occurred during login:", error);
+                    })
+                    .finally(() => {
+                        setLoading(false);
+                    });
+            }
         }
     };
 
@@ -100,53 +183,54 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role, setRole, setinvitecode, 
                         rememberMe: true
                     })
                     .then(async (res) => {
-                        const res1 = await GetBal(account);
-                        console.log(res1)
-                        if (res1 === "1") {
-                            history.push("/tomitoken")
-                            // alert('scesaev')
-                            // history.push("/buytoken")
-                        } else {
-                            localStorage.setItem("accessToken", res?.data?.data?.accessToken);
-                            localStorage.setItem("wallet", res?.data?.data?.walletAddress);
-                            // setShow(false)
-                            localStorage.setItem("user", JSON.stringify(res?.data?.data));
-                            if (res?.data?.data?.rank.name === "general") {
-                                history.push("/general");
-                            } else if (res?.data?.data?.rank.name === "major general") {
-                                history.push("/majorgeneral");
-                            }
-                            else if (res?.data?.data?.isCommander === true) {
-                                history.push("/leader");
-                            }
-                            else if (res?.data?.data?.isCommander === false && res?.data?.data?.squad?.name !== '') {
-                                history.push("/soldier");
-                            } else if (res?.data?.data?.isCommander === false && res?.data?.data?.squad?.name == '') {
-                                history.push("/soldier");
-                            }
-                            else {
-                                localStorage.clear()
-                                window.location.assign('/')
-                            }
-                          
-                            toast.success('User Logged in Successfully', {
-                                position: 'top-center',
-                                autoClose: 5000,
-                            });
+                        // const res1 = await GetBal(account);
+
+                        // if (res1 === "1") {
+                        //     history.push("/tomitoken")
+                        //     // alert('scesaev')
+                        //     // history.push("/buytoken")
+                        // } else {
+                        localStorage.setItem("accessToken", res?.data?.data?.accessToken);
+                        localStorage.setItem("wallet", res?.data?.data?.walletAddress);
+                        // setShow(false)
+                        localStorage.setItem("user", JSON.stringify(res?.data?.data));
+                        if (res?.data?.data?.rank.name === "general") {
+                            history.push("/general");
+                        } else if (res?.data?.data?.rank.name === "major general") {
+                            history.push("/majorgeneral");
                         }
+                        else if (res?.data?.data?.isCommander === true) {
+                            history.push("/leader");
+                        }
+                        else if (res?.data?.data?.isCommander === false && res?.data?.data?.squad?.name !== '') {
+                            history.push("/soldier");
+                        } else if (res?.data?.data?.isCommander === false && res?.data?.data?.squad?.name == '') {
+                            history.push("/soldier");
+                        }
+                        else {
+                            // localStorage.clear()
+                            // window.location.assign('/')
+                        }
+
+                        toast.success('User Logged in Successfully', {
+                            position: 'top-center',
+                            autoClose: 5000,
+                        });
+
 
                     })
                     .catch((err) => {
                         if (err?.response?.data?.statusCode === 404) {
-                            toast.error('No User Found', {
-                                position: 'top-center',
-                                autoClose: 5000,
-                            });
-                            localStorage.clear()
-                            window.location.assign('/')
+                            setReqModal(true)
+                            // toast.error('No User Found', {
+                            //     position: 'top-center',
+                            //     autoClose: 5000,
+                            // });
+                            // localStorage.clear()
+                            // window.location.assign('/')
                         }
-                        localStorage.clear()
-                        window.location.assign('/')
+                        // localStorage.clear()
+                        // window.location.assign('/')
                     });
             }
             else if (account && res0 && role === 'squadjoin') {
@@ -254,12 +338,14 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role, setRole, setinvitecode, 
         }
     }, [account, log])
 
+
     const backtoinvitecode = () => {
         setjoinsquad(false)
         setinvitecode('')
     }
     return (
         <>
+            {/* <CustomToaster message={'User Logged in Successfully'} toggle={showToaster}/> */}
             <div className='ConnectWallet-wrapper border-grad1'>
                 {joinsquad === true ? (
                     <button className='omomomomom' onClick={backtoinvitecode}>Back To InviteCode</button>
@@ -280,13 +366,13 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role, setRole, setinvitecode, 
                 <div className="mainhead">
                     <h5 className="innerhead">Connect Wallet</h5>
                 </div>
-
-                <button onClick={connectMetaMask1} className='metamask-btn ygdshgdsaygdasuygd border-grad'>
+                <button onClick={connectMetaMask1} disabled={loading} className='metamask-btn ygdshgdsaygdasuygd border-grad'>
                     <img src={metamaskIcon} alt='metamaskIcon' />
+                    {/* {loading ? 'MetaMask...' : 'MetaMask'} */}
                     MetaMask
                 </button>
 
-                <button onClick={trustWallet} className='walletConnect-btn border-grad'>
+                <button onClick={trustWallet} disabled={loading} className='walletConnect-btn border-grad'>
                     <img src={walletConnectIcon} alt='walletConnectIcon' />
                     Wallet Connect
                 </button>
@@ -309,6 +395,9 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role, setRole, setinvitecode, 
                 </Modal.Body>
             </Modal>
 
+
+
+            <RequestInvitationmodal reqModal={reqModal} setReqModal={setReqModal} />
         </>
     )
 }
