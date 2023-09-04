@@ -361,7 +361,7 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role, setRole, setinvitecode, 
 
                 }
                 <div className='army-textImg'>
-                    <img src="\login-logo.svg" alt="img" className='img-fluid' />
+                    <img src="\login-logo.svg" alt="img" className='img-fluid set-custom-mobile-logo' />
                 </div>
                 <div className="mainhead">
                     <h5 className="innerhead">Connect Wallet</h5>
