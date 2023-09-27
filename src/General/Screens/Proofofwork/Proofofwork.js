@@ -244,17 +244,13 @@ const Proofofwork = () => {
                 { headers: { authorization: `Bearer ${tok}` } }
             )
             .then((response) => {
-
-                console.log("data ", approvedcheck)
                 if (approvedcheck == 'true') {
-                    console.log("in")
                     handleClosework1();
                     handleShowapprove();
                     // allworkproofs();
                     GetDataOfOperation(operationList);
                     setLoader(false)
                 } else {
-                    console.log("out")
                     handleClosework1();
                     handleShowreject();
                     // allworkproofs();
@@ -296,13 +292,7 @@ const Proofofwork = () => {
     var result = singledetail?.url?.split("_")?.pop();
 
 
-
-
-
-    // console.log('operationList', operationList);
-
     const GetDataOfOperation = (elem) => {
-        // console.log('elem ascsvare dbs svdb',elem);
         // setLoader(true);
         var config = {
             method: "get",

@@ -158,7 +158,6 @@ const Squad = ({ show1, setShow1, show2, setShow2, setShow4, setShow5, setShow6,
       })
       .catch(function (error) {
         toast.error(error?.response?.data?.message)
-        // console.log(error);
         // window.location.reload()
         // window.$("#exampleModalLabel11").modal("hide");
         // setLoader(false);
@@ -190,7 +189,6 @@ const Squad = ({ show1, setShow1, show2, setShow2, setShow4, setShow5, setShow6,
         SquadUsers()
       })
       .catch(function (error) {
-        // console.log(error);
         // window.location.reload()
         // window.$("#exampleModalLabel11").modal("hide");
         // setLoader(false);
@@ -227,7 +225,7 @@ const Squad = ({ show1, setShow1, show2, setShow2, setShow4, setShow5, setShow6,
         SquadUsers()
       })
       .catch(function (error) {
-        // console.log(error);
+        console.log(error);
         // window.location.reload()
         // window.$("#exampleModalLabel11").modal("hide");
         // setLoader(false);

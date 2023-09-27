@@ -131,7 +131,7 @@ const Tasks = ({ setShowtask, settaskdetail, tasks, setexpireds }) => {
                                 let createdate = new Date(elem?.createdAt);
                                 const createDate = moment(createdate).format("DD-MM-YYYY");
                                 return (
-                                  <tr>
+                                  <tr onClick={() => SubmitProofOfWork(elem)}>
                                     <td>
                                       <p className='paratable'>{elem?.name}</p>
                                     </td>

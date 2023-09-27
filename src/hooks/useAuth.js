@@ -42,10 +42,14 @@ const useAuth = () => {
   const { toastError } = useToast();
 
   const login = async (connectorID) => {
-
+    console.log("connector", connectorID);
     const connector = connectorsByName[connectorID];
     if (connector) {
-      await connector.activate(1)
+      if (connectorID === "injected") {
+        await connector.activate(1);
+      } else {
+        await connector.activate();
+      }
     } else {
       toastError("Can't find connector", "The connector config is wrong");
     }

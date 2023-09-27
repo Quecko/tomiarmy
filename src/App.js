@@ -21,6 +21,8 @@ import GeneralSidebar from "./General/components/Sidebar/GeneralSidebar";
 import useEagerConnect from './hooks/useEagerConnect';
 import SquadModals from "./soldier/components/home/HomeOperations/SquadModals";
 import Loader from "./hooks/loader";
+import RequestInvitationmodal from "./RequestInvitationModal/RequestInvitationmodal";
+
 
 function App() {
   useEagerConnect();
@@ -34,7 +36,6 @@ function App() {
           <Route exact path="/" component={Login2} />
           <Route exact path="/requestinvitation" component={Requestinvitation} />
           <Route exact path="/tomitoken" component={Requestinvitation} />
-
           <Route exact path="/dcsquad" component={Dcsquad} />
           {/* soldier + leader all routes here........................... */}
           <Route exact path="/soldier" component={Sidebar} />
@@ -53,6 +54,7 @@ function App() {
           <Route exact path="/general" component={GeneralSidebar} />
           <Route exact path="/majorgeneral" component={GeneralSidebar} />
           <Route component={Login2} />
+          {/* <Route exact path="/requestinviemodal" component={RequestInvitationmodal} /> */}
         </Switch>
       </Router>
     </>

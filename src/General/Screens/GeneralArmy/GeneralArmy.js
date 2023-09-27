@@ -72,10 +72,8 @@ const GeneralArmy = ({ routesarmy, setroutearmy }) => {
     useEffect(() => {
         let user1 = localStorage.getItem("user");
         user1 = JSON.parse(user1);
-        // console.log('aasdasdasdasdasdasdasd', user1)
 
         if (user1?.rank?.name === "general") {
-            // console.log('aasdasdasdasdasdasdasd')
             GeneralApproval();
         }
     }, [account])

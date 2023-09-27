@@ -12,10 +12,8 @@ import { reverse } from "lodash";
 import { Modal } from 'react-bootstrap';
 import { io } from "socket.io-client";
 import { useRef } from 'react';
-import ScrollToBottom, {useScrollToBottom} from 'react-scroll-to-bottom';
 
 const GroupChat = ({ setPage, page, setChat, chat, getChat, pages, message, setMessage }) => {
-  const scrollToBottom = useScrollToBottom();
   let tok = localStorage.getItem("accessToken");
   const [show, setshow] = useState(false);
   const [show1, setShow1] = useState(false);
@@ -39,19 +37,25 @@ const GroupChat = ({ setPage, page, setChat, chat, getChat, pages, message, setM
   const chatSectionRef = useRef(null);
   useEffect(() => {
     // Scroll to the end of the chat section when the component mounts
-    scrollToBottomss();
+    scrollToBottom();
   }, [chat]);
 
-  const scrollToBottomss = () => {
+  const scrollToBottom = () => {
     chatSectionRef.current.scrollIntoView({ behavior: 'smooth', block: 'end' });
   };
   const handleScroll = () => {
     const container = chatSectionRef.current;
     let scrollTop = Math.abs(container.scrollTop);
-    if (scrollTop + container.clientHeight >= container.scrollHeight - 1 && page != pages) {
-      setPage(page + 1);
-    }
+      if (scrollTop + container.clientHeight >= container.scrollHeight - 1 && page != pages) {
+        setPage(page + 1);
+      }
   }
+
+  // Function to reset scrollTop to zero
+const resetScrollTop = () => {
+  const container = chatSectionRef.current;
+  container.scrollTop = 0;
+}
 
   // get top user or member
   const gettopusers = async () => {
@@ -106,8 +110,9 @@ const GroupChat = ({ setPage, page, setChat, chat, getChat, pages, message, setM
         axios(config)
           .then(function (response) {
             if (response?.status === 201) {
-              // getChat()
+              getChat()
               scrollToBottom()
+              resetScrollTop()
               setMessage('')
               setImage('')
               setUploadImage('')
@@ -163,15 +168,13 @@ const GroupChat = ({ setPage, page, setChat, chat, getChat, pages, message, setM
                 <h6>Chat</h6>
               </div>
             </div>
-            <ScrollToBottom>
 
-            
             <div className="chat-section border-grad1" ref={chatSectionRef} onScroll={handleScroll} >
               <div className="chat-box">
                 <div className="chat-inside">
                   {chat?.map?.((elem, index) => {
                     let createdate = new Date(elem?.createdAt);
-                    const createDate = moment(createdate).format("DD-MM-YYYYY hh:mm:ss a");
+                    const createDate = moment(createdate).format("DD-MM-YYYY hh:mm:ss a");
                     var extension = elem?.media?.split('.').pop();
                     var result = elem?.media?.split("_")?.pop();
                     // var allowedExtensionsImage = /(\.jpg|\.jpeg|\.png|\.gif)$/i;
@@ -374,7 +377,6 @@ const GroupChat = ({ setPage, page, setChat, chat, getChat, pages, message, setM
               </div>
 
             </div>
-            </ScrollToBottom>
             <div className='chat-section dfdsfsfdsfsdfsdfsdf'>
               <form onSubmit={(e) => sendChat(e)}>
                 <div className="bottom-side">

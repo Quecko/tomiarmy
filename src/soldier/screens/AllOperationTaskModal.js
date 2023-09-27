@@ -40,14 +40,8 @@ const AllOperationTaskModal = ({ showtask1, setShowtask1, settaskdetail1, taskde
     // const handleAddClick = () => {
     //   setInputList([...inputList, { firstName: "", lastName: "" }]);
     // };
-
-
-    
-
     const [inputs, setInputs] = useState({})
-
     const SubmitWork = async () => {
-       
         let dumObj = {};
         let dumArr = []
         if (multiplemages[0]?.multorimg != '' || powUrl !== "") {
@@ -74,7 +68,6 @@ const AllOperationTaskModal = ({ showtask1, setShowtask1, settaskdetail1, taskde
             dumObj.image = dumarr;
             dumObj.name = taskdetail1?.name;
             dumObj.description = taskdetail1?.description
-
             dumObj.url = m;
             dumArr = [dumObj];
         }
@@ -116,14 +109,12 @@ const AllOperationTaskModal = ({ showtask1, setShowtask1, settaskdetail1, taskde
             });
 
     }
-
     const [multiplemages, setmultiplemages] = useState
         ([
             {
                 multorimg: ""
             }
         ]);
-
     //  Task Here Start
     const handleInputChange = async (e, index) => {
         const file = e.target.files[0];
@@ -148,7 +139,6 @@ const AllOperationTaskModal = ({ showtask1, setShowtask1, settaskdetail1, taskde
             }
         }
     };
-
     const handleRemoveClick = index => {
         const list = [...multiplemages];
         list.splice(index, 1)
@@ -161,7 +151,6 @@ const AllOperationTaskModal = ({ showtask1, setShowtask1, settaskdetail1, taskde
         }
         ]);
     };
-
     return (
         <>
         {loader && <Loader/>}
@@ -197,9 +186,7 @@ const AllOperationTaskModal = ({ showtask1, setShowtask1, settaskdetail1, taskde
                         }}>Submit proof of work</button>
                     </div>
                 </Modal.Body>
-
             </Modal>
-
             <Modal className='detailmodal' show={show1} onHide={handleClose1} centered>
                 <Modal.Header closeButton>
                     <Modal.Title>

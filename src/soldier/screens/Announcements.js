@@ -19,12 +19,12 @@ const Announcements = () => {
   const [loader, setLoader] = useState(false)
   const [announcements, setAnnouncements] = useState([])
   let tok = localStorage.getItem("accessToken");
-  const [selecttab, setselecttab] = useState('home')
+  const [selecttab, setselecttab] = useState('profile')
 
   const getAnnouncements = async () => {
     var config = {
       method: "get",
-      url: `${API_URL}/notifications/announcements/user-announcements?offset=1&limit=5&isRead=${selecttab === 'home' ? true : false}`,
+      url: `${API_URL}/notifications/announcements/user-announcements?offset=1&limit=5&isRead=${selecttab === 'profile' ? false : true}`,
       headers: {
         authorization: `Bearer ` + tok
       },
@@ -111,12 +111,128 @@ const Announcements = () => {
             <div className='col-sm-12 padd-sm p-0'>
               <div className='my-tabs'>
                 <Tabs
-                  defaultActiveKey="home"
+                  defaultActiveKey="profile"
                   transition={false}
                   id="noanim-tab-example"
                   className="mb-3 border-grad1"
                   onSelect={setselecttab}
                 >
+                   <Tab eventKey="profile" title={<p>Unread Announcements
+                    {/* <img src='\two.svg' alt='img' className='img-fluid' /> */}
+                    {/* {selecttab === 'profile' && announcements?.userAnnouncements?.length} */}
+                  </p>}>
+                    {/* <Sonnet /> */}
+                    <div className='maincard border-grad1'>
+                      <div className="maintable display-none-in-mobile">
+                        <table class="table table-striped">
+                          <thead>
+                            <tr>
+                              <th>
+                                <p className='headtable'>Announcement</p>
+                              </th>
+                              <th>
+                                <p className='headtable'>Date Received</p>
+                              </th>
+                              <th>
+                                <p className='headtable'>Actions</p>
+                              </th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {announcements?.userAnnouncements?.map((elem) => {
+                              let createdate = new Date(elem?.createdAt);
+                              const createDate = moment(createdate).format("DD-MM-YYYY");
+                              return (
+                                <tr>
+                                  <td>
+                                    <p className='paratable'>{elem?.announcement?.message}</p>
+                                  </td>
+                                  <td>
+                                    <p className='paratable'>{createDate}</p>
+                                  </td>
+                                  <td>
+                                    <div className='dropbtn'>
+                                      <Dropdown>
+                                        <Dropdown.Toggle variant="success" id="dropdown-basic">
+                                          <img src='\Vectordots.svg' alt='img' className='img-fluid' />
+
+                                        </Dropdown.Toggle>
+
+                                        <Dropdown.Menu>
+                                          <Dropdown.Item href="#/action-1">
+                                            <p onClick={()=>directReadAnnuncement(elem)}><img src='\Vector.svg' alt='img' className='img-fluid' />Make as read</p>
+                                          </Dropdown.Item>
+                                          <div className='brdr'></div>
+                                          <Dropdown.Item href="#/action-1">
+                                            <p onClick={() => getDetail(elem)}><img src='\Vectordetail.svg' alt='img' className='img-fluid' />details</p>
+                                          </Dropdown.Item>
+                                          <div className='brdr'></div>
+                                          <Dropdown.Item href="#/action-1">
+                                            <p><img src='\trash.svg' alt='img' className='img-fluid' />delete</p>
+                                          </Dropdown.Item>
+
+                                        </Dropdown.Menu>
+                                      </Dropdown>
+                                    </div>
+                                  </td>
+                                </tr>
+                              )
+                            })}
+                          </tbody>
+                        </table>
+                      </div>
+                      <div className="mobile-responsive-table d-none display-block-in-mobile">
+                        <div className="heading-mobile">
+                          <p>Announcement</p>
+                        </div>
+                        <Accordion defaultActiveKey="0">
+                        {announcements?.userAnnouncements?.map((elem) => {
+                            let createdate = new Date(elem?.createdAt);
+                            const createDate = moment(createdate).format("DD-MM-YYYY");
+                            return (
+                              <Accordion.Item eventKey="0">
+                                <Accordion.Header>{elem?.announcement?.message}</Accordion.Header>
+                                <Accordion.Body>
+                                  <div className="inner-fields">
+                                    <div className="inner-item">
+                                      <h6>Date Received</h6>
+                                      <p>{createDate}</p>
+                                    </div>
+                                    <div className="inner-item">
+                                      <h6>Actions</h6>
+                                      <div className='dropbtn'>
+                                        <Dropdown>
+                                          <Dropdown.Toggle variant="success" id="dropdown-basic">
+                                            <img src='\Vectordots.svg' alt='img' className='img-fluid' />
+
+                                          </Dropdown.Toggle>
+
+                                          <Dropdown.Menu>
+                                            <Dropdown.Item href="#/action-1">
+                                              <p><img src='\Vector.svg' alt='img' className='img-fluid' />Submit Proof</p>
+                                            </Dropdown.Item>
+                                            <div className='brdr'></div>
+                                            <Dropdown.Item href="#/action-1">
+                                              <p onClick={() => getDetail(elem)}><img src='\Vectordetail.svg' alt='img' className='img-fluid' />details</p>
+                                            </Dropdown.Item>
+                                            <div className='brdr'></div>
+                                            <Dropdown.Item href="#/action-1">
+                                              <p><img src='\trash.svg' alt='img' className='img-fluid' />delete</p>
+                                            </Dropdown.Item>
+
+                                          </Dropdown.Menu>
+                                        </Dropdown>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </Accordion.Body>
+                              </Accordion.Item>
+                            )
+                          })}
+                        </Accordion>
+                      </div>
+                    </div>
+                  </Tab>
                   <Tab eventKey="home" title="Read Announcements">
                     {/* <Sonnet /> */}
                     <div className='maincard border-grad1'>
@@ -249,122 +365,7 @@ const Announcements = () => {
                       </div>
                     </div>
                   </Tab>
-                  <Tab eventKey="profile" title={<p>Unread Announcements
-                    {/* <img src='\two.svg' alt='img' className='img-fluid' /> */}
-                    {/* {selecttab === 'profile' && announcements?.userAnnouncements?.length} */}
-                  </p>}>
-                    {/* <Sonnet /> */}
-                    <div className='maincard border-grad1'>
-                      <div className="maintable display-none-in-mobile">
-                        <table class="table table-striped">
-                          <thead>
-                            <tr>
-                              <th>
-                                <p className='headtable'>Announcement</p>
-                              </th>
-                              <th>
-                                <p className='headtable'>Date Received</p>
-                              </th>
-                              <th>
-                                <p className='headtable'>Actions</p>
-                              </th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            {announcements?.userAnnouncements?.map((elem) => {
-                              let createdate = new Date(elem?.createdAt);
-                              const createDate = moment(createdate).format("DD-MM-YYYY");
-                              return (
-                                <tr>
-                                  <td>
-                                    <p className='paratable'>{elem?.announcement?.message}</p>
-                                  </td>
-                                  <td>
-                                    <p className='paratable'>{createDate}</p>
-                                  </td>
-                                  <td>
-                                    <div className='dropbtn'>
-                                      <Dropdown>
-                                        <Dropdown.Toggle variant="success" id="dropdown-basic">
-                                          <img src='\Vectordots.svg' alt='img' className='img-fluid' />
-
-                                        </Dropdown.Toggle>
-
-                                        <Dropdown.Menu>
-                                          <Dropdown.Item href="#/action-1">
-                                            <p onClick={()=>directReadAnnuncement(elem)}><img src='\Vector.svg' alt='img' className='img-fluid' />Make as read</p>
-                                          </Dropdown.Item>
-                                          <div className='brdr'></div>
-                                          <Dropdown.Item href="#/action-1">
-                                            <p onClick={() => getDetail(elem)}><img src='\Vectordetail.svg' alt='img' className='img-fluid' />details</p>
-                                          </Dropdown.Item>
-                                          <div className='brdr'></div>
-                                          <Dropdown.Item href="#/action-1">
-                                            <p><img src='\trash.svg' alt='img' className='img-fluid' />delete</p>
-                                          </Dropdown.Item>
-
-                                        </Dropdown.Menu>
-                                      </Dropdown>
-                                    </div>
-                                  </td>
-                                </tr>
-                              )
-                            })}
-                          </tbody>
-                        </table>
-                      </div>
-                      <div className="mobile-responsive-table d-none display-block-in-mobile">
-                        <div className="heading-mobile">
-                          <p>Announcement</p>
-                        </div>
-                        <Accordion defaultActiveKey="0">
-                        {announcements?.userAnnouncements?.map((elem) => {
-                            let createdate = new Date(elem?.createdAt);
-                            const createDate = moment(createdate).format("DD-MM-YYYY");
-                            return (
-                              <Accordion.Item eventKey="0">
-                                <Accordion.Header>{elem?.announcement?.message}</Accordion.Header>
-                                <Accordion.Body>
-                                  <div className="inner-fields">
-                                    <div className="inner-item">
-                                      <h6>Date Received</h6>
-                                      <p>{createDate}</p>
-                                    </div>
-                                    <div className="inner-item">
-                                      <h6>Actions</h6>
-                                      <div className='dropbtn'>
-                                        <Dropdown>
-                                          <Dropdown.Toggle variant="success" id="dropdown-basic">
-                                            <img src='\Vectordots.svg' alt='img' className='img-fluid' />
-
-                                          </Dropdown.Toggle>
-
-                                          <Dropdown.Menu>
-                                            <Dropdown.Item href="#/action-1">
-                                              <p><img src='\Vector.svg' alt='img' className='img-fluid' />Submit Proof</p>
-                                            </Dropdown.Item>
-                                            <div className='brdr'></div>
-                                            <Dropdown.Item href="#/action-1">
-                                              <p onClick={() => getDetail(elem)}><img src='\Vectordetail.svg' alt='img' className='img-fluid' />details</p>
-                                            </Dropdown.Item>
-                                            <div className='brdr'></div>
-                                            <Dropdown.Item href="#/action-1">
-                                              <p><img src='\trash.svg' alt='img' className='img-fluid' />delete</p>
-                                            </Dropdown.Item>
-
-                                          </Dropdown.Menu>
-                                        </Dropdown>
-                                      </div>
-                                    </div>
-                                  </div>
-                                </Accordion.Body>
-                              </Accordion.Item>
-                            )
-                          })}
-                        </Accordion>
-                      </div>
-                    </div>
-                  </Tab>
+                 
                 </Tabs>
               </div>
             </div>

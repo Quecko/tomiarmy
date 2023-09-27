@@ -1,18 +1,18 @@
 import { initializeConnector } from '@web3-react/core'
 import { WalletConnect as WalletConnectV2 } from '@web3-react/walletconnect-v2'
 
-import { MAINNET_CHAINS } from '../utils/chains'
+// import { MAINNET_CHAINS } from '../utils/chains'
 
-const [mainnet, ...optionalChains] = Object.keys(MAINNET_CHAINS).map(Number)
+// const [mainnet, ...optionalChains] = Object.keys(MAINNET_CHAINS).map(Number)
 
 export const [walletConnectV2, hooks] = initializeConnector(
   (actions) =>
     new WalletConnectV2({
       actions,
       options: {
-        projectId: "d3d17068fcfacb3f2f11cdfe04101217",
+        projectId: "14808831369ecdaaab7b8869eb13c6b0",
         chains: [1],
-        optionalChains: [4],
+        optionalChains: [1],
         showQrModal: true
       },
       timeout : 10000,

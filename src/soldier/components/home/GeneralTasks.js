@@ -33,7 +33,7 @@ const GeneralTasks = ({ setShowtask, settaskdetail, tasks }) => {
               let createdate = new Date(elem?.createdAt);
               const createDate = moment(createdate).format("DD-MM-YYYY");
               return (
-                <tr>
+                <tr  onClick={() => SubmitProofOfWork(elem)}>
                   <td>{elem?.name}</td>
                   <td>+{elem?.reward}</td>
                   <td>

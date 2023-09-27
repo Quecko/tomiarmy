@@ -1,0 +1,117 @@
+.failedtrans-modal {
+    .modal-content{
+        min-height: auto !important;
+    }
+    .inner-card {
+        border-radius: 10px;
+        background: #191D26;
+        padding: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 20px;
+
+        .inner-text {
+            flex: 0 0 48%;
+
+            h6 {
+                color: #81828A;
+                font-size: 14px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: 100%;
+                margin-bottom: 10px;
+            }
+
+            p {
+                color: #FFF;
+                font-size: 14px;
+                font-style: normal;
+                font-weight: 500;
+                line-height: 100%;
+                letter-spacing: 0.14px;
+                word-break: break-all;
+            }
+        }
+    }
+
+    .bottom-btns {
+        margin-top: 32px;
+
+        button {
+            border-radius: 10px;
+            border: none;
+            border-bottom: 1px solid #5BF69B;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.50) 0%, rgba(255, 255, 255, 0.00) 100%), #04C453;
+            box-shadow: 0px 3px 1px 0px #17994C;
+            color: #FFF;
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: 100%;
+            letter-spacing: 0.16px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            padding: 14px;
+            max-width: 356px;
+            width: 100%;
+            margin: 0 auto;
+        }
+    }
+}
+
+.refund-modal {
+    .modal-content{
+        min-height: auto !important;
+    }
+    .refund-div {
+        h2 {
+            color: #FF0083;
+            font-size: 40px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: 110%;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        h6 {
+            color: #FFF;
+            font-size: 20px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: 110%;
+            text-transform: uppercase;
+            text-align: center;
+        }
+    }
+    .bottom-btns {
+        margin-top: 32px;
+
+        button {
+            border: none;
+            border-radius: 10px;
+            border-bottom: 1px solid #F058A6;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.50) 0%, rgba(255, 255, 255, 0.00) 100%), #FF0083;
+            box-shadow: 0px 3px 1px 0px #88134F;
+            color: #FFF;
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: 100%;
+            letter-spacing: 0.16px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            padding: 14px;
+            max-width: 356px;
+            width: 100%;
+            margin: 0 auto;
+        }
+    }
+}
