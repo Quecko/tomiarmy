@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.css": "/static/css/main.a2dc0662.chunk.css",
-    "main.js": "/static/js/main.af4a4450.chunk.js",
-    "main.js.map": "/static/js/main.af4a4450.chunk.js.map",
+    "main.css": "/static/css/main.f1e31dbe.chunk.css",
+    "main.js": "/static/js/main.d03d5619.chunk.js",
+    "main.js.map": "/static/js/main.d03d5619.chunk.js.map",
     "runtime-main.js": "/static/js/runtime-main.d3e9cc6f.js",
     "runtime-main.js.map": "/static/js/runtime-main.d3e9cc6f.js.map",
     "static/css/2.57fb4f93.chunk.css": "/static/css/2.57fb4f93.chunk.css",
@@ -14,7 +14,7 @@
     "static/js/4.b996e5e5.chunk.js.map": "/static/js/4.b996e5e5.chunk.js.map",
     "index.html": "/index.html",
     "static/css/2.57fb4f93.chunk.css.map": "/static/css/2.57fb4f93.chunk.css.map",
-    "static/css/main.a2dc0662.chunk.css.map": "/static/css/main.a2dc0662.chunk.css.map",
+    "static/css/main.f1e31dbe.chunk.css.map": "/static/css/main.f1e31dbe.chunk.css.map",
     "static/js/2.45cde09d.chunk.js.LICENSE.txt": "/static/js/2.45cde09d.chunk.js.LICENSE.txt",
     "static/js/3.415b7a63.chunk.js.LICENSE.txt": "/static/js/3.415b7a63.chunk.js.LICENSE.txt",
     "static/media/Eclipse-1s-200px (2).99778a49.svg": "/static/media/Eclipse-1s-200px (2).99778a49.svg",
@@ -24,11 +24,11 @@
     "static/media/settings.scss": "/static/media/close-icon.73c5de49.svg",
     "static/media/armyforum.scss": "/static/media/crossimg.b4ba256c.svg",
     "static/media/dots.875c48c1.svg": "/static/media/dots.875c48c1.svg",
-    "static/media/logo.af52d832.svg": "/static/media/logo.af52d832.svg",
+    "static/media/logo.27807913.svg": "/static/media/logo.27807913.svg",
     "static/media/logoutIcon.03be7501.svg": "/static/media/logoutIcon.03be7501.svg",
     "static/media/menuIcon.77819993.svg": "/static/media/menuIcon.77819993.svg",
     "static/media/metamaskIcon.7cc85b0f.svg": "/static/media/metamaskIcon.7cc85b0f.svg",
-    "static/media/mobileLogo.5fe2074e.svg": "/static/media/mobileLogo.5fe2074e.svg",
+    "static/media/mobileLogo.434e8f1e.svg": "/static/media/mobileLogo.434e8f1e.svg",
     "static/media/notificationIcon.01375a7b.svg": "/static/media/notificationIcon.01375a7b.svg",
     "static/media/points.a7d5acbb.svg": "/static/media/points.a7d5acbb.svg",
     "static/media/sound.37b45d4b.mp3": "/static/media/sound.37b45d4b.mp3",
@@ -41,7 +41,7 @@
     "static/js/runtime-main.d3e9cc6f.js",
     "static/css/2.57fb4f93.chunk.css",
     "static/js/2.45cde09d.chunk.js",
-    "static/css/main.a2dc0662.chunk.css",
-    "static/js/main.af4a4450.chunk.js"
+    "static/css/main.f1e31dbe.chunk.css",
+    "static/js/main.d03d5619.chunk.js"
   ]
 }

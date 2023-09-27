@@ -24,7 +24,7 @@ const Requestinvitation = () => {
         var id = val.searchParams.get("id");
         e.preventDefault();
         if (nick?.length > 2) {
-            if(nick?.length<8){
+         
             // setLoader(true);
             let tok = localStorage.getItem("accessToken");
             var data = ({
@@ -64,20 +64,13 @@ const Requestinvitation = () => {
                         autoClose: 5000,
                     });
                 });
-            }
-            else{
-                toast.error("Nickname must be at less then 8 characters.", {
-                    position: 'top-center',
-                    autoClose: 5000,
-                });
-            }
+            
         } else {
             toast.error("Nickname must be at least three characters long!", {
                 position: 'top-center',
                 autoClose: 5000,
             });
         }
-            
     }
 
     return (

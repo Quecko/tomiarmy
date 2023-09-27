@@ -24,7 +24,7 @@ const SignUp = () => {
                         <div className='army-textImg'>
                             {/* <img src={armyCap} alt="armyCap" className='capImg' />
                     <img src={armyText} alt="armyText" className='textImg' /> */}
-                            <img src="\login-logo.svg" alt="img" className='img-fluid' />
+                            <img src="\login-logo.svg" alt="img" className='img-fluid set-custom-mobile-logo' />
                         </div>
                         <div className="mainhead">
                             <h5 className="innerhead">Sign Up</h5>
