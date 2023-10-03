@@ -214,6 +214,7 @@ const ArmyForum = () => {
 
   const getNextData = (off) => {
     let offset = parseInt(off) + 1;
+    // console.log("currentpage", off)
     if (pages.length > off) {
       if (off < topuser?.users?.length) {
         var config = null;
@@ -246,7 +247,6 @@ const ArmyForum = () => {
     }
   };
 
-
   //  get myPost
   const getMyPosts = () => {
     var config = {
@@ -264,7 +264,6 @@ const ArmyForum = () => {
         console.log(error);
       });
   }
-
 
   const commentnull = () => {
     setcomment('')
@@ -711,54 +710,54 @@ const ArmyForum = () => {
                         }
                       </div>
 
-                        <div className="pagi">
-                          <div>
-                            {/* <p>Showing {limit} to {currentPage * 5 >= count ? currentPage - (currentPage - count) : currentPage * 5} of {count} entries</p> */}
-                          </div>
-                          <nav className="right">
-                            <ul className="pagination">
-                              <li className="page-item">
-                                <button
-                                  onClick={() => getPrevData(currentPage)}
-                                  className="page-link arrowssss scsdsdfefssdvsdvsd"
-                                >
-                                  {/* <i className="fas curPointer fa-angle-left"></i> */}
-                                  Previous
-                                </button>
-                              </li>
-                              {pages?.map((item, index) => {
-                                return (
-                                  <li key={index} className="page-item cursor-pointer">
-                                    <p
-                                      className={
-                                        "page-link " +
-                                        (index + 1 === parseInt(currentPage)
-                                          ? "active-pag"
-                                          : "")
-                                      }
-                                      onClick={() => gettopusers(index + 1)}
-                                      style={{ fontSize: "13px !important" }}
-                                    >
-                                      {index + 1}
-                                    </p>
-                                  </li>
-                                );
-                              })}
-                              <li className="page-item">
-                                <button
-                                  onClick={() => getNextData(currentPage)}
-                                  className="page-link arrowssss"
-                                >
-                                  {/* <i className="fas curPointer fa-angle-right"></i> */}
-                                  Next
-                                </button>
-                              </li>
-                            </ul>
-                          </nav>
+                      <div className="pagi">
+                        <div>
+                          {/* <p>Showing {limit} to {currentPage * 5 >= count ? currentPage - (currentPage - count) : currentPage * 5} of {count} entries</p> */}
                         </div>
+                        <nav className="right">
+                          <ul className="pagination">
+                            <li className="page-item">
+                              <button
+                                onClick={() => getPrevData(currentPage)}
+                                className="page-link arrowssss scsdsdfefssdvsdvsd"
+                              >
+                                {/* <i className="fas curPointer fa-angle-left"></i> */}
+                                Previous
+                              </button>
+                            </li>
+                            {pages?.map((item, index) => {
+                              return (
+                                <li key={index} className="page-item cursor-pointer">
+                                  <p
+                                    className={
+                                      "page-link " +
+                                      (index + 1 === parseInt(currentPage)
+                                        ? "active-pag"
+                                        : "")
+                                    }
+                                    onClick={() => gettopusers(index + 1)}
+                                    style={{ fontSize: "13px !important" }}
+                                  >
+                                    {index + 1}
+                                  </p>
+                                </li>
+                              );
+                            })}
+                            <li className="page-item">
+                              <button
+                                onClick={() => getNextData(currentPage)}
+                                className="page-link arrowssss"
+                              >
+                                {/* <i className="fas curPointer fa-angle-right"></i> */}
+                                Next
+                              </button>
+                            </li>
+                          </ul>
+                        </nav>
                       </div>
                     </div>
                   </div>
+                </div>
               }
             </div>
           </div>

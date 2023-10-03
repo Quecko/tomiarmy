@@ -29,7 +29,7 @@ const ClaimRewards = ({ squaddetail, GetUserProfiledata }) => {
   const handleShowProfile = () => setShowProfile(true);
   const { account } = useWeb3React()
 
-  const [signModalOpen,setSignModalOpen]=useState(false)
+  const [signModalOpen, setSignModalOpen] = useState(false)
   const handleCloseSignModal = () => setSignModalOpen(false)
 
   const [showProgressModal, setShowProgressModal] = useState(false);
@@ -110,7 +110,7 @@ const ClaimRewards = ({ squaddetail, GetUserProfiledata }) => {
             }
           };
           axios(config)
-            .then(async(res) => {
+            .then(async (res) => {
               //  if(res?.statusCode==201){
               setLoader(true)
               setSignModalOpen(false)
@@ -125,9 +125,9 @@ const ClaimRewards = ({ squaddetail, GetUserProfiledata }) => {
 
             });
         }
-        else{
-        setSignModalOpen(false)
-        setShowProgressModal(false)
+        else {
+          setSignModalOpen(false)
+          setShowProgressModal(false)
         }
       }
       else {
@@ -145,17 +145,17 @@ const ClaimRewards = ({ squaddetail, GetUserProfiledata }) => {
 
   const redeemTransaction = async (data) => {
     if (account && claimToken) {
-       try {
+      try {
         let res = await redeemTokenHook(data?.duration, data?.amount, data?.v, data?.r, data?.s)
         // setShowProgressModal(false)
-          // setShowProgressModal1(true)
+        // setShowProgressModal1(true)
         if (res) {
           trxAPI(data?.transactionId, res?.transactionHash);
         }
       } catch (e) {
         console.log("error: ", e);
         setLoader(false);
-        setShowProgressModal(false) 
+        setShowProgressModal(false)
         setShowRejectedModl(true)
         handleCloseProfile()
         getTransactionHistory()
@@ -232,11 +232,19 @@ const ClaimRewards = ({ squaddetail, GetUserProfiledata }) => {
               <div className="inner-text">
                 <p className='claim-text'>Unclaimed TOMI</p>
                 <h6>{squaddetail?.tomiTokens}</h6>
-
               </div>
             </div>
-            <div className="right">
-              <button onClick={handleShowProfile}>Claim</button>
+            <div className="right kjfashdfviuahgewugfqewufgufi">
+              {squaddetail?.tomiTokens >= 5 ?
+                (
+                  <h5>Claimed amount must be greater or equal to 5 tomi </h5>
+                )
+                :
+                (
+                  ""
+                )
+              }
+              <button className={squaddetail?.tomiTokens >= 5 ? "" : "asdfasdasjxhasjcbvewgyuewiuzbxasiucb"} onClick={handleShowProfile}>Claim</button>
             </div>
           </div>
         </div>
@@ -292,7 +300,7 @@ const ClaimRewards = ({ squaddetail, GetUserProfiledata }) => {
 
       {/* modal for transaction in progress for sign step 1 */}
 
-       <Modal className='detailmodal claimrewad-modal vergdsgew' show={signModalOpen} onHide={handleCloseSignModal} centered>
+      <Modal className='detailmodal claimrewad-modal vergdsgew' show={signModalOpen} onHide={handleCloseSignModal} centered>
         <Modal.Header closeButton>
           <Modal.Title>
             Transaction in progress
@@ -318,11 +326,11 @@ const ClaimRewards = ({ squaddetail, GetUserProfiledata }) => {
             </div>
           </div>
         </Modal.Body>
-      </Modal> 
+      </Modal>
 
-         {/* modal for transaction in progress for transaction step 2 */}
+      {/* modal for transaction in progress for transaction step 2 */}
 
-         <Modal className='detailmodal claimrewad-modal vergdsgew' show={showProgressModal} onHide={handleCloseProgressModal} centered>
+      <Modal className='detailmodal claimrewad-modal vergdsgew' show={showProgressModal} onHide={handleCloseProgressModal} centered>
         <Modal.Header closeButton>
           <Modal.Title>
             Transaction in progress
@@ -335,7 +343,7 @@ const ClaimRewards = ({ squaddetail, GetUserProfiledata }) => {
             </div>
             <div className='devervs'>
               <h6 className=''><img src='/uparrow.png' /> <span>STEP 1: SIGN THE TRANSACTION FROM YOUR WALLET</span></h6>
-              <h6 className='' style={{marginTop:'5px'}}><img src='/dimArrow.svg' /> <span>STEP 2: COMFIRM THE TRANSACTION FROM YOUR WALLE</span></h6>
+              <h6 className='' style={{ marginTop: '5px' }}><img src='/dimArrow.svg' /> <span>STEP 2: COMFIRM THE TRANSACTION FROM YOUR WALLE</span></h6>
               <h6 className='axasaas'><img src='/dimArrow.svg' /> <span>SUCCESS! YOUR FUNDS HAVE BEEN SENT TO YOUR WALLET</span></h6>
             </div>
             <div className='sacwscew'>
@@ -350,8 +358,8 @@ const ClaimRewards = ({ squaddetail, GetUserProfiledata }) => {
         </Modal.Body>
       </Modal>
 
-        {/* modal for transaction in progress for transaction in proceess  step 3 */}
-{/* 
+      {/* modal for transaction in progress for transaction in proceess  step 3 */}
+      {/* 
         <Modal className='detailmodal claimrewad-modal vergdsgew' show={showProgressModal1} onHide={handleCloseProgressModal1} centered>
         <Modal.Header closeButton>
           <Modal.Title>
@@ -380,9 +388,9 @@ const ClaimRewards = ({ squaddetail, GetUserProfiledata }) => {
         </Modal.Body>
       </Modal> */}
 
-         {/* modal for transaction in progress for success step 4 */}
+      {/* modal for transaction in progress for success step 4 */}
 
-         <Modal className='detailmodal claimrewad-modal vergdsgew' show={showSuccessModal} onHide={handleClosSuccessModal} centered>
+      <Modal className='detailmodal claimrewad-modal vergdsgew' show={showSuccessModal} onHide={handleClosSuccessModal} centered>
         <Modal.Header closeButton>
           <Modal.Title>
             Transaction in progress
@@ -395,11 +403,11 @@ const ClaimRewards = ({ squaddetail, GetUserProfiledata }) => {
             </div>
             <div className='devervs'>
               <h6 className=''><img src='/uparrow.png' /> <span>STEP 1: SIGN THE TRANSACTION FROM YOUR WALLET</span></h6>
-              <h6 className='' style={{marginTop:'5px'}}><img src='/uparrow.png' /> <span>STEP 2: COMFIRM THE TRANSACTION FROM YOUR WALLE</span></h6>
-              <h6 className='' style={{marginTop:'5px'}}><img src='/uparrow.png' /> <span>SUCCESS! YOUR FUNDS HAVE BEEN SENT TO YOUR WALLET</span></h6>
+              <h6 className='' style={{ marginTop: '5px' }}><img src='/uparrow.png' /> <span>STEP 2: COMFIRM THE TRANSACTION FROM YOUR WALLE</span></h6>
+              <h6 className='' style={{ marginTop: '5px' }}><img src='/uparrow.png' /> <span>SUCCESS! YOUR FUNDS HAVE BEEN SENT TO YOUR WALLET</span></h6>
             </div>
             <div className='ascw_btn_btn'>
-              <button onClick={()=>handleClosSuccessModal()}>Close</button>
+              <button onClick={() => handleClosSuccessModal()}>Close</button>
             </div>
           </div>
         </Modal.Body>
@@ -416,9 +424,9 @@ const ClaimRewards = ({ squaddetail, GetUserProfiledata }) => {
         <Modal.Body>
           <div className="body-claim">
             <div className='ascs'>
-            <img src='/weeping.png' />
+              <img src='/weeping.png' />
             </div>
-            <h6 style={{textAlign:'center'}}>You have rejected your transaction and you have lost your tomi funds now this issue only admin can handle</h6>
+            <h6 style={{ textAlign: 'center' }}>You have rejected your transaction and you have lost your tomi funds now this issue only admin can handle</h6>
           </div>
         </Modal.Body>
       </Modal>
