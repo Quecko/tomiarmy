@@ -42,7 +42,10 @@ const ClaimRewards = ({ squaddetail, GetUserProfiledata }) => {
   const handleClosSuccessModal = () => setShowSuccessdModl(false)
 
   const [showRejectedModal, setShowRejectedModl] = useState(false);
-  const handleCloseRejectedModal = () => setShowRejectedModl(false)
+  const handleCloseRejectedModal = () => {
+    setShowRejectedModl(false)
+    window.location.reload();
+  }
 
   let tok = localStorage.getItem("accessToken");
 
@@ -237,11 +240,11 @@ const ClaimRewards = ({ squaddetail, GetUserProfiledata }) => {
             <div className="right kjfashdfviuahgewugfqewufgufi">
               {squaddetail?.tomiTokens >= 5 ?
                 (
-                  <h5>Claimed amount must be greater or equal to 5 tomi </h5>
+                  ""
                 )
                 :
                 (
-                  ""
+                  <h5>Claimed amount must be greater or equal to 5 tomi </h5>
                 )
               }
               <button className={squaddetail?.tomiTokens >= 5 ? "" : "asdfasdasjxhasjcbvewgyuewiuzbxasiucb"} onClick={handleShowProfile}>Claim</button>
@@ -312,9 +315,9 @@ const ClaimRewards = ({ squaddetail, GetUserProfiledata }) => {
               <img src='/clockinprogress.png' />
             </div>
             <div className='devervs'>
-              <h6 className=''><img src='/dimArrow.svg' /> <span>STEP 1: SIGN THE TRANSACTION FROM YOUR WALLET</span></h6>
-              <h6 className='axasaas'><img src='/dimArrow.svg' /> <span>STEP 2: COMFIRM THE TRANSACTION FROM YOUR WALLE</span></h6>
-              <h6 className='axasaas'><img src='/dimArrow.svg' /> <span>SUCCESS! YOUR FUNDS HAVE BEEN SENT TO YOUR WALLET</span></h6>
+              <h6 className=''><img src='https://res.cloudinary.com/drt6vurtt/image/upload/v1696331738/dimarrow_mfa3ps.svg' /> <span>STEP 1: SIGN THE TRANSACTION FROM YOUR WALLET</span></h6>
+              <h6 className='axasaas'><img src='https://res.cloudinary.com/drt6vurtt/image/upload/v1696331738/dimarrow_mfa3ps.svg' /> <span>STEP 2: COMFIRM THE TRANSACTION FROM YOUR WALLE</span></h6>
+              <h6 className='axasaas'><img src='https://res.cloudinary.com/drt6vurtt/image/upload/v1696331738/dimarrow_mfa3ps.svg' /> <span>SUCCESS! YOUR FUNDS HAVE BEEN SENT TO YOUR WALLET</span></h6>
             </div>
             <div className='sacwscew'>
               <div >
@@ -342,9 +345,9 @@ const ClaimRewards = ({ squaddetail, GetUserProfiledata }) => {
               <img src='/clockinprogress.png' />
             </div>
             <div className='devervs'>
-              <h6 className=''><img src='/uparrow.png' /> <span>STEP 1: SIGN THE TRANSACTION FROM YOUR WALLET</span></h6>
-              <h6 className='' style={{ marginTop: '5px' }}><img src='/dimArrow.svg' /> <span>STEP 2: COMFIRM THE TRANSACTION FROM YOUR WALLE</span></h6>
-              <h6 className='axasaas'><img src='/dimArrow.svg' /> <span>SUCCESS! YOUR FUNDS HAVE BEEN SENT TO YOUR WALLET</span></h6>
+              <h6 className=''><img src='https://res.cloudinary.com/drt6vurtt/image/upload/v1696331738/uparrow_bsuevm.png' /> <span>STEP 1: SIGN THE TRANSACTION FROM YOUR WALLET</span></h6>
+              <h6 className='' style={{ marginTop: '5px' }}><img src='https://res.cloudinary.com/drt6vurtt/image/upload/v1696331738/dimarrow_mfa3ps.svg' /> <span>STEP 2: COMFIRM THE TRANSACTION FROM YOUR WALLE</span></h6>
+              <h6 className='axasaas'><img src='https://res.cloudinary.com/drt6vurtt/image/upload/v1696331738/dimarrow_mfa3ps.svg' /> <span>SUCCESS! YOUR FUNDS HAVE BEEN SENT TO YOUR WALLET</span></h6>
             </div>
             <div className='sacwscew'>
               <div >
@@ -374,7 +377,7 @@ const ClaimRewards = ({ squaddetail, GetUserProfiledata }) => {
             <div className='devervs'>
               <h6 className=''><img src='/uparrow.png' /> <span>STEP 1: SIGN THE TRANSACTION FROM YOUR WALLET</span></h6>
               <h6 className='' style={{marginTop:'5px'}}><img src='/uparrow.png' /> <span>STEP 2: COMFIRM THE TRANSACTION FROM YOUR WALLE</span></h6>
-              <h6 className='axasaas'><img src='/dimArrow.svg' /> <span>SUCCESS! YOUR FUNDS HAVE BEEN SENT TO YOUR WALLET</span></h6>
+              <h6 className='axasaas'><img src='https://res.cloudinary.com/drt6vurtt/image/upload/v1696331738/dimarrow_mfa3ps.svg' /> <span>SUCCESS! YOUR FUNDS HAVE BEEN SENT TO YOUR WALLET</span></h6>
             </div>
             <div className='sacwscew'>
               <div >
@@ -402,9 +405,9 @@ const ClaimRewards = ({ squaddetail, GetUserProfiledata }) => {
               <img src='/Groupsquad.svg' />
             </div>
             <div className='devervs'>
-              <h6 className=''><img src='/uparrow.png' /> <span>STEP 1: SIGN THE TRANSACTION FROM YOUR WALLET</span></h6>
-              <h6 className='' style={{ marginTop: '5px' }}><img src='/uparrow.png' /> <span>STEP 2: COMFIRM THE TRANSACTION FROM YOUR WALLE</span></h6>
-              <h6 className='' style={{ marginTop: '5px' }}><img src='/uparrow.png' /> <span>SUCCESS! YOUR FUNDS HAVE BEEN SENT TO YOUR WALLET</span></h6>
+              <h6 className=''><img src='https://res.cloudinary.com/drt6vurtt/image/upload/v1696331738/uparrow_bsuevm.png' /> <span>STEP 1: SIGN THE TRANSACTION FROM YOUR WALLET</span></h6>
+              <h6 className='' style={{ marginTop: '5px' }}><img src='https://res.cloudinary.com/drt6vurtt/image/upload/v1696331738/uparrow_bsuevm.png' /> <span>STEP 2: COMFIRM THE TRANSACTION FROM YOUR WALLE</span></h6>
+              <h6 className='' style={{ marginTop: '5px' }}><img src='https://res.cloudinary.com/drt6vurtt/image/upload/v1696331738/uparrow_bsuevm.png' /> <span>SUCCESS! YOUR FUNDS HAVE BEEN SENT TO YOUR WALLET</span></h6>
             </div>
             <div className='ascw_btn_btn'>
               <button onClick={() => handleClosSuccessModal()}>Close</button>
