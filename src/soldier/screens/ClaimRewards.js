@@ -146,7 +146,6 @@ const ClaimRewards = ({ squaddetail, GetUserProfiledata }) => {
     }
   };
 
-
   const redeemTransaction = async (data) => {
     if (account && claimToken) {
       try {
@@ -183,11 +182,11 @@ const ClaimRewards = ({ squaddetail, GetUserProfiledata }) => {
       .then(function (res) {
         const resData = res?.data?.data;
         setLoader(false);
-        getTransactionHistory()
-        GetUserProfiledata()
+        getTransactionHistory();
+        GetUserProfiledata();
         handleCloseProfile();
-        handleCloseProgressModal()
-        handleCloseRejectedModal()
+        handleCloseProgressModal();
+        handleCloseRejectedModal();
         // setShowProgressModal1(false)
         setShowSuccessdModl(true)
         // toast.success("Your claim token Successfully");
@@ -199,8 +198,6 @@ const ClaimRewards = ({ squaddetail, GetUserProfiledata }) => {
         toast.error("Your token not claimed");
       });
   };
-
-
 
   return (
     <>
