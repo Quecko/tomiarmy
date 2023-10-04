@@ -44,7 +44,8 @@ const ClaimRewards = ({ squaddetail, GetUserProfiledata }) => {
   const [showRejectedModal, setShowRejectedModl] = useState(false);
   const handleCloseRejectedModal = () => {
     setShowRejectedModl(false)
-    window.location.reload();
+    // window.location.reload();
+    GetUserProfiledata()
   }
 
   let tok = localStorage.getItem("accessToken");
