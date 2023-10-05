@@ -82,6 +82,8 @@ const CreateOperation = ({ svaebutton, setroutehome, routeshome, setexpired, tas
 
     const [editableTask, setEditableTask] = useState(null);
     const [subtask, setsubtask] = useState(operationdata?.tasksList ? operationdata?.tasksList : [])
+    // console.log("subtask",subtask)
+    // console.log("subtask create",specification)
     const createsub = () => {
         setsubtask([...subtask, { ...specification }])
         setShow(false)

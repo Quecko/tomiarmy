@@ -89,8 +89,6 @@ const ClaimRewards = ({ squaddetail, GetUserProfiledata }) => {
     getTransactionHistory()
   }, [])
 
-
-
   const claimTokens = async () => {
     // let tok = localStorage.getItem("accessToken");
     // let wall = localStorage.getItem("wallet");
@@ -284,7 +282,7 @@ const ClaimRewards = ({ squaddetail, GetUserProfiledata }) => {
               </div>
               <div className="input-inner">
                 <input type="number" value={claimToken} onChange={(e) => setClaimToken(e.target.value)} placeholder='Enter Number of Points....' />
-                <a onClick={() => setClaimToken(squaddetail?.tomiTokens)}>MAX</a>
+                <a className='saisuvhdsiochiugvqefgqiufh' onClick={() => setClaimToken(squaddetail?.tomiTokens)}>MAX</a>
               </div>
             </div>
           </div>
