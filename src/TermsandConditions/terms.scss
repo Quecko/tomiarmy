@@ -1,0 +1,173 @@
+.main-cloud{
+    padding-top: 112px;
+    padding-bottom: 131px;
+.banner_nav {
+    width: 100%;
+    background: transparent;
+    button.btnnav {
+        background: transparent;
+        border: 1px solid #ff0083;
+        border-radius: 8px;
+        padding: 10px 14px;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 130%;
+        color: #ff0083;
+        margin-top: 62px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 44px;
+    }
+    .mainheading {
+        font-style: normal !important;
+        // font-family: Gbold !important;
+        font-weight: 700;
+        font-size: 50px !important;
+        line-height: 110%;
+        margin-bottom: 55px;
+        color: #fff;
+    }
+}
+.sdsddsx{
+    text-decoration: none!important;
+}
+.btnnav{
+    text-decoration: none!important;
+    p{
+        padding-left: 10px;
+    }
+}
+.fistpara {
+    margin-top: 30px;
+    .paraheading {
+        font-style: normal;
+        // font-family: Gmedium;
+        font-weight: 500;
+        font-size: 16px !important;
+        line-height: 130%;
+        color: #fff;
+    }
+    .fstparaa {
+        font-style: normal;
+        // font-family: Gmedium;
+        font-weight: 400;
+        font-size: 16px !important;
+        line-height: 130%;
+        margin-top: 50px;
+            color: rgba(255, 255, 255, 0.7);
+    }
+}
+.secpara {
+    margin-top: 50px;
+    .secparaa{
+        font-style: normal;
+    //    font-family: Gmedium;
+    font-weight: 400;
+        font-size: 16px !important;
+        line-height: 130%;
+            color: rgba(255, 255, 255, 0.7);
+    }
+    .paraheading {
+        font-style: normal;
+        // font-family: Gbold;
+        font-weight: 700;
+        font-size: 22px !important;
+        line-height: 110%;
+        color: #fff;
+        margin-bottom: 30px;
+        border-bottom: 1.5px solid #FF0083;
+        width: max-content;
+        padding-bottom: 13px;
+    }
+    .seceendppaarra {
+        font-style: normal;
+        // font-family: Gmedium;
+        font-weight: 400;
+        font-size: 16px !important;
+        line-height: 130%;
+            color: rgba(255, 255, 255, 0.7);
+    }
+    .thrrddppaarra {
+        // font-family: system-ui;
+        font-style: normal;
+        // font-family: Gbold;
+        font-weight: 700;
+        font-size: 16px !important;
+        line-height: 110%;
+        margin-bottom: 20px;
+        color: #fff;
+    }
+    .startingggeess {
+        margin-top: 20px;
+        display: flex;
+        align-items: baseline;
+        .twooooo {
+            font-style: normal;
+        //    font-family: Gsemibold;
+        font-weight: 600;
+            font-size: 16px !important;
+            line-height: 130%;
+            margin-right: 20px;
+            color: rgba(255, 255, 255, 0.7);
+        }
+        .startingggeess.Allow {
+            margin-left: 51px;
+            .inlinestyle {
+                margin-left: 80px;
+                margin-top: 15px;
+                .dootli {
+                    margin-top: 15px;
+                    font-style: normal;
+                //    font-family: Gmedium;
+                font-weight: 400;
+                    font-size: 16px !important;
+                    line-height: 130%;
+                }
+            }
+        }
+    }
+}
+.p {
+    font-style: normal !important;
+    // font-family: Gmedium !important;
+    font-weight: 400;
+    font-size: 16px !important;
+    line-height: 130% !important;
+    color: rgba(255, 255, 255, 0.7) !important;
+  }
+  .ppppppaaaaaaaarrrraaaaaaa{
+    font-style: normal !important;
+    // font-family: Gmedium !important;
+    font-weight: 400;
+    font-size: 16px !important;
+    line-height: 130% !important;
+    // color: #484848 !important;
+    color: rgba(255, 255, 255, 0.7) !important;
+  }
+  li{
+    font-style: normal !important;
+    // font-family: Gmedium !important;
+    font-weight: 400;
+    font-size: 16px !important;
+    line-height: 130% !important;
+    // color: #484848 !important;
+    color: rgba(255, 255, 255, 0.7) !important;
+    list-style-type: disc;
+  }
+  .parahading{
+    font-style: normal;
+    // font-family: Gsemibold;
+    font-weight: 600;
+    font-size: 22px;
+    line-height: 110%;
+    text-transform: uppercase;
+    color: #fff;
+  }
+
+}
+
+.setfornumberings li{
+    list-style-type: unset !important;
+}

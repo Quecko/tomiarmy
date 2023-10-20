@@ -22,6 +22,7 @@ import useEagerConnect from './hooks/useEagerConnect';
 import SquadModals from "./soldier/components/home/HomeOperations/SquadModals";
 import Loader from "./hooks/loader";
 import RequestInvitationmodal from "./RequestInvitationModal/RequestInvitationmodal";
+import Terms from "./TermsandConditions/Terms";
 
 
 function App() {
@@ -51,6 +52,7 @@ function App() {
           <Route exact path="/forum" component={ArmyForum} />
           <Route exact path="/claim" component={ClaimRewards} />
           <Route exact path="/setting" component={Settings} />
+          <Route exact path="/terms" component={Terms} />
           {/* General + Major all routes here......................... */}
           <Route exact path="/general" component={GeneralSidebar} />
           <Route exact path="/majorgeneral" component={GeneralSidebar} />
