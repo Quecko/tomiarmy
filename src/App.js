@@ -22,6 +22,7 @@ import useEagerConnect from './hooks/useEagerConnect';
 import SquadModals from "./soldier/components/home/HomeOperations/SquadModals";
 import Loader from "./hooks/loader";
 import RequestInvitationmodal from "./RequestInvitationModal/RequestInvitationmodal";
+import cropimagecheck from "./soldier/components/home/HomeOperations/cropimagecheck";
 
 
 function App() {
@@ -49,6 +50,7 @@ function App() {
           <Route exact path="/chat" component={GroupChat} />
           <Route exact path="/forum" component={ArmyForum} />
           <Route exact path="/claim" component={ClaimRewards} />
+          <Route exact path="/homeop" component={cropimagecheck} />
           <Route exact path="/setting" component={Settings} />
           {/* General + Major all routes here......................... */}
           <Route exact path="/general" component={GeneralSidebar} />

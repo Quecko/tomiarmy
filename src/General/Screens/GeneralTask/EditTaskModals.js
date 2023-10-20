@@ -360,7 +360,8 @@ const EditTaskModals = ({ showtaskdetail, setShowtaskdetail, showtaskedit, setSh
                   (
                     <>
                       {
-                        profilePicture ? <label htmlFor="upload" className="w-100 h-100">
+                        profilePicture ? 
+                        <label htmlFor="upload" className="w-100 h-100">
                           {" "}
                           <img
                             src={profilePicture ? URL?.createObjectURL(profilePicture) : ""}

@@ -50,68 +50,61 @@ const SquadModals = ({ show1, setShow1, setShow2, show2, SquadUsers, GetUserProf
   }
 
   const creatAquad = () => {
-    setShow2(true)
-    if (profilePicture) {
-    if (inputs?.name) {
-        if (inputs?.name.length < 15) {
-          const data = new FormData();
-          data.append("name", inputs?.name);
-          data.append("squadImage", profilePicture);
-          setLoader(true);
-          // if (account) {
-          axios.defaults.headers.post[
-            "Authorization"
-          ] = `Bearer ${tok}`;
-          var config = {
-            method: "post",
-            url: `${API_URL}/tasks/squads`,
-            data: data
-          };
+    // setShow2(true)
+    // if (profilePicture) {
+    // if (inputs?.name) {
+    //     if (inputs?.name.length < 15) {
+    //       const data = new FormData();
+    //       data.append("name", inputs?.name);
+    //       data.append("squadImage", profilePicture);
+    //       setLoader(true);
+    //       axios.defaults.headers.post[
+    //         "Authorization"
+    //       ] = `Bearer ${tok}`;
+    //       var config = {
+    //         method: "post",
+    //         url: `${API_URL}/tasks/squads`,
+    //         data: data
+    //       };
 
-          axios(config)
-            .then(async (response) => {
-              setLoader(false);
-              localStorage.setItem("accessToken", response?.data?.accessToken);
-              const userString = JSON.parse(localStorage.getItem('user'));
-              userString.isCommander = true;
-              userString.memberOfSquad = true
-              // Update local storage object with the updated data
-              localStorage.setItem('user', JSON.stringify(userString));
-              GetUserProfiledata()
-              SquadUsers()
-              window.scrollTo(0, 0);
-              handleClose2();
-              setInputs({})
-              setProfilePicture(null)
-              handleShow3();
-              // window.location.reload()
-              // setCall(!call)
-              // GetUserProfiledata();
-              // getData();
-              // vateransApi();
-              // textCopiedFun();
-              // CloseModal();
-            })
-            .catch(function (error) {
-              setProfilePicture(null)
-              setInputs({})
-              console.log(error);
-              if (error.response.data.statusCode == 409) {
-                handleClose2();
-                toast.error("Squad for User already exists")
-              }
-              setLoader(false);
-            });
-          // }
-        } else {
-          toast.error("Squad Name must be less or equal to 15 words.")
-        }
-      } else {
-        toast.error("Squad Name required")
-      }
-    } else {
-      toast.error("Squad Image is required")
-    }
+    //       axios(config)
+    //         .then(async (response) => {
+    //           setLoader(false);
+    //           localStorage.setItem("accessToken", response?.data?.accessToken);
+    //           const userString = JSON.parse(localStorage.getItem('user'));
+    //           userString.isCommander = true;
+    //           userString.memberOfSquad = true
+    //           // Update local storage object with the updated data
+    //           localStorage.setItem('user', JSON.stringify(userString));
+    //           GetUserProfiledata()
+    //           SquadUsers()
+    //           window.scrollTo(0, 0);
+    //           handleClose2();
+    //           setInputs({})
+    //           setProfilePicture(null)
+    //           handleShow3();
+            
+    //         })
+    //         .catch(function (error) {
+    //           setProfilePicture(null)
+    //           setInputs({})
+    //           console.log(error);
+    //           if (error.response.data.statusCode == 409) {
+    //             handleClose2();
+    //             toast.error("Squad for User already exists")
+    //           }
+    //           setLoader(false);
+    //         });
+    //       // }
+    //     } else {
+    //       toast.error("Squad Name must be less or equal to 15 words.")
+    //     }
+    //   } else {
+    //     toast.error("Squad Name required")
+    //   }
+    // } else {
+    //   toast.error("Squad Image is required")
+    // }
   }
 
   const leaveSquad = () => {
@@ -234,6 +227,7 @@ const SquadModals = ({ show1, setShow1, setShow2, show2, SquadUsers, GetUserProf
   const [heightt, setHeightt] = useState(0)
 
   const onCropComplete = useCallback((croppedArea, croppedAreaPixels) => {
+    console.log("ssssssssssss",croppedAreaPixels)
     setCroppedAreaPixels(croppedAreaPixels);
   }, []);
 
@@ -282,7 +276,7 @@ const SquadModals = ({ show1, setShow1, setShow2, show2, SquadUsers, GetUserProf
                           image={imageSrc}
                           crop={crop}
                           zoom={zoom}
-                          aspect={1 / 1}
+                          aspect={4 / 3}
                           onCropChange={setCrop}
                           onCropComplete={onCropComplete}
                           onZoomChange={setZoom}
