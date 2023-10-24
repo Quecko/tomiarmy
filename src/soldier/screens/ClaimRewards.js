@@ -18,6 +18,7 @@ import Loader from '../../hooks/loader';
 const ClaimRewards = ({ squaddetail, GetUserProfiledata }) => {
 
   const [showprofile, setShowProfile] = useState(false);
+  const [errormessage, seterrormessage] = useState('')
   const [claimToken, setClaimToken] = useState('')
   const handleCloseProfile = () => {
     setClaimToken('')
@@ -27,6 +28,8 @@ const ClaimRewards = ({ squaddetail, GetUserProfiledata }) => {
   const { redeemTokenHook } = RedeemToken();
 
   const handleShowProfile = () => setShowProfile(true);
+
+  
   const { account } = useWeb3React()
 
   const [signModalOpen, setSignModalOpen] = useState(false)
@@ -94,51 +97,60 @@ const ClaimRewards = ({ squaddetail, GetUserProfiledata }) => {
     // let wall = localStorage.getItem("wallet");
     // setShow(false);
     if (claimToken != '') {
-      if (account) {
-        // setLoader(true)
-        handleCloseProfile()
-        setSignModalOpen(true)
-        const res0 = await userSign(account);
-        if (account && res0) {
-          axios.defaults.headers.post[
-            "Authorization"
-          ] = `Bearer ${tok}`;
-          var config = {
-            method: "post",
-            url: `${API_URL}/auth/claims/claim-tomi`,
-            data: {
-              withdrawalTomiAmount: claimToken,
-              sign: res0
-            }
-          };
-          axios(config)
-            .then(async (res) => {
-              //  if(res?.statusCode==201){
-              setLoader(true)
-              setSignModalOpen(false)
-              setShowProgressModal(true)
-              redeemTransaction(res?.data?.data)
-              //  }
-            })
-            .catch((err) => {
-              setLoader(false)
-              setShowProgressModal(false)
-              setShowRejectedModl(true)
-
-            });
+      if(claimToken >= 5){
+        if (account) {
+          // setLoader(true)
+          handleCloseProfile()
+          setSignModalOpen(true)
+          const res0 = await userSign(account);
+          if (account && res0) {
+            axios.defaults.headers.post[
+              "Authorization"
+            ] = `Bearer ${tok}`;
+            var config = {
+              method: "post",
+              url: `${API_URL}/auth/claims/claim-tomi`,
+              data: {
+                withdrawalTomiAmount: claimToken,
+                sign: res0
+              }
+            };
+            axios(config)
+              .then(async (res) => {
+                //  if(res?.statusCode==201){
+                setLoader(true)
+                setSignModalOpen(false)
+                setShowProgressModal(true)
+                redeemTransaction(res?.data?.data)
+                //  }
+              })
+              .catch((err) => {
+                setLoader(false)
+                setShowProgressModal(false)
+                setShowRejectedModl(true)
+  
+              });
+          }
+          else {
+            setSignModalOpen(false)
+            setShowProgressModal(false)
+          }
         }
         else {
-          setSignModalOpen(false)
-          setShowProgressModal(false)
+          toast.error('Wallet Not Connected', {
+            position: 'top-center',
+            autoClose: 5000,
+          });
         }
       }
-      else {
-        toast.error('Wallet Not Connected', {
-          position: 'top-center',
-          autoClose: 5000,
-        });
-      }
+        else {
+      toast.error('Enter amount must be greater or equal to 5 tomi token', {
+        position: 'top-center',
+        autoClose: 5000,
+      });
     }
+    }
+  
     else {
       toast.error("Please enter claim amount.");
     }
@@ -270,20 +282,21 @@ const ClaimRewards = ({ squaddetail, GetUserProfiledata }) => {
         </Modal.Header>
         <Modal.Body>
           <div className="body-claim">
-            <h6>How much points you want to claim right now?</h6>
+            <h6>How much tomi token you want to claim right now?</h6>
             <div className="option-field">
               <div className="inner-text">
                 <p className="left-text">
-                  Points
+                  Tomi Token
                 </p>
                 <p className="right-text">
-                  Balance: <span>{squaddetail?.tomiTokens} Points</span>
+                  Balance: <span>{squaddetail?.tomiTokens} Tomi Token</span>
                 </p>
               </div>
               <div className="input-inner">
                 <input type="number" value={claimToken} onChange={(e) => setClaimToken(e.target.value)} placeholder='Enter Number of Points....' />
                 <a className='saisuvhdsiochiugvqefgqiufh' onClick={() => setClaimToken(squaddetail?.tomiTokens)}>MAX</a>
               </div>
+              <p className='daisufvhaiofjnvbhaegiu'>{errormessage}</p>
             </div>
           </div>
           <div className='endbtn'>
