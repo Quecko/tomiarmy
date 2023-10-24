@@ -5314,3 +5314,18 @@ input::-webkit-inner-spin-button {
 input[type=number] {
   -moz-appearance: textfield;
 }
+
+#wcm-modal{
+    --wcm-z-index: 9999999999999999999999!important;
+    .wcm-overlay{
+        z-index: 9999999999999999999999!important; 
+        --wcm-z-index: 9999999999999999999999!important;
+    }
+}
+
+.wcm-overlay{
+    z-index: 9999999999999999999999!important;
+    --wcm-z-index: 9999999999999999999999!important;
+}
+
+
