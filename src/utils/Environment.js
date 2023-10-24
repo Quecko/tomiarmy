@@ -1,6 +1,6 @@
 let Environment = {
   TomiContract: "0x3F28F5C870dD87c988711032E2750D0f1408AE6a",
-  redeemTokens: "0x17741d04dE4db196890938C7BC1fbd1059BA2fEE",
+  redeemTokens: "0x1A5AFf63c63972131BaDb33494a24c49006FAaC6",
 };
 
 export default Environment;
