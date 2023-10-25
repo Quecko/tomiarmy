@@ -77,7 +77,7 @@ const Home = ({ setShow2, tasks, setShowtask, settaskdetail, setShowtask1, setta
             },
             value: {
               formatter: function (val) {
-                return parseInt(val);
+                return parseInt(val)+"%";
               },
               color: '#fff',
               fontSize: '24px',
@@ -245,7 +245,7 @@ const Home = ({ setShow2, tasks, setShowtask, settaskdetail, setShowtask1, setta
                   <img src="\static-icons\earned.png" alt="earned" style={{ width: "50px", height: "50px" }} />
                   <div>
                     <p>TOMI Tokens Earned </p>
-                    <h4>{squaddetail?.tomiTokens}</h4>
+                    <h4>{parseFloat(squaddetail?.tomiTokens?.toFixed(4))}</h4>
                     {squaddetail?.tomiTokens ?
                       (
                         <button className="claim_btn_scwaevea" onClick={ClaimNow}>Claim Now</button>

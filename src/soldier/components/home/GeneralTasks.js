@@ -29,7 +29,8 @@ const GeneralTasks = ({ setShowtask, settaskdetail, tasks }) => {
           {tasks?.length > 0 ?
             tasks?.slice(0, 5).map((elem, index) => {
               let expiredate = new Date(elem?.expirationDate);
-              const ExpireDate = moment(expiredate).format("DD-MM-YYYY");
+              const ExpireDate = elem?.expirationDate?moment(expiredate).format("DD-MM-YYYY"):"---";
+
               let createdate = new Date(elem?.createdAt);
               const createDate = moment(createdate).format("DD-MM-YYYY");
               return (
@@ -105,8 +106,9 @@ const GeneralTasks = ({ setShowtask, settaskdetail, tasks }) => {
         </div>
         <Accordion defaultActiveKey="">
           {tasks?.slice(0, 5).map((elem, index) => {
-            let expiredate = new Date(elem?.expirationDate);
-            const ExpireDate = moment(expiredate).format("DD-MM-YYYY");
+             let expiredate = new Date(elem?.expirationDate);
+             const ExpireDate = elem?.expirationDate?moment(expiredate).format("DD-MM-YYYY"):"---";
+
             let createdate = new Date(elem?.createdAt);
             const createDate = moment(createdate).format("DD-MM-YYYY");
             return (
