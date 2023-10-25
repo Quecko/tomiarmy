@@ -13,7 +13,7 @@ const GeneralTasks = ({ setShowtask, settaskdetail, tasks }) => {
   }
 
   return (
-    <div className="data-box general-tasks-wrapper border-grad1" style={{minHeight: "420px"}}>
+    <div className="data-box general-tasks-wrapper border-grad1" style={{ minHeight: "420px" }}>
       <h4 className="general">recent tasks from general</h4>
       <Table striped bordered hover responsive className="general-tasks-table display-none-in-mobile ucdvycdvtyvcvdc">
         <thead>
@@ -29,11 +29,11 @@ const GeneralTasks = ({ setShowtask, settaskdetail, tasks }) => {
           {tasks?.length > 0 ?
             tasks?.slice(0, 5).map((elem, index) => {
               let expiredate = new Date(elem?.expirationDate);
-              const ExpireDate = moment(expiredate).format("DD-MM-YYYY");
+              const ExpireDate = elem?.expirationDate ? moment(expiredate).format("DD-MM-YYYY") : "---";
               let createdate = new Date(elem?.createdAt);
               const createDate = moment(createdate).format("DD-MM-YYYY");
               return (
-                <tr  onClick={() => SubmitProofOfWork(elem)}>
+                <tr onClick={() => SubmitProofOfWork(elem)}>
                   <td>{elem?.name}</td>
                   <td>+{elem?.reward}</td>
                   <td>
@@ -46,7 +46,7 @@ const GeneralTasks = ({ setShowtask, settaskdetail, tasks }) => {
                           <div className="completed" style={{ background: '#FF8936' }}>Pending</div>
                     }
                   </td>
-                  <td>{createDate}</td>
+                  <td>{ExpireDate}</td>
                   <td>
                     <div className="tbl-dropdown">
                       <Dropdown>
@@ -106,7 +106,7 @@ const GeneralTasks = ({ setShowtask, settaskdetail, tasks }) => {
         <Accordion defaultActiveKey="">
           {tasks?.slice(0, 5).map((elem, index) => {
             let expiredate = new Date(elem?.expirationDate);
-            const ExpireDate = moment(expiredate).format("DD-MM-YYYY");
+            const ExpireDate = elem?.expirationDate ? moment(expiredate).format("DD-MM-YYYY") : "---";
             let createdate = new Date(elem?.createdAt);
             const createDate = moment(createdate).format("DD-MM-YYYY");
             return (

@@ -104,6 +104,7 @@ const Sidebar = () => {
   useEffect(() => {
     if (indexvv == "0") {
       setindexwait(0)
+      setexpireds('false')
     }
     else if (indexvv == "1") {
       setindexwait(1)
