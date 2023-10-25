@@ -118,8 +118,8 @@ const AllOperationTaskModal = ({ showtask1, setShowtask1, settaskdetail1, taskde
     //  Task Here Start
     const handleInputChange = async (e, index) => {
         const file = e.target.files[0];
-        if (file.size >= 2872139) {
-            toast.error("File cannot be greater than 3mbs")
+        if (file.size >= 10000000) {
+            toast.error("File cannot be greater than 10mbs")
         } else {
             let tok = localStorage.getItem("accessToken");
             axios.defaults.headers.post[
