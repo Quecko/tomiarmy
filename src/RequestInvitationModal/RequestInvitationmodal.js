@@ -193,8 +193,8 @@ const RequestInvitationmodal = ({ reqModal, setReqModal }) => {
                                 position: 'top-center',
                                 autoClose: 5000,
                             });
-                            localStorage.clear()
-                            window.location.assign('/')
+                            // localStorage.clear()
+                            // window.location.assign('/')
                             // setShow(false);
                             // localStorage.removeItem("accessToken");
                             // localStorage.removeItem("user");
@@ -207,8 +207,14 @@ const RequestInvitationmodal = ({ reqModal, setReqModal }) => {
                                 autoClose: 5000,
                             });
                         }
-                        localStorage.clear()
-                        window.location.assign('/')
+                        else if (err?.response?.data?.statusCode == 400) {
+                            toast.error('Not enough tomi Tokens', {
+                                position: 'top-center',
+                                autoClose: 5000,
+                            });
+                        }
+                        // localStorage.clear()
+                        // window.location.assign('/')
                     });
             }
         }
