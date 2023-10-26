@@ -400,7 +400,7 @@ const Home = ({ setShow2, tasks, setShowtask, settaskdetail, setShowtask1, setta
               Redeem()
             }}
             >
-              <img src='\assets\upload-icon.svg' alt='img' className='img-fluid' /> Redeem</button>
+              <img src='\assets\upload-icon.svg' alt='img' className='img-fluid' />Redeem</button>
           </div>
         </Modal.Body>
       </Modal>

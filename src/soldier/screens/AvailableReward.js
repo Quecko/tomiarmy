@@ -83,7 +83,7 @@ const AvailableReward = ({ transactionHistory }) => {
                                 let createdate = new Date(elem?.createdAt);
                                 const createDate = moment(createdate).format("DD-MM-YYYY");
                                 return (
-                                    <Accordion.Item eventKey="0">
+                                    <Accordion.Item eventKey={index}>
                                         <Accordion.Header>{createDate}</Accordion.Header>
                                         <Accordion.Body>
                                             <div className="inner-fields">

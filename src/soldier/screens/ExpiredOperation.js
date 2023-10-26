@@ -185,9 +185,9 @@ const ExpiredOperation = ({ setroute, routes, tasks }) => {
                                                 <th>
                                                     <p className='headtable'>Total Tasks</p>
                                                 </th>
-                                                <th>
+                                                {/* <th>
                                                     <p className='headtable'>Status</p>
-                                                </th>
+                                                </th> */}
                                                 <th>
                                                     <p className='headtable'>Details</p>
                                                 </th>
@@ -241,7 +241,7 @@ const ExpiredOperation = ({ setroute, routes, tasks }) => {
                                                         <td>
                                                             <p className='paratable'>{Getlength(elem?.tasksList)}</p>
                                                         </td>
-                                                        <td>
+                                                        {/* <td>
                                                             <div className='completebtn text-end'>
                                                                 {
                                                                     elem?.taskSubmitted ?
@@ -252,7 +252,7 @@ const ExpiredOperation = ({ setroute, routes, tasks }) => {
                                                                             <button style={{ background: '#FF8936' }}>Pending</button>
                                                                 }
                                                             </div>
-                                                        </td>
+                                                        </td> */}
                                                         <td>
                                                             <img src="\assets\arrow-enter.svg" alt="img" className='img-fluid' />
                                                         </td>
@@ -308,7 +308,7 @@ const ExpiredOperation = ({ setroute, routes, tasks }) => {
                                                             <h6>Total Tasks</h6>
                                                             <p>{Getlength(elem?.tasksList)}</p>
                                                         </div>
-                                                        <div className="inner-item">
+                                                        {/* <div className="inner-item">
                                                             <h6>Status</h6>
                                                             {
                                                                 elem?.taskSubmitted ?
@@ -318,7 +318,7 @@ const ExpiredOperation = ({ setroute, routes, tasks }) => {
                                                                         :
                                                                         <button style={{ background: '#FF8936' }}>Pending</button>
                                                             }
-                                                        </div>
+                                                        </div> */}
                                                         {/* <div className="inner-item">
                                                             <h6>Actions</h6>
                                                             <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
