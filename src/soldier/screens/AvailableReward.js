@@ -43,9 +43,9 @@ const AvailableReward = ({ transactionHistory }) => {
                                                         {elem?.txStatus == "completed" ?
                                                             <p><img src='\checkmark1.svg' alt='img' className='img-fluid' />Claimed</p>
                                                             : elem?.txStatus == "pending" ?
-                                                                <p style={{color:'rgb(255, 137, 54)'}}><img src='\clock1111.svg' alt='img' className='img-fluid' />Pending</p>
+                                                                <p style={{ color: 'rgb(255, 137, 54)' }}><img src='\clock1111.svg' alt='img' className='img-fluid' />Pending</p>
                                                                 : elem?.txStatus == "refund" ?
-                                                                    <p style={{color:'#8147FF'}}><img src='\refund1111.svg' alt='img' className='img-fluid' />Refund</p>
+                                                                    <p style={{ color: '#8147FF' }}><img src='\refund1111.svg' alt='img' className='img-fluid' />Refund</p>
                                                                     :
                                                                     ''
                                                         }
@@ -79,66 +79,41 @@ const AvailableReward = ({ transactionHistory }) => {
                             <p>Date</p>
                         </div>
                         <Accordion defaultActiveKey="0">
-                            <Accordion.Item eventKey="0">
-                                <Accordion.Header>24/03/2023</Accordion.Header>
-                                <Accordion.Body>
-                                    <div className="inner-fields">
-                                        <div className="inner-item">
-                                            <h6>Amount</h6>
-                                            <p>50,000 TOMI</p>
-                                        </div>
-                                        <div className="inner-item">
-                                            <h6>Actions</h6>
-                                            <button className="btn-pink">Initiate Claim</button>
-                                        </div>
-                                    </div>
-                                </Accordion.Body>
-                            </Accordion.Item>
-                            <Accordion.Item eventKey="1">
-                                <Accordion.Header>24/03/2023</Accordion.Header>
-                                <Accordion.Body>
-                                    <div className="inner-fields">
-                                        <div className="inner-item">
-                                            <h6>Amount</h6>
-                                            <p>50,000 TOMI</p>
-                                        </div>
-                                        <div className="inner-item">
-                                            <h6>Actions</h6>
-                                            <button className="btn-pink">Initiate Claim</button>
-                                        </div>
-                                    </div>
-                                </Accordion.Body>
-                            </Accordion.Item>
-                            <Accordion.Item eventKey="2">
-                                <Accordion.Header>24/03/2023</Accordion.Header>
-                                <Accordion.Body>
-                                    <div className="inner-fields">
-                                        <div className="inner-item">
-                                            <h6>Amount</h6>
-                                            <p>50,000 TOMI</p>
-                                        </div>
-                                        <div className="inner-item">
-                                            <h6>Actions</h6>
-                                            <button className="btn-pink">Initiate Claim</button>
-                                        </div>
-                                    </div>
-                                </Accordion.Body>
-                            </Accordion.Item>
-                            <Accordion.Item eventKey="3">
-                                <Accordion.Header>24/03/2023</Accordion.Header>
-                                <Accordion.Body>
-                                    <div className="inner-fields">
-                                        <div className="inner-item">
-                                            <h6>Amount</h6>
-                                            <p>50,000 TOMI</p>
-                                        </div>
-                                        <div className="inner-item">
-                                            <h6>Actions</h6>
-                                            <button className="btn-pink">Initiate Claim</button>
-                                        </div>
-                                    </div>
-                                </Accordion.Body>
-                            </Accordion.Item>
+                            {transactionHistory?.transactions?.map((elem, index) => {
+                                let createdate = new Date(elem?.createdAt);
+                                const createDate = moment(createdate).format("DD-MM-YYYY");
+                                return (
+                                    <Accordion.Item eventKey="0">
+                                        <Accordion.Header>{createDate}</Accordion.Header>
+                                        <Accordion.Body>
+                                            <div className="inner-fields">
+                                                <div className="inner-item">
+                                                    <h6>Amount</h6>
+                                                    <p>{elem?.amount} TOMI</p>
+                                                </div>
+                                                <div className="inner-item">
+                                                    <h6>Status</h6>
+                                                    <div className='parent'>
+                                                        {elem?.txStatus == "completed" ?
+                                                            <p><img src='\checkmark1.svg' alt='img' className='img-fluid' />Claimed</p>
+                                                            : elem?.txStatus == "pending" ?
+                                                                <p style={{ color: 'rgb(255, 137, 54)' }}><img src='\clock1111.svg' alt='img' className='img-fluid' />Pending</p>
+                                                                : elem?.txStatus == "refund" ?
+                                                                    <p style={{ color: '#8147FF' }}><img src='\refund1111.svg' alt='img' className='img-fluid' />Refund</p>
+                                                                    :
+                                                                    ''
+                                                        }
+                                                    </div>
+                                                </div>
+                                                {/* <div className="inner-item">
+                                                    <h6>Actions</h6>
+                                                    <button className="btn-pink">Initiate Claim</button>
+                                                </div> */}
+                                            </div>
+                                        </Accordion.Body>
+                                    </Accordion.Item>
+                                )
+                            })}
                         </Accordion>
                     </div>
                 </div>
