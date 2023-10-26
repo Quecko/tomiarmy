@@ -39,11 +39,12 @@ const GeneralTasks = ({ setShowtask, settaskdetail, tasks }) => {
                   <td>
                     {
                       elem?.taskSubmitted && !elem?.taskApproval ?
-                        <div className="completed" style={{ background: '#FEC600' }}>In Process</div>
+                 
+                        <div className="completed" style={{ background: '#FF8936' }}>Pending</div>
                         : elem?.taskApproval === true ?
-                          <div className="completed" style={{ background: '#04C453' }}>Completed</div>
+                          <div className="completed" style={{ background: '#FF0083' }}>Completed</div>
                           :
-                          <div className="completed" style={{ background: '#FF8936' }}>Pending</div>
+                          <div className="completed" style={{ background: '#04C453' }}>Availble</div>
                     }
                   </td>
                   <td>{ExpireDate}</td>
@@ -122,11 +123,12 @@ const GeneralTasks = ({ setShowtask, settaskdetail, tasks }) => {
                       <h6>Status</h6>
                       {
                         elem?.taskSubmitted && !elem?.taskApproval ?
-                          <button className="btn-green">In Process</button>
+                        
+                          <button className="btn-orange">Pending</button>
                           : elem?.taskApproval === true ?
-                            <button className="btn-green">Completed</button>
+                            <button className="btn-pink">Completed</button>
                             :
-                            <button className="btn-green">Pending</button>
+                            <button className="btn-green">Available</button>
                       }
                     </div>
                     <div className="inner-item">

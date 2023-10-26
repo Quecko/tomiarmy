@@ -369,11 +369,11 @@ const HomeOperations = ({ setShowtask1, settaskdetail1, operations, setOperation
                                 <div className='completebtn'>
                                   {
                                     elem?._id && !elem?.isApproved ?
-                                      <button style={{ background: '#FEC600' }}>In Process</button>
-                                      : elem?.isApproved === true && elem?._id ?
-                                        <button style={{ background: '#04C453' }}>Completed</button>
-                                        :
-                                        <button style={{ background: '#FF8936' }}>Pending</button>
+                                    <button style={{ background: '#FF8936' }}>Pending</button>
+                                    : elem?.taskApproval === true ?
+                                      <button style={{ background: '#FF0083' }}>Completed</button>
+                                      :
+                                      <button style={{ background: '#04C453' }}>Availble</button>
                                   }
                                 </div>
                               </td>
@@ -421,11 +421,11 @@ const HomeOperations = ({ setShowtask1, settaskdetail1, operations, setOperation
                                 <h6>Status</h6>
                                 {
                                   elem?._id && !elem?.isApproved ?
-                                    <button className="btn-green">In Process</button>
-                                    : elem?.isApproved === true && elem?._id ?
-                                      <button className="btn-green">Completed</button>
-                                      :
-                                      <button className="btn-green">Pending</button>
+                                  <button className="btn-orange">Pending</button>
+                                  : elem?.taskApproval === true ?
+                                    <button className="btn-pink">Completed</button>
+                                    :
+                                    <button className="btn-green">Available</button>
                                 }
                               </div>
                               <div className="inner-item">

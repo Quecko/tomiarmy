@@ -105,6 +105,9 @@ const Sidebar = () => {
     if (indexvv == "0") {
       setindexwait(0)
       setexpireds('false')
+      setexpired('false')
+      getDataOperation()
+      getData()
     }
     else if (indexvv == "1") {
       setindexwait(1)

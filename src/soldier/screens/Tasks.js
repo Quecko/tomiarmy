@@ -142,11 +142,11 @@ const Tasks = ({ setShowtask, settaskdetail, tasks, setexpireds }) => {
                                       <div className='completebtn'>
                                         {
                                           elem?.taskSubmitted && !elem?.taskApproval ?
-                                            <button style={{ background: '#FEC600' }}>In Process</button>
+                                            <button style={{ background: '#FF8936' }}>Pending</button>
                                             : elem?.taskApproval === true ?
-                                              <button style={{ background: '#04C453' }}>Completed</button>
+                                              <button style={{ background: '#FF0083' }}>Completed</button>
                                               :
-                                              <button style={{ background: '#FF8936' }}>Pending</button>
+                                              <button style={{ background: '#04C453' }}>Availble</button>
                                         }
 
                                       </div>
@@ -210,19 +210,19 @@ const Tasks = ({ setShowtask, settaskdetail, tasks, setexpireds }) => {
                                       <h6>Description</h6>
                                       <p>{elem?.description}</p>
                                     </div>
-                                    <div className="inner-item">
+                                    {/* <div className="inner-item">
                                       <h6>Progress</h6>
                                       <p><img src="\assets\greenline.svg" alt="img" className='img-fluid me-2' />100 of 100</p>
-                                    </div>
+                                    </div> */}
                                     <div className="inner-item">
                                       <h6>Status</h6>
                                       {
                                           elem?.taskSubmitted && !elem?.taskApproval ?
-                                            <button style={{ background: '#FEC600' }}>In Process</button>
+                                          <button className='tttttttt' style={{ background: '#FF8936' }}>Pending</button>
                                             : elem?.taskApproval === true ?
-                                              <button style={{ background: '#04C453' }}>Completed</button>
+                                              <button className='tttttttt'  style={{ background: '#FF0083' }}>Completed</button>
                                               :
-                                              <button style={{ background: '#FF8936' }}>Pending</button>
+                                              <button className='tttttttt'  style={{ background: '#04C453' }}>Availble</button>
                                         }
 
                                     </div>
