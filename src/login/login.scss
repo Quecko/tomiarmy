@@ -1,5 +1,5 @@
 .login-wrapper {
-    .omomomomom{
+    .omomomomom {
         width: 190px;
         margin-top: -38px;
         background: transparent;
@@ -18,6 +18,7 @@
         /* text-transform: uppercase; */
         color: #FFFFFF;
     }
+
     background-color: #22252F;
     position: relative;
     z-index: 50;
@@ -338,17 +339,19 @@
     }
 }
 
-.login-tabs-wrapper{
+.login-tabs-wrapper {
     max-width: 600px;
 }
+
 .padding-remove .Header-wrapper {
     display: none;
 }
 
 @media (max-width:600px) {
-    .ygdshgdsaygdasuygd{
-        display: none!important;
+    .ygdshgdsaygdasuygd {
+        display: none !important;
     }
+
     .login-tabs-wrapper .nav-tabs .nav-item .nav-link {
         max-width: 111.67px;
         font-size: 14px;
@@ -362,7 +365,7 @@
         min-height: 100%;
         height: 100%;
         padding: 100px 0px;
-        padding-top: 40px!important;
+        padding-top: 40px !important;
     }
 
     .login-tabs-wrapper .tab-content .invitetext {
@@ -380,16 +383,20 @@
     .login-tabs-wrapper .tab-content .inviteinput .invitebtn {
         right: 15px;
     }
-    .request-remove .rqstinvitation .inviteinput{
+
+    .request-remove .rqstinvitation .inviteinput {
         padding: 0px 0px !important;
     }
-    .request-remove .rqstinvitation .invitetext{
+
+    .request-remove .rqstinvitation .invitetext {
         margin: 0px 0px 10px 0px !important;
     }
-    .request-remove .rqstinvitation .buylast{
+
+    .request-remove .rqstinvitation .buylast {
         padding: 30px 0px 0px !important;
     }
-    .set-custom-mobile-logo{
+
+    .set-custom-mobile-logo {
         max-width: 205px;
         width: 100%;
     }
@@ -415,6 +422,7 @@
         align-items: center;
         height: 100vh;
         overflow: hidden;
+
         .ConnectWallet-wrapper {
             display: flex;
             flex-direction: column;
@@ -454,31 +462,33 @@
             margin: 0px 90px 10px 90px;
         }
 
-        .buylast{
+        .buylast {
             padding: 30px 90px 0px;
-        .buybtn {
-            display: flex;
-            flex-direction: row;
-            justify-content: center;
-            align-items: center;
-            padding: 14px;
-            gap: 10px;
-            background: linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0) 34.22%), #FF0083;
-            border: none;
-            border-bottom: 1px solid #F058A6;
-            box-shadow: 0px 3px 1px #88134F;
-            border-radius: 10px;
-            font-style: normal;
-            font-weight: 600;
-            font-size: 15px;
-            line-height: 100%;
-            letter-spacing: 0.01em;
-            color: #FFFFFF;
-            width: 100%;
-            white-space: nowrap;
-            width: 100%;
+
+            .buybtn {
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+                padding: 14px;
+                gap: 10px;
+                background: linear-gradient(180deg, rgba(255, 255, 255, 0.5) 0%, rgba(255, 255, 255, 0) 34.22%), #FF0083;
+                border: none;
+                border-bottom: 1px solid #F058A6;
+                box-shadow: 0px 3px 1px #88134F;
+                border-radius: 10px;
+                font-style: normal;
+                font-weight: 600;
+                font-size: 15px;
+                line-height: 100%;
+                letter-spacing: 0.01em;
+                color: #FFFFFF;
+                width: 100%;
+                white-space: nowrap;
+                width: 100%;
+            }
         }
-    }
+
         .inviteinput {
             width: 100%;
             padding: 0px 90px;
@@ -508,7 +518,7 @@
             }
         }
 
-        .formargin{
+        .formargin {
             margin-bottom: 50px !important;
         }
 
@@ -544,7 +554,7 @@
     }
 }
 
-.padding-remove{
+.padding-remove {
     .sidebar-column {
         display: none;
     }
@@ -559,47 +569,80 @@
     }
 }
 
-.asdasfafas{
+.asdasfafas {
     opacity: 0.2;
 }
 
-#wcm-modal{
-    z-index: 111111111111!important;
+#wcm-modal {
+    z-index: 111111111111 !important;
 }
-.wcm-overlay{
-    z-index: 1111111111111!important;
+
+.wcm-overlay {
+    z-index: 1111111111111 !important;
 }
 
 .hgvtfhftyftyfytft {
-    .modal-dialog .modal-content .modal-header .modal-title{
+    .modal-dialog .modal-content .modal-header .modal-title {
         font-weight: 900;
         font-size: 30px;
     }
-    .modal-header{
-        justify-content: center!important;
+
+    .modal-header {
+        justify-content: center !important;
     }
-     .modal-dialog .modal-content .modal-body .imagesmodal p{
-        font-size: 21px!important;
-        text-align: center!important;
-        line-height: 122%!important;
+
+    .modal-dialog .modal-content .modal-body .imagesmodal p {
+        font-size: 21px !important;
+        text-align: center !important;
+        line-height: 122% !important;
     }
-     .modal-dialog{
-        max-width: 550px!important;
+
+    .modal-dialog {
+        max-width: 550px !important;
     }
-   .modal-dialog .modal-content .modal-body {
-        padding: 0px 30px 23px 30px!important;
+
+    .modal-dialog .modal-content .modal-body {
+        padding: 0px 30px 23px 30px !important;
     }
-    .imagesmodal{
-        img{
-            width: 150px!important;
+
+    .imagesmodal {
+        img {
+            width: 150px !important;
         }
     }
-    .modal-dialog .modal-content{
-        min-height: auto!important;
+
+    .modal-dialog .modal-content {
+        min-height: auto !important;
     }
 }
 
 
-.login-tabs-wrapper .tab-content .ConnectWallet-wrapper .army-textImg{
-    margin-bottom: 50px!important;
+.login-tabs-wrapper .tab-content .ConnectWallet-wrapper .army-textImg {
+    margin-bottom: 50px !important;
+}
+
+
+.welcome-img {
+    height: 100vh;
+    overflow: hidden;
+
+    img {
+        width: 100%;
+        height: 100%;
+    }
+}
+
+@media (max-width:600px) {
+    .welcome-img {
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        background: rgba(0, 0, 0, 0.6);
+        background: #01010d;
+    }
+    .welcome-img img{
+        object-fit: contain;
+    }
 }
