@@ -6,8 +6,12 @@ import ConnectWallet from './ConnectWallet';
 import Invitecode from './Invitecode';
 // import Freesoldier from './Freesoldier';
 import SignUp from './SignUp';
+import { useHistory } from 'react-router-dom';
 
 const Login2 = () => {
+
+    const history = useHistory();
+
     useEffect(() => {
         localStorage.removeItem("data");
         document.body.classList.add("padding-remove");
@@ -19,6 +23,16 @@ const Login2 = () => {
     const onselecttab = (rolee) =>{
         setRole(rolee)
     }
+
+    useEffect(() => {
+        const isFirstVisit = localStorage.getItem('visited') !== 'true';
+    
+        // console.log("isFirstVisit", isFirstVisit)
+    
+        if (isFirstVisit) {
+          history.push("/welcome");
+        } 
+      }, []);
     
     return (
         <div className='login-wrapper'>
