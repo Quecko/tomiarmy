@@ -125,54 +125,54 @@ const MyRank = ({ props, setShowTopSquadModal }) => {
                       <p>0 POINTS</p>
                     </div>
                     <div className="private-rank sergeant">
-                      <p>100 POINTS</p>
+                      <p>1000 POINTS</p>
                     </div>
                   </div>
                 }
                 {props?.rank?.name === "sergeant" &&
                   <div className="private-rank-row">
                     <div className="private-rank dc-squad">
-                      <p>100 POINTS</p>
+                      <p>1000 POINTS</p>
                     </div>
                     <div className="private-rank sergeant">
-                      <p>250 POINTS</p>
+                      <p>7000 POINTS</p>
                     </div>
                   </div>
                 }
                 {props?.rank?.name === "lieutenant" &&
                   <div className="private-rank-row">
                     <div className="private-rank dc-squad">
-                      <p>250 POINTS</p>
+                      <p>7000 POINTS</p>
                     </div>
                     <div className="private-rank sergeant">
-                      <p>500 POINTS</p>
+                      <p>15000 POINTS</p>
                     </div>
                   </div>
                 }
                 {props?.rank?.name === "captain" &&
                   <div className="private-rank-row">
                     <div className="private-rank dc-squad">
-                      <p>500 POINTS</p>
+                      <p>15000 POINTS</p>
                     </div>
                     <div className="private-rank sergeant">
-                      <p>1000 POINTS</p>
+                      <p>30000 POINTS</p>
                     </div>
                   </div>
                 }
                 {props?.rank?.name === "major" &&
                   <div className="private-rank-row">
                     <div className="private-rank dc-squad">
-                      <p>1000 POINTS</p>
+                      <p>30000 POINTS</p>
                     </div>
                     <div className="private-rank sergeant">
-                      <p>1500 POINTS</p>
+                      <p>50000 POINTS</p>
                     </div>
                   </div>
                 }
                 {props?.rank?.name === "colonel" &&
                   <div className="private-rank-row">
                     <div className="private-rank dc-squad">
-                      <p>1500 POINTS</p>
+                      <p>50000 POINTS</p>
                     </div>
                     {/* <div className="private-rank sergeant">
                       <p>{props?.points} POINTS</p>
@@ -184,22 +184,22 @@ const MyRank = ({ props, setShowTopSquadModal }) => {
                 }
 
                 {props?.rank?.name === "private" &&
-                  <ProgressBar min={0} max={100} now={props?.points} />
+                  <ProgressBar min={0} max={1000} now={props?.points} />
                 }
                 {props?.rank?.name === "sergeant" &&
-                  <ProgressBar min={100} max={250} now={props?.points} />
+                  <ProgressBar min={1000} max={7000} now={props?.points} />
                 }
                 {props?.rank?.name === "lieutenant" &&
-                  <ProgressBar min={250} max={500} now={props?.points} />
+                  <ProgressBar min={7000} max={15000} now={props?.points} />
                 }
                 {props?.rank?.name === "captain" &&
-                  <ProgressBar min={500} max={1000} now={props?.points} />
+                  <ProgressBar min={15000} max={30000} now={props?.points} />
                 }
                 {props?.rank?.name === "major" &&
-                  <ProgressBar min={1000} max={1500} now={props?.points} />
+                  <ProgressBar min={30000} max={50000} now={props?.points} />
                 }
                 {props?.rank?.name === "colonel" &&
-                  <ProgressBar min={1500} max={3000} now={props?.points} />
+                  <ProgressBar min={50000} max={50000} now={props?.points} />
                 }
                 {/* {props?.rank?.name === "major general" &&
                 <ProgressBar min={3000} max={3000} now={props?.points} />
