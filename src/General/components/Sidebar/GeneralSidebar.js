@@ -356,6 +356,7 @@ const GeneralSidebar = () => {
       });
     }
   };
+  
   const getChat = async () => {
     if (message != '') {
       setFirstTime(true)

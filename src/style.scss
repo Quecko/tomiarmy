@@ -5331,7 +5331,6 @@ tr {
     overflow-wrap: anywhere;
 }
 
-
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -5342,4 +5341,8 @@ input::-webkit-inner-spin-button {
 /* Firefox */
 input[type=number] {
   -moz-appearance: textfield;
+}
+
+iframe{
+    width: 0%!important;
 }

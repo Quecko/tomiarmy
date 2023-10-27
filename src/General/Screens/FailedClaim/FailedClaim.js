@@ -226,33 +226,42 @@ const FailedClaim = () => {
                                                     <p>Date Received</p>
                                                 </div>
                                                 <Accordion defaultActiveKey="0">
-                                                    <Accordion.Item eventKey="0">
-                                                        <Accordion.Header>01/01/22</Accordion.Header>
-                                                        <Accordion.Body>
-                                                            <div className="inner-fields">
-                                                                <div className="inner-item">
-                                                                    <h6>Username</h6>
-                                                                    <p>@umar_x2jz</p>
-                                                                </div>
-                                                                <div className="inner-item">
-                                                                    <h6>Rank</h6>
-                                                                    <p>Sergeant</p>
-                                                                </div>
-                                                                <div className="inner-item">
-                                                                    <h6>Wallet Address</h6>
-                                                                    <p>0x2F78aB0Cd05c...6j88</p>
-                                                                </div>
-                                                                <div className="inner-item">
-                                                                    <h6>Claimed Amount</h6>
-                                                                    <p>100 TOMI</p>
-                                                                </div>
-                                                                <div className="inner-item">
-                                                                    <h6>Actions</h6>
-                                                                    <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
-                                                                </div>
-                                                            </div>
-                                                        </Accordion.Body>
-                                                    </Accordion.Item>
+                                                    {transactionHistory?.transactions?.map((elem, index) => {
+                                                        let createdate = new Date(elem?.createdAt);
+                                                        const createDate = moment(createdate).format("DD-MM-YYYY");
+                                                        const walletAddressLength = elem?.walletAddress?.length;
+                                                        return (
+                                                            <Accordion.Item eventKey={index}>
+                                                                <Accordion.Header>{createDate}</Accordion.Header>
+                                                                <Accordion.Body>
+                                                                    <div className="inner-fields">
+                                                                        <div className="inner-item">
+                                                                            <h6>Username</h6>
+                                                                            <p>{elem?.userId?.nickName}</p>
+                                                                        </div>
+                                                                        <div className="inner-item">
+                                                                            <h6>Rank</h6>
+                                                                            <p>{elem?.userId?.rank?.name}</p>
+                                                                        </div>
+                                                                        <div className="inner-item">
+                                                                            <h6>Wallet Address</h6>
+                                                                            <p>       {`${elem?.walletAddress.slice(0, 8)}...${elem?.walletAddress.slice(
+                                                                                walletAddressLength - 8
+                                                                            )}`}</p>
+                                                                        </div>
+                                                                        <div className="inner-item">
+                                                                            <h6>Claimed Amount</h6>
+                                                                            <p>{elem?.amount} TOMI</p>
+                                                                        </div>
+                                                                        <div className="inner-item">
+                                                                            <h6>Actions</h6>
+                                                                            <a href="#" onClick={() => handleShow(elem)}><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" />Detail</a>
+                                                                        </div>
+                                                                    </div>
+                                                                </Accordion.Body>
+                                                            </Accordion.Item>
+                                                        )
+                                                    })}
                                                 </Accordion>
                                             </div>
                                         </div>
@@ -349,29 +358,38 @@ const FailedClaim = () => {
                                                     <p>Date Received</p>
                                                 </div>
                                                 <Accordion defaultActiveKey="0">
-                                                    <Accordion.Item eventKey="0">
-                                                        <Accordion.Header>01/01/22</Accordion.Header>
-                                                        <Accordion.Body>
-                                                            <div className="inner-fields">
-                                                                <div className="inner-item">
-                                                                    <h6>Username</h6>
-                                                                    <p>@umar_x2jz</p>
-                                                                </div>
-                                                                <div className="inner-item">
-                                                                    <h6>Rank</h6>
-                                                                    <p>Sergeant</p>
-                                                                </div>
-                                                                <div className="inner-item">
-                                                                    <h6>Wallet Address</h6>
-                                                                    <p>0x2F78aB0Cd05c...6j88</p>
-                                                                </div>
-                                                                <div className="inner-item">
-                                                                    <h6>Claimed Amount</h6>
-                                                                    <p>100 TOMI</p>
-                                                                </div>
-                                                            </div>
-                                                        </Accordion.Body>
-                                                    </Accordion.Item>
+                                                    {transactionHistory?.transactions?.map((elem, index) => {
+                                                        let createdate = new Date(elem?.createdAt);
+                                                        const createDate = moment(createdate).format("DD-MM-YYYY");
+                                                        const walletAddressLength = elem?.walletAddress?.length;
+                                                        return (
+                                                            <Accordion.Item eventKey={index}>
+                                                                <Accordion.Header>{createDate}</Accordion.Header>
+                                                                <Accordion.Body>
+                                                                    <div className="inner-fields">
+                                                                        <div className="inner-item">
+                                                                            <h6>Username</h6>
+                                                                            <p>{elem?.userId?.nickName}</p>
+                                                                        </div>
+                                                                        <div className="inner-item">
+                                                                            <h6>Rank</h6>
+                                                                            <p>{elem?.userId?.rank?.name}</p>
+                                                                        </div>
+                                                                        <div className="inner-item">
+                                                                            <h6>Wallet Address</h6>
+                                                                            <p>{`${elem?.walletAddress.slice(0, 8)}...${elem?.walletAddress.slice(
+                                                                                walletAddressLength - 8
+                                                                            )}`}</p>
+                                                                        </div>
+                                                                        <div className="inner-item">
+                                                                            <h6>Claimed Amount</h6>
+                                                                            <p>{elem?.amount} TOMI</p>
+                                                                        </div>
+                                                                    </div>
+                                                                </Accordion.Body>
+                                                            </Accordion.Item>
+                                                        )
+                                                    })}
                                                 </Accordion>
                                             </div>
                                         </div>
