@@ -1,6 +1,6 @@
 import "./App.css";
 import './style.scss';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import Home from "./soldier/screens/Home";
 import Tasks from "./soldier/screens/Tasks";
 import Operations from "./soldier/screens/Operations";
@@ -24,10 +24,14 @@ import Loader from "./hooks/loader";
 import RequestInvitationmodal from "./RequestInvitationModal/RequestInvitationmodal";
 import cropimagecheck from "./soldier/components/home/HomeOperations/cropimagecheck";
 import Terms from "./TermsandConditions/Terms";
+import Welcome from "./login/Welcome";
+import { useEffect, useState } from "react";
 
 
 function App() {
   useEagerConnect();
+
+
 
   return (
     <>
@@ -54,6 +58,7 @@ function App() {
           <Route exact path="/homeop" component={cropimagecheck} />
           <Route exact path="/setting" component={Settings} />
           <Route exact path="/terms" component={Terms} />
+          <Route exact path="/welcome" component={Welcome} />
           {/* General + Major all routes here......................... */}
           <Route exact path="/general" component={GeneralSidebar} />
           <Route exact path="/majorgeneral" component={GeneralSidebar} />

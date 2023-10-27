@@ -17,7 +17,7 @@ const AnnouncementModals = ({ showannounce, setShowannounce, getDataannou }) => 
   const handleShowannounce1 = () => setShowannounce1(true);
   const [loader, setLoader] = useState(false);
   let tok = localStorage.getItem("accessToken");
-  
+
   const SendMessage = (e) => {
     e?.preventDefault();
     if (message !== "") {
@@ -56,6 +56,8 @@ const AnnouncementModals = ({ showannounce, setShowannounce, getDataannou }) => 
         })
         .catch(function (error) {
           setLoader(false);
+          localStorage.clear()
+          window.location.assign('/')
         });
     } else {
       toast.error("Message can't be empty!")
@@ -97,7 +99,7 @@ const AnnouncementModals = ({ showannounce, setShowannounce, getDataannou }) => 
     <>
 
       {/* announcement modal here ........................ */}
-       {loader && <Loader/>}
+      {loader && <Loader />}
       <Modal className='createbasic-modal global-modal-style createtask-modal' show={showannounce} onHide={handleCloseannounce} centered>
         <Modal.Header closeButton>
           <Modal.Title>Create New Announcement</Modal.Title>
