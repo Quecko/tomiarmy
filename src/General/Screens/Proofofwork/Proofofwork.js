@@ -761,10 +761,10 @@ const Proofofwork = () => {
                                 <p className="detailpara">Task Title</p>
                                 <h6 className="detailhead">{singledetail?.task?.name}</h6>
                             </div>
-                            {/* <div className="proofmain">
+                            <div className="proofmain">
                                 <p className="detailpara">Task Description</p>
                                 <h6 className="detailhead">{singledetail?.task?.description}</h6>
-                            </div> */}
+                            </div>
                             <div className="detailmain">
                                 <div className="proofmain">
                                     <p className="detailpara">POW URL</p>
@@ -880,6 +880,7 @@ const Proofofwork = () => {
                                     <h6 className="detailhead">05/05/2023</h6>
                                 </div> */}
                             </div>
+                            
                         </div>
                         <div className="proofdetailleft">
                             <div className="proofmain">

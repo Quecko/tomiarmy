@@ -6,6 +6,8 @@ import ConnectWallet from './ConnectWallet';
 import Invitecode from './Invitecode';
 // import Freesoldier from './Freesoldier';
 import SignUp from './SignUp';
+import { Link } from 'react-router-dom';
+
 import { useHistory } from 'react-router-dom';
 
 const Login2 = () => {
@@ -35,7 +37,7 @@ const Login2 = () => {
       }, []);
     
     return (
-        <div className='login-wrapper'>
+        <div className='login-wrapper loginwrappersccc'>
             <img src='\loginTopLeftImg.png' alt='img' className='img-fluid border-left-shadow' />
             <img src='\loginRightBottomImg.png' alt='img' className='img-fluid border-right-shadow' />
             <div className='login-tabs-wrapper '>
@@ -55,6 +57,9 @@ const Login2 = () => {
                         <SignUp role={role} />
                     </Tab>
                 </Tabs>
+            </div>
+            <div className="bottom-link">
+                <p className='paraaaaaa'>By continuing, you agree with tomiArmy's <Link to="/terms" style={{color: "#ff0083"}}>terms of use</Link></p>
             </div>
         </div>
     )

@@ -23,6 +23,7 @@ import SquadModals from "./soldier/components/home/HomeOperations/SquadModals";
 import Loader from "./hooks/loader";
 import RequestInvitationmodal from "./RequestInvitationModal/RequestInvitationmodal";
 import cropimagecheck from "./soldier/components/home/HomeOperations/cropimagecheck";
+import Terms from "./TermsandConditions/Terms";
 import Welcome from "./login/Welcome";
 import { useEffect, useState } from "react";
 
@@ -56,6 +57,7 @@ function App() {
           <Route exact path="/claim" component={ClaimRewards} />
           <Route exact path="/homeop" component={cropimagecheck} />
           <Route exact path="/setting" component={Settings} />
+          <Route exact path="/terms" component={Terms} />
           <Route exact path="/welcome" component={Welcome} />
           {/* General + Major all routes here......................... */}
           <Route exact path="/general" component={GeneralSidebar} />

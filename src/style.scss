@@ -5343,10 +5343,29 @@ input[type=number] {
   -moz-appearance: textfield;
 }
 
+#wcm-modal{
+    --wcm-z-index: 9999999999999999999999!important;
+    .wcm-overlay{
+        z-index: 9999999999999999999999!important; 
+        --wcm-z-index: 9999999999999999999999!important;
+    }
+}
+
+.wcm-overlay{
+    z-index: 9999999999999999999999!important;
+    --wcm-z-index: 9999999999999999999999!important;
+}
+
+
 iframe{
     width: 0%!important;
 }
 
 .askjdasnckjasnckjabc{
     color: #b00303 !important;
+}
+
+
+.powmodal .modal-body .mainproofdetail .proofdetailleft .proofmain .detailhead{
+    word-break: break-word;
 }
