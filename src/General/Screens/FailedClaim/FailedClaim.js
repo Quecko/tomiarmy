@@ -288,6 +288,9 @@ const FailedClaim = () => {
                                                                 <th>
                                                                     <p className='headtable'>Claimed Amount</p>
                                                                 </th>
+                                                                <th>
+                                                                    <p className='headtable'>Action</p>
+                                                                </th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
@@ -313,6 +316,9 @@ const FailedClaim = () => {
                                                                         </td>
                                                                         <td>
                                                                             <p className='paratable'>{elem?.amount} TOMI</p>
+                                                                        </td>
+                                                                        <td>
+                                                                           <button className='btn-denyy'>Deny</button>
                                                                         </td>
                                                                         {/* <td>
                                                                             <div className='dropbtn global-dropdown-style'>
@@ -435,6 +441,10 @@ const FailedClaim = () => {
                         </div>
                     </div>
                     <div className="bottom-btns">
+                    <button
+                            className='btn-deny'><svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 19 19" fill="none">
+                            <path d="M9.5 1C4.8165 1 1 4.8165 1 9.5C1 14.1835 4.8165 18 9.5 18C14.1835 18 18 14.1835 18 9.5C18 4.8165 14.1835 1 9.5 1ZM12.356 11.455C12.6025 11.7015 12.6025 12.1095 12.356 12.356C12.2285 12.4835 12.067 12.543 11.9055 12.543C11.744 12.543 11.5825 12.4835 11.455 12.356L9.5 10.401L7.545 12.356C7.4175 12.4835 7.256 12.543 7.0945 12.543C6.933 12.543 6.7715 12.4835 6.644 12.356C6.3975 12.1095 6.3975 11.7015 6.644 11.455L8.599 9.5L6.644 7.545C6.3975 7.2985 6.3975 6.8905 6.644 6.644C6.8905 6.3975 7.2985 6.3975 7.545 6.644L9.5 8.599L11.455 6.644C11.7015 6.3975 12.1095 6.3975 12.356 6.644C12.6025 6.8905 12.6025 7.2985 12.356 7.545L10.401 9.5L12.356 11.455Z" fill="white"/>
+                          </svg>Deny</button>
                         <button onClick={() => {
                             Refunds()
                         }}

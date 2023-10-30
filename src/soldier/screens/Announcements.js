@@ -377,13 +377,27 @@ const Announcements = () => {
             <Modal.Title>announcement Details</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <div className='modalcard'>
+          <div className='modalcard'>
+              <h4>Title</h4>
+              <p>Lorem ipsum dolor sit amet</p>
+            </div>
+            <div className='modalcard mt-4'>
               <h4>Announcement</h4>
               <p>{detail?.announcement?.message}</p>
             </div>
+            <div className="twice-date">
             <div className='modalcard mt-4'>
               <h4>Date Received</h4>
               <p>{moment(detail?.createdate).format("DD-MM-YYYY")}</p>
+            </div>
+            <div className='modalcard mt-4'>
+              <h4>To</h4>
+              <p>All Captains</p>
+            </div>
+            </div>
+            <div className='uploadimgann mt-4'>
+              <h4>Image/Video</h4>
+              <img src="\assets\dummy-img.png" alt="img" className='img-fluid' />
             </div>
             <div className='okbtn'>
               <button onClick={readAnnuncement}><span><img src='\checkmarks.svg' alt='img' className='img-fluid' /></span>Okay</button>

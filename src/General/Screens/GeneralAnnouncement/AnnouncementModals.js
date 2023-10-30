@@ -6,6 +6,8 @@ import { toast } from 'react-toastify';
 import { useWeb3React } from "@web3-react/core";
 import axios from 'axios';
 import Loader from '../../../hooks/loader';
+import RichTextEditor from "./RichTextEditor";
+import "./generalannouncement.scss"
 
 
 const AnnouncementModals = ({ showannounce, setShowannounce, getDataannou }) => {
@@ -93,6 +95,11 @@ const AnnouncementModals = ({ showannounce, setShowannounce, getDataannou }) => 
     GetArmy();
   }, []);
 
+  const [description, setDescription] = useState('')
+  const getValue = (description) => {
+    setDescription(description);
+  };
+
 
 
   return (
@@ -132,9 +139,27 @@ const AnnouncementModals = ({ showannounce, setShowannounce, getDataannou }) => 
               </div>
             </div>
             <div className="option-field">
+              <label>Title</label>
+              <input placeholder="Enter title here...."></input>
+            </div>
+            <div className="option-field">
+              <label>MESSAGE</label>
+              <RichTextEditor initialValue={description} getValue={getValue} />
+            </div>
+            <div className="uploadparent">
+              <label className='headdd'>Upload Image or Video</label>
+              <div className="upload-img">
+                <label htmlFor="upload">
+                <img src="\uploadimage.svg" alt="img" className='img-fluid' /></label>
+                <h6>Drop your image or video here, or <label htmlFor="upload">browse</label></h6>
+                <p>Supports: JPG, JPEG, PNG</p>
+                <input type="file" className='d-none' id='upload' />
+              </div>
+            </div>
+            {/* <div className="option-field">
               <label>MESSAGE</label>
               <textarea onChange={(e) => setMessage(e.target.value)} value={message} placeholder="Write your message...."></textarea>
-            </div>
+            </div> */}
           </div>
           <div className="twice-btns">
             <button onClick={handleCloseannounce} className="btn-blackk"><img src="\generalassets\icons\cancel-icon.svg" alt="img" className='img-fluid' />Cancel</button>

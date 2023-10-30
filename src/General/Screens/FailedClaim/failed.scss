@@ -38,8 +38,14 @@
 
     .bottom-btns {
         margin-top: 32px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        button{
+            flex: 0 0 48%;
+        }
 
-        button {
+        .btn-claim {
             border-radius: 10px;
             border: none;
             border-bottom: 1px solid #5BF69B;
@@ -60,7 +66,30 @@
             width: 100%;
             margin: 0 auto;
         }
+        .btn-deny {
+            border-radius: 10px;
+            border: none;
+            border-bottom: 1px solid #F35E5E;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.50) 0%, rgba(255, 255, 255, 0.00) 34.22%), #FB2F2F;
+            box-shadow: 0px 3px 1px 0px #891616;
+            color: #FFF;
+            font-size: 16px;
+            font-style: normal;
+            font-weight: 600;
+            line-height: 100%;
+            letter-spacing: 0.16px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            padding: 14px;
+            max-width: 356px;
+            width: 100%;
+            margin: 0 auto;
+        }
     }
+
+        
 }
 
 .refund-modal {
@@ -114,4 +143,33 @@
             margin: 0 auto;
         }
     }
+}
+
+.btn-denyy{
+    border-radius: 10px;
+    border: none;
+    border-bottom: 1px solid #F35E5E;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.50) 0%, rgba(255, 255, 255, 0.00) 34.22%), #FB2F2F;
+    box-shadow: 0px 3px 1px 0px #891616;
+    padding: 8px 28px;
+    color: #FFF;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 100%;
+    letter-spacing: 0.14px;
+}
+.btn-claimm{
+    border-radius: 10px;
+    border: none;
+    border-bottom: 1px solid #5BF69B;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.50) 0%, rgba(255, 255, 255, 0.00) 34.22%), #04C453;
+    box-shadow: 0px 3px 1px 0px #17994C;
+    padding: 8px 28px;
+    color: #FFF;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 100%;
+    letter-spacing: 0.14px;
 }
