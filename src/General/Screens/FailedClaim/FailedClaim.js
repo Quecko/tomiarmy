@@ -22,11 +22,17 @@ const FailedClaim = () => {
     }
 
     const [show1, setShow1] = useState(false);
+    const [show11, setShow11] = useState(false);
     const handleClose1 = () => {
         setShow1(false);
         setModalData('')
     }
     const handleShow1 = () => setShow1(true);
+    const handleClose11 = () => {
+        setShow11(false);
+        setModalData('')
+    }
+    const handleShow11 = () => setShow11(true);
     let tok = localStorage.getItem("accessToken");
     const [loader, setLoader] = useState(false);
     const [transactionHistory, setTransactionHostory] = useState([])
@@ -45,7 +51,7 @@ const FailedClaim = () => {
         // if (account) {
         var config = {
             method: "get",
-            url: `${API_URL}/auth/transactions/all-transactions-list?offset=1&limit=100&txStatus=${selecttab === 'home' ? 'pending' : 'refund'}`,
+            url: `${API_URL}/auth/transactions/all-transactions-list?offset=1&limit=100&txStatus=${selecttab === 'home' ? 'pending' : selecttab === 'profile' ? 'refund' : 'refund rejected'}`,
             headers: {
                 authorization: `Bearer ` + tok
             },
@@ -107,6 +113,42 @@ const FailedClaim = () => {
     }, [selecttab])
 
     const walletAddressLength = modalData?.walletAddress?.length;
+
+    const denay = async () => {
+        if (!loading) {
+            setLoading(true);
+            setLoader(true)
+            var data = ({
+                transactionId: modalData?._id
+            });
+            axios.defaults.headers.post[
+                "Authorization"
+            ] = `Bearer ${tok}`;
+            var config = {
+                method: "post",
+                url: `${API_URL}/auth/transactions/reject-transaction`,
+                data: data
+            };
+            axios(config)
+                .then(function (response) {
+                    if (response?.status == 200) {
+                        setLoader(false)
+                        handleClose()
+                        handleShow11()
+                        getTransaction()
+                    }
+                    // setChat(response?.data?.data?.groupMessages);
+                })
+                .catch(function (error) {
+                    setLoader(false)
+                    console.log(error);
+                })
+                .finally(() => {
+                    setLoading(false);
+                });
+        }
+    }
+    
 
     return (
         <>
@@ -318,7 +360,141 @@ const FailedClaim = () => {
                                                                             <p className='paratable'>{elem?.amount} TOMI</p>
                                                                         </td>
                                                                         <td>
-                                                                           <button className='btn-denyy'>Deny</button>
+                                                                           <button className='btn-claimmyyyy'>{elem?.txStatus ? 'Refunded' : ''}</button>
+                                                                        </td>
+                                                                        {/* <td>
+                                                                            <div className='dropbtn global-dropdown-style'>
+                                                                                <Dropdown>
+                                                                                    <Dropdown.Toggle variant="success" id="dropdown-basic">
+                                                                                        <img src='\Vectordots.svg' alt='img' className='img-fluid ' />
+                                                                                    </Dropdown.Toggle>
+
+                                                                                    <Dropdown.Menu>
+                                                                                        <Dropdown.Item href="#/action-1">
+                                                                                            <p onClick={handleShow}><img src='\generalassets\icons\detail.svg' alt='img' className='img-fluid' />Details</p>
+                                                                                        </Dropdown.Item>
+                                                                                    </Dropdown.Menu>
+                                                                                </Dropdown>
+                                                                            </div>
+                                                                        </td> */}
+                                                                    </tr>
+                                                                )
+                                                            })}
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                                {/* <div className="pagi">
+                                                    <div className="left">
+                                                        <p>Showing 1 to 10 of 57 entries</p>
+                                                    </div>
+                                                    <div className="right">
+                                                        <p>Previous</p>
+                                                        <Pagination>
+                                                            <Pagination.Item active>{1}</Pagination.Item>
+                                                            <Pagination.Item>{2}</Pagination.Item>
+                                                            <Pagination.Item >{3}</Pagination.Item>
+                                                            <Pagination.Item>{4}</Pagination.Item>
+                                                            <Pagination.Item >{5}</Pagination.Item>
+                                                            <Pagination.Item>{6}</Pagination.Item>
+                                                        </Pagination>
+                                                        <p>Next</p>
+                                                    </div>
+                                                </div> */}
+                                            </div>
+                                            <div className="mobile-responsive-table d-none display-block-in-mobile">
+                                                <div className="heading-mobile">
+                                                    <p>Date Received</p>
+                                                </div>
+                                                <Accordion defaultActiveKey="0">
+                                                    {transactionHistory?.transactions?.map((elem, index) => {
+                                                        let createdate = new Date(elem?.createdAt);
+                                                        const createDate = moment(createdate).format("DD-MM-YYYY");
+                                                        const walletAddressLength = elem?.walletAddress?.length;
+                                                        return (
+                                                            <Accordion.Item eventKey={index}>
+                                                                <Accordion.Header>{createDate}</Accordion.Header>
+                                                                <Accordion.Body>
+                                                                    <div className="inner-fields">
+                                                                        <div className="inner-item">
+                                                                            <h6>Username</h6>
+                                                                            <p>{elem?.userId?.nickName}</p>
+                                                                        </div>
+                                                                        <div className="inner-item">
+                                                                            <h6>Rank</h6>
+                                                                            <p>{elem?.userId?.rank?.name}</p>
+                                                                        </div>
+                                                                        <div className="inner-item">
+                                                                            <h6>Wallet Address</h6>
+                                                                            <p>{`${elem?.walletAddress.slice(0, 8)}...${elem?.walletAddress.slice(
+                                                                                walletAddressLength - 8
+                                                                            )}`}</p>
+                                                                        </div>
+                                                                        <div className="inner-item">
+                                                                            <h6>Claimed Amount</h6>
+                                                                            <p>{elem?.amount} TOMI</p>
+                                                                        </div>
+                                                                    </div>
+                                                                </Accordion.Body>
+                                                            </Accordion.Item>
+                                                        )
+                                                    })}
+                                                </Accordion>
+                                            </div>
+                                        </div>
+                                    </Tab>
+                                    <Tab eventKey="deny" title="Rejected Refund">
+                                        <div className='maincard'>
+                                            <div className='display-none-in-mobile'>
+                                                <div className="maintable">
+                                                    <table class="table table-striped">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>
+                                                                    <p className='headtable'>Date Received</p>
+                                                                </th>
+                                                                <th>
+                                                                    <p className='headtable'>Username</p>
+                                                                </th>
+                                                                <th>
+                                                                    <p className='headtable'>Rank</p>
+                                                                </th>
+                                                                <th>
+                                                                    <p className='headtable'>Wallet Address</p>
+                                                                </th>
+                                                                <th>
+                                                                    <p className='headtable'>Claimed Amount</p>
+                                                                </th>
+                                                                <th>
+                                                                    <p className='headtable'>Action</p>
+                                                                </th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            {transactionHistory?.transactions?.map((elem, index) => {
+                                                                let createdate = new Date(elem?.createdAt);
+                                                                const createDate = moment(createdate).format("DD-MM-YYYY");
+                                                                const walletAddressLength = elem?.walletAddress?.length;
+                                                                return (
+                                                                    <tr>
+                                                                        <td>
+                                                                            <p className='paratable'>{createDate}</p>
+                                                                        </td>
+                                                                        <td>
+                                                                            <p className='paratable'>{elem?.userId?.nickName}</p>
+                                                                        </td>
+                                                                        <td>
+                                                                            <p className='paratable'>{elem?.userId?.rank?.name}</p>
+                                                                        </td>
+                                                                        <td>
+                                                                            <p className='paratable'>{`${elem?.walletAddress.slice(0, 8)}...${elem?.walletAddress.slice(
+                                                                                walletAddressLength - 8
+                                                                            )}`}</p>
+                                                                        </td>
+                                                                        <td>
+                                                                            <p className='paratable'>{elem?.amount} TOMI</p>
+                                                                        </td>
+                                                                        <td>
+                                                                           <button className='btn-denyyyyy'>{elem?.txStatus ? 'Refund Denied' : ''}</button>
                                                                         </td>
                                                                         {/* <td>
                                                                             <div className='dropbtn global-dropdown-style'>
@@ -442,6 +618,9 @@ const FailedClaim = () => {
                     </div>
                     <div className="bottom-btns">
                     <button
+                    onClick={() => {
+                        denay()
+                    }}
                             className='btn-deny'><svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 19 19" fill="none">
                             <path d="M9.5 1C4.8165 1 1 4.8165 1 9.5C1 14.1835 4.8165 18 9.5 18C14.1835 18 18 14.1835 18 9.5C18 4.8165 14.1835 1 9.5 1ZM12.356 11.455C12.6025 11.7015 12.6025 12.1095 12.356 12.356C12.2285 12.4835 12.067 12.543 11.9055 12.543C11.744 12.543 11.5825 12.4835 11.455 12.356L9.5 10.401L7.545 12.356C7.4175 12.4835 7.256 12.543 7.0945 12.543C6.933 12.543 6.7715 12.4835 6.644 12.356C6.3975 12.1095 6.3975 11.7015 6.644 11.455L8.599 9.5L6.644 7.545C6.3975 7.2985 6.3975 6.8905 6.644 6.644C6.8905 6.3975 7.2985 6.3975 7.545 6.644L9.5 8.599L11.455 6.644C11.7015 6.3975 12.1095 6.3975 12.356 6.644C12.6025 6.8905 12.6025 7.2985 12.356 7.545L10.401 9.5L12.356 11.455Z" fill="white"/>
                           </svg>Deny</button>
@@ -474,6 +653,21 @@ const FailedClaim = () => {
                     </div>
                     <div className="bottom-btns">
                         <button className='btn-okay' onClick={handleClose1}>Okay</button>
+                    </div>
+                </Modal.Body>
+            </Modal>
+
+            <Modal className='detailmodal refund-modal' show={show11} onHide={handleClose11} centered>
+                <Modal.Header closeButton>
+                    <Modal.Title>Refund Rejected</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <div className="refund-div">
+                        <h2>{modalData?.amount} TOMI</h2>
+                        <h6>Refund rejected successfully.</h6>
+                    </div>
+                    <div className="bottom-btns">
+                        <button className='btn-okay' onClick={handleClose11}>Okay</button>
                     </div>
                 </Modal.Body>
             </Modal>

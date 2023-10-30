@@ -355,12 +355,12 @@ const Squad = ({ show1, setShow1, show2, setShow2, setShow4, setShow5, setShow6,
                                     <th>
                                       <p className='headtable'>Rank</p>
                                     </th>
-                                    <th>
+                                    {/* <th>
                                       <p className='headtable'>Wallet Address</p>
-                                    </th>
-                                    <th>
+                                    </th> */}
+                                    {/* <th>
                                       <p className='headtable'>TOMI Balance</p>
-                                    </th>
+                                    </th> */}
                                     <th>
                                       <p className='headtable'>Total Points</p>
                                     </th>
@@ -382,12 +382,12 @@ const Squad = ({ show1, setShow1, show2, setShow2, setShow4, setShow5, setShow6,
                                             <p className='paratable'>{elem?.rank?.name}</p>
                                           </div>
                                         </td>
-                                        <td>
+                                        {/* <td>
                                           <p className='paratable'>{elem?.walletAddress}</p>
                                         </td>
                                         <td>
                                           <p className='paratable'>{elem?.tomiTokens} TOMI</p>
-                                        </td>
+                                        </td> */}
                                         <td>
                                           <p className='paratable'>+{elem?.points} POINTS</p>
                                         </td>
@@ -494,14 +494,14 @@ const Squad = ({ show1, setShow1, show2, setShow2, setShow4, setShow5, setShow6,
                                           <img style={{ width: '40px', height: '40px' }} src={elem?.rank?.icon} alt="img" className='img-fluid' />
                                           <p className='paratable'>{elem?.rank?.name}</p>
                                         </div>
-                                        <div className="inner-item">
+                                        {/* <div className="inner-item">
                                           <h6>Wallet Address</h6>
                                           <p className='paratable'>{elem?.walletAddress}</p>
                                         </div>
                                         <div className="inner-item">
                                           <h6>TOMI Balance</h6>
                                           <p>{elem?.tomiTokens}</p>
-                                        </div>
+                                        </div> */}
                                         <div className="inner-item">
                                           <h6>Total Points</h6>
                                           <p>{elem?.points}</p>
@@ -546,12 +546,12 @@ const Squad = ({ show1, setShow1, show2, setShow2, setShow4, setShow5, setShow6,
                                     <th>
                                       <p className='headtable'>Rank</p>
                                     </th>
-                                    <th>
+                                    {/* <th>
                                       <p className='headtable'>Wallet Address</p>
                                     </th>
                                     <th>
                                       <p className='headtable'>TOMI Balance</p>
-                                    </th>
+                                    </th> */}
                                     <th>
                                       <p className='headtable'>Total Points</p>
                                     </th>
@@ -573,12 +573,12 @@ const Squad = ({ show1, setShow1, show2, setShow2, setShow4, setShow5, setShow6,
                                             <p className='paratable'>{elem?.rank?.name}</p>
                                           </div>
                                         </td>
-                                        <td>
+                                        {/* <td>
                                           <p className='paratable'>{elem?.walletAddress}</p>
                                         </td>
                                         <td>
                                           <p className='paratable'>{elem?.tomiTokens} TOMI</p>
-                                        </td>
+                                        </td> */}
                                         <td>
                                           <p className='paratable'>+{elem?.points} POINTS</p>
                                         </td>
@@ -637,14 +637,14 @@ const Squad = ({ show1, setShow1, show2, setShow2, setShow4, setShow5, setShow6,
                                           <img style={{ width: '40px', height: '40px' }} src={elem?.rank?.icon} alt="img" className='img-fluid' />
                                           <p className='paratable'>{elem?.rank?.name}</p>
                                         </div>
-                                        <div className="inner-item">
+                                        {/* <div className="inner-item">
                                           <h6>Wallet Address</h6>
                                           <p className='paratable'>{elem?.walletAddress}</p>
                                         </div>
                                         <div className="inner-item">
                                           <h6>TOMI Balance</h6>
                                           <p>{elem?.tomiTokens}</p>
-                                        </div>
+                                        </div> */}
                                         <div className="inner-item">
                                           <h6>Total Points</h6>
                                           <p>{elem?.points}</p>
@@ -689,12 +689,12 @@ const Squad = ({ show1, setShow1, show2, setShow2, setShow4, setShow5, setShow6,
                                     <th>
                                       <p className='headtable'>Rank</p>
                                     </th>
-                                    <th>
+                                    {/* <th>
                                       <p className='headtable'>Wallet Address</p>
                                     </th>
                                     <th>
                                       <p className='headtable'>TOMI Balance</p>
-                                    </th>
+                                    </th> */}
                                     <th>
                                       <p className='headtable'>Total Points</p>
                                     </th>
@@ -716,12 +716,12 @@ const Squad = ({ show1, setShow1, show2, setShow2, setShow4, setShow5, setShow6,
                                             <p className='paratable'>{elem?.rank?.name}</p>
                                           </div>
                                         </td>
-                                        <td>
+                                        {/* <td>
                                           <p className='paratable'>{elem?.walletAddress}</p>
                                         </td>
                                         <td>
                                           <p className='paratable'>{elem?.tomiTokens} TOMI</p>
-                                        </td>
+                                        </td> */}
                                         <td>
                                           <p className='paratable'>+{elem?.points} POINTS</p>
                                         </td>
@@ -783,14 +783,14 @@ const Squad = ({ show1, setShow1, show2, setShow2, setShow4, setShow5, setShow6,
                                           <img style={{ width: '40px', height: '40px' }} src={elem?.rank?.icon} alt="img" className='img-fluid' />
                                           <p className='paratable'>{elem?.rank?.name}</p>
                                         </div>
-                                        <div className="inner-item">
+                                        {/* <div className="inner-item">
                                           <h6>Wallet Address</h6>
                                           <p className='paratable'>{elem?.walletAddress}</p>
                                         </div>
                                         <div className="inner-item">
                                           <h6>TOMI Balance</h6>
                                           <p>{elem?.tomiTokens}</p>
-                                        </div>
+                                        </div> */}
                                         <div className="inner-item">
                                           <h6>Total Points</h6>
                                           <p>{elem?.points}</p>
@@ -1014,14 +1014,14 @@ const Squad = ({ show1, setShow1, show2, setShow2, setShow4, setShow5, setShow6,
                               <th>
                                 <p className='headtable'>Rank</p>
                               </th>
-                              <th>
+                              {/* <th>
                                 <p className='headtable'>Wallet Address</p>
-                              </th>
+                              </th> */}
                               {/* <th>
                                 <p className='headtable'>Username</p>
                               </th> */}
                               <th>
-                                <p className='headtable lefts'>TOMI Balance</p>
+                                <p className='headtable lefts'>Points</p>
                               </th>
                             </tr>
                           </thead>
@@ -1037,18 +1037,18 @@ const Squad = ({ show1, setShow1, show2, setShow2, setShow4, setShow5, setShow6,
                                   <td>
                                     <p className='paratable'><img style={{ width: '40px', height: '40px' }} src={elem?.rank?.icon} alt='img' className='img-fluid' /> {elem?.rank?.name}</p>
                                   </td>
-                                  <td>
+                                  {/* <td>
                                     <p className='paratable'>
                                       {`${elem?.walletAddress.slice(0, 8)}...${elem?.walletAddress.slice(
                                         walletAddressLength - 8
                                       )}`}
                                     </p>
-                                  </td>
+                                  </td> */}
                                   {/* <td>
                                     <p className='paratable'>@sharjeel</p>
                                   </td> */}
                                   <td>
-                                    <p className='paratable lefts'>{elem?.tomiTokens} TOMI</p>
+                                    <p className='paratable lefts'>+{elem?.points}</p>
                                   </td>
                                 </tr>
                               )
@@ -1130,119 +1130,41 @@ const Squad = ({ show1, setShow1, show2, setShow2, setShow4, setShow5, setShow6,
                         <p>Nickname</p>
                       </div>
                       <Accordion defaultActiveKey="0">
-                        <Accordion.Item eventKey="0">
-                          <Accordion.Header>sharjeel</Accordion.Header>
+                      {users?.users?.map((elem, index) => {
+                              const walletAddressLength = elem?.walletAddress?.length;
+                              return (
+                        <Accordion.Item eventKey={index}>
+                          <Accordion.Header>{elem?.nickName ? elem?.nickName : "------"}</Accordion.Header>
                           <Accordion.Body>
                             <div className="inner-fields">
                               <div className="inner-item">
+                                
                                 <h6>Rank</h6>
-                                <p><img src="\assets\private.svg" style={{ width: "22px", height: "22px" }} alt="img" className='img-fluid me-2' /> Private</p>
+                                <p><img src={elem?.rank?.icon} style={{ width: "22px", height: "22px" }} alt="img" className='img-fluid me-2' /> {elem?.rank?.name}</p>
                               </div>
-                              <div className="inner-item">
+                              {/* <div className="inner-item">
                                 <h6>Wallet Address</h6>
                                 <p>0x2F78....aB0C</p>
-                              </div>
-                              <div className="inner-item">
+                              </div> */}
+                              {/* <div className="inner-item">
                                 <h6>Username</h6>
                                 <p>@sharjeel</p>
-                              </div>
+                              </div> */}
                               <div className="inner-item">
-                                <h6>TOMI Balance</h6>
-                                <p>500 TOMI</p>
+                                <h6>Points</h6>
+                                <p>+{elem?.points}</p>
                               </div>
-                              <div className="inner-item">
+                              {/* <div className="inner-item">
                                 <h6>Actions</h6>
                                 <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
-                              </div>
+                              </div> */}
 
                             </div>
                           </Accordion.Body>
                         </Accordion.Item>
-                        <Accordion.Item eventKey="1">
-                          <Accordion.Header>sharjeel</Accordion.Header>
-                          <Accordion.Body>
-                            <div className="inner-fields">
-                              <div className="inner-item">
-                                <h6>Rank</h6>
-                                <p><img src="\assets\private.svg" style={{ width: "22px", height: "22px" }} alt="img" className='img-fluid me-2' /> Private</p>
-                              </div>
-                              <div className="inner-item">
-                                <h6>Wallet Address</h6>
-                                <p>0x2F78....aB0C</p>
-                              </div>
-                              <div className="inner-item">
-                                <h6>Username</h6>
-                                <p>@sharjeel</p>
-                              </div>
-                              <div className="inner-item">
-                                <h6>TOMI Balance</h6>
-                                <p>500 TOMI</p>
-                              </div>
-                              <div className="inner-item">
-                                <h6>Actions</h6>
-                                <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
-                              </div>
-
-                            </div>
-                          </Accordion.Body>
-                        </Accordion.Item>
-                        <Accordion.Item eventKey="2">
-                          <Accordion.Header>sharjeel</Accordion.Header>
-                          <Accordion.Body>
-                            <div className="inner-fields">
-                              <div className="inner-item">
-                                <h6>Rank</h6>
-                                <p><img src="\assets\private.svg" style={{ width: "22px", height: "22px" }} alt="img" className='img-fluid me-2' /> Private</p>
-                              </div>
-                              <div className="inner-item">
-                                <h6>Wallet Address</h6>
-                                <p>0x2F78....aB0C</p>
-                              </div>
-                              <div className="inner-item">
-                                <h6>Username</h6>
-                                <p>@sharjeel</p>
-                              </div>
-                              <div className="inner-item">
-                                <h6>TOMI Balance</h6>
-                                <p>500 TOMI</p>
-                              </div>
-                              <div className="inner-item">
-                                <h6>Actions</h6>
-                                <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
-                              </div>
-
-                            </div>
-                          </Accordion.Body>
-                        </Accordion.Item>
-                        <Accordion.Item eventKey="3">
-                          <Accordion.Header>sharjeel</Accordion.Header>
-                          <Accordion.Body>
-                            <div className="inner-fields">
-                              <div className="inner-item">
-                                <h6>Rank</h6>
-                                <p><img src="\assets\private.svg" style={{ width: "22px", height: "22px" }} alt="img" className='img-fluid me-2' /> Private</p>
-                              </div>
-                              <div className="inner-item">
-                                <h6>Wallet Address</h6>
-                                <p>0x2F78....aB0C</p>
-                              </div>
-                              <div className="inner-item">
-                                <h6>Username</h6>
-                                <p>@sharjeel</p>
-                              </div>
-                              <div className="inner-item">
-                                <h6>TOMI Balance</h6>
-                                <p>500 TOMI</p>
-                              </div>
-                              <div className="inner-item">
-                                <h6>Actions</h6>
-                                <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
-                              </div>
-
-                            </div>
-                          </Accordion.Body>
-                        </Accordion.Item>
-
+    
+    )
+  })}
                       </Accordion>
                     </div>
                   </div>

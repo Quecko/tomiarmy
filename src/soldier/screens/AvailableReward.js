@@ -22,7 +22,7 @@ const AvailableReward = ({ transactionHistory }) => {
                                             <p className='headtable'>Amount</p>
                                         </th>
                                         <th>
-                                            <p className='headtable'>Actions</p>
+                                            <p className='headtable'>Status</p>
                                         </th>
                                     </tr>
                                 </thead>
@@ -46,6 +46,9 @@ const AvailableReward = ({ transactionHistory }) => {
                                                                 <p style={{ color: 'rgb(255, 137, 54)' }}><img src='\clock1111.svg' alt='img' className='img-fluid' />Pending</p>
                                                                 : elem?.txStatus == "refund" ?
                                                                     <p style={{ color: '#8147FF' }}><img src='\refund1111.svg' alt='img' className='img-fluid' />Refund</p>
+                                                                    :
+                                                                    elem?.txStatus == "refund rejected" ?
+                                                                    <p  className='askjdasnckjasnckjabc'>Refund Rejected</p>
                                                                     :
                                                                     ''
                                                         }
@@ -100,6 +103,9 @@ const AvailableReward = ({ transactionHistory }) => {
                                                                 <p style={{ color: 'rgb(255, 137, 54)' }}><img src='\clock1111.svg' alt='img' className='img-fluid' />Pending</p>
                                                                 : elem?.txStatus == "refund" ?
                                                                     <p style={{ color: '#8147FF' }}><img src='\refund1111.svg' alt='img' className='img-fluid' />Refund</p>
+                                                                    :
+                                                                    elem?.txStatus == "refund rejected" ?
+                                                                    <p  className='askjdasnckjasnckjabc'>Refund Rejected</p>
                                                                     :
                                                                     ''
                                                         }
