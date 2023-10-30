@@ -152,7 +152,7 @@ const AnnouncementModals = ({ showannounce, setShowannounce, getDataannou }) => 
                 <label htmlFor="upload">
                 <img src="\uploadimage.svg" alt="img" className='img-fluid' /></label>
                 <h6>Drop your image or video here, or <label htmlFor="upload">browse</label></h6>
-                <p>Supports: JPG, JPEG, PNG</p>
+                <p>Supports: JPG, JPEG, PNG, MP4 & MOV Maximum file Size: 20mb</p>
                 <input type="file" className='d-none' id='upload' />
               </div>
             </div>
