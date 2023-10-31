@@ -73,7 +73,7 @@ const GeneralAnnouncement = ({ setShowannounce, annou, getDataannou }) => {
                                             <thead>
                                                 <tr>
                                                     <th>
-                                                        <p className='headtable'>Announcement</p>
+                                                        <p className='headtable'>Announcement Title</p>
                                                     </th>
                                                     <th>
                                                         <p className='headtable'>To</p>
@@ -93,7 +93,7 @@ const GeneralAnnouncement = ({ setShowannounce, annou, getDataannou }) => {
                                                     return (
                                                         <tr key={index}>
                                                             <td>
-                                                                <p className='paratable'>{elem?.message}</p>
+                                                                <p className='paratable'>{elem?.title}</p>
                                                             </td>
                                                             <td>
                                                                 <p className='paratable'>{elem?.recipients}</p>

@@ -13,7 +13,9 @@ import "./generalannouncement.scss"
 const AnnouncementModals = ({ showannounce, setShowannounce, getDataannou }) => {
   const handleCloseannounce = () => setShowannounce(false);
   const handleShowannounce = () => setShowannounce(true);
-
+  const [imagevideo, setimagevideo] = useState('')
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('')
   const [showannounce1, setShowannounce1] = useState(false);
   const handleCloseannounce1 = () => setShowannounce1(false);
   const handleShowannounce1 = () => setShowannounce1(true);
@@ -22,18 +24,22 @@ const AnnouncementModals = ({ showannounce, setShowannounce, getDataannou }) => 
 
   const SendMessage = (e) => {
     e?.preventDefault();
-    if (message !== "") {
+    if (description !== "" && title !== "") {
       setLoader(true)
       var data = "null";
       if (selectedItem?.name) {
         data = ({
-          message: message,
+          message: description,
           recipients: selectedItem?.name,
+          title: title,
+          media: imagevideo,
         });
       } else {
         data = ({
-          message: message,
+          message: description,
           recipients: "all soldiers",
+          title: title,
+          media: imagevideo,
         });
       }
       axios.defaults.headers.post[
@@ -54,19 +60,19 @@ const AnnouncementModals = ({ showannounce, setShowannounce, getDataannou }) => 
             position: "top-right",
             autoClose: 2000,
           });
-          setMessage("")
+          // setMessage("")
         })
         .catch(function (error) {
           setLoader(false);
-          localStorage.clear()
-          window.location.assign('/')
+          // localStorage.clear()
+          // window.location.assign('/')
         });
     } else {
-      toast.error("Message can't be empty!")
+      toast.error("Message and Title can't be empty!")
     }
   }
   const [army, setArmy] = useState([]);
-  const [message, setMessage] = useState("")
+  // const [message, setMessage] = useState("")
   const [selectedItem, setSelectedItem] = useState("All Soldiers");
 
   const GetArmy = () => {
@@ -87,18 +93,61 @@ const AnnouncementModals = ({ showannounce, setShowannounce, getDataannou }) => 
         // setLoader(false);
         // localStorage.removeItem("accessToken");
         // localStorage.removeItem("user");
-        // window.location.assign("/")
-        // window.location.reload();
+        window.location.assign("/")
+        window.location.reload();
       });
   }
   useEffect(() => {
     GetArmy();
   }, []);
 
-  const [description, setDescription] = useState('')
   const getValue = (description) => {
     setDescription(description);
   };
+  // console.log("sssssssssssssssssssss",description)
+  // console.log("images",imagevideo)
+
+  const handleFileInputChange = async (event) => {
+    console.log("event", event)
+    const file = event.target.files[0];
+
+    if (file) {
+      // Check the file type by examining its MIME type or file extension
+      if (isImage(file)) {
+        if (file.size >= 10000000) {
+          toast.error("File cannot be greater than 10mbs")
+        }
+        else{
+          let tok = localStorage.getItem("accessToken");
+          axios.defaults.headers.post[
+            "Authorization"
+          ] = `Bearer ${tok}`;
+          var data = new FormData();
+          data.append("image", file);
+          const responses = await axios.post(
+            `${API_URL}/tasks/metadata/upload-image`,
+            data
+          );
+          setimagevideo(responses?.data?.url);
+          event.target.value = null;
+        }
+      } else if (isVideo(file)) {
+
+      } else {
+        console.log("Unsupported file type.");
+      }
+    }
+  };
+
+  const isImage = (file) => {
+    return file.type.startsWith('image/');
+  };
+
+  const isVideo = (file) => {
+    return file.type.startsWith('video/');
+  };
+
+
 
 
 
@@ -140,7 +189,7 @@ const AnnouncementModals = ({ showannounce, setShowannounce, getDataannou }) => 
             </div>
             <div className="option-field">
               <label>Title</label>
-              <input placeholder="Enter title here...."></input>
+              <input onChange={(e) => setTitle(e.target.value)} placeholder="Enter title here...."></input>
             </div>
             <div className="option-field">
               <label>MESSAGE</label>
@@ -150,10 +199,14 @@ const AnnouncementModals = ({ showannounce, setShowannounce, getDataannou }) => 
               <label className='headdd'>Upload Image or Video</label>
               <div className="upload-img">
                 <label htmlFor="upload">
-                <img src="\uploadimage.svg" alt="img" className='img-fluid' /></label>
-                <h6>Drop your image or video here, or <label htmlFor="upload">browse</label></h6>
-                <p>Supports: JPG, JPEG, PNG, MP4 & MOV Maximum file Size: 20mb</p>
-                <input type="file" className='d-none' id='upload' />
+                  <img src="\uploadimage.svg" alt="img" className='img-fluid' /></label>
+                <h6>Select your image here, or <label htmlFor="upload">browse</label></h6>
+                <p>Supports: JPG, JPEG, PNG file Size: 10mb</p>
+                <input type="file" onChange={(e) => handleFileInputChange(e)} className='d-none'
+                       accept="image/png, image/jpg,image/jpeg"
+                 id='upload' />
+                {/* MP4 & MOV Maximum */}
+                {/* or video */}
               </div>
             </div>
             {/* <div className="option-field">
