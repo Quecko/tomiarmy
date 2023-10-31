@@ -45,7 +45,7 @@ const Announcements = () => {
 
 
   const [detail, setDeatils] = useState(null)
-
+console.log("title",detail)
   const getDetail = (elem) => {
     handleShow()
     setDeatils(elem)
@@ -128,7 +128,7 @@ const Announcements = () => {
                           <thead>
                             <tr>
                               <th>
-                                <p className='headtable'>Announcement</p>
+                                <p className='headtable'>Announcement Title</p>
                               </th>
                               <th>
                                 <p className='headtable'>Date Received</p>
@@ -145,7 +145,7 @@ const Announcements = () => {
                               return (
                                 <tr>
                                   <td>
-                                    <p className='paratable'>{elem?.announcement?.message}</p>
+                                    <p className='paratable'>{elem?.announcement?.title}</p>
                                   </td>
                                   <td>
                                     <p className='paratable'>{createDate}</p>
@@ -170,7 +170,6 @@ const Announcements = () => {
                                           <Dropdown.Item href="#/action-1">
                                             <p><img src='\trash.svg' alt='img' className='img-fluid' />delete</p>
                                           </Dropdown.Item>
-
                                         </Dropdown.Menu>
                                       </Dropdown>
                                     </div>
@@ -191,7 +190,7 @@ const Announcements = () => {
                             const createDate = moment(createdate).format("DD-MM-YYYY");
                             return (
                               <Accordion.Item eventKey="0">
-                                <Accordion.Header>{elem?.announcement?.message}</Accordion.Header>
+                                <Accordion.Header>{elem?.announcement?.title}</Accordion.Header>
                                 <Accordion.Body>
                                   <div className="inner-fields">
                                     <div className="inner-item">
@@ -259,7 +258,7 @@ const Announcements = () => {
                                 return (
                                   <tr>
                                     <td>
-                                      <p className='paratable'>{elem?.announcement?.message}</p>
+                                      <p className='paratable'>{elem?.announcement?.title}</p>
                                     </td>
                                     <td>
                                       <p className='paratable'>{createDate}</p>
@@ -323,7 +322,7 @@ const Announcements = () => {
                             const createDate = moment(createdate).format("DD-MM-YYYY");
                             return (
                               <Accordion.Item eventKey="0">
-                                <Accordion.Header>{elem?.announcement?.message}</Accordion.Header>
+                                <Accordion.Header>{elem?.announcement?.title}</Accordion.Header>
                                 <Accordion.Body>
                                   <div className="inner-fields">
                                     <div className="inner-item">
@@ -379,11 +378,11 @@ const Announcements = () => {
           <Modal.Body>
           <div className='modalcard'>
               <h4>Title</h4>
-              <p>Lorem ipsum dolor sit amet</p>
+              <p>{detail?.announcement?.title}</p>
             </div>
             <div className='modalcard mt-4'>
               <h4>Announcement</h4>
-              <p>{detail?.announcement?.message}</p>
+              <p dangerouslySetInnerHTML={{__html: detail?.announcement?.message}}></p>
             </div>
             <div className="twice-date">
             <div className='modalcard mt-4'>
@@ -392,12 +391,12 @@ const Announcements = () => {
             </div>
             <div className='modalcard mt-4'>
               <h4>To</h4>
-              <p>All Captains</p>
+              <p>{detail?.announcement?.recipients}</p>
             </div>
             </div>
             <div className='uploadimgann mt-4'>
               <h4>Image/Video</h4>
-              <img src="\assets\dummy-img.png" alt="img" className='img-fluid' />
+              <img src={detail?.announcement?.media} alt="img" className='img-fluid' />
             </div>
             <div className='okbtn'>
               <button onClick={readAnnuncement}><span><img src='\checkmarks.svg' alt='img' className='img-fluid' /></span>Okay</button>
