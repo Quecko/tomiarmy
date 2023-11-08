@@ -859,7 +859,6 @@ const Squad = ({ show1, setShow1, show2, setShow2, setShow4, setShow5, setShow6,
                   </div>
                   <p className='attachment'>05/05/2023</p>
                   <div className='taskdetail'>
-
                     <p>   <img src='\Group.svg' alt='img' className='img-fluid' />task-detail.mp4</p>
                   </div>
                   <p className='link'>Image</p>
@@ -873,9 +872,7 @@ const Squad = ({ show1, setShow1, show2, setShow2, setShow4, setShow5, setShow6,
                   }}>Submit proof of work</button>
                 </div>
               </Modal.Body>
-
             </Modal>
-
             <Modal className='detailmodal' show={show1} onHide={handleClose1} centered>
               <Modal.Header closeButton>
                 <Modal.Title>
@@ -884,7 +881,6 @@ const Squad = ({ show1, setShow1, show2, setShow2, setShow4, setShow5, setShow6,
                     <p>upload at least one of the below items</p>
                   </div>
                 </Modal.Title>
-
               </Modal.Header>
               <Modal.Body>
                 <div className='maininput'>
@@ -1130,41 +1126,41 @@ const Squad = ({ show1, setShow1, show2, setShow2, setShow4, setShow5, setShow6,
                         <p>Nickname</p>
                       </div>
                       <Accordion defaultActiveKey="0">
-                      {users?.users?.map((elem, index) => {
-                              const walletAddressLength = elem?.walletAddress?.length;
-                              return (
-                        <Accordion.Item eventKey={index}>
-                          <Accordion.Header>{elem?.nickName ? elem?.nickName : "------"}</Accordion.Header>
-                          <Accordion.Body>
-                            <div className="inner-fields">
-                              <div className="inner-item">
-                                
-                                <h6>Rank</h6>
-                                <p><img src={elem?.rank?.icon} style={{ width: "22px", height: "22px" }} alt="img" className='img-fluid me-2' /> {elem?.rank?.name}</p>
-                              </div>
-                              {/* <div className="inner-item">
+                        {users?.users?.map((elem, index) => {
+                          const walletAddressLength = elem?.walletAddress?.length;
+                          return (
+                            <Accordion.Item eventKey={index}>
+                              <Accordion.Header>{elem?.nickName ? elem?.nickName : "------"}</Accordion.Header>
+                              <Accordion.Body>
+                                <div className="inner-fields">
+                                  <div className="inner-item">
+
+                                    <h6>Rank</h6>
+                                    <p><img src={elem?.rank?.icon} style={{ width: "22px", height: "22px" }} alt="img" className='img-fluid me-2' /> {elem?.rank?.name}</p>
+                                  </div>
+                                  {/* <div className="inner-item">
                                 <h6>Wallet Address</h6>
                                 <p>0x2F78....aB0C</p>
                               </div> */}
-                              {/* <div className="inner-item">
+                                  {/* <div className="inner-item">
                                 <h6>Username</h6>
                                 <p>@sharjeel</p>
                               </div> */}
-                              <div className="inner-item">
-                                <h6>Points</h6>
-                                <p>+{elem?.points}</p>
-                              </div>
-                              {/* <div className="inner-item">
+                                  <div className="inner-item">
+                                    <h6>Points</h6>
+                                    <p>+{elem?.points}</p>
+                                  </div>
+                                  {/* <div className="inner-item">
                                 <h6>Actions</h6>
                                 <a href="#"><img src="\assets\btn-more-mobile.svg" alt="img" className="img-fluid" /></a>
                               </div> */}
 
-                            </div>
-                          </Accordion.Body>
-                        </Accordion.Item>
-    
-    )
-  })}
+                                </div>
+                              </Accordion.Body>
+                            </Accordion.Item>
+
+                          )
+                        })}
                       </Accordion>
                     </div>
                   </div>

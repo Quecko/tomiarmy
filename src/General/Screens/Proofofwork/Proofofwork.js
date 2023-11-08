@@ -205,11 +205,25 @@ const Proofofwork = () => {
             .then((response) => {
                 if (response.data.data.isApproved == true) {
                     handleClosework();
-                    handleShowapprove1();
+                    // handleShowapprove1();
+                    toast.success(
+                        "Task proof of work approved",
+                        {
+                            position: "top-right",
+                            autoClose: 3000,
+                        }
+                    );
                     setLoader(false)
                 } else {
                     handleClosework();
-                    handleShowreject1();
+                    toast.error(
+                        "Task proof of work rejected",
+                        {
+                            position: "top-right",
+                            autoClose: 3000,
+                        }
+                    );
+                    // handleShowreject1();
                     setLoader(false)
                 }
                 getData()
@@ -246,13 +260,28 @@ const Proofofwork = () => {
             .then((response) => {
                 if (approvedcheck == 'true') {
                     handleClosework1();
+                    toast.success(
+                        " operation proof of work approved",
+                        {
+                            position: "top-right",
+                            autoClose: 3000,
+                        }
+                    );
+                   
                     handleShowapprove();
                     // allworkproofs();
                     GetDataOfOperation(operationList);
                     setLoader(false)
                 } else {
                     handleClosework1();
-                    handleShowreject();
+                    toast.error(
+                        " operation proof of work rejected",
+                        {
+                            position: "top-right",
+                            autoClose: 3000,
+                        }
+                    );
+                    // handleShowreject();
                     // allworkproofs();
                     GetDataOfOperation(operationList);
                     setLoader(false)
