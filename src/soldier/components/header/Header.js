@@ -276,6 +276,20 @@ const Header = ({ routes, setroute, indexwait, handleShow, setShow2, setShow1, s
               localStorage.removeItem("wallet");
               window.location.assign('/')
             }
+            else if (err?.response?.data?.statusCode == 401) {
+              toast.error('User is Blocked', {
+                position: 'top-center',
+                autoClose: 5000,
+              });
+              localStorage.removeItem("connectorId");
+              localStorage.removeItem("flag");
+              // setShow(false);
+              localStorage.removeItem("accessToken");
+              localStorage.removeItem("user");
+              localStorage.removeItem("wallet");
+              window.location.assign('/')
+            }
+          
             localStorage.removeItem("connectorId");
             localStorage.removeItem("flag");
           });

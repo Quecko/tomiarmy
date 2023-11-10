@@ -35,7 +35,6 @@ import { addUer } from '../../../redux/action';
 import TopSquad from "../home/HomeOperations/TopSquad";
 import TopSquadModal from "../../screens/TopSquadModal";
 
-
 const Sidebar = () => {
   const datacommander = localStorage.getItem('user')
   const data = JSON.parse(datacommander)
@@ -43,22 +42,22 @@ const Sidebar = () => {
   const { account } = useWeb3React()
 
   useEffect(() => {
-    if (data?.isCommander == false && data?.isCoLeader == true){
-        history.push('/leader')
-    }
-    else if((data?.isCommander == true)){
+    if (data?.isCommander == false && data?.isCoLeader == true) {
       history.push('/leader')
     }
-    else if(data?.isCommander == false && data?.isCoLeader == false && data?.rank?.name !== 'general' && data?.rank?.name !== 'major general'){
+    else if ((data?.isCommander == true)) {
+      history.push('/leader')
+    }
+    else if (data?.isCommander == false && data?.isCoLeader == false && data?.rank?.name !== 'general' && data?.rank?.name !== 'major general') {
       history.push('/soldier')
     }
-    else if (data?.rank?.name == 'general' && data?.isCommander == false && data?.isCoLeader == false){
+    else if (data?.rank?.name == 'general' && data?.isCommander == false && data?.isCoLeader == false) {
       history.push('/general')
     }
-    else if (data?.rank?.name == 'major general' && data?.isCommander == false && data?.isCoLeader == false){
+    else if (data?.rank?.name == 'major general' && data?.isCommander == false && data?.isCoLeader == false) {
       history.push('/majorgeneral')
     }
-    else{
+    else {
       localStorage.clear()
       window.location.assign('/')
 
@@ -380,6 +379,7 @@ const Sidebar = () => {
         // console.log(error);
         // setLoader(false);
         // localStorage.removeItem("accessToken");
+        
         // localStorage.removeItem("user");
         // window.location.reload();
       });
@@ -403,16 +403,16 @@ const Sidebar = () => {
     axios(config)
       .then(function (response) {
         allPages(response?.data?.data?.pages)
-        if (firstTime==true) {
+        if (firstTime == true) {
           let rev = reverse([...response?.data?.data?.groupMessages])
           setChat(rev);
           setFirstTime(false)
         }
-        else if(page==1){
+        else if (page == 1) {
           let rev = reverse([...response?.data?.data?.groupMessages])
           setChat(rev)
         }
-        else{
+        else {
           let rev = reverse([...response?.data?.data?.groupMessages])
           setChat([...rev, ...chat])
         }
@@ -482,7 +482,7 @@ const Sidebar = () => {
     if (data?.memberOfSquad === true) {
       getChat()
     }
-  }, [page,pages])
+  }, [page, pages])
 
   useEffect(() => {
     if (data?.memberOfSquad === true) {
@@ -934,11 +934,11 @@ const Sidebar = () => {
             </div>
           </div>
           <div className="content-column">
-            <Header handleShow={handleShow} getChat={getChat} indexwait={indexwait} routes={routes} setroute={setroute} show1={show1} setShow1={setShow1} show2={show2} setShow2={setShow2} setShow4={setShow4} setShow5={setShow5} notifs={notifs} getNotif={getNotif} getData={getData} getDataOperation={getDataOperation} setindexwait={setindexwait}/>
+            <Header handleShow={handleShow} getChat={getChat} indexwait={indexwait} routes={routes} setroute={setroute} show1={show1} setShow1={setShow1} show2={show2} setShow2={setShow2} setShow4={setShow4} setShow5={setShow5} notifs={notifs} getNotif={getNotif} getData={getData} getDataOperation={getDataOperation} setindexwait={setindexwait} />
             {indexwait === 0 ?
               (
                 <>
-                  <Home show2={show2} setShow2={setShow2} tasks={tasks} setShowtask={setShowtask} settaskdetail={settaskdetail} setShowtask1={setShowtask1} settaskdetail1={settaskdetail1} operations={operations} setOperationId={setOperationId} users={users} squaddetail={squaddetail} statusData={statusData} setindexwait={setindexwait} GetUserProfiledata={GetUserProfiledata}  setShowTopSquadModal={setShowTopSquadModal} />
+                  <Home show2={show2} setShow2={setShow2} tasks={tasks} setShowtask={setShowtask} settaskdetail={settaskdetail} setShowtask1={setShowtask1} settaskdetail1={settaskdetail1} operations={operations} setOperationId={setOperationId} users={users} squaddetail={squaddetail} statusData={statusData} setindexwait={setindexwait} GetUserProfiledata={GetUserProfiledata} setShowTopSquadModal={setShowTopSquadModal} />
                 </>
               )
               :
@@ -1044,7 +1044,7 @@ const Sidebar = () => {
         </Offcanvas.Header>
         <Offcanvas.Body>
           <div className="sidebar-column">
-          <div className="sidebar-wrapper ">
+            <div className="sidebar-wrapper ">
               <div className="logo-box">
                 <Link to={"/soldier"}>
                   <img src={logo} alt="" />
@@ -1055,7 +1055,7 @@ const Sidebar = () => {
                 <ul>
                   <li>
                     <a
-                      onClick={() => { hitfunctionss(0); sidebar();}}
+                      onClick={() => { hitfunctionss(0); sidebar(); }}
                       className={
                         indexwait === 0 ? "list-item active" : "list-item "
                       }
@@ -1078,7 +1078,7 @@ const Sidebar = () => {
                   </li>
                   <li>
                     <a
-                      onClick={() => { hitfunctionss(1); sidebar();}}
+                      onClick={() => { hitfunctionss(1); sidebar(); }}
                       className={
                         indexwait === 1 ? "list-item active" : "list-item "
                       }
@@ -1102,7 +1102,7 @@ const Sidebar = () => {
                   {data?.memberOfSquad === true &&
                     <li>
                       <a
-                        onClick={() => { hitfunctionss(2); sidebar();}}
+                        onClick={() => { hitfunctionss(2); sidebar(); }}
                         className={
                           indexwait === 2
                             ? "list-item active"
@@ -1132,7 +1132,7 @@ const Sidebar = () => {
                   {data?.memberOfSquad === true &&
                     <li>
                       <a
-                        onClick={() => { hitfunctionss(3); sidebar();}}
+                        onClick={() => { hitfunctionss(3); sidebar(); }}
                         className={
                           indexwait === 3 ? "list-item active" : "list-item "
                         }
@@ -1172,7 +1172,7 @@ const Sidebar = () => {
                   {data?.isCommander === true &&
                     <li>
                       <a
-                        onClick={() => { hitfunctionss(11); sidebar();}}
+                        onClick={() => { hitfunctionss(11); sidebar(); }}
                         className={
                           indexwait === 11 ? "list-item active" : "list-item "
                         }
@@ -1189,7 +1189,7 @@ const Sidebar = () => {
 
                   <li>
                     <a
-                      onClick={() => { hitfunctionss(4); sidebar();}}
+                      onClick={() => { hitfunctionss(4); sidebar(); }}
                       className={
                         indexwait === 4
                           ? "list-item active"
@@ -1256,7 +1256,7 @@ const Sidebar = () => {
                   {data?.memberOfSquad === true &&
                     <li>
                       <a
-                        onClick={() => { hitfunctionss(5); sidebar();}}
+                        onClick={() => { hitfunctionss(5); sidebar(); }}
                         className={
                           indexwait === 5 ? "list-item active" : "list-item "
                         }
@@ -1319,7 +1319,7 @@ const Sidebar = () => {
                         <Accordion.Body>
                           <li>
                             <a
-                              onClick={() => { hitfunctionss(12); sidebar();}}
+                              onClick={() => { hitfunctionss(12); sidebar(); }}
                               className={
                                 indexwait === 12 ? "list-item active" : "list-item"
                               }
@@ -1330,7 +1330,7 @@ const Sidebar = () => {
                           </li>
                           <li>
                             <a
-                              onClick={() => { hitfunctionss(13); sidebar();}}
+                              onClick={() => { hitfunctionss(13); sidebar(); }}
                               className={
                                 indexwait === 13 ? "list-item active" : "list-item"
                               }
@@ -1357,7 +1357,7 @@ const Sidebar = () => {
                   </div>
                   <li>
                     <a
-                      onClick={() => { hitfunctionss(7); sidebar();}}
+                      onClick={() => { hitfunctionss(7); sidebar(); }}
                       className={
                         indexwait === 7 ? "list-item active" : "list-item "
                       }
@@ -1407,7 +1407,7 @@ const Sidebar = () => {
                   </li>
                   <li>
                     <a
-                      onClick={() => { hitfunctionss(8); sidebar();}}
+                      onClick={() => { hitfunctionss(8); sidebar(); }}
                       className={
                         indexwait === 8 ? "list-item active" : "list-item "
                       }
@@ -1429,7 +1429,7 @@ const Sidebar = () => {
                   </li>
                   <li>
                     <a
-                      onClick={() => { hitfunctionss(10); sidebar();}}
+                      onClick={() => { hitfunctionss(10); sidebar(); }}
                       className={
                         indexwait === 10 ? "list-item active" : "list-item "
                       }
@@ -1454,7 +1454,7 @@ const Sidebar = () => {
                   <img src={logoutIcon} alt="logoutIcon" />
                   DISCONNECT WALLET
                 </button>
-                <a onClick={() => { hitfunctionss(9); sidebar();}} className="btn-report">Report a Bug</a>
+                <a onClick={() => { hitfunctionss(9); sidebar(); }} className="btn-report">Report a Bug</a>
               </div>
             </div>
           </div>
@@ -1462,7 +1462,7 @@ const Sidebar = () => {
       </Offcanvas>
 
 
-      <SquadModals show1={show1} setShow1={setShow1} show2={show2} setShow2={setShow2} SquadUsers={SquadUsers} GetUserProfiledata={GetUserProfiledata}  setindexwait={setindexwait}/>
+      <SquadModals show1={show1} setShow1={setShow1} show2={show2} setShow2={setShow2} SquadUsers={SquadUsers} GetUserProfiledata={GetUserProfiledata} setindexwait={setindexwait} />
       <LeaderModals show4={show4} setShow4={setShow4} show5={show5} setShow5={setShow5} show6={show6} setShow6={setShow6} item={coLeaderDetails} SquadUsers={SquadUsers} />
       <AllTaskModals showtask={showtask} setShowtask={setShowtask} settaskdetail={settaskdetail} taskdetail={taskdetail} getData={getData} />
       <AllOperationTaskModal showtask1={showtask1} setShowtask1={setShowtask1} settaskdetail1={settaskdetail1} taskdetail1={taskdetail1} getDataOperation={getDataOperation} operationId={operationId} />

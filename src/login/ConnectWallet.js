@@ -229,6 +229,12 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role, setRole, setinvitecode, 
                             // localStorage.clear()
                             // window.location.assign('/')
                         }
+                        else if (err?.response?.data?.statusCode == 401) {
+                            toast.error('User is Blocked', {
+                                position: 'top-center',
+                                autoClose: 5000,
+                            });
+                        }
                         // localStorage.clear()
                         // window.location.assign('/')
                     });
@@ -299,6 +305,12 @@ const ConnectWallet = ({ setjoinsquad, joinsquad, role, setRole, setinvitecode, 
                         }
                         else if (err?.response?.data?.statusCode == 400) {
                             toast.error('Not enough tomi Tokens', {
+                                position: 'top-center',
+                                autoClose: 5000,
+                            });
+                        }
+                        else if (err?.response?.data?.statusCode == 401) {
+                            toast.error('User is Blocked', {
                                 position: 'top-center',
                                 autoClose: 5000,
                             });
