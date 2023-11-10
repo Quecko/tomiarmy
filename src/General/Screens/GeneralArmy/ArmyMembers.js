@@ -25,7 +25,7 @@ const ArmyMembers = ({ routesarmy, setroutearmy }) => {
     const [data, setData] = useState([]);
     const [Armymajor, setArmymajor] = useState([]);
     const [selectedrank, setselectedrank] = useState('Select Rank');
-    const [filterRank, setFilterRank] = useState('Filter Rank');
+    const [filterRank, setFilterRank] = useState('All Rank');
     const [search, setSearch] = useState('')
     const { account } = useWeb3React();
     const [showapprove, setShowapprove] = useState(false);
@@ -40,6 +40,8 @@ const ArmyMembers = ({ routesarmy, setroutearmy }) => {
     const [pages, setPages] = useState([]);
     const [rend, setRend] = useState(false);
     const [limit, setLimit] = useState(1)
+    let user1 = localStorage.getItem("user");
+    let user = JSON.parse(user1);
     var inputTouched = false;
 
     const handleCloserank = () => {
@@ -63,65 +65,75 @@ const ArmyMembers = ({ routesarmy, setroutearmy }) => {
             valu = 1;
         }
         // if (account) {
-        var config=''
-        if (search=== '' && filterRank == 'Filter Rank' ) {
-            // if (filterRank != 'Filter Rank') {
-                
-                config = {
-                    method: "get",
-                    url: `${API_URL}/auth/users/army-members?offset=${valu}&&limit=5`,
-                    headers: {
-                        authorization: `Bearer ` + tok
-                    },
-                };
+        var config = ''
 
-        }
-        else {
-            toast.error('Please Enter the value of search and select rank', {
-                position: "top-right",
-                autoClose: 2000,
-            });
-             config = {
+        if (search != '' && filterRank != 'All Rank') {
+            config = {
                 method: "get",
-                url: `${API_URL}/auth/users/army-members?offset=${valu}&&limit=5&&rank=${filterRank}&&nickName=${search}`,
+                url: `${API_URL}/auth/users/army-members?offset=${valu}&&limit=10&&rank=${filterRank}&&nickName=${search}`,
                 headers: {
                     authorization: `Bearer ` + tok
                 },
             }
-           
-
         }
-       
-
-                axios(config)
-                    .then(function (response) {
-                        setData(response?.data?.data?.users);
-                        setCurrentPage(valu)
-                        setCount(response.data.data.count)
-                        let arr = Array.from(Array(parseInt(response.data.data.pages)).keys());
-                        setPages(arr);
-                        setCurrentPage(valu)
-                        // setSearch('')
-                        // setFilterRank('Filter Rank')
-                        if (off <= response.data.data.users.length) {
-                            if ((off - 1) == 0) {
-                                setLimit(1)
-                            }
-                            else {
-                                setLimit((off - 1) * 5)
-                            }
-                        }
-                    })
-                    .catch(function (error) {
-                        // setLoader(false);
-                        // localStorage.removeItem("accessToken");
-                        // localStorage.removeItem("user");
-                        // window.location.assign("/")
-                        // window.location.reload();
-                    });
-                // }
+        else if (filterRank != 'All Rank') {
+            config = {
+                method: "get",
+                url: `${API_URL}/auth/users/army-members?offset=${valu}&&limit=10&&rank=${filterRank}`,
+                headers: {
+                    authorization: `Bearer ` + tok
+                },
+            }
+        }
+        else if (search != '') {
+            config = {
+                method: "get",
+                url: `${API_URL}/auth/users/army-members?offset=${valu}&&limit=10&&nickName=${search}`,
+                headers: {
+                    authorization: `Bearer ` + tok
+                },
+            }
+        }
+        else {
+            config = {
+                method: "get",
+                url: `${API_URL}/auth/users/army-members?offset=${valu}&&limit=10`,
+                headers: {
+                    authorization: `Bearer ` + tok
+                },
+            };
+        }
+        axios(config)
+            .then(function (response) {
+                setData(response?.data?.data?.users);
+                setCurrentPage(valu)
+                setCount(response.data.data.count)
+                let arr = Array.from(Array(parseInt(response.data.data.pages)).keys());
+                setPages(arr);
+                setCurrentPage(valu)
+                // setSearch('')
+                // setFilterRank('Filter Rank')
+                if (off <= response.data.data.users.length) {
+                    if ((off - 1) == 0) {
+                        setLimit(1)
+                    }
+                    else {
+                        setLimit((off - 1) * 10)
+                    }
+                }
+            })
+            .catch(function (error) {
+                // setLoader(false);
+                // localStorage.removeItem("accessToken");
+                // localStorage.removeItem("user");
+                // window.location.assign("/")
+                // window.location.reload();
+            });
+        // }
 
     }
+
+
 
     useEffect(() => {
         let user1 = localStorage.getItem("user");
@@ -229,13 +241,14 @@ const ArmyMembers = ({ routesarmy, setroutearmy }) => {
     }
 
     const armyMembers = [
-        { id: 1, rank: 'private' },
-        { id: 2, rank: 'sergeant' },
-        { id: 3, rank: 'lieutenant' },
-        { id: 4, rank: 'captain' },
-        { id: 5, rank: 'major' },
-        { id: 6, rank: 'major general' },
-        { id: 7, rank: 'general' },
+        { id: 1, rank: 'All Rank' },
+        { id: 2, rank: 'private' },
+        { id: 3, rank: 'sergeant' },
+        { id: 4, rank: 'lieutenant' },
+        { id: 5, rank: 'captain' },
+        { id: 6, rank: 'major' },
+        // { id: 6, rank: 'major general' },
+        // { id: 7, rank: 'general' },
 
     ];
 
@@ -319,7 +332,6 @@ const ArmyMembers = ({ routesarmy, setroutearmy }) => {
         }
     };
 
-
     const getSearchData = async (off) => {
         let valu = null;
         if (off) {
@@ -391,14 +403,53 @@ const ArmyMembers = ({ routesarmy, setroutearmy }) => {
 
     const clear = () => {
         setSearch('')
-        setFilterRank('Filter Rank')
+        setFilterRank('All Rank')
     }
     useEffect(() => {
         if (search == '') {
             armyembers(currentPage)
         }
+        // else if(filterRank == 'All Rank'){
+        //     armyembers(currentPage)
+        // }
     }, [search])
 
+    const Resetallfeilds = () => {
+        setSearch('')
+        setFilterRank('All Rank')
+    }
+
+    const BlockUnblock = (id, bool) => {
+        // console.log("id", id?._id, bool)
+        setLoader(true);
+        var data = ({
+            userId: id?._id,
+            isBlocked: bool
+        });
+        var config = {
+            method: "patch",
+            url: `${API_URL}/auth/users/toggle-block-user`,
+            headers: {
+                authorization: `Bearer ` + tok
+            },
+            data: data,
+        };
+        axios(config)
+            .then(function (response) {
+                setLoader(false);
+                armyembers(1);
+                // GetArmymajor();
+                // setselectedrank();
+                // toast.success('Request Send To General Successfully!', {
+                //     position: "top-right",
+                //     autoClose: 2000,
+                // });
+            })
+            .catch(function (error) {
+                setLoader(false);
+                toast.error(error.response.data.message);
+            });
+    }
 
 
     return (
@@ -431,7 +482,7 @@ const ArmyMembers = ({ routesarmy, setroutearmy }) => {
                                                 <Tab eventKey="home" title="Army Members">
                                                     <div className="parent-field">
                                                         <div className="option-field option-field1 option-field2">
-                                                            <input type="text" value={search} onChange={(e) => setSearch(e.target.value)} placeholder='Search' />
+                                                            <input type="text" value={search} onChange={(e) => setSearch(e.target.value)} placeholder='Search By Nickname' />
                                                             {/* <img src="\assets\search-icon.svg" alt="img" className='img-fluid search-icon' /> */}
                                                         </div>
                                                         {/* <div className="option-field option-field2">
@@ -455,9 +506,7 @@ const ArmyMembers = ({ routesarmy, setroutearmy }) => {
                                                                 </div>
                                                             </div>
                                                             <button className='btn-search' onClick={() => armyembers(1)}>Search</button>
-                                                            {search !== '' &&
-                                                                <button className="btn-reset" onClick={clear}><img src='/reset.png' alt='' /></button>
-                                                            }
+                                                            <button className="btn-search" onClick={Resetallfeilds}>Reset</button>
                                                         </div>
 
                                                     </div>
@@ -480,6 +529,9 @@ const ArmyMembers = ({ routesarmy, setroutearmy }) => {
                                                                                 <p className='headtable'>Points</p>
                                                                             </th>
                                                                             <th>
+                                                                                <p className='headtable'>Status</p>
+                                                                            </th>
+                                                                            <th>
                                                                                 <p className='headtable'>Actions</p>
                                                                             </th>
                                                                         </tr>
@@ -500,6 +552,20 @@ const ArmyMembers = ({ routesarmy, setroutearmy }) => {
                                                                                     <td>
                                                                                         <p className='paratable'>{elem?.points}</p>
                                                                                     </td>
+                                                                                    {elem?.isBlocked == false ?
+                                                                                        (
+                                                                                            <td>
+                                                                                                <p className='paratable'>Active User</p>
+                                                                                            </td>
+                                                                                        )
+                                                                                        :
+                                                                                        (
+                                                                                            <td>
+                                                                                                <p className='paratable'>Blocked User</p>
+                                                                                            </td>
+                                                                                        )
+                                                                                    }
+
                                                                                     <td>
                                                                                         <div className='dropbtn global-dropdown-style'>
                                                                                             <Dropdown>
@@ -508,8 +574,39 @@ const ArmyMembers = ({ routesarmy, setroutearmy }) => {
                                                                                                 </Dropdown.Toggle>
                                                                                                 <Dropdown.Menu>
                                                                                                     <Dropdown.Item href="#/action-1">
-                                                                                                        <p onClick={() => handleShowrank(elem)}><img src='\generalassets\icons\promote.svg' alt='img' className='img-fluid' />Rank Update</p>
-                                                                                                        <p onClick={() => armyMembeerDetails(elem)}><img src='\generalassets\icons\detail.svg' alt='img' className='img-fluid' />Details</p>
+                                                                                                        {user?.rank?.name == 'general' ?
+                                                                                                            (
+                                                                                                                <>
+                                                                                                                    <p onClick={() => armyMembeerDetails(elem)}><img src='\generalassets\icons\detail.svg' alt='img' className='img-fluid' />Details</p>
+                                                                                                                    {elem?.isBlocked == false ?
+                                                                                                                        (
+                                                                                                                            <p onClick={() => BlockUnblock(elem, true)}><img src='\generalassets\icons\detail.svg' alt='img' className='img-fluid' />Block User</p>
+                                                                                                                        )
+                                                                                                                        :
+                                                                                                                        (
+                                                                                                                            <p onClick={() => BlockUnblock(elem, false)}><img src='\generalassets\icons\detail.svg' alt='img' className='img-fluid' />UnBlock User</p>
+                                                                                                                        )
+                                                                                                                    }
+                                                                                                                </>
+                                                                                                            )
+                                                                                                            :
+                                                                                                            (
+                                                                                                                <>
+                                                                                                                    <p onClick={() => handleShowrank(elem)}><img src='\generalassets\icons\promote.svg' alt='img' className='img-fluid' />Rank Update</p>
+                                                                                                                    <p onClick={() => armyMembeerDetails(elem)}><img src='\generalassets\icons\detail.svg' alt='img' className='img-fluid' />Details</p>
+                                                                                                                    {elem?.isBlocked == false ?
+                                                                                                                        (
+                                                                                                                            <p onClick={() => BlockUnblock(elem, true)}><img src='\generalassets\icons\detail.svg' alt='img' className='img-fluid' />Block User</p>
+                                                                                                                        )
+                                                                                                                        :
+                                                                                                                        (
+                                                                                                                            <p onClick={() => BlockUnblock(elem, false)}><img src='\generalassets\icons\detail.svg' alt='img' className='img-fluid' />UnBlock User</p>
+                                                                                                                        )
+                                                                                                                    }
+                                                                                                                </>
+                                                                                                            )
+                                                                                                        }
+
                                                                                                     </Dropdown.Item>
                                                                                                 </Dropdown.Menu>
                                                                                             </Dropdown>
@@ -603,9 +700,22 @@ const ArmyMembers = ({ routesarmy, setroutearmy }) => {
                                                                                         <h6>Rank</h6>
                                                                                         <p>{elem?.rank?.name}</p>
                                                                                     </div>
+
                                                                                     <div className="inner-item">
                                                                                         <h6>Points</h6>
                                                                                         <p>{elem?.points}</p>
+                                                                                    </div>
+                                                                                    <div className="inner-item">
+                                                                                        <h6>Status</h6>
+                                                                                        {elem?.isBlocked == false ?
+                                                                                            (
+                                                                                                <p>Active User</p>
+                                                                                            )
+                                                                                            :
+                                                                                            (
+                                                                                                <p>Blocked User</p>
+                                                                                            )
+                                                                                        }
                                                                                     </div>
                                                                                     <div className="inner-item">
                                                                                         <h6>Actions</h6>
@@ -616,8 +726,39 @@ const ArmyMembers = ({ routesarmy, setroutearmy }) => {
                                                                                                 </Dropdown.Toggle>
                                                                                                 <Dropdown.Menu>
                                                                                                     <Dropdown.Item href="#/action-1">
-                                                                                                        <p onClick={() => handleShowrank(elem)}><img src='\generalassets\icons\promote.svg' alt='img' className='img-fluid' />Rank Update</p>
-                                                                                                        <p onClick={() => armyMembeerDetails(elem)}><img src='\generalassets\icons\detail.svg' alt='img' className='img-fluid' />Details</p>
+                                                                                                        {user?.rank?.name == 'general' ?
+                                                                                                            (
+                                                                                                                <>
+                                                                                                                    <p onClick={() => armyMembeerDetails(elem)}><img src='\generalassets\icons\detail.svg' alt='img' className='img-fluid' />Details</p>
+                                                                                                                    {elem?.isBlocked == false ?
+                                                                                                                        (
+                                                                                                                            <p onClick={() => BlockUnblock(elem, true)}><img src='\generalassets\icons\detail.svg' alt='img' className='img-fluid' />Block User</p>
+                                                                                                                        )
+                                                                                                                        :
+                                                                                                                        (
+                                                                                                                            <p onClick={() => BlockUnblock(elem, false)}><img src='\generalassets\icons\detail.svg' alt='img' className='img-fluid' />UnBlock User</p>
+                                                                                                                        )
+                                                                                                                    }
+                                                                                                                </>
+                                                                                                            )
+                                                                                                            :
+                                                                                                            (
+                                                                                                                <>
+                                                                                                                    <p onClick={() => handleShowrank(elem)}><img src='\generalassets\icons\promote.svg' alt='img' className='img-fluid' />Rank Update</p>
+                                                                                                                    <p onClick={() => armyMembeerDetails(elem)}><img src='\generalassets\icons\detail.svg' alt='img' className='img-fluid' />Details</p>
+                                                                                                                    {elem?.isBlocked == false ?
+                                                                                                                        (
+                                                                                                                            <p onClick={() => BlockUnblock(elem, true)}><img src='\generalassets\icons\detail.svg' alt='img' className='img-fluid' />Block User</p>
+                                                                                                                        )
+                                                                                                                        :
+                                                                                                                        (
+                                                                                                                            <p onClick={() => BlockUnblock(elem, false)}><img src='\generalassets\icons\detail.svg' alt='img' className='img-fluid' />UnBlock User</p>
+                                                                                                                        )
+                                                                                                                    }
+                                                                                                                </>
+                                                                                                            )
+                                                                                                        }
+
                                                                                                     </Dropdown.Item>
                                                                                                 </Dropdown.Menu>
                                                                                             </Dropdown>
@@ -631,6 +772,51 @@ const ArmyMembers = ({ routesarmy, setroutearmy }) => {
                                                                 })}
 
                                                             </Accordion>
+                                                            <div className="pagi">
+                                                                <div>
+                                                                    {/* <p>Showing {limit} to {currentPage * 5 >= count ? currentPage - (currentPage - count) : currentPage * 5} of {count} entries</p> */}
+                                                                </div>
+                                                                <nav className="right">
+                                                                    <ul className="pagination">
+                                                                        <li className="page-item">
+                                                                            <button
+                                                                                onClick={() => getPrevData(currentPage)}
+                                                                                className="page-link arrowssss scsdsdfefssdvsdvsd"
+                                                                            >
+                                                                                {/* <i className="fas curPointer fa-angle-left"></i> */}
+                                                                                Previous
+                                                                            </button>
+                                                                        </li>
+                                                                        {pages?.map((item, index) => {
+                                                                            return (
+                                                                                <li key={index} className="page-item cursor-pointer">
+                                                                                    <p
+                                                                                        className={
+                                                                                            "page-link " +
+                                                                                            (index + 1 === parseInt(currentPage)
+                                                                                                ? "active-pag"
+                                                                                                : "")
+                                                                                        }
+                                                                                        onClick={() => armyembers(index + 1)}
+                                                                                        style={{ fontSize: "13px !important" }}
+                                                                                    >
+                                                                                        {index + 1}
+                                                                                    </p>
+                                                                                </li>
+                                                                            );
+                                                                        })}
+                                                                        <li className="page-item">
+                                                                            <button
+                                                                                onClick={() => getNextData(currentPage)}
+                                                                                className="page-link arrowssss"
+                                                                            >
+                                                                                {/* <i className="fas curPointer fa-angle-right"></i> */}
+                                                                                Next
+                                                                            </button>
+                                                                        </li>
+                                                                    </ul>
+                                                                </nav>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </Tab>
@@ -638,9 +824,9 @@ const ArmyMembers = ({ routesarmy, setroutearmy }) => {
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div >
 
-                        </section>
+                        </section >
 
                         <Modal className='promote-modal global-modal-style' show={show} onHide={handleClose} centered>
                             <Modal.Header closeButton>

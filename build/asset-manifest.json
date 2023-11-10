@@ -1,22 +1,22 @@
 {
   "files": {
     "main.css": "/static/css/main.c98ac455.chunk.css",
-    "main.js": "/static/js/main.91811222.chunk.js",
-    "main.js.map": "/static/js/main.91811222.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.bbe10e11.js",
-    "runtime-main.js.map": "/static/js/runtime-main.bbe10e11.js.map",
+    "main.js": "/static/js/main.e6a7e7ad.chunk.js",
+    "main.js.map": "/static/js/main.e6a7e7ad.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.9d4373c9.js",
+    "runtime-main.js.map": "/static/js/runtime-main.9d4373c9.js.map",
     "static/css/2.4ab6e85d.chunk.css": "/static/css/2.4ab6e85d.chunk.css",
-    "static/js/2.76696440.chunk.js": "/static/js/2.76696440.chunk.js",
-    "static/js/2.76696440.chunk.js.map": "/static/js/2.76696440.chunk.js.map",
-    "static/js/3.d8aa73a8.chunk.js": "/static/js/3.d8aa73a8.chunk.js",
-    "static/js/3.d8aa73a8.chunk.js.map": "/static/js/3.d8aa73a8.chunk.js.map",
+    "static/js/2.12d471cc.chunk.js": "/static/js/2.12d471cc.chunk.js",
+    "static/js/2.12d471cc.chunk.js.map": "/static/js/2.12d471cc.chunk.js.map",
+    "static/js/3.7ffffa96.chunk.js": "/static/js/3.7ffffa96.chunk.js",
+    "static/js/3.7ffffa96.chunk.js.map": "/static/js/3.7ffffa96.chunk.js.map",
     "static/js/4.87d041da.chunk.js": "/static/js/4.87d041da.chunk.js",
     "static/js/4.87d041da.chunk.js.map": "/static/js/4.87d041da.chunk.js.map",
     "index.html": "/index.html",
     "static/css/2.4ab6e85d.chunk.css.map": "/static/css/2.4ab6e85d.chunk.css.map",
     "static/css/main.c98ac455.chunk.css.map": "/static/css/main.c98ac455.chunk.css.map",
-    "static/js/2.76696440.chunk.js.LICENSE.txt": "/static/js/2.76696440.chunk.js.LICENSE.txt",
-    "static/js/3.d8aa73a8.chunk.js.LICENSE.txt": "/static/js/3.d8aa73a8.chunk.js.LICENSE.txt",
+    "static/js/2.12d471cc.chunk.js.LICENSE.txt": "/static/js/2.12d471cc.chunk.js.LICENSE.txt",
+    "static/js/3.7ffffa96.chunk.js.LICENSE.txt": "/static/js/3.7ffffa96.chunk.js.LICENSE.txt",
     "static/media/Eclipse-1s-200px (2).99778a49.svg": "/static/media/Eclipse-1s-200px (2).99778a49.svg",
     "static/media/style.scss": "/static/media/arrow-down.c9441fb0.svg",
     "static/media/armyText.7efda8c5.svg": "/static/media/armyText.7efda8c5.svg",
@@ -38,10 +38,10 @@
     "static/media/walletConnectIcon.20429c56.svg": "/static/media/walletConnectIcon.20429c56.svg"
   },
   "entrypoints": [
-    "static/js/runtime-main.bbe10e11.js",
+    "static/js/runtime-main.9d4373c9.js",
     "static/css/2.4ab6e85d.chunk.css",
-    "static/js/2.76696440.chunk.js",
+    "static/js/2.12d471cc.chunk.js",
     "static/css/main.c98ac455.chunk.css",
-    "static/js/main.91811222.chunk.js"
+    "static/js/main.e6a7e7ad.chunk.js"
   ]
 }

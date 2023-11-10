@@ -356,7 +356,7 @@ const GeneralSidebar = () => {
       });
     }
   };
-  
+
   const getChat = async () => {
     if (message != '') {
       setFirstTime(true)
@@ -524,30 +524,52 @@ const GeneralSidebar = () => {
                     </a>
                   </li>
                   {user?.rank?.name === "general" ? (
-                    <li>
-                      <a
-                        onClick={() => { hitfunctionss(5); }}
-                        className={
-                          indexwait === 5 ? "list-item active" : "list-item "
-                        }
-
-                      >
-                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <g clip-path="url(#clip0_943_10906)">
-                            <path d="M15.3825 3.91039L11.6635 3.37L10.0004 0L8.33719 3.37L4.61816 3.91039L7.3093 6.53356L6.67398 10.2375L10.0004 8.48875L13.3267 10.2375L12.6914 6.53356L15.3825 3.91039Z" fill="#81828A" />
-                            <path d="M9.9998 12.3132L3.98633 9.90063V13.3274L10.0349 15.7541L16.0133 13.3256V9.90063L9.9998 12.3132Z" fill="#81828A" />
-                            <path d="M9.9998 16.5591L3.98633 14.1465V17.5733L10.0349 20L16.0133 17.5715V14.1465L9.9998 16.5591Z" fill="#81828A" />
-                          </g>
-                          <defs>
-                            <clipPath id="clip0_943_10906">
-                              <rect width="20" height="20" fill="white" />
-                            </clipPath>
-                          </defs>
-                        </svg>
-
-                        <span>Awaiting Ranks</span>
-                      </a>
-                    </li>
+                    <>
+                      <li>
+                        <a
+                          onClick={() => { hitfunctionss(5); }}
+                          className={
+                            indexwait === 5 ? "list-item active" : "list-item "
+                          }
+                        >
+                          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <g clip-path="url(#clip0_943_10906)">
+                              <path d="M15.3825 3.91039L11.6635 3.37L10.0004 0L8.33719 3.37L4.61816 3.91039L7.3093 6.53356L6.67398 10.2375L10.0004 8.48875L13.3267 10.2375L12.6914 6.53356L15.3825 3.91039Z" fill="#81828A" />
+                              <path d="M9.9998 12.3132L3.98633 9.90063V13.3274L10.0349 15.7541L16.0133 13.3256V9.90063L9.9998 12.3132Z" fill="#81828A" />
+                              <path d="M9.9998 16.5591L3.98633 14.1465V17.5733L10.0349 20L16.0133 17.5715V14.1465L9.9998 16.5591Z" fill="#81828A" />
+                            </g>
+                            <defs>
+                              <clipPath id="clip0_943_10906">
+                                <rect width="20" height="20" fill="white" />
+                              </clipPath>
+                            </defs>
+                          </svg>
+                          <span>Awaiting Ranks</span>
+                        </a>
+                      </li>
+                      <li>
+                        <a
+                          onClick={() => { hitfunctionss(9); }}
+                          className={
+                            indexwait === 9 ? "list-item active" : "list-item "
+                          }
+                        >
+                          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <g clip-path="url(#clip0_943_10906)">
+                              <path d="M15.3825 3.91039L11.6635 3.37L10.0004 0L8.33719 3.37L4.61816 3.91039L7.3093 6.53356L6.67398 10.2375L10.0004 8.48875L13.3267 10.2375L12.6914 6.53356L15.3825 3.91039Z" fill="#81828A" />
+                              <path d="M9.9998 12.3132L3.98633 9.90063V13.3274L10.0349 15.7541L16.0133 13.3256V9.90063L9.9998 12.3132Z" fill="#81828A" />
+                              <path d="M9.9998 16.5591L3.98633 14.1465V17.5733L10.0349 20L16.0133 17.5715V14.1465L9.9998 16.5591Z" fill="#81828A" />
+                            </g>
+                            <defs>
+                              <clipPath id="clip0_943_10906">
+                                <rect width="20" height="20" fill="white" />
+                              </clipPath>
+                            </defs>
+                          </svg>
+                          <span>Army Members</span>
+                        </a>
+                      </li>
+                    </>
                   ) : (
                     <li>
                       <a
@@ -965,7 +987,7 @@ const GeneralSidebar = () => {
         </Offcanvas.Header>
         <Offcanvas.Body>
           <div className="sidebar-column">
-          <div className="sidebar-wrapper ">
+            <div className="sidebar-wrapper ">
               <div className="logo-box">
                 {/* <Link to={"/"}> */}
                 <img src={logo} alt="" />
@@ -976,7 +998,7 @@ const GeneralSidebar = () => {
                 <ul>
                   <li>
                     <a
-                      onClick={() => { hitfunctionss(0); sidebar();}}
+                      onClick={() => { hitfunctionss(0); sidebar(); }}
                       className={
                         indexwait === 0 ? "list-item active" : "list-item "
                       }
@@ -999,7 +1021,7 @@ const GeneralSidebar = () => {
                   </li>
                   <li>
                     <a
-                      onClick={() => { hitfunctionss(1); sidebar();}}
+                      onClick={() => { hitfunctionss(1); sidebar(); }}
                       className={
                         indexwait === 1 ? "list-item active" : "list-item "
                       }
@@ -1022,7 +1044,7 @@ const GeneralSidebar = () => {
                   </li>
                   <li>
                     <a
-                      onClick={() => { hitfunctionss(2); sidebar();}}
+                      onClick={() => { hitfunctionss(2); sidebar(); }}
                       className={
                         indexwait === 2 ? "list-item active" : "list-item "
                       }
@@ -1049,7 +1071,7 @@ const GeneralSidebar = () => {
                   </li>
                   <li>
                     <a
-                      onClick={() => { hitfunctionss(3); sidebar();}}
+                      onClick={() => { hitfunctionss(3); sidebar(); }}
                       className={
                         indexwait === 3 ? "list-item active" : "list-item "
                       }
@@ -1074,7 +1096,7 @@ const GeneralSidebar = () => {
                   {user?.rank?.name === "general" ? (
                     <li>
                       <a
-                        onClick={() => { hitfunctionss(5); sidebar();}}
+                        onClick={() => { hitfunctionss(5); sidebar(); }}
                         className={
                           indexwait === 5 ? "list-item active" : "list-item "
                         }
@@ -1099,7 +1121,7 @@ const GeneralSidebar = () => {
                   ) : (
                     <li>
                       <a
-                        onClick={() => { hitfunctionss(9); sidebar();}}
+                        onClick={() => { hitfunctionss(9); sidebar(); }}
                         className={
                           indexwait === 9 ? "list-item active" : "list-item "
                         }
@@ -1126,7 +1148,7 @@ const GeneralSidebar = () => {
                   {/* {data?.memberOfSquad === true && */}
                   <li>
                     <a
-                      onClick={() => { hitfunctionss(14); sidebar();}}
+                      onClick={() => { hitfunctionss(14); sidebar(); }}
                       className={
                         indexwait === 14 ? "list-item active" : "list-item "
                       }
@@ -1147,7 +1169,7 @@ const GeneralSidebar = () => {
                   {user?.rank?.name === "general" &&
                     <li>
                       <a
-                        onClick={() => { hitfunctionss(4); sidebar();}}
+                        onClick={() => { hitfunctionss(4); sidebar(); }}
                         className={
                           indexwait === 4 ? "list-item active" : "list-item "
                         }
@@ -1253,7 +1275,7 @@ const GeneralSidebar = () => {
                         <Accordion.Body>
                           <li>
                             <a
-                              onClick={() => { hitfunctionss(12); sidebar();}}
+                              onClick={() => { hitfunctionss(12); sidebar(); }}
                               className={
                                 indexwait === 12 ? "list-item active" : "list-item"
                               }
@@ -1264,7 +1286,7 @@ const GeneralSidebar = () => {
                           </li>
                           <li>
                             <a
-                              onClick={() => { hitfunctionss(13); sidebar();}}
+                              onClick={() => { hitfunctionss(13); sidebar(); }}
                               className={
                                 indexwait === 13 ? "list-item active" : "list-item"
                               }
@@ -1338,7 +1360,7 @@ const GeneralSidebar = () => {
                   </li> */}
                   <li>
                     <a
-                      onClick={() => { hitfunctionss(7); sidebar();}}
+                      onClick={() => { hitfunctionss(7); sidebar(); }}
                       className={
                         indexwait === 7 ? "list-item active" : "list-item "
                       }
@@ -1354,7 +1376,7 @@ const GeneralSidebar = () => {
                   </li>
                   <li>
                     <a
-                      onClick={() => { hitfunctionss(8); sidebar();}}
+                      onClick={() => { hitfunctionss(8); sidebar(); }}
                       className={
                         indexwait === 8 ? "list-item active" : "list-item "
                       }
@@ -1377,7 +1399,7 @@ const GeneralSidebar = () => {
                   {user?.rank?.name === "general" &&
                     <li>
                       <a
-                        onClick={() => { hitfunctionss(15); sidebar();}}
+                        onClick={() => { hitfunctionss(15); sidebar(); }}
                         className={
                           indexwait === 15 ? "list-item active" : "list-item "
                         }
