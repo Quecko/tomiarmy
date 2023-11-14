@@ -565,7 +565,6 @@ const ArmyMembers = ({ routesarmy, setroutearmy }) => {
                                                                                             </td>
                                                                                         )
                                                                                     }
-
                                                                                     <td>
                                                                                         <div className='dropbtn global-dropdown-style'>
                                                                                             <Dropdown>
