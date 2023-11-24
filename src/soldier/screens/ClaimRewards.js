@@ -13,30 +13,38 @@ import { toast } from 'react-toastify';
 import RedeemToken from "../../hooks/dataSenders/redeemTokens";
 import { useWeb3React } from '@web3-react/core';
 import Loader from '../../hooks/loader';
-
+import Environment from "../../utils/Environment";
+import { getRedeemTokenContract } from "../../utils/contractHelpers";
+import useWeb3 from '../../hooks/useWeb3';
+import Countdown from 'react-countdown';
 
 const ClaimRewards = ({ squaddetail, GetUserProfiledata }) => {
 
   const [showprofile, setShowProfile] = useState(false);
+  const [showprofile1, setShowProfile1] = useState(false);
+
   const [errormessage, seterrormessage] = useState('')
   const [claimToken, setClaimToken] = useState('')
   const handleCloseProfile = () => {
+    // window.location.reload()
     setClaimToken('')
+    // setcooldowntime(false)
     setShowProfile(false);
+  }
+  const handleCloseProfile1 = () => {
+    window.location.reload()
+    setShowProfile1(false);
   }
   const { userSign } = Signature()
   const { redeemTokenHook } = RedeemToken();
-
+  const handleShowProfile1 = () => setShowProfile1(true);
   const handleShowProfile = () => setShowProfile(true);
-
-  
   const { account } = useWeb3React()
-
   const [signModalOpen, setSignModalOpen] = useState(false)
   const handleCloseSignModal = () => setSignModalOpen(false)
 
   const [showProgressModal, setShowProgressModal] = useState(false);
-  const handleCloseProgressModal = () => setShowProgressModal(false)
+  const handleCloseProgressModal = () => setShowProgressModal(false);
 
   // const [showProgressModal1, setShowProgressModal1] = useState(false);
   // const handleCloseProgressModal1 = () => setShowProgressModal1(false)
@@ -55,6 +63,9 @@ const ClaimRewards = ({ squaddetail, GetUserProfiledata }) => {
 
   const [loader, setLoader] = useState(false);
   const [transactionHistory, setTransactionHostory] = useState([])
+
+  const [cooldowntime, setcooldowntime] = useState(false)
+  const [timmer, settimmer] = useState()
 
   const getTransactionHistory = async (off) => {
 
@@ -91,13 +102,43 @@ const ClaimRewards = ({ squaddetail, GetUserProfiledata }) => {
   useEffect(() => {
     getTransactionHistory()
   }, [])
+  const web3 = useWeb3();
+  const tokenAddress = Environment.redeemTokens;
+  const contract = getRedeemTokenContract(tokenAddress, web3);
+  const Redeemclaimcool = async () => {
+    if (account) {
+      const cooldown = await contract.methods.cooldownPeriod().call();
+      const redeemlast = await contract.methods.lastRedeemTime(account).call();
+      const cooldownparse = parseInt(cooldown); // Epoch time in seconds
+      const redeemlastparse = parseInt(redeemlast);
+      let tptalcooldowntime = cooldownparse + redeemlastparse
+      const givenEpochTime = tptalcooldowntime * 1000;
+      settimmer(givenEpochTime);
+      const currentEpochTime = Date.now();
+      if (givenEpochTime > currentEpochTime) {
+        setcooldowntime(true)
+      } else {
+        setcooldowntime(false)
+      }
+      console.log('value from contract', givenEpochTime)
+      // console.log('current value',currentEpochTime)
+      // console.log('condition', givenEpochTime  > currentEpochTime)
+    }
+  }
+
+  // console.log("value get ",cooldowntime)
+
+  useEffect(() => {
+    // getTransactionHistory()
+    Redeemclaimcool();
+  }, [account])
 
   const claimTokens = async () => {
     // let tok = localStorage.getItem("accessToken");
     // let wall = localStorage.getItem("wallet");
     // setShow(false);
     if (claimToken != '') {
-      if(claimToken >= 5){
+      if (claimToken >= 5) {
         if (account) {
           // setLoader(true)
           handleCloseProfile()
@@ -128,7 +169,7 @@ const ClaimRewards = ({ squaddetail, GetUserProfiledata }) => {
                 setLoader(false)
                 setShowProgressModal(false)
                 setShowRejectedModl(true)
-  
+
               });
           }
           else {
@@ -143,14 +184,14 @@ const ClaimRewards = ({ squaddetail, GetUserProfiledata }) => {
           });
         }
       }
-        else {
-      toast.error('Enter amount must be greater or equal to 5 tomi token', {
-        position: 'top-center',
-        autoClose: 5000,
-      });
+      else {
+        toast.error('Enter amount must be greater or equal to 5 tomi token', {
+          position: 'top-center',
+          autoClose: 5000,
+        });
+      }
     }
-    }
-  
+
     else {
       toast.error("Please enter claim amount.");
     }
@@ -159,13 +200,16 @@ const ClaimRewards = ({ squaddetail, GetUserProfiledata }) => {
   const redeemTransaction = async (data) => {
     if (account && claimToken) {
       try {
+        // console.log("redeem token enter here true" ,data, account)
         let res = await redeemTokenHook(data?.duration, data?.amount, data?.v, data?.r, data?.s)
         // setShowProgressModal(false)
         // setShowProgressModal1(true)
         if (res) {
           trxAPI(data?.transactionId, res?.transactionHash);
+          Redeemclaimcool();
         }
       } catch (e) {
+        // console.log("redeem token enter here false")
         console.log("error: ", e);
         setLoader(false);
         setShowProgressModal(false)
@@ -208,6 +252,13 @@ const ClaimRewards = ({ squaddetail, GetUserProfiledata }) => {
         toast.error("Your token not claimed");
       });
   };
+
+  const Cooldownexsist = () => {
+    toast.error('Its seems like you have claimed token just right now please wait atleast 5 minute to claim again thanku', {
+      position: 'top-center',
+      autoClose: 5000,
+    });
+  }
 
   return (
     <>
@@ -255,7 +306,17 @@ const ClaimRewards = ({ squaddetail, GetUserProfiledata }) => {
                   <h5>Claimed amount must be greater or equal to 5 tomi </h5>
                 )
               }
-              <button className={squaddetail?.tomiTokens >= 5 ? "" : "asdfasdasjxhasjcbvewgyuewiuzbxasiucb"} onClick={handleShowProfile}>Claim</button>
+              {
+                cooldowntime === true ?
+                  (
+                    <button className={squaddetail?.tomiTokens >= 5 ? "" : "asdfasdasjxhasjcbvewgyuewiuzbxasiucb"} onClick={handleShowProfile1}>Claim</button>
+                  )
+                  :
+                  (
+                    <button className={squaddetail?.tomiTokens >= 5 ? "" : "asdfasdasjxhasjcbvewgyuewiuzbxasiucb"} onClick={handleShowProfile}>Claim</button>
+                  )
+
+              }
             </div>
           </div>
         </div>
@@ -300,12 +361,32 @@ const ClaimRewards = ({ squaddetail, GetUserProfiledata }) => {
             </div>
           </div>
           <div className='endbtn'>
+
             <button className="btn-blackk" onClick={handleCloseProfile}><span><img src='\Subtract.svg' alt='img' className='img-fluid' /></span>Cancel</button>
+
             <button className="btn-pinkk" onClick={() => {
               claimTokens()
             }}
             >
               <img src='\assets\upload-icon.svg' alt='img' className='img-fluid' /> Claim</button>
+
+          </div>
+        </Modal.Body>
+      </Modal>
+
+      <Modal className='detailmodal claimrewad-modal' show={showprofile1} onHide={handleCloseProfile1} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>
+            Claim Reward
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body className='oioiopoioipoipoi'>
+          <div className="body-claim">
+            <h6>Its seems like you have claimed token just right now please wait atleast 5 minute to claim again thanku</h6>
+            <h6><span>ENDS IN:<Countdown date={timmer}/></span></h6>
+          </div>
+          <div className='endbtn'>
+            <button className="btn-blackk" onClick={handleCloseProfile1}><span><img src='\Subtract.svg' alt='img' className='img-fluid' /></span>Cancel</button>
           </div>
         </Modal.Body>
       </Modal>

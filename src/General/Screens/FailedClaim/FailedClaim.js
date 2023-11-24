@@ -17,7 +17,7 @@ const FailedClaim = () => {
     const handleClose = () => setShow(false);
     const [modalData, setModalData] = useState('')
     const [detaildata, setdetaildata] = useState(null)
-    console.log("detail data",detaildata)
+    console.log("detail data", detaildata)
     const handleShow = (elem) => {
         setModalData(elem)
         setShow(true);
@@ -40,7 +40,7 @@ const FailedClaim = () => {
     const [transactionHistory, setTransactionHostory] = useState([])
     const [selecttab, setselecttab] = useState('home')
     const [loading, setLoading] = useState(false);
-
+    const [transactionHistorydetail, setTransactionHostorydetail] = useState()
 
     const getTransaction = async (off) => {
 
@@ -53,7 +53,7 @@ const FailedClaim = () => {
         // if (account) {
         var config = {
             method: "get",
-            url: `${API_URL}/auth/transactions/all-transactions-list?offset=1&limit=100&txStatus=${selecttab === 'home' ? 'pending' : selecttab === 'profile' ? 'refund' : 'refund rejected'}`,
+            url: `${API_URL}/auth/transactions/all-transactions-list?offset=1&limit=10000&txStatus=${selecttab === 'home' ? 'pending' : selecttab === 'profile' ? 'refund' : 'refund rejected'}`,
             headers: {
                 authorization: `Bearer ` + tok
             },
@@ -63,6 +63,38 @@ const FailedClaim = () => {
                 setLoader(false);
                 // setCount(response.data.data.count)
                 setTransactionHostory(response?.data?.data)
+                // let arr = Array.from(Array(parseInt(response.data.data.pages)).keys());
+                // setPages(arr);
+                // setCurrentPage(valu)
+            })
+            .catch(function (error) {
+                setLoader(false);
+
+            });
+        // }
+    }
+
+    const getTransactiondetail = async (wallet) => {
+
+        // let valu = null;
+        // if (off) {
+        //   valu = off;
+        // } else {
+        //   valu = 1;
+        // }
+        // if (account) {
+        var config = {
+            method: "get",
+            url: `${API_URL}/auth/transactions/user-transactions-list?offset=1&limit=100&walletAddress=${wallet}`,
+            headers: {
+                authorization: `Bearer ` + tok
+            },
+        };
+        axios(config)
+            .then(function (response) {
+                setLoader(false);
+                // setCount(response.data.data.count)
+                setTransactionHostorydetail(response?.data?.data)
                 // let arr = Array.from(Array(parseInt(response.data.data.pages)).keys());
                 // setPages(arr);
                 // setCurrentPage(valu)
@@ -187,6 +219,21 @@ const FailedClaim = () => {
         }
     }
 
+    function formatDateTime(dateTimeString) {
+        const date = new Date(dateTimeString);
+
+        const formattedDate = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
+        const hours = String(date.getUTCHours()).padStart(2, '0');
+        const minutes = String(date.getUTCMinutes()).padStart(2, '0');
+
+        return `${formattedDate}`;
+    }
+
+    function convertEpochToDateTime(epoch) {
+        const date = new Date(epoch * 1000); // Convert to milliseconds by multiplying with 1000
+        return date.toLocaleString(); // Convert to local date time format
+    }
+
     return (
         <>
             {loader && <Loader />}
@@ -297,7 +344,7 @@ const FailedClaim = () => {
 
                                                                                     <Dropdown.Menu>
                                                                                         <Dropdown.Item href="#/action-1">
-                                                                                            <p onClick={() => handleShow(elem)}><img src='\generalassets\icons\detail.svg' alt='img' className='img-fluid' />Details</p>
+                                                                                            <p onClick={() => { handleShow(elem); getTransactiondetail(elem?.walletAddress) }}><img src='\generalassets\icons\detail.svg' alt='img' className='img-fluid' />Details</p>
                                                                                         </Dropdown.Item>
                                                                                     </Dropdown.Menu>
                                                                                 </Dropdown>
@@ -655,7 +702,7 @@ const FailedClaim = () => {
                     <div className="inner-card">
                         <div className="inner-text">
                             <h6>Date Received</h6>
-                            <p>01/01/22</p>
+                            <p>{formatDateTime(modalData?.createdAt)}</p>
                         </div>
                         <div className="inner-text">
                             <h6>Username</h6>
@@ -673,9 +720,46 @@ const FailedClaim = () => {
                                 )}`}
                             </p>
                         </div>
-                        <div className="inner-text">
+                        {/* <div className="inner-text">
                             <h6>Claimed Amount</h6>
                             <p>{modalData?.amount} Tomi</p>
+                        </div> */}
+                    </div>
+                    <div className='totalclainedd'>
+                        <div className="inner-text jbjhbnjbhjbj">
+                            <h6>Total Points Earned</h6>
+                            <p>{transactionHistorydetail?.user?.points}</p>
+                            <h6 className='pt-2'>Total Tomi Token</h6>
+                            <p>~{transactionHistorydetail?.user?.points / 100} TOMI</p>
+                        </div>
+                        <div className="inner-text jbjhbnjbhjbj">
+                            <h6>Lifetime TOMI Claimed</h6>
+                            <p>{transactionHistorydetail?.tokensClaimed}</p>
+                            <h6 className='pt-2'>Tomi Available In Army</h6>
+                            <p>{(transactionHistorydetail?.user?.tomiTokens) + (transactionHistorydetail?.user?.toClaim / 100)}</p>
+                        </div>
+                        <div className="inner-text jbjhbnjbhjbj">
+                            <h6>Refund Claim Amount</h6>
+                            <p>{modalData?.amount}</p>
+                            <h6 className='pt-2'>Refund Status</h6>
+                            <p>{(transactionHistorydetail?.user?.points / 100) >= ((transactionHistorydetail?.user?.tomiTokens) + (transactionHistorydetail?.user?.toClaim / 100) + modalData?.amount + parseFloat(transactionHistorydetail?.tokensClaimed)) ? <h4 className='greennnn'>OK</h4> : <h4 className='redddddd'>suspicious</h4>}</p>
+                        </div>
+                    </div>
+                    <h1 className='asjhasdhjadja'>Claim History</h1>
+                    <div className='claimhistorhy'>
+                        <div className='headingss'>
+                            <h4>Date/Time</h4>
+                            <h5>Claimed Amount</h5>
+                        </div>
+                        <div className='outerrow'>
+                            {transactionHistorydetail?.tokensRedeemeds?.map((elem, index) => {
+                                return (
+                                    <div className='innerrowasas' key={index}>
+                                        <h4>{convertEpochToDateTime(elem?.blockTimestamp)}</h4>
+                                        <h5>{elem?.amount / 10 ** 18} TOMI</h5>
+                                    </div>
+                                )
+                            })}
                         </div>
                     </div>
                     <div className="bottom-btns">
