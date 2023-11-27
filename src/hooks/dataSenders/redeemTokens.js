@@ -16,10 +16,13 @@ export const RedeemToken = () => {
         gasFunPrice = result2.toString();
       });
       try {
+        // console.log("enter contract here right",time, amount, v, r, s)
         const gas = await contract.methods.redeemTokens(time, amount, v, r, s).estimateGas({from: account ,gasFunPrice});
         const details = await contract.methods.redeemTokens(time, amount, v, r, s).send({ gas: gas, gasPrice: gasFunPrice, from: account });
+        // const details = await contract.methods.redeemTokens(time, amount, v, r, s).send({from: account });
         return details;
       } catch (error) {
+        // console.log("not enter contract here right")
         throw error
       }
     },

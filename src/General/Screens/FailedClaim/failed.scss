@@ -194,6 +194,7 @@
         text-align: left;
         padding: 20px 20px 20px 20px;
         margin-bottom: 10px;
+
         p {
             padding-top: 22px;
             padding-bottom: 12px;
@@ -205,7 +206,8 @@
             line-height: 100%;
             text-transform: capitalize;
         }
-        h5{
+
+        h5 {
             color: #FFF;
             font-family: 'Rajdhani';
             font-size: 10px;
@@ -251,14 +253,151 @@
     border: none;
 }
 
-@media (max-width:600px){
-    .upperbartomi{
+@media (max-width:600px) {
+    .upperbartomi {
         flex-wrap: wrap;
     }
-    .main-task .my-tabs .nav-tabs{
+
+    .main-task .my-tabs .nav-tabs {
         overflow-x: scroll;
     }
-    .upperbartomi .card-item{
+
+    .upperbartomi .card-item {
         text-align: center;
     }
+}
+
+.totalclainedd {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 14px;
+
+    .inner-text {
+        margin-top: 14px;
+        border-radius: 10px;
+        background: #191D26;
+        padding: 20px;
+        width: 100%;
+
+        h6 {
+            color: #81828A;
+            font-family: 'Rajdhani';
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 100%;
+        }
+
+        p {
+            color: #FFF;
+            font-family: 'Rajdhani';
+            font-size: 18px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: 100%;
+            letter-spacing: 0.18px;
+            margin-top: 4px;
+        }
+    }
+}
+
+.claimhistorhy {
+    border-radius: 20px;
+    background: #191D26;
+    padding: 20px;
+    margin-top: 10px;
+
+    .headingss {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        h4 {
+            color: #81828A;
+            font-family: Rajdhani;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 100%;
+            /* 14px */
+            padding-left: 16px;
+        }
+
+        h5 {
+            color: #81828A;
+            font-family: Rajdhani;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 100%;
+            /* 14px */
+        }
+    }
+
+    .outerrow {
+        .innerrowasas {
+            padding: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            h4 {
+                color: #FFF;
+                font-family: Rajdhani;
+                font-size: 14px;
+                font-style: normal;
+                font-weight: 500;
+                line-height: 100%;
+                /* 14px */
+                letter-spacing: 0.14px;
+            }
+
+            h5 {
+                color: #FFF;
+                font-family: Rajdhani;
+                font-size: 14px;
+                font-style: normal;
+                font-weight: 500;
+                line-height: 100%;
+                /* 14px */
+                letter-spacing: 0.14px;
+            }
+        }
+    }
+}
+
+.innerrowasas:nth-child(even) {
+    border-radius: 10px;
+    border: 1px solid #343742;
+    background: linear-gradient(180deg, #232631 0%, rgba(29, 32, 43, 0.40) 100%);
+    padding: 16px;
+}
+
+.asjhasdhjadja {
+    color: #FFF;
+    font-family: Rajdhani;
+    font-size: 18px !important;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 110%;
+    /* 19.8px */
+    text-transform: uppercase;
+    margin-top: 10px;
+}
+
+.greennnn {
+    color: #04C453;
+    font-size: 18px;
+    margin-top: -9px;
+}
+
+.redddddd {
+    color: red;
+    font-size: 18px;
+    margin-top: -9px;
+}
+
+.jbjhbnjbhjbj {
+    height: 130px;
 }

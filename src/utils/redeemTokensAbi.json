@@ -3,6 +3,11 @@
     "inputs": [
       {
         "internalType": "address",
+        "name": "owner",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
         "name": "signerAddress",
         "type": "address"
       },
@@ -50,6 +55,11 @@
   {
     "inputs": [],
     "name": "CoolPeriodNotOver",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "DeadlineExpired",
     "type": "error"
   },
   {
@@ -123,6 +133,11 @@
   },
   {
     "inputs": [],
+    "name": "RedeemNotEnable",
+    "type": "error"
+  },
+  {
+    "inputs": [],
     "name": "ReentrancyGuardReentrantCall",
     "type": "error"
   },
@@ -164,6 +179,25 @@
       }
     ],
     "name": "CooldownPeriodUpdated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "bool",
+        "name": "oldAccess",
+        "type": "bool"
+      },
+      {
+        "indexed": false,
+        "internalType": "bool",
+        "name": "newAccess",
+        "type": "bool"
+      }
+    ],
+    "name": "EnableRedeemUpdated",
     "type": "event"
   },
   {
@@ -275,6 +309,19 @@
     "type": "function"
   },
   {
+    "inputs": [],
+    "name": "enableRedeem",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
     "inputs": [
       {
         "internalType": "address",
@@ -310,7 +357,7 @@
     "inputs": [
       {
         "internalType": "uint256",
-        "name": "time",
+        "name": "deadline",
         "type": "uint256"
       },
       {
@@ -361,6 +408,19 @@
   },
   {
     "inputs": [],
+    "name": "signerWallet",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
     "name": "tomiToken",
     "outputs": [
       {
@@ -394,6 +454,19 @@
       }
     ],
     "name": "updateCooldownPeriod",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bool",
+        "name": "enabled",
+        "type": "bool"
+      }
+    ],
+    "name": "updateEnableRedeem",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"

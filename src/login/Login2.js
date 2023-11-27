@@ -7,6 +7,7 @@ import Invitecode from './Invitecode';
 // import Freesoldier from './Freesoldier';
 import SignUp from './SignUp';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 import { useHistory } from 'react-router-dom';
 
@@ -35,6 +36,51 @@ const Login2 = () => {
           history.push("/welcome");
         } 
       }, []);
+
+
+
+      
+    // const CLIENT_ID = '1174658223517741107';
+    // const CLIENT_SECRET = '1bxx5PWLJ24CYe5jIGxRbeCMYrZxrcrn';
+    // const REDIRECT_URI = 'http://localhost:3000'; // Your redirect URI
+
+    // const handleLogin = () => {
+    //     const AUTH_URL = `https://discord.com/api/oauth2/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code&scope=identify`;
+    //     window.location.href = AUTH_URL;
+    // };
+
+    // const handleRedirect = async () => {
+    //     const code = new URLSearchParams(window.location.search).get('code');
+
+    //     if (code) {
+    //         console.log(code)
+    //         const requestBody = {
+    //             client_id: CLIENT_ID,
+    //             client_secret: CLIENT_SECRET,
+    //             grant_type: 'authorization_code',
+    //             code: code,
+    //             redirect_uri: REDIRECT_URI,
+    //             scope: 'identify',
+    //         };
+
+    //         try {
+    //             const response = await axios.post('https://discord.com/api/oauth2/token', requestBody);
+    //             const accessToken = response.data.access_token;
+    //             console.log('coed here is', response.data)
+    //             // Handle the access token, e.g., store it in localStorage or state
+    //             console.log(accessToken);
+    //         } catch (error) {
+    //             // Handle error
+    //             console.error('Error exchanging code for access token:', error);
+    //         }
+    //     }
+    // };
+
+    // useEffect(() => {
+    //     handleRedirect();
+    // }, []); // Run once when the component mounts
+
+
     
     return (
         <div className='login-wrapper loginwrappersccc'>
@@ -61,6 +107,9 @@ const Login2 = () => {
             <div className="bottom-link">
                 <p className='paraaaaaa'>By continuing, you agree with tomiArmy's <Link to="/terms" style={{color: "#ff0083"}}>terms of use</Link></p>
             </div>
+            {/* <div>
+                <button onClick={handleLogin}>Login with Discord</button>
+            </div> */}
         </div>
     )
 }
